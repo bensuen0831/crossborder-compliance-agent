@@ -192,6 +192,8 @@ def test_classification_repository_is_single_formal_result_source() -> None:
                 name="Generic Scheme",
             )
         )
+        # No ORM relationship is declared intentionally; flush the FK parent explicitly.
+        session.flush()
         session.add(
             ClassificationCategoryEntity(
                 category_id=str(category_id),
