@@ -21,6 +21,7 @@ from crossborder_compliance.domain.entities import (
     Project,
     ProjectVersion,
 )
+from crossborder_compliance.domain.foundation import AnalysisSnapshot, ReviewTask, WorkflowRun
 from crossborder_compliance.infrastructure.persistence.models import (
     ClassificationResultEntity,
     ConversationThreadEntity,
@@ -28,6 +29,9 @@ from crossborder_compliance.infrastructure.persistence.models import (
     EvidenceReferenceEntity,
     ProjectEntity,
     ProjectVersionEntity,
+    AnalysisSnapshotEntity,
+    ReviewTaskEntity,
+    WorkflowRunEntity,
 )
 
 
@@ -218,4 +222,55 @@ class ConversationMapper:
             title=row.title,
             record_version=row.record_version,
             status=row.status,
+        )
+
+
+class RuntimeDomainMapper:
+    @staticmethod
+    def snapshot_to_domain(row: AnalysisSnapshotEntity) -> AnalysisSnapshot:
+        return AnalysisSnapshot(
+            tenant_id=UUID(row.tenant_id),
+            analysis_snapshot_id=UUID(row.analysis_snapshot_id),
+            project_version_id=UUID(row.project_version_id),
+            snapshot_version=row.snapshot_version,
+            analysis_as_of_date=row.analysis_as_of_date,
+            provenance=dict(row.provenance_json or {}),
+            record_version=row.record_version,
+            status=row.status,
+            created_at=row.created_at,
+            updated_at=row.updated_at,
+        )
+
+    @staticmethod
+    def workflow_run_to_domain(row: WorkflowRunEntity) -> WorkflowRun:
+        return WorkflowRun(
+            tenant_id=UUID(row.tenant_id),
+            workflow_run_id=UUID(row.workflow_run_id),
+            thread_id=UUID(row.thread_id),
+            analysis_snapshot_id=UUID(row.analysis_snapshot_id),
+            graph_definition_version=row.graph_definition_version,
+            langgraph_runtime_version=row.langgraph_runtime_version,
+            checkpointer_version=row.checkpointer_version,
+            state_schema_version=row.state_schema_version,
+            record_version=row.record_version,
+            status=row.status,
+            created_at=row.created_at,
+            updated_at=row.updated_at,
+        )
+
+    @staticmethod
+    def review_to_domain(row: ReviewTaskEntity) -> ReviewTask:
+        return ReviewTask(
+            tenant_id=UUID(row.tenant_id),
+            review_id=UUID(row.review_id),
+            workflow_run_id=UUID(row.workflow_run_id),
+            review_type=row.review_type,
+            object_type=row.object_type,
+            object_id=UUID(row.object_id),
+            reason=row.reason,
+            idempotency_key=row.idempotency_key,
+            record_version=row.record_version,
+            status=row.status,
+            created_at=row.created_at,
+            updated_at=row.updated_at,
         )
