@@ -150,7 +150,17 @@ def test_phase1d_multiformat_pipeline_provenance_summary_tenant_and_snapshot_pin
     items=ra.list_candidate_items(xrun)
     assert {i["normalized_name"] for i in items}>={"field","unit","value"}
     with sf() as s:
-        link=s.scalar(select(CandidateDataItemSourceLinkEntity).where(CandidateDataItemSourceLinkEntity.tenant_id==str(ta)))
+        xlsx_field=s.scalar(select(CandidateDataItemEntity).where(
+            CandidateDataItemEntity.tenant_id==str(ta),
+            CandidateDataItemEntity.parse_run_id==str(xrun),
+            CandidateDataItemEntity.normalized_name=="field",
+        ))
+        assert xlsx_field is not None
+        link=s.scalar(select(CandidateDataItemSourceLinkEntity).where(
+            CandidateDataItemSourceLinkEntity.tenant_id==str(ta),
+            CandidateDataItemSourceLinkEntity.candidate_data_item_id==xlsx_field.candidate_data_item_id,
+        ))
+        assert link is not None
     trace=ra.get_source_trace(UUID(str(link.source_trace_ref_id)))
     assert trace is not None
     assert trace.locator.row_index==1 and trace.locator.column_index is not None and trace.locator.sheet_name=="Fields"
