@@ -49,9 +49,14 @@ def upgrade() -> None:
         sa.Column("kind", sa.String(80), nullable=False),
         sa.Column("code", sa.String(160), nullable=False),
         sa.Column("display_name", sa.String(250), nullable=False),
+        sa.Column("canonical_object_type", sa.String(80), nullable=True),
+        sa.Column("canonical_object_id", sa.String(36), nullable=True),
         sa.Column("parent_definition_id", sa.String(36), sa.ForeignKey("metadata_definitions.definition_id", ondelete="SET NULL"), nullable=True),
         sa.Column("active_version_id", sa.String(36), nullable=True),
-        constraints=(sa.UniqueConstraint("tenant_id","kind","code",name="uq_metadata_definition_kind_code"),),
+        constraints=(
+            sa.UniqueConstraint("tenant_id","kind","code",name="uq_metadata_definition_kind_code"),
+            sa.UniqueConstraint("tenant_id","kind","canonical_object_id",name="uq_metadata_definition_canonical_ref"),
+        ),
         indexes=(("ix_metadata_definition_kind_status",("tenant_id","kind","status")),),
     )
     _create(
