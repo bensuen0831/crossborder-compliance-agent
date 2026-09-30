@@ -525,18 +525,13 @@ class PostgresModelRegistryRepository(_TenantScopedMetadataRepository):
                 provider_type=provider.provider_type.value,
                 code=provider.code,
                 display_name=provider.display_name,
-                active_version_id=(
-                    str(version.provider_version_id)
-                    if version.lifecycle_status == GovernanceStatus.ACTIVE
-                    else None
-                ),
+                active_version_id=None,
                 enabled=provider.enabled,
                 status="ACTIVE",
             )
             session.add(provider_row)
             session.flush()
-            session.add(
-                ModelProviderVersionEntity(
+            version_row = ModelProviderVersionEntity(
                     provider_version_id=str(version.provider_version_id),
                     tenant_id=self.tenant_id,
                     provider_id=str(provider.provider_id),
@@ -557,7 +552,10 @@ class PostgresModelRegistryRepository(_TenantScopedMetadataRepository):
                     effective_to=version.effective_to,
                     status="ACTIVE",
                 )
-            )
+            session.add(version_row)
+            session.flush()
+            if version.lifecycle_status == GovernanceStatus.ACTIVE:
+                provider_row.active_version_id = str(version.provider_version_id)
 
     def add_model(
         self,
@@ -587,18 +585,13 @@ class PostgresModelRegistryRepository(_TenantScopedMetadataRepository):
                 display_name=model.display_name,
                 context_window=model.context_window,
                 max_output_tokens=model.max_output_tokens,
-                active_deployment_id=(
-                    str(deployment.model_deployment_id)
-                    if deployment.lifecycle_status == GovernanceStatus.ACTIVE
-                    else None
-                ),
+                active_deployment_id=None,
                 enabled=model.enabled,
                 status="ACTIVE",
             )
             session.add(model_row)
             session.flush()
-            session.add(
-                ModelDeploymentEntity(
+            deployment_row = ModelDeploymentEntity(
                     model_deployment_id=str(deployment.model_deployment_id),
                     tenant_id=self.tenant_id,
                     model_definition_id=str(model.model_definition_id),
@@ -610,7 +603,10 @@ class PostgresModelRegistryRepository(_TenantScopedMetadataRepository):
                     effective_to=deployment.effective_to,
                     status="ACTIVE",
                 )
-            )
+            session.add(deployment_row)
+            session.flush()
+            if deployment.lifecycle_status == GovernanceStatus.ACTIVE:
+                model_row.active_deployment_id = str(deployment.model_deployment_id)
             for capability in capabilities:
                 self._context.assert_tenant(capability.tenant_id)
                 session.add(
