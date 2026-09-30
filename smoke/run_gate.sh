@@ -29,6 +29,9 @@ alembic upgrade head | tee "$EVIDENCE_DIR/alembic_upgrade.log"
 echo "=== Post-Alembic schema proof (before LangGraph setup) ==="
 python smoke/postgres_schema_evidence.py --phase post-alembic | tee "$EVIDENCE_DIR/post_alembic_schema.json"
 
+echo "=== Phase 1B domain schema + source-of-truth verification ==="
+python scripts/phase1b_schema_check.py | tee "$EVIDENCE_DIR/phase1b_schema_check.json"
+
 echo "=== Runtime versions ==="
 python smoke/runtime_versions.py
 
