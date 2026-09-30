@@ -90,7 +90,7 @@ class GenericMetadataRegistry(ProjectionRegistry):
 
 
 class JurisdictionRegistry(ProjectionRegistry):
-    def __init__(self, source: PostgresConfigRegistrySourceRepository):
+    def __init__(self, source: PostgresRegistrySourceRepository):
         super().__init__(source.load_jurisdictions)
 
 
