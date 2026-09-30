@@ -23,6 +23,7 @@ from crossborder_compliance.domain.document_intelligence import (
     CandidateValidationStatus,
     CanonicalNodeType,
     ConflictStatus,
+    CrossDocumentLink,
     DocumentParseQualityResult,
     ParseQualityStatus,
     SourceTraceRef,
@@ -226,3 +227,39 @@ class DocumentAnalysisService:
 
     def pin_parse_run(self, *, analysis_snapshot_id: UUID, document_version_id: UUID, parse_run_id: UUID) -> None:
         self.repository.pin_parse_run(analysis_snapshot_id=analysis_snapshot_id, document_version_id=document_version_id, parse_run_id=parse_run_id)
+
+
+class CrossDocumentLinkingService:
+    """Evidence-backed generic linker. It never links on filename alone."""
+
+    def __init__(self, repository: DocumentIntelligenceRepositoryPort):
+        self.repository = repository
+
+    def link_same_normalized_candidate(
+        self,
+        *,
+        project_id: UUID,
+        left_object_id: UUID,
+        right_object_id: UUID,
+        left_normalized_name: str,
+        right_normalized_name: str,
+        left_trace: SourceTraceRef,
+        right_trace: SourceTraceRef,
+        object_type: str = "CANDIDATE_DATA_ITEM",
+    ) -> CrossDocumentLink | None:
+        left = re.sub(r"\s+", " ", left_normalized_name).strip().casefold()
+        right = re.sub(r"\s+", " ", right_normalized_name).strip().casefold()
+        if not left or left != right:
+            return None
+        link = CrossDocumentLink(
+            cross_document_link_id=uuid4(),
+            link_type="SAME_NORMALIZED_CANDIDATE",
+            left_object_type=object_type,
+            left_object_id=left_object_id,
+            right_object_type=object_type,
+            right_object_id=right_object_id,
+            confidence=1.0,
+            source_trace_refs=(left_trace, right_trace),
+        )
+        self.repository.save_cross_document_link(project_id, link)
+        return link
