@@ -392,6 +392,9 @@ class PostgresClassificationRepository(_TenantScopedRepository):
             status=result.status,
             )
             session.add(row)
+            # Association rows depend on the formal classification result. No ORM relationship
+            # is declared intentionally, so make the persistence ordering explicit.
+            session.flush()
             for category_id in checked_categories:
                 session.add(
                     ClassificationResultCategoryEntity(
