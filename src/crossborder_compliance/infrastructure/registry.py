@@ -166,6 +166,25 @@ class ModelRegistry(ProjectionRegistry):
         return None
 
 
+class ModelCapabilityRegistry(ProjectionRegistry):
+    def __init__(self, source: PostgresModelRegistryRepository):
+        self._model_source = source
+        super().__init__(self._load, id_field="definition_id")
+
+    def _load(self) -> list[dict[str, object]]:
+        capabilities: set[str] = set()
+        for model in self._model_source.load_runtime_models():
+            capabilities.update(str(value) for value in model.get("capabilities", []))
+        return [
+            {
+                "definition_id": UUID(int=index + 1),
+                "code": capability,
+                "display_name": capability.replace("_", " ").title(),
+            }
+            for index, capability in enumerate(sorted(capabilities))
+        ]
+
+
 class PromptRegistry(ProjectionRegistry):
     def __init__(self, source: PostgresConfigRegistrySourceRepository):
         super().__init__(source.load_prompts)
