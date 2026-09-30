@@ -305,6 +305,109 @@ add(
     country_branch_refs or "registry resolution is metadata/binding driven",
 )
 
+
+# Phase 1D executable guards
+document_domain_file = SRC / "domain" / "document_intelligence.py"
+document_ports_file = SRC / "application" / "document_ports.py"
+document_services_file = SRC / "application" / "document_services.py"
+document_parser_file = SRC / "infrastructure" / "document_parsers.py"
+document_repo_file = SRC / "infrastructure" / "persistence" / "document_repositories.py"
+document_models_file = SRC / "infrastructure" / "persistence" / "document_models.py"
+document_domain_text = read_text(document_domain_file) if document_domain_file.exists() else ""
+document_ports_text = read_text(document_ports_file) if document_ports_file.exists() else ""
+document_services_text = read_text(document_services_file) if document_services_file.exists() else ""
+document_parser_text = read_text(document_parser_file) if document_parser_file.exists() else ""
+document_repo_text = read_text(document_repo_file) if document_repo_file.exists() else ""
+document_models_text = read_text(document_models_file) if document_models_file.exists() else ""
+
+add(
+    "graph_state_has_no_document_binary",
+    all(token not in state_text for token in ["document_bytes", "raw_binary", "file_bytes", "document_content"]),
+    "LangGraph state contains references only; no document binary fields",
+)
+
+add(
+    "canonical_document_not_llm_narrative",
+    "class CanonicalStructureNode" in document_domain_text
+    and "original_text" in document_domain_text
+    and "normalized_text" in document_domain_text
+    and "llm" not in document_parser_text.lower(),
+    "canonical parser output is structured and parser-driven, not LLM narrative",
+)
+
+vision_block = class_block(document_domain_text, "CandidateDiagramResult")
+add(
+    "candidate_vision_has_no_legal_result",
+    bool(vision_block)
+    and not re.search(r"(legal|classification|compliance_path|risk_score)", vision_block, re.I),
+    "CandidateDiagramResult contains candidate nodes/edges only",
+)
+
+source_trace_contract_ok = all(
+    name in document_domain_text and "source_trace_refs" in class_block(document_domain_text, name)
+    for name in ["BusinessFactCandidate", "CandidateDataItem", "CandidateDataFlowNode", "CandidateDataFlowEdge"]
+)
+add(
+    "extracted_result_has_source_trace",
+    source_trace_contract_ok and "requires SourceTraceRef" in document_repo_text,
+    "candidate facts/items/flows carry SourceTraceRef and persistence rejects empty provenance",
+)
+
+add(
+    "spreadsheet_preserves_row_column_provenance",
+    "class XLSXParserAdapter" in document_parser_text
+    and '"row_index"' in document_parser_text
+    and '"column_index"' in document_parser_text
+    and '"header"' in document_parser_text
+    and '"merged_range"' in document_parser_text
+    and '"formula"' in document_parser_text,
+    "XLSX adapter preserves row/column/header/formula/merged-cell metadata",
+)
+
+add(
+    "formal_counts_not_llm",
+    "aggregate_project_summary" in document_repo_text
+    and "func.count" in document_repo_text
+    and not re.search(r"(llm|model).*count", document_repo_text, re.I),
+    "DocumentAnalysisSummary is programmatically aggregated from persistence",
+)
+
+add(
+    "parse_run_is_versioned",
+    "parse_run_version" in model_text
+    and "uq_document_parse_run_version" in model_text,
+    "DocumentParseRun has explicit version and unique tenant/document/version constraint",
+)
+
+add(
+    "snapshot_can_pin_parse_run",
+    "class AnalysisSnapshotParseRunPinEntity" in document_models_text
+    and "analysis_snapshot_parse_run_pins" in document_models_text
+    and "pin_parse_run" in document_repo_text,
+    "AnalysisSnapshot has immutable parse-run pin persistence",
+)
+
+provider_sdk_refs = occurrences(
+    r"\b(import|from)\s+(pypdf|docx|openpyxl|pptx|PIL)\b",
+    domain + application + files_under(SRC / "workflows"),
+)
+add(
+    "parser_provider_is_adapter_only",
+    not provider_sdk_refs
+    and all(token in document_parser_text for token in ["PDFParserAdapter", "DOCXParserAdapter", "XLSXParserAdapter", "PPTXParserAdapter"]),
+    provider_sdk_refs or "provider SDKs isolated to infrastructure/document_parsers.py",
+)
+
+phase1d_fixed_logic = occurrences(
+    r"\bif\s+.*\b(country|product|regulation)\b.*(?:==|in)\s*[\"'\[{]",
+    [document_services_file, document_parser_file, document_repo_file],
+)
+add(
+    "phase1d_has_no_country_product_regulation_logic",
+    not phase1d_fixed_logic,
+    phase1d_fixed_logic or "Document Intelligence foundation contains no fixed country/product/regulation decisions",
+)
+
 failed = [check for check in checks if not check["pass"]]
 result = {
     "pass": not failed,
