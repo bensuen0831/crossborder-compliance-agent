@@ -1,0 +1,573 @@
+﻿2026-09-30T11:10:02.9184432Z Current runner version: '2.337.0'
+2026-09-30T11:10:02.9235724Z ##[group]Runner Image Provisioner
+2026-09-30T11:10:02.9236819Z Hosted Compute Agent
+2026-09-30T11:10:02.9237521Z Version: 20260828.587
+2026-09-30T11:10:02.9238250Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-30T11:10:02.9239175Z Build Date: 2026-08-28T16:44:25Z
+2026-09-30T11:10:02.9240008Z Worker ID: {dfd6581d-cc7a-4760-8ab4-025ea60442f0}
+2026-09-30T11:10:02.9240815Z Azure Region: centralus
+2026-09-30T11:10:02.9241557Z ##[endgroup]
+2026-09-30T11:10:02.9243391Z ##[group]Operating System
+2026-09-30T11:10:02.9244194Z Ubuntu
+2026-09-30T11:10:02.9244851Z 24.04.5
+2026-09-30T11:10:02.9245431Z LTS
+2026-09-30T11:10:02.9246072Z ##[endgroup]
+2026-09-30T11:10:02.9246752Z ##[group]Runner Image
+2026-09-30T11:10:02.9247544Z Image: ubuntu-24.04
+2026-09-30T11:10:02.9248281Z Version: 20260920.314.1
+2026-09-30T11:10:02.9249819Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260920.314/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-30T11:10:02.9251634Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260920.314
+2026-09-30T11:10:02.9262635Z ##[endgroup]
+2026-09-30T11:10:02.9264069Z ##[group]GITHUB_TOKEN Permissions
+2026-09-30T11:10:02.9266658Z Contents: read
+2026-09-30T11:10:02.9267333Z Metadata: read
+2026-09-30T11:10:02.9267937Z ##[endgroup]
+2026-09-30T11:10:02.9269991Z Secret source: Actions
+2026-09-30T11:10:02.9270773Z Cache mode: write
+2026-09-30T11:10:02.9271667Z Prepare workflow directory
+2026-09-30T11:10:02.9841493Z Prepare all required actions
+2026-09-30T11:10:02.9982694Z Getting action download info
+2026-09-30T11:10:03.3424409Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-09-30T11:10:03.4641445Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-09-30T11:10:03.7080789Z Complete job name: contract-tests
+2026-09-30T11:10:03.7662246Z ##[group]Run actions/checkout@v4
+2026-09-30T11:10:03.7663058Z with:
+2026-09-30T11:10:03.7663624Z   repository: bensuen0831/crossborder-compliance-agent
+2026-09-30T11:10:03.7667294Z   token: ***
+2026-09-30T11:10:03.7667706Z   ssh-strict: true
+2026-09-30T11:10:03.7668185Z   ssh-user: git
+2026-09-30T11:10:03.7668623Z   persist-credentials: true
+2026-09-30T11:10:03.7669107Z   clean: true
+2026-09-30T11:10:03.7669585Z   sparse-checkout-cone-mode: true
+2026-09-30T11:10:03.7670085Z   fetch-depth: 1
+2026-09-30T11:10:03.7670520Z   fetch-tags: false
+2026-09-30T11:10:03.7670956Z   show-progress: true
+2026-09-30T11:10:03.7671425Z   lfs: false
+2026-09-30T11:10:03.7672078Z   submodules: false
+2026-09-30T11:10:03.7672664Z   set-safe-directory: true
+2026-09-30T11:10:03.7673277Z   allow-unsafe-pr-checkout: false
+2026-09-30T11:10:03.7674209Z ##[endgroup]
+2026-09-30T11:10:03.8651260Z Syncing repository: bensuen0831/crossborder-compliance-agent
+2026-09-30T11:10:03.8657720Z ##[group]Getting Git version info
+2026-09-30T11:10:03.8659196Z Working directory is '/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent'
+2026-09-30T11:10:03.8662468Z [command]/usr/bin/git version
+2026-09-30T11:10:03.8962895Z git version 2.55.0
+2026-09-30T11:10:03.8989830Z ##[endgroup]
+2026-09-30T11:10:03.8995580Z Temporarily overriding HOME='/home/runner/work/_temp/1dd39f4f-4c60-45ca-a756-c781043575ad' before making global git config changes
+2026-09-30T11:10:03.8997257Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-30T11:10:03.9003576Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent
+2026-09-30T11:10:03.9006323Z Deleting the contents of '/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent'
+2026-09-30T11:10:03.9008048Z ##[group]Initializing the repository
+2026-09-30T11:10:03.9009468Z [command]/usr/bin/git init /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent
+2026-09-30T11:10:03.9101526Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-30T11:10:03.9103754Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-30T11:10:03.9105374Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-30T11:10:03.9106566Z hint: call:
+2026-09-30T11:10:03.9107539Z hint:
+2026-09-30T11:10:03.9109479Z hint: 	git config --global init.defaultBranch <name>
+2026-09-30T11:10:03.9110338Z hint:
+2026-09-30T11:10:03.9111129Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-30T11:10:03.9112670Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-30T11:10:03.9113714Z hint:
+2026-09-30T11:10:03.9114321Z hint: 	git branch -m <name>
+2026-09-30T11:10:03.9115020Z hint:
+2026-09-30T11:10:03.9115926Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-30T11:10:03.9117667Z Initialized empty Git repository in /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/.git/
+2026-09-30T11:10:03.9120428Z [command]/usr/bin/git remote add origin https://github.com/bensuen0831/crossborder-compliance-agent
+2026-09-30T11:10:03.9217501Z ##[endgroup]
+2026-09-30T11:10:03.9223951Z ##[group]Disabling automatic garbage collection
+2026-09-30T11:10:03.9224910Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-30T11:10:03.9243618Z ##[endgroup]
+2026-09-30T11:10:03.9245511Z ##[group]Setting up auth
+2026-09-30T11:10:03.9247768Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-30T11:10:03.9326273Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-30T11:10:04.0487925Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-30T11:10:04.0491593Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-30T11:10:04.0495619Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-30T11:10:04.0498379Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-30T11:10:04.0500731Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-30T11:10:04.0503422Z ##[endgroup]
+2026-09-30T11:10:04.0505082Z ##[group]Fetching the repository
+2026-09-30T11:10:04.0506451Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +dda9bd7a9ced55c5d07224e368d458fbc182417b:refs/remotes/pull/4/merge
+2026-09-30T11:10:04.4655290Z From https://github.com/bensuen0831/crossborder-compliance-agent
+2026-09-30T11:10:04.4657860Z  * [new ref]         dda9bd7a9ced55c5d07224e368d458fbc182417b -> pull/4/merge
+2026-09-30T11:10:04.4688374Z ##[endgroup]
+2026-09-30T11:10:04.4689752Z ##[group]Determining the checkout info
+2026-09-30T11:10:04.4691355Z ##[endgroup]
+2026-09-30T11:10:04.4694948Z [command]/usr/bin/git sparse-checkout disable
+2026-09-30T11:10:04.4726725Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-30T11:10:04.4792597Z ##[group]Checking out the ref
+2026-09-30T11:10:04.4794161Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/4/merge
+2026-09-30T11:10:04.4863306Z Note: switching to 'refs/remotes/pull/4/merge'.
+2026-09-30T11:10:04.4872633Z 
+2026-09-30T11:10:04.4873760Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-09-30T11:10:04.4882741Z changes and commit them, and you can discard any commits you make in this
+2026-09-30T11:10:04.4885426Z state without impacting any branches by switching back to a branch.
+2026-09-30T11:10:04.4886725Z 
+2026-09-30T11:10:04.4891782Z If you want to create a new branch to retain commits you create, you may
+2026-09-30T11:10:04.4894130Z do so (now or later) by using -c with the switch command. Example:
+2026-09-30T11:10:04.4895024Z 
+2026-09-30T11:10:04.4895386Z   git switch -c <new-branch-name>
+2026-09-30T11:10:04.4896033Z 
+2026-09-30T11:10:04.4896347Z Or undo this operation with:
+2026-09-30T11:10:04.4897038Z 
+2026-09-30T11:10:04.4897298Z   git switch -
+2026-09-30T11:10:04.4897728Z 
+2026-09-30T11:10:04.4898404Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-09-30T11:10:04.4899529Z 
+2026-09-30T11:10:04.4900962Z HEAD is now at dda9bd7 Merge 10b5b05aa1be7ee96fabc0175a087f0ee1c96435 into 1807cc703a37a1f3e523cc9c0ddc310ecdee44c1
+2026-09-30T11:10:04.4904691Z ##[endgroup]
+2026-09-30T11:10:04.5060414Z [command]/usr/bin/git log -1 --format=%H
+2026-09-30T11:10:04.5061502Z dda9bd7a9ced55c5d07224e368d458fbc182417b
+2026-09-30T11:10:04.5356756Z ##[group]Run actions/setup-python@v5
+2026-09-30T11:10:04.5357894Z with:
+2026-09-30T11:10:04.5358722Z   python-version: 3.12
+2026-09-30T11:10:04.5359686Z   cache: pip
+2026-09-30T11:10:04.5360528Z   check-latest: false
+2026-09-30T11:10:04.5370047Z   token: ***
+2026-09-30T11:10:04.5370959Z   update-environment: true
+2026-09-30T11:10:04.5372096Z   allow-prereleases: false
+2026-09-30T11:10:04.5373124Z   freethreaded: false
+2026-09-30T11:10:04.5374021Z ##[endgroup]
+2026-09-30T11:10:04.6582274Z ##[group]Installed versions
+2026-09-30T11:10:04.6627643Z (node:1916) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-30T11:10:04.6631294Z Successfully set up CPython (3.12.14)
+2026-09-30T11:10:04.6634093Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-30T11:10:04.6637905Z ##[endgroup]
+2026-09-30T11:10:04.7501034Z [command]/opt/hostedtoolcache/Python/3.12.14/x64/bin/pip cache dir
+2026-09-30T11:10:05.6657346Z /home/runner/.cache/pip
+2026-09-30T11:10:05.8137735Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.12.14-pip-74dfb8c734e5bd2d007f76e03b52332ad4b92df99c877d5b054e152f3eb4de34
+2026-09-30T11:10:05.8236269Z (node:1916) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-09-30T11:10:06.9633908Z Received 84544949 of 84544949 (100.0%), 80.4 MBs/sec
+2026-09-30T11:10:06.9634667Z Cache Size: ~81 MB (84544949 B)
+2026-09-30T11:10:06.9679725Z [command]/usr/bin/tar -xf /home/runner/work/_temp/1913d43d-4667-4b23-af3e-99187f1c0a38/cache.tzst -P -C /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent --use-compress-program unzstd
+2026-09-30T11:10:07.2593451Z Cache restored successfully
+2026-09-30T11:10:07.6324286Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.12.14-pip-74dfb8c734e5bd2d007f76e03b52332ad4b92df99c877d5b054e152f3eb4de34
+2026-09-30T11:10:07.6494865Z ##[group]Run python -m pip install --upgrade pip
+2026-09-30T11:10:07.6495445Z [36;1mpython -m pip install --upgrade pip[0m
+2026-09-30T11:10:07.6653465Z shell: /usr/bin/bash -e {0}
+2026-09-30T11:10:07.6653826Z env:
+2026-09-30T11:10:07.6654253Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:07.6654722Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-09-30T11:10:07.6655175Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:07.6655692Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:07.6656174Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:07.6656596Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-09-30T11:10:07.6656952Z ##[endgroup]
+2026-09-30T11:10:08.5237950Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages (26.2.1)
+2026-09-30T11:10:08.7325402Z ##[group]Run python -m pip install -e ".[dev]"
+2026-09-30T11:10:08.7325852Z [36;1mpython -m pip install -e ".[dev]"[0m
+2026-09-30T11:10:08.7365345Z shell: /usr/bin/bash -e {0}
+2026-09-30T11:10:08.7365733Z env:
+2026-09-30T11:10:08.7366069Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:08.7366566Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-09-30T11:10:08.7367065Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:08.7367531Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:08.7367950Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:08.7368398Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-09-30T11:10:08.7368814Z ##[endgroup]
+2026-09-30T11:10:09.0270899Z Obtaining file:///home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent
+2026-09-30T11:10:09.0285836Z   Installing build dependencies: started
+2026-09-30T11:10:11.6916731Z   Installing build dependencies: finished with status 'done'
+2026-09-30T11:10:11.6922752Z   Checking if build backend supports build_editable: started
+2026-09-30T11:10:12.2184059Z   Checking if build backend supports build_editable: finished with status 'done'
+2026-09-30T11:10:12.2205466Z   Getting requirements to build editable: started
+2026-09-30T11:10:12.4937435Z   Getting requirements to build editable: finished with status 'done'
+2026-09-30T11:10:12.4957990Z   Preparing editable metadata (pyproject.toml): started
+2026-09-30T11:10:12.6543883Z   Preparing editable metadata (pyproject.toml): finished with status 'done'
+2026-09-30T11:10:12.6833390Z Collecting fastapi<1,>=0.128 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:12.6845714Z   Using cached fastapi-0.142.2-py3-none-any.whl.metadata (27 kB)
+2026-09-30T11:10:12.6999098Z Collecting uvicorn<1,>=0.35 (from uvicorn[standard]<1,>=0.35->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:12.7010737Z   Using cached uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+2026-09-30T11:10:12.7777805Z Collecting pydantic<3,>=2.12 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:12.7803524Z   Using cached pydantic-2.13.5-py3-none-any.whl.metadata (110 kB)
+2026-09-30T11:10:12.7873787Z Collecting pydantic-settings<3,>=2.10 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:12.7884638Z   Using cached pydantic_settings-2.15.0-py3-none-any.whl.metadata (3.9 kB)
+2026-09-30T11:10:12.9757634Z Collecting sqlalchemy<3,>=2.0 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:12.9815465Z   Using cached sqlalchemy-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.7 kB)
+2026-09-30T11:10:12.9925469Z Collecting alembic<2,>=1.16 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:12.9936007Z   Using cached alembic-1.20.0-py3-none-any.whl.metadata (7.3 kB)
+2026-09-30T11:10:13.0011713Z Collecting psycopg<4,>=3.2 (from psycopg[binary]<4,>=3.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.0067651Z   Using cached psycopg-3.3.6-py3-none-any.whl.metadata (4.4 kB)
+2026-09-30T11:10:13.0256841Z Collecting langgraph<1.3,>=1.2 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.0266810Z   Using cached langgraph-1.2.12-py3-none-any.whl.metadata (4.9 kB)
+2026-09-30T11:10:13.0330923Z Collecting langgraph-checkpoint-postgres<3.2,>=3.1 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.0493416Z   Using cached langgraph_checkpoint_postgres-3.1.2-py3-none-any.whl.metadata (6.8 kB)
+2026-09-30T11:10:13.0608655Z Collecting redis<7,>=6 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.0609838Z   Using cached redis-6.4.0-py3-none-any.whl.metadata (10 kB)
+2026-09-30T11:10:13.2075728Z Collecting boto3<2,>=1.40 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.2086609Z   Using cached boto3-1.43.105-py3-none-any.whl.metadata (6.6 kB)
+2026-09-30T11:10:13.2173312Z Collecting opentelemetry-api<2,>=1.36 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.2182574Z   Using cached opentelemetry_api-1.45.0-py3-none-any.whl.metadata (1.4 kB)
+2026-09-30T11:10:13.2261249Z Collecting opentelemetry-sdk<2,>=1.36 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.2283739Z   Using cached opentelemetry_sdk-1.45.0-py3-none-any.whl.metadata (1.6 kB)
+2026-09-30T11:10:13.2357175Z Collecting opentelemetry-instrumentation-fastapi<1,>=0.57b0 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.2367458Z   Using cached opentelemetry_instrumentation_fastapi-0.66b0-py3-none-any.whl.metadata (2.2 kB)
+2026-09-30T11:10:13.2514954Z Collecting pytest<9,>=8.4 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.2525681Z   Using cached pytest-8.4.2-py3-none-any.whl.metadata (7.7 kB)
+2026-09-30T11:10:13.2603129Z Collecting httpx<1,>=0.28 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.2614097Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-09-30T11:10:13.4771169Z Collecting ruff<1,>=0.12 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.4785538Z   Using cached ruff-0.16.9-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (20 kB)
+2026-09-30T11:10:13.5434318Z Collecting mypy<2,>=1.17 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.5445707Z   Using cached mypy-1.20.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-09-30T11:10:13.5523524Z Collecting Mako (from alembic<2,>=1.16->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.5533126Z   Using cached mako-1.4.3-py3-none-any.whl.metadata (2.9 kB)
+2026-09-30T11:10:13.5598373Z Collecting typing-extensions>=4.12 (from alembic<2,>=1.16->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.5608490Z   Using cached typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+2026-09-30T11:10:13.7288928Z Collecting botocore<1.44.0,>=1.43.105 (from boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.7301369Z   Using cached botocore-1.43.105-py3-none-any.whl.metadata (5.6 kB)
+2026-09-30T11:10:13.7348372Z Collecting jmespath<2.0.0,>=0.7.1 (from boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.7358651Z   Using cached jmespath-1.1.0-py3-none-any.whl.metadata (7.6 kB)
+2026-09-30T11:10:13.7425516Z Collecting s3transfer<0.20.0,>=0.19.0 (from boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.7435677Z   Using cached s3transfer-0.19.2-py3-none-any.whl.metadata (1.7 kB)
+2026-09-30T11:10:13.7492617Z Collecting python-dateutil<3.0.0,>=2.1 (from botocore<1.44.0,>=1.43.105->boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.7502674Z   Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+2026-09-30T11:10:13.7604665Z Collecting urllib3!=2.2.0,<3,>=1.25.4 (from botocore<1.44.0,>=1.43.105->boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.7614509Z   Using cached urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+2026-09-30T11:10:13.7741632Z Collecting starlette>=0.46.0 (from fastapi<1,>=0.128->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.7752633Z   Using cached starlette-1.7.0-py3-none-any.whl.metadata (6.6 kB)
+2026-09-30T11:10:13.7814456Z Collecting typing-inspection>=0.4.2 (from fastapi<1,>=0.128->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.7824470Z   Using cached typing_inspection-0.4.4-py3-none-any.whl.metadata (2.6 kB)
+2026-09-30T11:10:13.7854741Z Collecting annotated-doc>=0.0.2 (from fastapi<1,>=0.128->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.7864629Z   Using cached annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+2026-09-30T11:10:13.7960572Z Collecting anyio (from httpx<1,>=0.28->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.7970751Z   Using cached anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)
+2026-09-30T11:10:13.8055349Z Collecting certifi (from httpx<1,>=0.28->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.8065996Z   Using cached certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+2026-09-30T11:10:13.8130110Z Collecting httpcore==1.* (from httpx<1,>=0.28->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.8140251Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-09-30T11:10:13.8205942Z Collecting idna (from httpx<1,>=0.28->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.8216016Z   Using cached idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+2026-09-30T11:10:13.8260165Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1,>=0.28->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.8277793Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-09-30T11:10:13.8496281Z Collecting langchain-core<2,>=1.4.7 (from langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.8506806Z   Using cached langchain_core-1.6.6-py3-none-any.whl.metadata (4.8 kB)
+2026-09-30T11:10:13.8572604Z Collecting langgraph-checkpoint<5.0.0,>=4.1.0 (from langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.8583002Z   Using cached langgraph_checkpoint-4.2.0-py3-none-any.whl.metadata (6.7 kB)
+2026-09-30T11:10:13.8638317Z Collecting langgraph-prebuilt<1.2.0,>=1.1.0 (from langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.8654196Z   Using cached langgraph_prebuilt-1.1.0-py3-none-any.whl.metadata (5.2 kB)
+2026-09-30T11:10:13.8741534Z Collecting langgraph-sdk<0.5.0,>=0.4.2 (from langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.8751592Z   Using cached langgraph_sdk-0.4.5-py3-none-any.whl.metadata (5.1 kB)
+2026-09-30T11:10:13.9602623Z Collecting xxhash>=3.5.0 (from langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.9614976Z   Using cached xxhash-4.0.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (17 kB)
+2026-09-30T11:10:13.9685115Z Collecting jsonpatch<2.0.0,>=1.33.0 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.9695148Z   Using cached jsonpatch-1.33-py2.py3-none-any.whl.metadata (3.0 kB)
+2026-09-30T11:10:13.9729268Z Collecting langchain-protocol>=0.0.17 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:13.9739145Z   Using cached langchain_protocol-0.0.19-py3-none-any.whl.metadata (2.4 kB)
+2026-09-30T11:10:14.0125348Z Collecting langsmith<1.0.0,>=0.3.45 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.0136158Z   Using cached langsmith-0.14.1-py3-none-any.whl.metadata (22 kB)
+2026-09-30T11:10:14.0231585Z Collecting packaging>=23.2.0 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.0241517Z   Using cached packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+2026-09-30T11:10:14.0793230Z Collecting pyyaml<7.0.0,>=5.3.0 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.0805398Z   Using cached pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-09-30T11:10:14.0868910Z Collecting tenacity!=8.4.0,<10.0.0,>=8.1.0 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.0879300Z   Using cached tenacity-9.1.4-py3-none-any.whl.metadata (1.2 kB)
+2026-09-30T11:10:14.1585925Z Collecting uuid-utils<1.0,>=0.12.0 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.1597187Z   Using cached uuid_utils-0.17.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.4 kB)
+2026-09-30T11:10:14.1649658Z Collecting jsonpointer>=1.9 (from jsonpatch<2.0.0,>=1.33.0->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.1659692Z   Using cached jsonpointer-3.1.1-py3-none-any.whl.metadata (2.4 kB)
+2026-09-30T11:10:14.1958567Z Collecting ormsgpack>=1.12.0 (from langgraph-checkpoint<5.0.0,>=4.1.0->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.1968901Z   Using cached ormsgpack-1.12.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.2 kB)
+2026-09-30T11:10:14.3518144Z Collecting orjson>=3.11.5 (from langgraph-checkpoint-postgres<3.2,>=3.1->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.3531057Z   Using cached orjson-3.12.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (41 kB)
+2026-09-30T11:10:14.3598555Z Collecting psycopg-pool>=3.2.0 (from langgraph-checkpoint-postgres<3.2,>=3.1->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.3610806Z   Using cached psycopg_pool-3.3.3-py3-none-any.whl.metadata (2.8 kB)
+2026-09-30T11:10:14.4337067Z Collecting websockets<17,>=14 (from langgraph-sdk<0.5.0,>=0.4.2->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.4348935Z   Using cached websockets-16.1.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.8 kB)
+2026-09-30T11:10:14.4406390Z Collecting distro>=1.7.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.4416322Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-09-30T11:10:14.4461584Z Collecting httpx2<3,>=2 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.4471485Z   Using cached httpx2-2.13.1-py3-none-any.whl.metadata (9.8 kB)
+2026-09-30T11:10:14.4547104Z Collecting requests-toolbelt>=1.0.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.4557174Z   Using cached requests_toolbelt-1.0.0-py2.py3-none-any.whl.metadata (14 kB)
+2026-09-30T11:10:14.4678303Z Collecting requests>=2.0.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.4688525Z   Using cached requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+2026-09-30T11:10:14.4722831Z Collecting sniffio>=1.1 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.4732704Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-09-30T11:10:14.5160059Z Collecting zstandard>=0.23.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.5170649Z   Using cached zstandard-0.25.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.3 kB)
+2026-09-30T11:10:14.5229284Z Collecting httpcore2==2.13.1 (from httpx2<3,>=2->langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.5239045Z   Using cached httpcore2-2.13.1-py3-none-any.whl.metadata (26 kB)
+2026-09-30T11:10:14.5295101Z Collecting truststore>=0.10 (from httpx2<3,>=2->langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.5305192Z   Using cached truststore-0.10.4-py3-none-any.whl.metadata (4.4 kB)
+2026-09-30T11:10:14.5369301Z Collecting mypy_extensions>=1.0.0 (from mypy<2,>=1.17->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.5379308Z   Using cached mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)
+2026-09-30T11:10:14.5421629Z Collecting pathspec>=1.0.0 (from mypy<2,>=1.17->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.5431781Z   Using cached pathspec-1.1.1-py3-none-any.whl.metadata (14 kB)
+2026-09-30T11:10:14.6660141Z Collecting librt>=0.8.0 (from mypy<2,>=1.17->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.6673445Z   Using cached librt-0.16.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (1.3 kB)
+2026-09-30T11:10:14.6774646Z Collecting opentelemetry-instrumentation-asgi==0.66b0 (from opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.6786338Z   Using cached opentelemetry_instrumentation_asgi-0.66b0-py3-none-any.whl.metadata (2.0 kB)
+2026-09-30T11:10:14.6867553Z Collecting opentelemetry-instrumentation==0.66b0 (from opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.6878565Z   Using cached opentelemetry_instrumentation-0.66b0-py3-none-any.whl.metadata (7.2 kB)
+2026-09-30T11:10:14.6950238Z Collecting opentelemetry-semantic-conventions==0.66b0 (from opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.6960975Z   Using cached opentelemetry_semantic_conventions-0.66b0-py3-none-any.whl.metadata (2.4 kB)
+2026-09-30T11:10:14.7029260Z Collecting opentelemetry-util-http==0.66b0 (from opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.7039534Z   Using cached opentelemetry_util_http-0.66b0-py3-none-any.whl.metadata (2.6 kB)
+2026-09-30T11:10:14.9319695Z Collecting wrapt<3.0.0,>=1.0.0 (from opentelemetry-instrumentation==0.66b0->opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.9332318Z   Using cached wrapt-2.5.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (7.6 kB)
+2026-09-30T11:10:14.9430264Z Collecting asgiref~=3.0 (from opentelemetry-instrumentation-asgi==0.66b0->opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:14.9441371Z   Using cached asgiref-3.12.1-py3-none-any.whl.metadata (9.4 kB)
+2026-09-30T11:10:15.0483666Z Collecting psycopg-binary==3.3.6 (from psycopg[binary]<4,>=3.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:15.0496559Z   Using cached psycopg_binary-3.3.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.7 kB)
+2026-09-30T11:10:15.0547914Z Collecting annotated-types>=0.6.0 (from pydantic<3,>=2.12->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:15.0558192Z   Using cached annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+2026-09-30T11:10:15.5331396Z Collecting pydantic-core==2.46.5 (from pydantic<3,>=2.12->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:15.5344226Z   Using cached pydantic_core-2.46.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.6 kB)
+2026-09-30T11:10:15.5452121Z Collecting python-dotenv>=0.21.0 (from pydantic-settings<3,>=2.10->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:15.5459686Z   Using cached python_dotenv-1.2.3-py3-none-any.whl.metadata (29 kB)
+2026-09-30T11:10:15.5517817Z Collecting iniconfig>=1 (from pytest<9,>=8.4->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:15.5528145Z   Using cached iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+2026-09-30T11:10:15.5577499Z Collecting pluggy<2,>=1.5 (from pytest<9,>=8.4->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:15.5587512Z   Using cached pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+2026-09-30T11:10:15.5671731Z Collecting pygments>=2.7.2 (from pytest<9,>=8.4->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:15.5681783Z   Using cached pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+2026-09-30T11:10:15.5743536Z Collecting six>=1.5 (from python-dateutil<3.0.0,>=2.1->botocore<1.44.0,>=1.43.105->boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:15.5753469Z   Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+2026-09-30T11:10:15.6003207Z Collecting click>=7.0 (from uvicorn<1,>=0.35->uvicorn[standard]<1,>=0.35->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:15.6013439Z   Using cached click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+2026-09-30T11:10:15.6184219Z Collecting httptools>=0.8.0 (from uvicorn[standard]<1,>=0.35->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:15.6195198Z   Using cached httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+2026-09-30T11:10:15.6875751Z Collecting uvloop>=0.15.1 (from uvicorn[standard]<1,>=0.35->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:15.6886815Z   Using cached uvloop-0.22.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (4.9 kB)
+2026-09-30T11:10:15.7353714Z Collecting watchfiles>=0.20 (from uvicorn[standard]<1,>=0.35->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:15.7413561Z   Using cached watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+2026-09-30T11:10:15.8340454Z Collecting charset_normalizer<4,>=2 (from requests>=2.0.0->langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:15.8352953Z   Using cached charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+2026-09-30T11:10:15.8840612Z Collecting MarkupSafe>=2.0 (from Mako->alembic<2,>=1.16->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:15.8852198Z   Using cached markupsafe-3.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+2026-09-30T11:10:15.8893552Z Using cached alembic-1.20.0-py3-none-any.whl (268 kB)
+2026-09-30T11:10:15.8905154Z Using cached boto3-1.43.105-py3-none-any.whl (140 kB)
+2026-09-30T11:10:15.8915922Z Using cached botocore-1.43.105-py3-none-any.whl (16.0 MB)
+2026-09-30T11:10:15.8980522Z Using cached fastapi-0.142.2-py3-none-any.whl (144 kB)
+2026-09-30T11:10:15.8990868Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-09-30T11:10:15.9000653Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-09-30T11:10:15.9015040Z Using cached jmespath-1.1.0-py3-none-any.whl (20 kB)
+2026-09-30T11:10:15.9027707Z Using cached langgraph-1.2.12-py3-none-any.whl (250 kB)
+2026-09-30T11:10:15.9039182Z Using cached langchain_core-1.6.6-py3-none-any.whl (572 kB)
+2026-09-30T11:10:15.9051475Z Using cached jsonpatch-1.33-py2.py3-none-any.whl (12 kB)
+2026-09-30T11:10:15.9065914Z Using cached langgraph_checkpoint-4.2.0-py3-none-any.whl (56 kB)
+2026-09-30T11:10:15.9076113Z Using cached langgraph_checkpoint_postgres-3.1.2-py3-none-any.whl (52 kB)
+2026-09-30T11:10:15.9088385Z Using cached langgraph_prebuilt-1.1.0-py3-none-any.whl (41 kB)
+2026-09-30T11:10:15.9098656Z Using cached langgraph_sdk-0.4.5-py3-none-any.whl (162 kB)
+2026-09-30T11:10:15.9109129Z Using cached langsmith-0.14.1-py3-none-any.whl (812 kB)
+2026-09-30T11:10:15.9122456Z Using cached httpx2-2.13.1-py3-none-any.whl (95 kB)
+2026-09-30T11:10:15.9132124Z Using cached httpcore2-2.13.1-py3-none-any.whl (83 kB)
+2026-09-30T11:10:15.9142416Z Using cached mypy-1.20.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (14.7 MB)
+2026-09-30T11:10:15.9203723Z Using cached opentelemetry_api-1.45.0-py3-none-any.whl (60 kB)
+2026-09-30T11:10:15.9213663Z Using cached opentelemetry_instrumentation_fastapi-0.66b0-py3-none-any.whl (14 kB)
+2026-09-30T11:10:15.9223170Z Using cached opentelemetry_instrumentation-0.66b0-py3-none-any.whl (36 kB)
+2026-09-30T11:10:15.9232966Z Using cached opentelemetry_instrumentation_asgi-0.66b0-py3-none-any.whl (15 kB)
+2026-09-30T11:10:15.9242777Z Using cached opentelemetry_semantic_conventions-0.66b0-py3-none-any.whl (206 kB)
+2026-09-30T11:10:15.9253300Z Using cached opentelemetry_util_http-0.66b0-py3-none-any.whl (8.4 kB)
+2026-09-30T11:10:15.9262465Z Using cached asgiref-3.12.1-py3-none-any.whl (25 kB)
+2026-09-30T11:10:15.9272209Z Using cached opentelemetry_sdk-1.45.0-py3-none-any.whl (140 kB)
+2026-09-30T11:10:15.9282004Z Using cached psycopg-3.3.6-py3-none-any.whl (215 kB)
+2026-09-30T11:10:15.9292780Z Using cached psycopg_binary-3.3.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.2 MB)
+2026-09-30T11:10:15.9320778Z Using cached pydantic-2.13.5-py3-none-any.whl (472 kB)
+2026-09-30T11:10:15.9332923Z Using cached pydantic_core-2.46.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-09-30T11:10:15.9350130Z Using cached pydantic_settings-2.15.0-py3-none-any.whl (69 kB)
+2026-09-30T11:10:15.9360151Z Using cached pytest-8.4.2-py3-none-any.whl (365 kB)
+2026-09-30T11:10:15.9371561Z Using cached pluggy-1.6.0-py3-none-any.whl (20 kB)
+2026-09-30T11:10:15.9381176Z Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+2026-09-30T11:10:15.9392506Z Using cached pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (807 kB)
+2026-09-30T11:10:15.9405616Z Using cached redis-6.4.0-py3-none-any.whl (279 kB)
+2026-09-30T11:10:15.9417199Z Using cached ruff-0.16.9-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (10.4 MB)
+2026-09-30T11:10:15.9462255Z Using cached s3transfer-0.19.2-py3-none-any.whl (90 kB)
+2026-09-30T11:10:15.9472568Z Using cached sqlalchemy-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.7 MB)
+2026-09-30T11:10:15.9498823Z Using cached tenacity-9.1.4-py3-none-any.whl (28 kB)
+2026-09-30T11:10:15.9508884Z Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+2026-09-30T11:10:15.9519027Z Using cached urllib3-2.8.0-py3-none-any.whl (135 kB)
+2026-09-30T11:10:15.9529792Z Using cached uuid_utils-0.17.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (323 kB)
+2026-09-30T11:10:15.9544237Z Using cached uvicorn-0.54.0-py3-none-any.whl (87 kB)
+2026-09-30T11:10:15.9555076Z Using cached websockets-16.1.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (187 kB)
+2026-09-30T11:10:15.9565803Z Using cached wrapt-2.5.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (250 kB)
+2026-09-30T11:10:15.9576611Z Using cached annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+2026-09-30T11:10:15.9589203Z Using cached annotated_types-0.8.0-py3-none-any.whl (13 kB)
+2026-09-30T11:10:15.9599088Z Using cached anyio-4.15.1-py3-none-any.whl (132 kB)
+2026-09-30T11:10:15.9609277Z Using cached click-8.5.0-py3-none-any.whl (125 kB)
+2026-09-30T11:10:15.9619372Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-09-30T11:10:15.9629390Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-09-30T11:10:15.9639580Z Using cached httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (523 kB)
+2026-09-30T11:10:15.9651518Z Using cached idna-3.20-py3-none-any.whl (69 kB)
+2026-09-30T11:10:15.9661394Z Using cached iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+2026-09-30T11:10:15.9670906Z Using cached jsonpointer-3.1.1-py3-none-any.whl (7.7 kB)
+2026-09-30T11:10:15.9680841Z Using cached langchain_protocol-0.0.19-py3-none-any.whl (7.3 kB)
+2026-09-30T11:10:15.9691125Z Using cached librt-0.16.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (531 kB)
+2026-09-30T11:10:15.9703498Z Using cached mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+2026-09-30T11:10:15.9713281Z Using cached orjson-3.12.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (131 kB)
+2026-09-30T11:10:15.9723777Z Using cached ormsgpack-1.12.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (212 kB)
+2026-09-30T11:10:15.9734208Z Using cached packaging-26.3-py3-none-any.whl (129 kB)
+2026-09-30T11:10:15.9744697Z Using cached pathspec-1.1.1-py3-none-any.whl (57 kB)
+2026-09-30T11:10:15.9754478Z Using cached psycopg_pool-3.3.3-py3-none-any.whl (40 kB)
+2026-09-30T11:10:15.9764204Z Using cached pygments-2.21.0-py3-none-any.whl (1.3 MB)
+2026-09-30T11:10:15.9778809Z Using cached python_dotenv-1.2.3-py3-none-any.whl (22 kB)
+2026-09-30T11:10:15.9788447Z Using cached requests-2.34.2-py3-none-any.whl (73 kB)
+2026-09-30T11:10:15.9798981Z Using cached charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (257 kB)
+2026-09-30T11:10:15.9809666Z Using cached certifi-2026.7.22-py3-none-any.whl (136 kB)
+2026-09-30T11:10:15.9819942Z Using cached requests_toolbelt-1.0.0-py2.py3-none-any.whl (54 kB)
+2026-09-30T11:10:15.9829810Z Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+2026-09-30T11:10:15.9839090Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-09-30T11:10:15.9848694Z Using cached starlette-1.7.0-py3-none-any.whl (78 kB)
+2026-09-30T11:10:15.9858591Z Using cached truststore-0.10.4-py3-none-any.whl (18 kB)
+2026-09-30T11:10:15.9876225Z Using cached typing_inspection-0.4.4-py3-none-any.whl (14 kB)
+2026-09-30T11:10:15.9884559Z Using cached uvloop-0.22.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.4 MB)
+2026-09-30T11:10:15.9910432Z Using cached watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (458 kB)
+2026-09-30T11:10:15.9922610Z Using cached xxhash-4.0.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (261 kB)
+2026-09-30T11:10:15.9933203Z Using cached zstandard-0.25.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.5 MB)
+2026-09-30T11:10:15.9962109Z Using cached mako-1.4.3-py3-none-any.whl (80 kB)
+2026-09-30T11:10:15.9973352Z Using cached markupsafe-3.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+2026-09-30T11:10:16.2022374Z Building wheels for collected packages: crossborder-compliance-agent
+2026-09-30T11:10:16.2028929Z   Building editable for crossborder-compliance-agent (pyproject.toml): started
+2026-09-30T11:10:16.3787570Z   Building editable for crossborder-compliance-agent (pyproject.toml): finished with status 'done'
+2026-09-30T11:10:16.3789582Z   Created wheel for crossborder-compliance-agent: filename=crossborder_compliance_agent-0.1.0-0.editable-py3-none-any.whl size=1766 sha256=5884279518df17c3539d7b34a633f8ac0d031264b86ce5be74a6c564d5758bb5
+2026-09-30T11:10:16.3791267Z   Stored in directory: /tmp/pip-ephem-wheel-cache-_dpx5kod/wheels/12/f8/80/c6bd1cfdab3eeb06f1db320d3098645179f367c6a34f53dcf0
+2026-09-30T11:10:16.3808201Z Successfully built crossborder-compliance-agent
+2026-09-30T11:10:16.4924474Z Installing collected packages: zstandard, xxhash, wrapt, websockets, uvloop, uuid-utils, urllib3, typing-extensions, truststore, tenacity, sniffio, six, ruff, redis, pyyaml, python-dotenv, pygments, psycopg-binary, pluggy, pathspec, packaging, ormsgpack, orjson, opentelemetry-util-http, mypy_extensions, MarkupSafe, librt, jsonpointer, jmespath, iniconfig, idna, httptools, h11, distro, click, charset_normalizer, certifi, asgiref, annotated-types, annotated-doc, uvicorn, typing-inspection, sqlalchemy, requests, python-dateutil, pytest, pydantic-core, psycopg-pool, psycopg, opentelemetry-api, mypy, Mako, langchain-protocol, jsonpatch, httpcore2, httpcore, anyio, watchfiles, starlette, requests-toolbelt, pydantic, opentelemetry-semantic-conventions, httpx2, httpx, botocore, alembic, s3transfer, pydantic-settings, opentelemetry-sdk, opentelemetry-instrumentation, langsmith, fastapi, opentelemetry-instrumentation-asgi, langchain-core, boto3, opentelemetry-instrumentation-fastapi, langgraph-sdk, langgraph-checkpoint, langgraph-prebuilt, langgraph-checkpoint-postgres, langgraph, crossborder-compliance-agent
+2026-09-30T11:10:23.7712383Z 
+2026-09-30T11:10:23.7764170Z Successfully installed Mako-1.4.3 MarkupSafe-3.0.3 alembic-1.20.0 annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.15.1 asgiref-3.12.1 boto3-1.43.105 botocore-1.43.105 certifi-2026.7.22 charset_normalizer-3.5.2 click-8.5.0 crossborder-compliance-agent-0.1.0 distro-1.9.0 fastapi-0.142.2 h11-0.16.0 httpcore-1.0.9 httpcore2-2.13.1 httptools-0.8.0 httpx-0.28.1 httpx2-2.13.1 idna-3.20 iniconfig-2.3.0 jmespath-1.1.0 jsonpatch-1.33 jsonpointer-3.1.1 langchain-core-1.6.6 langchain-protocol-0.0.19 langgraph-1.2.12 langgraph-checkpoint-4.2.0 langgraph-checkpoint-postgres-3.1.2 langgraph-prebuilt-1.1.0 langgraph-sdk-0.4.5 langsmith-0.14.1 librt-0.16.0 mypy-1.20.2 mypy_extensions-1.1.0 opentelemetry-api-1.45.0 opentelemetry-instrumentation-0.66b0 opentelemetry-instrumentation-asgi-0.66b0 opentelemetry-instrumentation-fastapi-0.66b0 opentelemetry-sdk-1.45.0 opentelemetry-semantic-conventions-0.66b0 opentelemetry-util-http-0.66b0 orjson-3.12.0 ormsgpack-1.12.2 packaging-26.3 pathspec-1.1.1 pluggy-1.6.0 psycopg-3.3.6 psycopg-binary-3.3.6 psycopg-pool-3.3.3 pydantic-2.13.5 pydantic-core-2.46.5 pydantic-settings-2.15.0 pygments-2.21.0 pytest-8.4.2 python-dateutil-2.9.0.post0 python-dotenv-1.2.3 pyyaml-6.0.3 redis-6.4.0 requests-2.34.2 requests-toolbelt-1.0.0 ruff-0.16.9 s3transfer-0.19.2 six-1.17.0 sniffio-1.3.1 sqlalchemy-2.1.1 starlette-1.7.0 tenacity-9.1.4 truststore-0.10.4 typing-extensions-4.16.0 typing-inspection-0.4.4 urllib3-2.8.0 uuid-utils-0.17.1 uvicorn-0.54.0 uvloop-0.22.1 watchfiles-1.3.0 websockets-16.1.1 wrapt-2.5.0 xxhash-4.0.1 zstandard-0.25.0
+2026-09-30T11:10:23.9927993Z ##[group]Run pytest -q -m "not runtime_smoke"
+2026-09-30T11:10:23.9928390Z [36;1mpytest -q -m "not runtime_smoke"[0m
+2026-09-30T11:10:23.9966437Z shell: /usr/bin/bash -e {0}
+2026-09-30T11:10:23.9966762Z env:
+2026-09-30T11:10:23.9967065Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:23.9967583Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-09-30T11:10:23.9968060Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:23.9968470Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:23.9968895Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:23.9969293Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-09-30T11:10:23.9969665Z ##[endgroup]
+2026-09-30T11:10:26.7959617Z .............                                                            [100%]
+2026-09-30T11:10:26.7960784Z 13 passed, 2 deselected in 0.51s
+2026-09-30T11:10:26.9274803Z ##[group]Run python scripts/architecture_rule_check.py
+2026-09-30T11:10:26.9275262Z [36;1mpython scripts/architecture_rule_check.py[0m
+2026-09-30T11:10:26.9313217Z shell: /usr/bin/bash -e {0}
+2026-09-30T11:10:26.9313556Z env:
+2026-09-30T11:10:26.9313920Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:26.9314392Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-09-30T11:10:26.9314871Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:26.9315304Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:26.9315709Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:26.9316116Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-09-30T11:10:26.9316533Z ##[endgroup]
+2026-09-30T11:10:26.9643029Z {
+2026-09-30T11:10:26.9643488Z   "pass": true,
+2026-09-30T11:10:26.9643879Z   "passed": 16,
+2026-09-30T11:10:26.9644238Z   "total": 16,
+2026-09-30T11:10:26.9644736Z   "checks": [
+2026-09-30T11:10:26.9645057Z     {
+2026-09-30T11:10:26.9645474Z       "check": "domain_has_no_langgraph_import",
+2026-09-30T11:10:26.9645999Z       "pass": true,
+2026-09-30T11:10:26.9646342Z       "evidence": "clean"
+2026-09-30T11:10:26.9646710Z     },
+2026-09-30T11:10:26.9647124Z     {
+2026-09-30T11:10:26.9647485Z       "check": "domain_has_no_sqlalchemy_import",
+2026-09-30T11:10:26.9647988Z       "pass": true,
+2026-09-30T11:10:26.9648334Z       "evidence": "clean"
+2026-09-30T11:10:26.9648761Z     },
+2026-09-30T11:10:26.9649089Z     {
+2026-09-30T11:10:26.9649446Z       "check": "langgraph_runtime_isolated_to_adapter",
+2026-09-30T11:10:26.9650013Z       "pass": true,
+2026-09-30T11:10:26.9650405Z       "evidence": [
+2026-09-30T11:10:26.9650972Z         "src/crossborder_compliance/workflows/langgraph_adapter.py"
+2026-09-30T11:10:26.9651603Z       ]
+2026-09-30T11:10:26.9652056Z     },
+2026-09-30T11:10:26.9652461Z     {
+2026-09-30T11:10:26.9652869Z       "check": "no_eval_exec",
+2026-09-30T11:10:26.9653290Z       "pass": true,
+2026-09-30T11:10:26.9653663Z       "evidence": "clean"
+2026-09-30T11:10:26.9653988Z     },
+2026-09-30T11:10:26.9654345Z     {
+2026-09-30T11:10:26.9654696Z       "check": "human_review_node_not_agent",
+2026-09-30T11:10:26.9655139Z       "pass": true,
+2026-09-30T11:10:26.9655501Z       "evidence": "clean"
+2026-09-30T11:10:26.9655915Z     },
+2026-09-30T11:10:26.9656230Z     {
+2026-09-30T11:10:26.9656654Z       "check": "no_data_classifications_authoritative_table",
+2026-09-30T11:10:26.9657274Z       "pass": true,
+2026-09-30T11:10:26.9657907Z       "evidence": "classification_results remains authoritative contract rule"
+2026-09-30T11:10:26.9659093Z     },
+2026-09-30T11:10:26.9659414Z     {
+2026-09-30T11:10:26.9659816Z       "check": "stage1_explicit_cross_border_results",
+2026-09-30T11:10:26.9660847Z       "pass": true,
+2026-09-30T11:10:26.9661382Z       "evidence": "Stage1ComplianceResultDTO.cross_border_results"
+2026-09-30T11:10:26.9662153Z     },
+2026-09-30T11:10:26.9662468Z     {
+2026-09-30T11:10:26.9662880Z       "check": "legal_basis_rulehit_many_to_many_contract",
+2026-09-30T11:10:26.9663456Z       "pass": true,
+2026-09-30T11:10:26.9663886Z       "evidence": "LegalBasisItemDTO.rule_hit_ids[]"
+2026-09-30T11:10:26.9664367Z     },
+2026-09-30T11:10:26.9664745Z     {
+2026-09-30T11:10:26.9665203Z       "check": "domain_migration_does_not_own_checkpointer_schema",
+2026-09-30T11:10:26.9665765Z       "pass": true,
+2026-09-30T11:10:26.9666207Z       "evidence": "no checkpoint DDL in domain Alembic"
+2026-09-30T11:10:26.9666744Z     },
+2026-09-30T11:10:26.9667052Z     {
+2026-09-30T11:10:26.9667450Z       "check": "api_workflow_idempotency_separated",
+2026-09-30T11:10:26.9667972Z       "pass": true,
+2026-09-30T11:10:26.9668419Z       "evidence": "separate tables present"
+2026-09-30T11:10:26.9668893Z     },
+2026-09-30T11:10:26.9669209Z     {
+2026-09-30T11:10:26.9670180Z       "check": "workflow_state_has_no_runtime_services_or_secrets",
+2026-09-30T11:10:26.9671120Z       "pass": true,
+2026-09-30T11:10:26.9671485Z       "evidence": {
+2026-09-30T11:10:26.9672141Z         "forbidden": [
+2026-09-30T11:10:26.9672610Z           "db_session",
+2026-09-30T11:10:26.9673062Z           "repository",
+2026-09-30T11:10:26.9673440Z           "client",
+2026-09-30T11:10:26.9673776Z           "secret",
+2026-09-30T11:10:26.9674143Z           "api_key",
+2026-09-30T11:10:26.9674567Z           "provider",
+2026-09-30T11:10:26.9674991Z           "document_bytes",
+2026-09-30T11:10:26.9675405Z           "knowledge_chunks"
+2026-09-30T11:10:26.9675791Z         ]
+2026-09-30T11:10:26.9676137Z       }
+2026-09-30T11:10:26.9676518Z     },
+2026-09-30T11:10:26.9676846Z     {
+2026-09-30T11:10:26.9677281Z       "check": "durable_postgres_checkpointer_setup_present",
+2026-09-30T11:10:26.9677822Z       "pass": true,
+2026-09-30T11:10:26.9678312Z       "evidence": "PostgresSaver + official setup() path"
+2026-09-30T11:10:26.9678822Z     },
+2026-09-30T11:10:26.9679145Z     {
+2026-09-30T11:10:26.9679557Z       "check": "thread_id_backend_bound_to_workflow_run_id",
+2026-09-30T11:10:26.9680072Z       "pass": true,
+2026-09-30T11:10:26.9680578Z       "evidence": "workflow_run_id used as thread_id"
+2026-09-30T11:10:26.9681032Z     },
+2026-09-30T11:10:26.9681436Z     {
+2026-09-30T11:10:26.9682005Z       "check": "interrupt_pre_side_effect_event_idempotent",
+2026-09-30T11:10:26.9682472Z       "pass": true,
+2026-09-30T11:10:26.9682976Z       "evidence": "deterministic event + idempotent review key"
+2026-09-30T11:10:26.9683440Z     },
+2026-09-30T11:10:26.9683793Z     {
+2026-09-30T11:10:26.9684209Z       "check": "raw_langgraph_event_not_external_contract",
+2026-09-30T11:10:26.9684688Z       "pass": true,
+2026-09-30T11:10:26.9685162Z       "evidence": "canonical event boundary present"
+2026-09-30T11:10:26.9685638Z     },
+2026-09-30T11:10:26.9685944Z     {
+2026-09-30T11:10:26.9686324Z       "check": "no_country_product_regulation_business_logic_phase1a",
+2026-09-30T11:10:26.9686767Z       "pass": true,
+2026-09-30T11:10:26.9687292Z       "evidence": "no fixed named regulatory-document skills"
+2026-09-30T11:10:26.9688310Z     }
+2026-09-30T11:10:26.9688555Z   ]
+2026-09-30T11:10:26.9688786Z }
+2026-09-30T11:10:26.9783785Z Post job cleanup.
+2026-09-30T11:10:27.0880565Z (node:2035) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-30T11:10:27.0882208Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-30T11:10:27.0883672Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.12.14-pip-74dfb8c734e5bd2d007f76e03b52332ad4b92df99c877d5b054e152f3eb4de34, not saving cache.
+2026-09-30T11:10:27.1009560Z Post job cleanup.
+2026-09-30T11:10:27.1895243Z [command]/usr/bin/git version
+2026-09-30T11:10:27.1895840Z git version 2.55.0
+2026-09-30T11:10:27.1899338Z Temporarily overriding HOME='/home/runner/work/_temp/367a9804-0cc9-4601-a6a6-f6f6c25d4e56' before making global git config changes
+2026-09-30T11:10:27.1900377Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-30T11:10:27.1901524Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent
+2026-09-30T11:10:27.2982483Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-30T11:10:27.2993341Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-30T11:10:27.2996425Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-30T11:10:27.3017318Z http.https://github.com/.extraheader
+2026-09-30T11:10:27.3020934Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-30T11:10:27.3255730Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-30T11:10:27.3430568Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-30T11:10:27.3463721Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-30T11:10:27.3740488Z Cleaning up orphan processes
+2026-09-30T11:10:27.3936756Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
