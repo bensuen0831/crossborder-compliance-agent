@@ -10,6 +10,8 @@ from crossborder_compliance.config import get_settings
 from crossborder_compliance.domain.entities import (
     ClassificationResult,
     ConversationThread,
+    Document,
+    DocumentVersion,
     EvidenceReference,
     Jurisdiction,
     LegalBasisItem,
@@ -36,6 +38,7 @@ from crossborder_compliance.infrastructure.persistence.postgres_repositories imp
     OptimisticConcurrencyError,
     PostgresClassificationRepository,
     PostgresConversationRepository,
+    PostgresDocumentRepository,
     PostgresEvidenceRepository,
     PostgresJurisdictionRepository,
     PostgresLegalBasisRepository,
@@ -365,3 +368,44 @@ def test_conversation_repository_is_tenant_scoped_and_not_workflow_thread_id() -
     repo_a.add_thread(thread)
     assert repo_a.get_thread(thread.conversation_thread_id) is not None
     assert repo_b.get_thread(thread.conversation_thread_id) is None
+
+
+def test_document_immutable_version_active_pointer_and_optimistic_concurrency() -> None:
+    sf = _postgres_session_factory()
+    tenant = uuid4()
+    _seed_tenant(sf, tenant, "Document Version Tenant")
+    project_repo = _project_repo(sf, tenant)
+    project = Project(tenant_id=tenant, project_id=uuid4(), name=f"DocProject-{uuid4()}")
+    project_repo.add_project(project)
+
+    repo = PostgresDocumentRepository(sf, RepositoryContext.user(tenant, "document-user"))
+    document = Document(
+        tenant_id=tenant,
+        document_id=uuid4(),
+        project_id=project.project_id,
+        name=f"Requirements-{uuid4()}.pdf",
+    )
+    repo.add_document(document)
+    version = DocumentVersion(
+        tenant_id=tenant,
+        document_version_id=uuid4(),
+        document_id=document.document_id,
+        version_no=1,
+        storage_ref=f"object://{uuid4()}",
+        content_hash=uuid4().hex,
+    )
+    repo.add_version(version)
+    activated = repo.activate_version(
+        document.document_id,
+        version.document_version_id,
+        expected_record_version=1,
+    )
+    assert activated.active_version_id == version.document_version_id
+    assert activated.record_version == 2
+
+    with pytest.raises(OptimisticConcurrencyError):
+        repo.activate_version(
+            document.document_id,
+            version.document_version_id,
+            expected_record_version=1,
+        )
