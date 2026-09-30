@@ -92,3 +92,17 @@
 81. Registry Refresh 必須在 Domain Publish 成功 commit 後執行；必須使用 Transactional Outbox 或等價可靠機制，避免 DB / Registry split-brain。
 82. Existing AnalysisSnapshot 不得因 Registry Refresh 靜默切換版本；resume 必須使用 snapshot-pinned approved version。
 83. Model credential 真值不得存入 Registry DTO / Frontend / Audit Log；metadata persistence 只可保存 secret_ref。
+
+
+## Phase 1D Document Intelligence Addendum
+
+84. Document Binary 不得進 LangGraph State；State 只保存 ID / Reference / Small Structured Result。
+85. Canonical Document Structure 是正式解析 Source；LLM Narrative 不得取代 Canonical Structure。
+86. OCR 是 fallback，不得覆蓋原始 Document Version；原始 binary 必須保持 immutable object-storage reference。
+87. Vision / Diagram Result 只能產生 Candidate Fact / Flow / Relation，不得直接產生法律結論、Classification 或 Compliance Path。
+88. 所有正式 Extracted Fact / Candidate DataItem / Candidate DataFlow 必須有 SourceTraceRef，可回溯 DocumentVersion / ParseRun / StructureNode / locator / original hash。
+89. Spreadsheet 不得只轉成 plain text；row / column / header / formula / merged-cell provenance 必須保留。
+90. Document Analysis Count 必須由 Backend structured persistence programmatic aggregation，不得由 LLM 估算。
+91. Parse Run 必須 versioned；AnalysisSnapshot 必須 pin 指定 ParseRun，Resume 不得靜默切換。
+92. Parser / OCR / Vision Provider 必須 Adapter 化；Provider-specific SDK 不得進 Domain / Application / LangGraph。
+93. Document Parse Quality 未達 Gate 時，不得靜默進正式分析；必須保留 WARNING / REVIEW_REQUIRED / FAILED 狀態。
