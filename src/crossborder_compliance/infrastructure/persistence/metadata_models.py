@@ -29,7 +29,10 @@ class MetadataDefinitionEntity(TenantAuditMixin, Base):
     parent_definition_id: Mapped[str | None] = mapped_column(
         ForeignKey("metadata_definitions.definition_id", ondelete="SET NULL"), nullable=True
     )
-    active_version_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    active_version_id: Mapped[str | None] = mapped_column(
+        ForeignKey("metadata_versions.version_id", ondelete="SET NULL", use_alter=True, name="fk_metadata_definition_active_version"),
+        nullable=True,
+    )
 
 
 class MetadataVersionEntity(TenantAuditMixin, EffectiveMixin, Base):
@@ -139,7 +142,10 @@ class ModelProviderEntity(TenantAuditMixin, Base):
     provider_type: Mapped[str] = mapped_column(String(40), nullable=False)
     code: Mapped[str] = mapped_column(String(120), nullable=False)
     display_name: Mapped[str] = mapped_column(String(200), nullable=False)
-    active_version_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    active_version_id: Mapped[str | None] = mapped_column(
+        ForeignKey("model_provider_versions.provider_version_id", ondelete="SET NULL", use_alter=True, name="fk_model_provider_active_version"),
+        nullable=True,
+    )
     enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
 
 
@@ -185,7 +191,10 @@ class ModelDefinitionEntity(TenantAuditMixin, Base):
     display_name: Mapped[str] = mapped_column(String(200), nullable=False)
     context_window: Mapped[int | None] = mapped_column(Integer, nullable=True)
     max_output_tokens: Mapped[int | None] = mapped_column(Integer, nullable=True)
-    active_deployment_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    active_deployment_id: Mapped[str | None] = mapped_column(
+        ForeignKey("model_deployments.model_deployment_id", ondelete="SET NULL", use_alter=True, name="fk_model_definition_active_deployment"),
+        nullable=True,
+    )
     enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
 
 
@@ -257,7 +266,10 @@ class PromptDefinitionEntity(TenantAuditMixin, Base):
     prompt_definition_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     code: Mapped[str] = mapped_column(String(160), nullable=False)
     display_name: Mapped[str] = mapped_column(String(200), nullable=False)
-    active_version_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    active_version_id: Mapped[str | None] = mapped_column(
+        ForeignKey("prompt_versions.prompt_version_id", ondelete="SET NULL", use_alter=True, name="fk_prompt_definition_active_version"),
+        nullable=True,
+    )
 
 
 class PromptVersionEntity(TenantAuditMixin, EffectiveMixin, Base):
@@ -337,7 +349,10 @@ class RuleDefinitionEntity(TenantAuditMixin, Base):
     rule_definition_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     code: Mapped[str] = mapped_column(String(160), nullable=False)
     display_name: Mapped[str] = mapped_column(String(200), nullable=False)
-    active_version_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    active_version_id: Mapped[str | None] = mapped_column(
+        ForeignKey("rule_versions.rule_version_id", ondelete="SET NULL", use_alter=True, name="fk_rule_definition_active_version"),
+        nullable=True,
+    )
 
 
 class RuleVersionEntity(TenantAuditMixin, EffectiveMixin, Base):
@@ -398,7 +413,10 @@ class TemplateDefinitionEntity(TenantAuditMixin, Base):
     code: Mapped[str] = mapped_column(String(160), nullable=False)
     display_name: Mapped[str] = mapped_column(String(200), nullable=False)
     template_type: Mapped[str] = mapped_column(String(80), nullable=False)
-    active_version_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    active_version_id: Mapped[str | None] = mapped_column(
+        ForeignKey("template_versions.template_version_id", ondelete="SET NULL", use_alter=True, name="fk_template_definition_active_version"),
+        nullable=True,
+    )
 
 
 class TemplateVersionEntity(TenantAuditMixin, EffectiveMixin, Base):
@@ -471,7 +489,10 @@ class KnowledgeCollectionEntity(TenantAuditMixin, Base):
     knowledge_collection_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     code: Mapped[str] = mapped_column(String(160), nullable=False)
     display_name: Mapped[str] = mapped_column(String(200), nullable=False)
-    active_version_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    active_version_id: Mapped[str | None] = mapped_column(
+        ForeignKey("knowledge_collection_versions.knowledge_collection_version_id", ondelete="SET NULL", use_alter=True, name="fk_knowledge_collection_active_version"),
+        nullable=True,
+    )
 
 
 class KnowledgeCollectionVersionEntity(TenantAuditMixin, EffectiveMixin, Base):
