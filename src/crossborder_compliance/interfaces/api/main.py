@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from crossborder_compliance.config import get_settings
 from crossborder_compliance.interfaces.api.routes.health import router as health_router
 from crossborder_compliance.interfaces.api.routes.metadata import router as metadata_router
+from crossborder_compliance.interfaces.api.routes.admin_metadata import router as admin_metadata_router
 from crossborder_compliance.interfaces.api.routes.metadata_registry import router as metadata_registry_router
 from crossborder_compliance.interfaces.api.routes.admin_registry import router as admin_registry_router
 from crossborder_compliance.observability.logging import configure_logging
