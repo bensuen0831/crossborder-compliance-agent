@@ -374,9 +374,11 @@ add(
 
 add(
     "parse_run_is_versioned",
-    "parse_run_version" in model_text
-    and "uq_document_parse_run_version" in model_text,
-    "DocumentParseRun has explicit version and unique tenant/document/version constraint",
+    "class DocumentParseRunEntity" in model_text
+    and "class DocumentParseRunDetailEntity" in document_models_text
+    and "parse_run_version" in document_models_text
+    and "uq_document_parse_run_detail_version" in document_models_text,
+    "Phase 1B parse-run identity + Phase 1D one-to-one detail extension has explicit version and unique tenant/document/version constraint",
 )
 
 add(
