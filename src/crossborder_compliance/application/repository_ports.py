@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Protocol
 from uuid import UUID
 
+from crossborder_compliance.domain.foundation import AnalysisSnapshot, ReviewTask, WorkflowRun
 from crossborder_compliance.domain.entities import (
     AnalysisStageResult,
     ClassificationResult,
@@ -63,15 +64,15 @@ class LegalBasisRepository(Protocol):
 
 
 class AnalysisSnapshotRepository(Protocol):
-    def get_snapshot(self, analysis_snapshot_id: UUID) -> object | None: ...
+    def get_snapshot(self, analysis_snapshot_id: UUID) -> AnalysisSnapshot | None: ...
 
 
 class WorkflowRunRepository(Protocol):
-    def get_workflow_run(self, workflow_run_id: UUID) -> object | None: ...
+    def get_workflow_run(self, workflow_run_id: UUID) -> WorkflowRun | None: ...
 
 
 class ReviewRepository(Protocol):
-    def get_review(self, review_id: UUID) -> object | None: ...
+    def get_review(self, review_id: UUID) -> ReviewTask | None: ...
 
 
 class AnalysisStageRepository(Protocol):
