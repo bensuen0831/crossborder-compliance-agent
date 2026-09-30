@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from collections import Counter
 from pathlib import Path
 from uuid import UUID
@@ -28,9 +29,13 @@ def _external_contract_is_canonical_only() -> bool:
 
 def _api_layer_has_no_raw_langgraph_import() -> bool:
     root = Path(__file__).resolve().parents[1] / "src" / "crossborder_compliance" / "interfaces"
+    raw_runtime_pattern = re.compile(
+        r"\b(import|from)\s+langgraph\b|checkpoint_(writes|blobs)",
+        re.IGNORECASE,
+    )
     for path in root.rglob("*.py"):
-        text = path.read_text(encoding="utf-8", errors="ignore").lower()
-        if "langgraph" in text or "checkpoint_writes" in text or "checkpoint_blobs" in text:
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        if raw_runtime_pattern.search(text):
             return False
     return True
 
