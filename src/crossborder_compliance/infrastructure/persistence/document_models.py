@@ -7,6 +7,76 @@ from sqlalchemy.orm import Mapped, mapped_column
 from crossborder_compliance.infrastructure.persistence.models import Base, TenantAuditMixin, utcnow
 
 
+class DocumentVersionIntelligenceEntity(TenantAuditMixin, Base):
+    __tablename__ = "document_version_intelligence"
+    document_version_id: Mapped[str] = mapped_column(
+        ForeignKey("document_versions.document_version_id", ondelete="CASCADE"), primary_key=True
+    )
+    filename: Mapped[str] = mapped_column(String(255), nullable=False)
+    size_bytes: Mapped[int] = mapped_column(Integer, nullable=False)
+    language: Mapped[str | None] = mapped_column(String(40), nullable=True)
+
+
+class DocumentParseRunDetailEntity(TenantAuditMixin, Base):
+    __tablename__ = "document_parse_run_details"
+    __table_args__ = (
+        UniqueConstraint(
+            "tenant_id", "document_version_id", "parse_run_version",
+            name="uq_document_parse_run_detail_version",
+        ),
+        Index("ix_document_parse_run_detail_status", "tenant_id", "document_version_id", "status"),
+    )
+    parse_run_id: Mapped[str] = mapped_column(
+        ForeignKey("document_parse_runs.document_parse_run_id", ondelete="CASCADE"), primary_key=True
+    )
+    document_version_id: Mapped[str] = mapped_column(
+        ForeignKey("document_versions.document_version_id", ondelete="CASCADE"), nullable=False
+    )
+    parse_run_version: Mapped[int] = mapped_column(Integer, nullable=False)
+    parser_profile_id: Mapped[str] = mapped_column(String(120), nullable=False)
+    parser_name: Mapped[str] = mapped_column(String(120), nullable=False)
+    parser_version: Mapped[str] = mapped_column(String(80), nullable=False)
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    native_parse_used: Mapped[bool] = mapped_column(String(5), nullable=False, default="false")
+    ocr_used: Mapped[bool] = mapped_column(String(5), nullable=False, default="false")
+    vision_used: Mapped[bool] = mapped_column(String(5), nullable=False, default="false")
+    page_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    table_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    image_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    warning_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    quality_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    error_code: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    language: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    provenance_json: Mapped[dict] = mapped_column(JSON, nullable=False, default=dict)
+
+
+class SourceTraceDetailEntity(TenantAuditMixin, Base):
+    __tablename__ = "source_trace_details"
+    __table_args__ = (
+        Index("ix_source_trace_detail_parse_node", "tenant_id", "parse_run_id", "structure_node_id"),
+    )
+    source_trace_ref_id: Mapped[str] = mapped_column(
+        ForeignKey("source_trace_refs.source_trace_ref_id", ondelete="CASCADE"), primary_key=True
+    )
+    document_id: Mapped[str] = mapped_column(
+        ForeignKey("documents.document_id", ondelete="CASCADE"), nullable=False
+    )
+    parse_run_id: Mapped[str] = mapped_column(
+        ForeignKey("document_parse_runs.document_parse_run_id", ondelete="CASCADE"), nullable=False
+    )
+    structure_node_id: Mapped[str] = mapped_column(
+        ForeignKey("canonical_document_nodes.structure_node_id", ondelete="CASCADE"), nullable=False
+    )
+    sheet_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    slide_no: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    section_path: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    table_id: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    row_index: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    column_index: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    original_text_hash: Mapped[str] = mapped_column(String(128), nullable=False)
+
+
 class CanonicalStructureNodeEntity(TenantAuditMixin, Base):
     __tablename__ = "canonical_document_nodes"
     __table_args__ = (
