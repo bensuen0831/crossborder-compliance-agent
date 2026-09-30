@@ -710,3 +710,204 @@ class PostgresModelRegistryRepository(_TenantScopedMetadataRepository):
                     }
                 )
             return result
+
+
+
+class PostgresConfigRegistrySourceRepository(_TenantScopedMetadataRepository):
+    def _effective(self, model, lifecycle_column):
+        today = date.today()
+        return (
+            model.tenant_id == self.tenant_id,
+            lifecycle_column == GovernanceStatus.ACTIVE.value,
+            or_(model.effective_from.is_(None), model.effective_from <= today),
+            or_(model.effective_to.is_(None), model.effective_to >= today),
+        )
+
+    def load_classification_schemes(self) -> list[dict[str, object]]:
+        from crossborder_compliance.infrastructure.persistence.metadata_models import (
+            ClassificationBindingEntity,
+            ClassificationSchemeVersionEntity,
+        )
+        from crossborder_compliance.infrastructure.persistence.models import ClassificationSchemeEntity
+        today = date.today()
+        with self._sessions() as session:
+            rows = session.execute(
+                select(ClassificationSchemeVersionEntity, ClassificationSchemeEntity)
+                .join(
+                    ClassificationSchemeEntity,
+                    ClassificationSchemeEntity.scheme_id == ClassificationSchemeVersionEntity.scheme_id,
+                )
+                .where(
+                    ClassificationSchemeVersionEntity.tenant_id == self.tenant_id,
+                    ClassificationSchemeEntity.tenant_id == self.tenant_id,
+                    ClassificationSchemeVersionEntity.lifecycle_status == GovernanceStatus.ACTIVE.value,
+                    or_(ClassificationSchemeVersionEntity.effective_from.is_(None), ClassificationSchemeVersionEntity.effective_from <= today),
+                    or_(ClassificationSchemeVersionEntity.effective_to.is_(None), ClassificationSchemeVersionEntity.effective_to >= today),
+                )
+                .order_by(ClassificationSchemeEntity.code, ClassificationSchemeVersionEntity.version_no.desc())
+            ).all()
+            result = []
+            for version, scheme in rows:
+                bindings = session.scalars(
+                    select(ClassificationBindingEntity).where(
+                        ClassificationBindingEntity.tenant_id == self.tenant_id,
+                        ClassificationBindingEntity.scheme_version_id == version.scheme_version_id,
+                        ClassificationBindingEntity.status == "ACTIVE",
+                    )
+                ).all()
+                result.append(
+                    {
+                        "definition_id": scheme.scheme_id,
+                        "version_id": version.scheme_version_id,
+                        "version_no": version.version_no,
+                        "code": scheme.code,
+                        "display_name": scheme.name,
+                        "applicability": dict(version.applicability_json or {}),
+                        "bindings": [
+                            {
+                                "jurisdiction_id": row.jurisdiction_id,
+                                "industry_ref": row.industry_ref,
+                                "scenario_definition_id": row.scenario_definition_id,
+                                "priority": row.priority,
+                            }
+                            for row in bindings
+                        ],
+                    }
+                )
+            return result
+
+    def load_prompts(self) -> list[dict[str, object]]:
+        from crossborder_compliance.infrastructure.persistence.metadata_models import (
+            PromptDefinitionEntity,
+            PromptVersionEntity,
+        )
+        today = date.today()
+        with self._sessions() as session:
+            rows = session.execute(
+                select(PromptDefinitionEntity, PromptVersionEntity)
+                .join(PromptVersionEntity, PromptVersionEntity.prompt_version_id == PromptDefinitionEntity.active_version_id)
+                .where(
+                    PromptDefinitionEntity.tenant_id == self.tenant_id,
+                    PromptVersionEntity.tenant_id == self.tenant_id,
+                    PromptDefinitionEntity.status == "ACTIVE",
+                    PromptVersionEntity.lifecycle_status == GovernanceStatus.ACTIVE.value,
+                    or_(PromptVersionEntity.effective_from.is_(None), PromptVersionEntity.effective_from <= today),
+                    or_(PromptVersionEntity.effective_to.is_(None), PromptVersionEntity.effective_to >= today),
+                )
+            ).all()
+            return [
+                {
+                    "definition_id": definition.prompt_definition_id,
+                    "version_id": version.prompt_version_id,
+                    "version_no": version.version_no,
+                    "code": definition.code,
+                    "display_name": definition.display_name,
+                    "template_text": version.template_text,
+                    "capability_requirement": list(version.capability_requirement_json or []),
+                }
+                for definition, version in rows
+            ]
+
+    def load_rules(self) -> list[dict[str, object]]:
+        from crossborder_compliance.infrastructure.persistence.metadata_models import (
+            RuleDefinitionEntity,
+            RuleVersionEntity,
+        )
+        today = date.today()
+        with self._sessions() as session:
+            rows = session.execute(
+                select(RuleDefinitionEntity, RuleVersionEntity)
+                .join(RuleVersionEntity, RuleVersionEntity.rule_version_id == RuleDefinitionEntity.active_version_id)
+                .where(
+                    RuleDefinitionEntity.tenant_id == self.tenant_id,
+                    RuleVersionEntity.tenant_id == self.tenant_id,
+                    RuleDefinitionEntity.status == "ACTIVE",
+                    RuleVersionEntity.lifecycle_status == GovernanceStatus.ACTIVE.value,
+                    or_(RuleVersionEntity.effective_from.is_(None), RuleVersionEntity.effective_from <= today),
+                    or_(RuleVersionEntity.effective_to.is_(None), RuleVersionEntity.effective_to >= today),
+                )
+            ).all()
+            return [
+                {
+                    "definition_id": definition.rule_definition_id,
+                    "version_id": version.rule_version_id,
+                    "version_no": version.version_no,
+                    "code": definition.code,
+                    "display_name": definition.display_name,
+                    "safe_dsl": dict(version.safe_dsl_json or {}),
+                    "scope": dict(version.scope_json or {}),
+                    "priority": version.priority,
+                }
+                for definition, version in rows
+            ]
+
+    def load_templates(self) -> list[dict[str, object]]:
+        from crossborder_compliance.infrastructure.persistence.metadata_models import (
+            TemplateDefinitionEntity,
+            TemplateVersionEntity,
+        )
+        today = date.today()
+        with self._sessions() as session:
+            rows = session.execute(
+                select(TemplateDefinitionEntity, TemplateVersionEntity)
+                .join(
+                    TemplateVersionEntity,
+                    TemplateVersionEntity.template_version_id == TemplateDefinitionEntity.active_version_id,
+                )
+                .where(
+                    TemplateDefinitionEntity.tenant_id == self.tenant_id,
+                    TemplateVersionEntity.tenant_id == self.tenant_id,
+                    TemplateDefinitionEntity.status == "ACTIVE",
+                    TemplateVersionEntity.lifecycle_status == GovernanceStatus.ACTIVE.value,
+                    or_(TemplateVersionEntity.effective_from.is_(None), TemplateVersionEntity.effective_from <= today),
+                    or_(TemplateVersionEntity.effective_to.is_(None), TemplateVersionEntity.effective_to >= today),
+                )
+            ).all()
+            return [
+                {
+                    "definition_id": definition.template_definition_id,
+                    "version_id": version.template_version_id,
+                    "version_no": version.version_no,
+                    "code": definition.code,
+                    "display_name": definition.display_name,
+                    "template_type": definition.template_type,
+                    "field_schema": dict(version.field_schema_json or {}),
+                    "content_ref": version.content_ref,
+                }
+                for definition, version in rows
+            ]
+
+    def load_knowledge(self) -> list[dict[str, object]]:
+        from crossborder_compliance.infrastructure.persistence.metadata_models import (
+            KnowledgeCollectionEntity,
+            KnowledgeCollectionVersionEntity,
+        )
+        today = date.today()
+        with self._sessions() as session:
+            rows = session.execute(
+                select(KnowledgeCollectionEntity, KnowledgeCollectionVersionEntity)
+                .join(
+                    KnowledgeCollectionVersionEntity,
+                    KnowledgeCollectionVersionEntity.knowledge_collection_version_id
+                    == KnowledgeCollectionEntity.active_version_id,
+                )
+                .where(
+                    KnowledgeCollectionEntity.tenant_id == self.tenant_id,
+                    KnowledgeCollectionVersionEntity.tenant_id == self.tenant_id,
+                    KnowledgeCollectionEntity.status == "ACTIVE",
+                    KnowledgeCollectionVersionEntity.lifecycle_status == GovernanceStatus.ACTIVE.value,
+                    or_(KnowledgeCollectionVersionEntity.effective_from.is_(None), KnowledgeCollectionVersionEntity.effective_from <= today),
+                    or_(KnowledgeCollectionVersionEntity.effective_to.is_(None), KnowledgeCollectionVersionEntity.effective_to >= today),
+                )
+            ).all()
+            return [
+                {
+                    "definition_id": definition.knowledge_collection_id,
+                    "version_id": version.knowledge_collection_version_id,
+                    "version_no": version.version_no,
+                    "code": definition.code,
+                    "display_name": definition.display_name,
+                    "payload": dict(version.payload_json or {}),
+                }
+                for definition, version in rows
+            ]
