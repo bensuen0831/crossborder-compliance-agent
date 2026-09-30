@@ -416,10 +416,8 @@ def test_prompt_rule_template_knowledge_classification_and_jurisdiction_registri
         code=f"J-{uuid4().hex[:6]}", display_name="Test Jurisdiction", payload={"region": "TEST"}
     )
     _publish_special(jurisdiction_admin, j)
-    jreg = ScenarioRegistry(PostgresRegistrySourceRepository(sf, ctx))
-    # Use generic projection directly for the JURISDICTION kind.
     from crossborder_compliance.infrastructure.registry import JurisdictionRegistry
-    jr = JurisdictionRegistry(PostgresRegistrySourceRepository(sf, ctx))
+    jr = JurisdictionRegistry(PostgresConfigRegistrySourceRepository(sf, ctx))
     jr.refresh()
     assert jr.get(UUID(str(j["definition_id"]))) is not None
 
@@ -503,4 +501,4 @@ def test_prompt_rule_template_knowledge_classification_and_jurisdiction_registri
                 )
             )
         )
-    assert {"JURISDICTION", "CLASSIFICATION", "PROMPT", "RULE", "TEMPLATE", "KNOWLEDGE"} <= kinds
+    assert {"JURISDICTION_CONFIG", "CLASSIFICATION", "PROMPT", "RULE", "TEMPLATE", "KNOWLEDGE"} <= kinds
