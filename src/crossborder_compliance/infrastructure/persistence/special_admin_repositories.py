@@ -519,10 +519,10 @@ class PostgresJurisdictionAdminRepository:
                 MetadataDefinitionEntity(
                     definition_id=definition_id,
                     tenant_id=self.tenant_id,
-                    kind="JURISDICTION",
+                    kind="JURISDICTION_CONFIG",
                     code=code,
                     display_name=display_name,
-                    canonical_object_type="JURISDICTION",
+                    canonical_object_type="JURISDICTION_CONFIG",
                     canonical_object_id=jurisdiction_id,
                     active_version_id=None,
                     status="ACTIVE",
@@ -557,7 +557,7 @@ class PostgresJurisdictionAdminRepository:
             return session.scalar(
                 select(MetadataDefinitionEntity).where(
                     MetadataDefinitionEntity.tenant_id == self.tenant_id,
-                    MetadataDefinitionEntity.kind == "JURISDICTION",
+                    MetadataDefinitionEntity.kind == "JURISDICTION_CONFIG",
                     MetadataDefinitionEntity.canonical_object_id == str(jurisdiction_id),
                 )
             )
@@ -614,7 +614,7 @@ class PostgresJurisdictionAdminRepository:
     def impact_preview(self, jurisdiction_id: UUID) -> dict[str, object]:
         return {
             "definition_id": str(jurisdiction_id),
-            "object_kind": "JURISDICTION",
+            "object_kind": "JURISDICTION_CONFIG",
             "registry_refresh_required": True,
             "existing_snapshot_switch": False,
         }
