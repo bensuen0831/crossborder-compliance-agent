@@ -12,17 +12,18 @@ from crossborder_compliance.interfaces.api.context import repository_context_fro
 
 router = APIRouter(prefix="/api/v1/admin", tags=["admin-metadata"])
 
-RESOURCE_KEYS = (
-    "jurisdictions",
-    "scenarios",
-    "products",
-    "classification-schemes",
-    "models",
-    "prompts",
-    "rules",
-    "templates",
-    "knowledge-collections",
-)
+RESOURCE_KIND = {
+    "jurisdictions": "JURISDICTION",
+    "scenarios": "SCENARIO",
+    "products": "PRODUCT",
+    "classification-schemes": "CLASSIFICATION_SCHEME",
+    "models": "MODEL",
+    "prompts": "PROMPT",
+    "rules": "RULE",
+    "templates": "TEMPLATE",
+    "knowledge-collections": "KNOWLEDGE_COLLECTION",
+}
+RESOURCE_KEYS = tuple(RESOURCE_KIND)
 
 _SECRET_KEYS = {
     "api_key", "access_token", "refresh_token", "client_secret", "password",
@@ -101,7 +102,7 @@ def _install_resource(resource: str) -> None:
         service = _service(request, resource, context)
         return _call(
             service.create_draft,
-            kind=resource.upper().replace("-", "_"),
+            kind=RESOURCE_KIND[resource],
             code=body.code,
             display_name=body.display_name,
             payload=body.payload,
