@@ -11,11 +11,11 @@ from reportlab.pdfgen import canvas
 from sqlalchemy import select
 
 from crossborder_compliance.application.document_services import (
-    DocumentAnalysisService, DocumentIngestionService, DocumentParseService
+    CrossDocumentLinkingService, DocumentAnalysisService, DocumentIngestionService, DocumentParseService
 )
 from crossborder_compliance.config import get_settings
 from crossborder_compliance.domain.document_intelligence import (
-    CandidateDiagramResult, DiagramEdgeCandidate, DiagramNodeCandidate
+    CandidateDiagramResult, DiagramEdgeCandidate, DiagramNodeCandidate, SourceLocator, SourceTraceRef
 )
 from crossborder_compliance.domain.security import RepositoryContext
 from crossborder_compliance.infrastructure.document_parsers import (
@@ -23,7 +23,7 @@ from crossborder_compliance.infrastructure.document_parsers import (
 )
 from crossborder_compliance.infrastructure.persistence.db import build_session_factory
 from crossborder_compliance.infrastructure.persistence.document_models import (
-    AnalysisSnapshotParseRunPinEntity, CandidateDataItemSourceLinkEntity
+    AnalysisSnapshotParseRunPinEntity, CandidateDataItemEntity, CandidateDataItemSourceLinkEntity, CrossDocumentLinkEntity
 )
 from crossborder_compliance.infrastructure.persistence.document_repositories import (
     PostgresDocumentIntelligenceRepository
@@ -154,6 +154,22 @@ def test_phase1d_multiformat_pipeline_provenance_summary_tenant_and_snapshot_pin
         trace=s.get(SourceTraceRefEntity,link.source_trace_ref_id)
         assert trace is not None and trace.row_index==1 and trace.column_index is not None and trace.sheet_name=="Fields"
         assert trace.original_text_hash
+
+    # Cross-document linking is based on normalized candidate + evidence, never filename.
+    prun=UUID(str(runs[2]["parse_run_id"]))
+    with sf() as s:
+        left=s.scalar(select(CandidateDataItemEntity).where(CandidateDataItemEntity.tenant_id==str(ta),CandidateDataItemEntity.parse_run_id==str(xrun),CandidateDataItemEntity.normalized_name=="field"))
+        right=s.scalar(select(CandidateDataItemEntity).where(CandidateDataItemEntity.tenant_id==str(ta),CandidateDataItemEntity.parse_run_id==str(prun),CandidateDataItemEntity.normalized_name=="field"))
+        llink=s.scalar(select(CandidateDataItemSourceLinkEntity).where(CandidateDataItemSourceLinkEntity.candidate_data_item_id==left.candidate_data_item_id))
+        rlink=s.scalar(select(CandidateDataItemSourceLinkEntity).where(CandidateDataItemSourceLinkEntity.candidate_data_item_id==right.candidate_data_item_id))
+        lt=s.get(SourceTraceRefEntity,llink.source_trace_ref_id); rt=s.get(SourceTraceRefEntity,rlink.source_trace_ref_id)
+    def domain_trace(t):
+        return SourceTraceRef(UUID(t.source_trace_ref_id),UUID(t.document_id),UUID(t.document_version_id),UUID(t.parse_run_id),UUID(t.structure_node_id),
+            SourceLocator(page_no=t.page_no,sheet_name=t.sheet_name,slide_no=t.slide_no,section_path=t.section_path,table_id=t.table_id,row_index=t.row_index,column_index=t.column_index,bbox=tuple(t.bbox_json) if t.bbox_json else None),t.original_text_hash)
+    cross=CrossDocumentLinkingService(ra).link_same_normalized_candidate(project_id=pa,left_object_id=UUID(left.candidate_data_item_id),right_object_id=UUID(right.candidate_data_item_id),left_normalized_name=left.normalized_name,right_normalized_name=right.normalized_name,left_trace=domain_trace(lt),right_trace=domain_trace(rt))
+    assert cross is not None
+    with sf() as s:
+        assert s.get(CrossDocumentLinkEntity,str(cross.cross_document_link_id)) is not None
 
     # PPT connector becomes candidate flow only.
     flows=ra.list_candidate_flows(UUID(str(runs[2]["parse_run_id"])))
