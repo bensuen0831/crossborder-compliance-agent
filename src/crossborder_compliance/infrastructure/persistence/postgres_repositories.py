@@ -13,6 +13,7 @@ from crossborder_compliance.domain.entities import (
     ConversationThread,
     DataItem,
     Document,
+    DocumentVersion,
     EvidenceReference,
     Jurisdiction,
     LegalBasisItem,
@@ -42,6 +43,7 @@ from crossborder_compliance.infrastructure.persistence.models import (
     ConversationThreadEntity,
     DataItemEntity,
     DocumentEntity,
+    DocumentVersionEntity,
     EvidenceReferenceEntity,
     JurisdictionEntity,
     LegalBasisEvidenceLinkEntity,
@@ -234,6 +236,62 @@ class PostgresDocumentRepository(_TenantScopedRepository):
                 created_at=row.created_at,
                 updated_at=row.updated_at,
             )
+
+    def add_version(self, version: DocumentVersion) -> DocumentVersion:
+        self._assert_tenant(version.tenant_id)
+        with self._sessions() as session, session.begin():
+            document = self._scoped_get(
+                session, DocumentEntity, DocumentEntity.document_id, version.document_id
+            )
+            if document is None:
+                raise LookupError("document not found in tenant scope")
+            row = DocumentVersionEntity(
+                document_version_id=str(version.document_version_id),
+                tenant_id=self.tenant_id,
+                document_id=str(version.document_id),
+                version_no=version.version_no,
+                storage_ref=version.storage_ref,
+                content_hash=version.content_hash,
+                record_version=version.record_version,
+                status=version.status,
+            )
+            session.add(row)
+        return version
+
+    def activate_version(
+        self,
+        document_id: UUID,
+        version_id: UUID,
+        *,
+        expected_record_version: int,
+    ) -> Document:
+        with self._sessions() as session, session.begin():
+            version = self._scoped_get(
+                session,
+                DocumentVersionEntity,
+                DocumentVersionEntity.document_version_id,
+                version_id,
+            )
+            if version is None or version.document_id != str(document_id):
+                raise LookupError("document version not found in tenant scope")
+            result = session.execute(
+                update(DocumentEntity)
+                .where(
+                    DocumentEntity.document_id == str(document_id),
+                    DocumentEntity.tenant_id == self.tenant_id,
+                    DocumentEntity.record_version == expected_record_version,
+                )
+                .values(
+                    active_version_id=str(version_id),
+                    record_version=DocumentEntity.record_version + 1,
+                )
+            )
+            if result.rowcount != 1:
+                raise OptimisticConcurrencyError("document version changed")
+        document = self.get_document(document_id)
+        if document is None:
+            raise LookupError("document disappeared")
+        return document
 
 
 class PostgresDataInventoryRepository(_TenantScopedRepository):
