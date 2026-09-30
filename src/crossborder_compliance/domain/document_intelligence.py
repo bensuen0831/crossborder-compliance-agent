@@ -164,6 +164,30 @@ class ParsedDocument:
 
 
 @dataclass(frozen=True, slots=True)
+class DocumentParseRun:
+    parse_run_id: UUID
+    document_version_id: UUID
+    parse_run_version: int
+    parser_profile_id: str
+    parser_name: str
+    parser_version: str
+    status: ParseStatus
+    started_at: datetime | None
+    completed_at: datetime | None
+    native_parse_used: bool
+    ocr_used: bool
+    vision_used: bool
+    page_count: int
+    table_count: int
+    image_count: int
+    warning_count: int
+    quality_score: float | None
+    error_code: str | None
+    language: str | None
+    provenance: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass(frozen=True, slots=True)
 class DocumentParseQualityResult:
     quality_result_id: UUID
     parse_run_id: UUID
