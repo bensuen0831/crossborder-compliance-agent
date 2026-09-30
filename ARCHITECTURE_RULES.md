@@ -80,3 +80,15 @@
 73. `Stage1ComplianceResult` 必須顯式包含 `cross_border_results[]`；不得要求消費者從 `data_flow_results` 或 narrative 推斷正式跨境結論。
 74. Visualization Snapshot / Cache / Export 不是法律結果 Source of Truth；其內容必須可由同一版本 Structured Domain Result 重建。
 75. LangGraph Checkpointer internal schema 由官方 checkpointer setup/upgrade path 管理；Domain Alembic 不得自行建立、修改、重命名或解讀其 internal tables。
+
+
+## Phase 1C Metadata / Registry / Admin Addendum
+
+76. Registry 是 runtime projection，不是業務 Source of Truth；authoritative data 必須保留於 Database / Versioned Config。
+77. Open-source / self-hosted LLM 必須經 ModelProviderAdapter / LLMService 以 API 接入；Agent / Skill / LangGraph 不得綁定 model serving framework、base URL 或具體 model name。
+78. Model replacement 只允許透過 Model Registry / Model Config，不得要求修改 Agent / Skill / Graph。
+79. Prompt 必須版本化並經 Registry；Business Prompt 不得 hard-code 在 Agent。
+80. Admin Draft 不得被 Runtime Registry 解析為 ACTIVE。
+81. Registry Refresh 必須在 Domain Publish 成功 commit 後執行；必須使用 Transactional Outbox 或等價可靠機制，避免 DB / Registry split-brain。
+82. Existing AnalysisSnapshot 不得因 Registry Refresh 靜默切換版本；resume 必須使用 snapshot-pinned approved version。
+83. Model credential 真值不得存入 Registry DTO / Frontend / Audit Log；metadata persistence 只可保存 secret_ref。
