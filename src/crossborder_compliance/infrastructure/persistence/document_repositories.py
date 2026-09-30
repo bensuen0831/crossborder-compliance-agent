@@ -208,6 +208,34 @@ class PostgresDocumentIntelligenceRepository:
                 traces.append(SourceTraceRef(trace_id,UUID(ver.document_id),UUID(ver.document_version_id),parse_run_id,n.structure_node_id,locator,text_hash))
             return traces
 
+    def get_source_trace(self,source_trace_ref_id:UUID)->SourceTraceRef|None:
+        with self._sessions() as s:
+            base=self._get(s,SourceTraceRefEntity,SourceTraceRefEntity.source_trace_ref_id,source_trace_ref_id)
+            if base is None:
+                return None
+            detail=self._get(s,SourceTraceDetailEntity,SourceTraceDetailEntity.source_trace_ref_id,source_trace_ref_id)
+            if detail is None:
+                raise LookupError("source trace detail missing")
+            locator=SourceLocator(
+                page_no=base.page_no,
+                sheet_name=detail.sheet_name,
+                slide_no=detail.slide_no,
+                section_path=detail.section_path or base.section,
+                table_id=detail.table_id or base.table_ref,
+                row_index=detail.row_index,
+                column_index=detail.column_index,
+                bbox=tuple(base.bbox_json) if base.bbox_json else None,
+            )
+            return SourceTraceRef(
+                UUID(base.source_trace_ref_id),
+                UUID(detail.document_id),
+                UUID(base.document_version_id),
+                UUID(detail.parse_run_id),
+                UUID(detail.structure_node_id),
+                locator,
+                detail.original_text_hash,
+            )
+
     def list_structure(self,parse_run_id:UUID)->list[dict[str,object]]:
         with self._sessions() as s:
             rows=s.scalars(select(CanonicalStructureNodeEntity).where(
