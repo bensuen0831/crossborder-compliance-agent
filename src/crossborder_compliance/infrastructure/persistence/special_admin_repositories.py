@@ -16,6 +16,8 @@ from crossborder_compliance.domain.security import RepositoryContext
 from crossborder_compliance.infrastructure.persistence.metadata_models import (
     AdminPublishRecordEntity,
     ClassificationSchemeVersionEntity,
+    MetadataDefinitionEntity,
+    MetadataVersionEntity,
     ModelCapabilityEntity,
     ModelDefinitionEntity,
     ModelDeploymentEntity,
@@ -25,8 +27,9 @@ from crossborder_compliance.infrastructure.persistence.metadata_models import (
 )
 from crossborder_compliance.infrastructure.persistence.metadata_repositories import (
     MetadataOptimisticConcurrencyError,
+    PostgresAdminMetadataRepository,
 )
-from crossborder_compliance.infrastructure.persistence.models import ClassificationSchemeEntity
+from crossborder_compliance.infrastructure.persistence.models import ClassificationSchemeEntity, JurisdictionEntity
 
 
 def utcnow() -> datetime:
@@ -479,3 +482,140 @@ class PostgresModelAdminRepository:
             "requires_root_graph_change": False,
             "registry_refresh_required": True,
         }
+
+
+
+class PostgresJurisdictionAdminRepository:
+    """Canonical Jurisdiction identity + immutable versioned config overlay."""
+
+    def __init__(self, session_factory: sessionmaker, context: RepositoryContext):
+        self._sessions = session_factory
+        self._context = context
+        self._policy = AdminActionPolicy()
+        self._config_repo = PostgresAdminMetadataRepository(session_factory, context)
+
+    @property
+    def tenant_id(self) -> str:
+        return str(self._context.tenant_id)
+
+    def create_draft(self, *, code: str, display_name: str, payload: dict[str, object]) -> dict[str, object]:
+        self._policy.require(self._context, self._policy.draft_scope)
+        jurisdiction_id = str(uuid4())
+        definition_id = str(uuid4())
+        version_id = str(uuid4())
+        with self._sessions() as session, session.begin():
+            session.add(
+                JurisdictionEntity(
+                    jurisdiction_id=jurisdiction_id,
+                    tenant_id=self.tenant_id,
+                    code=code,
+                    name=display_name,
+                    metadata_json={},
+                    status=GovernanceStatus.DRAFT.value,
+                    record_version=1,
+                )
+            )
+            session.add(
+                MetadataDefinitionEntity(
+                    definition_id=definition_id,
+                    tenant_id=self.tenant_id,
+                    kind="JURISDICTION_CONFIG",
+                    code=code,
+                    display_name=display_name,
+                    canonical_object_type="JURISDICTION",
+                    canonical_object_id=jurisdiction_id,
+                    active_version_id=None,
+                    status="ACTIVE",
+                    record_version=1,
+                )
+            )
+            session.flush()
+            session.add(
+                MetadataVersionEntity(
+                    version_id=version_id,
+                    tenant_id=self.tenant_id,
+                    definition_id=definition_id,
+                    version_no=1,
+                    lifecycle_status=GovernanceStatus.DRAFT.value,
+                    payload_json=dict(payload),
+                    created_by=self._context.permission.actor_id,
+                    status="ACTIVE",
+                    record_version=1,
+                )
+            )
+        return {
+            "definition_id": jurisdiction_id,
+            "config_definition_id": definition_id,
+            "version_id": version_id,
+            "version_no": 1,
+            "lifecycle_status": GovernanceStatus.DRAFT.value,
+            "record_version": 1,
+        }
+
+    def _config_definition(self, jurisdiction_id: UUID):
+        with self._sessions() as session:
+            return session.scalar(
+                select(MetadataDefinitionEntity).where(
+                    MetadataDefinitionEntity.tenant_id == self.tenant_id,
+                    MetadataDefinitionEntity.kind == "JURISDICTION_CONFIG",
+                    MetadataDefinitionEntity.canonical_object_id == str(jurisdiction_id),
+                )
+            )
+
+    def update_draft(self, version_id: UUID, *, payload: dict[str, object], expected_record_version: int) -> dict[str, object]:
+        self._policy.require(self._context, self._policy.draft_scope)
+        return self._config_repo.update_draft(
+            version_id, payload=payload, expected_record_version=expected_record_version
+        )
+
+    def transition(self, version_id: UUID, *, target_status: str, expected_record_version: int) -> dict[str, object]:
+        result = self._config_repo.transition(
+            version_id,
+            target_status=target_status,
+            actor_id=self._context.permission.actor_id,
+            expected_record_version=expected_record_version,
+        )
+        with self._sessions() as session, session.begin():
+            definition = session.scalar(
+                select(MetadataDefinitionEntity).where(
+                    MetadataDefinitionEntity.definition_id == str(result["definition_id"]),
+                    MetadataDefinitionEntity.tenant_id == self.tenant_id,
+                )
+            )
+            if definition is None or not definition.canonical_object_id:
+                raise LookupError("jurisdiction config definition missing")
+            jurisdiction = session.scalar(
+                select(JurisdictionEntity).where(
+                    JurisdictionEntity.jurisdiction_id == definition.canonical_object_id,
+                    JurisdictionEntity.tenant_id == self.tenant_id,
+                )
+            )
+            if jurisdiction is None:
+                raise LookupError("canonical jurisdiction missing")
+            if target_status == GovernanceStatus.ACTIVE.value:
+                jurisdiction.status = "ACTIVE"
+            elif target_status in {
+                GovernanceStatus.ARCHIVED.value,
+                GovernanceStatus.EXPIRED.value,
+            }:
+                jurisdiction.status = target_status
+            jurisdiction.record_version += 1
+            jurisdiction.updated_at = utcnow()
+        result["definition_id"] = definition.canonical_object_id
+        result["config_definition_id"] = definition.definition_id
+        return result
+
+    def history(self, jurisdiction_id: UUID) -> list[dict[str, object]]:
+        definition = self._config_definition(jurisdiction_id)
+        if definition is None:
+            return []
+        return self._config_repo.history(UUID(definition.definition_id))
+
+    def impact_preview(self, jurisdiction_id: UUID) -> dict[str, object]:
+        return {
+            "definition_id": str(jurisdiction_id),
+            "object_kind": "JURISDICTION",
+            "registry_refresh_required": True,
+            "existing_snapshot_switch": False,
+        }
+
