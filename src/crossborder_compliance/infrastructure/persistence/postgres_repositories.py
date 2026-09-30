@@ -32,8 +32,11 @@ from crossborder_compliance.infrastructure.persistence.mappers import (
 from crossborder_compliance.infrastructure.persistence.models import (
     AnalysisSnapshotEntity,
     AnalysisStageResultEntity,
+    ClassificationCategoryEntity,
+    ClassificationLevelEntity,
     ClassificationResultCategoryEntity,
     ClassificationResultEntity,
+    ClassificationSchemeEntity,
     ConversationMessageEntity,
     ConversationThreadEntity,
     DataItemEntity,
@@ -44,10 +47,13 @@ from crossborder_compliance.infrastructure.persistence.models import (
     LegalBasisItemEntity,
     LegalBasisRuleHitLinkEntity,
     LegalEntityEntity,
+    RegulatoryStructureNodeEntity,
+    RuleHitEntity,
     ProjectEntity,
     ProjectPartyEntity,
     ProjectVersionEntity,
     ReviewTaskEntity,
+    InteractionSessionEntity,
     WorkflowRunEntity,
 )
 
@@ -169,7 +175,17 @@ class PostgresPartyRepository(_TenantScopedRepository):
 
     def add_project_party(self, party: ProjectParty) -> ProjectParty:
         self._assert_tenant(party.tenant_id)
-        row = ProjectPartyEntity(
+        with self._sessions() as session, session.begin():
+            project = self._scoped_get(session, ProjectEntity, ProjectEntity.project_id, party.project_id)
+            if project is None:
+                raise LookupError("project not found in tenant scope")
+            if party.legal_entity_id:
+                legal_entity = self._scoped_get(
+                    session, LegalEntityEntity, LegalEntityEntity.legal_entity_id, party.legal_entity_id
+                )
+                if legal_entity is None:
+                    raise LookupError("legal entity not found in tenant scope")
+            row = ProjectPartyEntity(
             project_party_id=str(party.project_party_id),
             tenant_id=self.tenant_id,
             project_id=str(party.project_id),
@@ -177,8 +193,7 @@ class PostgresPartyRepository(_TenantScopedRepository):
             display_name=party.display_name,
             record_version=party.record_version,
             status=party.status,
-        )
-        with self._sessions() as session, session.begin():
+            )
             session.add(row)
         return party
 
@@ -186,7 +201,11 @@ class PostgresPartyRepository(_TenantScopedRepository):
 class PostgresDocumentRepository(_TenantScopedRepository):
     def add_document(self, document: Document) -> Document:
         self._assert_tenant(document.tenant_id)
-        row = DocumentEntity(
+        with self._sessions() as session, session.begin():
+            project = self._scoped_get(session, ProjectEntity, ProjectEntity.project_id, document.project_id)
+            if project is None:
+                raise LookupError("project not found in tenant scope")
+            row = DocumentEntity(
             document_id=str(document.document_id),
             tenant_id=self.tenant_id,
             project_id=str(document.project_id),
@@ -194,8 +213,7 @@ class PostgresDocumentRepository(_TenantScopedRepository):
             active_version_id=str(document.active_version_id) if document.active_version_id else None,
             record_version=document.record_version,
             status=document.status,
-        )
-        with self._sessions() as session, session.begin():
+            )
             session.add(row)
         return document
 
@@ -220,7 +238,11 @@ class PostgresDocumentRepository(_TenantScopedRepository):
 class PostgresDataInventoryRepository(_TenantScopedRepository):
     def add_data_item(self, item: DataItem) -> DataItem:
         self._assert_tenant(item.tenant_id)
-        row = DataItemEntity(
+        with self._sessions() as session, session.begin():
+            project = self._scoped_get(session, ProjectEntity, ProjectEntity.project_id, item.project_id)
+            if project is None:
+                raise LookupError("project not found in tenant scope")
+            row = DataItemEntity(
             data_item_id=str(item.data_item_id),
             tenant_id=self.tenant_id,
             project_id=str(item.project_id),
@@ -232,8 +254,7 @@ class PostgresDataInventoryRepository(_TenantScopedRepository):
             ),
             record_version=item.record_version,
             status=item.status,
-        )
-        with self._sessions() as session, session.begin():
+            )
             session.add(row)
         return DataItemMapper.to_domain(row)
 
@@ -282,7 +303,22 @@ class PostgresClassificationRepository(_TenantScopedRepository):
         self, result: ClassificationResult, category_ids: list[UUID] | None = None
     ) -> ClassificationResult:
         self._assert_tenant(result.tenant_id)
-        row = ClassificationResultEntity(
+        with self._sessions() as session, session.begin():
+            scheme = self._scoped_get(session, ClassificationSchemeEntity, ClassificationSchemeEntity.scheme_id, result.scheme_id)
+            jurisdiction = self._scoped_get(session, JurisdictionEntity, JurisdictionEntity.jurisdiction_id, result.jurisdiction_id)
+            if scheme is None or jurisdiction is None:
+                raise LookupError("classification scheme or jurisdiction not found in tenant scope")
+            if result.level_id:
+                level = self._scoped_get(session, ClassificationLevelEntity, ClassificationLevelEntity.level_id, result.level_id)
+                if level is None or level.scheme_id != str(result.scheme_id):
+                    raise LookupError("classification level not found in tenant scope")
+            checked_categories: list[UUID] = []
+            for category_id in category_ids or []:
+                category = self._scoped_get(session, ClassificationCategoryEntity, ClassificationCategoryEntity.category_id, category_id)
+                if category is None or category.scheme_id != str(result.scheme_id):
+                    raise LookupError("classification category not found in tenant scope")
+                checked_categories.append(category_id)
+            row = ClassificationResultEntity(
             classification_result_id=str(result.classification_result_id),
             tenant_id=self.tenant_id,
             subject_type=result.subject_type,
@@ -295,10 +331,9 @@ class PostgresClassificationRepository(_TenantScopedRepository):
             review_required=result.review_required,
             record_version=result.record_version,
             status=result.status,
-        )
-        with self._sessions() as session, session.begin():
+            )
             session.add(row)
-            for category_id in category_ids or []:
+            for category_id in checked_categories:
                 session.add(
                     ClassificationResultCategoryEntity(
                         classification_result_category_id=str(uuid4()),
@@ -340,7 +375,20 @@ class PostgresEvidenceRepository(_TenantScopedRepository):
 class PostgresLegalBasisRepository(_TenantScopedRepository):
     def add_legal_basis(self, item: LegalBasisItem) -> LegalBasisItem:
         self._assert_tenant(item.tenant_id)
-        row = LegalBasisItemEntity(
+        with self._sessions() as session, session.begin():
+            jurisdiction = self._scoped_get(session, JurisdictionEntity, JurisdictionEntity.jurisdiction_id, item.jurisdiction_id)
+            if jurisdiction is None:
+                raise LookupError("jurisdiction not found in tenant scope")
+            if item.regulatory_structure_node_id:
+                node = self._scoped_get(
+                    session,
+                    RegulatoryStructureNodeEntity,
+                    RegulatoryStructureNodeEntity.regulatory_structure_node_id,
+                    item.regulatory_structure_node_id,
+                )
+                if node is None:
+                    raise LookupError("regulatory structure node not found in tenant scope")
+            row = LegalBasisItemEntity(
             legal_basis_id=str(item.legal_basis_id),
             tenant_id=self.tenant_id,
             jurisdiction_id=str(item.jurisdiction_id),
@@ -355,8 +403,7 @@ class PostgresLegalBasisRepository(_TenantScopedRepository):
             citation_locator=item.citation_locator,
             record_version=item.record_version,
             status=item.status,
-        )
-        with self._sessions() as session, session.begin():
+            )
             session.add(row)
         return item
 
@@ -367,6 +414,9 @@ class PostgresLegalBasisRepository(_TenantScopedRepository):
             )
             if legal_basis is None:
                 raise LookupError("legal basis not found in tenant scope")
+            rule_hit = self._scoped_get(session, RuleHitEntity, RuleHitEntity.rule_hit_id, rule_hit_id)
+            if rule_hit is None:
+                raise LookupError("rule hit not found in tenant scope")
             session.add(
                 LegalBasisRuleHitLinkEntity(
                     legal_basis_rule_hit_link_id=str(uuid4()),
@@ -443,7 +493,15 @@ class PostgresAnalysisStageRepository(_TenantScopedRepository):
 class PostgresConversationRepository(_TenantScopedRepository):
     def add_thread(self, thread: ConversationThread) -> ConversationThread:
         self._assert_tenant(thread.tenant_id)
-        row = ConversationThreadEntity(
+        with self._sessions() as session, session.begin():
+            parent_session = self._scoped_get(session, InteractionSessionEntity, InteractionSessionEntity.session_id, thread.session_id)
+            if parent_session is None:
+                raise LookupError("interaction session not found in tenant scope")
+            if thread.project_id:
+                project = self._scoped_get(session, ProjectEntity, ProjectEntity.project_id, thread.project_id)
+                if project is None:
+                    raise LookupError("project not found in tenant scope")
+            row = ConversationThreadEntity(
             conversation_thread_id=str(thread.conversation_thread_id),
             tenant_id=self.tenant_id,
             session_id=str(thread.session_id),
@@ -451,8 +509,7 @@ class PostgresConversationRepository(_TenantScopedRepository):
             title=thread.title,
             status=thread.status,
             record_version=thread.record_version,
-        )
-        with self._sessions() as session, session.begin():
+            )
             session.add(row)
         return ConversationMapper.to_domain(row)
 
