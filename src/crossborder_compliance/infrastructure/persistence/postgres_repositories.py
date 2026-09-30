@@ -28,6 +28,7 @@ from crossborder_compliance.infrastructure.persistence.mappers import (
     DataItemMapper,
     EvidenceMapper,
     ProjectMapper,
+    RuntimeDomainMapper,
 )
 from crossborder_compliance.infrastructure.persistence.models import (
     AnalysisSnapshotEntity,
@@ -449,25 +450,28 @@ class PostgresLegalBasisRepository(_TenantScopedRepository):
 
 
 class PostgresAnalysisSnapshotRepository(_TenantScopedRepository):
-    def get_snapshot(self, analysis_snapshot_id: UUID) -> AnalysisSnapshotEntity | None:
+    def get_snapshot(self, analysis_snapshot_id: UUID):
         with self._sessions() as session:
-            return self._scoped_get(
+            row = self._scoped_get(
                 session, AnalysisSnapshotEntity, AnalysisSnapshotEntity.analysis_snapshot_id, analysis_snapshot_id
             )
+            return RuntimeDomainMapper.snapshot_to_domain(row) if row else None
 
 
 class PostgresWorkflowRunRepository(_TenantScopedRepository):
-    def get_workflow_run(self, workflow_run_id: UUID) -> WorkflowRunEntity | None:
+    def get_workflow_run(self, workflow_run_id: UUID):
         with self._sessions() as session:
-            return self._scoped_get(
+            row = self._scoped_get(
                 session, WorkflowRunEntity, WorkflowRunEntity.workflow_run_id, workflow_run_id
             )
+            return RuntimeDomainMapper.workflow_run_to_domain(row) if row else None
 
 
 class PostgresReviewRepository(_TenantScopedRepository):
-    def get_review(self, review_id: UUID) -> ReviewTaskEntity | None:
+    def get_review(self, review_id: UUID):
         with self._sessions() as session:
-            return self._scoped_get(session, ReviewTaskEntity, ReviewTaskEntity.review_id, review_id)
+            row = self._scoped_get(session, ReviewTaskEntity, ReviewTaskEntity.review_id, review_id)
+            return RuntimeDomainMapper.review_to_domain(row) if row else None
 
 
 class PostgresAnalysisStageRepository(_TenantScopedRepository):
