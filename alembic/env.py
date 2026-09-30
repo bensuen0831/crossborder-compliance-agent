@@ -5,6 +5,7 @@ import os
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 from crossborder_compliance.infrastructure.persistence.models import Base
+from crossborder_compliance.infrastructure.persistence import metadata_models as _metadata_models  # noqa: F401
 
 config = context.config
 if config.config_file_name is not None:
