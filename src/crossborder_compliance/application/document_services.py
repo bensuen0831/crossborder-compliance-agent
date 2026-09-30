@@ -104,7 +104,7 @@ class DocumentParseService:
 
     def request_parse(self, *, document_version_id: UUID, idempotency_key: str, parser_profile_id: str = "default") -> dict[str, object]:
         task = self.repository.create_parse_task(document_version_id=document_version_id, idempotency_key=idempotency_key, parser_profile_id=parser_profile_id)
-        if task.get("status") == "ACCEPTED":
+        if task.get("enqueue_required") is True:
             self.task_queue.enqueue(task_id=UUID(str(task["task_id"])), task_type="DOCUMENT_PARSE")
         return task
 
