@@ -61,6 +61,8 @@ def upgrade() -> None:
         sa.Column("version_no", sa.Integer(), nullable=False),
         sa.Column("lifecycle_status", sa.String(40), nullable=False, server_default="DRAFT"),
         sa.Column("payload_json", sa.JSON(), nullable=False),
+        sa.Column("created_by", sa.String(160), nullable=False),
+        sa.Column("approved_by", sa.String(160), nullable=True),
         sa.Column("approved_at", sa.DateTime(timezone=True), nullable=True),
         sa.Column("published_at", sa.DateTime(timezone=True), nullable=True),
         *_effective_cols(),
