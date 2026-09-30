@@ -19,6 +19,10 @@ class AdminAuthorizationError(PermissionError):
     pass
 
 
+class MetadataLifecycleError(ValueError):
+    pass
+
+
 _ALLOWED_TRANSITIONS: dict[str, set[str]] = {
     GovernanceStatus.DRAFT.value: {GovernanceStatus.PENDING_REVIEW.value, GovernanceStatus.ARCHIVED.value},
     GovernanceStatus.PENDING_REVIEW.value: {GovernanceStatus.APPROVED.value, GovernanceStatus.DRAFT.value},
