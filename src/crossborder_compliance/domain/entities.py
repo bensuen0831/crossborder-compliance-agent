@@ -52,7 +52,7 @@ class ProjectVersion(VersionedEntity):
     effective_to: date | None = None
 
     def __post_init__(self) -> None:
-        super().__post_init__()
+        VersionedEntity.__post_init__(self)
         if self.version_no < 1:
             raise ValueError("version_no must be >= 1")
 
@@ -128,7 +128,7 @@ class ClassificationResult(VersionedEntity):
     review_required: bool = False
 
     def __post_init__(self) -> None:
-        super().__post_init__()
+        VersionedEntity.__post_init__(self)
         if not 0 <= self.confidence <= 1:
             raise ValueError("confidence must be between 0 and 1")
 
