@@ -118,6 +118,14 @@ class MetadataLifecycleService:
             required_scope=self._policy.publish_scope,
         )
 
+    def history(self, definition_id: UUID) -> list[dict[str, object]]:
+        self._policy.require(self._context, self._policy.draft_scope)
+        return self._repository.history(definition_id)
+
+    def impact_preview(self, definition_id: UUID) -> dict[str, object]:
+        self._policy.require(self._context, self._policy.draft_scope)
+        return self._repository.impact_preview(definition_id)
+
 
 class RegistrySyncService:
     def __init__(
