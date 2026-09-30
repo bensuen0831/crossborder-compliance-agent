@@ -22,7 +22,6 @@ class TenantRegistryProvider:
     """
 
     _GENERIC_KIND = {
-        "jurisdictions": "JURISDICTION",
         "scenarios": "SCENARIO",
         "products": "PRODUCT",
         "data-types": "DATA_TYPE",
@@ -39,7 +38,11 @@ class TenantRegistryProvider:
         if registry is not None:
             return registry
 
-        if resource in self._GENERIC_KIND:
+        if resource == "jurisdictions":
+            source = PostgresConfigRegistrySourceRepository(self._sessions, context)
+            from crossborder_compliance.infrastructure.registry import JurisdictionRegistry
+            registry = JurisdictionRegistry(source)
+        elif resource in self._GENERIC_KIND:
             source = PostgresRegistrySourceRepository(self._sessions, context)
             registry = GenericMetadataRegistry(source, self._GENERIC_KIND[resource])
         elif resource == "classification-schemes":
