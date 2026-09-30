@@ -212,6 +212,94 @@ add(
     named_rule_refs or "no fixed country/product/regulatory-document business skills",
 )
 
+
+# Phase 1C executable guards
+frontend_files = files_under(ROOT / "frontend") + files_under(ROOT / "web")
+frontend_business_enum_refs = occurrences(
+    r"\b(country|jurisdiction|scenario|product|data_type|data_flow_type)\b\s*=\s*\[(?:.|\n)*?\]",
+    frontend_files,
+)
+add(
+    "frontend_has_no_business_metadata_enum",
+    not frontend_business_enum_refs,
+    frontend_business_enum_refs or "no hard-coded frontend business option lists",
+)
+
+agent_skill_files = files_under(SRC / "agents") + files_under(SRC / "skills") + files_under(SRC / "workflows")
+model_binding_refs = occurrences(
+    r"(https?://[^\s\"']+|base_url\s*=|model_name\s*=|model\s*=\s*[\"'][A-Za-z0-9_.:/-]+[\"'])",
+    agent_skill_files,
+)
+add(
+    "agent_skill_has_no_model_name_or_base_url",
+    not model_binding_refs,
+    model_binding_refs or "no provider/model/base-url binding in agent/skill/workflow code",
+)
+
+prompt_embedding_refs = occurrences(
+    r"(SYSTEM_PROMPT|business_prompt|compliance_prompt)\s*=\s*[\"']",
+    files_under(SRC / "agents") + files_under(SRC / "skills"),
+)
+add(
+    "prompt_business_content_not_embedded_in_agent",
+    not prompt_embedding_refs,
+    prompt_embedding_refs or "no embedded business prompt in agent/skill code",
+)
+
+registry_file = SRC / "infrastructure" / "registry.py"
+registry_text = read_text(registry_file) if registry_file.exists() else ""
+add(
+    "registry_not_source_of_truth",
+    "source_of_truth" in registry_text
+    and '"source_of_truth": False' in registry_text
+    and "DB/versioned config remains source of truth" in registry_text,
+    "ProjectionRegistry explicitly identifies itself as non-authoritative projection",
+)
+
+metadata_repo_file = SRC / "infrastructure" / "persistence" / "metadata_repositories.py"
+metadata_repo_text = read_text(metadata_repo_file) if metadata_repo_file.exists() else ""
+add(
+    "admin_draft_not_runtime_visible",
+    "lifecycle_status == GovernanceStatus.ACTIVE.value" in metadata_repo_text
+    and "load_active" in metadata_repo_text,
+    "runtime loaders filter ACTIVE lifecycle versions only",
+)
+
+metadata_models_file = SRC / "infrastructure" / "persistence" / "metadata_models.py"
+metadata_models_text = read_text(metadata_models_file) if metadata_models_file.exists() else ""
+secret_forbidden = bool(re.search(r"\b(api_key|access_token|client_secret|password|credential_value)\b", metadata_models_text, re.I))
+add(
+    "model_secret_not_persisted_in_metadata",
+    "secret_ref" in metadata_models_text and not secret_forbidden,
+    "model metadata stores secret_ref only; no credential-value columns",
+)
+
+add(
+    "snapshot_not_dynamic_registry_lookup_on_resume",
+    "infrastructure.registry" not in adapter_text
+    and "AnalysisSnapshotRegistryPinEntity" in metadata_models_text
+    and "analysis snapshot pin is immutable" in metadata_repo_text,
+    "resume adapter does not consult registry; snapshot pins are immutable",
+)
+
+add(
+    "registry_publish_uses_transactional_outbox",
+    "RegistrySyncEventEntity" in metadata_repo_text
+    and "session.add(" in metadata_repo_text
+    and "target_status == GovernanceStatus.ACTIVE.value" in metadata_repo_text,
+    "publish and RegistrySyncEvent are written inside the same DB transaction",
+)
+
+country_branch_refs = occurrences(
+    r"\bif\s+.*\b(country|jurisdiction_code)\b.*(?:==|in)\s*[\"'\[{]",
+    [registry_file] if registry_file.exists() else [],
+)
+add(
+    "no_country_specific_registry_branch",
+    not country_branch_refs,
+    country_branch_refs or "registry resolution is metadata/binding driven",
+)
+
 failed = [check for check in checks if not check["pass"]]
 result = {
     "pass": not failed,
