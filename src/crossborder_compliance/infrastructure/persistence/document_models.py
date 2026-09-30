@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from sqlalchemy import DateTime, Float, ForeignKey, Index, Integer, JSON, String, Text, UniqueConstraint
+from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Index, Integer, JSON, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from crossborder_compliance.infrastructure.persistence.models import Base, TenantAuditMixin, utcnow
@@ -38,9 +38,9 @@ class DocumentParseRunDetailEntity(TenantAuditMixin, Base):
     parser_version: Mapped[str] = mapped_column(String(80), nullable=False)
     started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
-    native_parse_used: Mapped[bool] = mapped_column(String(5), nullable=False, default="false")
-    ocr_used: Mapped[bool] = mapped_column(String(5), nullable=False, default="false")
-    vision_used: Mapped[bool] = mapped_column(String(5), nullable=False, default="false")
+    native_parse_used: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    ocr_used: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    vision_used: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     page_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     table_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     image_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
