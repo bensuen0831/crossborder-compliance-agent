@@ -519,7 +519,7 @@ class PostgresJurisdictionAdminRepository:
                 MetadataDefinitionEntity(
                     definition_id=definition_id,
                     tenant_id=self.tenant_id,
-                    kind="JURISDICTION_CONFIG",
+                    kind="JURISDICTION",
                     code=code,
                     display_name=display_name,
                     canonical_object_type="JURISDICTION",
@@ -557,7 +557,7 @@ class PostgresJurisdictionAdminRepository:
             return session.scalar(
                 select(MetadataDefinitionEntity).where(
                     MetadataDefinitionEntity.tenant_id == self.tenant_id,
-                    MetadataDefinitionEntity.kind == "JURISDICTION_CONFIG",
+                    MetadataDefinitionEntity.kind == "JURISDICTION",
                     MetadataDefinitionEntity.canonical_object_id == str(jurisdiction_id),
                 )
             )
