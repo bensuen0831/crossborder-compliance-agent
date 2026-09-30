@@ -155,6 +155,8 @@ def _translate_error(exc: Exception) -> None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
     if isinstance(exc, (MetadataLifecycleError, MetadataOptimisticConcurrencyError)):
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+    if isinstance(exc, ValueError):
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(exc)) from exc
     raise exc
 
 
