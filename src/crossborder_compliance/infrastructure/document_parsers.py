@@ -177,7 +177,7 @@ class PPTXParserAdapter:
                         kind=CanonicalNodeType.HEADING if shape==slide.shapes.title else CanonicalNodeType.PARAGRAPH
                         nodes.append(_node(document_version_id,kind,seq,parent_node_id=sn.structure_node_id,slide_no=si,bbox=bbox,original_text=txt,normalized_text=txt,parser_confidence=1.0,source_locator={"slide_no":si,"shape_index":sh_idx},metadata={"shape_type":str(shape.shape_type)})); seq+=1
                         shape_candidates.append((uuid4(),txt,bbox))
-                    if str(shape.shape_type).endswith("LINE") or "CONNECTOR" in str(shape.shape_type).upper(): connector_count+=1
+                    if shape.shape_type==MSO_SHAPE_TYPE.LINE: connector_count+=1
             if len(shape_candidates)>=2 and connector_count:
                 a,b=shape_candidates[0],shape_candidates[1]
                 meta={"candidate_nodes":[{"candidate_node_id":str(a[0]),"label":a[1],"node_type_candidate":"SYSTEM","confidence":0.7},{"candidate_node_id":str(b[0]),"label":b[1],"node_type_candidate":"SYSTEM","confidence":0.7}],"candidate_edges":[{"candidate_edge_id":str(uuid4()),"source_candidate_node_id":str(a[0]),"target_candidate_node_id":str(b[0]),"direction":"UNKNOWN","relation":"CONNECTOR","confidence":0.5}]}
