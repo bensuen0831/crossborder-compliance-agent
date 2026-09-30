@@ -103,7 +103,7 @@ def upgrade() -> None:
         sa.Column("applicability_json", sa.JSON(), nullable=False),
         *_effective_cols(),
         constraints=(
-            sa.UniqueConstraint("tenant_id","scheme_id","version_no",name="uq_classification_scheme_version"),
+            sa.UniqueConstraint("tenant_id","scheme_id","version_no",name="uq_classification_scheme_version_record"),
             sa.CheckConstraint("version_no >= 1",name="ck_classification_scheme_version_number"),
             sa.CheckConstraint(LIFECYCLE,name="ck_classification_scheme_version_lifecycle"),
         ),
