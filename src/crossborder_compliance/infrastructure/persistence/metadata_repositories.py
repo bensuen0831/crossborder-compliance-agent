@@ -8,6 +8,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 
 from crossborder_compliance.application.metadata_services import (
+    MetadataLifecycleError,
     lifecycle_transition_allowed,
 )
 from crossborder_compliance.domain.metadata import (
@@ -39,10 +40,6 @@ def utcnow() -> datetime:
 
 
 class MetadataOptimisticConcurrencyError(RuntimeError):
-    pass
-
-
-class MetadataLifecycleError(ValueError):
     pass
 
 
