@@ -6,25 +6,34 @@ from collections.abc import Iterable
 from typing import Any
 from uuid import UUID
 
-from crossborder_compliance.domain.contracts import ReviewDecisionDTO, WorkflowEventDTO, WorkflowEventType
+from crossborder_compliance.domain.contracts import (
+    ReviewDecisionDTO,
+    WorkflowEventDTO,
+    WorkflowEventType,
+)
 from crossborder_compliance.workflows.events import canonical_event
 from crossborder_compliance.workflows.ports import WorkflowRunRef, WorkflowRuntimePort
 from crossborder_compliance.workflows.runtime_context import RuntimeContext
 from crossborder_compliance.workflows.state import SmokeGraphState
 
+
 class LangGraphDependencyError(RuntimeError):
     pass
+
 
 def _require_langgraph():
     try:
         from langgraph.checkpoint.postgres import PostgresSaver
         from langgraph.graph import END, START, StateGraph
         from langgraph.types import Command, interrupt
+
         return END, START, StateGraph, Command, interrupt, PostgresSaver
     except ImportError as exc:
         raise LangGraphDependencyError(
-            "Install langgraph>=1.2,<1.3 and langgraph-checkpoint-postgres>=3.1,<3.2 with psycopg"
+            "Install langgraph>=1.2,<1.3 and "
+            "langgraph-checkpoint-postgres>=3.1,<3.2 with psycopg"
         ) from exc
+
 
 def installed_version(name: str, fallback: str = "unavailable") -> str:
     try:
@@ -32,11 +41,16 @@ def installed_version(name: str, fallback: str = "unavailable") -> str:
     except importlib.metadata.PackageNotFoundError:
         return fallback
 
+
 class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
     def __init__(self, *, postgres_uri: str, context: RuntimeContext):
         self.postgres_uri = postgres_uri
         self.context = context
-        if os.getenv("LANGGRAPH_STRICT_MSGPACK", "true").lower() not in {"1", "true", "yes"}:
+        if os.getenv("LANGGRAPH_STRICT_MSGPACK", "true").lower() not in {
+            "1",
+            "true",
+            "yes",
+        }:
             raise ValueError("LANGGRAPH_STRICT_MSGPACK must be enabled")
 
     def _graph(self, checkpointer):
@@ -46,7 +60,8 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
 
         def node_a(state: SmokeGraphState) -> dict[str, Any]:
             wf = UUID(state["workflow_run_id"])
-            tenant = UUID(state["tenant_id"])
+            auth = ops.load_authoritative_workflow_context(wf)
+            tenant = auth.tenant_id
             ops.record_event(
                 tenant,
                 canonical_event(
@@ -64,7 +79,8 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
 
         def node_b(state: SmokeGraphState) -> dict[str, Any]:
             wf = UUID(state["workflow_run_id"])
-            tenant = UUID(state["tenant_id"])
+            auth = ops.load_authoritative_workflow_context(wf)
+            tenant = auth.tenant_id
             review_id = ops.ensure_review_task(
                 workflow_run_id=wf,
                 tenant_id=tenant,
@@ -85,7 +101,10 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
                 ),
             )
             decision = interrupt(
-                {"review_id": str(review_id), "action": "Approve Phase 1A smoke continuation"}
+                {
+                    "review_id": str(review_id),
+                    "action": "Approve Phase 1A smoke continuation",
+                }
             )
             ops.resolve_review(review_id, decision)
             ops.mark_resumed(wf)
@@ -102,12 +121,17 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
                     event_key="node_b:resumed",
                 ),
             )
-            return {"phase": "RESUMED", "review_id": str(review_id), "review_decision": decision}
+            return {
+                "phase": "RESUMED",
+                "review_id": str(review_id),
+                "review_decision": decision,
+            }
 
         def node_c(state: SmokeGraphState) -> dict[str, Any]:
             wf = UUID(state["workflow_run_id"])
-            tenant = UUID(state["tenant_id"])
-            snapshot = UUID(state["analysis_snapshot_id"])
+            auth = ops.load_authoritative_workflow_context(wf)
+            tenant = auth.tenant_id
+            snapshot = auth.analysis_snapshot_id
             ops.mark_completed(wf, tenant, snapshot)
             ops.record_event(
                 tenant,
@@ -136,26 +160,66 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
 
     @staticmethod
     def _config(workflow_run_id: UUID) -> dict[str, Any]:
-        return {"configurable": {"thread_id": str(workflow_run_id)}, "recursion_limit": 20}
+        return {
+            "configurable": {"thread_id": str(workflow_run_id)},
+            "recursion_limit": 20,
+        }
 
-    def start(self, workflow_run_id: UUID, initial_state: dict[str, Any]) -> WorkflowRunRef:
+    @staticmethod
+    def _assert_checkpoint_matches_domain(
+        *,
+        workflow_run_id: UUID,
+        checkpoint_values: dict[str, Any],
+        tenant_id: UUID,
+        analysis_snapshot_id: UUID,
+    ) -> None:
+        expected = {
+            "workflow_run_id": str(workflow_run_id),
+            "tenant_id": str(tenant_id),
+            "analysis_snapshot_id": str(analysis_snapshot_id),
+        }
+        mismatches = {
+            key: {"expected": value, "checkpoint": checkpoint_values.get(key)}
+            for key, value in expected.items()
+            if checkpoint_values.get(key) != value
+        }
+        if mismatches:
+            raise RuntimeError(
+                f"checkpoint/domain consistency mismatch: {mismatches}"
+            )
+
+    def start(
+        self, workflow_run_id: UUID, initial_state: dict[str, Any]
+    ) -> WorkflowRunRef:
         *_, PostgresSaver = _require_langgraph()
+        auth = self.context.operations.load_authoritative_workflow_context(
+            workflow_run_id
+        )
+        if auth.thread_id != str(workflow_run_id):
+            raise RuntimeError("domain workflow_run/thread_id identity mismatch")
+        self._assert_checkpoint_matches_domain(
+            workflow_run_id=workflow_run_id,
+            checkpoint_values=initial_state,
+            tenant_id=auth.tenant_id,
+            analysis_snapshot_id=auth.analysis_snapshot_id,
+        )
+
         with PostgresSaver.from_conn_string(self.postgres_uri) as checkpointer:
             checkpointer.setup()
             graph = self._graph(checkpointer)
-            tenant = UUID(str(initial_state["tenant_id"]))
             self.context.operations.record_event(
-                tenant,
+                auth.tenant_id,
                 canonical_event(
                     event_type=WorkflowEventType.WORKFLOW_STARTED,
                     workflow_run_id=workflow_run_id,
-                    tenant_id=tenant,
+                    tenant_id=auth.tenant_id,
                     request_id=self.context.request_id,
                     status="RUNNING",
                     event_key="workflow:started",
                 ),
             )
             graph.invoke(initial_state, self._config(workflow_run_id))
+
         return WorkflowRunRef(
             workflow_run_id=workflow_run_id,
             thread_id=str(workflow_run_id),
@@ -167,27 +231,51 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
         workflow_run_id: UUID,
         review_decision: ReviewDecisionDTO | dict[str, Any],
     ) -> WorkflowRunRef:
-        current_status = self.get_status(workflow_run_id)
-        if current_status == "COMPLETED":
+        auth = self.context.operations.load_authoritative_workflow_context(
+            workflow_run_id
+        )
+        if auth.status == "COMPLETED":
             return WorkflowRunRef(
                 workflow_run_id=workflow_run_id,
-                thread_id=str(workflow_run_id),
-                status=current_status,
+                thread_id=auth.thread_id,
+                status=auth.status,
+            )
+        if auth.status != "REVIEW_REQUIRED":
+            raise RuntimeError(
+                f"workflow is not resumable from domain status {auth.status}"
+            )
+        if auth.thread_id != str(workflow_run_id):
+            raise RuntimeError("domain workflow_run/thread_id identity mismatch")
+        if len(auth.pending_review_ids) != 1:
+            raise RuntimeError(
+                "resume authorization requires exactly one pending domain review task"
             )
 
-        _END, _START, _StateGraph, Command, _interrupt, PostgresSaver = _require_langgraph()
+        _END, _START, _StateGraph, Command, _interrupt, PostgresSaver = (
+            _require_langgraph()
+        )
         decision = (
             review_decision.model_dump(mode="json")
             if isinstance(review_decision, ReviewDecisionDTO)
             else review_decision
         )
+
         with PostgresSaver.from_conn_string(self.postgres_uri) as checkpointer:
             checkpointer.setup()
             graph = self._graph(checkpointer)
+            checkpoint = graph.get_state(self._config(workflow_run_id))
+            checkpoint_values = dict(checkpoint.values or {})
+            self._assert_checkpoint_matches_domain(
+                workflow_run_id=workflow_run_id,
+                checkpoint_values=checkpoint_values,
+                tenant_id=auth.tenant_id,
+                analysis_snapshot_id=auth.analysis_snapshot_id,
+            )
             graph.invoke(Command(resume=decision), self._config(workflow_run_id))
+
         return WorkflowRunRef(
             workflow_run_id=workflow_run_id,
-            thread_id=str(workflow_run_id),
+            thread_id=auth.thread_id,
             status=self.get_status(workflow_run_id),
         )
 
@@ -210,5 +298,7 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
     def get_status(self, workflow_run_id: UUID) -> str:
         return self.context.operations.status(workflow_run_id)
 
-    def stream_events(self, workflow_run_id: UUID) -> Iterable[WorkflowEventDTO]:
+    def stream_events(
+        self, workflow_run_id: UUID
+    ) -> Iterable[WorkflowEventDTO]:
         return iter(())
