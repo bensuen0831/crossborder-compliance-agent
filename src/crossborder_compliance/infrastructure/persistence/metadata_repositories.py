@@ -718,7 +718,7 @@ class PostgresConfigRegistrySourceRepository(_TenantScopedMetadataRepository):
         from crossborder_compliance.infrastructure.persistence.models import JurisdictionEntity
         today = date.today()
         with self._sessions() as session:
-            rows = session.scalars(
+            jurisdictions = session.scalars(
                 select(JurisdictionEntity).where(
                     JurisdictionEntity.tenant_id == self.tenant_id,
                     JurisdictionEntity.status == "ACTIVE",
@@ -726,19 +726,46 @@ class PostgresConfigRegistrySourceRepository(_TenantScopedMetadataRepository):
                     or_(JurisdictionEntity.effective_to.is_(None), JurisdictionEntity.effective_to >= today),
                 ).order_by(JurisdictionEntity.code)
             ).all()
-            return [
-                {
-                    "definition_id": row.jurisdiction_id,
-                    "version_id": row.jurisdiction_id,
-                    "version_no": row.record_version,
-                    "code": row.code,
-                    "display_name": row.name,
-                    "payload": dict(row.metadata_json or {}),
-                    "effective_from": row.effective_from,
-                    "effective_to": row.effective_to,
-                }
-                for row in rows
-            ]
+            result: list[dict[str, object]] = []
+            for row in jurisdictions:
+                config = session.execute(
+                    select(MetadataDefinitionEntity, MetadataVersionEntity)
+                    .join(
+                        MetadataVersionEntity,
+                        MetadataVersionEntity.version_id == MetadataDefinitionEntity.active_version_id,
+                    )
+                    .where(
+                        MetadataDefinitionEntity.tenant_id == self.tenant_id,
+                        MetadataDefinitionEntity.kind == "JURISDICTION_CONFIG",
+                        MetadataDefinitionEntity.canonical_object_id == row.jurisdiction_id,
+                        MetadataVersionEntity.tenant_id == self.tenant_id,
+                        MetadataVersionEntity.lifecycle_status == GovernanceStatus.ACTIVE.value,
+                        or_(MetadataVersionEntity.effective_from.is_(None), MetadataVersionEntity.effective_from <= today),
+                        or_(MetadataVersionEntity.effective_to.is_(None), MetadataVersionEntity.effective_to >= today),
+                    )
+                ).first()
+                if config:
+                    definition, version = config
+                    version_id = version.version_id
+                    version_no = version.version_no
+                    payload = dict(version.payload_json or {})
+                else:
+                    version_id = row.jurisdiction_id
+                    version_no = row.record_version
+                    payload = dict(row.metadata_json or {})
+                result.append(
+                    {
+                        "definition_id": row.jurisdiction_id,
+                        "version_id": version_id,
+                        "version_no": version_no,
+                        "code": row.code,
+                        "display_name": row.name,
+                        "payload": payload,
+                        "effective_from": row.effective_from,
+                        "effective_to": row.effective_to,
+                    }
+                )
+            return result
 
     def _effective(self, model, lifecycle_column):
         today = date.today()
