@@ -638,6 +638,34 @@ class PostgresModelRegistryRepository(_TenantScopedMetadataRepository):
             row.record_version += 1
             row.updated_at = utcnow()
 
+    def set_provider_enabled(self, provider_id: UUID, enabled: bool) -> None:
+        with self._sessions() as session, session.begin():
+            row = self._scoped(
+                session,
+                ModelProviderEntity,
+                ModelProviderEntity.provider_id,
+                provider_id,
+            )
+            if row is None:
+                raise LookupError("model provider not found in tenant scope")
+            row.enabled = enabled
+            row.record_version += 1
+            row.updated_at = utcnow()
+
+    def set_deployment_enabled(self, model_deployment_id: UUID, enabled: bool) -> None:
+        with self._sessions() as session, session.begin():
+            row = self._scoped(
+                session,
+                ModelDeploymentEntity,
+                ModelDeploymentEntity.model_deployment_id,
+                model_deployment_id,
+            )
+            if row is None:
+                raise LookupError("model deployment not found in tenant scope")
+            row.enabled = enabled
+            row.record_version += 1
+            row.updated_at = utcnow()
+
     def load_runtime_models(self) -> list[dict[str, object]]:
         today = date.today()
         with self._sessions() as session:
