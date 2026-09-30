@@ -6,7 +6,7 @@ from crossborder_compliance.config import get_settings
 from crossborder_compliance.infrastructure.persistence.db import build_engine
 
 REQUIRED_TABLES={
-"canonical_document_nodes","document_parse_quality_results","document_parse_tasks",
+"canonical_document_nodes","document_parse_run_details","document_parse_quality_results","document_parse_tasks",
 "business_fact_candidates","candidate_data_items","candidate_data_flow_nodes","candidate_data_flow_edges",
 "cross_document_links","business_fact_source_links","candidate_data_item_source_links",
 "candidate_data_flow_node_source_links","candidate_data_flow_edge_source_links","cross_document_link_sources",
@@ -27,7 +27,7 @@ def main():
         "alembic_head_0004_phase1d":revision=="0004_phase1d",
         "required_tables_present":REQUIRED_TABLES<=tables,
         "document_versions_metadata_fields": {"filename","size_bytes","language","storage_ref","content_hash","mime_type"}<=set(cols("document_versions")),
-        "parse_run_versioned_fields":RUN_COLUMNS<=set(cols("document_parse_runs")),
+        "parse_run_versioned_fields":RUN_COLUMNS<=set(cols("document_parse_run_details")),
         "source_trace_exact_locator_fields":TRACE_COLUMNS<=set(cols("source_trace_refs")),
         "canonical_structure_not_plain_text_blob_only":{"node_type","parent_node_id","sequence","page_no","sheet_name","slide_no","source_locator_json","original_text","normalized_text"}<=set(cols("canonical_document_nodes")),
         "spreadsheet_provenance_storage": {"metadata_json","source_locator_json"}<=set(cols("canonical_document_nodes")),
@@ -35,7 +35,8 @@ def main():
         "candidate_fact_item_flow_sources_present":{"business_fact_source_links","candidate_data_item_source_links","candidate_data_flow_node_source_links","candidate_data_flow_edge_source_links"}<=tables,
         "original_binary_not_stored_in_domain_db":not binary_cols,
         "parse_task_idempotency_unique": any(c.get("name")=="uq_parse_task_idempotency" for c in insp.get_unique_constraints("document_parse_tasks")),
-        "parse_run_version_unique": any(c.get("name")=="uq_document_parse_run_version" for c in insp.get_unique_constraints("document_parse_runs")),
+        "parse_run_version_unique": any(c.get("name")=="uq_document_parse_run_detail_version" for c in insp.get_unique_constraints("document_parse_run_details")),
+        "parse_run_detail_one_to_one": "parse_run_id" in cols("document_parse_run_details"),
     }
     result={"pass":all(checks.values()),"passed":sum(checks.values()),"total":len(checks),"revision":revision,"checks":checks,"binary_columns":binary_cols,"document_tables":sorted(document_tables)}
     print(json.dumps(result,indent=2,sort_keys=True))
