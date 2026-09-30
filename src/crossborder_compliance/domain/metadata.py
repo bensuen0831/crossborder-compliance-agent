@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import date, datetime, timezone
 from enum import StrEnum
+import ipaddress
 from typing import Any
 from urllib.parse import urlparse
 from uuid import UUID
@@ -53,6 +54,14 @@ class TemplateTypeCode(StrEnum):
     ENTERPRISE_TEMPLATE = "ENTERPRISE_TEMPLATE"
 
 
+class KnowledgeSourceType(StrEnum):
+    DOCUMENT = "DOCUMENT"
+    WEB = "WEB"
+    API = "API"
+    DATABASE = "DATABASE"
+    MANUAL = "MANUAL"
+
+
 _ALLOWED_ENDPOINT_SCHEMES = {"https", "http", "internal"}
 
 
@@ -65,6 +74,23 @@ def validate_endpoint_config(config: dict[str, Any]) -> None:
         raise ValueError("endpoint scheme is not allowed")
     if parsed.username or parsed.password:
         raise ValueError("endpoint credentials must not be embedded in URL")
+    if parsed.scheme == "internal":
+        if not parsed.netloc and not parsed.path:
+            raise ValueError("internal endpoint reference is empty")
+        return
+    if not parsed.hostname:
+        raise ValueError("endpoint hostname is required")
+    if parsed.scheme == "http":
+        host = parsed.hostname.lower()
+        private = host in {"localhost", "127.0.0.1", "::1"} or host.endswith((".internal", ".local"))
+        if not private:
+            try:
+                ip = ipaddress.ip_address(host)
+                private = ip.is_private or ip.is_loopback
+            except ValueError:
+                private = False
+        if not private:
+            raise ValueError("plain HTTP endpoint is allowed only for private/loopback hosts")
 
 
 @dataclass(frozen=True, slots=True)
