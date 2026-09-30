@@ -20,12 +20,15 @@ class MetadataDefinitionEntity(TenantAuditMixin, Base):
     __tablename__ = "metadata_definitions"
     __table_args__ = (
         UniqueConstraint("tenant_id", "kind", "code", name="uq_metadata_definition_kind_code"),
+        UniqueConstraint("tenant_id", "kind", "canonical_object_id", name="uq_metadata_definition_canonical_ref"),
         Index("ix_metadata_definition_kind_status", "tenant_id", "kind", "status"),
     )
     definition_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     kind: Mapped[str] = mapped_column(String(80), nullable=False)
     code: Mapped[str] = mapped_column(String(160), nullable=False)
     display_name: Mapped[str] = mapped_column(String(250), nullable=False)
+    canonical_object_type: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    canonical_object_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
     parent_definition_id: Mapped[str | None] = mapped_column(
         ForeignKey("metadata_definitions.definition_id", ondelete="SET NULL"), nullable=True
     )
