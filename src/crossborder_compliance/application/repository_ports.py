@@ -11,6 +11,7 @@ from crossborder_compliance.domain.entities import (
     ConversationThread,
     DataItem,
     Document,
+    DocumentVersion,
     EvidenceReference,
     Jurisdiction,
     LegalBasisItem,
@@ -36,6 +37,8 @@ class PartyRepository(Protocol):
 class DocumentRepository(Protocol):
     def add_document(self, document: Document) -> Document: ...
     def get_document(self, document_id: UUID) -> Document | None: ...
+    def add_version(self, version: DocumentVersion) -> DocumentVersion: ...
+    def activate_version(self, document_id: UUID, version_id: UUID, *, expected_record_version: int) -> Document: ...
 
 
 class DataInventoryRepository(Protocol):
