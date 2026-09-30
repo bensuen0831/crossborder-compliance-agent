@@ -124,6 +124,9 @@ def main() -> None:
         "metadata_definition_kind_code_unique": tuple(
             sorted(("tenant_id", "kind", "code"))
         ) in unique_sets("metadata_definitions"),
+        "metadata_canonical_binding_unique": tuple(
+            sorted(("tenant_id", "kind", "canonical_object_id"))
+        ) in unique_sets("metadata_definitions"),
         "model_secret_ref_only": secret_ref_present and not secret_value_cols,
         "classification_results_still_formal_source": "classification_results" in tables
         and "data_classifications" not in tables,
