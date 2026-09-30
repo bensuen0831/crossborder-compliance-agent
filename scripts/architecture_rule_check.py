@@ -42,6 +42,11 @@ contracts = SRC / "domain" / "contracts.py"
 adapter = SRC / "workflows" / "langgraph_adapter.py"
 models = SRC / "infrastructure" / "persistence" / "models.py"
 repositories = SRC / "infrastructure" / "persistence" / "postgres_repositories.py"
+metadata_models = SRC / "infrastructure" / "persistence" / "metadata_models.py"
+metadata_repositories = SRC / "infrastructure" / "persistence" / "metadata_repositories.py"
+registry_file = SRC / "infrastructure" / "registry.py"
+metadata_domain = SRC / "domain" / "metadata.py"
+smoke_resume_file = ROOT / "smoke" / "smoke_resume.py"
 checks: list[dict[str, object]] = []
 
 
