@@ -56,7 +56,7 @@ class DocumentVersion(EntityMeta):
     effective_to: date | None = None
 
     def __post_init__(self) -> None:
-        super().__post_init__()
+        EntityMeta.__post_init__(self)
         if self.version_no < 1:
             raise ValueError("version_no must be >= 1")
 
@@ -108,7 +108,7 @@ class DataFlowEdge(EntityMeta):
     declared_cross_border: bool | None = None
 
     def __post_init__(self) -> None:
-        super().__post_init__()
+        EntityMeta.__post_init__(self)
         if self.source_node_id == self.target_node_id:
             raise ValueError("source_node_id and target_node_id must differ")
 
@@ -206,7 +206,7 @@ class WorkflowRun(EntityMeta):
     state_schema_version: str = ""
 
     def __post_init__(self) -> None:
-        super().__post_init__()
+        EntityMeta.__post_init__(self)
         if self.workflow_run_id != self.thread_id:
             raise ValueError("formal workflow_run_id must equal LangGraph thread_id")
 
