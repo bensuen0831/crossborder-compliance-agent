@@ -100,11 +100,13 @@ class PostgresDocumentIntelligenceRepository:
             if ver is None: raise LookupError("document version not found in tenant scope")
             existing=s.scalar(select(DocumentParseTaskEntity).where(DocumentParseTaskEntity.tenant_id==self.tenant_id,DocumentParseTaskEntity.document_version_id==str(document_version_id),DocumentParseTaskEntity.idempotency_key==idempotency_key))
             if existing:
-                if existing.status=="FAILED":
+                retry = existing.status=="FAILED"
+                if retry:
                     existing.status="ACCEPTED"; existing.attempts+=1; existing.error_code=None; existing.updated_at=_now()
-                return self._task_dict(existing)
+                result=self._task_dict(existing); result["enqueue_required"]=retry
+                return result
             row=DocumentParseTaskEntity(task_id=str(uuid4()),tenant_id=self.tenant_id,document_version_id=str(document_version_id),parser_profile_id=parser_profile_id,idempotency_key=idempotency_key,status="ACCEPTED",attempts=0)
-            s.add(row); s.flush(); return self._task_dict(row)
+            s.add(row); s.flush(); result=self._task_dict(row); result["enqueue_required"]=True; return result
 
     def _task_dict(self,row): return {"task_id":row.task_id,"document_version_id":row.document_version_id,"parser_profile_id":row.parser_profile_id,"idempotency_key":row.idempotency_key,"status":row.status,"attempts":row.attempts,"error_code":row.error_code}
 
