@@ -374,7 +374,9 @@ class PostgresRegistrySourceRepository(_TenantScopedMetadataRepository):
     @staticmethod
     def _project(definition: MetadataDefinitionEntity, version: MetadataVersionEntity) -> dict[str, object]:
         return {
-            "definition_id": definition.definition_id,
+            "definition_id": definition.canonical_object_id or definition.definition_id,
+            "config_definition_id": definition.definition_id,
+            "canonical_object_type": definition.canonical_object_type,
             "version_id": version.version_id,
             "version_no": version.version_no,
             "kind": definition.kind,
