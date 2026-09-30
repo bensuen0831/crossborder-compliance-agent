@@ -714,6 +714,32 @@ class PostgresModelRegistryRepository(_TenantScopedMetadataRepository):
 
 
 class PostgresConfigRegistrySourceRepository(_TenantScopedMetadataRepository):
+    def load_jurisdictions(self) -> list[dict[str, object]]:
+        from crossborder_compliance.infrastructure.persistence.models import JurisdictionEntity
+        today = date.today()
+        with self._sessions() as session:
+            rows = session.scalars(
+                select(JurisdictionEntity).where(
+                    JurisdictionEntity.tenant_id == self.tenant_id,
+                    JurisdictionEntity.status == "ACTIVE",
+                    or_(JurisdictionEntity.effective_from.is_(None), JurisdictionEntity.effective_from <= today),
+                    or_(JurisdictionEntity.effective_to.is_(None), JurisdictionEntity.effective_to >= today),
+                ).order_by(JurisdictionEntity.code)
+            ).all()
+            return [
+                {
+                    "definition_id": row.jurisdiction_id,
+                    "version_id": row.jurisdiction_id,
+                    "version_no": row.record_version,
+                    "code": row.code,
+                    "display_name": row.name,
+                    "payload": dict(row.metadata_json or {}),
+                    "effective_from": row.effective_from,
+                    "effective_to": row.effective_to,
+                }
+                for row in rows
+            ]
+
     def _effective(self, model, lifecycle_column):
         today = date.today()
         return (
