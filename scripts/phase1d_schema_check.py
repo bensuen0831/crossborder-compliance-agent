@@ -23,12 +23,16 @@ def main():
         revision=conn.execute(text("select version_num from alembic_version")).scalar_one()
     document_tables={t for t in tables if t.startswith(("document","canonical_","candidate_","business_fact_","cross_document_","analysis_snapshot_parse_run"))}
     binary_cols=[f"{t}.{n}" for t in document_tables for n,tp in cols(t).items() if any(x in tp.upper() for x in ["BYTEA","BLOB","LARGEBINARY"])]
+    document_version_aggregate_columns = set(cols("document_versions")) | set(cols("document_version_intelligence"))
+    source_trace_aggregate_columns = set(cols("source_trace_refs")) | set(cols("source_trace_details"))
     checks={
         "alembic_head_0004_phase1d":revision=="0004_phase1d",
         "required_tables_present":REQUIRED_TABLES<=tables,
-        "document_versions_metadata_fields": {"filename","size_bytes","language","storage_ref","content_hash","mime_type"}<=set(cols("document_versions")),
+        "document_versions_metadata_fields": {"filename","size_bytes","language","storage_ref","content_hash","mime_type"}<=document_version_aggregate_columns,
+        "document_version_intelligence_one_to_one": set(insp.get_pk_constraint("document_version_intelligence").get("constrained_columns") or [])=={"document_version_id"},
         "parse_run_versioned_fields":RUN_COLUMNS<=set(cols("document_parse_run_details")),
-        "source_trace_exact_locator_fields":TRACE_COLUMNS<=set(cols("source_trace_refs")),
+        "source_trace_exact_locator_fields":TRACE_COLUMNS<=source_trace_aggregate_columns,
+        "source_trace_detail_one_to_one": set(insp.get_pk_constraint("source_trace_details").get("constrained_columns") or [])=={"source_trace_ref_id"},
         "canonical_structure_not_plain_text_blob_only":{"node_type","parent_node_id","sequence","page_no","sheet_name","slide_no","source_locator_json","original_text","normalized_text"}<=set(cols("canonical_document_nodes")),
         "spreadsheet_provenance_storage": {"metadata_json","source_locator_json"}<=set(cols("canonical_document_nodes")),
         "snapshot_parse_run_pin_present":"analysis_snapshot_parse_run_pins" in tables,
