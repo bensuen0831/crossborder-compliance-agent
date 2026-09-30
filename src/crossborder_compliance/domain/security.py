@@ -14,6 +14,13 @@ class TenantContext:
 
 
 @dataclass(frozen=True, slots=True)
+class UserContext:
+    user_id: str
+    organization_id: UUID | None = None
+    display_name: str | None = None
+
+
+@dataclass(frozen=True, slots=True)
 class PermissionContext:
     actor_id: str
     scopes: frozenset[str] = field(default_factory=frozenset)
@@ -29,12 +36,14 @@ class PermissionContext:
 @dataclass(frozen=True, slots=True)
 class RepositoryContext:
     tenant: TenantContext
+    user: UserContext
     permission: PermissionContext
 
     @classmethod
     def user(cls, tenant_id: UUID, actor_id: str, scopes: set[str] | None = None) -> "RepositoryContext":
         return cls(
             tenant=TenantContext(tenant_id),
+            user=UserContext(user_id=actor_id),
             permission=PermissionContext(actor_id=actor_id, scopes=frozenset(scopes or set())),
         )
 
@@ -42,6 +51,7 @@ class RepositoryContext:
     def system(cls, tenant_id: UUID, actor_id: str = "system") -> "RepositoryContext":
         return cls(
             tenant=TenantContext(tenant_id),
+            user=UserContext(user_id=actor_id),
             permission=PermissionContext(actor_id=actor_id, scopes=frozenset({"system"}), system=True),
         )
 
