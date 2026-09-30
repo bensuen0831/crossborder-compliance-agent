@@ -157,8 +157,9 @@ add(
 conversation_block = class_block(model_text, "ConversationThreadEntity")
 add(
     "conversation_thread_not_langgraph_thread_id",
-    bool(conversation_block) and "thread_id" not in conversation_block,
-    "ConversationThreadEntity has no LangGraph thread_id field",
+    bool(conversation_block)
+    and re.search(r"^\\s*thread_id\\s*:", conversation_block, re.M) is None,
+    "ConversationThreadEntity has no standalone LangGraph thread_id field",
 )
 
 add(
