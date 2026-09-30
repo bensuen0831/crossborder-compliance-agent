@@ -697,6 +697,7 @@ class PostgresModelRegistryRepository(_TenantScopedMetadataRepository):
                     ModelDeploymentEntity.enabled.is_(True),
                     ModelProviderEntity.enabled.is_(True),
                     ModelProviderVersionEntity.enabled.is_(True),
+                    ModelProviderEntity.active_version_id == ModelProviderVersionEntity.provider_version_id,
                     ModelDeploymentEntity.lifecycle_status == GovernanceStatus.ACTIVE.value,
                     ModelProviderVersionEntity.lifecycle_status == GovernanceStatus.ACTIVE.value,
                     or_(ModelDeploymentEntity.effective_from.is_(None), ModelDeploymentEntity.effective_from <= today),
