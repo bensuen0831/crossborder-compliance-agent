@@ -210,18 +210,32 @@ class DocumentVersionEntity(TenantAuditMixin, EffectiveMixin, Base):
     storage_ref: Mapped[str] = mapped_column(String(500), nullable=False)
     content_hash: Mapped[str] = mapped_column(String(128), nullable=False)
     mime_type: Mapped[str | None] = mapped_column(String(150), nullable=True)
+    filename: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    size_bytes: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    language: Mapped[str | None] = mapped_column(String(40), nullable=True)
 
 
 class SourceTraceRefEntity(TenantAuditMixin, Base):
     __tablename__ = "source_trace_refs"
     __table_args__ = (
         Index("ix_source_trace_document_locator", "tenant_id", "document_version_id", "page_no"),
+        Index("ix_source_trace_parse_node", "tenant_id", "parse_run_id", "structure_node_id"),
     )
     source_trace_ref_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    document_id: Mapped[str | None] = mapped_column(ForeignKey("documents.document_id", ondelete="CASCADE"), nullable=True)
     document_version_id: Mapped[str] = mapped_column(
         ForeignKey("document_versions.document_version_id", ondelete="CASCADE"), nullable=False
     )
+    parse_run_id: Mapped[str | None] = mapped_column(ForeignKey("document_parse_runs.document_parse_run_id", ondelete="CASCADE"), nullable=True)
+    structure_node_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
     page_no: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    sheet_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    slide_no: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    section_path: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    table_id: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    row_index: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    column_index: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    original_text_hash: Mapped[str | None] = mapped_column(String(128), nullable=True)
     section: Mapped[str | None] = mapped_column(String(255), nullable=True)
     table_ref: Mapped[str | None] = mapped_column(String(255), nullable=True)
     row_ref: Mapped[str | None] = mapped_column(String(255), nullable=True)
@@ -231,13 +245,30 @@ class SourceTraceRefEntity(TenantAuditMixin, Base):
 class DocumentParseRunEntity(TenantAuditMixin, Base):
     __tablename__ = "document_parse_runs"
     __table_args__ = (
-        UniqueConstraint("tenant_id", "document_version_id", "parser_version", name="uq_document_parse_version"),
+        UniqueConstraint("tenant_id", "document_version_id", "parse_run_version", name="uq_document_parse_run_version"),
+        Index("ix_document_parse_runs_status", "tenant_id", "document_version_id", "status"),
     )
     document_parse_run_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     document_version_id: Mapped[str] = mapped_column(
         ForeignKey("document_versions.document_version_id", ondelete="CASCADE"), nullable=False
     )
+    parse_run_version: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
+    parser_profile_id: Mapped[str] = mapped_column(String(120), nullable=False, default="default", server_default="default")
+    parser_name: Mapped[str] = mapped_column(String(120), nullable=False, default="unknown", server_default="unknown")
     parser_version: Mapped[str] = mapped_column(String(80), nullable=False)
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    native_parse_used: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
+    ocr_used: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
+    vision_used: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
+    page_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
+    table_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
+    image_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
+    warning_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default="0")
+    quality_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    error_code: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    language: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    provenance_json: Mapped[dict] = mapped_column(JSON, nullable=False, default=dict)
     result_ref: Mapped[str | None] = mapped_column(String(500), nullable=True)
 
 
