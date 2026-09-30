@@ -52,6 +52,8 @@ class MetadataVersionEntity(TenantAuditMixin, EffectiveMixin, Base):
     version_no: Mapped[int] = mapped_column(Integer, nullable=False)
     lifecycle_status: Mapped[str] = mapped_column(String(40), nullable=False, default="DRAFT")
     payload_json: Mapped[dict] = mapped_column(JSON, nullable=False, default=dict)
+    created_by: Mapped[str] = mapped_column(String(160), nullable=False)
+    approved_by: Mapped[str | None] = mapped_column(String(160), nullable=True)
     approved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     published_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
