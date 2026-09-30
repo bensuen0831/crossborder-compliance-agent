@@ -84,7 +84,7 @@ class MetadataBindingEntity(TenantAuditMixin, EffectiveMixin, Base):
 class ClassificationSchemeVersionEntity(TenantAuditMixin, EffectiveMixin, Base):
     __tablename__ = "classification_scheme_versions"
     __table_args__ = (
-        UniqueConstraint("tenant_id", "scheme_id", "version_no", name="uq_classification_scheme_version_record"),
+        UniqueConstraint("tenant_id", "scheme_id", "version_no", name="uq_classification_scheme_versions_scheme_no_record"),
         CheckConstraint("version_no >= 1", name="ck_classification_scheme_version_number"),
         CheckConstraint(
             f"lifecycle_status IN ({LIFECYCLE_VALUES})", name="ck_classification_scheme_version_lifecycle"
