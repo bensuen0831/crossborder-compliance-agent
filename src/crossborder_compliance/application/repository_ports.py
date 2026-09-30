@@ -1,0 +1,84 @@
+from __future__ import annotations
+
+from typing import Protocol
+from uuid import UUID
+
+from crossborder_compliance.domain.entities import (
+    AnalysisStageResult,
+    ClassificationResult,
+    ConversationMessage,
+    ConversationThread,
+    DataItem,
+    Document,
+    EvidenceReference,
+    Jurisdiction,
+    LegalBasisItem,
+    LegalEntity,
+    Project,
+    ProjectParty,
+    ProjectVersion,
+)
+
+
+class ProjectRepository(Protocol):
+    def add_project(self, project: Project) -> Project: ...
+    def get_project(self, project_id: UUID) -> Project | None: ...
+    def add_version(self, version: ProjectVersion) -> ProjectVersion: ...
+    def activate_version(self, project_id: UUID, version_id: UUID, *, expected_record_version: int) -> Project: ...
+
+
+class PartyRepository(Protocol):
+    def add_legal_entity(self, entity: LegalEntity) -> LegalEntity: ...
+    def add_project_party(self, party: ProjectParty) -> ProjectParty: ...
+
+
+class DocumentRepository(Protocol):
+    def add_document(self, document: Document) -> Document: ...
+    def get_document(self, document_id: UUID) -> Document | None: ...
+
+
+class DataInventoryRepository(Protocol):
+    def add_data_item(self, item: DataItem) -> DataItem: ...
+    def get_data_item(self, data_item_id: UUID) -> DataItem | None: ...
+
+
+class JurisdictionRepository(Protocol):
+    def add_jurisdiction(self, jurisdiction: Jurisdiction) -> Jurisdiction: ...
+    def get_jurisdiction(self, jurisdiction_id: UUID) -> Jurisdiction | None: ...
+
+
+class ClassificationRepository(Protocol):
+    def add_result(self, result: ClassificationResult, category_ids: list[UUID] | None = None) -> ClassificationResult: ...
+    def get_result(self, classification_result_id: UUID) -> ClassificationResult | None: ...
+
+
+class EvidenceRepository(Protocol):
+    def add_evidence(self, evidence: EvidenceReference) -> EvidenceReference: ...
+
+
+class LegalBasisRepository(Protocol):
+    def add_legal_basis(self, item: LegalBasisItem) -> LegalBasisItem: ...
+    def link_rule_hit(self, legal_basis_id: UUID, rule_hit_id: UUID) -> None: ...
+    def link_evidence(self, legal_basis_id: UUID, evidence_id: UUID) -> None: ...
+
+
+class AnalysisSnapshotRepository(Protocol):
+    def get_snapshot(self, analysis_snapshot_id: UUID) -> object | None: ...
+
+
+class WorkflowRunRepository(Protocol):
+    def get_workflow_run(self, workflow_run_id: UUID) -> object | None: ...
+
+
+class ReviewRepository(Protocol):
+    def get_review(self, review_id: UUID) -> object | None: ...
+
+
+class AnalysisStageRepository(Protocol):
+    def add_stage_result(self, result: AnalysisStageResult) -> AnalysisStageResult: ...
+
+
+class ConversationRepository(Protocol):
+    def add_thread(self, thread: ConversationThread) -> ConversationThread: ...
+    def get_thread(self, conversation_thread_id: UUID) -> ConversationThread | None: ...
+    def add_message(self, message: ConversationMessage) -> ConversationMessage: ...
