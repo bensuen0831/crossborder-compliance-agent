@@ -106,3 +106,17 @@
 91. Parse Run 必須 versioned；AnalysisSnapshot 必須 pin 指定 ParseRun，Resume 不得靜默切換。
 92. Parser / OCR / Vision Provider 必須 Adapter 化；Provider-specific SDK 不得進 Domain / Application / LangGraph。
 93. Document Parse Quality 未達 Gate 時，不得靜默進正式分析；必須保留 WARNING / REVIEW_REQUIRED / FAILED 狀態。
+
+
+## Phase 1E Context Resolution / Formal Data Inventory / Data Flow Addendum
+
+94. Phase 1D Candidate 不得直接成為正式 Compliance Input；任何 Candidate → Formal Object 必須保留 Resolution / Validation Record。
+95. Product Context 必須由 Registry / Evidence / Explicit User Selection 解決；產品業務值不得 hard-code 於 Domain / Application Service。
+96. Explicit Product Selection 與 Document-detected Product 發生實質衝突時，必須輸出 `PRODUCT_CONTEXT_CONFLICT`，不得靜默覆蓋任一來源。
+97. 未選 Product 但已有 Document Evidence 時必須 Document-first；不得因未選 Product 自動擴大至所有 Product Knowledge Scope。
+98. Formal `data_items` 必須可回溯所有 Candidate / SourceTrace；Candidate 不得因 Resolution 而刪除。
+99. Original Field Count、Normalized Data Item Count、Data Group Count 必須分離並由 structured persistence programmatic aggregation。
+100. Formal DataFlow 必須使用 authoritative `data_flow_nodes` / `data_flow_edges` / `data_item_flow_links`，不得以 narrative 或第二套 formal flow store 取代。
+101. Jurisdiction Context 只表示位置/管轄上下文，不等於 Regulation Applicability 或 Cross-border Legal Status。
+102. AI / Semantic Resolution 只能形成 Candidate / Confidence / Suggestion；不得直接 merge Formal DataItem 或形成正式 Context。
+103. Data Item / Data Flow / Context 更新必須 versioned 並可由 AnalysisSnapshot pin；既有 Snapshot / Resume 不得靜默切換新 Context。
