@@ -262,6 +262,22 @@ class PostgresContextResolutionRepository:
 
     def resolve_conflict(self, conflict_id: UUID, *, resolution: dict[str, object], resolved_by: str, expected_record_version: int) -> dict[str, object]:
         with self._sessions() as s, s.begin():
+            conflict = self._get(s, ContextConflictEntity, ContextConflictEntity.conflict_id, conflict_id)
+            if conflict is None:
+                raise LookupError("context conflict not found")
+            if conflict.conflict_type == "PRODUCT_CONTEXT_CONFLICT":
+                requested = resolution.get("effective_product_scope")
+                if not isinstance(requested, list) or not requested:
+                    raise ValueError("PRODUCT_CONTEXT_CONFLICT resolution requires effective_product_scope")
+                scope_ids = [UUID(str(x)) for x in requested]
+                allowed = {"PRODUCT_DOMAIN","PRODUCT_CATEGORY","PRODUCT_FAMILY","PRODUCT","PRODUCT_TAG"}
+                for definition_id in scope_ids:
+                    definition = self._get(s, MetadataDefinitionEntity, MetadataDefinitionEntity.definition_id, definition_id)
+                    if definition is None or definition.active_version_id is None or definition.kind not in allowed:
+                        raise ValueError("effective product scope must reference ACTIVE Product Registry definitions")
+                    version = self._get(s, MetadataVersionEntity, MetadataVersionEntity.version_id, UUID(definition.active_version_id))
+                    if version is None or version.lifecycle_status != "ACTIVE":
+                        raise ValueError("effective product scope must reference ACTIVE Product Registry definitions")
             result = s.execute(
                 update(ContextConflictEntity)
                 .where(
@@ -277,6 +293,22 @@ class PostgresContextResolutionRepository:
             )
             if result.rowcount != 1:
                 raise OptimisticConcurrencyError("context conflict version changed")
+            if conflict.conflict_type == "PRODUCT_CONTEXT_CONFLICT":
+                scope = [str(x) for x in scope_ids]
+                scope_result = s.execute(
+                    update(ProductScopeResolutionEntity)
+                    .where(
+                        ProductScopeResolutionEntity.tenant_id == self.tenant_id,
+                        ProductScopeResolutionEntity.conflict_id == str(conflict_id),
+                    )
+                    .values(
+                        effective_product_scope_json=scope,
+                        resolution_status="RESOLVED", review_required=False,
+                        updated_at=_now(),
+                    )
+                )
+                if scope_result.rowcount != 1:
+                    raise LookupError("product scope resolution not found for conflict")
         with self._sessions() as s:
             row = self._get(s, ContextConflictEntity, ContextConflictEntity.conflict_id, conflict_id)
             if row is None:
