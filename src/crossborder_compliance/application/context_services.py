@@ -426,9 +426,9 @@ class DataFlowResolutionService:
                 raise ValueError("formal DataFlow node requires SourceTrace")
             node_type=str(node.get("node_type_candidate") or "UNRESOLVED")
             display_name=str(node.get("name") or "Unnamed")
+            confidence=float(node.get("confidence",0.0))
             resolved_system=self.repository.find_system_by_name(project_id, display_name) if node_type=="SYSTEM" else None
             if node_type=="SYSTEM" and resolved_system is None:
-                confidence=float(node.get("confidence", 0.0))
                 self.repository.save_conflict(ContextConflict(
                     uuid4(), project_id, "SYSTEM_CONTEXT_CONFLICT", "DATA_FLOW_NODE",
                     (candidate_id,), "FLOW_SYSTEM_UNRESOLVED", {"display_name":display_name},
@@ -440,19 +440,48 @@ class DataFlowResolutionService:
                     traces, True, None, "POLICY", version,
                 ))
                 continue
+            party_candidate=_norm(node.get("party_candidate"))
+            resolved_party=self.repository.find_project_party_by_name(project_id,party_candidate) if party_candidate else None
+            if party_candidate and resolved_party is None:
+                self.repository.save_conflict(ContextConflict(
+                    uuid4(),project_id,"PARTY_CONTEXT_CONFLICT","DATA_FLOW_NODE",
+                    (candidate_id,),"FLOW_PARTY_UNRESOLVED",{"party_candidate":party_candidate},
+                    traces,confidence,"OPEN",True,version,
+                ))
+                self.repository.save_candidate_resolution(CandidateResolution(
+                    uuid4(),"DATA_FLOW_NODE",candidate_id,"DATA_FLOW_NODE",None,
+                    ResolutionAction.CONFLICT,confidence,"FLOW_PARTY_UNRESOLVED",
+                    traces,True,None,"POLICY",version,
+                ))
+                continue
+            location_candidate=_norm(node.get("location_candidate"))
+            resolved_location=self.repository.find_jurisdiction_context_by_input(project_id,location_candidate) if location_candidate else None
+            if location_candidate and resolved_location is None:
+                self.repository.save_conflict(ContextConflict(
+                    uuid4(),project_id,"LOCATION_CONTEXT_CONFLICT","DATA_FLOW_NODE",
+                    (candidate_id,),"FLOW_LOCATION_UNRESOLVED",{"location_candidate":location_candidate},
+                    traces,confidence,"OPEN",True,version,
+                ))
+                self.repository.save_candidate_resolution(CandidateResolution(
+                    uuid4(),"DATA_FLOW_NODE",candidate_id,"DATA_FLOW_NODE",None,
+                    ResolutionAction.CONFLICT,confidence,"FLOW_LOCATION_UNRESOLVED",
+                    traces,True,None,"POLICY",version,
+                ))
+                continue
             node_id = uuid4()
             detail = DataFlowNodeContext(
                 node_id,
                 UUID(str(resolved_system["system_id"])) if resolved_system else None,
-                None, None, None, traces,
-                float(node.get("confidence", 0.0)),
-                ContextValidationStatus.VALIDATED, version,
+                UUID(str(resolved_party["project_party_id"])) if resolved_party else None,
+                UUID(str(resolved_location["jurisdiction_context_id"])) if resolved_location else None,
+                None,traces,confidence,ContextValidationStatus.VALIDATED,version,
             )
             self.repository.create_formal_flow_node(
                 project_id=project_id,
                 node_type=node_type,
                 display_name=display_name,
-                jurisdiction_id=None, detail=detail,
+                jurisdiction_id=UUID(str(resolved_location["jurisdiction_id"])) if resolved_location and resolved_location.get("jurisdiction_id") else None,
+                detail=detail,
             )
             self.repository.save_candidate_resolution(CandidateResolution(
                 uuid4(), "DATA_FLOW_NODE", candidate_id, "DATA_FLOW_NODE", node_id,
