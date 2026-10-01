@@ -24,7 +24,8 @@ from crossborder_compliance.infrastructure.document_parsers import default_nativ
 from crossborder_compliance.infrastructure.persistence.context_models import (
     AnalysisSnapshotContextPinEntity, CandidateResolutionEntity,
     ContextConflictEntity, DataItemProductLinkDetailEntity,
-    ProductScopeResolutionEntity,
+    ProductContextCandidateEntity, ProductScopeResolutionEntity,
+    ScenarioResolutionEntity,
 )
 from crossborder_compliance.infrastructure.persistence.context_repositories import (
     PostgresContextResolutionRepository,
@@ -238,6 +239,14 @@ def test_phase1e_context_resolution_formal_inventory_flow_review_versioning_and_
     assert fact_type
 
     _parse_generic_project(sf,tenant_a,project_a)
+    with sf() as s,s.begin():
+        nodes=s.scalars(select(CandidateDataFlowNodeEntity).where(
+            CandidateDataFlowNodeEntity.tenant_id==str(tenant_a)
+        )).all()
+        assert nodes
+        for node in nodes:
+            node.party_candidate="Example Vendor"
+            node.location_candidate="Canonical fixture"
 
     repo=PostgresContextResolutionRepository(sf,RepositoryContext.user(tenant_a,"phase1e-user"))
     other=PostgresContextResolutionRepository(sf,RepositoryContext.user(tenant_b,"other-user"))
@@ -344,6 +353,8 @@ def test_phase1e_context_resolution_formal_inventory_flow_review_versioning_and_
     flows=repo.get_data_flows(project_a)
     assert flows["edges"] and flows["data_item_links"]
     assert all(n["system_id"] for n in flows["nodes"])
+    assert all(n["party_id"]==str(party_a) for n in flows["nodes"])
+    assert all(n["jurisdiction_context_id"] for n in flows["nodes"])
     assert any(x["data_item_id"]==str(field_id) for x in flows["data_item_links"])
 
     jurisdictions=repo.get_jurisdiction_context(project_a)
@@ -354,6 +365,33 @@ def test_phase1e_context_resolution_formal_inventory_flow_review_versioning_and_
 
     parties=repo.get_parties(project_a)
     assert parties and parties[0]["project_party_id"]==str(party_a)
+
+    formal_result=repo.get_context_resolution(project_a)
+    assert formal_result is not None and formal_result.version==1
+    assert formal_result.product_contexts
+    assert formal_result.scenario_contexts
+    assert len(formal_result.system_contexts)==2
+    assert formal_result.device_contexts
+    assert formal_result.party_contexts
+    assert len(formal_result.jurisdiction_contexts)==2
+    assert formal_result.conflicts
+    assert formal_result.review_task_ids
+    assert formal_result.data_inventory_summary["items"]
+    assert formal_result.data_flow_summary["edges"]
+
+    with sf() as s:
+        product_candidate_count=int(s.scalar(select(func.count()).select_from(ProductContextCandidateEntity).where(
+            ProductContextCandidateEntity.tenant_id==str(tenant_a),
+            ProductContextCandidateEntity.project_id==str(project_a),
+            ProductContextCandidateEntity.version==1,
+        )) or 0)
+        scenario_resolution_count=int(s.scalar(select(func.count()).select_from(ScenarioResolutionEntity).where(
+            ScenarioResolutionEntity.tenant_id==str(tenant_a),
+            ScenarioResolutionEntity.project_id==str(project_a),
+            ScenarioResolutionEntity.version==1,
+        )) or 0)
+        assert product_candidate_count==2
+        assert scenario_resolution_count==2
 
     with sf() as s:
         counts={
