@@ -104,6 +104,23 @@ def upgrade():
     op.create_index("ix_context_conflict_project_status", "context_conflicts", ["tenant_id", "project_id", "resolution_status"])
 
     op.create_table(
+        "product_context_candidates",
+        sa.Column("product_context_candidate_id", sa.String(36), primary_key=True),
+        sa.Column("project_id", sa.String(36), sa.ForeignKey("projects.project_id", ondelete="CASCADE"), nullable=False),
+        sa.Column("dimension_type", sa.String(40), nullable=False),
+        sa.Column("definition_id", sa.String(36), sa.ForeignKey("metadata_definitions.definition_id", ondelete="RESTRICT"), nullable=False),
+        sa.Column("source", sa.String(80), nullable=False),
+        sa.Column("confidence", sa.Float(), nullable=False),
+        sa.Column("source_trace_ids_json", sa.JSON(), nullable=False),
+        sa.Column("version", sa.Integer(), nullable=False),
+        *_audit_cols(),
+        sa.UniqueConstraint(
+            "tenant_id", "project_id", "dimension_type", "definition_id", "source", "version",
+            name="uq_product_context_candidate_version",
+        ),
+    )
+
+    op.create_table(
         "product_contexts",
         sa.Column("product_context_id", sa.String(36), primary_key=True),
         sa.Column("project_id", sa.String(36), sa.ForeignKey("projects.project_id", ondelete="CASCADE"), nullable=False),
@@ -158,6 +175,24 @@ def upgrade():
         sa.Column("version", sa.Integer(), nullable=False),
         *_audit_cols(),
         sa.UniqueConstraint("tenant_id", "project_id", "scenario_definition_id", "version", name="uq_scenario_context_version"),
+    )
+
+    op.create_table(
+        "scenario_resolutions",
+        sa.Column("scenario_resolution_id", sa.String(36), primary_key=True),
+        sa.Column("project_id", sa.String(36), sa.ForeignKey("projects.project_id", ondelete="CASCADE"), nullable=False),
+        sa.Column("scenario_definition_id", sa.String(36), sa.ForeignKey("metadata_definitions.definition_id", ondelete="RESTRICT"), nullable=False),
+        sa.Column("action", sa.String(40), nullable=False),
+        sa.Column("source", sa.String(80), nullable=False),
+        sa.Column("confidence", sa.Float(), nullable=False),
+        sa.Column("source_trace_ids_json", sa.JSON(), nullable=False),
+        sa.Column("review_required", sa.Boolean(), nullable=False, server_default=sa.text("false")),
+        sa.Column("version", sa.Integer(), nullable=False),
+        *_audit_cols(),
+        sa.UniqueConstraint(
+            "tenant_id", "project_id", "scenario_definition_id", "source", "version",
+            name="uq_scenario_resolution_version",
+        ),
     )
 
     op.create_table(
@@ -420,10 +455,12 @@ def downgrade():
         "system_relations",
         "device_contexts",
         "system_contexts",
+        "scenario_resolutions",
         "scenario_contexts",
         "product_scope_resolutions",
         "product_context_definition_links",
         "product_contexts",
+        "product_context_candidates",
         "context_conflicts",
         "candidate_resolutions",
         "business_fact_resolutions",
