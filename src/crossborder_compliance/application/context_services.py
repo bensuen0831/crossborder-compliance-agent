@@ -545,6 +545,8 @@ class ContextResolutionService:
         self.systems = SystemContextResolutionService(repository)
         self.parties = PartyResolutionService(repository)
         self.data_items = DataItemNormalizationService(repository)
+        self.dedup = DataItemDeduplicationService(repository)
+        self.groups = DataItemGroupingService(repository)
         self.data_flows = DataFlowResolutionService(repository)
         self.jurisdictions = JurisdictionResolutionService(repository)
         self.validation = ContextValidationService(repository)
@@ -558,6 +560,7 @@ class ContextResolutionService:
         jurisdictions: tuple[dict[str, object], ...] = (),
         data_item_product_bindings: dict[str, list[str]] | None = None,
         data_item_flow_bindings: dict[str, list[str]] | None = None,
+        data_groups: tuple[dict[str, object], ...] = (),
         workflow_run_id: UUID | None = None,
     ) -> dict[str, object]:
         run = self.repository.start_context_run(project_id)
@@ -599,7 +602,23 @@ class ContextResolutionService:
                 source_trace_ids=tuple(UUID(x) for x in spec.get("source_trace_ids", [])),
                 confidence=float(spec.get("confidence", 0.9)), version=version,
             )
+        candidate_items = self.repository.list_candidate_items(project_id)
+        for left, right in combinations(candidate_items, 2):
+            self.dedup.compare(project_id, left, right, version=version)
         candidate_to_formal = self.data_items.normalize(project_id, version=version)
+
+        for group_spec in data_groups:
+            formal_ids = tuple(dict.fromkeys(
+                item_id for item_id in (
+                    candidate_to_formal.get(str(candidate_id))
+                    for candidate_id in group_spec.get("candidate_ids", [])
+                ) if item_id is not None
+            ))
+            if formal_ids:
+                self.groups.group(
+                    project_id, name=str(group_spec["name"]), data_item_ids=formal_ids,
+                    grouping_reason=str(group_spec.get("grouping_reason", "LOGICAL_CONTEXT_GROUP")),
+                )
 
         for candidate_id, definition_ids in (data_item_product_bindings or {}).items():
             item_id = candidate_to_formal.get(str(candidate_id)) or self.repository.formal_data_item_by_candidate(UUID(str(candidate_id)))
