@@ -14,7 +14,8 @@ from crossborder_compliance.domain.context_resolution import (
     DataItemDeduplicationResult, DataItemResolutionDetail, DedupDecision,
     DeviceContext, JurisdictionContext, JurisdictionResolution,
     LocationPrecision, PartyCandidate, PartyResolution, ProductContext,
-    ProductScopeResolution, ResolutionAction, ScenarioContext, SystemContext,
+    ProductContextCandidate, ProductScopeResolution, ResolutionAction,
+    ScenarioContext, ScenarioResolution, SystemContext,
 )
 
 
@@ -109,6 +110,18 @@ class ProductContextResolutionService:
         detected = self._validate(tuple(dict.fromkeys(detected_scope)))
         selected_flat = tuple(dict.fromkeys(x for v in selected.values() for x in v))
         detected_flat = tuple(dict.fromkeys(x for v in detected.values() for x in v))
+        for definition_id in selected_flat:
+            definition=self.repository.metadata_definition(definition_id)
+            self.repository.save_product_context_candidate(ProductContextCandidate(
+                uuid4(),project_id,str(definition["kind"]),definition_id,
+                "EXPLICIT_USER_SELECTION",1.0,source_trace_ids,version,
+            ))
+        for definition_id in detected_flat:
+            definition=self.repository.metadata_definition(definition_id)
+            self.repository.save_product_context_candidate(ProductContextCandidate(
+                uuid4(),project_id,str(definition["kind"]),definition_id,
+                "DOCUMENT_DERIVED",0.85,source_trace_ids,version,
+            ))
 
         conflict_id = None
         review = False
@@ -163,7 +176,27 @@ class ScenarioResolutionService:
         detected: tuple[UUID, ...], source_trace_ids: tuple[UUID, ...] = (),
         version: int,
     ) -> list[ScenarioContext]:
-        ids = tuple(dict.fromkeys(selected or detected))
+        selected_unique=tuple(dict.fromkeys(selected))
+        detected_unique=tuple(dict.fromkeys(detected))
+        for definition_id in selected_unique:
+            row=self.repository.metadata_definition(definition_id)
+            if row is None or row["kind"]!="SCENARIO":
+                raise ValueError("scenario context must reference ACTIVE Scenario Registry")
+            self.repository.save_scenario_resolution(ScenarioResolution(
+                uuid4(),project_id,definition_id,ResolutionAction.ACCEPTED,
+                "EXPLICIT_USER_SELECTION",1.0,source_trace_ids,False,version,
+            ))
+        for definition_id in detected_unique:
+            row=self.repository.metadata_definition(definition_id)
+            if row is None or row["kind"]!="SCENARIO":
+                raise ValueError("scenario context must reference ACTIVE Scenario Registry")
+            conflict=bool(selected_unique and definition_id not in selected_unique)
+            self.repository.save_scenario_resolution(ScenarioResolution(
+                uuid4(),project_id,definition_id,
+                ResolutionAction.CONFLICT if conflict else ResolutionAction.ACCEPTED,
+                "DOCUMENT_DERIVED",0.85,source_trace_ids,conflict,version,
+            ))
+        ids = tuple(dict.fromkeys(selected_unique or detected_unique))
         out: list[ScenarioContext] = []
         for definition_id in ids:
             row = self.repository.metadata_definition(definition_id)
