@@ -98,6 +98,18 @@ class CandidateResolution:
 
 
 @dataclass(frozen=True, slots=True)
+class ProductContextCandidate:
+    product_context_candidate_id: UUID
+    project_id: UUID
+    dimension_type: str
+    definition_id: UUID
+    source: str
+    confidence: float
+    source_trace_ids: tuple[UUID, ...]
+    version: int
+
+
+@dataclass(frozen=True, slots=True)
 class ProductContext:
     product_context_id: UUID
     project_id: UUID
@@ -138,6 +150,19 @@ class ScenarioContext:
     confidence: float
     source_trace_ids: tuple[UUID, ...]
     validation_status: ContextValidationStatus
+    review_required: bool
+    version: int
+
+
+@dataclass(frozen=True, slots=True)
+class ScenarioResolution:
+    scenario_resolution_id: UUID
+    project_id: UUID
+    scenario_definition_id: UUID
+    action: ResolutionAction
+    source: str
+    confidence: float
+    source_trace_ids: tuple[UUID, ...]
     review_required: bool
     version: int
 
