@@ -9,11 +9,12 @@ from sqlalchemy.orm import sessionmaker
 
 from crossborder_compliance.domain.context_resolution import (
     BusinessFact, CandidateResolution, ContextConflict, ContextResolutionResult,
-    ContextStatistics, DataFlowEdgeContext, DataFlowNodeContext,
+    ContextStatistics, ContextValidationStatus, DataFlowEdgeContext, DataFlowNodeContext,
     DataItemDeduplicationResult, DataItemResolutionDetail, DeviceContext,
-    JurisdictionContext, JurisdictionResolution, PartyCandidate, PartyResolution,
-    ProductContext, ProductContextCandidate, ProductScopeResolution,
-    ScenarioContext, ScenarioResolution, SystemContext,
+    JurisdictionContext, JurisdictionResolution, LocationPrecision,
+    PartyCandidate, PartyResolution, ProductContext, ProductContextCandidate,
+    ProductScopeResolution, ResolutionAction, ScenarioContext, ScenarioResolution,
+    SystemContext,
 )
 from crossborder_compliance.domain.security import RepositoryContext
 from crossborder_compliance.infrastructure.persistence.context_models import (
@@ -326,6 +327,7 @@ class PostgresContextResolutionRepository:
             "details": row.details_json, "source_trace_ids": row.source_trace_ids_json,
             "confidence": row.confidence, "resolution_status": row.resolution_status,
             "review_required": row.review_required, "record_version": row.record_version,
+            "version": row.version,
         }
 
     def list_conflicts(self, project_id: UUID) -> list[dict[str, object]]:
@@ -813,7 +815,9 @@ class PostgresContextResolutionRepository:
                 )).all()
                 out.append({
                     "product_context_id": r.product_context_id, "source": r.source,
-                    "confidence": r.confidence, "effective_scope": r.effective_scope_json,
+                    "confidence": r.confidence, "evidence_ids": r.evidence_ids_json,
+                    "source_trace_ids": r.source_trace_ids_json,
+                    "effective_scope": r.effective_scope_json,
                     "resolution_status": r.resolution_status,
                     "review_required": r.review_required, "version": r.version,
                     "definitions": [{"dimension_type": x[0], "definition_id": x[1]} for x in links],
@@ -830,6 +834,7 @@ class PostgresContextResolutionRepository:
                 "scenario_context_id": r.scenario_context_id,
                 "scenario_definition_id": r.scenario_definition_id,
                 "source": r.source, "confidence": r.confidence,
+                "source_trace_ids": r.source_trace_ids_json,
                 "validation_status": r.validation_status,
                 "review_required": r.review_required, "version": r.version,
             } for r in rows]
@@ -879,6 +884,7 @@ class PostgresContextResolutionRepository:
                 "project_party_id": resolution.project_party_id,
                 "legal_entity_id": resolution.legal_entity_id,
                 "action": resolution.action, "confidence": resolution.confidence,
+                "source_trace_ids": resolution.source_trace_ids_json,
                 "review_required": resolution.review_required, "version": resolution.version,
             } for resolution, candidate in rows]
 
@@ -1066,23 +1072,115 @@ class PostgresContextResolutionRepository:
             ).order_by(ContextResolutionRunEntity.version.desc()))
             if run is None:
                 return None
-        stats = self.aggregate_statistics(project_id)
+        version=run.version
+        facts=[x for x in self.get_business_context(project_id) if int(x["version"])==version]
+        product_rows=[x for x in self.get_product_context(project_id) if int(x["version"])==version]
+        scenario_rows=[x for x in self.get_scenario_context(project_id) if int(x["version"])==version]
+        system_rows=[x for x in self.get_systems(project_id) if int(x["version"])==version]
+        device_rows=[x for x in self.get_devices(project_id) if int(x["version"])==version]
+        party_rows=[x for x in self.get_parties(project_id) if int(x["version"])==version]
+        jurisdiction_rows=[x for x in self.get_jurisdiction_context(project_id) if int(x["version"])==version]
+        conflict_rows=[x for x in self.list_conflicts(project_id) if int(x["version"])==version]
+
+        product_contexts=[]
+        for row in product_rows:
+            dimensions={k:[] for k in ["PRODUCT_DOMAIN","PRODUCT_CATEGORY","PRODUCT_FAMILY","PRODUCT","PRODUCT_TAG"]}
+            for definition in row["definitions"]:
+                if definition["dimension_type"] in dimensions:
+                    dimensions[definition["dimension_type"]].append(UUID(str(definition["definition_id"])))
+            product_contexts.append(ProductContext(
+                product_context_id=UUID(str(row["product_context_id"])),project_id=project_id,
+                product_domain_ids=tuple(dimensions["PRODUCT_DOMAIN"]),
+                product_category_ids=tuple(dimensions["PRODUCT_CATEGORY"]),
+                product_family_ids=tuple(dimensions["PRODUCT_FAMILY"]),
+                product_ids=tuple(dimensions["PRODUCT"]),
+                product_tag_ids=tuple(dimensions["PRODUCT_TAG"]),
+                source=str(row["source"]),confidence=float(row["confidence"]),
+                evidence_ids=tuple(UUID(x) for x in row.get("evidence_ids",[])),
+                source_trace_ids=tuple(UUID(x) for x in row.get("source_trace_ids",[])),
+                effective_scope=tuple(UUID(x) for x in row.get("effective_scope",[])),
+                resolution_status=str(row["resolution_status"]),
+                review_required=bool(row["review_required"]),version=version,
+            ))
+        scenario_contexts=tuple(ScenarioContext(
+            UUID(str(row["scenario_context_id"])),project_id,
+            UUID(str(row["scenario_definition_id"])) if row.get("scenario_definition_id") else None,
+            str(row["source"]),float(row["confidence"]),
+            tuple(UUID(x) for x in row.get("source_trace_ids",[])),
+            ContextValidationStatus(str(row["validation_status"])),
+            bool(row["review_required"]),version,
+        ) for row in scenario_rows)
+        system_contexts=tuple(SystemContext(
+            UUID(str(row["system_id"])),project_id,str(row["display_name"]),
+            UUID(str(row["system_type_ref"])) if row.get("system_type_ref") else None,
+            tuple(UUID(x) for x in row.get("product_context_refs",[])),
+            tuple(UUID(x) for x in row.get("party_refs",[])),
+            tuple(UUID(x) for x in row.get("location_refs",[])),
+            tuple(UUID(x) for x in row.get("source_trace_ids",[])),
+            float(row["confidence"]),ContextValidationStatus(str(row["validation_status"])),version,
+        ) for row in system_rows)
+        device_contexts=tuple(DeviceContext(
+            UUID(str(row["device_id"])),project_id,str(row["display_name"]),
+            UUID(str(row["device_type_ref"])) if row.get("device_type_ref") else None,
+            UUID(str(row["system_id"])) if row.get("system_id") else None,
+            tuple(UUID(x) for x in row.get("product_context_refs",[])),
+            tuple(UUID(x) for x in row.get("source_trace_ids",[])),
+            float(row["confidence"]),ContextValidationStatus(str(row["validation_status"])),version,
+        ) for row in device_rows)
+        party_contexts=tuple(PartyResolution(
+            UUID(str(row["party_resolution_id"])),UUID(str(row["party_candidate_id"])),
+            UUID(str(row["project_party_id"])) if row.get("project_party_id") else None,
+            UUID(str(row["legal_entity_id"])) if row.get("legal_entity_id") else None,
+            ResolutionAction(str(row["action"])),float(row["confidence"]),
+            "PERSISTED_PARTY_RESOLUTION",tuple(UUID(x) for x in row.get("source_trace_ids",[])),
+            bool(row["review_required"]),version,
+        ) for row in party_rows)
+        jurisdiction_contexts=tuple(JurisdictionContext(
+            UUID(str(row["jurisdiction_context_id"])),project_id,
+            UUID(str(row["jurisdiction_id"])) if row.get("jurisdiction_id") else None,
+            str(row["context_type"]),LocationPrecision(str(row["location_precision"])),
+            str(row["source"]),float(row["confidence"]),row.get("latitude"),row.get("longitude"),
+            tuple(UUID(x) for x in row.get("source_trace_ids",[])),
+            ContextValidationStatus(str(row["validation_status"])),
+            bool(row["review_required"]),version,
+        ) for row in jurisdiction_rows)
+        conflicts=tuple(ContextConflict(
+            UUID(str(row["conflict_id"])),project_id,str(row["conflict_type"]),
+            str(row["object_type"]),tuple(UUID(x) for x in row.get("object_ids",[])),
+            str(row["reason_code"]),dict(row.get("details") or {}),
+            tuple(UUID(x) for x in row.get("source_trace_ids",[])),
+            float(row["confidence"]),str(row["resolution_status"]),
+            bool(row["review_required"]),version,
+        ) for row in conflict_rows)
+        conflict_ids=[str(x.conflict_id) for x in conflicts]
+        with self._sessions() as s:
+            review_ids=tuple(UUID(x) for x in s.scalars(select(ReviewTaskEntity.review_id).where(
+                ReviewTaskEntity.tenant_id==self.tenant_id,
+                ReviewTaskEntity.object_type=="CONTEXT_CONFLICT",
+                ReviewTaskEntity.object_id.in_(conflict_ids) if conflict_ids else text("false"),
+            )))
+        flows=self.get_data_flows(project_id)
+        latest_edge_ids={x["flow_edge_id"] for x in flows["edges"] if int(x["version"])==version}
+        latest_flows={
+            "nodes":[x for x in flows["nodes"] if int(x["version"])==version],
+            "edges":[x for x in flows["edges"] if int(x["version"])==version],
+            "data_item_links":[x for x in flows["data_item_links"] if x["flow_edge_id"] in latest_edge_ids],
+        }
+        stats=self.aggregate_statistics(project_id)
         return ContextResolutionResult(
             context_resolution_run_id=UUID(run.context_resolution_run_id),
             project_id=project_id,
-            business_fact_summary={"facts": self.get_business_context(project_id)},
-            product_contexts=(),
-            scenario_contexts=(),
-            system_contexts=(),
-            device_contexts=(),
-            party_contexts=(),
-            data_inventory_summary={"items": self.get_data_items(project_id), "groups": self.get_data_groups(project_id)},
-            data_flow_summary=self.get_data_flows(project_id),
-            jurisdiction_contexts=(),
-            unresolved_items=(),
-            conflicts=(),
-            review_task_ids=(),
+            business_fact_summary={"facts":facts},
+            product_contexts=tuple(product_contexts),
+            scenario_contexts=scenario_contexts,
+            system_contexts=system_contexts,
+            device_contexts=device_contexts,
+            party_contexts=party_contexts,
+            data_inventory_summary={"items":self.get_data_items(project_id),"groups":self.get_data_groups(project_id)},
+            data_flow_summary=latest_flows,
+            jurisdiction_contexts=jurisdiction_contexts,
+            unresolved_items=tuple(x.reason_code for x in conflicts if x.resolution_status!="RESOLVED"),
+            conflicts=conflicts,review_task_ids=review_ids,
             statistics=ContextStatistics(**stats),
-            confidence=run.confidence,
-            version=run.version,
+            confidence=run.confidence,version=version,
         )
