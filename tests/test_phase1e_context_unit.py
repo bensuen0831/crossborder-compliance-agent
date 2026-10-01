@@ -12,6 +12,7 @@ class Repo:
     def __init__(self):
         self.dedup=[]
         self.conflicts=[]
+        self.product_candidates=[]
         self.product_contexts=[]
         self.scope_resolutions=[]
         self.defs={}
@@ -24,6 +25,9 @@ class Repo:
 
     def save_conflict(self, conflict):
         self.conflicts.append(conflict)
+
+    def save_product_context_candidate(self, candidate):
+        self.product_candidates.append(candidate)
 
     def save_product_context(self, context):
         self.product_contexts.append(context)
@@ -62,6 +66,7 @@ def test_product_selection_conflict_is_explicit_and_effective_scope_stays_empty(
     assert resolution.review_required is True
     assert resolution.effective_product_scope==()
     assert repo.conflicts and repo.conflicts[0].conflict_type=="PRODUCT_CONTEXT_CONFLICT"
+    assert len(repo.product_candidates)==2
 
 
 def test_no_selected_product_uses_document_detected_scope_not_all_registry():
@@ -75,3 +80,4 @@ def test_no_selected_product_uses_document_detected_scope_not_all_registry():
     assert resolution.effective_product_scope==(detected,)
     assert unrelated not in resolution.effective_product_scope
     assert not repo.conflicts
+    assert len(repo.product_candidates)==1
