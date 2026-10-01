@@ -92,6 +92,24 @@ class ContextConflictEntity(TenantAuditMixin, Base):
     version: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
 
 
+class ProductContextCandidateEntity(TenantAuditMixin, Base):
+    __tablename__ = "product_context_candidates"
+    __table_args__ = (
+        UniqueConstraint(
+            "tenant_id", "project_id", "dimension_type", "definition_id", "source", "version",
+            name="uq_product_context_candidate_version",
+        ),
+    )
+    product_context_candidate_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    project_id: Mapped[str] = mapped_column(ForeignKey("projects.project_id", ondelete="CASCADE"), nullable=False)
+    dimension_type: Mapped[str] = mapped_column(String(40), nullable=False)
+    definition_id: Mapped[str] = mapped_column(ForeignKey("metadata_definitions.definition_id", ondelete="RESTRICT"), nullable=False)
+    source: Mapped[str] = mapped_column(String(80), nullable=False)
+    confidence: Mapped[float] = mapped_column(Float, nullable=False)
+    source_trace_ids_json: Mapped[list] = mapped_column(JSON, nullable=False, default=list)
+    version: Mapped[int] = mapped_column(Integer, nullable=False)
+
+
 class ProductContextEntity(TenantAuditMixin, Base):
     __tablename__ = "product_contexts"
     __table_args__ = (
@@ -149,6 +167,25 @@ class ScenarioContextEntity(TenantAuditMixin, Base):
     confidence: Mapped[float] = mapped_column(Float, nullable=False)
     source_trace_ids_json: Mapped[list] = mapped_column(JSON, nullable=False, default=list)
     validation_status: Mapped[str] = mapped_column(String(40), nullable=False)
+    review_required: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
+    version: Mapped[int] = mapped_column(Integer, nullable=False)
+
+
+class ScenarioResolutionEntity(TenantAuditMixin, Base):
+    __tablename__ = "scenario_resolutions"
+    __table_args__ = (
+        UniqueConstraint(
+            "tenant_id", "project_id", "scenario_definition_id", "source", "version",
+            name="uq_scenario_resolution_version",
+        ),
+    )
+    scenario_resolution_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    project_id: Mapped[str] = mapped_column(ForeignKey("projects.project_id", ondelete="CASCADE"), nullable=False)
+    scenario_definition_id: Mapped[str] = mapped_column(ForeignKey("metadata_definitions.definition_id", ondelete="RESTRICT"), nullable=False)
+    action: Mapped[str] = mapped_column(String(40), nullable=False)
+    source: Mapped[str] = mapped_column(String(80), nullable=False)
+    confidence: Mapped[float] = mapped_column(Float, nullable=False)
+    source_trace_ids_json: Mapped[list] = mapped_column(JSON, nullable=False, default=list)
     review_required: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
     version: Mapped[int] = mapped_column(Integer, nullable=False)
 
