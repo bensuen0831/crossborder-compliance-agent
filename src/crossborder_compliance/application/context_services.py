@@ -417,18 +417,30 @@ class DataFlowResolutionService:
             source_id = node_map.get(str(edge["source_candidate_node_id"]))
             target_id = node_map.get(str(edge["target_candidate_node_id"]))
             if source_id is None or target_id is None:
+                confidence=float(edge.get("confidence", 0.0))
                 self.repository.save_conflict(ContextConflict(
                     uuid4(), project_id, "SOURCE_DESTINATION_CONFLICT", "DATA_FLOW_EDGE",
                     (candidate_edge_id,), "FLOW_ENDPOINT_UNRESOLVED", {}, traces,
-                    float(edge.get("confidence", 0.0)), "OPEN", True, version,
+                    confidence, "OPEN", True, version,
+                ))
+                self.repository.save_candidate_resolution(CandidateResolution(
+                    uuid4(), "DATA_FLOW_EDGE", candidate_edge_id, "DATA_FLOW_EDGE", None,
+                    ResolutionAction.CONFLICT, confidence, "FLOW_ENDPOINT_UNRESOLVED",
+                    traces, True, None, "POLICY", version,
                 ))
                 continue
             direction = str(edge.get("direction") or "").strip()
             if not direction or direction.upper() == "UNKNOWN":
+                confidence=float(edge.get("confidence", 0.0))
                 self.repository.save_conflict(ContextConflict(
                     uuid4(), project_id, "FLOW_DIRECTION_CONFLICT", "DATA_FLOW_EDGE",
                     (candidate_edge_id,), "FLOW_DIRECTION_UNRESOLVED", {}, traces,
-                    float(edge.get("confidence", 0.0)), "OPEN", True, version,
+                    confidence, "OPEN", True, version,
+                ))
+                self.repository.save_candidate_resolution(CandidateResolution(
+                    uuid4(), "DATA_FLOW_EDGE", candidate_edge_id, "DATA_FLOW_EDGE", None,
+                    ResolutionAction.CONFLICT, confidence, "FLOW_DIRECTION_UNRESOLVED",
+                    traces, True, None, "POLICY", version,
                 ))
                 continue
             candidate_item_ids = [
@@ -440,10 +452,16 @@ class DataFlowResolutionService:
                 ) if item_id is not None
             ))
             if not formal_item_ids:
+                confidence=float(edge.get("confidence", 0.0))
                 self.repository.save_conflict(ContextConflict(
                     uuid4(), project_id, "DATA_ITEM_FLOW_CONFLICT", "DATA_FLOW_EDGE",
                     (candidate_edge_id,), "NO_RESOLVED_DATA_ITEM_FOR_FLOW", {}, traces,
-                    float(edge.get("confidence", 0.0)), "OPEN", True, version,
+                    confidence, "OPEN", True, version,
+                ))
+                self.repository.save_candidate_resolution(CandidateResolution(
+                    uuid4(), "DATA_FLOW_EDGE", candidate_edge_id, "DATA_FLOW_EDGE", None,
+                    ResolutionAction.CONFLICT, confidence, "NO_RESOLVED_DATA_ITEM_FOR_FLOW",
+                    traces, True, None, "POLICY", version,
                 ))
                 continue
             edge_id = uuid4()
