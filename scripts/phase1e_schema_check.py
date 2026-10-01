@@ -9,8 +9,8 @@ from crossborder_compliance.infrastructure.persistence.db import build_engine
 
 REQUIRED={
     "business_facts","business_fact_resolutions","candidate_resolutions","context_conflicts",
-    "product_contexts","product_context_definition_links","product_scope_resolutions",
-    "scenario_contexts","system_contexts","device_contexts","party_candidates","party_resolutions",
+    "product_context_candidates","product_contexts","product_context_definition_links","product_scope_resolutions",
+    "scenario_contexts","scenario_resolutions","system_contexts","device_contexts","party_candidates","party_resolutions",
     "data_item_resolution_details","data_item_candidate_links","data_item_source_trace_links",
     "data_item_deduplication_results","data_item_product_link_details",
     "jurisdiction_contexts","jurisdiction_resolutions","data_flow_node_details",
@@ -33,7 +33,9 @@ def main():
         revision=conn.execute(text("select version_num from alembic_version")).scalar_one()
 
     product_fk={fk["referred_table"] for fk in fks("product_context_definition_links")}
+    product_candidate_fk={fk["referred_table"] for fk in fks("product_context_candidates")}
     scenario_fk={fk["referred_table"] for fk in fks("scenario_contexts")}
+    scenario_resolution_fk={fk["referred_table"] for fk in fks("scenario_resolutions")}
     item_source_fk={fk["referred_table"] for fk in fks("data_item_source_trace_links")}
     checks={
         "alembic_head_0005_phase1e": revision=="0005_phase1e",
@@ -43,7 +45,9 @@ def main():
         "candidate_resolution_persists_candidate_formal_boundary": {"candidate_type","candidate_id","formal_object_type","formal_object_id","action","version"}<=cols("candidate_resolutions"),
         "business_fact_resolution_preserves_candidate": {"candidate_fact_id","business_fact_id","action"}<=cols("business_fact_resolutions"),
         "product_context_registry_fk": "metadata_definitions" in product_fk,
+        "product_context_candidate_registry_fk": "metadata_definitions" in product_candidate_fk,
         "scenario_context_registry_fk": "metadata_definitions" in scenario_fk,
+        "scenario_resolution_registry_fk": "metadata_definitions" in scenario_resolution_fk,
         "product_conflict_explicit": {"conflict_id","selected_product_scope_json","detected_product_context_json","effective_product_scope_json"}<=cols("product_scope_resolutions"),
         "data_item_detail_one_to_one": set(insp.get_pk_constraint("data_item_resolution_details").get("constrained_columns") or [])=={"data_item_id"},
         "formal_data_item_has_candidate_links": {"data_item_id","candidate_data_item_id"}<=cols("data_item_candidate_links"),
