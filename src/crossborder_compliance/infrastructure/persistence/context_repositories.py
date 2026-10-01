@@ -629,6 +629,32 @@ class PostgresContextResolutionRepository:
                 review_required=context.review_required, version=context.version,
             ))
 
+    def find_jurisdiction_context_by_input(self, project_id: UUID, input_value: str) -> dict[str, object] | None:
+        with self._sessions() as s:
+            row=s.execute(
+                select(JurisdictionContextEntity,JurisdictionResolutionEntity)
+                .join(
+                    JurisdictionResolutionEntity,
+                    JurisdictionResolutionEntity.jurisdiction_context_id==JurisdictionContextEntity.jurisdiction_context_id,
+                )
+                .where(
+                    JurisdictionContextEntity.tenant_id==self.tenant_id,
+                    JurisdictionContextEntity.project_id==str(project_id),
+                    func.lower(JurisdictionResolutionEntity.input_value)==input_value.strip().lower(),
+                    JurisdictionResolutionEntity.action=="ACCEPTED",
+                )
+                .order_by(JurisdictionContextEntity.version.desc())
+            ).first()
+            if row is None:
+                return None
+            context,_=row
+            return {
+                "jurisdiction_context_id":context.jurisdiction_context_id,
+                "jurisdiction_id":context.jurisdiction_id,
+                "location_precision":context.location_precision,
+                "version":context.version,
+            }
+
     def save_jurisdiction_resolution(self, resolution: JurisdictionResolution) -> None:
         with self._sessions() as s, s.begin():
             s.add(JurisdictionResolutionEntity(
@@ -884,6 +910,7 @@ class PostgresContextResolutionRepository:
                 "project_party_id": resolution.project_party_id,
                 "legal_entity_id": resolution.legal_entity_id,
                 "action": resolution.action, "confidence": resolution.confidence,
+                "reason_code": resolution.reason_code,
                 "source_trace_ids": resolution.source_trace_ids_json,
                 "review_required": resolution.review_required, "version": resolution.version,
             } for resolution, candidate in rows]
@@ -1132,7 +1159,8 @@ class PostgresContextResolutionRepository:
             UUID(str(row["project_party_id"])) if row.get("project_party_id") else None,
             UUID(str(row["legal_entity_id"])) if row.get("legal_entity_id") else None,
             ResolutionAction(str(row["action"])),float(row["confidence"]),
-            "PERSISTED_PARTY_RESOLUTION",tuple(UUID(x) for x in row.get("source_trace_ids",[])),
+            str(row.get("reason_code") or "PERSISTED_PARTY_RESOLUTION"),
+            tuple(UUID(x) for x in row.get("source_trace_ids",[])),
             bool(row["review_required"]),version,
         ) for row in party_rows)
         jurisdiction_contexts=tuple(JurisdictionContext(
@@ -1153,12 +1181,15 @@ class PostgresContextResolutionRepository:
             bool(row["review_required"]),version,
         ) for row in conflict_rows)
         conflict_ids=[str(x.conflict_id) for x in conflicts]
-        with self._sessions() as s:
-            review_ids=tuple(UUID(x) for x in s.scalars(select(ReviewTaskEntity.review_id).where(
-                ReviewTaskEntity.tenant_id==self.tenant_id,
-                ReviewTaskEntity.object_type=="CONTEXT_CONFLICT",
-                ReviewTaskEntity.object_id.in_(conflict_ids) if conflict_ids else text("false"),
-            )))
+        if conflict_ids:
+            with self._sessions() as s:
+                review_ids=tuple(UUID(x) for x in s.scalars(select(ReviewTaskEntity.review_id).where(
+                    ReviewTaskEntity.tenant_id==self.tenant_id,
+                    ReviewTaskEntity.object_type=="CONTEXT_CONFLICT",
+                    ReviewTaskEntity.object_id.in_(conflict_ids),
+                )))
+        else:
+            review_ids=()
         flows=self.get_data_flows(project_id)
         latest_edge_ids={x["flow_edge_id"] for x in flows["edges"] if int(x["version"])==version}
         latest_flows={
