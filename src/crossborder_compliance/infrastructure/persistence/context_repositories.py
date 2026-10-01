@@ -224,6 +224,7 @@ class PostgresContextResolutionRepository:
                 validation_status=fact.validation_status.value, conflict_status=fact.conflict_status,
                 review_required=fact.review_required, version=fact.version,
             ))
+            s.flush()
             for candidate_id in candidate_ids:
                 s.add(BusinessFactResolutionEntity(
                     resolution_id=str(uuid4()), candidate_fact_id=str(candidate_id),
@@ -344,6 +345,7 @@ class PostgresContextResolutionRepository:
                 resolution_status=context.resolution_status, review_required=context.review_required,
                 version=context.version,
             ))
+            s.flush()
             dimensions = {
                 "PRODUCT_DOMAIN": context.product_domain_ids, "PRODUCT_CATEGORY": context.product_category_ids,
                 "PRODUCT_FAMILY": context.product_family_ids, "PRODUCT": context.product_ids,
@@ -477,6 +479,7 @@ class PostgresContextResolutionRepository:
                 source_document_version_id=str(source_document_version_id) if source_document_version_id else None,
                 source_trace_ref_id=str(source_trace_id),
             ))
+            s.flush()
             s.add(DataItemResolutionDetailEntity(
                 data_item_id=str(item_id), tenant_id=self.tenant_id,
                 display_name=detail.display_name, value_type=detail.value_type,
@@ -620,6 +623,7 @@ class PostgresContextResolutionRepository:
                 node_type=node_type, display_name=display_name,
                 jurisdiction_id=str(jurisdiction_id) if jurisdiction_id else None,
             ))
+            s.flush()
             s.add(DataFlowNodeDetailEntity(
                 flow_node_id=str(node_id), tenant_id=self.tenant_id,
                 system_id=str(detail.system_id) if detail.system_id else None,
@@ -646,6 +650,7 @@ class PostgresContextResolutionRepository:
                 source_node_id=str(source_node_id), target_node_id=str(target_node_id),
                 flow_type=flow_type, route_sequence=None, declared_cross_border=None,
             ))
+            s.flush()
             s.add(DataFlowEdgeDetailEntity(
                 flow_edge_id=str(edge_id), tenant_id=self.tenant_id,
                 transfer_type_definition_id=str(detail.transfer_type_ref) if detail.transfer_type_ref else None,
