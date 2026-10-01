@@ -391,16 +391,34 @@ class DataFlowResolutionService:
             traces = tuple(UUID(x) for x in node.get("source_trace_ids", []))
             if not traces:
                 raise ValueError("formal DataFlow node requires SourceTrace")
+            node_type=str(node.get("node_type_candidate") or "UNRESOLVED")
+            display_name=str(node.get("name") or "Unnamed")
+            resolved_system=self.repository.find_system_by_name(project_id, display_name) if node_type=="SYSTEM" else None
+            if node_type=="SYSTEM" and resolved_system is None:
+                confidence=float(node.get("confidence", 0.0))
+                self.repository.save_conflict(ContextConflict(
+                    uuid4(), project_id, "SYSTEM_CONTEXT_CONFLICT", "DATA_FLOW_NODE",
+                    (candidate_id,), "FLOW_SYSTEM_UNRESOLVED", {"display_name":display_name},
+                    traces, confidence, "OPEN", True, version,
+                ))
+                self.repository.save_candidate_resolution(CandidateResolution(
+                    uuid4(), "DATA_FLOW_NODE", candidate_id, "DATA_FLOW_NODE", None,
+                    ResolutionAction.CONFLICT, confidence, "FLOW_SYSTEM_UNRESOLVED",
+                    traces, True, None, "POLICY", version,
+                ))
+                continue
             node_id = uuid4()
             detail = DataFlowNodeContext(
-                node_id, None, None, None, None, traces,
+                node_id,
+                UUID(str(resolved_system["system_id"])) if resolved_system else None,
+                None, None, None, traces,
                 float(node.get("confidence", 0.0)),
                 ContextValidationStatus.VALIDATED, version,
             )
             self.repository.create_formal_flow_node(
                 project_id=project_id,
-                node_type=str(node.get("node_type_candidate") or "UNRESOLVED"),
-                display_name=str(node.get("name") or "Unnamed"),
+                node_type=node_type,
+                display_name=display_name,
                 jurisdiction_id=None, detail=detail,
             )
             self.repository.save_candidate_resolution(CandidateResolution(
@@ -593,6 +611,7 @@ class ContextResolutionService:
             version=version,
         )
         system_ids = []
+        system_ids_by_name: dict[str, UUID] = {}
         for spec in systems:
             system = self.systems.create_system(
                 project_id, display_name=str(spec["display_name"]),
@@ -604,11 +623,17 @@ class ContextResolutionService:
                 confidence=float(spec.get("confidence", 1.0)), version=version,
             )
             system_ids.append(system.system_id)
+            system_ids_by_name[_norm_key(system.display_name)] = system.system_id
         for spec in devices:
+            device_system_id = (
+                UUID(str(spec["system_id"])) if spec.get("system_id")
+                else system_ids_by_name.get(_norm_key(spec.get("system_name"))) if spec.get("system_name")
+                else None
+            )
             self.systems.create_device(
                 project_id, display_name=str(spec["display_name"]),
                 device_type_ref=UUID(str(spec["device_type_ref"])) if spec.get("device_type_ref") else None,
-                system_id=UUID(str(spec["system_id"])) if spec.get("system_id") else None,
+                system_id=device_system_id,
                 product_context_refs=tuple(UUID(x) for x in spec.get("product_context_refs", [])),
                 source_trace_ids=tuple(UUID(x) for x in spec.get("source_trace_ids", [])),
                 confidence=float(spec.get("confidence", 1.0)), version=version,
