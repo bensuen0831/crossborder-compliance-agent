@@ -364,6 +364,20 @@ class PostgresContextResolutionRepository:
                 version=context.version,
             ))
 
+    def find_system_by_name(self, project_id: UUID, display_name: str) -> dict[str, object] | None:
+        with self._sessions() as s:
+            row = s.scalar(select(SystemContextEntity).where(
+                SystemContextEntity.tenant_id == self.tenant_id,
+                SystemContextEntity.project_id == str(project_id),
+                func.lower(SystemContextEntity.display_name) == display_name.strip().lower(),
+            ).order_by(SystemContextEntity.version.desc()))
+            if row is None:
+                return None
+            return {
+                "system_id": row.system_id, "display_name": row.display_name,
+                "system_type_ref": row.system_type_ref, "version": row.version,
+            }
+
     def save_device_context(self, context: DeviceContext) -> None:
         with self._sessions() as s, s.begin():
             s.add(DeviceContextEntity(
