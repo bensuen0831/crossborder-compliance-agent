@@ -26,7 +26,7 @@ def main():
     document_version_aggregate_columns = set(cols("document_versions")) | set(cols("document_version_intelligence"))
     source_trace_aggregate_columns = set(cols("source_trace_refs")) | set(cols("source_trace_details"))
     checks={
-        "alembic_head_0004_phase1d":revision=="0004_phase1d",
+        "phase1d_schema_present_under_current_head":revision in {"0004_phase1d","0005_phase1e"},
         "required_tables_present":REQUIRED_TABLES<=tables,
         "document_versions_metadata_fields": {"filename","size_bytes","language","storage_ref","content_hash","mime_type"}<=document_version_aggregate_columns,
         "document_version_intelligence_one_to_one": set(insp.get_pk_constraint("document_version_intelligence").get("constrained_columns") or [])=={"document_version_id"},
