@@ -100,7 +100,7 @@ def main() -> None:
         }
 
     assertions = {
-        "phase1c_schema_present_under_current_head": revision in {"0003_phase1c", "0004_phase1d"},
+        "phase1c_schema_present_under_current_head": revision in {"0003_phase1c", "0004_phase1d", "0005_phase1e"},
         "all_phase1c_tables_exist": not missing,
         "domain_metadata_excludes_langgraph_checkpoints": not checkpoint_owned,
         "metadata_version_fk_to_definition": "metadata_definitions" in fk_targets("metadata_versions"),
