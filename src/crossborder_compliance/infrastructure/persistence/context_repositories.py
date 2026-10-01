@@ -12,7 +12,8 @@ from crossborder_compliance.domain.context_resolution import (
     ContextStatistics, DataFlowEdgeContext, DataFlowNodeContext,
     DataItemDeduplicationResult, DataItemResolutionDetail, DeviceContext,
     JurisdictionContext, JurisdictionResolution, PartyCandidate, PartyResolution,
-    ProductContext, ProductScopeResolution, ScenarioContext, SystemContext,
+    ProductContext, ProductContextCandidate, ProductScopeResolution,
+    ScenarioContext, ScenarioResolution, SystemContext,
 )
 from crossborder_compliance.domain.security import RepositoryContext
 from crossborder_compliance.infrastructure.persistence.context_models import (
@@ -25,8 +26,9 @@ from crossborder_compliance.infrastructure.persistence.context_models import (
     DataItemResolutionDetailEntity, DataItemSourceTraceLinkEntity,
     DeviceContextEntity, JurisdictionContextEntity,
     JurisdictionResolutionEntity, PartyCandidateEntity, PartyResolutionEntity,
-    ProductContextDefinitionLinkEntity, ProductContextEntity,
-    ProductScopeResolutionEntity, ScenarioContextEntity, SystemContextEntity,
+    ProductContextCandidateEntity, ProductContextDefinitionLinkEntity, ProductContextEntity,
+    ProductScopeResolutionEntity, ScenarioContextEntity, ScenarioResolutionEntity,
+    SystemContextEntity,
 )
 from crossborder_compliance.infrastructure.persistence.document_models import (
     BusinessFactCandidateEntity, BusinessFactSourceLinkEntity,
@@ -334,6 +336,17 @@ class PostgresContextResolutionRepository:
             ).order_by(ContextConflictEntity.created_at)).all()
             return [self._conflict_dict(r) for r in rows]
 
+    def save_product_context_candidate(self, candidate: ProductContextCandidate) -> None:
+        with self._sessions() as s, s.begin():
+            s.add(ProductContextCandidateEntity(
+                product_context_candidate_id=str(candidate.product_context_candidate_id),
+                project_id=str(candidate.project_id), tenant_id=self.tenant_id,
+                dimension_type=candidate.dimension_type, definition_id=str(candidate.definition_id),
+                source=candidate.source, confidence=candidate.confidence,
+                source_trace_ids_json=[str(x) for x in candidate.source_trace_ids],
+                version=candidate.version,
+            ))
+
     def save_product_context(self, context: ProductContext) -> None:
         with self._sessions() as s, s.begin():
             s.add(ProductContextEntity(
@@ -382,6 +395,18 @@ class PostgresContextResolutionRepository:
                 source_trace_ids_json=[str(x) for x in context.source_trace_ids],
                 validation_status=context.validation_status.value,
                 review_required=context.review_required, version=context.version,
+            ))
+
+    def save_scenario_resolution(self, resolution: ScenarioResolution) -> None:
+        with self._sessions() as s, s.begin():
+            s.add(ScenarioResolutionEntity(
+                scenario_resolution_id=str(resolution.scenario_resolution_id),
+                project_id=str(resolution.project_id), tenant_id=self.tenant_id,
+                scenario_definition_id=str(resolution.scenario_definition_id),
+                action=resolution.action.value, source=resolution.source,
+                confidence=resolution.confidence,
+                source_trace_ids_json=[str(x) for x in resolution.source_trace_ids],
+                review_required=resolution.review_required, version=resolution.version,
             ))
 
     def save_system_context(self, context: SystemContext) -> None:
@@ -819,6 +844,20 @@ class PostgresContextResolutionRepository:
                 "system_id": r.system_id, "display_name": r.display_name,
                 "system_type_ref": r.system_type_ref, "product_context_refs": r.product_context_refs_json,
                 "party_refs": r.party_refs_json, "location_refs": r.location_refs_json,
+                "source_trace_ids": r.source_trace_ids_json, "confidence": r.confidence,
+                "validation_status": r.validation_status, "version": r.version,
+            } for r in rows]
+
+    def get_devices(self, project_id: UUID) -> list[dict[str, object]]:
+        with self._sessions() as s:
+            rows = s.scalars(select(DeviceContextEntity).where(
+                DeviceContextEntity.tenant_id == self.tenant_id,
+                DeviceContextEntity.project_id == str(project_id),
+            )).all()
+            return [{
+                "device_id": r.device_id, "display_name": r.display_name,
+                "device_type_ref": r.device_type_ref, "system_id": r.system_id,
+                "product_context_refs": r.product_context_refs_json,
                 "source_trace_ids": r.source_trace_ids_json, "confidence": r.confidence,
                 "validation_status": r.validation_status, "version": r.version,
             } for r in rows]
