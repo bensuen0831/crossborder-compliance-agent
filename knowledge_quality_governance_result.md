@@ -1,4 +1,4 @@
-# Phase 1F Migration Result
+# Phase 1F Knowledge Quality & Governance Result
 
 Phase: **1F — Knowledge Ingestion & Scope Resolver Foundation**.
 
@@ -22,10 +22,10 @@ Known exclusions: Phase 1G retrieval/ranking/reranking/RAG/answer generation, cl
 
 Authoritative boundary: PostgreSQL canonical knowledge tables; Phase 1C source definitions/collections/bindings and model metadata are reused; Phase 1B RegulatoryStructureNode/EvidenceReference/Citation and durable admin review are reused. Object storage retains original artifacts. Registry, FTS and pgvector are derived projections/indexes. Formal Phase 1E context is the only context input.
 
-Alembic head = **0006_phase1f**; down_revision = **0005_phase1e**. Migration is frozen PostgreSQL DDL and does not import mutable application models. Fourteen new tables plus six knowledge_bindings extension columns reuse existing Phase 1B/C tables. FK/unique/check constraints, one ACTIVE document partial unique index, generated FTS/GIN and vector dimension constraint are included.
+Lifecycle: DRAFT → INGESTED → VALIDATED → PENDING_REVIEW → APPROVED → ACTIVE → SUPERSEDED/EXPIRED → ARCHIVED. Explicit administrative actions validate transitions and expected record_version. Failed quality remains INGESTED and cannot enter review/publish. Publication rechecks quality, independent review and effective date.
 
-New tables: knowledge_documents; knowledge_document_versions; knowledge_structure_nodes; knowledge_chunks; knowledge_chunk_nodes; knowledge_ingestion_runs; knowledge_quality_results; knowledge_translations; knowledge_index_versions; embedding_jobs; embedding_records; knowledge_change_events; knowledge_version_diffs; knowledge_scope_resolutions.
+Seven quality assertions: validated/enabled source, nonempty canonical structure/chunks, structured citations, content hash/ACTIVE collection version, consistent language, binding provenance and complete version/artifact/node provenance. The contract supports PASS/WARNING/REVIEW_REQUIRED/FAILED; this deterministic first gate emits PASS or FAILED. Warning heuristics are excluded.
 
-Reused: knowledge_source_definitions; knowledge_collections/versions; knowledge_bindings; regulatory_structure_nodes; evidence_references; citations; admin_change_sets/review_tasks/publish_records; registry_sync_events; analysis_snapshot_context_pins/registry_pins; Phase 1E contexts and Phase 1C model metadata. No parallel source/review/legal/classification tables are added. Downgrade drops extension columns/tables in dependency order; shared pgvector extension is preserved. Downgrade is a schema operation that removes Phase 1F data, not a runtime undo operation.
+Review reuses AdminChangeSet, AdminReviewTask and AdminPublishRecord. The original author and system worker cannot approve. Binding approval occurs within the reviewed version transaction. Concurrent repeat publish yields one publication record; publish of a new version supersedes the previous one and records a diff/event.
 
-PASS evidence: fresh upgrade 0001→0006 on real PostgreSQL; Phase 1F schema 29/29; all prior schema gates unchanged in assertion count, with current-head allowlists extended. Runtime checkpointer tables remain owned by LangGraph setup, not Alembic. Ingestion/lifecycle/index rollback and stale/concurrent writes are separately tested.
+PASS assertions: invalid transitions, quality failure boundary, independent reviewer, publish/supersede/expiry, one ACTIVE index, duplicate publish idempotency, optimistic stale rejection and transaction rollback. No second knowledge review subsystem exists.

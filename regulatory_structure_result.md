@@ -1,4 +1,4 @@
-# Phase 1F Migration Result
+# Phase 1F Regulatory Structure Result
 
 Phase: **1F — Knowledge Ingestion & Scope Resolver Foundation**.
 
@@ -22,10 +22,8 @@ Known exclusions: Phase 1G retrieval/ranking/reranking/RAG/answer generation, cl
 
 Authoritative boundary: PostgreSQL canonical knowledge tables; Phase 1C source definitions/collections/bindings and model metadata are reused; Phase 1B RegulatoryStructureNode/EvidenceReference/Citation and durable admin review are reused. Object storage retains original artifacts. Registry, FTS and pgvector are derived projections/indexes. Formal Phase 1E context is the only context input.
 
-Alembic head = **0006_phase1f**; down_revision = **0005_phase1e**. Migration is frozen PostgreSQL DDL and does not import mutable application models. Fourteen new tables plus six knowledge_bindings extension columns reuse existing Phase 1B/C tables. FK/unique/check constraints, one ACTIVE document partial unique index, generated FTS/GIN and vector dimension constraint are included.
+Official legislation/regulator sources create existing `regulatory_structure_nodes` rows. `knowledge_structure_nodes.regulatory_structure_node_id` is a unique one-to-one extension of that canonical identity, carrying parent hierarchy, sequence, locator/number, heading, original/normalized text, language, effective date, source trace, provenance and citation. ACT/ARTICLE/SECTION/etc are stable technical node types. Nonlegal policy sources use canonical knowledge nodes without pretending to be official legal evidence.
 
-New tables: knowledge_documents; knowledge_document_versions; knowledge_structure_nodes; knowledge_chunks; knowledge_chunk_nodes; knowledge_ingestion_runs; knowledge_quality_results; knowledge_translations; knowledge_index_versions; embedding_jobs; embedding_records; knowledge_change_events; knowledge_version_diffs; knowledge_scope_resolutions.
+No Article or Section authoritative table is added. Official legal structure requires a canonical source jurisdiction. Parent locators are validated for existence, duplicates and cycles before persistence; FK and unique locator constraints provide database enforcement.
 
-Reused: knowledge_source_definitions; knowledge_collections/versions; knowledge_bindings; regulatory_structure_nodes; evidence_references; citations; admin_change_sets/review_tasks/publish_records; registry_sync_events; analysis_snapshot_context_pins/registry_pins; Phase 1E contexts and Phase 1C model metadata. No parallel source/review/legal/classification tables are added. Downgrade drops extension columns/tables in dependency order; shared pgvector extension is preserved. Downgrade is a schema operation that removes Phase 1F data, not a runtime undo operation.
-
-PASS evidence: fresh upgrade 0001→0006 on real PostgreSQL; Phase 1F schema 29/29; all prior schema gates unchanged in assertion count, with current-head allowlists extended. Runtime checkpointer tables remain owned by LangGraph setup, not Alembic. Ingestion/lifecycle/index rollback and stale/concurrent writes are separately tested.
+PASS assertions: hierarchy, canonical legal identity equality, source jurisdiction, citation/evidence chain, parent FK rollback, duplicate-version constraint and structure-aware chunk boundary preservation. Legal interpretation/applicability is excluded.

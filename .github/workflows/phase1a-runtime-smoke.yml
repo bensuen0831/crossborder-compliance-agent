@@ -82,6 +82,8 @@ jobs:
           python -m pip install -e ".[dev]"
       - name: Run mandatory PostgreSQL-backed LangGraph gate
         run: bash smoke/run_gate.sh
+      - name: Publish measured Phase 1F empirical evidence
+        run: python scripts/phase1f_empirical_summary.py
       - name: Upload empirical Phase 1A.1 evidence
         if: always()
         uses: actions/upload-artifact@v4

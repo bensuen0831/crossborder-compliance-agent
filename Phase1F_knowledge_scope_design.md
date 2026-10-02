@@ -1,4 +1,4 @@
-# Phase 1F Migration Result
+# Phase 1F Knowledge & Scope Design
 
 Phase: **1F — Knowledge Ingestion & Scope Resolver Foundation**.
 
@@ -22,10 +22,25 @@ Known exclusions: Phase 1G retrieval/ranking/reranking/RAG/answer generation, cl
 
 Authoritative boundary: PostgreSQL canonical knowledge tables; Phase 1C source definitions/collections/bindings and model metadata are reused; Phase 1B RegulatoryStructureNode/EvidenceReference/Citation and durable admin review are reused. Object storage retains original artifacts. Registry, FTS and pgvector are derived projections/indexes. Formal Phase 1E context is the only context input.
 
-Alembic head = **0006_phase1f**; down_revision = **0005_phase1e**. Migration is frozen PostgreSQL DDL and does not import mutable application models. Fourteen new tables plus six knowledge_bindings extension columns reuse existing Phase 1B/C tables. FK/unique/check constraints, one ACTIVE document partial unique index, generated FTS/GIN and vector dimension constraint are included.
+The platform separates ingestion/publication from runtime permission scope. No similarity query, ranking, LLM call or legal conclusion occurs in the scope pipeline.
 
-New tables: knowledge_documents; knowledge_document_versions; knowledge_structure_nodes; knowledge_chunks; knowledge_chunk_nodes; knowledge_ingestion_runs; knowledge_quality_results; knowledge_translations; knowledge_index_versions; embedding_jobs; embedding_records; knowledge_change_events; knowledge_version_diffs; knowledge_scope_resolutions.
+```mermaid
+flowchart TD
+  Source[Registry-governed Source] --> Ingest[Durable Ingestion Outbox / Redis Worker]
+  Ingest --> Canonical[Versioned Canonical Structure / Legal Node Extension]
+  Canonical --> Chunks[Structure-aware Chunks / Citation Provenance]
+  Chunks --> Bind[Versioned Bindings]
+  Bind --> Quality[Seven Quality Assertions]
+  Quality --> Review[Existing Durable Admin Review]
+  Review --> Active[Approved Publication / ACTIVE]
+  Context[Phase 1E Formal Context / Immutable Snapshot] --> Scope[KnowledgeScopeResolver]
+  Active --> Scope
+  Scope --> Filter[Hard Filter Contract for Phase 1G]
+  Active --> Index[Derived FTS / Embedding Index Foundation]
+```
 
-Reused: knowledge_source_definitions; knowledge_collections/versions; knowledge_bindings; regulatory_structure_nodes; evidence_references; citations; admin_change_sets/review_tasks/publish_records; registry_sync_events; analysis_snapshot_context_pins/registry_pins; Phase 1E contexts and Phase 1C model metadata. No parallel source/review/legal/classification tables are added. Downgrade drops extension columns/tables in dependency order; shared pgvector extension is preserved. Downgrade is a schema operation that removes Phase 1F data, not a runtime undo operation.
+Domain contracts: `domain/knowledge.py`. Application services/ports: `application/knowledge_services.py`, `application/knowledge_ports.py`. PostgreSQL adapters: `infrastructure/persistence/knowledge_models.py`, `knowledge_repositories.py`. Controlled transport/queue: `knowledge_download.py`, `knowledge_worker.py`. API and migration are separate adapters.
 
-PASS evidence: fresh upgrade 0001→0006 on real PostgreSQL; Phase 1F schema 29/29; all prior schema gates unchanged in assertion count, with current-head allowlists extended. Runtime checkpointer tables remain owned by LangGraph setup, not Alembic. Ingestion/lifecycle/index rollback and stale/concurrent writes are separately tested.
+Each lifecycle mutation locks the parent document then refreshes the version under row lock. Independent human approval is required; worker credentials cannot approve. A unique partial index enforces one ACTIVE version per document. Publish supersedes the previous ACTIVE version and emits change/diff records. Snapshot scope persists formal context, versions, bindings, indexes and embedding configuration identities; resume uses those historical identities while rechecking current permissions and source revocation.
+
+PASS evidence: complete tests/test_phase1f_postgres.py (29 tests) and tests/test_phase1f_download_chunking.py (26 tests), schema gate and architecture gate. Mandatory Cases A–E are explicit tests.

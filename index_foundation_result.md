@@ -1,4 +1,4 @@
-# Phase 1F Migration Result
+# Phase 1F Index Foundation Result
 
 Phase: **1F — Knowledge Ingestion & Scope Resolver Foundation**.
 
@@ -22,10 +22,10 @@ Known exclusions: Phase 1G retrieval/ranking/reranking/RAG/answer generation, cl
 
 Authoritative boundary: PostgreSQL canonical knowledge tables; Phase 1C source definitions/collections/bindings and model metadata are reused; Phase 1B RegulatoryStructureNode/EvidenceReference/Citation and durable admin review are reused. Object storage retains original artifacts. Registry, FTS and pgvector are derived projections/indexes. Formal Phase 1E context is the only context input.
 
-Alembic head = **0006_phase1f**; down_revision = **0005_phase1e**. Migration is frozen PostgreSQL DDL and does not import mutable application models. Fourteen new tables plus six knowledge_bindings extension columns reuse existing Phase 1B/C tables. FK/unique/check constraints, one ACTIVE document partial unique index, generated FTS/GIN and vector dimension constraint are included.
+PostgreSQL chunks have a generated `search_vector` derived from normalized canonical text and a GIN index. Embedding records have a pgvector column with a dimension check. For model dimensions ≤ 2000, build creates a validated per-model partial HNSW cosine index; higher supported storage dimensions (up to 16000) retain vector storage without that HNSW index. No top-K or FTS business search is exposed.
 
-New tables: knowledge_documents; knowledge_document_versions; knowledge_structure_nodes; knowledge_chunks; knowledge_chunk_nodes; knowledge_ingestion_runs; knowledge_quality_results; knowledge_translations; knowledge_index_versions; embedding_jobs; embedding_records; knowledge_change_events; knowledge_version_diffs; knowledge_scope_resolutions.
+KnowledgeIndexVersion pins knowledge version, chunking strategy, embedding config, FTS config, build state/date and canonical content hash. EmbeddingJob/Record retain chunk/model/config, dimension, embedding version, vector hash, generation time/status. Config resolves through Phase 1C ModelRegistry with active provider/model/deployment and EMBEDDING capability; dimension comes from capability metadata. Provider secrets are not returned or invoked.
 
-Reused: knowledge_source_definitions; knowledge_collections/versions; knowledge_bindings; regulatory_structure_nodes; evidence_references; citations; admin_change_sets/review_tasks/publish_records; registry_sync_events; analysis_snapshot_context_pins/registry_pins; Phase 1E contexts and Phase 1C model metadata. No parallel source/review/legal/classification tables are added. Downgrade drops extension columns/tables in dependency order; shared pgvector extension is preserved. Downgrade is a schema operation that removes Phase 1F data, not a runtime undo operation.
+EmbeddingPort is injected; tests use deterministic fake output. Bad cardinality, dimension or nonfinite values fail before persistence. Rebuild of identical canonical content/config returns the existing index version. Snapshot pins version/binding/index/config through existing registry pin infrastructure.
 
-PASS evidence: fresh upgrade 0001→0006 on real PostgreSQL; Phase 1F schema 29/29; all prior schema gates unchanged in assertion count, with current-head allowlists extended. Runtime checkpointer tables remain owned by LangGraph setup, not Alembic. Ingestion/lifecycle/index rollback and stale/concurrent writes are separately tested.
+PASS assertions: actual vector_dims, generated FTS column, derived index identity/idempotency, HNSW foundation, bad vector rollback, disabled provider rejection and embedding config snapshot pin. Indexes are never knowledge Source of Truth.

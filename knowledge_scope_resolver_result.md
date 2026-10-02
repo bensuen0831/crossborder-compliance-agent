@@ -1,4 +1,4 @@
-# Phase 1F Migration Result
+# Phase 1F Scope Resolver Result
 
 Phase: **1F — Knowledge Ingestion & Scope Resolver Foundation**.
 
@@ -22,10 +22,12 @@ Known exclusions: Phase 1G retrieval/ranking/reranking/RAG/answer generation, cl
 
 Authoritative boundary: PostgreSQL canonical knowledge tables; Phase 1C source definitions/collections/bindings and model metadata are reused; Phase 1B RegulatoryStructureNode/EvidenceReference/Citation and durable admin review are reused. Object storage retains original artifacts. Registry, FTS and pgvector are derived projections/indexes. Formal Phase 1E context is the only context input.
 
-Alembic head = **0006_phase1f**; down_revision = **0005_phase1e**. Migration is frozen PostgreSQL DDL and does not import mutable application models. Fourteen new tables plus six knowledge_bindings extension columns reuse existing Phase 1B/C tables. FK/unique/check constraints, one ACTIVE document partial unique index, generated FTS/GIN and vector dimension constraint are included.
+PermissionScopeResolver, ProductScopeResolver, JurisdictionScopeResolver, ScenarioScopeResolver, IndustryScopeResolver and DataCategoryScopeResolver compose KnowledgeScopeResolver. They return KnowledgeScope / KnowledgeFilterSpec for PROJECT, DATA_ITEM or DATA_FLOW. The returned allowed binding/version set is a hard boundary for future Phase 1G queries.
 
-New tables: knowledge_documents; knowledge_document_versions; knowledge_structure_nodes; knowledge_chunks; knowledge_chunk_nodes; knowledge_ingestion_runs; knowledge_quality_results; knowledge_translations; knowledge_index_versions; embedding_jobs; embedding_records; knowledge_change_events; knowledge_version_diffs; knowledge_scope_resolutions.
+Filter sequence: tenant → permission → lifecycle → version/effective date → product → jurisdiction → scenario → industry → data category → language. Unauthorized exclusion reports contain reason codes without private binding IDs. Only ACTIVE knowledge is allowed unless an existing snapshot pins historically approved knowledge. Future/non-effective, unreviewed, disabled or revoked sources are excluded.
 
-Reused: knowledge_source_definitions; knowledge_collections/versions; knowledge_bindings; regulatory_structure_nodes; evidence_references; citations; admin_change_sets/review_tasks/publish_records; registry_sync_events; analysis_snapshot_context_pins/registry_pins; Phase 1E contexts and Phase 1C model metadata. No parallel source/review/legal/classification tables are added. Downgrade drops extension columns/tables in dependency order; shared pgvector extension is preserved. Downgrade is a schema operation that removes Phase 1F data, not a runtime undo operation.
+Phase 1E context input: completed ContextResolutionRun, ProductScopeResolution, ScenarioContext, JurisdictionContext, validated DataItem/flow details, system/device/party context and validated formal BusinessFact registry references. Industry/data-category/group dimensions require structured formal metadata_refs; text inference is excluded. Missing context fails with PHASE1E_FORMAL_CONTEXT_REQUIRED.
 
-PASS evidence: fresh upgrade 0001→0006 on real PostgreSQL; Phase 1F schema 29/29; all prior schema gates unchanged in assertion count, with current-head allowlists extended. Runtime checkpointer tables remain owned by LangGraph setup, not Alembic. Ingestion/lifecycle/index rollback and stale/concurrent writes are separately tested.
+Snapshot pins use existing AnalysisSnapshotContextPin and AnalysisSnapshotRegistryPin tables. Saved scope/formal context are immutable; resume does not recalculate new project context. Current permission/source revocation can narrow the result. Optimistic concurrency and parent-row serialization protect publication and scope pinning.
+
+PASS assertions: every dimension hard filter, language/effective exclusion, Cases A–E, missing formal context, historical version retention, permission revocation, source revocation and index/config pins. No vector/FTS ranking, reranker, provider SDK or LLM call occurs.

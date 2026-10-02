@@ -1,28 +1,31 @@
-# Phase 1E Architecture Rule Check
+# Phase 1F Architecture Rule Check
 
-## Phase 與 evidence identity
+Phase: **1F — Knowledge Ingestion & Scope Resolver Foundation**.
 
-- Phase：Phase 1E；本次文件整理：Phase 1E.1 Delivery & Evidence Closure。
-- Previous tested code / source branch SHA：`6d05588a02752dc5479658f63bc4b6ab8c29331e`。
-- Baseline GitHub Actions Run ID：`36950913643`；Attempt：`1`。
-- Baseline PR runner merge SHA：`fac2806d819694b4fb8210179ec90348f73791ca`。
-- Base Phase 1D SHA：`51429bc147a843f67ef43e88f7ae61094f6144f1`。
-- Alembic head：`0005_phase1e`。
-- Full PostgreSQL/runtime pytest：**82 passed / 0 skipped / 0 deselected**。
-- Phase 1E PostgreSQL Schema Gate：**22/22 PASS**。
-- Executable Architecture Rules：**59/59 PASS**。
-- Phase 1A、1B、1C、1D regression：**PASS / PASS / PASS / PASS**。
+Tested SHA: `5acbcd1813cb80a2bd3d0f92d04dc68f5d4fc3db`. Run ID: `NOT_VERIFIED — final documentation CI pending`. Attempt: `NOT_VERIFIED`.
+Final evidence Source of Truth: [phase1f_final_remote.json](evidence/phase1f_final_remote.json).
+Artifact ID: `NOT_VERIFIED`. Artifact digest: `NOT_VERIFIED`.
 
-Run identity 與 CI baseline 由本輪提供的 verified empirical baseline 引用；本環境尚未下載該 Actions run 的原始 artifact。`evidence/phase1e/baseline-local/` 為前輪在相同 source SHA 獨立執行完整 PostgreSQL/runtime gate 的證據，結果一致，但不是 Run 36950913643 的 artifact。Artifact ID / digest 不得以本地檔案雜湊冒充。
+| Empirical assertion | Actual result |
+|---|---|
+| Full PostgreSQL/runtime pytest | **137 passed / 0 skipped / 0 deselected** |
+| Alembic head | **0006_phase1f** |
+| Phase 1F schema | **29/29 PASS** |
+| Architecture executable checks | **77/77 PASS** |
+| Phase 1A runtime/checkpoint/restart/resume/retry | **25/25 PASS** |
+| Phase 1B / 1C / 1D / 1E schema regression | **16/16; 20/20; 15/15; 22/22 PASS** |
+| Phase 1A–1E full regression | **PASS** |
 
-本文件的 PASS 僅指下列實際程式／測試 assertions 與既有 baseline。新的 documentation commit 尚須完整 CI，才能完成最終 Delivery Closure；舊 run 不涵蓋新 PR head。最終 head、run、artifact 與完整 log 應存入 `evidence/phase1e/final_ci_manifest.json`，目前不簽發 Phase 1F entry decision。
+Above values are actual full-suite evidence, not prior Phase 1E totals. Before the final remote manifest is issued, they refer to the local measured gate at `5acbcd1813cb80a2bd3d0f92d04dc68f5d4fc3db`; remote identifiers remain NOT_VERIFIED. After issuance, the linked immutable CI baseline is authoritative. Later governance commits must be documentation only and retain the same implementation.
 
-## Actual executable rule result
+Known exclusions: Phase 1G retrieval/ranking/reranking/RAG/answer generation, classification, regulation applicability, country rules, risk and compliance paths are excluded. Ingestion currently supports approved canonical structure JSON upload or controlled HTTPS JSON sources; automatic legal PDF/DOCX import, external site crawling, actual model-provider execution and affected-project impact calculation are excluded. Storage/embedding tests use explicit adapters; PostgreSQL and Redis are real. Whitespace token counting is a deterministic foundation measure, not provider tokenizer equivalence. Local PostgreSQL 17.11/Redis 8.0.2 are separately identified from CI PostgreSQL 16/Redis 7.
 
-**59/59 PASS**，來自 `scripts/architecture_rule_check.py`；`ARCHITECTURE_RULES.md` Phase 1E addendum 為 rules 94–103。59 是累積 executable checks 數，不是 addendum 新規則數。
+Authoritative boundary: PostgreSQL canonical knowledge tables; Phase 1C source definitions/collections/bindings and model metadata are reused; Phase 1B RegulatoryStructureNode/EvidenceReference/Citation and durable admin review are reused. Object storage retains original artifacts. Registry, FTS and pgvector are derived projections/indexes. Formal Phase 1E context is the only context input.
 
-| # | Check | Baseline |
-|---:|---|---|
+**77/77 PASS**. Existing 59 checks remain; 18 Phase 1F boundaries are added. Rules 104–114 are recorded after Rule 103. Static checks inspect domain/application/model/migration/API/runtime source; PostgreSQL tests separately demonstrate behavior.
+
+| # | Executable assertion | Result |
+|---|---|---|
 | 1 | `domain_has_no_langgraph_import` | PASS |
 | 2 | `domain_has_no_sqlalchemy_import` | PASS |
 | 3 | `application_has_no_sqlalchemy_import` | PASS |
@@ -82,17 +85,23 @@ Run identity 與 CI baseline 由本輪提供的 verified empirical baseline 引�
 | 57 | `semantic_resolution_candidate_only` | PASS |
 | 58 | `context_snapshot_versioned` | PASS |
 | 59 | `no_country_product_rule_logic` | PASS |
+| 60 | `knowledge_platform_not_vector_db` | PASS |
+| 61 | `scope_resolver_has_no_retrieval` | PASS |
+| 62 | `hard_filter_precedes_similarity` | PASS |
+| 63 | `unrelated_product_knowledge_excluded` | PASS |
+| 64 | `unresolved_product_scope_fail_safe` | PASS |
+| 65 | `knowledge_chunk_has_provenance` | PASS |
+| 66 | `vector_index_is_derived` | PASS |
+| 67 | `fts_index_is_derived` | PASS |
+| 68 | `registry_not_knowledge_source` | PASS |
+| 69 | `translation_review_boundary` | PASS |
+| 70 | `knowledge_quality_before_active` | PASS |
+| 71 | `snapshot_pins_knowledge_version` | PASS |
+| 72 | `phase1f_uses_phase1e_context` | PASS |
+| 73 | `no_country_specific_knowledge_branch` | PASS |
+| 74 | `no_regulation_business_decision` | PASS |
+| 75 | `controlled_downloader_boundary` | PASS |
+| 76 | `knowledge_ingestion_no_graph_checkpoints` | PASS |
+| 77 | `no_parallel_knowledge_source` | PASS |
 
-## Source-of-truth boundary
-
-Checks 保障無平行 data item/flow authority、review subsystem、classification source；Domain/Application 不依賴 SQLAlchemy/LangGraph/provider SDK；candidate/trace/version/schema boundary 使用現有模型與 extension。Product/Jurisdiction contexts 不能當作 regulation decision。
-
-## Known executable-check limits
-
-多數規則使用 source regex/token 檢查，PASS 不等於所有行為的 formal proof。no_product_search_all_scope 驗證 resolver 的 selected/detected/fallback，而非自動文件產品偵測；context_snapshot_versioned 驗證欄位與 immutable pin，而非全 historical reader。Behavioral tests 補充驗證，其已測／未測範圍詳各 result 文件。新文件 head 必須重新執行此腳本。
-
-## Known exclusions 與回歸邊界
-
-本次僅更新 documentation / evidence；不修改 Domain、Application、API、migration、tests 或 workflow 實作。RAG / Knowledge Retrieval、Formal Classification、Regulation Applicability、Risk、Country Compliance、Compliance Path、Required Regulatory Document Decision、Production Agent 均不在本 Phase 執行範圍。
-
-Phase 1A–1D baseline 回歸保持 PASS；新文件 head 的回歸狀態以新 CI 為準。靜態規則與測試通過不代表未測路徑、完整地理驗證、法律責任判斷或後續 Compliance 已實作。
+No retrieval/ranking in ScopeResolver; hard filters and minimal product context precede future similarity; canonical PostgreSQL knowledge remains authoritative; chunks retain provenance; quality/review precede ACTIVE; original/translation separation; snapshot pins; Phase 1E-only context; no country/product/regulation business branch; controlled downloading; no graph-checkpoint ingestion; no parallel knowledge store.

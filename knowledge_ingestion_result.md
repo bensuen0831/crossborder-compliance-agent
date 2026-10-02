@@ -1,4 +1,4 @@
-# Phase 1F Migration Result
+# Phase 1F Knowledge Ingestion Result
 
 Phase: **1F — Knowledge Ingestion & Scope Resolver Foundation**.
 
@@ -22,10 +22,10 @@ Known exclusions: Phase 1G retrieval/ranking/reranking/RAG/answer generation, cl
 
 Authoritative boundary: PostgreSQL canonical knowledge tables; Phase 1C source definitions/collections/bindings and model metadata are reused; Phase 1B RegulatoryStructureNode/EvidenceReference/Citation and durable admin review are reused. Object storage retains original artifacts. Registry, FTS and pgvector are derived projections/indexes. Formal Phase 1E context is the only context input.
 
-Alembic head = **0006_phase1f**; down_revision = **0005_phase1e**. Migration is frozen PostgreSQL DDL and does not import mutable application models. Fourteen new tables plus six knowledge_bindings extension columns reuse existing Phase 1B/C tables. FK/unique/check constraints, one ACTIVE document partial unique index, generated FTS/GIN and vector dimension constraint are included.
+POST ingest creates a durable PostgreSQL ingestion run and `registry_sync_events` outbox event and returns 202. Redis Streams delivers tenant-specific tasks. `KnowledgeIngestionWorker` dispatches pending outbox events, claims/reclaims tasks, invokes canonicalization/chunking/persistence and acknowledges after durable completion. Retry after completion is a no-op. Queue delivery failure retains the pending outbox. The Phase 1C registry consumer explicitly excludes knowledge ingestion events.
 
-New tables: knowledge_documents; knowledge_document_versions; knowledge_structure_nodes; knowledge_chunks; knowledge_chunk_nodes; knowledge_ingestion_runs; knowledge_quality_results; knowledge_translations; knowledge_index_versions; embedding_jobs; embedding_records; knowledge_change_events; knowledge_version_diffs; knowledge_scope_resolutions.
+`ControlledDownloaderPort` isolates external fetch. The supplied HTTPS adapter validates scheme/credentials/host/port, all DNS addresses, public IP policy, TLS hostname, redirect chain, timeout, MIME, encoding, length/size, content and source hashes and request audit. Connections use validated pinned IPs. Canonical uploads and approved URL imports enter INGESTED, never ACTIVE. Original JSON is stored through ObjectStoragePort before relational canonicalization.
 
-Reused: knowledge_source_definitions; knowledge_collections/versions; knowledge_bindings; regulatory_structure_nodes; evidence_references; citations; admin_change_sets/review_tasks/publish_records; registry_sync_events; analysis_snapshot_context_pins/registry_pins; Phase 1E contexts and Phase 1C model metadata. No parallel source/review/legal/classification tables are added. Downgrade drops extension columns/tables in dependency order; shared pgvector extension is preserved. Downgrade is a schema operation that removes Phase 1F data, not a runtime undo operation.
+PASS assertions: durable outbox retry, real Redis delivery/ack, duplicate task idempotency, idempotency payload mismatch, invalid hierarchy rollback, URL source matching/port audit, private IPv4/IPv6/mixed DNS rejection, redirect revalidation, MIME/size/truncation/encoding rejection and connection cleanup.
 
-PASS evidence: fresh upgrade 0001→0006 on real PostgreSQL; Phase 1F schema 29/29; all prior schema gates unchanged in assertion count, with current-head allowlists extended. Runtime checkpointer tables remain owned by LangGraph setup, not Alembic. Ingestion/lifecycle/index rollback and stale/concurrent writes are separately tested.
+Operational entry: `python scripts/knowledge_ingestion_worker.py --tenant-id <UUID> --once`; object storage must be configured. Approved URL host configuration is explicit. The pinned transport requires deployment egress for those approved source hosts; proxy-only deployments may inject a different ControlledDownloaderPort without changing domain services. No actual external site download or S3 deployment readiness is claimed by test adapters.
