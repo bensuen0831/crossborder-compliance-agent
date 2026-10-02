@@ -25,8 +25,9 @@ from crossborder_compliance.domain.llm_gateway import (
 def validate_schema(schema):
     def walk(value):
         if isinstance(value, dict):
-            if "$ref" in value and not str(value["$ref"]).startswith("#"):
-                raise GatewayDenied("REMOTE_SCHEMA_REFERENCE_DENIED")
+            for key in ("$ref", "$dynamicRef", "$recursiveRef"):
+                if key in value and not str(value[key]).startswith("#"):
+                    raise GatewayDenied("REMOTE_SCHEMA_REFERENCE_DENIED")
             for child in value.values():
                 walk(child)
         elif isinstance(value, list):
@@ -237,6 +238,8 @@ class LLMService:
                             sequence=sequence,
                             text_delta=delta,
                         )
+                    if not emitted:
+                        raise ProviderFailure()
                     self._audit(request, "COMPLETED", model=model, decision=decision)
                     return
                 except ProviderFailure:

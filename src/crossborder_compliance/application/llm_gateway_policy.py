@@ -15,13 +15,19 @@ OPERATION_CAPABILITY = {
     ModelOperation.EMBEDDING: ModelCapabilityCode.EMBEDDING,
     ModelOperation.RERANK: ModelCapabilityCode.RERANK,
     ModelOperation.COUNT_TOKENS: ModelCapabilityCode.TEXT,
-    ModelOperation.HEALTH_CHECK: ModelCapabilityCode.TEXT,
 }
 POLICY_ORDER = {
     ModelPolicyMode.EXTERNAL_MODEL_ALLOWED: 0,
     ModelPolicyMode.REDACTION_REQUIRED: 1,
     ModelPolicyMode.INTERNAL_MODEL_ONLY: 2,
 }
+
+
+def required_capabilities(request):
+    required = set(request.required_capabilities)
+    if request.operation in OPERATION_CAPABILITY:
+        required.add(OPERATION_CAPABILITY[request.operation])
+    return required
 
 
 class ModelUsagePolicyService:
@@ -47,9 +53,9 @@ class ModelUsagePolicyService:
                         modes.append(ModelPolicyMode.INTERNAL_MODEL_ONLY)
                         reasons.append("UNRESOLVED_DATA_POLICY_INTERNAL_ONLY")
                     modes.extend(rules.get(c, ModelPolicyMode.INTERNAL_MODEL_ONLY) for c in codes)
-            for cap in (OPERATION_CAPABILITY[request.operation], *request.required_capabilities):
+            for cap in required_capabilities(request):
                 modes.append(policy.capability_rules.get(cap.value, policy.default_mode))
-        mode = max(modes, key=POLICY_ORDER.__getitem__)
+        mode = ModelPolicyMode(max(modes, key=POLICY_ORDER.__getitem__))
         allowed = []
         for model in models:
             if model.tenant_id != context.tenant_id:
@@ -85,7 +91,7 @@ class ModelUsagePolicyService:
 
 class ModelRouter:
     def route(self, request, decision, models):
-        capabilities = {OPERATION_CAPABILITY[request.operation], *request.required_capabilities}
+        capabilities = required_capabilities(request)
         candidates = tuple(
             m
             for m in models
@@ -94,7 +100,15 @@ class ModelRouter:
             and capabilities <= set(m.capabilities)
             and request.operation in m.operations
             and (m.health_status == "HEALTHY" or request.operation == ModelOperation.HEALTH_CHECK)
-            and request.max_output_tokens <= m.max_output_tokens
+            and (
+                request.operation
+                not in (
+                    ModelOperation.CHAT,
+                    ModelOperation.CHAT_STREAM,
+                    ModelOperation.STRUCTURED_OUTPUT,
+                )
+                or request.max_output_tokens <= m.max_output_tokens
+            )
         )
         if not candidates:
             raise GatewayDenied("NO_ALLOWED_HEALTHY_CAPABLE_MODEL")

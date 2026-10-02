@@ -166,7 +166,7 @@ class HTTPProviderAdapter:
             ) as client:
                 with client.stream(method, url, json=body, headers=headers) as response:
                     response.raise_for_status()
-                    # Byte limits apply before line decoding (including a malicious unterminated line).
+                    # Enforce limits before decoding, including an unterminated line.
                     pending = b""
                     for part in response.iter_bytes():
                         total += len(part)
@@ -192,11 +192,7 @@ class HTTPProviderAdapter:
                                 count = len(buffer) - retained
                                 yield buffer[:count]
                                 buffer = buffer[count:]
-                    if pending.strip():
-                        raise GatewayDenied("MODEL_STREAM_INCOMPLETE")
-                    if buffer:
-                        self._without_secret(buffer, secret)
-                        yield buffer
+                    raise GatewayDenied("MODEL_STREAM_INCOMPLETE")
         except GatewayDenied:
             raise
         except Exception:
