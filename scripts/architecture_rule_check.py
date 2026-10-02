@@ -305,6 +305,262 @@ add(
     country_branch_refs or "registry resolution is metadata/binding driven",
 )
 
+
+# Phase 1D executable guards
+document_domain_file = SRC / "domain" / "document_intelligence.py"
+document_ports_file = SRC / "application" / "document_ports.py"
+document_services_file = SRC / "application" / "document_services.py"
+document_parser_file = SRC / "infrastructure" / "document_parsers.py"
+document_repo_file = SRC / "infrastructure" / "persistence" / "document_repositories.py"
+document_models_file = SRC / "infrastructure" / "persistence" / "document_models.py"
+document_domain_text = read_text(document_domain_file) if document_domain_file.exists() else ""
+document_ports_text = read_text(document_ports_file) if document_ports_file.exists() else ""
+document_services_text = read_text(document_services_file) if document_services_file.exists() else ""
+document_parser_text = read_text(document_parser_file) if document_parser_file.exists() else ""
+document_repo_text = read_text(document_repo_file) if document_repo_file.exists() else ""
+document_models_text = read_text(document_models_file) if document_models_file.exists() else ""
+
+add(
+    "graph_state_has_no_document_binary",
+    all(token not in state_text for token in ["document_bytes", "raw_binary", "file_bytes", "document_content"]),
+    "LangGraph state contains references only; no document binary fields",
+)
+
+add(
+    "canonical_document_not_llm_narrative",
+    "class CanonicalStructureNode" in document_domain_text
+    and "original_text" in document_domain_text
+    and "normalized_text" in document_domain_text
+    and "llm" not in document_parser_text.lower(),
+    "canonical parser output is structured and parser-driven, not LLM narrative",
+)
+
+vision_block = class_block(document_domain_text, "CandidateDiagramResult")
+add(
+    "candidate_vision_has_no_legal_result",
+    bool(vision_block)
+    and not re.search(r"(legal|classification|compliance_path|risk_score)", vision_block, re.I),
+    "CandidateDiagramResult contains candidate nodes/edges only",
+)
+
+source_trace_contract_ok = all(
+    name in document_domain_text and "source_trace_refs" in class_block(document_domain_text, name)
+    for name in ["BusinessFactCandidate", "CandidateDataItem", "CandidateDataFlowNode", "CandidateDataFlowEdge"]
+)
+add(
+    "extracted_result_has_source_trace",
+    source_trace_contract_ok and "requires SourceTraceRef" in document_repo_text,
+    "candidate facts/items/flows carry SourceTraceRef and persistence rejects empty provenance",
+)
+
+add(
+    "spreadsheet_preserves_row_column_provenance",
+    "class XLSXParserAdapter" in document_parser_text
+    and '"row_index"' in document_parser_text
+    and '"column_index"' in document_parser_text
+    and '"header"' in document_parser_text
+    and '"merged_range"' in document_parser_text
+    and '"formula"' in document_parser_text,
+    "XLSX adapter preserves row/column/header/formula/merged-cell metadata",
+)
+
+add(
+    "formal_counts_not_llm",
+    "aggregate_project_summary" in document_repo_text
+    and "func.count" in document_repo_text
+    and not re.search(r"(llm|model).*count", document_repo_text, re.I),
+    "DocumentAnalysisSummary is programmatically aggregated from persistence",
+)
+
+add(
+    "parse_run_is_versioned",
+    "class DocumentParseRunEntity" in model_text
+    and "class DocumentParseRunDetailEntity" in document_models_text
+    and "parse_run_version" in document_models_text
+    and "uq_document_parse_run_detail_version" in document_models_text,
+    "Phase 1B parse-run identity + Phase 1D one-to-one detail extension has explicit version and unique tenant/document/version constraint",
+)
+
+add(
+    "snapshot_can_pin_parse_run",
+    "class AnalysisSnapshotParseRunPinEntity" in document_models_text
+    and "analysis_snapshot_parse_run_pins" in document_models_text
+    and "pin_parse_run" in document_repo_text,
+    "AnalysisSnapshot has immutable parse-run pin persistence",
+)
+
+provider_sdk_refs = occurrences(
+    r"\b(import|from)\s+(pypdf|docx|openpyxl|pptx|PIL)\b",
+    domain + application + files_under(SRC / "workflows"),
+)
+add(
+    "parser_provider_is_adapter_only",
+    not provider_sdk_refs
+    and all(token in document_parser_text for token in ["PDFParserAdapter", "DOCXParserAdapter", "XLSXParserAdapter", "PPTXParserAdapter"]),
+    provider_sdk_refs or "provider SDKs isolated to infrastructure/document_parsers.py",
+)
+
+phase1d_fixed_logic = occurrences(
+    r"\bif\s+.*\b(country|product|regulation)\b.*(?:==|in)\s*[\"'\[{]",
+    [document_services_file, document_parser_file, document_repo_file],
+)
+add(
+    "phase1d_has_no_country_product_regulation_logic",
+    not phase1d_fixed_logic,
+    phase1d_fixed_logic or "Document Intelligence foundation contains no fixed country/product/regulation decisions",
+)
+
+
+# Phase 1E executable guards
+context_domain_file = SRC / "domain" / "context_resolution.py"
+context_ports_file = SRC / "application" / "context_ports.py"
+context_services_file = SRC / "application" / "context_services.py"
+context_models_file = SRC / "infrastructure" / "persistence" / "context_models.py"
+context_repo_file = SRC / "infrastructure" / "persistence" / "context_repositories.py"
+context_domain_text = read_text(context_domain_file) if context_domain_file.exists() else ""
+context_ports_text = read_text(context_ports_file) if context_ports_file.exists() else ""
+context_services_text = read_text(context_services_file) if context_services_file.exists() else ""
+context_models_text = read_text(context_models_file) if context_models_file.exists() else ""
+context_repo_text = read_text(context_repo_file) if context_repo_file.exists() else ""
+
+add(
+    "candidate_not_formal_compliance_input",
+    "class CandidateResolution" in context_domain_text
+    and "save_candidate_resolution" in context_services_text
+    and "CandidateResolutionEntity" in context_repo_text,
+    "Candidate → Resolution → Formal object boundary is persisted; candidates are retained",
+)
+
+add(
+    "product_context_is_registry_driven",
+    "metadata_definition(" in context_services_text
+    and "PRODUCT_DOMAIN" in context_services_text
+    and "ProductContextDefinitionLinkEntity" in context_models_text,
+    "Product Context resolves ACTIVE metadata definitions and persists registry bindings",
+)
+
+add(
+    "no_product_search_all_scope",
+    "effective = selected_flat or detected_flat" in context_services_text
+    and "GENERIC_UNRESOLVED" in context_services_text
+    and "search_all" not in context_services_text.lower(),
+    "No selection uses document-detected scope or unresolved generic scope; never all products",
+)
+
+add(
+    "product_conflict_is_explicit",
+    "PRODUCT_CONTEXT_CONFLICT" in context_services_text
+    and "selected_product_scope" in context_services_text
+    and "detected_product_context" in context_services_text,
+    "Explicit selection vs detected scope conflict is persisted as PRODUCT_CONTEXT_CONFLICT",
+)
+
+add(
+    "business_fact_conflict_is_explicit",
+    "BusinessFactConflict" in context_services_text
+    and "BUSINESS_FACT_CONFLICT" in context_services_text
+    and "MULTIPLE_NORMALIZED_VALUES_FOR_FACT_TYPE" in context_services_text,
+    "Conflicting normalized values for one registry fact type create explicit reviewable conflict",
+)
+
+add(
+    "possible_duplicate_requires_review_conflict",
+    "DATA_ITEM_POSSIBLE_DUPLICATE" in context_services_text
+    and "SEMANTIC_CANDIDATE_ONLY" in context_services_text
+    and "reviewer_required" in context_services_text,
+    "Semantic POSSIBLE_SAME remains candidate-only and enters ContextConflict/review",
+)
+
+add(
+    "unresolved_party_requires_review_conflict",
+    "PARTY_CONTEXT_CONFLICT" in context_services_text
+    and "UNRESOLVED_PARTY" in context_services_text
+    and "save_party_resolution" in context_services_text,
+    "Unresolved PartyCandidate persists PartyResolution plus explicit reviewable conflict",
+)
+
+add(
+    "data_item_source_trace_required",
+    "formal DataItem requires SourceTrace" in context_services_text
+    and "class DataItemSourceTraceLinkEntity" in context_models_text
+    and "class DataItemCandidateLinkEntity" in context_models_text,
+    "Formal data_items retain all candidate and SourceTrace links",
+)
+
+add(
+    "formal_counts_are_separate",
+    all(name in context_repo_text for name in [
+        '"raw_field_count"', '"normalized_data_item_count"', '"data_group_count"'
+    ])
+    and "func.count" in context_repo_text,
+    "Raw occurrence, normalized DataItem and DataGroup counts are separate programmatic aggregates",
+)
+
+parallel_item_names = ["formal_data_items", "resolved_data_items", "final_data_items"]
+add(
+    "no_parallel_data_item_source_of_truth",
+    "DataItemEntity" in context_repo_text
+    and not any(name in context_models_text for name in parallel_item_names),
+    "Phase 1B data_items remains authoritative; Phase 1E adds detail/link tables only",
+)
+
+parallel_flow_names = ["formal_data_flow_nodes", "formal_data_flow_edges", "resolved_data_flows"]
+add(
+    "no_parallel_data_flow_source_of_truth",
+    all(name in context_repo_text for name in ["DataFlowNodeEntity", "DataFlowEdgeEntity", "DataItemFlowLinkEntity"])
+    and not any(name in context_models_text for name in parallel_flow_names),
+    "Phase 1B data_flow_nodes/data_flow_edges/data_item_flow_links remain authoritative",
+)
+
+add(
+    "data_flow_is_structured",
+    "class DataFlowNodeDetailEntity" in context_models_text
+    and "class DataFlowEdgeDetailEntity" in context_models_text
+    and "class DataItemFlowLinkDetailEntity" in context_models_text
+    and "create_formal_flow_edge" in context_repo_text,
+    "Formal flow uses structured Node/Edge/DataItemFlowLink plus versioned detail",
+)
+
+add(
+    "jurisdiction_not_regulation_decision",
+    "class JurisdictionContext" in context_domain_text
+    and "ApplicableRegulation" not in context_domain_text
+    and "regulation_applicability" not in context_services_text.lower()
+    and "cross_border_legal" not in context_services_text.lower(),
+    "Jurisdiction Context carries location context only; no regulation/cross-border legal decision",
+)
+
+add(
+    "semantic_resolution_candidate_only",
+    "class CandidateSimilarityPort" in context_ports_text
+    and "POSSIBLE_SAME" in context_services_text
+    and "Semantic evidence is suggestion-only" in context_services_text,
+    "Semantic similarity can create candidate/review evidence but does not directly merge formal DataItems",
+)
+
+add(
+    "context_snapshot_versioned",
+    "class AnalysisSnapshotContextPinEntity" in context_models_text
+    and all(name in context_models_text for name in [
+        "context_resolution_version", "product_context_version",
+        "data_inventory_version", "data_flow_version"
+    ])
+    and "analysis snapshot context pin is immutable" in context_repo_text,
+    "AnalysisSnapshot pins immutable versioned Context/DataInventory/DataFlow versions",
+)
+
+phase1e_fixed_rule_logic = occurrences(
+    r"\bif\s+.*\b(country|country_code|product_code|regulation_code)\b.*(?:==|in)\s*[\"'\[{]",
+    [context_services_file],
+)
+add(
+    "no_country_product_rule_logic",
+    not phase1e_fixed_rule_logic
+    and "risk_score" not in context_services_text
+    and "compliance_path" not in context_services_text.lower(),
+    phase1e_fixed_rule_logic or "No country/product-code/regulation decision routing, risk, or compliance-path logic",
+)
+
 failed = [check for check in checks if not check["pass"]]
 result = {
     "pass": not failed,

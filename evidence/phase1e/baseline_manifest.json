@@ -1,0 +1,45 @@
+{
+  "phase": "Phase 1E",
+  "closure_phase": "Phase 1E.1",
+  "baseline_run_id": 36950913643,
+  "attempt": 1,
+  "source_sha": "6d05588a02752dc5479658f63bc4b6ab8c29331e",
+  "runner_merge_sha": "fac2806d819694b4fb8210179ec90348f73791ca",
+  "base_phase1d_sha": "51429bc147a843f67ef43e88f7ae61094f6144f1",
+  "alembic_head": "0005_phase1e",
+  "pytest": {
+    "passed": 82,
+    "skipped": 0,
+    "deselected": 0
+  },
+  "schema": {
+    "passed": 22,
+    "total": 22
+  },
+  "architecture": {
+    "passed": 59,
+    "total": 59
+  },
+  "regressions": {
+    "Phase 1A": "PASS",
+    "Phase 1B": "PASS",
+    "Phase 1C": "PASS",
+    "Phase 1D": "PASS"
+  },
+  "remote_baseline_source": "user-provided verified empirical baseline; artifact not downloaded",
+  "local_evidence_source": "prior independent full PostgreSQL/runtime gate on identical source SHA",
+  "artifact_id": null,
+  "artifact_digest": null,
+  "final_documentation_head_ci": "PENDING; never substitute baseline/local evidence",
+  "phase1f_entry_decision": "NOT ISSUED",
+  "local_file_sha256": {
+    "architecture_rule_check.json": "543dc1df9c1cdf96aaf2c4b6dde205abecd0360759aa323c7ddb6202ecc5d7a7",
+    "ci_complete.log": "e35d76bcc1c2b7cf9f578a098c2a7b9df20af1ba5d3817299915882dee5852d0",
+    "phase1b_schema_check.json": "5d37eb438201a235454ec36b909e97ac067719a15d0600ba93a01347837e94eb",
+    "phase1c_schema_check.json": "d0aa48433fbc549622ded5b3305de1d289c02127d45ecf6afafd89750dd78662",
+    "phase1d_schema_check.json": "f804108edf5632f84b501cc378e670a79c0ad141ee167d8ee61f2a7ea73075cf",
+    "phase1e_schema_check.json": "8362e88023a7ec7b58474c5127c0854138c41204c669a659a7f938f4cf61a2bd",
+    "pytest_full.log": "6a3967ef47883b48c5e12e14aa54086ff993f3891fc543c7f3fa617684b0c1ad",
+    "runtime_verify.json": "01edadadbd0421f432f06effe661cb81e78d2380d4981daa9fb00e61e3975351"
+  }
+}
