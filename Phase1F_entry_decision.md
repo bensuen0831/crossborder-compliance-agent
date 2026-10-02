@@ -66,15 +66,17 @@ Evidence Reconciliation（2026-10-02）：本轮 Phase 1F 任務提供已核實�
 
 本次只做 evidence reconciliation，保留未提供的 Attempt / runner tested merge SHA 的來源限制；此文件不是新 CI 執行報告，不宣稱 reconciliation commit 已被 Run 36955707413 測試。
 
-## Repository Start Gate（2026-10-02 preflight）
+## Repository Start Gate（2026-10-02 actual main verification）
 
-Phase 1E 完成與 Phase 1F Entry Recommendation 維持 ALLOWED。實際開始 Phase 1F coding 還須滿足本輪要求的 Repository Start Gate。
+Phase 1E 完成與 Phase 1F Entry Recommendation 維持 ALLOWED。Repository integration 現已完成：actual main `efa8fd395e2fe63254660370b386bf3fe71a942d` 保留 Phase 1B–1E 的完整 commit ancestry，五個 migrations 均存在。
 
-遠端 `main` 為 `1807cc703a37a1f3e523cc9c0ddc310ecdee44c1`，尚未包含 Phase 1B–1E；PR merge refs 顯示 `main ← Phase 1B (#5) ← Phase 1C (#6) ← Phase 1D (#7) ← Phase 1E (#8)`。
+對此 actual main SHA 的 fresh PostgreSQL/runtime regression 已通過：82 passed / 0 skipped / 0 deselected；schema 22/22；architecture 59/59；Phase 1A–1E regression、checkpoint ownership、tenant / Source-of-Truth 全部 PASS。這是本地完整 empirical Gate，不宣稱為新遠端 Actions run。
 
-**Phase 1F Start Gate = BLOCKED_BY_REPOSITORY_INTEGRATION**
+**Phase 1F Start Gate = PASS**
 
-詳見 [phase1f_preflight_status.md](phase1f_preflight_status.md)。不得把 Phase 1E 的驗收通過當作 repository integration 已完成；本輪不建立 Phase 1F branch、不自行 merge、不進行 Phase 1F coding。
+Release tag `v3.6-phase1e-pass` 指向上述 verified main；`phase1f-knowledge-scope` 從同一 main 建立。详見 [phase1f_preflight_status.md](phase1f_preflight_status.md)。之前的 repository BLOCKED 判斷為當時狀態，現由 actual main ancestry 與完整回歸結果更新。
+
+本輪只完成 repository integration verification / release refs / documentation，不開始 Phase 1F coding。PR #3 有唯一有效 runtime 邏輯，依 cleanup 條件保留；#4 的 source head 已合入 main。
 
 ## 正式交付文件
 
