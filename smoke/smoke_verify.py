@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 import json
 import os
 from collections import Counter
@@ -28,9 +29,23 @@ def _external_contract_is_canonical_only() -> bool:
 
 def _api_layer_has_no_raw_langgraph_import() -> bool:
     root = Path(__file__).resolve().parents[1] / "src" / "crossborder_compliance" / "interfaces"
+    forbidden_runtime_symbols = {"checkpoint_writes", "checkpoint_blobs", "checkpoints"}
     for path in root.rglob("*.py"):
-        text = path.read_text(encoding="utf-8", errors="ignore").lower()
-        if "langgraph" in text or "checkpoint_writes" in text or "checkpoint_blobs" in text:
+        source = path.read_text(encoding="utf-8", errors="ignore")
+        try:
+            tree = ast.parse(source)
+        except SyntaxError:
+            return False
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                if any(alias.name == "langgraph" or alias.name.startswith("langgraph.") for alias in node.names):
+                    return False
+            elif isinstance(node, ast.ImportFrom):
+                module = node.module or ""
+                if module == "langgraph" or module.startswith("langgraph."):
+                    return False
+        lowered = source.lower()
+        if any(symbol in lowered for symbol in forbidden_runtime_symbols):
             return False
     return True
 
