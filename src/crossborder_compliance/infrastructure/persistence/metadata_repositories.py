@@ -444,14 +444,15 @@ class PostgresRegistrySourceRepository(_TenantScopedMetadataRepository):
 
 
 class PostgresRegistrySyncEventRepository(_TenantScopedMetadataRepository):
-    def pending(self, limit: int = 100) -> list[dict[str, object]]:
+    def pending(self, limit: int = 100, *, object_kinds=None) -> list[dict[str, object]]:
         with self._sessions() as session:
             rows = session.scalars(
                 select(RegistrySyncEventEntity)
                 .where(
                     RegistrySyncEventEntity.tenant_id == self.tenant_id,
                     RegistrySyncEventEntity.status.in_(["PENDING", "RETRY"]),
-                    RegistrySyncEventEntity.object_kind != "KNOWLEDGE_INGESTION",
+                    RegistrySyncEventEntity.object_kind.in_(object_kinds) if object_kinds else
+                    RegistrySyncEventEntity.object_kind.notin_(("KNOWLEDGE_INGESTION", "KNOWLEDGE_VERSION_PUBLISHED")),
                 )
                 .order_by(RegistrySyncEventEntity.created_at)
                 .limit(limit)

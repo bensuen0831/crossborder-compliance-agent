@@ -44,6 +44,9 @@ python scripts/phase1e_schema_check.py | tee "$EVIDENCE_DIR/phase1e_schema_check
 echo "=== Phase 1F knowledge / ingestion / scope schema verification ==="
 python scripts/phase1f_schema_check.py | tee "$EVIDENCE_DIR/phase1f_schema_check.json"
 
+echo "=== Phase 1G retrieval / sufficiency / external evidence schema verification ==="
+python scripts/phase1g_schema_check.py | tee "$EVIDENCE_DIR/phase1g_schema_check.json"
+
 echo "=== Runtime versions ==="
 python smoke/runtime_versions.py
 
@@ -89,3 +92,5 @@ echo "Phase 1C Metadata / Registry Foundation Gate = PASS"
 echo "Phase 1D Document Intelligence Foundation Gate = PASS"
 echo "Phase 1E Context Resolution / Formal Data Inventory / Data Flow Gate = PASS"
 echo "Phase 1F Knowledge Ingestion / Scope Resolver Foundation Gate = PASS"
+
+echo "Phase 1G Scope-first Retrieval / Evidence Foundation Gate = PASS"

@@ -1,0 +1,15 @@
+# Phase 1A.1 CI Run Evidence
+
+## Run Identifier
+
+- **run_id**: `LOCAL_OR_UNKNOWN`
+- **run_attempt**: `N/A`
+- **repository**: `N/A`
+- **workflow**: `N/A`
+- **job**: `N/A`
+- **sha**: `N/A`
+- **tested_pr_head_sha**: `beeaa0a692e97a8554e3247f6a53bf5dc23f9f0f`
+- **runner_checkout_sha**: `beeaa0a692e97a8554e3247f6a53bf5dc23f9f0f`
+- **ref**: `N/A`
+- **runner_os**: `N/A`
+- **run_url**: `N/A`

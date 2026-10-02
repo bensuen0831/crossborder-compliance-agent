@@ -1,0 +1,94 @@
+{
+  "phase": "1G",
+  "implementation_ci": {
+    "run_id": 36989359103,
+    "run_number": 100,
+    "attempt": 1,
+    "tested_pr_head_sha": "beeaa0a692e97a8554e3247f6a53bf5dc23f9f0f",
+    "runner_merge_sha": "887029e59b3bea94925be7fb0a0ddf530e59de75",
+    "artifact_id": 11218543793,
+    "artifact_digest": "sha256:a6c70f27ef45e3cec242b5ef6927b4faf1ca9021c6b0dde4e1d379b77442cee3",
+    "full_gate_log": {
+      "filename": "ci_complete.log",
+      "bytes": 74460,
+      "sha256": "d44a8b7d3797ae03dc9d042cb9b3ce5f3fefc28082fa9298217da3ebbb7a511f"
+    },
+    "conclusion": "success",
+    "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/36989359103",
+    "verified": true
+  },
+  "pytest": {
+    "passed": 200,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true
+    },
+    "pass": true
+  },
+  "schema_gates": {
+    "phase1b": {
+      "pass": true,
+      "passed": 16,
+      "total": 16
+    },
+    "phase1c": {
+      "pass": true,
+      "passed": 20,
+      "total": 20
+    },
+    "phase1d": {
+      "pass": true,
+      "passed": 15,
+      "total": 15
+    },
+    "phase1e": {
+      "pass": true,
+      "passed": 22,
+      "total": 22
+    },
+    "phase1f": {
+      "pass": true,
+      "passed": 29,
+      "total": 29
+    },
+    "phase1g": {
+      "pass": true,
+      "passed": 58,
+      "total": 58
+    }
+  },
+  "architecture": {
+    "pass": true,
+    "passed": 108,
+    "total": 108
+  },
+  "documents": {
+    "Phase1G_retrieval_rag_design.md": "095625c4213dd0d804ae78f505b6e389b5aa1f6b7b67af28affdd16b921bbde8",
+    "retrieval_domain_result.md": "5b989f426ff649f41ca2e67613435c6c5737ed9e7cf5792a2d7fcce814026f0c",
+    "lexical_retrieval_result.md": "b9c501bc7e38a4d71fae675a51ebb1834cd405a070462fcec61d43d7f808ac15",
+    "vector_retrieval_result.md": "e0ef72afb1b4d858272353f3cd30bfbf88bdf8afb2b304bafaac8c8bbdcaa183",
+    "hybrid_merge_result.md": "12ad1578c9ee37121fa4a6d00df05138e2157fa098689bb02fea45dc963b9e29",
+    "rerank_result.md": "1329a88b148c1f688a1c5079206b92dac132539e0bacb7d7fcb5ab4cb2c43e33",
+    "scope_revalidation_result.md": "ab5e51972c9d3944795db1f486d980bd54f59b0c4cb573ca2128a1d10f5d891b",
+    "evidence_pack_result.md": "0299051e861e0d91a12f2e22d7071506a9f333162d905c61526e5ccbbb3b7d26",
+    "retrieval_policy_result.md": "02d7205e54a9d4fbbac945a7f168bcc5c65a6f336a7140a1e0825eb67e508002",
+    "knowledge_sufficiency_result.md": "407e066f600b06d042731b9fb9cd6b073d25161230c3c98374adcd0427206cc2",
+    "external_evidence_augmentation_result.md": "221f98860f7e51a5f13ac9f5e78d94b0aff20d65c36a2b60432de47898898687",
+    "wiki_knowledge_graph_result.md": "7d0ce7c427417a8d4166b09d72a412afe23c1c2d4c21e2c4ffb9c058c1beb06f",
+    "retrieval_api_result.md": "f0d3fadc2c72e82244ef4a2aa4f7776c83c3954c2c6c8fe1f88f3f628fb3de54",
+    "migration_result.md": "589132db82ba14744a2238beec30b85d8de2cf6897ee2ac2ac1988e3c63097a2",
+    "test_result.md": "c2285f34feca8461b2a0963adafc6f18d5f86d32c927cf3d0d10f205f3fbbac7",
+    "architecture_rule_check.md": "f5ad049172f8a50fac1ec9e8e986d35e50420b8cbd95c65cddd17d36b241849b",
+    "files_created_modified.md": "3aa8bfd8f082fddf5abfcf1426e96fd7d315f9734603d6c09c70ba07b0432444"
+  },
+  "entry_decision_issued": false,
+  "closure_requires_full_ci": true
+}

@@ -143,3 +143,24 @@ These references document the existing rules; they do not change implementation 
 112. AI translation without human review cannot become official evidence.
 113. Knowledge cannot become ACTIVE without quality and independent durable review.
 114. Phase 1F consumes formal Phase 1E context, never infers context again from raw documents.
+
+115. Retrieval consumes Phase 1F KnowledgeScope / KnowledgeFilterSpec and cannot broaden scope.
+116. Tenant / Permission / Lifecycle / Version / Product / Jurisdiction hard filters precede similarity search.
+117. FTS / pgvector / Search Engine / Graph Index are derived and never Knowledge Source of Truth.
+118. Hybrid merge is deterministic, versioned-policy driven, with independent score provenance.
+119. Rerankers only reorder allowed candidates; injected identifiers are dropped and audited.
+120. Scope must be revalidated after reranking and before evidence assembly.
+121. EvidencePack retains complete citation, source, version, index, policy and snapshot provenance.
+122. Retrieval results / EvidencePack / RAGContextPack are derived evidence, not legal Source of Truth.
+123. Knowledge Sufficiency is computed from versioned policy and verified evidence, never an LLM decision.
+124. Generic GLOBAL / shared evidence cannot alone establish jurisdiction-specific sufficiency.
+125. External augmentation preserves original tenant / permission / jurisdiction / product scope.
+126. LLM memory and unverified web are discovery-only and cannot become LegalBasis.
+127. T1/T2 external evidence requires authority / provenance / effective-date / content-hash validation.
+128. Runtime external evidence cannot automatically become ACTIVE canonical knowledge.
+129. Referenced external evidence must be immutable, snapshot-pinnable and reproducible.
+130. Insufficient / partial / conflicted evidence must retain nonempty actionable fallback guidance.
+131. Fallback guidance is not Candidate / Final Compliance Path and cannot fabricate legal obligations.
+132. Retrieval, sufficiency and trust parameters come from versioned policy / config / registry, never Agent routing.
+
+133. Normal content publication automatically propagates through the existing transactional registry outbox to runtime projections and derived retrieval assets. New analyses require ACTIVE + READY assets. Manual refresh/reindex is recovery tooling only; existing snapshots never change their knowledge/index/embedding/policy pins.

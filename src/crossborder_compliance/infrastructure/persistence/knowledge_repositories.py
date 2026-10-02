@@ -674,6 +674,18 @@ class PostgresKnowledgeRepository:
                         published_by=actor,
                     )
                 )
+            if action == "publish":
+                # Same domain transaction: rollback cannot expose a publication event.
+                from crossborder_compliance.infrastructure.persistence import retrieval_models as g
+                event_id=str(uuid4())
+                s.add(m.RegistrySyncEventEntity(
+                    registry_sync_event_id=event_id,tenant_id=self.tenant_id,
+                    object_kind="KNOWLEDGE_VERSION_PUBLISHED",object_id=version.document_id,
+                    version_id=version.knowledge_version_id,event_version=version.version,status="PENDING"))
+                s.flush()
+                s.add(g.KnowledgeRuntimePublicationEntity(tenant_id=self.tenant_id,
+                    knowledge_version_id=version.knowledge_version_id,publication_event_id=event_id,
+                    event_version=version.version,status="PENDING"))
             version.lifecycle = after
             version.record_version += 1
             self.change(s, version_id, after, {"actor": actor})

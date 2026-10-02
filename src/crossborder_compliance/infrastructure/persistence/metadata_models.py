@@ -643,3 +643,4 @@ class AnalysisSnapshotRegistryPinEntity(TenantAuditMixin, Base):
     version_no: Mapped[int] = mapped_column(Integer, nullable=False)
 
 from crossborder_compliance.infrastructure.persistence import knowledge_models as _knowledge_models  # noqa: E402,F401
+from crossborder_compliance.infrastructure.persistence import retrieval_models as _retrieval_models  # noqa: E402,F401

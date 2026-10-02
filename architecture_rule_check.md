@@ -1,31 +1,27 @@
-# Phase 1F Architecture Rule Check
+# Phase 1G architecture rule check
 
-Phase: **1F — Knowledge Ingestion & Scope Resolver Foundation**.
+Phase: **1G — Scope-first Hybrid Retrieval / RAG foundation + Publish-driven Runtime Synchronization**.
 
-Tested SHA: `7391b9728e788b70e11885fe23d64980dcc3db37`. Run ID: `36973990791`. Attempt: `1`.
-Final evidence Source of Truth: [phase1f_final_remote.json](evidence/phase1f_final_remote.json).
-Artifact ID: `11212349170`. Artifact digest: `sha256:b31ac0fe52e103fa291e2c5f1356bee52a47ffd0fa0fc3b4f9774534cf43b47d`.
+Implementation tested PR head SHA: `beeaa0a692e97a8554e3247f6a53bf5dc23f9f0f`. Runner merge SHA: `887029e59b3bea94925be7fb0a0ddf530e59de75`.
+GitHub Actions Run ID: **36989359103**, Run Number: **100**, Attempt: **1**, conclusion **SUCCESS**.
+Artifact ID: **11218543793**; digest `sha256:a6c70f27ef45e3cec242b5ef6927b4faf1ca9021c6b0dde4e1d379b77442cee3`.
+Remote full gate log SHA-256: `d44a8b7d3797ae03dc9d042cb9b3ce5f3fefc28082fa9298217da3ebbb7a511f`; `ci_complete.log` is retained inside that GitHub artifact.
 
-| Empirical assertion | Actual result |
-|---|---|
-| Full PostgreSQL/runtime pytest | **142 passed / 0 skipped / 0 deselected** |
-| Alembic head | **0006_phase1f** |
-| Phase 1F schema | **29/29 PASS** |
-| Architecture executable checks | **77/77 PASS** |
-| Phase 1A runtime/checkpoint/restart/resume/retry | **25/25 PASS** |
-| Phase 1B / 1C / 1D / 1E schema regression | **16/16; 20/20; 15/15; 22/22 PASS** |
-| Phase 1A–1E full regression | **PASS** |
+Measured full pytest: **200 passed / 0 skipped / 0 deselected / 0 failed / 0 errors**. Alembic head: **0007_phase1g**.
+Schema assertions: Phase 1B **16/16**, 1C **20/20**, 1D **15/15**, 1E **22/22**, 1F **29/29**, 1G **58/58 PASS**.
+Executable architecture checks: **108/108 PASS**; Phase 1A runtime assertions: **25/25 PASS**. Phase 1A–1F regressions: **PASS**.
 
-Above values are independently verified through GitHub Checks measured evidence for the identified CI run; they do not reuse Phase 1E totals. The local full gate at `4e7d0d9759c42b2da91a23dea47f2cdea0243449` is separate corroborating evidence. The linked remote manifest pins the immutable pre-issuance baseline. Later governance commits contain documentation/evidence only and retain the tested implementation.
+Evidence: [verified remote identity](evidence/phase1g/implementation-ci/verified_identity.json), [measured remote summary](evidence/phase1g/implementation-ci/empirical_summary.json), [local complete gate log](evidence/phase1g/local-final/ci_complete.log).
+This implementation CI is distinct from the subsequent documentation-only closure head. The formal closure CI and issuance identities are recorded in [Phase1H_entry_decision.md](Phase1H_entry_decision.md) only after that head passes complete CI; this document does not authorize Phase 1H coding.
 
-Known exclusions: Phase 1G retrieval/ranking/reranking/RAG/answer generation, classification, regulation applicability, country rules, risk and compliance paths are excluded. Ingestion currently supports approved canonical structure JSON upload or controlled HTTPS JSON sources; automatic legal PDF/DOCX import, external site crawling, actual model-provider execution and affected-project impact calculation are excluded. Storage/embedding tests use explicit adapters; PostgreSQL and Redis are real. Whitespace token counting is a deterministic foundation measure, not provider tokenizer equivalence. Local PostgreSQL 17.11/Redis 8.0.2 are separately identified from CI PostgreSQL 16/Redis 7.
+## Rules and executable results
 
-Authoritative boundary: PostgreSQL canonical knowledge tables; Phase 1C source definitions/collections/bindings and model metadata are reused; Phase 1B RegulatoryStructureNode/EvidenceReference/Citation and durable admin review are reused. Object storage retains original artifacts. Registry, FTS and pgvector are derived projections/indexes. Formal Phase 1E context is the only context input.
+Existing Rules 1–114 are retained. Phase 1G adds **115–132**, plus **133** for normal publication automatically reaching runtime assets without human Sync/Reindex. Phase 1A–1F executable checks remain 77/77, with 31 new Phase 1G/addendum checks for a measured **108/108 PASS**.
 
-**77/77 PASS**. Existing 59 checks remain; 18 Phase 1F boundaries are added. Rules 104–114 are recorded after Rule 103. Static checks inspect domain/application/model/migration/API/runtime source; PostgreSQL tests separately demonstrate behavior.
+The checker inspects actual imports/AST call order, SQL materialized filtering, contract/model constraints, source/policy pins, external validation, fallback and review/READY/outbox integration. Mandatory PostgreSQL tests complement static checks with behavior rather than substituting marker text for runtime verification.
 
-| # | Executable assertion | Result |
-|---|---|---|
+| # | Check | Result |
+|---:|---|---|
 | 1 | `domain_has_no_langgraph_import` | PASS |
 | 2 | `domain_has_no_sqlalchemy_import` | PASS |
 | 3 | `application_has_no_sqlalchemy_import` | PASS |
@@ -103,5 +99,42 @@ Authoritative boundary: PostgreSQL canonical knowledge tables; Phase 1C source d
 | 75 | `controlled_downloader_boundary` | PASS |
 | 76 | `knowledge_ingestion_no_graph_checkpoints` | PASS |
 | 77 | `no_parallel_knowledge_source` | PASS |
+| 78 | `retrieval_consumes_phase1f_scope` | PASS |
+| 79 | `retrieval_hard_filters_before_similarity` | PASS |
+| 80 | `retrieval_indexes_are_derived` | PASS |
+| 81 | `hybrid_merge_deterministic_score_provenance` | PASS |
+| 82 | `reranker_allowed_candidates_only` | PASS |
+| 83 | `rerank_scope_revalidation` | PASS |
+| 84 | `evidence_pack_complete_provenance` | PASS |
+| 85 | `rag_context_not_legal_source` | PASS |
+| 86 | `sufficiency_is_policy_driven` | PASS |
+| 87 | `generic_knowledge_not_jurisdiction_sufficient` | PASS |
+| 88 | `external_preserves_formal_scope` | PASS |
+| 89 | `unverified_discovery_not_evidence` | PASS |
+| 90 | `official_external_validation` | PASS |
+| 91 | `runtime_external_not_active` | PASS |
+| 92 | `external_snapshot_reproducible` | PASS |
+| 93 | `fallback_guidance_nonempty` | PASS |
+| 94 | `fallback_not_compliance_path` | PASS |
+| 95 | `retrieval_policy_snapshot_pinned` | PASS |
+| 96 | `no_country_product_regulation_retrieval_branch` | PASS |
+| 97 | `retrieval_services_no_provider_sql_graph_sdk` | PASS |
+| 98 | `wiki_reuses_durable_review` | PASS |
+| 99 | `wiki_not_official_legal_evidence` | PASS |
+| 100 | `graph_reviewed_derived_provenance` | PASS |
+| 101 | `runtime_client_cannot_supply_scope` | PASS |
+| 102 | `normal_publish_automatic_runtime_sync` | PASS |
+| 103 | `publication_reuses_registry_outbox_service` | PASS |
+| 104 | `runtime_ready_before_new_retrieval` | PASS |
+| 105 | `publication_snapshot_stability` | PASS |
+| 106 | `publication_duplicate_retry_safe` | PASS |
+| 107 | `publication_failed_build_not_ready` | PASS |
+| 108 | `runtime_materialization_no_agent_graph` | PASS |
 
-No retrieval/ranking in ScopeResolver; hard filters and minimal product context precede future similarity; canonical PostgreSQL knowledge remains authoritative; chunks retain provenance; quality/review precede ACTIVE; original/translation separation; snapshot pins; Phase 1E-only context; no country/product/regulation business branch; controlled downloading; no graph-checkpoint ingestion; no parallel knowledge store.
+## Boundaries / exclusions / regression status
+
+Phase 1E formal Context remains the only context input. Phase 1F PostgreSQL Source/Document/Version/Structure/Chunk/Binding/EvidenceReference/Citation tables remain canonical Knowledge Source of Truth. Retrieval stores, runtime materialization state, indexes, Wiki/Graph and RAGContextPack are derived. Runtime external evidence remains VERIFIED, separate from ACTIVE canonical knowledge.
+
+Excluded: production model/provider execution, LLM answers, formal classification, regulation applicability, country-specific compliance routing, risk, Candidate/Final Compliance Path, required regulatory-document decisions and production legal agents. External parsing currently accepts attributed canonical JSON through the existing controlled MIME boundary; HTML/PDF web crawling and unrestricted discovery are outside this foundation. Embedding/rerank tests use explicit deterministic adapters behind ports. Original source text is preserved; no reviewed translation becomes original official text.
+
+Phase 1A–1F regressions pass under the current 0007 migration. Earlier migration files 0001–0006 are unchanged. The historical Phase 1F main baseline remains `fe4e1bb8b0002aa9b4c68106bea5ebc0898fed95`; its 142-test baseline is historical and is not substituted for this Phase 1G 200-test result.

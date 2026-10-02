@@ -136,9 +136,11 @@ class RegistrySyncService:
         self,
         event_repository: RegistrySyncEventRepositoryPort,
         registries: dict[str, RegistryPort[dict[str, object]]],
+        event_consumers: dict | None = None,
     ):
         self._events = event_repository
         self._registries = registries
+        self._consumers = event_consumers or {}
 
     def run_once(self, limit: int = 100) -> dict[str, int]:
         applied = retried = ignored = 0
@@ -146,12 +148,16 @@ class RegistrySyncService:
             event_id = UUID(str(event["registry_sync_event_id"]))
             kind = str(event["object_kind"])
             registry = self._registries.get(kind)
-            if registry is None:
+            consumer = self._consumers.get(kind)
+            if registry is None and consumer is None:
                 self._events.mark_applied(event_id)
                 ignored += 1
                 continue
             try:
-                registry.refresh()
+                if consumer is not None:
+                    consumer.consume(event)
+                else:
+                    registry.refresh()
             except Exception as exc:
                 self._events.mark_retry(event_id, f"{type(exc).__name__}: {exc}")
                 retried += 1

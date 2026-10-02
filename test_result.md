@@ -1,31 +1,65 @@
-# Phase 1F Test Result
+# Phase 1G test result
 
-Phase: **1F — Knowledge Ingestion & Scope Resolver Foundation**.
+Phase: **1G — Scope-first Hybrid Retrieval / RAG foundation + Publish-driven Runtime Synchronization**.
 
-Tested SHA: `7391b9728e788b70e11885fe23d64980dcc3db37`. Run ID: `36973990791`. Attempt: `1`.
-Final evidence Source of Truth: [phase1f_final_remote.json](evidence/phase1f_final_remote.json).
-Artifact ID: `11212349170`. Artifact digest: `sha256:b31ac0fe52e103fa291e2c5f1356bee52a47ffd0fa0fc3b4f9774534cf43b47d`.
+Implementation tested PR head SHA: `beeaa0a692e97a8554e3247f6a53bf5dc23f9f0f`. Runner merge SHA: `887029e59b3bea94925be7fb0a0ddf530e59de75`.
+GitHub Actions Run ID: **36989359103**, Run Number: **100**, Attempt: **1**, conclusion **SUCCESS**.
+Artifact ID: **11218543793**; digest `sha256:a6c70f27ef45e3cec242b5ef6927b4faf1ca9021c6b0dde4e1d379b77442cee3`.
+Remote full gate log SHA-256: `d44a8b7d3797ae03dc9d042cb9b3ce5f3fefc28082fa9298217da3ebbb7a511f`; `ci_complete.log` is retained inside that GitHub artifact.
 
-| Empirical assertion | Actual result |
-|---|---|
-| Full PostgreSQL/runtime pytest | **142 passed / 0 skipped / 0 deselected** |
-| Alembic head | **0006_phase1f** |
-| Phase 1F schema | **29/29 PASS** |
-| Architecture executable checks | **77/77 PASS** |
-| Phase 1A runtime/checkpoint/restart/resume/retry | **25/25 PASS** |
-| Phase 1B / 1C / 1D / 1E schema regression | **16/16; 20/20; 15/15; 22/22 PASS** |
-| Phase 1A–1E full regression | **PASS** |
+Measured full pytest: **200 passed / 0 skipped / 0 deselected / 0 failed / 0 errors**. Alembic head: **0007_phase1g**.
+Schema assertions: Phase 1B **16/16**, 1C **20/20**, 1D **15/15**, 1E **22/22**, 1F **29/29**, 1G **58/58 PASS**.
+Executable architecture checks: **108/108 PASS**; Phase 1A runtime assertions: **25/25 PASS**. Phase 1A–1F regressions: **PASS**.
 
-Above values are independently verified through GitHub Checks measured evidence for the identified CI run; they do not reuse Phase 1E totals. The local full gate at `4e7d0d9759c42b2da91a23dea47f2cdea0243449` is separate corroborating evidence. The linked remote manifest pins the immutable pre-issuance baseline. Later governance commits contain documentation/evidence only and retain the tested implementation.
+Evidence: [verified remote identity](evidence/phase1g/implementation-ci/verified_identity.json), [measured remote summary](evidence/phase1g/implementation-ci/empirical_summary.json), [local complete gate log](evidence/phase1g/local-final/ci_complete.log).
+This implementation CI is distinct from the subsequent documentation-only closure head. The formal closure CI and issuance identities are recorded in [Phase1H_entry_decision.md](Phase1H_entry_decision.md) only after that head passes complete CI; this document does not authorize Phase 1H coding.
 
-Known exclusions: Phase 1G retrieval/ranking/reranking/RAG/answer generation, classification, regulation applicability, country rules, risk and compliance paths are excluded. Ingestion currently supports approved canonical structure JSON upload or controlled HTTPS JSON sources; automatic legal PDF/DOCX import, external site crawling, actual model-provider execution and affected-project impact calculation are excluded. Storage/embedding tests use explicit adapters; PostgreSQL and Redis are real. Whitespace token counting is a deterministic foundation measure, not provider tokenizer equivalence. Local PostgreSQL 17.11/Redis 8.0.2 are separately identified from CI PostgreSQL 16/Redis 7.
+## Measured suite / required case mapping
 
-Authoritative boundary: PostgreSQL canonical knowledge tables; Phase 1C source definitions/collections/bindings and model metadata are reused; Phase 1B RegulatoryStructureNode/EvidenceReference/Citation and durable admin review are reused. Object storage retains original artifacts. Registry, FTS and pgvector are derived projections/indexes. Formal Phase 1E context is the only context input.
+The mandatory gate runs full pytest with no `-m`, skip or deselect. Contract/static CI is an additional job; it does not replace the full PostgreSQL/LangGraph job. `verify_full_pytest.py` rejects failure/error/skip/deselect or missing Phase 1B–1G coverage.
 
-**142 passed / 0 skipped / 0 deselected** in the mandatory full PostgreSQL/runtime suite. Existing 82 Phase 1A–1E tests are retained; Phase 1F adds 34 PostgreSQL/Redis tests and 26 transport/chunking tests. `scripts/verify_full_pytest.py` reads JUnit actual counts and rejects skip/deselect/failure/error/missing phase coverage. CI contract subset is supplemental and does not replace the mandatory full suite.
+Phase 1G contributes **58 tests**; the existing **142-test** Phase 1A–1F suite is preserved. Both local final gate and remote final implementation CI measured **200 passed**. PostgreSQL FTS and pgvector execute real SQL. Native local PostgreSQL 17 and remote pgvector/PostgreSQL 16 are used; Redis/checkpoint verification is real, not SQLite substitution.
 
-Required assertions cover source CRUD/soft disable, version lifecycle/effective dates, canonical hierarchy/legal identity, chunk/citation/source provenance, binding/quality/publish/supersede/expired exclusion, translation review, permission/product/jurisdiction/group/scenario/industry/data-category isolation, minimal item/flow scope, conflict/document-first fail-safe, tenant isolation, rollback, optimistic and concurrent publication, snapshot version/index/config pinning, source/permission revocation, real Redis outbox/idempotency and vector/FTS foundation.
+| Mandatory cases | Asserted behavior | Actual tests |
+|---|---|---|
+| 1–2 | Product A/B exclusion; unauthorized similarity=1.0 | `test_real_fts_vector_filter_before_ranking` |
+| 3–4 | expired/superseded + historical snapshot | `test_historical_snapshot_retrieval_and_expired_fresh_exclusion` |
+| 5–6 | duplicate deterministic merge and identical input | `test_phase1g_algorithms.py / test_query_embedding_uses_registry_and_real_pgvector` |
+| 7–8 | allowed rerank/drop audit | `test_rerank_injection_is_audited_and_no_scope_extension` |
+| 9–10 | language cannot broaden; tenant guessing | `test_search_snapshot_never_adds_new_index_and_languages_narrow / test_retrieval_api_dtos_auth_snapshot_and_scope_injection` |
+| 11–12 | internal complete canonical provenance | `test_run_pack_sufficiency_idempotency_and_reproducibility` |
+| 13–14 | external citation/hash/authority/snapshot | `test_verified_external_pin_reuse_not_active_and_citation_chain` |
+| 15 | specific official sufficient | `test_sufficient_internal_does_not_download / specific official algorithm case` |
+| 16–21 | generic/no authority/expired/topic/conflict/high-score sufficiency | `test_phase1g_algorithms.py parameterized cases` |
+| 22–23 | augmentation trigger / avoid unnecessary fetch | `test_verified_external_pin_reuse_not_active_and_citation_chain / test_sufficient_internal_does_not_download` |
+| 24–26 | untrusted/SSRF/private-IP/redirect/timeout/size/MIME | `test_phase1f_download_chunking.py (26 preserved cases) + external rejection cases` |
+| 27–29 | official validation / no ACTIVE / snapshot pin | `test_verified_external_pin_reuse_not_active_and_citation_chain` |
+| 30–33 | nonempty questions/actions, no fabricated laws/path | `test_phase1g_algorithms.py fallback assertions + empty PostgreSQL/API result cases` |
+| 34–36 | Wiki DRAFT/review + inferred graph not legal | `test_wiki_draft_review_runtime_boundary / test_graph_provenance_review_and_bad_source_rollback` |
+| Addendum 1–12 | automatic commit/outbox/build/READY/cache/retry/old snapshot | `12 tests in test_phase1g_publication_postgres.py` |
+| Additional | FK pack rollback, optimistic concurrency, idempotency, redirect credentials | `test_pack_commit_fk_failure_rolls_back_without_parallel_result + policy/contract cases` |
 
-Mandatory runtime gate uses separate processes for start→interrupt, restart→resume and duplicate resume retry, and checks 25 assertions. No regression assertion was disabled. Phase 1A official LangGraph checkpoint ownership, Phase 1B normalized Source of Truth/tenant, Phase 1C registry/admin, Phase 1D parsers/async provenance and Phase 1E resolution/review/versioning remain PASS.
+## Actual Phase 1G test distribution
 
-Local full evidence: `/workspace/phase1f_final_gate4_evidence` (code SHA in local measured summary). Remote evidence contains JUnit, full log, schema/architecture/runtime JSON, immutable head/runner identities and file manifest. Final remote measured summary is obtained through GitHub Checks API; GitHub stores full gate log in the uploaded artifact. If archive download is restricted, that local-copy limitation must be recorded; do not substitute a local hash for the GitHub artifact digest.
+- `tests.test_phase1g_algorithms`: 16 PASS.
+- `tests.test_phase1g_api_postgres`: 3 PASS.
+- `tests.test_phase1g_external_postgres`: 9 PASS.
+- `tests.test_phase1g_isolation_postgres`: 9 PASS.
+- `tests.test_phase1g_navigation_postgres`: 2 PASS.
+- `tests.test_phase1g_persistence_postgres`: 4 PASS.
+- `tests.test_phase1g_publication_postgres`: 12 PASS.
+- `tests.test_phase1g_search_postgres`: 3 PASS.
+
+## Transaction / publication evidence
+
+The publication addendum includes successful automatic READY materialization, duplicate and concurrent delivery, FTS/vector/cache failure and retry, previous READY and snapshot preservation, out-of-order handling, commit rollback and live background polling with no manual sync. The shared outbox emits no event/state on commit failure. Real citation FK failure rolls back an entire pack/item transaction.
+
+Runtime checkpoint ownership, process restart/resume and duplicate resume remain **25/25**. B–F tenant/source-of-truth/registry/document/context regressions pass. Remote full log hash and artifacts are attributed to the remote CI, separately from the retained complete local log.
+
+## Boundaries / exclusions / regression status
+
+Phase 1E formal Context remains the only context input. Phase 1F PostgreSQL Source/Document/Version/Structure/Chunk/Binding/EvidenceReference/Citation tables remain canonical Knowledge Source of Truth. Retrieval stores, runtime materialization state, indexes, Wiki/Graph and RAGContextPack are derived. Runtime external evidence remains VERIFIED, separate from ACTIVE canonical knowledge.
+
+Excluded: production model/provider execution, LLM answers, formal classification, regulation applicability, country-specific compliance routing, risk, Candidate/Final Compliance Path, required regulatory-document decisions and production legal agents. External parsing currently accepts attributed canonical JSON through the existing controlled MIME boundary; HTML/PDF web crawling and unrestricted discovery are outside this foundation. Embedding/rerank tests use explicit deterministic adapters behind ports. Original source text is preserved; no reviewed translation becomes original official text.
+
+Phase 1A–1F regressions pass under the current 0007 migration. Earlier migration files 0001–0006 are unchanged. The historical Phase 1F main baseline remains `fe4e1bb8b0002aa9b4c68106bea5ebc0898fed95`; its 142-test baseline is historical and is not substituted for this Phase 1G 200-test result.

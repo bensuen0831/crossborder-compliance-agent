@@ -1,0 +1,30 @@
+{
+  "reviewed_at": "2026-10-02T15:00:34.668799+08:00",
+  "pr": 9,
+  "head_sha": "817ef5f2762dfc95295f0fcf109506059774dce5",
+  "base_sha": "efa8fd395e2fe63254660370b386bf3fe71a942d",
+  "review_type": "agent code and evidence review; not independent human approval",
+  "blocking_findings": [],
+  "reviewed_boundaries": [
+    "Tenant authorization and typed API contracts",
+    "Canonical Source of Truth reuse and frozen migration",
+    "Quality and independent durable publication review",
+    "Hard scope filters and conflict fail-safe",
+    "Multi-product minimal scope and cross-subject snapshot pinning",
+    "Controlled transport and durable outbox queue",
+    "No retrieval or compliance decision logic",
+    "Mandatory full pytest and unchanged Phase 1A\u20131E regression tests"
+  ],
+  "ci_run_id": 36974356188,
+  "pytest_passed": 142,
+  "skipped": 0,
+  "deselected": 0,
+  "schema_gate": "29/29 PASS",
+  "architecture": "77/77 PASS",
+  "known_limits": [
+    "Canonical JSON ingestion",
+    "Deterministic embedding test adapter",
+    "Remote artifact ZIP local copy blocked by egress; remote logs retained"
+  ],
+  "result": "PASS"
+}

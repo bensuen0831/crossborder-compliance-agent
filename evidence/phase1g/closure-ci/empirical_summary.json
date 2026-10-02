@@ -1,0 +1,72 @@
+{
+  "phase": "1G",
+  "run_id": "36990171093",
+  "attempt": "1",
+  "tested_pr_head_sha": "188eae7c3a6f4383da6cee35099358d99791b0c5",
+  "runner_merge_sha": "60995c4c8d46afcb50082e14a8e07dd103a07b0e",
+  "alembic_head": "0007_phase1g",
+  "pytest": {
+    "passed": 200,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true
+    },
+    "pass": true
+  },
+  "schema_gates": {
+    "phase1b": {
+      "pass": true,
+      "passed": 16,
+      "total": 16
+    },
+    "phase1c": {
+      "pass": true,
+      "passed": 20,
+      "total": 20
+    },
+    "phase1d": {
+      "pass": true,
+      "passed": 15,
+      "total": 15
+    },
+    "phase1e": {
+      "pass": true,
+      "passed": 22,
+      "total": 22
+    },
+    "phase1f": {
+      "pass": true,
+      "passed": 29,
+      "total": 29
+    },
+    "phase1g": {
+      "pass": true,
+      "passed": 58,
+      "total": 58
+    }
+  },
+  "architecture": {
+    "pass": true,
+    "passed": 108,
+    "total": 108
+  },
+  "runtime": {
+    "pass": true,
+    "passed": 25,
+    "total": 25
+  },
+  "full_gate_log": {
+    "filename": "ci_complete.log",
+    "bytes": 74460,
+    "sha256": "7eda07cd0f904e6036dfb918c5ff4a41b386d6e930459356349de5cd28d23006"
+  },
+  "pass": true
+}

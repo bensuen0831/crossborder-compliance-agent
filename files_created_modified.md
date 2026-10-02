@@ -1,155 +1,145 @@
-# Phase 1F Files Created / Modified
+# Phase 1G actual files created / modified
 
-Phase: **1F — Knowledge Ingestion & Scope Resolver Foundation**.
+Phase: **1G — Scope-first Hybrid Retrieval / RAG foundation + Publish-driven Runtime Synchronization**.
 
-Tested SHA: `7391b9728e788b70e11885fe23d64980dcc3db37`. Run ID: `36973990791`. Attempt: `1`.
-Final evidence Source of Truth: [phase1f_final_remote.json](evidence/phase1f_final_remote.json).
-Artifact ID: `11212349170`. Artifact digest: `sha256:b31ac0fe52e103fa291e2c5f1356bee52a47ffd0fa0fc3b4f9774534cf43b47d`.
+Implementation tested PR head SHA: `beeaa0a692e97a8554e3247f6a53bf5dc23f9f0f`. Runner merge SHA: `887029e59b3bea94925be7fb0a0ddf530e59de75`.
+GitHub Actions Run ID: **36989359103**, Run Number: **100**, Attempt: **1**, conclusion **SUCCESS**.
+Artifact ID: **11218543793**; digest `sha256:a6c70f27ef45e3cec242b5ef6927b4faf1ca9021c6b0dde4e1d379b77442cee3`.
+Remote full gate log SHA-256: `d44a8b7d3797ae03dc9d042cb9b3ce5f3fefc28082fa9298217da3ebbb7a511f`; `ci_complete.log` is retained inside that GitHub artifact.
 
-| Empirical assertion | Actual result |
-|---|---|
-| Full PostgreSQL/runtime pytest | **142 passed / 0 skipped / 0 deselected** |
-| Alembic head | **0006_phase1f** |
-| Phase 1F schema | **29/29 PASS** |
-| Architecture executable checks | **77/77 PASS** |
-| Phase 1A runtime/checkpoint/restart/resume/retry | **25/25 PASS** |
-| Phase 1B / 1C / 1D / 1E schema regression | **16/16; 20/20; 15/15; 22/22 PASS** |
-| Phase 1A–1E full regression | **PASS** |
+Measured full pytest: **200 passed / 0 skipped / 0 deselected / 0 failed / 0 errors**. Alembic head: **0007_phase1g**.
+Schema assertions: Phase 1B **16/16**, 1C **20/20**, 1D **15/15**, 1E **22/22**, 1F **29/29**, 1G **58/58 PASS**.
+Executable architecture checks: **108/108 PASS**; Phase 1A runtime assertions: **25/25 PASS**. Phase 1A–1F regressions: **PASS**.
 
-Above values are independently verified through GitHub Checks measured evidence for the identified CI run; they do not reuse Phase 1E totals. The local full gate at `4e7d0d9759c42b2da91a23dea47f2cdea0243449` is separate corroborating evidence. The linked remote manifest pins the immutable pre-issuance baseline. Later governance commits contain documentation/evidence only and retain the tested implementation.
+Evidence: [verified remote identity](evidence/phase1g/implementation-ci/verified_identity.json), [measured remote summary](evidence/phase1g/implementation-ci/empirical_summary.json), [local complete gate log](evidence/phase1g/local-final/ci_complete.log).
+This implementation CI is distinct from the subsequent documentation-only closure head. The formal closure CI and issuance identities are recorded in [Phase1H_entry_decision.md](Phase1H_entry_decision.md) only after that head passes complete CI; this document does not authorize Phase 1H coding.
 
-Known exclusions: Phase 1G retrieval/ranking/reranking/RAG/answer generation, classification, regulation applicability, country rules, risk and compliance paths are excluded. Ingestion currently supports approved canonical structure JSON upload or controlled HTTPS JSON sources; automatic legal PDF/DOCX import, external site crawling, actual model-provider execution and affected-project impact calculation are excluded. Storage/embedding tests use explicit adapters; PostgreSQL and Redis are real. Whitespace token counting is a deterministic foundation measure, not provider tokenizer equivalence. Local PostgreSQL 17.11/Redis 8.0.2 are separately identified from CI PostgreSQL 16/Redis 7.
+## Actual implementation / preserved preflight changes
 
-Authoritative boundary: PostgreSQL canonical knowledge tables; Phase 1C source definitions/collections/bindings and model metadata are reused; Phase 1B RegulatoryStructureNode/EvidenceReference/Citation and durable admin review are reused. Object storage retains original artifacts. Registry, FTS and pgvector are derived projections/indexes. Formal Phase 1E context is the only context input.
+The following is the actual main→implementation tested-head diff. Historical preflight evidence is explicitly in `evidence/phase1g-start-gate/`; it is not relabelled as Phase 1G implementation evidence.
 
-Actual Phase 1F files relative to integrated main, including delivery evidence. Generated caches/egg-info, local service data and credentials are excluded. Phase 1E business implementation is unchanged.
-
-| Status | File |
+| Change | Actual path |
 |---|---|
 | M | `.github/workflows/phase1a-runtime-smoke.yml` |
-| A | `.gitignore` |
 | M | `ARCHITECTURE_RULES.md` |
-| M | `Phase1F_entry_decision.md` |
-| A | `Phase1F_knowledge_scope_design.md` |
-| A | `Phase1G_entry_decision.md` |
-| A | `alembic/versions/0006_phase1f_knowledge_scope.py` |
-| M | `architecture_rule_check.md` |
-| A | `evidence/phase1f-main-start-gate/evidence_sha256.json` |
-| A | `evidence/phase1f-main-start-gate/local-regression/architecture_rule_check.json` |
-| A | `evidence/phase1f-main-start-gate/local-regression/ci_complete.log` |
-| A | `evidence/phase1f-main-start-gate/local-regression/phase1b_schema_check.json` |
-| A | `evidence/phase1f-main-start-gate/local-regression/phase1c_schema_check.json` |
-| A | `evidence/phase1f-main-start-gate/local-regression/phase1d_schema_check.json` |
-| A | `evidence/phase1f-main-start-gate/local-regression/phase1e_schema_check.json` |
-| A | `evidence/phase1f-main-start-gate/local-regression/pytest_full.log` |
-| A | `evidence/phase1f-main-start-gate/local-regression/runtime_verify.json` |
-| A | `evidence/phase1f-main-start-gate/main_start_gate_manifest.json` |
-| A | `evidence/phase1f/local_final_gate/alembic_upgrade.log` |
-| A | `evidence/phase1f/local_final_gate/architecture_rule_check.json` |
-| A | `evidence/phase1f/local_final_gate/architecture_rule_check.md` |
-| A | `evidence/phase1f/local_final_gate/architecture_rule_check_stdout.json` |
-| A | `evidence/phase1f/local_final_gate/ci_complete.log` |
-| A | `evidence/phase1f/local_final_gate/ci_run_evidence.json` |
-| A | `evidence/phase1f/local_final_gate/ci_run_evidence.md` |
-| A | `evidence/phase1f/local_final_gate/database_schema_result.md` |
-| A | `evidence/phase1f/local_final_gate/evidence_file_manifest.json` |
-| A | `evidence/phase1f/local_final_gate/migration_roundtrip_result.json` |
-| A | `evidence/phase1f/local_final_gate/phase1b_schema_check.json` |
-| A | `evidence/phase1f/local_final_gate/phase1c_database_schema_result.md` |
-| A | `evidence/phase1f/local_final_gate/phase1c_schema_check.json` |
-| A | `evidence/phase1f/local_final_gate/phase1c_security_result.md` |
-| A | `evidence/phase1f/local_final_gate/phase1d_database_schema_result.md` |
-| A | `evidence/phase1f/local_final_gate/phase1d_schema_check.json` |
-| A | `evidence/phase1f/local_final_gate/phase1e_database_schema_result.md` |
-| A | `evidence/phase1f/local_final_gate/phase1e_schema_check.json` |
-| A | `evidence/phase1f/local_final_gate/phase1f_empirical_summary.json` |
-| A | `evidence/phase1f/local_final_gate/phase1f_schema_check.json` |
-| A | `evidence/phase1f/local_final_gate/post_alembic_schema.json` |
-| A | `evidence/phase1f/local_final_gate/post_runtime_schema.json` |
-| A | `evidence/phase1f/local_final_gate/postgres_schema_evidence.md` |
-| A | `evidence/phase1f/local_final_gate/postgres_schema_state.json` |
-| A | `evidence/phase1f/local_final_gate/preflight.json` |
-| A | `evidence/phase1f/local_final_gate/process1.log` |
-| A | `evidence/phase1f/local_final_gate/process2.log` |
-| A | `evidence/phase1f/local_final_gate/process3_resume_retry.log` |
-| A | `evidence/phase1f/local_final_gate/pytest_full.log` |
-| A | `evidence/phase1f/local_final_gate/pytest_full.xml` |
-| A | `evidence/phase1f/local_final_gate/pytest_full_summary.json` |
-| A | `evidence/phase1f/local_final_gate/runtime_assertions.json` |
-| A | `evidence/phase1f/local_final_gate/runtime_event_evidence.md` |
-| A | `evidence/phase1f/local_final_gate/runtime_smoke_result.md` |
-| A | `evidence/phase1f/local_final_gate/runtime_verify.json` |
-| A | `evidence/phase1f/local_final_gate/runtime_versions.md` |
-| A | `evidence/phase1f/local_final_gate/source_of_truth_check.md` |
-| A | `evidence/phase1f/local_final_gate/test_result.md` |
-| A | `evidence/phase1f/repository_final_status.json` |
-| A | `evidence/phase1f/run_36968097285/annotations.json` |
-| A | `evidence/phase1f/run_36968097285/artifacts.json` |
-| A | `evidence/phase1f/run_36968097285/empirical_summary.json` |
-| A | `evidence/phase1f/run_36968097285/jobs.json` |
-| A | `evidence/phase1f/run_36968097285/run.json` |
-| A | `evidence/phase1f/run_36968764193/annotations.json` |
-| A | `evidence/phase1f/run_36968764193/artifacts.json` |
-| A | `evidence/phase1f/run_36968764193/empirical_summary.json` |
-| A | `evidence/phase1f/run_36968764193/jobs.json` |
-| A | `evidence/phase1f/run_36968764193/run.json` |
-| A | `evidence/phase1f/run_36970889455/annotations.json` |
-| A | `evidence/phase1f/run_36970889455/artifacts.json` |
-| A | `evidence/phase1f/run_36970889455/empirical_summary.json` |
-| A | `evidence/phase1f/run_36970889455/jobs.json` |
-| A | `evidence/phase1f/run_36970889455/run.json` |
-| A | `evidence/phase1f/run_36973419700/annotations.json` |
-| A | `evidence/phase1f/run_36973419700/artifacts.json` |
-| A | `evidence/phase1f/run_36973419700/empirical_summary.json` |
-| A | `evidence/phase1f/run_36973419700/jobs.json` |
-| A | `evidence/phase1f/run_36973419700/run.json` |
-| A | `evidence/phase1f_final_remote.json` |
-| A | `evidence_citation_result.md` |
-| M | `files_created_modified.md` |
-| A | `index_foundation_result.md` |
-| A | `knowledge_api_result.md` |
-| A | `knowledge_chunk_binding_result.md` |
-| A | `knowledge_domain_result.md` |
-| A | `knowledge_ingestion_result.md` |
-| A | `knowledge_quality_governance_result.md` |
-| A | `knowledge_scope_resolver_result.md` |
-| M | `migration_result.md` |
-| M | `phase1f_preflight_status.md` |
-| A | `product_scope_isolation_result.md` |
-| A | `regulatory_structure_result.md` |
+| A | `alembic/versions/0007_phase1g_retrieval_evidence.py` |
+| A | `evidence/phase1g-start-gate/evidence_sha256.json` |
+| A | `evidence/phase1g-start-gate/main_ancestry.json` |
+| A | `evidence/phase1g-start-gate/main_final.json` |
+| A | `evidence/phase1g-start-gate/main_gate_manifest.json` |
+| A | `evidence/phase1g-start-gate/main_local/alembic_upgrade.log` |
+| A | `evidence/phase1g-start-gate/main_local/architecture_rule_check.json` |
+| A | `evidence/phase1g-start-gate/main_local/architecture_rule_check.md` |
+| A | `evidence/phase1g-start-gate/main_local/architecture_rule_check_stdout.json` |
+| A | `evidence/phase1g-start-gate/main_local/ci_complete.log` |
+| A | `evidence/phase1g-start-gate/main_local/ci_run_evidence.json` |
+| A | `evidence/phase1g-start-gate/main_local/ci_run_evidence.md` |
+| A | `evidence/phase1g-start-gate/main_local/database_schema_result.md` |
+| A | `evidence/phase1g-start-gate/main_local/evidence_file_manifest.json` |
+| A | `evidence/phase1g-start-gate/main_local/phase1b_schema_check.json` |
+| A | `evidence/phase1g-start-gate/main_local/phase1c_database_schema_result.md` |
+| A | `evidence/phase1g-start-gate/main_local/phase1c_schema_check.json` |
+| A | `evidence/phase1g-start-gate/main_local/phase1c_security_result.md` |
+| A | `evidence/phase1g-start-gate/main_local/phase1d_database_schema_result.md` |
+| A | `evidence/phase1g-start-gate/main_local/phase1d_schema_check.json` |
+| A | `evidence/phase1g-start-gate/main_local/phase1e_database_schema_result.md` |
+| A | `evidence/phase1g-start-gate/main_local/phase1e_schema_check.json` |
+| A | `evidence/phase1g-start-gate/main_local/phase1f_empirical_summary.json` |
+| A | `evidence/phase1g-start-gate/main_local/phase1f_schema_check.json` |
+| A | `evidence/phase1g-start-gate/main_local/post_alembic_schema.json` |
+| A | `evidence/phase1g-start-gate/main_local/post_runtime_schema.json` |
+| A | `evidence/phase1g-start-gate/main_local/postgres_schema_evidence.md` |
+| A | `evidence/phase1g-start-gate/main_local/postgres_schema_state.json` |
+| A | `evidence/phase1g-start-gate/main_local/preflight.json` |
+| A | `evidence/phase1g-start-gate/main_local/process1.log` |
+| A | `evidence/phase1g-start-gate/main_local/process2.log` |
+| A | `evidence/phase1g-start-gate/main_local/process3_resume_retry.log` |
+| A | `evidence/phase1g-start-gate/main_local/pytest_full.log` |
+| A | `evidence/phase1g-start-gate/main_local/pytest_full.xml` |
+| A | `evidence/phase1g-start-gate/main_local/pytest_full_summary.json` |
+| A | `evidence/phase1g-start-gate/main_local/runtime_assertions.json` |
+| A | `evidence/phase1g-start-gate/main_local/runtime_event_evidence.md` |
+| A | `evidence/phase1g-start-gate/main_local/runtime_smoke_result.md` |
+| A | `evidence/phase1g-start-gate/main_local/runtime_verify.json` |
+| A | `evidence/phase1g-start-gate/main_local/runtime_versions.md` |
+| A | `evidence/phase1g-start-gate/main_local/source_of_truth_check.md` |
+| A | `evidence/phase1g-start-gate/main_local/test_result.md` |
+| A | `evidence/phase1g-start-gate/main_remote/annotations.json` |
+| A | `evidence/phase1g-start-gate/main_remote/artifacts.json` |
+| A | `evidence/phase1g-start-gate/main_remote/empirical_summary.json` |
+| A | `evidence/phase1g-start-gate/main_remote/jobs.json` |
+| A | `evidence/phase1g-start-gate/main_remote/run.json` |
+| A | `evidence/phase1g-start-gate/mark_ready_result.json` |
+| A | `evidence/phase1g-start-gate/merge_result.json` |
+| A | `evidence/phase1g-start-gate/pr9_checks.json` |
+| A | `evidence/phase1g-start-gate/pr9_merged.json` |
+| A | `evidence/phase1g-start-gate/pr9_ready.json` |
+| A | `evidence/phase1g-start-gate/pr9_review_result.json` |
+| A | `evidence/phase1g-start-gate/pr9_run.json` |
+| A | `evidence/phase1g-start-gate/release_branch_result.json` |
+| A | `phase1g_preflight_status.md` |
 | M | `scripts/architecture_rule_check.py` |
-| A | `scripts/knowledge_ingestion_worker.py` |
 | M | `scripts/phase1b_schema_check.py` |
 | M | `scripts/phase1c_schema_check.py` |
 | M | `scripts/phase1d_schema_check.py` |
 | M | `scripts/phase1e_schema_check.py` |
-| A | `scripts/phase1f_empirical_summary.py` |
-| A | `scripts/phase1f_schema_check.py` |
-| A | `scripts/verify_full_pytest.py` |
-| M | `smoke/ci_run_evidence.py` |
+| M | `scripts/phase1f_schema_check.py` |
+| A | `scripts/phase1g_empirical_summary.py` |
+| A | `scripts/phase1g_schema_check.py` |
+| M | `scripts/verify_full_pytest.py` |
 | M | `smoke/postgres_schema_evidence.py` |
 | M | `smoke/run_gate.sh` |
-| A | `src/crossborder_compliance/application/knowledge_ports.py` |
-| A | `src/crossborder_compliance/application/knowledge_services.py` |
-| A | `src/crossborder_compliance/domain/knowledge.py` |
-| A | `src/crossborder_compliance/infrastructure/knowledge_download.py` |
-| A | `src/crossborder_compliance/infrastructure/knowledge_worker.py` |
-| A | `src/crossborder_compliance/infrastructure/persistence/knowledge_models.py` |
-| A | `src/crossborder_compliance/infrastructure/persistence/knowledge_repositories.py` |
+| A | `src/crossborder_compliance/application/external_evidence_services.py` |
+| A | `src/crossborder_compliance/application/knowledge_runtime_services.py` |
+| M | `src/crossborder_compliance/application/metadata_services.py` |
+| A | `src/crossborder_compliance/application/retrieval_algorithms.py` |
+| A | `src/crossborder_compliance/application/retrieval_ports.py` |
+| A | `src/crossborder_compliance/application/retrieval_services.py` |
+| A | `src/crossborder_compliance/domain/retrieval.py` |
+| M | `src/crossborder_compliance/infrastructure/knowledge_download.py` |
+| A | `src/crossborder_compliance/infrastructure/knowledge_publication_worker.py` |
+| M | `src/crossborder_compliance/infrastructure/persistence/knowledge_repositories.py` |
+| A | `src/crossborder_compliance/infrastructure/persistence/knowledge_runtime_repository.py` |
 | M | `src/crossborder_compliance/infrastructure/persistence/metadata_models.py` |
 | M | `src/crossborder_compliance/infrastructure/persistence/metadata_repositories.py` |
-| A | `src/crossborder_compliance/interfaces/api/knowledge_schemas.py` |
+| A | `src/crossborder_compliance/infrastructure/persistence/retrieval_models.py` |
+| A | `src/crossborder_compliance/infrastructure/persistence/retrieval_navigation.py` |
+| A | `src/crossborder_compliance/infrastructure/persistence/retrieval_repositories.py` |
+| A | `src/crossborder_compliance/infrastructure/retrieval_external.py` |
+| A | `src/crossborder_compliance/infrastructure/retrieval_search.py` |
+| A | `src/crossborder_compliance/infrastructure/retrieval_test_adapters.py` |
 | M | `src/crossborder_compliance/interfaces/api/main.py` |
-| A | `src/crossborder_compliance/interfaces/api/routes/knowledge.py` |
-| M | `test_result.md` |
-| A | `tests/test_phase1f_download_chunking.py` |
-| A | `tests/test_phase1f_postgres.py` |
-| A | `tests/test_phase1f_snapshot_scope.py` |
-| A | `translation_provenance_result.md` |
-| A | `evidence/phase1f/run_36973990791/annotations.json` |
-| A | `evidence/phase1f/run_36973990791/artifacts.json` |
-| A | `evidence/phase1f/run_36973990791/empirical_summary.json` |
-| A | `evidence/phase1f/run_36973990791/jobs.json` |
-| A | `evidence/phase1f/run_36973990791/run.json` |
+| A | `src/crossborder_compliance/interfaces/api/retrieval_schemas.py` |
+| A | `src/crossborder_compliance/interfaces/api/routes/retrieval.py` |
+| A | `tests/phase1g_fixtures.py` |
+| A | `tests/test_phase1g_algorithms.py` |
+| A | `tests/test_phase1g_api_postgres.py` |
+| A | `tests/test_phase1g_external_postgres.py` |
+| A | `tests/test_phase1g_isolation_postgres.py` |
+| A | `tests/test_phase1g_navigation_postgres.py` |
+| A | `tests/test_phase1g_persistence_postgres.py` |
+| A | `tests/test_phase1g_publication_postgres.py` |
+| A | `tests/test_phase1g_search_postgres.py` |
 
-PASS assertions: source/migration/tests/gates/routes are traceable to actual Git diff; existing source tables and gates reused. files_created_modified.md lists itself as a delivery update. Final governance file is generated only after successful final empirical CI.
+## Why existing foundation files changed
+
+- Phase 1F Publish repository: adds atomic publication outbox/PENDING state only; review/lifecycle semantics remain intact.
+- Phase 1C RegistrySyncService/repository: additive versioned consumer hook and publication routing so general metadata sync cannot acknowledge publication without materialization. Existing registry/outbox remain unique.
+- Existing controlled downloader: adds final canonical URL to its audit, preserving its security rules.
+- Metadata model import: registers additive Phase 1G derived tables.
+- FastAPI main: registers routes and starts/stops the automatic background publication worker.
+- Existing schema/mandatory gate scripts: accept descendant 0007 without removing B–F assertions; add Phase 1G coverage and measured CI evidence.
+
+Migrations 0001–0006 and Phase 1A–1F tests are unchanged. New test helpers simulate the live automatic publication worker using explicit test embedding adapters.
+
+## Documentation-only closure
+
+This delivery changes only the 17 result documents and `evidence/phase1g/` copies/manifests. The implementation tested head remains separately recorded above. Git diff confirmation and the subsequent closure tested head/run/artifact are recorded in the final entry decision after full CI. No Phase 1H code, new branch or main merge is part of this work.
+
+## Boundaries / exclusions / regression status
+
+Phase 1E formal Context remains the only context input. Phase 1F PostgreSQL Source/Document/Version/Structure/Chunk/Binding/EvidenceReference/Citation tables remain canonical Knowledge Source of Truth. Retrieval stores, runtime materialization state, indexes, Wiki/Graph and RAGContextPack are derived. Runtime external evidence remains VERIFIED, separate from ACTIVE canonical knowledge.
+
+Excluded: production model/provider execution, LLM answers, formal classification, regulation applicability, country-specific compliance routing, risk, Candidate/Final Compliance Path, required regulatory-document decisions and production legal agents. External parsing currently accepts attributed canonical JSON through the existing controlled MIME boundary; HTML/PDF web crawling and unrestricted discovery are outside this foundation. Embedding/rerank tests use explicit deterministic adapters behind ports. Original source text is preserved; no reviewed translation becomes original official text.
+
+Phase 1A–1F regressions pass under the current 0007 migration. Earlier migration files 0001–0006 are unchanged. The historical Phase 1F main baseline remains `fe4e1bb8b0002aa9b4c68106bea5ebc0898fed95`; its 142-test baseline is historical and is not substituted for this Phase 1G 200-test result.
