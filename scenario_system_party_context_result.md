@@ -23,7 +23,7 @@ ScenarioResolutionService 驗證 ACTIVE SCENARIO metadata，保存 explicit/dete
 
 SystemContextResolutionService 以 SYSTEM_TYPE / DEVICE_TYPE metadata refs 建立 SystemContext / DeviceContext，保留 project、產品/party/location refs、source trace、confidence、validation status 與 version。`system_relations` schema 存在；未在 orchestrator 形成可測的 relation creation 路徑。
 
-PartyResolutionService 保存 PartyCandidate / PartyResolution，查找同 project party display name 或 legal entity name，成功時引用既有 ProjectParty / LegalEntity；無匹配則 REVIEW_REQUIRED、UNRESOLVED_PARTY、PARTY_CONTEXT_CONFLICT。PARTY_ROLE 由 ACTIVE metadata 驗證，不作 controller/processor 法律責任判斷。
+PartyResolutionService 保存 PartyCandidate / PartyResolution，以大小寫不敏感的同 project party display name 匹配，成功時引用既有 ProjectParty 及其 LegalEntity ID；repository 沒有另外查 legal entity name。無匹配則 REVIEW_REQUIRED、UNRESOLVED_PARTY、PARTY_CONTEXT_CONFLICT。PARTY_ROLE 由 ACTIVE metadata 驗證，不作 controller/processor 法律責任判斷。
 
 ## Actual PASS assertions
 
