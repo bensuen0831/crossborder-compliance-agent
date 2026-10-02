@@ -1248,9 +1248,27 @@ class PostgresKnowledgeRepository:
 
     def embedding_dimension(self, config_id):
         self.admin()
+        from crossborder_compliance.infrastructure.persistence.metadata_repositories import (
+            PostgresModelRegistryRepository,
+        )
+        from crossborder_compliance.infrastructure.registry import ModelRegistry
+
+        registry = ModelRegistry(PostgresModelRegistryRepository(self.sessions, self.context))
+        registry.refresh()
         with self.sessions() as s:
             config = self.get(s, m.ModelDeploymentEntity, config_id)
             model = self.get(s, m.ModelDefinitionEntity, config.model_definition_id)
+            resolved = registry.resolve(
+                model_definition_id=model.model_definition_id, capability="EMBEDDING"
+            )
+            provider_version = self.get(s, m.ModelProviderVersionEntity, config.provider_version_id)
+            if (
+                not resolved
+                or "EMBEDDING" not in resolved["capabilities"]
+                or model.active_deployment_id != config_id
+                or not effective(provider_version, date.today())
+            ):
+                raise ValueError("embedding model unavailable from Phase 1C registry")
             if (
                 not config.enabled
                 or not model.enabled

@@ -773,7 +773,22 @@ def embedding_config(f):
                 deployment_ref="Generic test deployment",
             )
         )
+    with f["sf"]() as s, s.begin():
+        s.get(m.ModelProviderEntity, provider).active_version_id = pver
+        s.get(m.ModelDefinitionEntity, model).active_deployment_id = config
     return config
+
+
+def test_embedding_obeys_phase1c_provider_registry(fixture):
+    f = fixture
+    config = embedding_config(f)
+    assert f["repo"].embedding_dimension(config) == 4
+    with f["sf"]() as s, s.begin():
+        deployment = s.get(m.ModelDeploymentEntity, config)
+        model = s.get(m.ModelDefinitionEntity, deployment.model_definition_id)
+        s.get(m.ModelProviderEntity, model.provider_id).enabled = False
+    with pytest.raises(ValueError, match="Phase 1C registry"):
+        f["repo"].embedding_dimension(config)
 
 
 class FakeEmbedding:
