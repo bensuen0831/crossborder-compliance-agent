@@ -11,6 +11,8 @@ on:
       - "alembic/**"
       - "pyproject.toml"
       - "ARCHITECTURE_RULES.md"
+      - "*.md"
+      - "evidence/**"
       - ".github/workflows/phase1a-runtime-smoke.yml"
 
 permissions:

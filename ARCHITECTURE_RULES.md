@@ -130,3 +130,16 @@ Baseline results: full PostgreSQL/runtime pytest **82 passed / 0 skipped / 0 des
 Actual executable checks and limitations are documented in [architecture_rule_check.md](architecture_rule_check.md). Scope and source-of-truth boundaries are in [Phase1E_context_resolution_design.md](Phase1E_context_resolution_design.md); evidence attribution is recorded in [baseline_manifest.json](evidence/phase1e/baseline_manifest.json).
 
 These references document the existing rules; they do not change implementation or add rule behavior. The documentation closure head requires a new complete CI result before any Phase 1F entry decision. Baseline/local artifacts are not substitutes for that final run.
+
+
+104. Knowledge Platform is canonical PostgreSQL knowledge, not a Vector DB.
+105. Scope Resolver decides allowed scope only; no retrieval or ranking.
+106. Tenant, permission, lifecycle, version, product and jurisdiction hard filters precede similarity search.
+107. PRODUCT_SPECIFIC knowledge incompatible with effective_product_scope is excluded before retrieval.
+108. Unresolved/conflicting product context cannot broaden product-specific knowledge.
+109. Every KnowledgeChunk preserves version, structure, citation and source provenance.
+110. Vector and FTS indexes are derived, never authoritative knowledge.
+111. Knowledge version, binding, index and embedding configuration are immutable snapshot pins.
+112. AI translation without human review cannot become official evidence.
+113. Knowledge cannot become ACTIVE without quality and independent durable review.
+114. Phase 1F consumes formal Phase 1E context, never infers context again from raw documents.

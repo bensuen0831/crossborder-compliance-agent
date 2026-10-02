@@ -451,6 +451,7 @@ class PostgresRegistrySyncEventRepository(_TenantScopedMetadataRepository):
                 .where(
                     RegistrySyncEventEntity.tenant_id == self.tenant_id,
                     RegistrySyncEventEntity.status.in_(["PENDING", "RETRY"]),
+                    RegistrySyncEventEntity.object_kind != "KNOWLEDGE_INGESTION",
                 )
                 .order_by(RegistrySyncEventEntity.created_at)
                 .limit(limit)

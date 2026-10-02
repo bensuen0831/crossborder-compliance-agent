@@ -41,6 +41,9 @@ python scripts/phase1d_schema_check.py | tee "$EVIDENCE_DIR/phase1d_schema_check
 echo "=== Phase 1E context resolution schema verification ==="
 python scripts/phase1e_schema_check.py | tee "$EVIDENCE_DIR/phase1e_schema_check.json"
 
+echo "=== Phase 1F knowledge / ingestion / scope schema verification ==="
+python scripts/phase1f_schema_check.py | tee "$EVIDENCE_DIR/phase1f_schema_check.json"
+
 echo "=== Runtime versions ==="
 python smoke/runtime_versions.py
 
@@ -61,7 +64,7 @@ python smoke/smoke_verify.py | tee "$EVIDENCE_DIR/runtime_verify.json"
 
 echo "=== Full test suite; runtime tests are INCLUDED and may not skip ==="
 set +e
-pytest -q 2>&1 | tee "$EVIDENCE_DIR/pytest_full.log"
+pytest -q --junitxml="$EVIDENCE_DIR/pytest_full.xml" 2>&1 | tee "$EVIDENCE_DIR/pytest_full.log"
 pytest_rc=${PIPESTATUS[0]}
 set -e
 {
@@ -74,6 +77,7 @@ set -e
   echo '~~~'
 } > "$EVIDENCE_DIR/test_result.md"
 if [[ $pytest_rc -ne 0 ]]; then exit $pytest_rc; fi
+python scripts/verify_full_pytest.py "$EVIDENCE_DIR"
 
 echo "=== Architecture rule check ==="
 python scripts/architecture_rule_check.py | tee "$EVIDENCE_DIR/architecture_rule_check_stdout.json"
@@ -84,3 +88,4 @@ echo "Phase 1B PostgreSQL Regression Gate = PASS"
 echo "Phase 1C Metadata / Registry Foundation Gate = PASS"
 echo "Phase 1D Document Intelligence Foundation Gate = PASS"
 echo "Phase 1E Context Resolution / Formal Data Inventory / Data Flow Gate = PASS"
+echo "Phase 1F Knowledge Ingestion / Scope Resolver Foundation Gate = PASS"
