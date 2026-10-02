@@ -32,6 +32,15 @@ python smoke/postgres_schema_evidence.py --phase post-alembic | tee "$EVIDENCE_D
 echo "=== Phase 1B domain schema + source-of-truth verification ==="
 python scripts/phase1b_schema_check.py | tee "$EVIDENCE_DIR/phase1b_schema_check.json"
 
+echo "=== Phase 1C metadata / registry / security schema verification ==="
+python scripts/phase1c_schema_check.py | tee "$EVIDENCE_DIR/phase1c_schema_check.json"
+
+echo "=== Phase 1D document intelligence schema verification ==="
+python scripts/phase1d_schema_check.py | tee "$EVIDENCE_DIR/phase1d_schema_check.json"
+
+echo "=== Phase 1E context resolution schema verification ==="
+python scripts/phase1e_schema_check.py | tee "$EVIDENCE_DIR/phase1e_schema_check.json"
+
 echo "=== Runtime versions ==="
 python smoke/runtime_versions.py
 
@@ -71,3 +80,7 @@ python scripts/architecture_rule_check.py | tee "$EVIDENCE_DIR/architecture_rule
 
 echo "=== Gate complete ==="
 echo "Phase 1A Mandatory Runtime Gate = PASS"
+echo "Phase 1B PostgreSQL Regression Gate = PASS"
+echo "Phase 1C Metadata / Registry Foundation Gate = PASS"
+echo "Phase 1D Document Intelligence Foundation Gate = PASS"
+echo "Phase 1E Context Resolution / Formal Data Inventory / Data Flow Gate = PASS"

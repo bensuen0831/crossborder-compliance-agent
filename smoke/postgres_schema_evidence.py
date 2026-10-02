@@ -47,7 +47,7 @@ def main() -> None:
 
     if args.phase == "post-alembic":
         ok = (
-            current["alembic_revision"] == "0002_phase1b"
+            current["alembic_revision"] in {"0002_phase1b", "0003_phase1c", "0004_phase1d", "0005_phase1e"}
             and bool(current["pgvector_installed_version"])
             and not current["checkpoint_tables"]
             and "checkpoints" not in current["domain_tables_from_sqlalchemy_metadata"]
@@ -63,7 +63,7 @@ def main() -> None:
         and "checkpoints" not in after.get("domain_tables_from_sqlalchemy_metadata", [])
     )
     evidence = {
-        "domain_alembic_created_domain_schema": before.get("alembic_revision") == "0002_phase1b",
+        "domain_alembic_created_domain_schema": before.get("alembic_revision") in {"0002_phase1b", "0003_phase1c", "0004_phase1d", "0005_phase1e"},
         "pgvector_extension_available_and_installed": bool(after.get("pgvector_installed_version")),
         "checkpoint_tables_absent_immediately_after_domain_alembic": not bool(before.get("checkpoint_tables")),
         "langgraph_setup_created_checkpoint_schema": runtime_created_checkpoint_schema,
@@ -80,8 +80,8 @@ def main() -> None:
             "domain_metadata_excludes_checkpoint_tables",
         ]) else "**FAIL**"),
         ("Assertions", "\n".join(f"- {k}: **{'PASS' if v else 'FAIL'}**" for k, v in evidence.items() if isinstance(v, bool))),
-        ("Post-Alembic Snapshot", f"\`\`\`json\n{json.dumps(before, indent=2, sort_keys=True)}\n\`\`\`"),
-        ("Post-Runtime Snapshot", f"\`\`\`json\n{json.dumps(after, indent=2, sort_keys=True)}\n\`\`\`"),
+        ("Post-Alembic Snapshot", f"```json\n{json.dumps(before, indent=2, sort_keys=True)}\n```"),
+        ("Post-Runtime Snapshot", f"```json\n{json.dumps(after, indent=2, sort_keys=True)}\n```"),
     ]
     write_markdown("postgres_schema_evidence.md", "Phase 1B PostgreSQL Schema + Phase 1A Checkpointer Separation Evidence", sections)
     ok = all(v for k, v in evidence.items() if isinstance(v, bool))

@@ -80,3 +80,53 @@
 73. `Stage1ComplianceResult` 必須顯式包含 `cross_border_results[]`；不得要求消費者從 `data_flow_results` 或 narrative 推斷正式跨境結論。
 74. Visualization Snapshot / Cache / Export 不是法律結果 Source of Truth；其內容必須可由同一版本 Structured Domain Result 重建。
 75. LangGraph Checkpointer internal schema 由官方 checkpointer setup/upgrade path 管理；Domain Alembic 不得自行建立、修改、重命名或解讀其 internal tables。
+
+
+## Phase 1C Metadata / Registry / Admin Addendum
+
+76. Registry 是 runtime projection，不是業務 Source of Truth；authoritative data 必須保留於 Database / Versioned Config。
+77. Open-source / self-hosted LLM 必須經 ModelProviderAdapter / LLMService 以 API 接入；Agent / Skill / LangGraph 不得綁定 model serving framework、base URL 或具體 model name。
+78. Model replacement 只允許透過 Model Registry / Model Config，不得要求修改 Agent / Skill / Graph。
+79. Prompt 必須版本化並經 Registry；Business Prompt 不得 hard-code 在 Agent。
+80. Admin Draft 不得被 Runtime Registry 解析為 ACTIVE。
+81. Registry Refresh 必須在 Domain Publish 成功 commit 後執行；必須使用 Transactional Outbox 或等價可靠機制，避免 DB / Registry split-brain。
+82. Existing AnalysisSnapshot 不得因 Registry Refresh 靜默切換版本；resume 必須使用 snapshot-pinned approved version。
+83. Model credential 真值不得存入 Registry DTO / Frontend / Audit Log；metadata persistence 只可保存 secret_ref。
+
+
+## Phase 1D Document Intelligence Addendum
+
+84. Document Binary 不得進 LangGraph State；State 只保存 ID / Reference / Small Structured Result。
+85. Canonical Document Structure 是正式解析 Source；LLM Narrative 不得取代 Canonical Structure。
+86. OCR 是 fallback，不得覆蓋原始 Document Version；原始 binary 必須保持 immutable object-storage reference。
+87. Vision / Diagram Result 只能產生 Candidate Fact / Flow / Relation，不得直接產生法律結論、Classification 或 Compliance Path。
+88. 所有正式 Extracted Fact / Candidate DataItem / Candidate DataFlow 必須有 SourceTraceRef，可回溯 DocumentVersion / ParseRun / StructureNode / locator / original hash。
+89. Spreadsheet 不得只轉成 plain text；row / column / header / formula / merged-cell provenance 必須保留。
+90. Document Analysis Count 必須由 Backend structured persistence programmatic aggregation，不得由 LLM 估算。
+91. Parse Run 必須 versioned；AnalysisSnapshot 必須 pin 指定 ParseRun，Resume 不得靜默切換。
+92. Parser / OCR / Vision Provider 必須 Adapter 化；Provider-specific SDK 不得進 Domain / Application / LangGraph。
+93. Document Parse Quality 未達 Gate 時，不得靜默進正式分析；必須保留 WARNING / REVIEW_REQUIRED / FAILED 狀態。
+
+
+## Phase 1E Context Resolution / Formal Data Inventory / Data Flow Addendum
+
+94. Phase 1D Candidate 不得直接成為正式 Compliance Input；任何 Candidate → Formal Object 必須保留 Resolution / Validation Record。
+95. Product Context 必須由 Registry / Evidence / Explicit User Selection 解決；產品業務值不得 hard-code 於 Domain / Application Service。
+96. Explicit Product Selection 與 Document-detected Product 發生實質衝突時，必須輸出 `PRODUCT_CONTEXT_CONFLICT`，不得靜默覆蓋任一來源。
+97. 未選 Product 但已有 Document Evidence 時必須 Document-first；不得因未選 Product 自動擴大至所有 Product Knowledge Scope。
+98. Formal `data_items` 必須可回溯所有 Candidate / SourceTrace；Candidate 不得因 Resolution 而刪除。
+99. Original Field Count、Normalized Data Item Count、Data Group Count 必須分離並由 structured persistence programmatic aggregation。
+100. Formal DataFlow 必須使用 authoritative `data_flow_nodes` / `data_flow_edges` / `data_item_flow_links`，不得以 narrative 或第二套 formal flow store 取代。
+101. Jurisdiction Context 只表示位置/管轄上下文，不等於 Regulation Applicability 或 Cross-border Legal Status。
+102. AI / Semantic Resolution 只能形成 Candidate / Confidence / Suggestion；不得直接 merge Formal DataItem 或形成正式 Context。
+103. Data Item / Data Flow / Context 更新必須 versioned 並可由 AnalysisSnapshot pin；既有 Snapshot / Resume 不得靜默切換新 Context。
+
+## Phase 1E.1 delivery evidence references
+
+Phase 1E implementation baseline: source SHA `6d05588a02752dc5479658f63bc4b6ab8c29331e`, runner merge SHA `fac2806d819694b4fb8210179ec90348f73791ca`, GitHub Actions Run `36950913643`, Attempt `1` (user-provided verified baseline).
+
+Baseline results: full PostgreSQL/runtime pytest **82 passed / 0 skipped / 0 deselected**, Phase 1E schema **22/22 PASS**, executable architecture checks **59/59 PASS**, Alembic head **0005_phase1e**, Phase 1A–1D regressions **PASS**.
+
+Actual executable checks and limitations are documented in [architecture_rule_check.md](architecture_rule_check.md). Scope and source-of-truth boundaries are in [Phase1E_context_resolution_design.md](Phase1E_context_resolution_design.md); evidence attribution is recorded in [baseline_manifest.json](evidence/phase1e/baseline_manifest.json).
+
+These references document the existing rules; they do not change implementation or add rule behavior. The documentation closure head requires a new complete CI result before any Phase 1F entry decision. Baseline/local artifacts are not substitutes for that final run.
