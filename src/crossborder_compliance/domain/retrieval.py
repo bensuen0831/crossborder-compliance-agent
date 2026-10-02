@@ -288,6 +288,30 @@ class TrustedSourceRule(RetrievalContract):
     dimensions: dict[str, tuple[str, ...]] = Field(default_factory=dict)
     approved_redirect_urls: tuple[str, ...] = ()
 
+    @model_validator(mode="after")
+    def credential_free_redirects(self):
+        from urllib.parse import parse_qsl, urlsplit
+
+        for url in self.approved_redirect_urls:
+            parts = urlsplit(url)
+            if (
+                parts.scheme != "https"
+                or not parts.hostname
+                or parts.port not in (None, 443)
+                or parts.username
+                or parts.password
+                or parts.fragment
+                or "\\" in url
+                or any(ord(c) < 33 for c in url)
+                or any(
+                    key.lower()
+                    in {"token", "access_token", "api_key", "password", "secret", "signature"}
+                    for key, value in parse_qsl(parts.query)
+                )
+            ):
+                raise ValueError("redirect must be credential-free approved HTTPS")
+        return self
+
 
 class TrustedSourcePolicy(RetrievalContract):
     policy_id: str

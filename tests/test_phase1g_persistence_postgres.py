@@ -133,3 +133,44 @@ def test_rerank_injection_is_audited_and_no_scope_extension(fixture):
     )
     assert result["statistics"]["dropped_count"] == 1
     assert result["traces"][1]["details"]["dropped"]
+
+
+def test_pack_commit_fk_failure_rolls_back_without_parallel_result(fixture, monkeypatch):
+    from sqlalchemy.exc import IntegrityError
+
+    f = fixture
+    v = publish(f)
+    f["repo"].build_index(v["knowledge_version_id"])
+    r, p, _ = policies(f)
+    original = r.internal_evidence
+
+    def invalid(*args):
+        items = original(*args)
+        return (items[0].model_copy(update={"citation_id": str(uuid4())}),)
+
+    monkeypatch.setattr(r, "internal_evidence", invalid)
+    with pytest.raises(IntegrityError):
+        service(f, r).retrieve(query(f, p))
+    with f["sf"]() as s:
+        assert (
+            s.scalar(
+                select(func.count())
+                .select_from(g.EvidencePackEntity)
+                .where(g.EvidencePackEntity.tenant_id == f["tenant"])
+            )
+            == 0
+        )
+        assert (
+            s.scalar(
+                select(func.count())
+                .select_from(g.EvidencePackItemEntity)
+                .where(g.EvidencePackItemEntity.tenant_id == f["tenant"])
+            )
+            == 0
+        )
+        assert (
+            s.scalar(
+                select(g.RetrievalRunEntity).where(g.RetrievalRunEntity.tenant_id == f["tenant"])
+            ).status
+            == "FAILED"
+        )

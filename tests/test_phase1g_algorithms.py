@@ -220,3 +220,27 @@ def test_policy_and_evidence_contracts_prevent_unbounded_or_unverified_sources()
         evidence(source_tier="T4_LLM_DISCOVERY_ONLY")
     with pytest.raises(ValidationError):
         evidence(external_evidence_id="external-and-internal")
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "https://user:secret@approved.example/knowledge",
+        "https://approved.example/knowledge?token=secret",
+        "http://approved.example/knowledge",
+        "https://approved.example/knowledge#fragment",
+    ],
+)
+def test_trusted_redirect_policy_cannot_expose_credentials(url):
+    from crossborder_compliance.domain.retrieval import TrustedSourceRule
+
+    with pytest.raises(ValidationError):
+        TrustedSourceRule(
+            source_id="source",
+            authority_ref="authority",
+            source_tier="T1_PRIMARY_OFFICIAL",
+            jurisdiction_ids=("jurisdiction",),
+            permission_scopes=(),
+            scope_type="GLOBAL",
+            approved_redirect_urls=(url,),
+        )
