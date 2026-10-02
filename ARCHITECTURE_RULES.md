@@ -120,3 +120,13 @@
 101. Jurisdiction Context 只表示位置/管轄上下文，不等於 Regulation Applicability 或 Cross-border Legal Status。
 102. AI / Semantic Resolution 只能形成 Candidate / Confidence / Suggestion；不得直接 merge Formal DataItem 或形成正式 Context。
 103. Data Item / Data Flow / Context 更新必須 versioned 並可由 AnalysisSnapshot pin；既有 Snapshot / Resume 不得靜默切換新 Context。
+
+## Phase 1E.1 delivery evidence references
+
+Phase 1E implementation baseline: source SHA `6d05588a02752dc5479658f63bc4b6ab8c29331e`, runner merge SHA `fac2806d819694b4fb8210179ec90348f73791ca`, GitHub Actions Run `36950913643`, Attempt `1` (user-provided verified baseline).
+
+Baseline results: full PostgreSQL/runtime pytest **82 passed / 0 skipped / 0 deselected**, Phase 1E schema **22/22 PASS**, executable architecture checks **59/59 PASS**, Alembic head **0005_phase1e**, Phase 1A–1D regressions **PASS**.
+
+Actual executable checks and limitations are documented in [architecture_rule_check.md](architecture_rule_check.md). Scope and source-of-truth boundaries are in [Phase1E_context_resolution_design.md](Phase1E_context_resolution_design.md); evidence attribution is recorded in [baseline_manifest.json](evidence/phase1e/baseline_manifest.json).
+
+These references document the existing rules; they do not change implementation or add rule behavior. The documentation closure head requires a new complete CI result before any Phase 1F entry decision. Baseline/local artifacts are not substitutes for that final run.
