@@ -123,6 +123,7 @@ class ControlledHTTPSDownloader:
                     "source_hash": hashlib.sha256(original.encode()).hexdigest(),
                     "content_hash": hashlib.sha256(content).hexdigest(),
                     "request_audit": audit,
+                    "canonical_url": url,
                 }
             finally:
                 conn.close()

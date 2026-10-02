@@ -489,10 +489,6 @@ class PostgresRetrievalRepository(PostgresKnowledgeRepository):
         ).model_dump(mode="json")
         return response
 
-    def external_visible(self, item, scope):
-        # Implemented by the external evidence repository extension; default closed.
-        return False
-
     def source(self, source_id):
         with self.sessions() as s:
             row = self.get(s, m.KnowledgeSourceDefinitionEntity, source_id)
@@ -553,3 +549,206 @@ class PostgresRetrievalRepository(PostgresKnowledgeRepository):
             ):
                 raise ValueError("model unavailable from Phase 1C registry")
             return caps[0].metadata_json
+
+    def validate_external_metadata(self, payload):
+        with self.sessions() as s:
+            self.metadata(s, payload["authority_ref"], "AUTHORITY")
+            for node in payload["nodes"]:
+                for ref in node.get("topic_refs", ()):
+                    self.metadata(s, ref, "KNOWLEDGE_TOPIC")
+                for ref in node.get("regulation_refs", ()):
+                    self.metadata(s, ref, "REGULATION_REFERENCE")
+
+    def external_candidate(self, run_id, candidate, validation):
+        with self.sessions() as s, s.begin():
+            self.get(s, g.RetrievalRunEntity, run_id)
+            self.get(s, m.KnowledgeSourceDefinitionEntity, candidate.source_id)
+            s.add(
+                g.ExternalEvidenceCandidateEntity(
+                    tenant_id=self.tenant_id,
+                    candidate_id=candidate.candidate_id,
+                    retrieval_run_id=run_id,
+                    source_id=candidate.source_id,
+                    payload_json=candidate.model_dump(mode="json"),
+                )
+            )
+            s.flush()
+            s.add(
+                g.ExternalEvidenceValidationEntity(
+                    tenant_id=self.tenant_id,
+                    validation_result_id=str(uuid4()),
+                    candidate_id=candidate.candidate_id,
+                    result_json=validation.model_dump(mode="json"),
+                    status=validation.status,
+                )
+            )
+
+    def saved_external(self, snapshot_id, source_id, trusted_policy_version):
+        from crossborder_compliance.domain.retrieval import RuntimeVerifiedExternalEvidence
+
+        with self.sessions() as s:
+            rows = self.rows(
+                s,
+                g.RuntimeExternalEvidenceEntity,
+                g.RuntimeExternalEvidenceEntity.analysis_snapshot_id == snapshot_id,
+                g.RuntimeExternalEvidenceEntity.source_id == source_id,
+                g.RuntimeExternalEvidenceEntity.trusted_policy_version_id == trusted_policy_version,
+            )
+            if not rows:
+                return None
+            return RuntimeVerifiedExternalEvidence.model_validate(rows[0].payload_json)
+
+    def persist_external(self, run_id, candidate, raw_content, payload, validation):
+        import hashlib
+
+        from crossborder_compliance.domain.retrieval import RuntimeVerifiedExternalEvidence
+
+        with self.sessions() as s, s.begin():
+            self.get(s, b.AnalysisSnapshotEntity, payload.analysis_snapshot_id, True)
+            self.get(s, g.RetrievalRunEntity, run_id)
+            self.get(s, m.KnowledgeSourceDefinitionEntity, payload.source_id)
+            prior = self.rows(
+                s,
+                g.RuntimeExternalEvidenceEntity,
+                g.RuntimeExternalEvidenceEntity.analysis_snapshot_id
+                == payload.analysis_snapshot_id,
+                g.RuntimeExternalEvidenceEntity.source_id == payload.source_id,
+                g.RuntimeExternalEvidenceEntity.trusted_policy_version_id
+                == payload.trusted_source_policy_version,
+            )
+            if prior:
+                return RuntimeVerifiedExternalEvidence.model_validate(prior[0].payload_json)
+            if hashlib.sha256(raw_content).hexdigest() != payload.content_hash:
+                raise ValueError("runtime external content hash mismatch")
+            s.add(
+                g.ExternalEvidenceCandidateEntity(
+                    tenant_id=self.tenant_id,
+                    candidate_id=candidate.candidate_id,
+                    retrieval_run_id=run_id,
+                    source_id=candidate.source_id,
+                    payload_json=candidate.model_dump(mode="json"),
+                )
+            )
+            s.flush()
+            s.add(
+                g.ExternalEvidenceValidationEntity(
+                    tenant_id=self.tenant_id,
+                    validation_result_id=str(uuid4()),
+                    candidate_id=candidate.candidate_id,
+                    result_json=validation.model_dump(mode="json"),
+                    status="VERIFIED",
+                )
+            )
+            nodes = []
+            for node in payload.parsed_structure:
+                evidence_id, citation_id = str(uuid4()), str(uuid4())
+                quote_hash = hashlib.sha256(node["original_text"].encode()).hexdigest()
+                s.add(
+                    b.EvidenceReferenceEntity(
+                        tenant_id=self.tenant_id,
+                        evidence_id=evidence_id,
+                        evidence_type="RUNTIME_VERIFIED_EXTERNAL",
+                        source_ref=payload.source_url,
+                        excerpt_hash=quote_hash,
+                        validation_status="VALIDATED",
+                    )
+                )
+                s.flush()
+                s.add(
+                    b.CitationEntity(
+                        tenant_id=self.tenant_id,
+                        citation_id=citation_id,
+                        evidence_id=evidence_id,
+                        locator=node["canonical_locator"],
+                        quote_hash=quote_hash,
+                    )
+                )
+                nodes.append(dict(node, citation_id=citation_id, evidence_id=evidence_id))
+            payload = payload.model_copy(update={"parsed_structure": tuple(nodes)})
+            s.add(
+                g.RuntimeExternalEvidenceEntity(
+                    tenant_id=self.tenant_id,
+                    external_evidence_id=payload.external_evidence_id,
+                    analysis_snapshot_id=payload.analysis_snapshot_id,
+                    source_id=payload.source_id,
+                    trusted_policy_version_id=payload.trusted_source_policy_version,
+                    retrieval_policy_version_id=payload.retrieval_policy_version,
+                    sufficiency_policy_version_id=payload.sufficiency_policy_version,
+                    candidate_id=candidate.candidate_id,
+                    content_hash=payload.content_hash,
+                    original_content=raw_content,
+                    payload_json=payload.model_dump(mode="json"),
+                    status="VERIFIED",
+                )
+            )
+            self.pin(
+                s,
+                payload.analysis_snapshot_id,
+                "RUNTIME_EXTERNAL_EVIDENCE",
+                payload.external_evidence_id,
+                1,
+            )
+            return payload
+
+    def external_items(self, run_id, policy_version, records):
+        items = []
+        for record in records:
+            for node in record.parsed_structure:
+                for jurisdiction in record.jurisdiction_ids:
+                    items.append(
+                        EvidencePackItem(
+                            evidence_item_id=str(uuid4()),
+                            external_evidence_id=record.external_evidence_id,
+                            structure_node_id=node["structure_node_id"],
+                            chunk_id=node["chunk_id"],
+                            citation_id=node["citation_id"],
+                            source_id=record.source_id,
+                            source_url=record.canonical_url,
+                            source_authority=record.source_authority,
+                            source_tier=record.source_tier,
+                            jurisdiction_id=jurisdiction,
+                            jurisdiction_specific=True,
+                            canonical_locator=node["canonical_locator"],
+                            language=record.language,
+                            effective_from=record.effective_from,
+                            effective_to=record.effective_to,
+                            evidence_quality=1,
+                            content_hash=record.content_hash,
+                            retrieval_run_id=run_id,
+                            analysis_snapshot_id=record.analysis_snapshot_id,
+                            retrieval_policy_version=policy_version,
+                            original_text=node["original_text"],
+                            topic_refs=tuple(node.get("topic_refs", ())),
+                            regulation_refs=tuple(node.get("regulation_refs", ())),
+                            conflict_key=node.get("conflict_key"),
+                            claim_hash=node.get("claim_hash"),
+                            provenance=dict(
+                                record.provenance,
+                                parsed_artifact_version=record.parsed_artifact_version,
+                                retrieved_at=record.retrieved_at.isoformat(),
+                                source_evidence_id=node["evidence_id"],
+                            ),
+                        )
+                    )
+        return tuple(items)
+
+    def external_visible(self, item, scope):
+        from crossborder_compliance.application.external_evidence_services import rule_permits
+
+        try:
+            source = self.source(item.source_id)
+            with self.sessions() as s:
+                ext = self.get(s, g.RuntimeExternalEvidenceEntity, item.external_evidence_id)
+                policy = TrustedSourcePolicy.model_validate(
+                    self.get(
+                        s, g.POLICY_MODELS["trusted_source"], ext.trusted_policy_version_id
+                    ).payload_json
+                )
+                rule = next((r for r in policy.source_rules if r.source_id == item.source_id), None)
+                return bool(
+                    rule
+                    and source.get("authority_ref") == rule.authority_ref
+                    and rule_permits(rule, self.retrieval_context(scope), self.context)
+                )
+        except (PermissionError, LookupError, ValueError):
+            return False
