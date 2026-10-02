@@ -1,6 +1,6 @@
 # Phase 1F Preflight Repository Status
 
-檢查日期：2026-10-02（Asia/Shanghai）。更新依據：此次 actual remote main Git objects 與對該完整 SHA 的 fresh PostgreSQL/runtime regression。
+檢查日期：2026-10-02。下列 Start Gate 區段記錄實作前的 main ancestry 與完整回歸；末段記錄 Phase 1F 實作後的遠端核對。
 
 **Phase 1F Start Gate = PASS**
 
@@ -61,7 +61,7 @@ a889b311fe3ab4a995e0f21114ff19b4407d3a78 Merge pull request #6 from bensuen0831/
 
 ## Evidence identity boundary
 
-這是 actual main 的本地 empirical regression，不宣稱為新 GitHub Actions run。GitHub API 仍因 active policy 不允許 api.github.com 而 Forbidden；本次沒有新 remote Run ID / Artifact ID / digest。
+這是 actual main 的本地 empirical regression，不宣稱為新 GitHub Actions run。Start Gate 驗證當時 GitHub API 被 egress policy 阻擋，因此該 main 本地 gate 沒有 remote Run ID / Artifact ID。後續 API 連線已恢復；Phase 1F 自身的遠端證據另列於正式 manifest，不能回填成該歷史 main 測試。
 
 先前已核實 Phase 1E remote baseline 仍為 Run 36955707413、Run Number 83、SUCCESS、Artifact 11205402817、digest sha256:03b064bad2f93c577bdea98777e1a76ff70e1e594247ee20c49bb991a63d1fd5、tested SHA 1b54030；它與本次 actual main regression 是不同測試 identity。
 
@@ -70,8 +70,12 @@ a889b311fe3ab4a995e0f21114ff19b4407d3a78 Merge pull request #6 from bensuen0831/
 ## Old trigger PR review
 
 - PR #4 head 1d381d7c5d2cdbcf73f7b78cc77b44a8451c5d6a 已是 actual main ancestor，Git history 顯示已 merge；無需再關閉。
-- PR #3 head 8dfb4fc644b6c36bc09bb573b0a835511bf1fa39 不是 main ancestor，且包含唯一有效邏輯：load_authoritative_workflow_context 與 _assert_checkpoint_matches_domain 存在於 #3 port/runtime adapter，main 中沒有。不能視為純 trigger / 無唯一內容，依指定條件保留；本輪不將其改動併入已驗收 baseline。Live PR UI 狀態未從被阻擋的 API 取得。
+- PR #3 head 8dfb4fc644b6c36bc09bb573b0a835511bf1fa39 不是 main ancestor，且包含唯一有效邏輯：load_authoritative_workflow_context 與 _assert_checkpoint_matches_domain 存在於 #3 port/runtime adapter，main 中沒有。不能視為純 trigger / 無唯一內容，當時未自行關閉；本輪不將其改動併入已驗收 baseline。最新 API 顯示 PR #3 已 closed、未 merged，本輪沒有操作其狀態。當時未取得 live API 狀態；最新 PR 狀態已另存 repository_final_status.json。
 
 ## Coding boundary
 
-本次僅完成 main integration verification、tag / branch 與 documentation / evidence 更新；沒有新增 Phase 1F Knowledge / Scope code、0006 migration、RAG / Retrieval / Classification / Regulation / Risk / Compliance logic。Phase 1F branch 的治理文件 commit 與已測 main / release tag SHA 不同，不能宣稱其新 commit 已被本次 main Gate 測試。
+Start Gate 階段僅完成 main integration verification、tag / branch 與 documentation / evidence 更新，當時尚未新增 Phase 1F code；後續已按任務完成 Phase 1F foundation，沒有進入 Phase 1G。Phase 1F branch 的治理文件 commit 與已測 main / release tag SHA 不同，不能宣稱其新 commit 已被本次 main Gate 測試。
+
+## Phase 1F delivery-time repository verification
+
+GitHub REST 已核對：main 仍為 `efa8fd395e2fe63254660370b386bf3fe71a942d`；PR #5–#8 全部已 merged。Phase 1F PR #9 base 為 main，保持 draft/open；本輪沒有 merge PR。實測實作與最後 CI identities 見 [phase1f_final_remote.json](evidence/phase1f_final_remote.json)，repository 狀態見 [repository_final_status.json](evidence/phase1f/repository_final_status.json)。歷史 main 的 82-test／0005 gate 與 Phase 1F 的 142-test／0006 gate 保持不同 identity。

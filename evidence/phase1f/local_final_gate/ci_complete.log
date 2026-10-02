@@ -586,9 +586,9 @@ langgraph: 1.2.12
 langgraph-checkpoint-postgres: 3.1.2
 psycopg: 3.3.6
 === Process 1: start -> checkpoint -> interrupt -> exit ===
-{"checkpoint_next": ["node_b"], "checkpoint_row_count": 3, "domain_status": "REVIEW_REQUIRED", "process": "start", "review_task_count": 1, "thread_id": "b89baff6-6da3-442a-ad40-485b771a7d9c", "workflow_run_id": "b89baff6-6da3-442a-ad40-485b771a7d9c"}
+{"checkpoint_next": ["node_b"], "checkpoint_row_count": 3, "domain_status": "REVIEW_REQUIRED", "process": "start", "review_task_count": 1, "thread_id": "1dac7c56-2a17-491f-8bbc-ae588b985350", "workflow_run_id": "1dac7c56-2a17-491f-8bbc-ae588b985350"}
 === Process 2: fresh process -> checkpoint load -> Command(resume) -> complete ===
-{"canonical_events": ["WORKFLOW_STARTED", "NODE_COMPLETED", "REVIEW_REQUIRED", "WORKFLOW_RESUMED", "WORKFLOW_COMPLETED"], "checkpoint_context_preserved": true, "domain_status": "COMPLETED", "process": "resume", "review_task_count": 1, "thread_id": "b89baff6-6da3-442a-ad40-485b771a7d9c", "workflow_run_id": "b89baff6-6da3-442a-ad40-485b771a7d9c"}
+{"canonical_events": ["WORKFLOW_STARTED", "NODE_COMPLETED", "REVIEW_REQUIRED", "WORKFLOW_RESUMED", "WORKFLOW_COMPLETED"], "checkpoint_context_preserved": true, "domain_status": "COMPLETED", "process": "resume", "review_task_count": 1, "thread_id": "1dac7c56-2a17-491f-8bbc-ae588b985350", "workflow_run_id": "1dac7c56-2a17-491f-8bbc-ae588b985350"}
 === Process 3: duplicate client retry after completion ===
 {"event_counts_after": {"NODE_COMPLETED": 1, "REVIEW_REQUIRED": 1, "WORKFLOW_COMPLETED": 1, "WORKFLOW_RESUMED": 1, "WORKFLOW_STARTED": 1}, "event_counts_before": {"NODE_COMPLETED": 1, "REVIEW_REQUIRED": 1, "WORKFLOW_COMPLETED": 1, "WORKFLOW_RESUMED": 1, "WORKFLOW_STARTED": 1}, "process": "resume-retry", "review_task_count_after": 1, "review_task_count_before": 1, "safe": true, "status": "COMPLETED"}
 === Post-runtime checkpointer schema proof ===
@@ -1343,7 +1343,7 @@ psycopg: 3.3.6
 === Mandatory DB/runtime assertions ===
 {
   "all_mandatory_assertions_pass": true,
-  "analysis_snapshot_id": "90746ac9-d037-4662-8747-b7a3070500c5",
+  "analysis_snapshot_id": "fa3b78d3-a1ed-4837-8c7d-e4d1083179ab",
   "assertions": {
     "analysis_snapshot_and_checkpoint_are_separate_sources": true,
     "analysis_snapshot_exists": true,
@@ -1399,12 +1399,12 @@ psycopg: 3.3.6
     "node_b"
   ],
   "process2_checkpoint_values_before_resume": {
-    "analysis_snapshot_id": "90746ac9-d037-4662-8747-b7a3070500c5",
+    "analysis_snapshot_id": "fa3b78d3-a1ed-4837-8c7d-e4d1083179ab",
     "completed": false,
     "node_a_completed": true,
     "phase": "A_DONE",
-    "tenant_id": "e2b7eceb-354c-4dae-a746-cdad4daf6a74",
-    "workflow_run_id": "b89baff6-6da3-442a-ad40-485b771a7d9c"
+    "tenant_id": "b2d5b406-dfa2-45fc-a37c-f548097771ad",
+    "workflow_run_id": "1dac7c56-2a17-491f-8bbc-ae588b985350"
   },
   "raw_payload_key_hits": [],
   "retained_versions": {
@@ -1414,24 +1414,24 @@ psycopg: 3.3.6
     "state_schema_version": "phase1a-smoke-state-v1"
   },
   "review_task_count": 1,
-  "tenant_id": "e2b7eceb-354c-4dae-a746-cdad4daf6a74",
-  "thread_id": "b89baff6-6da3-442a-ad40-485b771a7d9c",
-  "workflow_run_id": "b89baff6-6da3-442a-ad40-485b771a7d9c",
+  "tenant_id": "b2d5b406-dfa2-45fc-a37c-f548097771ad",
+  "thread_id": "1dac7c56-2a17-491f-8bbc-ae588b985350",
+  "workflow_run_id": "1dac7c56-2a17-491f-8bbc-ae588b985350",
   "workflow_status": "COMPLETED"
 }
 === Full test suite; runtime tests are INCLUDED and may not skip ===
-........................................................................ [ 52%]
-.................................................................        [100%]
+........................................................................ [ 50%]
+......................................................................   [100%]
 =============================== warnings summary ===============================
 tests/test_phase1c_admin_api.py::test_model_admin_response_never_returns_secret_and_unsafe_url_rejected
   /workspace/crossborder-compliance-agent/src/crossborder_compliance/interfaces/api/routes/admin_metadata.py:171: StarletteDeprecationWarning: 'HTTP_422_UNPROCESSABLE_ENTITY' is deprecated. Use 'HTTP_422_UNPROCESSABLE_CONTENT' instead.
     _translate_error(exc)
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
----- generated xml file: /workspace/phase1f_gate3_evidence/pytest_full.xml -----
-137 passed, 1 warning in 13.99s
+- generated xml file: /workspace/phase1f_final_gate4_evidence/pytest_full.xml --
+142 passed, 1 warning in 15.33s
 {
-  "passed": 137,
+  "passed": 142,
   "skipped": 0,
   "failed": 0,
   "errors": 0,
@@ -1878,8 +1878,8 @@ Phase 1F Knowledge Ingestion / Scope Resolver Foundation Gate = PASS
 - **workflow**: `N/A`
 - **job**: `N/A`
 - **sha**: `N/A`
-- **tested_pr_head_sha**: `5acbcd1813cb80a2bd3d0f92d04dc68f5d4fc3db`
-- **runner_checkout_sha**: `5acbcd1813cb80a2bd3d0f92d04dc68f5d4fc3db`
+- **tested_pr_head_sha**: `4e7d0d9759c42b2da91a23dea47f2cdea0243449`
+- **runner_checkout_sha**: `4e7d0d9759c42b2da91a23dea47f2cdea0243449`
 - **ref**: `N/A`
 - **runner_os**: `N/A`
 - **run_url**: `N/A`
