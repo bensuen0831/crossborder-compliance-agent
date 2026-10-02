@@ -1,4 +1,4 @@
-# Phase 1K-A executed test result
+# Security boundary result
 
 Phase: **Track B — Phase 1K-A foundation**, not full Phase 1K production integration.
 Base: `f563e5067308e7eab6d3f89321b8b30da7c39044`; tag `v3.6-phase1g-pass`.
@@ -16,15 +16,8 @@ Known exclusions: full Phase 1K/1L compliance workflow, legal rules, formal clas
 Evidence: [implementation identity](evidence/phase1k-a/implementation-ci/verified_identity.json), [measured full gate](evidence/phase1k-a/implementation-ci/empirical_summary.json), [local full log](evidence/phase1k-a/local-final/ci_complete.log), [local JUnit](evidence/phase1k-a/local-final/pytest_full.xml), [Track B boundary results](evidence/phase1k-a/local-final/phase1k_a_boundary_check.json), [frozen hashes](evidence/phase1k-a/frozen_baseline_manifest.json).
 The unchanged Phase 1G CI workflow/summary script is reused: its historical `phase: 1G` label identifies the gate script, while its pytest total includes the new Track B suite. These documents explicitly distinguish frozen Phase 1G 200-test baseline from the new 276-test foundation result. The later documentation-only publication head has its own final CI, recorded in the final PR description/receipt, never attributed to this earlier implementation SHA.
 
-PASS: final local fresh PostgreSQL gate at implementation SHA `256b74df044870487d668764ffc0aa704806224e` and remote full mandatory CI independently execute **276 tests**, with no skip/deselect/failure/error. Real PostgreSQL/Redis/pgvector and LangGraph start/interrupt/restart/resume/retry are retained. Local JUnit programmatically counts the new cases:
+PASS: authenticated RepositoryContext → tenant → project/organization → snapshot → scoped immutable resource references → resource/product/department permission scopes → trusted existing security/confidentiality/type labels → operation/model policy → health/capability/boundary → redaction → fresh revocation check → safe audit → provider.
 
-| Test module | Passed cases |
-|---|---:|
-| `tests.test_phase1k_a_architecture` | 1 |
-| `tests.test_phase1k_a_configuration_postgres` | 12 |
-| `tests.test_phase1k_a_gateway` | 40 |
-| `tests.test_phase1k_a_http_redaction` | 23 |
+Unknown and unauthorized resource references return the same RESOURCE_NOT_FOUND denial. Request DTOs cannot carry tenant authorization, provider URL, raw credentials or policy overrides. Organization ownership and resource scopes are checked; department/product restrictions are supplied by required scoped resource permissions, never inferred from documents. Required resource/audit/configuration ports are server dependencies and have no permissive defaults.
 
-The unchanged baseline suite has 200 cases; new Track B has 76 (64 non-PostgreSQL and 12 real PostgreSQL). Legacy schema/architecture/runtime counts above remain separate from Track B boundary count. Deterministic fakes are only explicit tests. Frozen implementation hashes prove no weakened old assertions. `ruff check` passes for all new modules/tests/script; `git diff --check` passes. No migration or competing Alembic head.
-
-Assertions cover all operations, capability/health/trust/residency, strict tenant/project intersection, internal-only/restricted/unknown-label denial, confidential redaction before external calls, failure/review/wrong-range masking blocks, approved fallback, no post-emission fallback, source preservation, prompt injection, raw secret/credential echo prevention, uniform nonexistent resources, authorization DTO rejection, structure/vector/rerank result validation, old-policy/model/prompt pins, new-publication isolation, revocation, effective dates, metadata rollback and governed prompt capability checks.
+Sensitive documents/knowledge/evidence/RAG contexts/embedding inputs are handled as immutable scoped references. No raw body or secret enters gateway audit or repr. Document prompt text cannot replace policy. LLM output is not a legal Source of Truth. All security cases are exercised by tests/test_phase1k_a_gateway.py, test_phase1k_a_http_redaction.py and real PostgreSQL configuration tests.

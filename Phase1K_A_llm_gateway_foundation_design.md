@@ -1,4 +1,4 @@
-# Phase 1K-A executed test result
+# Phase 1K-A LLM gateway foundation design
 
 Phase: **Track B — Phase 1K-A foundation**, not full Phase 1K production integration.
 Base: `f563e5067308e7eab6d3f89321b8b30da7c39044`; tag `v3.6-phase1g-pass`.
@@ -16,15 +16,10 @@ Known exclusions: full Phase 1K/1L compliance workflow, legal rules, formal clas
 Evidence: [implementation identity](evidence/phase1k-a/implementation-ci/verified_identity.json), [measured full gate](evidence/phase1k-a/implementation-ci/empirical_summary.json), [local full log](evidence/phase1k-a/local-final/ci_complete.log), [local JUnit](evidence/phase1k-a/local-final/pytest_full.xml), [Track B boundary results](evidence/phase1k-a/local-final/phase1k_a_boundary_check.json), [frozen hashes](evidence/phase1k-a/frozen_baseline_manifest.json).
 The unchanged Phase 1G CI workflow/summary script is reused: its historical `phase: 1G` label identifies the gate script, while its pytest total includes the new Track B suite. These documents explicitly distinguish frozen Phase 1G 200-test baseline from the new 276-test foundation result. The later documentation-only publication head has its own final CI, recorded in the final PR description/receipt, never attributed to this earlier implementation SHA.
 
-PASS: final local fresh PostgreSQL gate at implementation SHA `256b74df044870487d668764ffc0aa704806224e` and remote full mandatory CI independently execute **276 tests**, with no skip/deselect/failure/error. Real PostgreSQL/Redis/pgvector and LangGraph start/interrupt/restart/resume/retry are retained. Local JUnit programmatically counts the new cases:
+`Agent/Skill → LLMServicePort → trusted identity/project/snapshot authorization → scoped immutable input references → tenant ∩ project ModelUsagePolicy → ModelRouter → optional validated redaction → current revocation recheck → allowlisted event audit → Infrastructure ProviderAdapter → typed validated result`.
 
-| Test module | Passed cases |
-|---|---:|
-| `tests.test_phase1k_a_architecture` | 1 |
-| `tests.test_phase1k_a_configuration_postgres` | 12 |
-| `tests.test_phase1k_a_gateway` | 40 |
-| `tests.test_phase1k_a_http_redaction` | 23 |
+No existing Agent/Skill/Graph/API is wired into this new foundation. Seven service operations are explicit. Each call uses the authenticated RepositoryContext; callers cannot supply tenant/provider/model/base URL/API key/policy. Business prompts come from existing governed PromptRegistry and use permission checks, capability requirements and immutable pins. Document prompt injection remains user content and cannot mutate model/data policy.
 
-The unchanged baseline suite has 200 cases; new Track B has 76 (64 non-PostgreSQL and 12 real PostgreSQL). Legacy schema/architecture/runtime counts above remain separate from Track B boundary count. Deterministic fakes are only explicit tests. Frozen implementation hashes prove no weakened old assertions. `ruff check` passes for all new modules/tests/script; `git diff --check` passes. No migration or competing Alembic head.
+REUSE: Phase 1C ModelRegistry/metadata/admin review/publish, generic Registry, PromptRegistry, RepositoryContext, existing project/snapshot and pin repositories. EXTEND: MODEL_USAGE_POLICY payload contract, existing snapshot pin types LLM_USAGE_POLICY/LLM_MODEL/LLM_PROMPT, Infrastructure reader enrichment and generic HTTP protocols. ADD_DEPENDENCY: jsonschema for mature Draft 2020-12 validation; existing httpx is promoted from development to runtime. CUSTOM_BUILD: the missing typed gateway/router/policy intersection and deterministic range-mask proof; existing code contains no equivalent service. No new registry, DB table or workflow runtime is created.
 
-Assertions cover all operations, capability/health/trust/residency, strict tenant/project intersection, internal-only/restricted/unknown-label denial, confidential redaction before external calls, failure/review/wrong-range masking blocks, approved fallback, no post-emission fallback, source preservation, prompt injection, raw secret/credential echo prevention, uniform nonexistent resources, authorization DTO rejection, structure/vector/rerank result validation, old-policy/model/prompt pins, new-publication isolation, revocation, effective dates, metadata rollback and governed prompt capability checks.
+Every substantial component's reuse classification and reason are in phase1k_a_start_gate.md. Frozen 148 implementation files, all seven migrations and architecture rules are hash-checked in CI. Shared integration surfaces are pyproject.toml plus the two explicitly requested generic result documents; previous Phase 1G versions of those documents are preserved in evidence/phase1k-a/prior-phase1g-docs.
