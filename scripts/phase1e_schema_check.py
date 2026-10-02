@@ -38,7 +38,7 @@ def main():
     scenario_resolution_fk={fk["referred_table"] for fk in fks("scenario_resolutions")}
     item_source_fk={fk["referred_table"] for fk in fks("data_item_source_trace_links")}
     checks={
-        "alembic_head_0005_phase1e": revision=="0005_phase1e",
+        "phase1e_schema_present_under_current_head": revision in {"0005_phase1e", "0006_phase1f"},
         "phase1e_required_tables_present": REQUIRED<=tables,
         "no_parallel_data_item_source_of_truth": {"data_items"}<=tables and not (FORBIDDEN & tables),
         "no_parallel_data_flow_source_of_truth": {"data_flow_nodes","data_flow_edges","data_item_flow_links"}<=tables and not (FORBIDDEN & tables),

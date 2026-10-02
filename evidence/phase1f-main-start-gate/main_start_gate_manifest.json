@@ -1,0 +1,83 @@
+{
+  "phase": "Repository Integration / Phase 1F Start Gate",
+  "verified_at_utc": "2026-10-02T02:55:52.292213+00:00",
+  "phase1f_start_gate": "PASS",
+  "tested_main_sha": "efa8fd395e2fe63254660370b386bf3fe71a942d",
+  "runtime_test_execution": "LOCAL fresh PostgreSQL 16 + pgvector / Redis using smoke/run_gate.sh on actual main; not simulated preview",
+  "source_heads_in_main": {
+    "Phase 1B": "2c50591f8a0853e8df86674f42a76ea48a59d4b2",
+    "Phase 1C": "d1834908982c1e858aa1bed5fdd70c17ef04be37",
+    "Phase 1D": "51429bc147a843f67ef43e88f7ae61094f6144f1",
+    "Phase 1E": "51e838caeb4655d3911b3bf81d88d88331205971"
+  },
+  "source_tree_matches_phase1e_for_runtime_paths": true,
+  "alembic_head": "0005_phase1e",
+  "pytest": {
+    "passed": 82,
+    "skipped": 0,
+    "deselected": 0,
+    "warnings": 1
+  },
+  "phase1e_schema": {
+    "passed": 22,
+    "total": 22
+  },
+  "architecture": {
+    "passed": 59,
+    "total": 59
+  },
+  "phase1a_runtime": {
+    "passed": 25,
+    "total": 25
+  },
+  "phase1d_schema": {
+    "passed": 15,
+    "total": 15
+  },
+  "regressions": {
+    "Phase 1A": "PASS",
+    "Phase 1B": "PASS",
+    "Phase 1C": "PASS",
+    "Phase 1D": "PASS",
+    "Phase 1E": "PASS"
+  },
+  "langgraph_checkpoint_ownership": "PASS",
+  "tenant_source_of_truth_regression": "PASS",
+  "remote_main_drift_check": "PASS: unchanged at release preflight",
+  "remote_ci_run_id": null,
+  "remote_artifact_id": null,
+  "remote_artifact_digest": null,
+  "remote_ci_note": "No new remote run claimed; GitHub API remains Forbidden. Start Gate full regression completed locally on actual main as requested.",
+  "phase1e_final_remote_baseline": {
+    "tested_sha": "1b54030dfc8147beaf19c6ab2ead9f428191a8af",
+    "run_id": 36955707413,
+    "run_number": 83,
+    "conclusion": "SUCCESS",
+    "artifact_id": 11205402817,
+    "digest": "sha256:03b064bad2f93c577bdea98777e1a76ff70e1e594247ee20c49bb991a63d1fd5",
+    "source": "user-provided verified baseline, distinct from actual main regression"
+  },
+  "old_pr_review": {
+    "pr3": {
+      "head_sha": "8dfb4fc644b6c36bc09bb573b0a835511bf1fa39",
+      "unique_logic_present": true,
+      "logic": "load_authoritative_workflow_context and _assert_checkpoint_matches_domain absent from main",
+      "decision": "RETAIN; no no-unique-content close condition satisfied"
+    },
+    "pr4": {
+      "head_sha": "1d381d7c5d2cdbcf73f7b78cc77b44a8451c5d6a",
+      "is_main_ancestor": true,
+      "main_merge_subject": "Merge pull request #4 from bensuen0831/phase1a2-empirical-trigger-2",
+      "decision": "Git history shows merged; no redundant close operation"
+    }
+  },
+  "release_tag": {
+    "name": "v3.6-phase1e-pass",
+    "target_sha": "efa8fd395e2fe63254660370b386bf3fe71a942d"
+  },
+  "phase1f_branch": {
+    "name": "phase1f-knowledge-scope",
+    "base_sha": "efa8fd395e2fe63254660370b386bf3fe71a942d",
+    "changes": "documentation/evidence only; no Phase 1F implementation"
+  }
+}

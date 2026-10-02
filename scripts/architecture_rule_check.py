@@ -561,6 +561,40 @@ add(
     phase1e_fixed_rule_logic or "No country/product-code/regulation decision routing, risk, or compliance-path logic",
 )
 
+
+# Phase 1F: static executable boundaries, complemented by mandatory PostgreSQL cases.
+ks=read_text(SRC/'application/knowledge_services.py')
+kp=read_text(SRC/'application/knowledge_ports.py')
+kd=read_text(SRC/'domain/knowledge.py')
+kr=read_text(SRC/'infrastructure/persistence/knowledge_repositories.py')
+km=read_text(SRC/'infrastructure/persistence/knowledge_models.py')
+kw=read_text(SRC/'infrastructure/knowledge_worker.py')
+kdl=read_text(SRC/'infrastructure/knowledge_download.py')
+migration=read_text(ROOT/'alembic/versions/0006_phase1f_knowledge_scope.py')
+scope_ast=next(n for n in ast.parse(ks).body if isinstance(n,ast.ClassDef) and n.name=='KnowledgeScopeResolver')
+calls={ast.unparse(n.func) for n in ast.walk(scope_ast) if isinstance(n,ast.Call)}
+new_checks={
+ 'knowledge_platform_not_vector_db':all(x in km for x in ('knowledge_documents','knowledge_document_versions','knowledge_structure_nodes')),
+ 'scope_resolver_has_no_retrieval':not any(re.search(r'top_k|similarity_search|rerank|embed|llm|vector_search',call,re.I) for call in calls),
+ 'hard_filter_precedes_similarity':all(x in kd for x in ('tenant_filter','permission_filter','lifecycle_filter','version_filter','product_filter','jurisdiction_filter')) and 'filter_order' in kd,
+ 'unrelated_product_knowledge_excluded':'class ProductScopeResolver' in ks and 'PRODUCT_DIMENSIONS' in ks and 'all(' in class_block(ks,'DimensionScopeResolver'),
+ 'unresolved_product_scope_fail_safe':'formal.product_unresolved' in ks and 'UNRESOLVED_PRODUCT_SCOPE' in ks and 'ALL_PRODUCTS' not in ks,
+ 'knowledge_chunk_has_provenance':all(x in kr for x in ('KnowledgeChunkNodeEntity','CitationEntity','EvidenceReferenceEntity','RegulatoryStructureNodeEntity')),
+ 'vector_index_is_derived':'embedding_vector' in migration and 'derived=True' in kr,
+ 'fts_index_is_derived':'GENERATED ALWAYS' in migration and 'USING gin' in migration,
+ 'registry_not_knowledge_source':'KnowledgeSourceDefinitionEntity' in kr and 'KnowledgeCollectionEntity' in kr,
+ 'translation_review_boundary':'independent translation reviewer required' in kr and 'official_evidence=False' in kr,
+ 'knowledge_quality_before_active':'quality gate failed' in kr and 'review required before ACTIVE' in kr,
+ 'snapshot_pins_knowledge_version':all(x in kr for x in ('KNOWLEDGE_VERSION','KNOWLEDGE_BINDING','KNOWLEDGE_INDEX_VERSION','EMBEDDING_CONFIG_VERSION')) and 'saved_scope' in ks,
+ 'phase1f_uses_phase1e_context':all(x in kr for x in ('ContextResolutionRunEntity','ProductScopeResolutionEntity','ScenarioContextEntity','JurisdictionContextEntity','DataItemResolutionDetailEntity')) and 'PHASE1E_FORMAL_CONTEXT_REQUIRED' in kr,
+ 'no_country_specific_knowledge_branch':not occurrences(r"\bif\s+.*\b(country|country_code|product_code|regulation_code)\b.*(?:==|in)\s*[\"'\[{]",[SRC/'application/knowledge_services.py',SRC/'infrastructure/persistence/knowledge_repositories.py']),
+ 'no_regulation_business_decision':not any(x in ks.lower() for x in ('risk_score','regulation_applicability','legal_conclusion','compliance_path')),
+ 'controlled_downloader_boundary':'class ControlledDownloaderPort' in kp and all(x in kdl for x in ('PRIVATE_IP_BLOCKED','MIME_POLICY','REDIRECT_LIMIT','source_hash','content_hash','request_audit')),
+ 'knowledge_ingestion_no_graph_checkpoints':'class KnowledgeIngestionWorker' in kw and not re.search(r'from .*langgraph|import langgraph|checkpoint',kw.split('"""')[-1]),
+ 'no_parallel_knowledge_source':not any(x in km for x in ('knowledge_sources"','knowledge_collections_v2','formal_knowledge_document','final_knowledge_store')),
+}
+for name,passed in new_checks.items(): add(name,passed,'Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage')
+
 failed = [check for check in checks if not check["pass"]]
 result = {
     "pass": not failed,
@@ -581,7 +615,7 @@ if evidence_dir:
             f"| {i} | `{check['check']}` | **{'PASS' if check['pass'] else 'FAIL'}** | `{evidence}` |"
         )
     (out / "architecture_rule_check.md").write_text(
-        "# Phase 1B Architecture Rule Check\n\n"
+        "# Phase 1F Architecture Rule Check\n\n"
         f"**Decision: {'PASS' if not failed else 'FAIL'} — {result['passed']}/{result['total']} checks passed.**\n\n"
         + "\n".join(rows)
         + "\n",

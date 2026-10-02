@@ -541,6 +541,12 @@ class KnowledgeBindingEntity(TenantAuditMixin, EffectiveMixin, Base):
     )
     scope_type: Mapped[str] = mapped_column(String(80), nullable=False)
     scope_ref: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    knowledge_version_id: Mapped[str | None] = mapped_column(ForeignKey("knowledge_document_versions.knowledge_version_id"))
+    binding_version: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
+    dimensions_json: Mapped[dict] = mapped_column(JSON, nullable=False, default=dict, server_default="{}")
+    permission_scopes_json: Mapped[list] = mapped_column(JSON, nullable=False, default=list, server_default="[]")
+    provenance_json: Mapped[dict] = mapped_column(JSON, nullable=False, default=dict, server_default="{}")
+    review_status: Mapped[str] = mapped_column(String(40), nullable=False, default="PENDING", server_default="PENDING")
 
 
 class KnowledgeScopeMetadataEntity(TenantAuditMixin, Base):
@@ -635,3 +641,5 @@ class AnalysisSnapshotRegistryPinEntity(TenantAuditMixin, Base):
     object_id: Mapped[str] = mapped_column(String(36), nullable=False)
     version_id: Mapped[str] = mapped_column(String(36), nullable=False)
     version_no: Mapped[int] = mapped_column(Integer, nullable=False)
+
+from crossborder_compliance.infrastructure.persistence import knowledge_models as _knowledge_models  # noqa: E402,F401

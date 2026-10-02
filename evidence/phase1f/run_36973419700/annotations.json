@@ -1,0 +1,38 @@
+[
+  {
+    "path": ".github",
+    "blob_href": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/4e7d0d9759c42b2da91a23dea47f2cdea0243449/.github",
+    "start_line": 2,
+    "start_column": null,
+    "end_line": 2,
+    "end_column": null,
+    "annotation_level": "warning",
+    "title": "",
+    "message": "Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/",
+    "raw_details": ""
+  },
+  {
+    "path": ".github",
+    "blob_href": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/4e7d0d9759c42b2da91a23dea47f2cdea0243449/.github",
+    "start_line": 20,
+    "start_column": null,
+    "end_line": 20,
+    "end_column": null,
+    "annotation_level": "notice",
+    "title": "Phase1F empirical gate",
+    "message": "PHASE1F_EMPIRICAL_SUMMARY={\"phase\":\"1F\",\"run_id\":\"36973419700\",\"attempt\":\"1\",\"tested_pr_head_sha\":\"4e7d0d9759c42b2da91a23dea47f2cdea0243449\",\"runner_merge_sha\":\"f68b0a9b50d5e48c5ff32e68a991010035423057\",\"alembic_head\":\"0006_phase1f\",\"pytest\":{\"passed\":142,\"skipped\":0,\"failed\":0,\"errors\":0,\"deselected\":0,\"phase_coverage\":{\"phase1b\":true,\"phase1c\":true,\"phase1d\":true,\"phase1e\":true,\"phase1f\":true},\"pass\":true},\"schema_gates\":{\"phase1b\":{\"pass\":true,\"passed\":16,\"total\":16},\"phase1c\":{\"pass\":true,\"passed\":20,\"total\":20},\"phase1d\":{\"pass\":true,\"passed\":15,\"total\":15},\"phase1e\":{\"pass\":true,\"passed\":22,\"total\":22},\"phase1f\":{\"pass\":true,\"passed\":29,\"total\":29}},\"architecture\":{\"pass\":true,\"passed\":77,\"total\":77},\"runtime\":{\"pass\":true,\"passed\":25,\"total\":25},\"full_gate_log\":{\"filename\":\"ci_complete.log\",\"bytes\":62033,\"sha256\":\"8c21985f28404ad40362519a04be7792848f1d0d51340e376eaeed32964d62a8\"},\"pass\":true}",
+    "raw_details": ""
+  },
+  {
+    "path": ".github",
+    "blob_href": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/4e7d0d9759c42b2da91a23dea47f2cdea0243449/.github",
+    "start_line": 1,
+    "start_column": null,
+    "end_line": 1,
+    "end_column": null,
+    "annotation_level": "notice",
+    "title": "",
+    "message": "\"The ubuntu-latest label will migrate to Ubuntu 26 beginning October 19, 2026. For more information, see https://github.com/actions/runner-images/issues/14748\"",
+    "raw_details": ""
+  }
+]
