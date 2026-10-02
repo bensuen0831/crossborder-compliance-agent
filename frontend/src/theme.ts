@@ -1,0 +1,19 @@
+import { theme, type ThemeConfig } from 'antd';
+
+export const midnight = {
+  canvas: '#0b1020', surface: '#111a2c', elevated: '#172238', line: '#27344c',
+  text: '#edf3fd', muted: '#a4b3cc', accent: '#81adff', success: '#65d9b0',
+};
+export const enterpriseTheme: ThemeConfig = {
+  algorithm: theme.darkAlgorithm,
+  token: {
+    colorPrimary: midnight.accent, colorSuccess: midnight.success,
+    colorBgLayout: midnight.canvas, colorBgContainer: midnight.surface,
+    colorBgElevated: midnight.elevated, colorBorder: midnight.line,
+    colorText: midnight.text, colorTextSecondary: midnight.muted,
+    borderRadius: 12, fontSize: 14,
+    fontFamily: 'Inter, "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif',
+    controlHeight: 40,
+  },
+  components: { Layout: { siderBg: midnight.canvas, headerBg: midnight.canvas }, Card: { headerFontSize: 16 } },
+};
