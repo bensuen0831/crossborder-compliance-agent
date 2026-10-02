@@ -50,6 +50,8 @@ def test_semantic_similarity_is_candidate_only_and_does_not_formal_merge():
     assert result.reviewer_required is True
     assert result.semantic_candidate_score==0.95
     assert len(repo.dedup)==1
+    assert repo.conflicts and repo.conflicts[0].conflict_type=="DATA_ITEM_POSSIBLE_DUPLICATE"
+    assert repo.conflicts[0].review_required is True
     assert not hasattr(repo,"formal_items"), "semantic suggestion must not create/merge a formal DataItem"
 
 
