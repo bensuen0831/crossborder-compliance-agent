@@ -76,6 +76,12 @@ class OCR:
         return [{"page_no":1,"bbox":[1,2,100,20],"text":"Generic key: generic value","confidence":.9}]
 
 
+class SelectiveSimilarity:
+    def candidate_similarity(self, *, left, right):
+        names={str(left.get("normalized_name") or ""),str(right.get("normalized_name") or "")}
+        return .95 if names=={"type","unit"} else 0.0
+
+
 class Vision:
     def analyze(self,*,content:bytes,mime_type:str):
         a,b=uuid4(),uuid4()
@@ -262,7 +268,7 @@ def test_phase1e_context_resolution_formal_inventory_flow_review_versioning_and_
     unknown_edge=next(x for x in flow_edges if x.get("direction") in {None,"UNKNOWN"})
 
     trace_id=UUID(str(field_candidates[0]["source_trace_ids"][0]))
-    result=ContextResolutionService(repo).run(
+    result=ContextResolutionService(repo,SelectiveSimilarity()).run(
         project_a,
         selected_product_scope=(product_a,),
         detected_product_scope=(product_b,),
@@ -276,6 +282,7 @@ def test_phase1e_context_resolution_formal_inventory_flow_review_versioning_and_
         ),
         parties=(
             {"display_name":"Example Vendor","role_definition_id":str(party_role),"source_trace_ids":[str(trace_id)]},
+            {"display_name":"Unresolved External Party","role_definition_id":str(party_role),"source_trace_ids":[str(trace_id)]},
         ),
         jurisdictions=(
             {
@@ -313,17 +320,22 @@ def test_phase1e_context_resolution_formal_inventory_flow_review_versioning_and_
     assert stats["data_group_count"]==1
     assert stats["data_flow_node_count"]>=2
     assert stats["data_flow_edge_count"]>=1
-    assert stats["conflict_count"]>=3
-    assert len(result["review_task_ids"])>=3
+    assert stats["conflict_count"]>=6
+    assert len(result["review_task_ids"])>=6
 
     business=repo.get_business_context(project_a)
-    assert business and all(x["validation_status"]=="VALIDATED" for x in business)
+    assert business
+    assert all(x["validation_status"]=="REVIEW_REQUIRED" for x in business)
+    assert all(x["conflict_status"]=="CONFLICT" for x in business)
 
     products=repo.get_product_context(project_a)
     assert products and products[0]["resolution_status"]=="REVIEW_REQUIRED"
     conflicts=repo.list_conflicts(project_a)
     conflict_types={x["conflict_type"] for x in conflicts}
     assert "PRODUCT_CONTEXT_CONFLICT" in conflict_types
+    assert "BUSINESS_FACT_CONFLICT" in conflict_types
+    assert "DATA_ITEM_POSSIBLE_DUPLICATE" in conflict_types
+    assert "PARTY_CONTEXT_CONFLICT" in conflict_types
     assert "FLOW_DIRECTION_CONFLICT" in conflict_types
     assert "LOCATION_CONTEXT_CONFLICT" in conflict_types
 
@@ -364,7 +376,8 @@ def test_phase1e_context_resolution_formal_inventory_flow_review_versioning_and_
     assert unknown["latitude"] is None and unknown["longitude"] is None
 
     parties=repo.get_parties(project_a)
-    assert parties and parties[0]["project_party_id"]==str(party_a)
+    assert any(x["project_party_id"]==str(party_a) and not x["review_required"] for x in parties)
+    assert any(x["project_party_id"] is None and x["review_required"] for x in parties)
 
     formal_result=repo.get_context_resolution(project_a)
     assert formal_result is not None and formal_result.version==1
@@ -416,7 +429,7 @@ def test_phase1e_context_resolution_formal_inventory_flow_review_versioning_and_
     assert resolutions["DATA_ITEM"]==counts["item_candidates"]
     assert resolutions["DATA_FLOW_NODE"]==counts["node_candidates"]
     assert resolutions["DATA_FLOW_EDGE"]==counts["edge_candidates"]
-    assert review_count>=3
+    assert review_count>=6
 
     product_conflict=next(x for x in conflicts if x["conflict_type"]=="PRODUCT_CONTEXT_CONFLICT")
     resolved=repo.resolve_conflict(
