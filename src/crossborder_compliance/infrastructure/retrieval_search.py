@@ -21,6 +21,7 @@ WITH filtered AS MATERIALIZED (
  JOIN knowledge_documents d ON d.document_id=v.document_id
  JOIN knowledge_source_definitions s ON s.knowledge_source_definition_id=d.source_id
  JOIN knowledge_index_versions i ON i.knowledge_version_id=v.knowledge_version_id
+ JOIN knowledge_runtime_publications r ON r.knowledge_version_id=v.knowledge_version_id
  WHERE c.tenant_id=:tenant AND v.tenant_id=:tenant AND d.tenant_id=:tenant
    AND s.tenant_id=:tenant AND i.tenant_id=:tenant
    AND c.status='ACTIVE' AND v.status='ACTIVE' AND d.status='ACTIVE' AND s.status='ACTIVE'
@@ -30,6 +31,7 @@ WITH filtered AS MATERIALIZED (
    AND (v.effective_to IS NULL OR v.effective_to>=:as_of)
    AND s.config_json->>'enabled'='true' AND s.config_json->>'validation_status'='VALIDATED'
    AND s.config_json->>'source_type' IN :source_types
+   AND r.tenant_id=:tenant AND r.status='READY' AND i.index_version_id=r.index_version_id
    AND i.build_status='BUILT' AND i.derived=true
    AND i.fts_config_version='postgres-simple-v1'
    AND (:any_language OR c.language IN :languages)

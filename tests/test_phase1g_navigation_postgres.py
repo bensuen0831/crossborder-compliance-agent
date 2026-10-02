@@ -1,7 +1,8 @@
 from uuid import uuid4
 
 import pytest
-from test_phase1f_postgres import binding, metadata, publish, scope
+from phase1g_fixtures import publish
+from test_phase1f_postgres import binding, metadata, scope
 from test_phase1f_postgres import fixture as fixture
 
 from crossborder_compliance.infrastructure.persistence import knowledge_models as k

@@ -14,6 +14,7 @@ from crossborder_compliance.config import get_settings
 from crossborder_compliance.domain.retrieval import (
     EvidencePack,
     KnowledgeRetrievalQuery,
+    KnowledgeRuntimeReadinessResult,
     KnowledgeSufficiencyResult,
 )
 from crossborder_compliance.infrastructure.persistence.db import build_session_factory
@@ -130,38 +131,6 @@ def policy_dto(result):
     }
 
 
-@router.post("/admin/{kind}", response_model=PolicyResponseDTO, status_code=201)
-@guarded
-def create_policy(kind: PolicyKind, payload: PolicyRequestDTO, request: Request):
-    return policy_dto(
-        repo(request).create_policy(
-            KINDS[kind], payload.parameters, str(payload.policy_id) if payload.policy_id else None
-        )
-    )
-
-
-@router.post("/admin/{kind}/versions/{id}/publish", response_model=PolicyResponseDTO)
-@guarded
-def publish_policy(kind: PolicyKind, id: UUID, payload: ExpectedDTO, request: Request):
-    return policy_dto(
-        repo(request).publish_policy(KINDS[kind], str(id), payload.expected_record_version)
-    )
-
-
-@router.get("/admin/{kind}/{id}", response_model=PolicyResponseDTO)
-@guarded
-def get_policy(kind: PolicyKind, id: UUID, request: Request):
-    from crossborder_compliance.infrastructure.persistence import retrieval_models as g
-
-    r = repo(request)
-    r.admin()
-    with r.sessions() as s:
-        row = r.get(s, g.POLICY_MODELS[KINDS[kind]], str(id))
-        return policy_dto(
-            dict(row.payload_json, lifecycle=row.lifecycle, record_version=row.record_version)
-        )
-
-
 @router.post("/admin/wiki", response_model=NavigationResponseDTO, status_code=201)
 @guarded
 def generate_wiki(payload: WikiRequestDTO, request: Request):
@@ -212,3 +181,50 @@ def graph_action(
     return {
         "result": repo(request).graph_action(kind, str(id), action, payload.expected_record_version)
     }
+
+
+@router.post("/admin/{kind}", response_model=PolicyResponseDTO, status_code=201)
+@guarded
+def create_policy(kind: PolicyKind, payload: PolicyRequestDTO, request: Request):
+    return policy_dto(
+        repo(request).create_policy(
+            KINDS[kind], payload.parameters, str(payload.policy_id) if payload.policy_id else None
+        )
+    )
+
+
+@router.post("/admin/{kind}/versions/{id}/publish", response_model=PolicyResponseDTO)
+@guarded
+def publish_policy(kind: PolicyKind, id: UUID, payload: ExpectedDTO, request: Request):
+    return policy_dto(
+        repo(request).publish_policy(KINDS[kind], str(id), payload.expected_record_version)
+    )
+
+
+@router.get("/admin/{kind}/{id}", response_model=PolicyResponseDTO)
+@guarded
+def get_policy(kind: PolicyKind, id: UUID, request: Request):
+    from crossborder_compliance.infrastructure.persistence import retrieval_models as g
+
+    r = repo(request)
+    r.admin()
+    with r.sessions() as s:
+        row = r.get(s, g.POLICY_MODELS[KINDS[kind]], str(id))
+        return policy_dto(
+            dict(row.payload_json, lifecycle=row.lifecycle, record_version=row.record_version)
+        )
+
+
+@router.get(
+    "/admin/knowledge-versions/{id}/runtime-readiness",
+    response_model=KnowledgeRuntimeReadinessResult,
+)
+@guarded
+def runtime_readiness(id: UUID, request: Request):
+    from crossborder_compliance.infrastructure.persistence.knowledge_runtime_repository import (
+        KnowledgeRuntimeRepository,
+    )
+
+    r = repo(request)
+    r.admin()
+    return KnowledgeRuntimeRepository(r.sessions, r.context).runtime_readiness(str(id))

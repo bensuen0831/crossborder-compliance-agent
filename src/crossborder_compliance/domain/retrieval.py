@@ -461,3 +461,20 @@ class KnowledgeGraphEdge(GraphProvenance):
     target_node_id: str
     relation_type_ref: str
     inferred: bool = True
+
+
+class KnowledgeRuntimeReadinessResult(RetrievalContract):
+    knowledge_version_id: str
+    tenant_id: str
+    publication_event_id: str
+    event_version: int = Field(ge=1)
+    status: Literal["PENDING", "BUILDING", "READY", "FAILED"]
+    index_version_id: str | None = None
+    embedding_config_id: str | None = None
+    registry_projection_version: str | None = None
+    cache_generation: str | None = None
+    checks: dict[str, bool] = Field(default_factory=dict)
+    reason_codes: tuple[str, ...] = ()
+    assets: dict = Field(default_factory=dict)
+    record_version: int = Field(ge=1)
+    derived: Literal[True] = True

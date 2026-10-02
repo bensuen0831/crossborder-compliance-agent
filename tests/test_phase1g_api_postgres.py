@@ -75,3 +75,23 @@ def test_admin_policy_typed_creation_publish_and_permission(fixture):
     assert c.get(route + "/" + policy["policy_version_id"]).status_code == 200
     noadmin = client(f, RepositoryContext.user(UUID(f["tenant"]), "reader"))
     assert noadmin.post(route, json={"parameters": {}}).status_code == 403
+
+
+def test_wiki_specific_admin_route_and_runtime_readiness_dto(fixture):
+    from phase1g_fixtures import publish
+
+    f = fixture
+    v = publish(f)
+    c = client(f, f["ctx"])
+    response = c.post(
+        "/api/v1/admin/wiki",
+        json={"title": "Generic Wiki", "knowledge_version_ids": [v["knowledge_version_id"]]},
+    )
+    assert response.status_code == 201, response.text
+    wiki = response.json()["result"]
+    assert wiki["lifecycle"] == "DRAFT"
+    ready = c.get(
+        "/api/v1/admin/knowledge-versions/" + v["knowledge_version_id"] + "/runtime-readiness"
+    )
+    assert ready.status_code == 200, ready.text
+    assert ready.json()["status"] == "READY"

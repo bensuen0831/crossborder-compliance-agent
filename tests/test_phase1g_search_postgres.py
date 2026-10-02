@@ -3,12 +3,12 @@
 from uuid import uuid4
 
 import pytest
+from phase1g_fixtures import publish
 from sqlalchemy import select, text
 from test_phase1f_postgres import (
     FakeEmbedding,
     binding,
     embedding_config,
-    publish,
     scope,
 )
 from test_phase1f_postgres import (
@@ -29,6 +29,9 @@ pytestmark = pytest.mark.runtime_smoke
 
 def search_fixture(f):
     config = embedding_config(f)
+    from test_phase1g_persistence_postgres import policies
+
+    policies(f, vector_weight=0.5, embedding_config_id=config)
     versions = [
         publish(f, [binding(f, permissions=["read:internal"])]),
         publish(f, [binding(f, dimensions={"product": [f["b"]]})]),

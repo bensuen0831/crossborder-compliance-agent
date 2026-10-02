@@ -10,6 +10,7 @@ from crossborder_compliance.config import get_settings
 from crossborder_compliance.infrastructure.persistence.db import build_engine
 
 REQUIRED = {
+    "knowledge_runtime_publications",
     "retrieval_policies",
     "retrieval_runs",
     "evidence_packs",
@@ -126,6 +127,27 @@ def main():
         "graph_edge_node_registry_fk": {"knowledge_graph_nodes", "metadata_definitions"}
         <= fk("knowledge_graph_edges"),
     }
+    checks.update(
+        {
+            "runtime_publication_version_outbox_fk": {
+                "knowledge_document_versions",
+                "registry_sync_events",
+            }
+            <= fk("knowledge_runtime_publications"),
+            "runtime_ready_index_registry_cache_barrier": "ck_runtime_ready_barrier"
+            in ck("knowledge_runtime_publications"),
+            "runtime_publication_status_constraint": "ck_runtime_publication_status"
+            in ck("knowledge_runtime_publications"),
+            "runtime_publication_one_event": "uq_runtime_publication_event"
+            in uq("knowledge_runtime_publications"),
+            "runtime_pins_index_embedding_policy_fk": {
+                "knowledge_index_versions",
+                "model_deployments",
+                "retrieval_policies",
+            }
+            <= fk("knowledge_runtime_publications"),
+        }
+    )
     for table in sorted(REQUIRED):
         checks[table + "_tenant_audit"] = {
             "tenant_id",

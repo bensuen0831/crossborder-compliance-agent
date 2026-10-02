@@ -3,6 +3,7 @@
 from uuid import uuid4
 
 import pytest
+from phase1g_fixtures import publish
 from sqlalchemy import func, select
 from test_phase1f_postgres import (
     FakeEmbedding,
@@ -10,7 +11,6 @@ from test_phase1f_postgres import (
     context,
     embedding_config,
     item,
-    publish,
     scope,
     step,
 )
@@ -104,10 +104,10 @@ def test_incompatible_dimensions_cannot_enter_candidates(fixture, dimension):
 
 def test_query_embedding_uses_registry_and_real_pgvector(fixture):
     f = fixture
-    v = publish(f)
     config = embedding_config(f)
-    EmbeddingFoundationService(f["repo"], FakeEmbedding()).build(v["knowledge_version_id"], config)
     r, p, _ = policies(f, vector_weight=0.5, embedding_config_id=config)
+    v = publish(f)
+    EmbeddingFoundationService(f["repo"], FakeEmbedding()).build(v["knowledge_version_id"], config)
     result = service(f, r, embedding=DeterministicTestEmbedding()).retrieve(query(f, p))
     assert result["statistics"]["vector_count"] == 2
     assert len({i["chunk_id"] for i in result["rag_context_pack"]["evidence_pack"]["items"]}) == 2
@@ -119,10 +119,10 @@ def test_query_embedding_uses_registry_and_real_pgvector(fixture):
 
 def test_failed_provider_run_retained_without_partial_pack(fixture):
     f = fixture
-    v = publish(f)
     config = embedding_config(f)
-    EmbeddingFoundationService(f["repo"], FakeEmbedding()).build(v["knowledge_version_id"], config)
     r, p, _ = policies(f, vector_weight=0.5, embedding_config_id=config)
+    v = publish(f)
+    EmbeddingFoundationService(f["repo"], FakeEmbedding()).build(v["knowledge_version_id"], config)
     with pytest.raises(ValueError, match="EMBEDDING_PORT_NOT_CONFIGURED"):
         service(f, r).retrieve(query(f, p))
     with f["sf"]() as s:

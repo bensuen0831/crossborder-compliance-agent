@@ -5,8 +5,9 @@ import json
 from datetime import date, timedelta
 
 import pytest
+from phase1g_fixtures import publish
 from sqlalchemy import func, select
-from test_phase1f_postgres import binding, metadata, publish
+from test_phase1f_postgres import binding, metadata
 from test_phase1f_postgres import fixture as fixture
 from test_phase1g_persistence_postgres import query, service
 

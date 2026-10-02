@@ -162,3 +162,5 @@ These references document the existing rules; they do not change implementation 
 130. Insufficient / partial / conflicted evidence must retain nonempty actionable fallback guidance.
 131. Fallback guidance is not Candidate / Final Compliance Path and cannot fabricate legal obligations.
 132. Retrieval, sufficiency and trust parameters come from versioned policy / config / registry, never Agent routing.
+
+133. Normal content publication automatically propagates through the existing transactional registry outbox to runtime projections and derived retrieval assets. New analyses require ACTIVE + READY assets. Manual refresh/reindex is recovery tooling only; existing snapshots never change their knowledge/index/embedding/policy pins.

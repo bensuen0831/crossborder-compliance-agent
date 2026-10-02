@@ -165,6 +165,9 @@ class PostgresRetrievalRepository(PostgresKnowledgeRepository):
             candidates = []
             for pin in pins:
                 index = self.get(s, k.KnowledgeIndexVersionEntity, pin.version_id)
+                ready = self.get(s, g.KnowledgeRuntimePublicationEntity, index.knowledge_version_id)
+                if ready.status != "READY" or ready.index_version_id != index.index_version_id:
+                    continue
                 if (
                     index.knowledge_version_id in scope.filter_spec.version_filter
                     and (
@@ -756,3 +759,21 @@ class PostgresRetrievalRepository(PostgresKnowledgeRepository):
                 )
         except (PermissionError, LookupError, ValueError):
             return False
+
+    def scope_candidates(self, when, pinned_version_ids=()):
+        candidates = super().scope_candidates(when, pinned_version_ids)
+        with self.sessions() as s:
+            ready = {
+                r.knowledge_version_id
+                for r in self.rows(
+                    s,
+                    g.KnowledgeRuntimePublicationEntity,
+                    g.KnowledgeRuntimePublicationEntity.status == "READY",
+                )
+            }
+        # New runtime analyses are fail-closed until publication assets are ready.
+        # Historic pins remain immutable and still undergo current permission/source narrowing.
+        return [
+            dict(b, lifecycle_allowed=b["lifecycle_allowed"] and b["knowledge_version_id"] in ready)
+            for b in candidates
+        ]

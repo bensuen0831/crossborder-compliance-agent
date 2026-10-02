@@ -666,6 +666,24 @@ checks1g={
 for name,passed in checks1g.items():
     add(name,passed,'Rules 115–132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases')
 
+
+# Final Addendum: publish-driven runtime synchronization.
+grt=read_text(SRC/'application/knowledge_runtime_services.py')
+grw=read_text(SRC/'infrastructure/knowledge_publication_worker.py')
+grr=read_text(SRC/'infrastructure/persistence/knowledge_runtime_repository.py')
+gmain=read_text(SRC/'interfaces/api/main.py')
+pub_checks={
+ 'normal_publish_automatic_runtime_sync':'KNOWLEDGE_VERSION_PUBLISHED' in kr and 'worker.start()' in gmain and 'self.consumer(t).run_once()' in grw,
+ 'publication_reuses_registry_outbox_service':any(isinstance(n,ast.Call) and ast.unparse(n.func)=='RegistrySyncService' for n in ast.walk(ast.parse(grt))) and 'PostgresRegistrySyncEventRepository' in grw and 'registry_sync_events' in gm,
+ 'runtime_ready_before_new_retrieval':"r.status='READY'" in gsearch and 'KnowledgeRuntimePublicationEntity.status == "READY"' in gr and 'ck_runtime_ready_barrier' in gm,
+ 'publication_snapshot_stability':'publication_lease' in grr and 'index.index_version_id' in gr and 'snapshot' in gs and 'pinned_version_ids' in gr,
+ 'publication_duplicate_retry_safe':'pg_advisory_lock' in grr and 'stable_id' in grr and 'self.sync.run_once' in grt,
+ 'publication_failed_build_not_ready':'RUNTIME_ASSET_BUILD_FAILED' in grt and 'state.status != "READY"' in grr and 'state.status = "FAILED"' in grr,
+ 'runtime_materialization_no_agent_graph':not occurrences(r'from .*langgraph|from .*agents|import langgraph', [SRC/'application/knowledge_runtime_services.py',SRC/'infrastructure/knowledge_publication_worker.py']),
+}
+for name,passed in pub_checks.items():
+    add(name,passed,'Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py')
+
 failed = [check for check in checks if not check["pass"]]
 result = {
     "pass": not failed,

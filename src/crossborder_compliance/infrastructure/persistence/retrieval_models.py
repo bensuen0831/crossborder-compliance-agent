@@ -305,3 +305,33 @@ for kind in ("node", "edge"):
             ),
         ),
     )
+
+KnowledgeRuntimePublicationEntity = entity(
+    "KnowledgeRuntimePublicationEntity",
+    "knowledge_runtime_publications",
+    dict(
+        knowledge_version_id=ref("knowledge_document_versions.knowledge_version_id", primary=True),
+        publication_event_id=ref("registry_sync_events.registry_sync_event_id"),
+        event_version=col(Integer),
+        policy_version_id=ref("retrieval_policies.policy_version_id", nullable=True),
+        index_version_id=ref("knowledge_index_versions.index_version_id", nullable=True),
+        embedding_config_id=ref("model_deployments.model_deployment_id", nullable=True),
+        registry_projection_version=col(String(64), nullable=True),
+        cache_generation=col(String(100), nullable=True),
+        checks_json=col(JSON, default=dict),
+        assets_json=col(JSON, default=dict),
+        reason_codes_json=col(JSON, default=list),
+    ),
+    (
+        UniqueConstraint("publication_event_id", name="uq_runtime_publication_event"),
+        CheckConstraint(
+            "status IN ('PENDING','BUILDING','READY','FAILED')",
+            name="ck_runtime_publication_status",
+        ),
+        CheckConstraint(
+            "status<>'READY' OR (index_version_id IS NOT NULL AND registry_projection_version "
+            "IS NOT NULL AND cache_generation IS NOT NULL)",
+            name="ck_runtime_ready_barrier",
+        ),
+    ),
+)

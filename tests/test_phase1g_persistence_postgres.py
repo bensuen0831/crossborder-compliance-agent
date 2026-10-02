@@ -3,8 +3,9 @@
 from uuid import uuid4
 
 import pytest
+from phase1g_fixtures import publish
 from sqlalchemy import func, select
-from test_phase1f_postgres import binding, publish
+from test_phase1f_postgres import binding
 from test_phase1f_postgres import fixture as fixture
 
 from crossborder_compliance.application.retrieval_services import KnowledgeRetrievalService
