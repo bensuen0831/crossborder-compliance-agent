@@ -1,4 +1,4 @@
-# Phase 1G migration result
+# Vector retrieval result
 
 Phase: **1G — Scope-first Hybrid Retrieval / RAG foundation + Publish-driven Runtime Synchronization**.
 
@@ -14,17 +14,15 @@ Executable architecture checks: **108/108 PASS**; Phase 1A runtime assertions: *
 Evidence: [verified remote identity](evidence/phase1g/implementation-ci/verified_identity.json), [measured remote summary](evidence/phase1g/implementation-ci/empirical_summary.json), [local complete gate log](evidence/phase1g/local-final/ci_complete.log).
 This implementation CI is distinct from the subsequent documentation-only closure head. The formal closure CI and issuance identities are recorded in [Phase1H_entry_decision.md](Phase1H_entry_decision.md) only after that head passes complete CI; this document does not authorize Phase 1H coding.
 
-## Actual migration
+## Implemented adapter / model boundary
 
-Alembic head = **0007_phase1g**, down revision **0006_phase1f**. Frozen DDL adds 19 tenant-audited derived/governance tables:
+`PgvectorRetrieverAdapter` joins only allowed frozen embedding record IDs for the selected READY index/config/chunk/tenant. A second MATERIALIZED vector CTE checks GENERATED status, dimension, non-null and nonzero vectors before cosine distance `<=>`. The returned vector score is `1 - cosine_distance`; no global vector search is followed by post-hoc product filtering.
 
-`retrieval_policies`, `retrieval_runs`, `evidence_packs`, `evidence_pack_items`, `knowledge_sufficiency_policies`, `knowledge_sufficiency_results`, `trusted_source_policies`, `external_evidence_candidates`, `external_evidence_validation_results`, `runtime_verified_external_evidence`, `wiki_pages`, `wiki_versions`, `wiki_source_bindings`, `wiki_citations`, `wiki_reviews`, `wiki_publish_records`, `knowledge_graph_nodes`, `knowledge_graph_edges`, `knowledge_runtime_publications`.
+Query embedding passes through EmbeddingPort. Model capability/dimension/provider availability are resolved from Phase 1C registry through infrastructure. Non-finite/zero vectors and mismatched query dimensions fail closed. The deterministic test adapter is explicitly injected; no real provider is the default.
 
-Canonical Phase 1F tables, existing EvidenceReference/Citation, Phase 1C registry sync/outbox/model metadata and durable Admin review are reused. No parallel Knowledge store, article/section authority, publish system, sync event store or compliance result is added.
+PASS: Product B/private chunks with cosine similarity 1.0 never enter candidates; actual pgvector returns matching scoped vectors; `test_query_embedding_uses_registry_and_real_pgvector`; vector publication failure/retry verifies real vector records and READY status. HNSW/index foundation remains derived from Phase 1F.
 
-FKs protect source/index/policy/snapshot/evidence/citation/review chains. Partial indexes enforce one active policy/wiki version. Unique keys enforce run idempotency, per-run pack, sufficiency, external snapshot/source/trust identity and publication event. CHECKs enforce exactly one evidence chain, derived/nonlegal flags, external-not-ACTIVE, Wiki/Graph review and READY index/registry/cache barrier.
-
-PASS: real PostgreSQL migration from empty schema; `phase1g_schema_check.py` **58/58**; earlier B–F schema assertions remain intact with 0007 accepted as the current descendant head. Migrations 0001–0006 were not edited. Local development databases from earlier runs were preserved; every full gate used a separate fresh database. Downgrade drops only the new tables in reverse FK order and is operational tooling, not performed on user data.
+A newly configured vector policy with no compatible pinned READY index yields no widened search universe. Snapshot/config changes cannot silently select an index built later.
 
 ## Boundaries / exclusions / regression status
 

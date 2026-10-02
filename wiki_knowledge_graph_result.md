@@ -1,4 +1,4 @@
-# Phase 1G migration result
+# Wiki / Knowledge Graph result
 
 Phase: **1G — Scope-first Hybrid Retrieval / RAG foundation + Publish-driven Runtime Synchronization**.
 
@@ -14,17 +14,19 @@ Executable architecture checks: **108/108 PASS**; Phase 1A runtime assertions: *
 Evidence: [verified remote identity](evidence/phase1g/implementation-ci/verified_identity.json), [measured remote summary](evidence/phase1g/implementation-ci/empirical_summary.json), [local complete gate log](evidence/phase1g/local-final/ci_complete.log).
 This implementation CI is distinct from the subsequent documentation-only closure head. The formal closure CI and issuance identities are recorded in [Phase1H_entry_decision.md](Phase1H_entry_decision.md) only after that head passes complete CI; this document does not authorize Phase 1H coding.
 
-## Actual migration
+## Wiki governance
 
-Alembic head = **0007_phase1g**, down revision **0006_phase1f**. Frozen DDL adds 19 tenant-audited derived/governance tables:
+Approved canonical sources → deterministic generation port → DRAFT Wiki version with source bindings/citations → validation → existing AdminChangeSet/AdminReviewTask → independent human approval → publish record → ACTIVE. DRAFT cannot be read by runtime. Wiki remains navigation/summary/query support with `official_evidence=false` and `legal_basis=false`, even after review.
 
-`retrieval_policies`, `retrieval_runs`, `evidence_packs`, `evidence_pack_items`, `knowledge_sufficiency_policies`, `knowledge_sufficiency_results`, `trusted_source_policies`, `external_evidence_candidates`, `external_evidence_validation_results`, `runtime_verified_external_evidence`, `wiki_pages`, `wiki_versions`, `wiki_source_bindings`, `wiki_citations`, `wiki_reviews`, `wiki_publish_records`, `knowledge_graph_nodes`, `knowledge_graph_edges`, `knowledge_runtime_publications`.
+Source versions/permissions/citations are validated. Runtime Wiki requires all source versions inside the current snapshot scope. Durable review tasks are reused; WikiReview links them instead of introducing a second workflow system. Specific Wiki routes precede the generic policy route and are API-tested.
 
-Canonical Phase 1F tables, existing EvidenceReference/Citation, Phase 1C registry sync/outbox/model metadata and durable Admin review are reused. No parallel Knowledge store, article/section authority, publish system, sync event store or compliance result is added.
+## Graph governance / automatic canonical projection
 
-FKs protect source/index/policy/snapshot/evidence/citation/review chains. Partial indexes enforce one active policy/wiki version. Unique keys enforce run idempotency, per-run pack, sufficiency, external snapshot/source/trust identity and publication event. CHECKs enforce exactly one evidence chain, derived/nonlegal flags, external-not-ACTIVE, Wiki/Graph review and READY index/registry/cache barrier.
+GraphNode/Edge retain canonical document/version/evidence/jurisdiction/date/confidence/generator/reviewer/version and derived flags. Relation refs come from approved GRAPH_RELATION_TYPE metadata. API-created/inferred graph objects are DRAFT and require independent durable review before ACTIVE; inferred edges never establish legal applicability.
 
-PASS: real PostgreSQL migration from empty schema; `phase1g_schema_check.py` **58/58**; earlier B–F schema assertions remain intact with 0007 accepted as the current descendant head. Migrations 0001–0006 were not edited. Local development databases from earlier runs were preserved; every full gate used a separate fresh database. Downgrade drops only the new tables in reverse FK order and is operational tooling, not performed on user data.
+Publication automatically projects exact reviewed canonical structure nodes with deterministic tenant/version/node/jurisdiction IDs, inherits their existing canonical review task and preserves source provenance. This is a mechanical derived projection, not approval of AI-inferred relationships. Optional graph expansion is confined to reviewed, effective, same-scope canonical endpoints and hard-filtered chunk IDs; graph hints cannot confer legal applicability or add excluded knowledge.
+
+PASS: 2 PostgreSQL navigation tests, Wiki/readiness API test, reviewed source-chain rollback, inferred-edge legal flags and duplicate automatic graph projection tests. Real AI Wiki generation/semantic graph inference remain extension ports.
 
 ## Boundaries / exclusions / regression status
 

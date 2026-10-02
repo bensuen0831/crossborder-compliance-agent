@@ -1,4 +1,4 @@
-# Phase 1G migration result
+# Knowledge sufficiency result
 
 Phase: **1G — Scope-first Hybrid Retrieval / RAG foundation + Publish-driven Runtime Synchronization**.
 
@@ -14,17 +14,17 @@ Executable architecture checks: **108/108 PASS**; Phase 1A runtime assertions: *
 Evidence: [verified remote identity](evidence/phase1g/implementation-ci/verified_identity.json), [measured remote summary](evidence/phase1g/implementation-ci/empirical_summary.json), [local complete gate log](evidence/phase1g/local-final/ci_complete.log).
 This implementation CI is distinct from the subsequent documentation-only closure head. The formal closure CI and issuance identities are recorded in [Phase1H_entry_decision.md](Phase1H_entry_decision.md) only after that head passes complete CI; this document does not authorize Phase 1H coding.
 
-## Actual migration
+## Policy computation / statuses
 
-Alembic head = **0007_phase1g**, down revision **0006_phase1f**. Frozen DDL adds 19 tenant-audited derived/governance tables:
+KnowledgeSufficiencyService calculates jurisdiction coverage, configured regulation-reference coverage, topic gaps, official-source coverage, effective-date/provenance completeness, minimum quality/count and explicit approved claim conflicts. It uses evidence and a pinned policy only; neither similarity nor an LLM verdict enters the calculation.
 
-`retrieval_policies`, `retrieval_runs`, `evidence_packs`, `evidence_pack_items`, `knowledge_sufficiency_policies`, `knowledge_sufficiency_results`, `trusted_source_policies`, `external_evidence_candidates`, `external_evidence_validation_results`, `runtime_verified_external_evidence`, `wiki_pages`, `wiki_versions`, `wiki_source_bindings`, `wiki_citations`, `wiki_reviews`, `wiki_publish_records`, `knowledge_graph_nodes`, `knowledge_graph_edges`, `knowledge_runtime_publications`.
+T1/T2 evidence must have validated authority, citation/hash/provenance, effective date and explicit jurisdiction-specific binding. Internal binding jurisdictions must also agree with approved Source jurisdiction refs. Generic GLOBAL/shared evidence alone is INSUFFICIENT. Formal unresolved scope is retained as a reason/review requirement.
 
-Canonical Phase 1F tables, existing EvidenceReference/Citation, Phase 1C registry sync/outbox/model metadata and durable Admin review are reused. No parallel Knowledge store, article/section authority, publish system, sync event store or compliance result is added.
+Statuses: SUFFICIENT when every policy condition holds; PARTIALLY_SUFFICIENT for incomplete coverage with valid official evidence; INSUFFICIENT with none; CONFLICTED when attributed conflict keys contain distinct approved claim hashes. Conflicts are not silently arbitrated.
 
-FKs protect source/index/policy/snapshot/evidence/citation/review chains. Partial indexes enforce one active policy/wiki version. Unique keys enforce run idempotency, per-run pack, sufficiency, external snapshot/source/trust identity and publication event. CHECKs enforce exactly one evidence chain, derived/nonlegal flags, external-not-ACTIVE, Wiki/Graph review and READY index/registry/cache barrier.
+PASS: specific official sufficient, generic/supporting/expired/no-authority insufficient, missing topics partial, conflicting evidence conflicted, and high similarity unable to raise sufficiency. Configured regulation refs are coverage identifiers only, not regulation applicability decisions.
 
-PASS: real PostgreSQL migration from empty schema; `phase1g_schema_check.py` **58/58**; earlier B–F schema assertions remain intact with 0007 accepted as the current descendant head. Migrations 0001–0006 were not edited. Local development databases from earlier runs were preserved; every full gate used a separate fresh database. Downgrade drops only the new tables in reverse FK order and is operational tooling, not performed on user data.
+Every non-SUFFICIENT result receives actionable technical guidance: conservative controls, acquisition/verification steps, unresolved questions, operational steps and prohibited assertions. Verified legal requirements remain empty unless actually evidenced; no fabricated law or compliance path is produced.
 
 ## Boundaries / exclusions / regression status
 

@@ -1,4 +1,4 @@
-# Phase 1G migration result
+# Retrieval domain result
 
 Phase: **1G — Scope-first Hybrid Retrieval / RAG foundation + Publish-driven Runtime Synchronization**.
 
@@ -14,17 +14,15 @@ Executable architecture checks: **108/108 PASS**; Phase 1A runtime assertions: *
 Evidence: [verified remote identity](evidence/phase1g/implementation-ci/verified_identity.json), [measured remote summary](evidence/phase1g/implementation-ci/empirical_summary.json), [local complete gate log](evidence/phase1g/local-final/ci_complete.log).
 This implementation CI is distinct from the subsequent documentation-only closure head. The formal closure CI and issuance identities are recorded in [Phase1H_entry_decision.md](Phase1H_entry_decision.md) only after that head passes complete CI; this document does not authorize Phase 1H coding.
 
-## Actual migration
+## Actual contracts
 
-Alembic head = **0007_phase1g**, down revision **0006_phase1f**. Frozen DDL adds 19 tenant-audited derived/governance tables:
+`domain/retrieval.py` defines frozen extra-forbid contracts for KnowledgeRetrievalQuery/Policy, RetrievalRun/SearchPlan/Candidate, lexical/vector/hybrid/rerank/scope-validation results, EvidencePackItem/Pack, sufficiency policy/result, trusted source policy/rule, external candidates/validation/runtime records, fallback guidance, RAGContextPack, trace/statistics, Wiki/Graph and KnowledgeRuntimeReadinessResult.
 
-`retrieval_policies`, `retrieval_runs`, `evidence_packs`, `evidence_pack_items`, `knowledge_sufficiency_policies`, `knowledge_sufficiency_results`, `trusted_source_policies`, `external_evidence_candidates`, `external_evidence_validation_results`, `runtime_verified_external_evidence`, `wiki_pages`, `wiki_versions`, `wiki_source_bindings`, `wiki_citations`, `wiki_reviews`, `wiki_publish_records`, `knowledge_graph_nodes`, `knowledge_graph_edges`, `knowledge_runtime_publications`.
+Queries are bounded to 4,000 characters, policy candidate limits/top-k are bounded, non-finite scores are rejected, vector weight requires a registry config, configured cross-language requires policy languages, and external enabling requires a trusted policy. Each evidence item has exactly one complete internal canonical chain or one runtime external chain. T4 sources cannot enter evidence. Redirect URLs must be credential-free HTTPS.
 
-Canonical Phase 1F tables, existing EvidenceReference/Citation, Phase 1C registry sync/outbox/model metadata and durable Admin review are reused. No parallel Knowledge store, article/section authority, publish system, sync event store or compliance result is added.
+Application ports isolate lexical/vector/rerank/planner/discovery/Wiki generation and repositories. Domain/application do not import SQLAlchemy, pgvector, provider SDKs, graph SDKs or LangGraph. Similarity and model suggestions cannot produce formal legal decisions.
 
-FKs protect source/index/policy/snapshot/evidence/citation/review chains. Partial indexes enforce one active policy/wiki version. Unique keys enforce run idempotency, per-run pack, sufficiency, external snapshot/source/trust identity and publication event. CHECKs enforce exactly one evidence chain, derived/nonlegal flags, external-not-ACTIVE, Wiki/Graph review and READY index/registry/cache barrier.
-
-PASS: real PostgreSQL migration from empty schema; `phase1g_schema_check.py` **58/58**; earlier B–F schema assertions remain intact with 0007 accepted as the current descendant head. Migrations 0001–0006 were not edited. Local development databases from earlier runs were preserved; every full gate used a separate fresh database. Downgrade drops only the new tables in reverse FK order and is operational tooling, not performed on user data.
+PASS: `test_policy_and_evidence_contracts_prevent_unbounded_or_unverified_sources` / domain validation assertions in `test_phase1g_algorithms.py`; all 16 deterministic algorithm cases pass, including 4 credential/redirect cases. Schema constraints provide a second enforcement layer for exact evidence chains, derived flags and review/readiness status.
 
 ## Boundaries / exclusions / regression status
 

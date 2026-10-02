@@ -1,4 +1,4 @@
-# Phase 1G migration result
+# Lexical retrieval result
 
 Phase: **1G — Scope-first Hybrid Retrieval / RAG foundation + Publish-driven Runtime Synchronization**.
 
@@ -14,17 +14,15 @@ Executable architecture checks: **108/108 PASS**; Phase 1A runtime assertions: *
 Evidence: [verified remote identity](evidence/phase1g/implementation-ci/verified_identity.json), [measured remote summary](evidence/phase1g/implementation-ci/empirical_summary.json), [local complete gate log](evidence/phase1g/local-final/ci_complete.log).
 This implementation CI is distinct from the subsequent documentation-only closure head. The formal closure CI and issuance identities are recorded in [Phase1H_entry_decision.md](Phase1H_entry_decision.md) only after that head passes complete CI; this document does not authorize Phase 1H coding.
 
-## Actual migration
+## Implemented adapter
 
-Alembic head = **0007_phase1g**, down revision **0006_phase1f**. Frozen DDL adds 19 tenant-audited derived/governance tables:
+`PostgresFTSRetrieverAdapter` uses Phase 1F generated `knowledge_chunks.search_vector`, `plainto_tsquery('simple', :query)` and `ts_rank_cd`. `filtered AS MATERIALIZED` performs tenant, approved lifecycle/version/date, source enabled/validation/type, language, PASS quality and approved permission-compatible binding checks before ranking. Runtime publication must be READY and its index ID must match the candidate index.
 
-`retrieval_policies`, `retrieval_runs`, `evidence_packs`, `evidence_pack_items`, `knowledge_sufficiency_policies`, `knowledge_sufficiency_results`, `trusted_source_policies`, `external_evidence_candidates`, `external_evidence_validation_results`, `runtime_verified_external_evidence`, `wiki_pages`, `wiki_versions`, `wiki_source_bindings`, `wiki_citations`, `wiki_reviews`, `wiki_publish_records`, `knowledge_graph_nodes`, `knowledge_graph_edges`, `knowledge_runtime_publications`.
+Product/jurisdiction/scenario/industry/data-category eligibility comes from Phase 1F allowed binding IDs. The server-created SearchPlan intersects immutable knowledge/index/config pins; the client cannot supply these IDs. Ranking ties are resolved by chunk ID; limits come from policy.
 
-Canonical Phase 1F tables, existing EvidenceReference/Citation, Phase 1C registry sync/outbox/model metadata and durable Admin review are reused. No parallel Knowledge store, article/section authority, publish system, sync event store or compliance result is added.
+PASS: actual PostgreSQL `test_real_fts_vector_filter_before_ranking`; permission revocation and foreign scope tests; all incompatible dimension cases; historical snapshot test; full mandatory suite. Search-vector/index creation reuses Phase 1F; FTS is not a content store.
 
-FKs protect source/index/policy/snapshot/evidence/citation/review chains. Partial indexes enforce one active policy/wiki version. Unique keys enforce run idempotency, per-run pack, sufficiency, external snapshot/source/trust identity and publication event. CHECKs enforce exactly one evidence chain, derived/nonlegal flags, external-not-ACTIVE, Wiki/Graph review and READY index/registry/cache barrier.
-
-PASS: real PostgreSQL migration from empty schema; `phase1g_schema_check.py` **58/58**; earlier B–F schema assertions remain intact with 0007 accepted as the current descendant head. Migrations 0001–0006 were not edited. Local development databases from earlier runs were preserved; every full gate used a separate fresh database. Downgrade drops only the new tables in reverse FK order and is operational tooling, not performed on user data.
+Publication tests prove that FTS/index build failure yields NOT READY and cannot enter a new analysis. The automatic consumer retries without duplicate index rows.
 
 ## Boundaries / exclusions / regression status
 

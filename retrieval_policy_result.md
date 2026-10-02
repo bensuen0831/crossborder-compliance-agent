@@ -1,4 +1,4 @@
-# Phase 1G migration result
+# Retrieval policy result
 
 Phase: **1G — Scope-first Hybrid Retrieval / RAG foundation + Publish-driven Runtime Synchronization**.
 
@@ -14,17 +14,15 @@ Executable architecture checks: **108/108 PASS**; Phase 1A runtime assertions: *
 Evidence: [verified remote identity](evidence/phase1g/implementation-ci/verified_identity.json), [measured remote summary](evidence/phase1g/implementation-ci/empirical_summary.json), [local complete gate log](evidence/phase1g/local-final/ci_complete.log).
 This implementation CI is distinct from the subsequent documentation-only closure head. The formal closure CI and issuance identities are recorded in [Phase1H_entry_decision.md](Phase1H_entry_decision.md) only after that head passes complete CI; this document does not authorize Phase 1H coding.
 
-## Actual migration
+## Versioned parameters
 
-Alembic head = **0007_phase1g**, down revision **0006_phase1f**. Frozen DDL adds 19 tenant-audited derived/governance tables:
+RetrievalPolicy controls source types, approved historical statuses, language strategy/languages, top-k/candidate bound, lexical/vector weights, hybrid method/RRF constant, embedding and rerank configs, rerank/graph flags and limits, evidence threshold, external flag/threshold, sufficiency and trusted-policy references.
 
-`retrieval_policies`, `retrieval_runs`, `evidence_packs`, `evidence_pack_items`, `knowledge_sufficiency_policies`, `knowledge_sufficiency_results`, `trusted_source_policies`, `external_evidence_candidates`, `external_evidence_validation_results`, `runtime_verified_external_evidence`, `wiki_pages`, `wiki_versions`, `wiki_source_bindings`, `wiki_citations`, `wiki_reviews`, `wiki_publish_records`, `knowledge_graph_nodes`, `knowledge_graph_edges`, `knowledge_runtime_publications`.
+SufficiencyPolicy controls authoritative tiers, minimum official count/quality, approved topic/regulation-reference coverage and technical fallback action codes. TrustedSourcePolicy controls approved source rules, authority/tier/jurisdiction/product dimensions/permissions, approved redirects, timeout/size/redirect/source bounds. Business jurisdiction/product/authority/topic/ref values are Registry/DB IDs.
 
-Canonical Phase 1F tables, existing EvidenceReference/Citation, Phase 1C registry sync/outbox/model metadata and durable Admin review are reused. No parallel Knowledge store, article/section authority, publish system, sync event store or compliance result is added.
+Policy versions are DRAFT → ACTIVE → SUPERSEDED, protected by optimistic record version and one-active partial indexes. Active policies are immutable. Snapshot registry pins freeze one logical family and exact version for retrieval, sufficiency and trust; attempts to switch policy families on an existing snapshot fail.
 
-FKs protect source/index/policy/snapshot/evidence/citation/review chains. Partial indexes enforce one active policy/wiki version. Unique keys enforce run idempotency, per-run pack, sufficiency, external snapshot/source/trust identity and publication event. CHECKs enforce exactly one evidence chain, derived/nonlegal flags, external-not-ACTIVE, Wiki/Graph review and READY index/registry/cache barrier.
-
-PASS: real PostgreSQL migration from empty schema; `phase1g_schema_check.py` **58/58**; earlier B–F schema assertions remain intact with 0007 accepted as the current descendant head. Migrations 0001–0006 were not edited. Local development databases from earlier runs were preserved; every full gate used a separate fresh database. Downgrade drops only the new tables in reverse FK order and is operational tooling, not performed on user data.
+PASS: PostgreSQL version pinning after replacement, stale publish rejection, API typed policy CRUD/publish/permission tests, bounded contract tests and credential-free redirect tests. Operational model ports remain server configuration, not client or Agent routing.
 
 ## Boundaries / exclusions / regression status
 

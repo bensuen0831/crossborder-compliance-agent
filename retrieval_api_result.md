@@ -1,4 +1,4 @@
-# Phase 1G migration result
+# Retrieval API result
 
 Phase: **1G — Scope-first Hybrid Retrieval / RAG foundation + Publish-driven Runtime Synchronization**.
 
@@ -14,17 +14,31 @@ Executable architecture checks: **108/108 PASS**; Phase 1A runtime assertions: *
 Evidence: [verified remote identity](evidence/phase1g/implementation-ci/verified_identity.json), [measured remote summary](evidence/phase1g/implementation-ci/empirical_summary.json), [local complete gate log](evidence/phase1g/local-final/ci_complete.log).
 This implementation CI is distinct from the subsequent documentation-only closure head. The formal closure CI and issuance identities are recorded in [Phase1H_entry_decision.md](Phase1H_entry_decision.md) only after that head passes complete CI; this document does not authorize Phase 1H coding.
 
-## Actual migration
+## Actual routes / DTO contracts
 
-Alembic head = **0007_phase1g**, down revision **0006_phase1f**. Frozen DDL adds 19 tenant-audited derived/governance tables:
+| Method | Route | Actual contract / boundary |
+|---|---|---|
+| POST | `/api/v1/projects/{project_id}/knowledge/retrieve` | RetrievalRequestDTO → RetrievalResponseDTO; server resolves scope |
+| GET | `/api/v1/retrieval-runs/{id}` | owner + tenant + current scope revalidation |
+| GET | `/api/v1/evidence-packs/{id}` | typed EvidencePack, scoped response projection |
+| GET | `/api/v1/knowledge-sufficiency/{id}` | typed current permitted KnowledgeSufficiencyResult |
+| POST | `/api/v1/admin/knowledge-retrieval-policies` | typed policy envelope; validated frozen parameters |
+| POST | `/api/v1/admin/knowledge-sufficiency-policies` | versioned sufficiency policy |
+| POST | `/api/v1/admin/trusted-source-policies` | versioned approved source rules |
+| GET | `/api/v1/admin/{policy-kind}/{id}` | actual version DTO; admin/tenant guard |
+| POST | `/api/v1/admin/{policy-kind}/versions/{id}/publish` | expected record version; ACTIVE transition |
+| POST | `/api/v1/admin/wiki` | approved source IDs → DRAFT navigation DTO |
+| POST | `/api/v1/admin/wiki/{id}/{validate\|submit-review\|approve\|publish}` | durable review/expected version |
+| GET | `/api/v1/projects/{project_id}/wiki/{page_id}` | snapshot-required ACTIVE allowed source versions |
+| POST | `/api/v1/admin/knowledge-graph/{node\|edge}` | validated source-chain DRAFT |
+| POST | `/api/v1/admin/knowledge-graph/{kind}/{id}/{submit-review\|approve}` | independent review/expected version |
+| GET | `/api/v1/admin/knowledge-versions/{id}/runtime-readiness` | typed publication readiness; admin guard |
 
-`retrieval_policies`, `retrieval_runs`, `evidence_packs`, `evidence_pack_items`, `knowledge_sufficiency_policies`, `knowledge_sufficiency_results`, `trusted_source_policies`, `external_evidence_candidates`, `external_evidence_validation_results`, `runtime_verified_external_evidence`, `wiki_pages`, `wiki_versions`, `wiki_source_bindings`, `wiki_citations`, `wiki_reviews`, `wiki_publish_records`, `knowledge_graph_nodes`, `knowledge_graph_edges`, `knowledge_runtime_publications`.
+`policy-kind` is one of the three explicit policy resource codes above. Ingestion/governance routes from Phase 1F remain intact. Its successful Publish atomically schedules background runtime synchronization; the API does not require a manual refresh endpoint.
 
-Canonical Phase 1F tables, existing EvidenceReference/Citation, Phase 1C registry sync/outbox/model metadata and durable Admin review are reused. No parallel Knowledge store, article/section authority, publish system, sync event store or compliance result is added.
+401 requires trusted RepositoryContext; 403 protects actor/admin permissions; 404 fails closed for tenant UUID guessing/missing objects; 409 handles stale/idempotency conflicts; 422 rejects malformed scope/DTO/lifecycle inputs. No ORM objects or provider credentials are returned. There is no optional manual augment endpoint because controlled augmentation is already part of the policy-driven run.
 
-FKs protect source/index/policy/snapshot/evidence/citation/review chains. Partial indexes enforce one active policy/wiki version. Unique keys enforce run idempotency, per-run pack, sufficiency, external snapshot/source/trust identity and publication event. CHECKs enforce exactly one evidence chain, derived/nonlegal flags, external-not-ACTIVE, Wiki/Graph review and READY index/registry/cache barrier.
-
-PASS: real PostgreSQL migration from empty schema; `phase1g_schema_check.py` **58/58**; earlier B–F schema assertions remain intact with 0007 accepted as the current descendant head. Migrations 0001–0006 were not edited. Local development databases from earlier runs were preserved; every full gate used a separate fresh database. Downgrade drops only the new tables in reverse FK order and is operational tooling, not performed on user data.
+PASS: all 3 API PostgreSQL tests verify actual registered routes, request scope-injection rejection, result/evidence/sufficiency/readiness DTOs, auth/tenant/actor guards, admin policy publication and Wiki route precedence.
 
 ## Boundaries / exclusions / regression status
 

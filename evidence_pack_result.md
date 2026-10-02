@@ -1,4 +1,4 @@
-# Phase 1G migration result
+# Evidence pack result
 
 Phase: **1G — Scope-first Hybrid Retrieval / RAG foundation + Publish-driven Runtime Synchronization**.
 
@@ -14,17 +14,15 @@ Executable architecture checks: **108/108 PASS**; Phase 1A runtime assertions: *
 Evidence: [verified remote identity](evidence/phase1g/implementation-ci/verified_identity.json), [measured remote summary](evidence/phase1g/implementation-ci/empirical_summary.json), [local complete gate log](evidence/phase1g/local-final/ci_complete.log).
 This implementation CI is distinct from the subsequent documentation-only closure head. The formal closure CI and issuance identities are recorded in [Phase1H_entry_decision.md](Phase1H_entry_decision.md) only after that head passes complete CI; this document does not authorize Phase 1H coding.
 
-## Actual migration
+## Source chains and atomicity
 
-Alembic head = **0007_phase1g**, down revision **0006_phase1f**. Frozen DDL adds 19 tenant-audited derived/governance tables:
+Internal items retain Document → Version → StructureNode → Chunk → Citation → EvidenceReference → Source/official URL, plus language/date/content hash, source authority/tier/jurisdiction specificity, score provenance, selected index, policy and analysis snapshot.
 
-`retrieval_policies`, `retrieval_runs`, `evidence_packs`, `evidence_pack_items`, `knowledge_sufficiency_policies`, `knowledge_sufficiency_results`, `trusted_source_policies`, `external_evidence_candidates`, `external_evidence_validation_results`, `runtime_verified_external_evidence`, `wiki_pages`, `wiki_versions`, `wiki_source_bindings`, `wiki_citations`, `wiki_reviews`, `wiki_publish_records`, `knowledge_graph_nodes`, `knowledge_graph_edges`, `knowledge_runtime_publications`.
+Runtime external items instead retain the VERIFIED runtime record → immutable original bytes/hash → parsed artifact version/node locator → existing EvidenceReference/Citation → approved Source/URL/authority/tier/date/retrieval time and all policy versions. Canonical IDs are nullable only for this explicit external branch; DB exact-chain CHECK prevents parallel or mixed chains.
 
-Canonical Phase 1F tables, existing EvidenceReference/Citation, Phase 1C registry sync/outbox/model metadata and durable Admin review are reused. No parallel Knowledge store, article/section authority, publish system, sync event store or compliance result is added.
+Pack, items, sufficiency result and context pack finalize atomically with the run. `test_pack_commit_fk_failure_rolls_back_without_parallel_result` forces a real PostgreSQL FK commit failure: no pack/item remains and the audited run is FAILED. Idempotency rejects changed payloads and other actors. Stored results are revalidated before return.
 
-FKs protect source/index/policy/snapshot/evidence/citation/review chains. Partial indexes enforce one active policy/wiki version. Unique keys enforce run idempotency, per-run pack, sufficiency, external snapshot/source/trust identity and publication event. CHECKs enforce exactly one evidence chain, derived/nonlegal flags, external-not-ACTIVE, Wiki/Graph review and READY index/registry/cache barrier.
-
-PASS: real PostgreSQL migration from empty schema; `phase1g_schema_check.py` **58/58**; earlier B–F schema assertions remain intact with 0007 accepted as the current descendant head. Migrations 0001–0006 were not edited. Local development databases from earlier runs were preserved; every full gate used a separate fresh database. Downgrade drops only the new tables in reverse FK order and is operational tooling, not performed on user data.
+EvidencePack and RAGContextPack are derived, never LegalBasis or Knowledge SoT. Their manifest freezes index/embedding record IDs and external artifact identities; the signed snapshot external record is reused without refetching a changed website.
 
 ## Boundaries / exclusions / regression status
 

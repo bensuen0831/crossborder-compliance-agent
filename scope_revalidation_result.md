@@ -1,4 +1,4 @@
-# Phase 1G migration result
+# Scope revalidation result
 
 Phase: **1G — Scope-first Hybrid Retrieval / RAG foundation + Publish-driven Runtime Synchronization**.
 
@@ -14,17 +14,15 @@ Executable architecture checks: **108/108 PASS**; Phase 1A runtime assertions: *
 Evidence: [verified remote identity](evidence/phase1g/implementation-ci/verified_identity.json), [measured remote summary](evidence/phase1g/implementation-ci/empirical_summary.json), [local complete gate log](evidence/phase1g/local-final/ci_complete.log).
 This implementation CI is distinct from the subsequent documentation-only closure head. The formal closure CI and issuance identities are recorded in [Phase1H_entry_decision.md](Phase1H_entry_decision.md) only after that head passes complete CI; this document does not authorize Phase 1H coding.
 
-## Actual migration
+## Actual enforcement points
 
-Alembic head = **0007_phase1g**, down revision **0006_phase1f**. Frozen DDL adds 19 tenant-audited derived/governance tables:
+Scope is resolved before search, after adapters/rerank, during evidence assembly and again when reading an idempotent stored result. Current permission/source revocation narrows the immutable original universe. It cannot append new knowledge, products, bindings, indexes, configs or policy families.
 
-`retrieval_policies`, `retrieval_runs`, `evidence_packs`, `evidence_pack_items`, `knowledge_sufficiency_policies`, `knowledge_sufficiency_results`, `trusted_source_policies`, `external_evidence_candidates`, `external_evidence_validation_results`, `runtime_verified_external_evidence`, `wiki_pages`, `wiki_versions`, `wiki_source_bindings`, `wiki_citations`, `wiki_reviews`, `wiki_publish_records`, `knowledge_graph_nodes`, `knowledge_graph_edges`, `knowledge_runtime_publications`.
+Search adapters reject foreign tenant scopes. Post-rerank drops are audited as `SCOPE_REVALIDATION_DROP`. The same READY index check applies before FTS/vector and during cached evidence reads. External rules reuse the formal Product/Jurisdiction/Scenario/Industry/DataCategory/Permission resolvers; discovery sees only the filtered trusted source rules.
 
-Canonical Phase 1F tables, existing EvidenceReference/Citation, Phase 1C registry sync/outbox/model metadata and durable Admin review are reused. No parallel Knowledge store, article/section authority, publish system, sync event store or compliance result is added.
+PASS: rerank injection/drop audit, source/permission revocation, tenant UUID guessing, DataItem A/B minimal scope, conflicting product fail-safe, incompatible jurisdiction/scenario/industry/data-category, language narrowing and historical snapshot tests. Cross-language can only narrow/operate within approved configured scope, never union all products.
 
-FKs protect source/index/policy/snapshot/evidence/citation/review chains. Partial indexes enforce one active policy/wiki version. Unique keys enforce run idempotency, per-run pack, sufficiency, external snapshot/source/trust identity and publication event. CHECKs enforce exactly one evidence chain, derived/nonlegal flags, external-not-ACTIVE, Wiki/Graph review and READY index/registry/cache barrier.
-
-PASS: real PostgreSQL migration from empty schema; `phase1g_schema_check.py` **58/58**; earlier B–F schema assertions remain intact with 0007 accepted as the current descendant head. Migrations 0001–0006 were not edited. Local development databases from earlier runs were preserved; every full gate used a separate fresh database. Downgrade drops only the new tables in reverse FK order and is operational tooling, not performed on user data.
+Existing snapshots continue using their old approved knowledge/index/config/policy pins after publication or reindex. New ACTIVE content is unavailable until READY; a failed replacement cannot pollute the previous READY assets.
 
 ## Boundaries / exclusions / regression status
 

@@ -1,4 +1,4 @@
-# Phase 1G migration result
+# External evidence augmentation result
 
 Phase: **1G — Scope-first Hybrid Retrieval / RAG foundation + Publish-driven Runtime Synchronization**.
 
@@ -14,17 +14,19 @@ Executable architecture checks: **108/108 PASS**; Phase 1A runtime assertions: *
 Evidence: [verified remote identity](evidence/phase1g/implementation-ci/verified_identity.json), [measured remote summary](evidence/phase1g/implementation-ci/empirical_summary.json), [local complete gate log](evidence/phase1g/local-final/ci_complete.log).
 This implementation CI is distinct from the subsequent documentation-only closure head. The formal closure CI and issuance identities are recorded in [Phase1H_entry_decision.md](Phase1H_entry_decision.md) only after that head passes complete CI; this document does not authorize Phase 1H coding.
 
-## Actual migration
+## Trigger / trust / controlled transport
 
-Alembic head = **0007_phase1g**, down revision **0006_phase1f**. Frozen DDL adds 19 tenant-audited derived/governance tables:
+Only PARTIALLY_SUFFICIENT or INSUFFICIENT plus a pinned enabled retrieval/trusted policy triggers augmentation. SUFFICIENT avoids unnecessary fetch; CONFLICTED remains unresolved with guidance. The deterministic query planner/discovery ports never confer authority. Approved policy rules and canonical source URLs supply authority/tier/jurisdiction/permission/product eligibility.
 
-`retrieval_policies`, `retrieval_runs`, `evidence_packs`, `evidence_pack_items`, `knowledge_sufficiency_policies`, `knowledge_sufficiency_results`, `trusted_source_policies`, `external_evidence_candidates`, `external_evidence_validation_results`, `runtime_verified_external_evidence`, `wiki_pages`, `wiki_versions`, `wiki_source_bindings`, `wiki_citations`, `wiki_reviews`, `wiki_publish_records`, `knowledge_graph_nodes`, `knowledge_graph_edges`, `knowledge_runtime_publications`.
+The existing ControlledDownloaderPort/ControlledHTTPSDownloader enforces HTTPS, approved host, validated DNS/global IPs pinned per redirect, private-IP/SSRF rejection, timeout, size, MIME, content encoding/truncation and request audit. The compatible audit extension returns final canonical URL, which must match the registered URL or credential-free approved redirect exactly.
 
-Canonical Phase 1F tables, existing EvidenceReference/Citation, Phase 1C registry sync/outbox/model metadata and durable Admin review are reused. No parallel Knowledge store, article/section authority, publish system, sync event store or compliance result is added.
+Attributed canonical JSON is parsed/validated for authority, approved jurisdictions, language, publication/effective/expiry dates, node locator/text, metadata topic/reg refs, source/content hashes and citation provenance. T1/T2 must match official source types. T3 is supporting; T4 and LLM-only discovery never become evidence. Original bytes are bounded and retained in the derived runtime record.
 
-FKs protect source/index/policy/snapshot/evidence/citation/review chains. Partial indexes enforce one active policy/wiki version. Unique keys enforce run idempotency, per-run pack, sufficiency, external snapshot/source/trust identity and publication event. CHECKs enforce exactly one evidence chain, derived/nonlegal flags, external-not-ACTIVE, Wiki/Graph review and READY index/registry/cache barrier.
+## Snapshot / ACTIVE boundary
 
-PASS: real PostgreSQL migration from empty schema; `phase1g_schema_check.py` **58/58**; earlier B–F schema assertions remain intact with 0007 accepted as the current descendant head. Migrations 0001–0006 were not edited. Local development databases from earlier runs were preserved; every full gate used a separate fresh database. Downgrade drops only the new tables in reverse FK order and is operational tooling, not performed on user data.
+External runtime records are VERIFIED with `active_knowledge=false`, never inserted as canonical Documents/Versions or ACTIVE knowledge. The snapshot pins the runtime record and policy identities; its parsed artifact/hash/URL/retrieval date are frozen. Later requests on the same snapshot reuse it without fetching website updates. Permission/source revocation can only remove it from the response.
+
+PASS: 9 PostgreSQL external cases verify attribution/hash/date/permission/T4/timeout/structure failures, successful pin/citation/hash reuse and no ACTIVE write; 26 preserved Phase 1F downloader/chunking cases include SSRF, untrusted host, redirects, MIME, size, truncation and deadline. The 4 new redirect contract cases prohibit URL credentials from escaping through policy/evidence DTOs.
 
 ## Boundaries / exclusions / regression status
 
