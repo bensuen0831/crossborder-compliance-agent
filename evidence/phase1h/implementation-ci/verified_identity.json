@@ -1,0 +1,144 @@
+{
+  "run_id": 37022353868,
+  "run_number": 112,
+  "run_attempt": 1,
+  "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37022353868",
+  "head_sha": "1de60800efa7dc2e9f7092842e0044899eb74690",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "id": 110888312200,
+      "name": "contract-tests",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m pip install --upgrade pip",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m pip install -e \".[dev]\"",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Contract/static test subset",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Architecture rules",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 110888312503,
+      "name": "mandatory-runtime-smoke",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install project runtime and test dependencies",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run mandatory PostgreSQL-backed LangGraph gate",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Publish measured Phase 1G empirical evidence",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload empirical Phase 1A.1 evidence",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 11233838052,
+      "name": "phase1a-runtime-evidence-37022353868-1",
+      "digest": "sha256:20e0a99bd5f698f9cbb937783bd51d0e5ee936fb62f77bb4fdc6731b01f17358",
+      "size_in_bytes": 53728,
+      "expired": false
+    }
+  ],
+  "remote_artifact_content_download": "BLOCKED by active environment egress policy; metadata/digest verified via GitHub API only; local log hashes are not remote log hashes"
+}

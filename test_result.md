@@ -63,3 +63,25 @@ Phase 1E formal Context remains the only context input. Phase 1F PostgreSQL Sour
 Excluded: production model/provider execution, LLM answers, formal classification, regulation applicability, country-specific compliance routing, risk, Candidate/Final Compliance Path, required regulatory-document decisions and production legal agents. External parsing currently accepts attributed canonical JSON through the existing controlled MIME boundary; HTML/PDF web crawling and unrestricted discovery are outside this foundation. Embedding/rerank tests use explicit deterministic adapters behind ports. Original source text is preserved; no reviewed translation becomes original official text.
 
 Phase 1A–1F regressions pass under the current 0007 migration. Earlier migration files 0001–0006 are unchanged. The historical Phase 1F main baseline remains `fe4e1bb8b0002aa9b4c68106bea5ebc0898fed95`; its 142-test baseline is historical and is not substituted for this Phase 1G 200-test result.
+
+
+---
+
+# Phase 1H executed test results
+
+Committed implementation full pytest: 284 passed in 55.41s; zero skipped, deselected, failed or errors. Phase 1H breakdown: AST 35, rules/classification 17, migration lineage 14, PostgreSQL governance/isolation 13, API 3, existing Phase 1G evidence integration 1, dual-path migration/downgrade 1 (84 total).
+
+Schema regression: Phase 1B 16/16; 1C 20/20; 1D 15/15; 1E 22/22; 1F 29/29; 1G 58/58; 1H 20/20. Architecture 118/118. Existing separate-process checkpoint/start/interrupt/resume/retry smoke 25/25. Fresh and archived-baseline upgrade paths, schema equivalence and downgrade policy all pass.
+
+Additional real HTTP smoke: Uvicorn on loopback; `/health/live`, `/health/ready`, `/health/dependencies` return 200/ok and unauthorized classification read returns 401. Authorized functional HTTP behavior is tested with actual FastAPI TestClient and PostgreSQL.
+
+Local service versions: PostgreSQL 17.11 / pgvector 0.8.0 / Redis 8.0.2 / Python 3.12.14. Remote mandatory CI uses pgvector PostgreSQL 16 and Redis 7; its measured evidence is separate. Two observed nonfailure warnings remain: historical Starlette 422 constant deprecation and SQLAlchemy generic reflection not recognizing vector. Migration equivalence additionally queries PostgreSQL `format_type` including actual vector dimensions; no assertion is skipped or warning hidden.
+
+## Measured implementation evidence
+
+Source: `1de60800efa7dc2e9f7092842e0044899eb74690`, based on verified Phase 1G `f563e5067308e7eab6d3f89321b8b30da7c39044`.
+Local full PostgreSQL gate: **284 passed / 0 skipped / 0 deselected / 0 failed / 0 errors**; Phase 1H **84 tests** (66 unit/lineage, 18 PostgreSQL/API/migration). Architecture **118/118**, Phase 1H schema **20/20**, existing runtime **25/25**.
+
+[Full local log](evidence/phase1h/local-implementation/ci_complete.log), [test summary](evidence/phase1h/local-implementation/pytest_full_summary.json), [migration evidence](evidence/phase1h/local-implementation/phase1h_migration_dual_path.json), [hash manifest](evidence/phase1h/local-implementation/manifest.json).
+
+Remote implementation and documentation-closure evidence is recorded separately in [Phase1H_delivery_handoff.md](Phase1H_delivery_handoff.md). Overall Phase 1H closure requires that final remote branch CI pass. PR [#13](https://github.com/bensuen0831/crossborder-compliance-agent/pull/13) remains **DRAFT; do not merge**. No Phase 1I implementation is authorized here.
