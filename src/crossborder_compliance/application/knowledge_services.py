@@ -247,6 +247,16 @@ class KnowledgeScopeResolver:
             if snapshot_id
             else None
         )
+        frozen_filters = None
+        if snapshot_id and not saved:
+            # Freeze one project-bounded version universe before refining item/flow filters.
+            # A subject receives only its own allowed bindings, never the project union.
+            frozen_filters = self.repository.snapshot_knowledge_filters(snapshot_id)
+            if subject_type != "PROJECT":
+                root = self.repository.saved_scope(project_id, "PROJECT", project_id, snapshot_id)
+                if root is None:
+                    self.resolve(project_id, snapshot_id=snapshot_id, languages=languages)
+                frozen_filters = self.repository.snapshot_knowledge_filters(snapshot_id)
         if saved:
             formal = FormalContext.model_validate(saved["formal_context"])
             previous = KnowledgeScope.model_validate(saved["scope"])
@@ -263,7 +273,17 @@ class KnowledgeScopeResolver:
                 else (as_of or date.today())
             )
             pinned = ()
-        candidates = self.repository.scope_candidates(when, pinned)
+            if frozen_filters is not None:
+                pinned = tuple(frozen_filters["version_filter"])
+        candidates = (
+            []
+            if (saved or frozen_filters is not None) and not pinned
+            else self.repository.scope_candidates(when, pinned)
+        )
+        if frozen_filters is not None:
+            candidates = [
+                b for b in candidates if b["binding_id"] in frozen_filters["binding_filter"]
+            ]
         if saved:
             candidates = [
                 b for b in candidates if b["binding_id"] in previous.filter_spec.binding_filter
@@ -345,12 +365,20 @@ class KnowledgeScopeResolver:
             filter_spec=filters,
         )
         if not saved:
-            result = self.repository.save_scope(
-                {
-                    "scope": scope.model_dump(mode="json"),
-                    "formal_context": formal.model_dump(mode="json"),
-                }
-            )
+            payload = {
+                "scope": scope.model_dump(mode="json"),
+                "formal_context": formal.model_dump(mode="json"),
+            }
+            result = self.repository.save_scope(payload)
+            if snapshot_id and result["scope"] != payload["scope"]:
+                # Recheck this actor's permission after another actor wins snapshot creation.
+                return self.resolve(
+                    project_id,
+                    subject_type=subject_type,
+                    subject_id=subject_id,
+                    snapshot_id=snapshot_id,
+                    languages=languages,
+                )
             return KnowledgeScope.model_validate(result["scope"])
         return scope
 

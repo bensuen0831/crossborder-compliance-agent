@@ -1065,6 +1065,8 @@ class PostgresKnowledgeRepository:
 
     def scope_candidates(self, when, pinned_version_ids=()):
         with self.sessions() as s:
+            # Avoid observing old and replacement versions from different committed instants.
+            s.execute(text("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"))
             candidates = []
             for binding in self.rows(
                 s,
@@ -1108,6 +1110,26 @@ class PostgresKnowledgeRepository:
                 )
             return candidates
 
+    def snapshot_knowledge_filters(self, snapshot_id):
+        with self.sessions() as s:
+            self.get(s, b.AnalysisSnapshotEntity, snapshot_id)
+            rows = self.rows(
+                s,
+                k.KnowledgeScopeResolutionEntity,
+                k.KnowledgeScopeResolutionEntity.analysis_snapshot_id == snapshot_id,
+            )
+            if not rows:
+                return None
+            roots = [row for row in rows if row.subject_type == "PROJECT"]
+            if roots:
+                return roots[0].scope_json["filter_spec"]
+            # Preserve scopes produced before the shared root contract was introduced.
+            # Empty is a frozen empty set, never an instruction to use current ACTIVE rows.
+            return {
+                key: sorted({value for row in rows for value in row.scope_json["filter_spec"][key]})
+                for key in ("version_filter", "binding_filter")
+            }
+
     def saved_scope(self, project_id, subject_type, subject_id, snapshot_id):
         with self.sessions() as s:
             self.get(s, b.ProjectEntity, project_id)
@@ -1141,6 +1163,22 @@ class PostgresKnowledgeRepository:
                 )
                 if rows:
                     return dict(scope=rows[0].scope_json, formal_context=rows[0].context_json)
+                prior_scopes = self.rows(
+                    s,
+                    k.KnowledgeScopeResolutionEntity,
+                    k.KnowledgeScopeResolutionEntity.analysis_snapshot_id == snapshot,
+                )
+                if prior_scopes:
+                    roots = [row for row in prior_scopes if row.subject_type == "PROJECT"]
+                    universe = roots if roots else prior_scopes
+                    for key in ("version_filter", "binding_filter"):
+                        frozen = {
+                            value
+                            for row in universe
+                            for value in row.scope_json["filter_spec"][key]
+                        }
+                        if not set(scope["filter_spec"][key]) <= frozen:
+                            raise ValueError("immutable snapshot knowledge universe mismatch")
                 context_pins = self.rows(
                     s,
                     c.AnalysisSnapshotContextPinEntity,
@@ -1170,7 +1208,10 @@ class PostgresKnowledgeRepository:
                             data_flow_version=run.data_flow_version,
                         )
                     )
-                for version_id in scope["filter_spec"]["version_filter"]:
+                # Root pins indexes/configs once. A new subject cannot append newly built indexes.
+                for version_id in (
+                    scope["filter_spec"]["version_filter"] if not prior_scopes else ()
+                ):
                     version = self.get(s, k.KnowledgeDocumentVersionEntity, version_id)
                     self.pin(s, snapshot, "KNOWLEDGE_VERSION", version_id, version.version)
                     for binding_id in scope["filter_spec"]["binding_filter"]:
