@@ -24,5 +24,5 @@ export function ErrorState({ error, retry }: { error: Error; retry?: () => void 
 }
 export function FeatureGate({ label }: { label: string }) {
   const { t } = useTranslation();
-  return <Space><span>{label}</span><Tag>{t('comingSoon')}</Tag></Space>;
+  return <Space orientation="vertical" size={2} className="feature-gate"><span>{label}</span><Tag>{t('comingSoon')}</Tag></Space>;
 }

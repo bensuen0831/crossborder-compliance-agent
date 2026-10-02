@@ -12,10 +12,28 @@ export class ApiError extends Error {
 const ajv = new Ajv({ strict: false, allErrors: false });
 addFormats(ajv);
 const validators = new Map<string, ReturnType<typeof ajv.compile>>();
+const presentationSchemas: Record<string, object> = {
+  Session: {
+    type: 'object', required: ['identity_key', 'display_name', 'tenant_label', 'organization_label', 'department_label', 'permissions', 'contexts', 'demo'],
+    properties: {
+      identity_key: { type: 'string', minLength: 1 }, display_name: { type: 'string' }, tenant_label: { type: 'string' },
+      organization_label: { type: ['string', 'null'] }, department_label: { type: ['string', 'null'] },
+      demo: { type: 'boolean' }, permissions: { type: 'array', items: { type: 'string' } },
+      contexts: { type: 'array', items: { type: 'object', required: ['project_id', 'display_name', 'analysis_snapshot_id', 'policy_id'],
+        properties: { project_id: { type: 'string', format: 'uuid' }, display_name: { type: 'string' }, analysis_snapshot_id: { type: 'string', format: 'uuid' }, policy_id: { type: 'string', format: 'uuid' } } } },
+    },
+  },
+  Metadata: { type: 'object', required: ['items', 'registry_version', 'health'], properties: {
+    items: { type: 'array', items: { type: 'object', properties: {
+      definition_id: { type: 'string' }, jurisdiction_id: { type: 'string' }, display_name: { type: 'string' }, name: { type: 'string' }, code: { type: 'string' },
+    } } }, registry_version: { type: 'string' }, health: { type: 'object', required: ['status'], properties: { status: { type: 'string' } } },
+  } },
+  Health: { type: 'object', required: ['status'], properties: { status: { type: 'string' }, app_env: { type: 'string' } } },
+};
 export function validateContract<T>(name: string, body: unknown): T {
   let validate = validators.get(name);
   if (!validate) {
-    validate = ajv.compile({ $ref: `#/components/schemas/${name}`, components: openapi.components });
+    validate = ajv.compile(presentationSchemas[name] ?? { $ref: `#/components/schemas/${name}`, components: openapi.components });
     validators.set(name, validate);
   }
   if (!validate(body)) throw new ApiError(502, 'API_CONTRACT_MISMATCH');
@@ -47,10 +65,10 @@ async function request<T>(path: string, options: RequestInit = {}, schema?: stri
 }
 
 export const api = {
-  session: (signal?: AbortSignal) => request<Session>(sessionPath, { signal }),
-  health: (signal?: AbortSignal) => request<Health>('/health/ready', { signal }),
+  session: (signal?: AbortSignal) => request<Session>(sessionPath, { signal }, 'Session'),
+  health: (signal?: AbortSignal) => request<Health>('/health/ready', { signal }, 'Health'),
   metadata: (resource: 'products' | 'scenarios' | 'jurisdictions', signal?: AbortSignal) =>
-    request<Metadata>(`/api/v1/metadata/${resource}`, { signal }),
+    request<Metadata>(`/api/v1/metadata/${resource}`, { signal }, 'Metadata'),
   scope: (context: AuthorizedContext, signal?: AbortSignal) => request<Scope>(
     `/api/v1/projects/${encodeURIComponent(context.project_id)}/knowledge-scope?analysis_snapshot_id=${encodeURIComponent(context.analysis_snapshot_id)}`,
     { signal }, 'KnowledgeScope'),
@@ -61,7 +79,7 @@ export const api = {
     `/api/v1/admin/knowledge-versions/${encodeURIComponent(id)}/runtime-readiness`, { signal }, 'KnowledgeRuntimeReadinessResult'),
   demoLogin: (persona: 'A' | 'B') => {
     if (!demoEnabled) return Promise.reject(new ApiError(403, 'DEMO_DISABLED'));
-    return request<Session>('/m0-demo/login', { method: 'POST', body: JSON.stringify({ persona }) });
+    return request<Session>('/m0-demo/login', { method: 'POST', body: JSON.stringify({ persona }) }, 'Session');
   },
   logout: () => request<{ status: string }>(demoEnabled ? '/m0-demo/logout' : '/api/v1/logout', { method: 'POST' }),
 };

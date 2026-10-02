@@ -14,5 +14,10 @@ export default defineConfig({
     environment: 'jsdom', setupFiles: ['./src/test/setup.ts'],
     include: ['src/**/*.test.{ts,tsx}'], css: true,
   },
-  build: { chunkSizeWarningLimit: 1100 },
+  build: {
+    rollupOptions: { output: { manualChunks: {
+      enterprise: ['antd', '@ant-design/icons'],
+      contracts: ['ajv/dist/2020', 'ajv-formats'],
+    } } },
+  },
 });

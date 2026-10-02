@@ -12,6 +12,8 @@ body { margin: 0; min-width: 360px; }
 .wordmark small { display: block; margin-top: 6px; font-size: 11px; font-weight: 400; letter-spacing: .02em; opacity: .65; }
 .brand-mark { font-size: 26px; }
 .sidebar-foot { padding: 24px; margin-top: 80px; }
+.sidebar .ant-menu-item-disabled { height: 72px; line-height: normal; }
+.feature-gate .ant-tag { white-space: normal; margin-inline-end: 0; }
 .workspace-topbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 36px; border-bottom: 1px solid color-mix(in srgb, currentColor 10%, transparent); }
 .workspace-content { padding: 36px; max-width: 1700px; width: 100%; margin: 0 auto; }
 .page-heading { margin-bottom: 26px; }
@@ -25,6 +27,7 @@ body { margin: 0; min-width: 360px; }
 .evidence-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .card-action { margin-top: 18px; }
 .reason-codes { margin-top: 12px; }
+.guidance-action { padding-block: 8px; }
 .source-excerpt, .provenance { white-space: pre-wrap; overflow-wrap: anywhere; }
 .provenance { font-size: 12px; }
 .sign-in-state { max-width: 760px; margin: 80px auto; padding: 24px; }

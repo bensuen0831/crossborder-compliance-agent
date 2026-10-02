@@ -20,8 +20,9 @@ function VersionStatus({ session, id }: { session: Session; id: string }) {
         { key: 'index', label: 'Index version', children: result.data.index_version_id ?? t('notAvailable') },
         { key: 'cache', label: 'Cache generation', children: result.data.cache_generation ?? t('notAvailable') },
         { key: 'embedding', label: 'Embedding configuration', children: result.data.embedding_config_id ?? t('notAvailable') },
+        { key: 'vector', label: 'Vector', children: result.data.embedding_config_id ? 'CONFIGURED · see backend checks' : 'NOT_CONFIGURED' },
       ]} />
-      <Space wrap>{Object.entries(result.data.checks).map(([check, ok]) => <Tag key={check} color={ok ? 'green' : 'orange'}>{check}: {ok ? 'PASS' : 'FAIL'}</Tag>)}</Space>
+      <Space wrap>{Object.entries(result.data.checks ?? {}).map(([check, ok]) => <Tag key={check} color={ok ? 'green' : 'orange'}>{check}: {ok ? 'PASS' : 'FAIL'}</Tag>)}</Space>
       {result.data.reason_codes.length > 0 && <Alert type="warning" title={result.data.reason_codes.join(' · ')} />}
     </>}
   </Card>;

@@ -10,6 +10,6 @@ export function QueryPanel({ disabled, busy, submit }: { disabled: boolean; busy
     ]}>
       <Input.TextArea aria-label={t('query')} placeholder={t('queryPlaceholder')} autoSize={{ minRows: 3, maxRows: 8 }} maxLength={4000} disabled={disabled} />
     </Form.Item>
-    <Button type="primary" size="large" htmlType="submit" icon={<SearchOutlined />} loading={busy} disabled={disabled}>{t('search')}</Button>
+    <Button type="primary" size="large" htmlType="submit" aria-label={t('search')} icon={<SearchOutlined aria-hidden />} loading={busy} disabled={disabled}>{t('search')}</Button>
   </Form></Card>;
 }

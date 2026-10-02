@@ -1,4 +1,4 @@
-import { Alert, Card, Descriptions, List, Space, Tag, Typography } from 'antd';
+import { Alert, Card, Descriptions, Listy, Space, Tag, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import type { FallbackGuidance, Sufficiency } from '../api/contracts';
 
@@ -30,16 +30,16 @@ export function FallbackPanel({ guidance }: { guidance: FallbackGuidance }) {
     <Alert type="info" showIcon title={t('fallbackNote')} />
     {groups.map(([label, actions]) => actions.length > 0 && <section key={label}>
       <Typography.Title level={5}>{t(label)}</Typography.Title>
-      <List size="small" dataSource={actions} renderItem={(action) => <List.Item>
-        <Space orientation="vertical"><Typography.Text code>{action.action_code}</Typography.Text>
+      <Listy virtual={false} items={[...actions]} rowKey="action_code" itemRender={(action) => <div className="guidance-action">
+        <Space orientation="vertical"><Typography.Text>{t(`action_${action.action_code}`, { defaultValue: action.action_code })}</Typography.Text><Typography.Text type="secondary" code>{action.action_code}</Typography.Text>
           {action.topic_refs && action.topic_refs.length > 0 && <span>{action.topic_refs.join(', ')}</span>}
           {action.jurisdiction_ids && action.jurisdiction_ids.length > 0 && <Typography.Text type="secondary">{action.jurisdiction_ids.join(', ')}</Typography.Text>}
         </Space>
-      </List.Item>} />
+      </div>} />
     </section>)}
     <Typography.Title level={5}>{t('questions')}</Typography.Title>
-    <List size="small" dataSource={guidance.unresolved_legal_questions} renderItem={(question) => <List.Item>{question}</List.Item>} />
+    <Listy virtual={false} items={guidance.unresolved_legal_questions} rowKey={(question) => question} itemRender={(question) => <Typography.Paragraph>{question}</Typography.Paragraph>} />
     <Typography.Title level={5}>{t('prohibited')}</Typography.Title>
-    <List size="small" dataSource={guidance.prohibited_assertions} renderItem={(assertion) => <List.Item>{assertion}</List.Item>} />
+    <Listy virtual={false} items={guidance.prohibited_assertions} rowKey={(assertion) => assertion} itemRender={(assertion) => <Typography.Paragraph>{assertion}</Typography.Paragraph>} />
   </Card>;
 }

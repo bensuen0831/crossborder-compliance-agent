@@ -1,0 +1,44 @@
+{
+  "baseline": "f563e5067308e7eab6d3f89321b8b30da7c39044",
+  "working_tree_validation": true,
+  "python": {
+    "passed": 205,
+    "failed": 0,
+    "skipped": 0,
+    "deselected": 0
+  },
+  "phase1g_schema": {
+    "passed": 58,
+    "total": 58
+  },
+  "architecture": {
+    "passed": 108,
+    "total": 108
+  },
+  "runtime": {
+    "passed": 25,
+    "total": 25
+  },
+  "local_services": {
+    "postgresql": "17.11",
+    "redis": "8.0.2",
+    "pgvector": "0.8.0"
+  },
+  "hashes": {
+    "pytest_full.log": "499016b9ed3bbe7458253e41e457dca9fd4a7a214b2063d3432007511b6ba225",
+    "pytest_full.xml": "066b383997c0a25ce282fa32de7b54c27e776e844c1570f48a4ce826aca68a50",
+    "runtime_verify.json": "d6f172535a02d072d405d04ac1efcf6ef86f45a13a9235cecd7a9e9a55f09957",
+    "phase1g_schema_check.json": "d7a27c3ac439b9f6687ee37b99d7a0ebe2c42328857e423e3835ed88c9f69b37",
+    "architecture_rule_check.json": "80fbc84d66ba96d939053c6f6508753a30d9adae1fd9112f5433b5c0193f7e36",
+    "ci_complete.log": "b857d76d063cc6409cffda1104bf1588b82e94d2b206ffa7a782f0f050f06278"
+  },
+  "frontend": {
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "build": "PASS",
+    "unit_passed": 20,
+    "unit_failed": 0,
+    "browser_passed": 3,
+    "browser_skipped": 0
+  }
+}

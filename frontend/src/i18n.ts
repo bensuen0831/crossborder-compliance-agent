@@ -31,6 +31,10 @@ const zh = {
   validation: 'Scope 驗證', provenance: '檢索來源追溯', excerpt: '授權原文摘錄', snapshot: '分析快照', policy: '檢索策略版本',
   internal: 'Canonical knowledge', external: 'Verified external evidence',
   noReadiness: '先查詢證據，再檢視對應知識版本的運行狀態。',
+  action_ACQUIRE_APPROVED_EVIDENCE_FOR_MISSING_COVERAGE: '取得已審核的證據，補足缺少的涵蓋範圍。',
+  action_VERIFY_SOURCE_JURISDICTION_AND_EFFECTIVE_DATES: '確認證據來源的管轄區與生效日期。',
+  action_PRESERVE_CONTEXT_AND_EVIDENCE_PROVENANCE: '保留目前上下文與證據來源紀錄。',
+  action_KEEP_UNVERIFIED_LEGAL_ASSERTIONS_OUT_OF_FINALIZATION: '未驗證的法律斷言不得進入定稿。',
 };
 const en: typeof zh = {
   workspace: 'Knowledge workspace', knowledge: 'Knowledge & Evidence', operational: 'Runtime status',
@@ -56,6 +60,10 @@ const en: typeof zh = {
   locator: 'Citation locator', authority: 'Source authority', tier: 'Source tier', type: 'Evidence type', version: 'Knowledge version', effective: 'Effective dates',
   validation: 'Scope validation', provenance: 'Retrieval provenance', excerpt: 'Authorized source excerpt', snapshot: 'Analysis snapshot', policy: 'Retrieval policy version',
   internal: 'Canonical knowledge', external: 'Verified external evidence', noReadiness: 'Search for evidence before viewing knowledge runtime status.',
+  action_ACQUIRE_APPROVED_EVIDENCE_FOR_MISSING_COVERAGE: 'Acquire approved evidence for missing coverage.',
+  action_VERIFY_SOURCE_JURISDICTION_AND_EFFECTIVE_DATES: 'Verify source jurisdiction and effective dates.',
+  action_PRESERVE_CONTEXT_AND_EVIDENCE_PROVENANCE: 'Preserve the current context and evidence provenance.',
+  action_KEEP_UNVERIFIED_LEGAL_ASSERTIONS_OUT_OF_FINALIZATION: 'Keep unverified legal assertions out of finalization.',
 };
-void i18n.use(initReactI18next).init({ resources: { 'zh-Hant': { translation: zh }, en: { translation: en } }, lng: 'zh-Hant', fallbackLng: 'en', interpolation: { escapeValue: false } });
+void i18n.use(initReactI18next).init({ resources: { 'zh-Hant': { translation: zh }, en: { translation: en } }, lng: 'zh-Hant', fallbackLng: 'en', showSupportNotice: false, interpolation: { escapeValue: false } });
 export default i18n;
