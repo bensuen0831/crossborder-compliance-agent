@@ -9,7 +9,7 @@ from crossborder_compliance.application.context_ports import (
     CandidateSimilarityPort, ContextResolutionRepositoryPort,
 )
 from crossborder_compliance.domain.context_resolution import (
-    BusinessFact, CandidateResolution, ContextConflict,
+    BusinessFact, BusinessFactConflict, CandidateResolution, ContextConflict,
     ContextValidationStatus, DataFlowEdgeContext, DataFlowNodeContext,
     DataItemDeduplicationResult, DataItemResolutionDetail, DedupDecision,
     DeviceContext, JurisdictionContext, JurisdictionResolution,
@@ -34,6 +34,7 @@ class BusinessFactNormalizationService:
     def normalize(self, project_id: UUID, *, version: int) -> list[BusinessFact]:
         candidates = self.repository.list_candidate_facts(project_id)
         groups: dict[tuple[str, str], list[dict[str, object]]] = {}
+        normalized_values_by_type: dict[str, set[str]] = {}
         for candidate in candidates:
             fact_type = str(candidate["fact_type"])
             registry = getattr(self.repository, "metadata_definition_by_code")(
@@ -48,10 +49,16 @@ class BusinessFactNormalizationService:
                     trace_ids, True, None, "POLICY", version,
                 ))
                 continue
-            key = (fact_type, _norm_key(candidate.get("normalized_value")))
-            groups.setdefault(key, []).append(candidate)
+            normalized_key = _norm_key(candidate.get("normalized_value"))
+            groups.setdefault((fact_type, normalized_key), []).append(candidate)
+            normalized_values_by_type.setdefault(fact_type, set()).add(normalized_key)
 
+        conflicting_types = {
+            fact_type for fact_type, values in normalized_values_by_type.items()
+            if len(values) > 1
+        }
         results: list[BusinessFact] = []
+        facts_by_type: dict[str, list[BusinessFact]] = {}
         for (fact_type, _), rows in groups.items():
             normalized_value = rows[0].get("normalized_value")
             trace_ids = tuple(dict.fromkeys(
@@ -61,14 +68,20 @@ class BusinessFactNormalizationService:
                 UUID(x) for row in rows for x in row.get("source_document_ids", [])
             ))
             confidence = min(float(row.get("confidence", 0.0)) for row in rows)
+            has_conflict = fact_type in conflicting_types
             fact = BusinessFact(
                 fact_id=uuid4(), project_id=project_id, fact_type=fact_type,
                 normalized_value=normalized_value,
                 original_values=tuple(row.get("original_value") for row in rows),
                 source_trace_ids=trace_ids, source_document_ids=document_ids,
                 resolution_method="DETERMINISTIC_NORMALIZATION",
-                confidence=confidence, validation_status=ContextValidationStatus.VALIDATED,
-                conflict_status="NONE", review_required=False, version=version,
+                confidence=confidence,
+                validation_status=(
+                    ContextValidationStatus.REVIEW_REQUIRED if has_conflict
+                    else ContextValidationStatus.VALIDATED
+                ),
+                conflict_status="CONFLICT" if has_conflict else "NONE",
+                review_required=has_conflict, version=version,
             )
             self.repository.save_business_fact(
                 fact, tuple(UUID(str(row["candidate_id"])) for row in rows)
@@ -77,10 +90,43 @@ class BusinessFactNormalizationService:
                 self.repository.save_candidate_resolution(CandidateResolution(
                     uuid4(), "BUSINESS_FACT", UUID(str(row["candidate_id"])),
                     "BUSINESS_FACT", fact.fact_id,
-                    ResolutionAction.ACCEPTED if len(rows) == 1 else ResolutionAction.MERGED,
-                    confidence, "FACT_NORMALIZED", trace_ids, False, None, "POLICY", version,
+                    ResolutionAction.CONFLICT if has_conflict else (
+                        ResolutionAction.ACCEPTED if len(rows) == 1 else ResolutionAction.MERGED
+                    ),
+                    confidence,
+                    "BUSINESS_FACT_VALUE_CONFLICT" if has_conflict else "FACT_NORMALIZED",
+                    tuple(UUID(x) for x in row.get("source_trace_ids", [])),
+                    has_conflict, None, "POLICY", version,
                 ))
             results.append(fact)
+            facts_by_type.setdefault(fact_type, []).append(fact)
+
+        for fact_type in sorted(conflicting_types):
+            facts = facts_by_type.get(fact_type, [])
+            trace_ids = tuple(dict.fromkeys(
+                trace for fact in facts for trace in fact.source_trace_ids
+            ))
+            confidence = min((fact.confidence for fact in facts), default=0.0)
+            business_conflict = BusinessFactConflict(
+                conflict_id=uuid4(), project_id=project_id, fact_type=fact_type,
+                conflicting_fact_ids=tuple(fact.fact_id for fact in facts),
+                source_trace_ids=trace_ids, confidence=confidence,
+                resolution_status="OPEN", review_required=True,
+            )
+            self.repository.save_conflict(ContextConflict(
+                business_conflict.conflict_id, project_id,
+                "BUSINESS_FACT_CONFLICT", "BUSINESS_FACT",
+                business_conflict.conflicting_fact_ids,
+                "MULTIPLE_NORMALIZED_VALUES_FOR_FACT_TYPE",
+                {
+                    "fact_type": fact_type,
+                    "normalized_values": [
+                        str(fact.normalized_value) for fact in facts
+                    ],
+                },
+                business_conflict.source_trace_ids, business_conflict.confidence,
+                business_conflict.resolution_status, True, version,
+            ))
         return results
 
 
@@ -289,6 +335,13 @@ class PartyResolutionService:
             source_trace_ids, not bool(party), version,
         )
         self.repository.save_party_resolution(resolution)
+        if party is None:
+            self.repository.save_conflict(ContextConflict(
+                uuid4(), project_id, "PARTY_CONTEXT_CONFLICT", "PARTY_CANDIDATE",
+                (candidate.party_candidate_id,), "UNRESOLVED_PARTY",
+                {"display_name": candidate.display_name},
+                source_trace_ids, resolution.confidence, "OPEN", True, version,
+            ))
         return resolution
 
 
@@ -330,6 +383,24 @@ class DataItemDeduplicationService:
             semantic, reason, review, version,
         )
         self.repository.save_dedup_result(result)
+        if result.reviewer_required:
+            trace_ids = tuple(dict.fromkeys(
+                UUID(x)
+                for row in (left, right)
+                for x in row.get("source_trace_ids", [])
+            ))
+            self.repository.save_conflict(ContextConflict(
+                uuid4(), project_id, "DATA_ITEM_POSSIBLE_DUPLICATE",
+                "CANDIDATE_DATA_ITEM",
+                (UUID(str(left["candidate_id"])), UUID(str(right["candidate_id"]))),
+                reason,
+                {
+                    "deterministic_score": deterministic,
+                    "semantic_candidate_score": semantic,
+                },
+                trace_ids, max(deterministic, semantic or 0.0),
+                "OPEN", True, version,
+            ))
         return result
 
 
@@ -635,7 +706,10 @@ class ContextValidationService:
 class ContextResolutionService:
     """Synchronous foundation orchestrator; not a Production Compliance Agent."""
 
-    def __init__(self, repository: ContextResolutionRepositoryPort):
+    def __init__(
+        self, repository: ContextResolutionRepositoryPort,
+        similarity: CandidateSimilarityPort | None = None,
+    ):
         self.repository = repository
         self.business_facts = BusinessFactNormalizationService(repository)
         self.products = ProductContextResolutionService(repository)
@@ -643,7 +717,7 @@ class ContextResolutionService:
         self.systems = SystemContextResolutionService(repository)
         self.parties = PartyResolutionService(repository)
         self.data_items = DataItemNormalizationService(repository)
-        self.dedup = DataItemDeduplicationService(repository)
+        self.dedup = DataItemDeduplicationService(repository, similarity)
         self.groups = DataItemGroupingService(repository)
         self.data_flows = DataFlowResolutionService(repository)
         self.jurisdictions = JurisdictionResolutionService(repository)
