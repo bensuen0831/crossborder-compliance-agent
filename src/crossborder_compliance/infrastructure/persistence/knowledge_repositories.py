@@ -852,6 +852,7 @@ class PostgresKnowledgeRepository:
 
     def formal_context(self, project_id, subject_type, subject_id, snapshot_id):
         with self.sessions() as s:
+            s.execute(text("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"))
             self.get(s, b.ProjectEntity, project_id)
             runs = self.rows(
                 s,
@@ -899,8 +900,71 @@ class PostgresKnowledgeRepository:
             )
             products = set(scopes[0].effective_product_scope_json) if not unresolved else set()
             project_products = set(products)
+            frozen_lineages = None
+            if snapshot_id:
+                roots = self.rows(
+                    s,
+                    k.KnowledgeScopeResolutionEntity,
+                    k.KnowledgeScopeResolutionEntity.analysis_snapshot_id == snapshot_id,
+                    k.KnowledgeScopeResolutionEntity.subject_type == "PROJECT",
+                )
+                if roots:
+                    frozen_lineages = roots[0].context_json.get("product_lineages", {})
+            lineages = dict(frozen_lineages or {})
+
+            def lineage(ref):
+                if ref not in lineages and frozen_lineages is None:
+                    dimensions = {dimension: [] for dimension in PRODUCT_DIMENSIONS}
+                    for ancestor in self.product_lineage(s, ref, when):
+                        row = self.metadata(s, ancestor, when=when)
+                        dimensions[row.kind.lower()].append(ancestor)
+                    lineages[ref] = {
+                        key: sorted(values) for key, values in dimensions.items()
+                    }
+                return {
+                    ancestor
+                    for values in lineages.get(ref, {}).values()
+                    for ancestor in values
+                }
+
+            def bounded_products(linked_refs):
+                bounded = set()
+                for linked in linked_refs:
+                    for selected in project_products:
+                        if selected in lineage(linked):
+                            bounded.add(linked)
+                        elif linked in lineage(selected):
+                            bounded.add(selected)
+                return bounded
+
             if unresolved:
                 reasons.append("UNRESOLVED_PRODUCT_SCOPE")
+            elif subject_type == "PROJECT":
+                # Freeze only products evidenced by this formal inventory, never every
+                # registry descendant of a selected domain/category/family.
+                for item in self.rows(
+                    s,
+                    b.DataItemEntity,
+                    b.DataItemEntity.project_id == project_id,
+                ):
+                    details = self.rows(
+                        s,
+                        c.DataItemResolutionDetailEntity,
+                        c.DataItemResolutionDetailEntity.data_item_id == item.data_item_id,
+                        c.DataItemResolutionDetailEntity.version == run.data_inventory_version,
+                        c.DataItemResolutionDetailEntity.validation_status == "VALIDATED",
+                        c.DataItemResolutionDetailEntity.review_required.is_(False),
+                    )
+                    if not details:
+                        continue
+                    products.update(bounded_products(
+                        link.product_ref
+                        for link in self.rows(
+                            s,
+                            b.DataItemProductLinkEntity,
+                            b.DataItemProductLinkEntity.data_item_id == item.data_item_id,
+                        )
+                    ))
             if subject_type in {"DATA_ITEM", "DATA_FLOW"}:
                 item_ids = [subject_id]
                 if subject_type == "DATA_FLOW":
@@ -963,15 +1027,7 @@ class PostgresKnowledgeRepository:
                             raise ValueError("formal device project mismatch")
                         if device.system_id:
                             systems.add(device.system_id)
-                bounded = set()
-                for linked in products:
-                    lineage = self.product_lineage(s, linked, when)
-                    for selected in project_products:
-                        if selected in lineage:
-                            bounded.add(linked)
-                        elif linked in self.product_lineage(s, selected, when):
-                            bounded.add(selected)
-                products = bounded
+                products = bounded_products(products)
                 if not products:
                     unresolved = True
                     reasons.append("UNRESOLVED_SUBJECT_PRODUCT_SCOPE")
@@ -987,26 +1043,9 @@ class PostgresKnowledgeRepository:
                 if party.project_id != project_id:
                     raise ValueError("formal party project mismatch")
             for ref in products:
-                current = self.metadata(s, ref, when=when)
-                seen = set()
-                while current:
-                    if current.definition_id in seen:
-                        raise ValueError("cyclic product registry")
-                    seen.add(current.definition_id)
-                    if current.kind.lower() in PRODUCT_DIMENSIONS:
-                        dims[current.kind.lower()].add(current.definition_id)
-                    current = (
-                        self.metadata(s, current.parent_definition_id, when=when)
-                        if current.parent_definition_id
-                        else None
-                    )
-                for link in self.rows(
-                    s, m.MetadataBindingEntity, m.MetadataBindingEntity.source_definition_id == ref
-                ):
-                    if effective(link, when):
-                        target = self.metadata(s, link.target_definition_id, when=when)
-                        if target.kind == "PRODUCT_TAG":
-                            dims["product_tag"].add(target.definition_id)
+                lineage(ref)
+                for dimension, values in lineages.get(ref, {}).items():
+                    dims[dimension].update(values)
             for scenario in self.rows(
                 s,
                 c.ScenarioContextEntity,
@@ -1061,6 +1100,7 @@ class PostgresKnowledgeRepository:
                 reason_codes=sorted(set(reasons)),
                 system_ids=sorted(systems),
                 party_ids=sorted(parties),
+                product_lineages={ref: lineages[ref] for ref in products if ref in lineages},
             )
 
     def scope_candidates(self, when, pinned_version_ids=()):

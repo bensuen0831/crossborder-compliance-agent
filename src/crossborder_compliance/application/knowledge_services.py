@@ -253,6 +253,8 @@ class KnowledgeScopeResolver:
             # A subject receives only its own allowed bindings, never the project union.
             frozen_filters = self.repository.snapshot_knowledge_filters(snapshot_id)
             if subject_type != "PROJECT":
+                # Invalid/unformalized subjects must not freeze an analysis as a side effect.
+                self.repository.formal_context(project_id, subject_type, subject_id, snapshot_id)
                 root = self.repository.saved_scope(project_id, "PROJECT", project_id, snapshot_id)
                 if root is None:
                     self.resolve(project_id, snapshot_id=snapshot_id, languages=languages)

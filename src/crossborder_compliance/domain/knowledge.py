@@ -275,6 +275,7 @@ class FormalContext(Contract):
     reason_codes: tuple[str, ...] = ()
     system_ids: tuple[str, ...] = ()
     party_ids: tuple[str, ...] = ()
+    product_lineages: dict[str, dict[str, tuple[str, ...]]] = {}
 
 
 class KnowledgeFilterSpec(Contract):
