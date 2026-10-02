@@ -31,6 +31,16 @@ class ClassificationScheme(Contract):
     levels: tuple[ClassificationLevel, ...]
     lifecycle: str
 
+    @model_validator(mode="after")
+    def unique_members(self):
+        if len(set(self.jurisdiction_ids)) != len(self.jurisdiction_ids):
+            raise ValueError("duplicate scheme jurisdiction")
+        if len({c.category_id for c in self.categories}) != len(self.categories):
+            raise ValueError("duplicate scheme category")
+        if len({v.level_id for v in self.levels}) != len(self.levels):
+            raise ValueError("duplicate scheme level")
+        return self
+
 
 class ClassificationResult(Contract):
     classification_result_id: UUID = Field(default_factory=uuid4)
@@ -44,6 +54,7 @@ class ClassificationResult(Contract):
     level_id: UUID | None
     rule_hit_ids: tuple[UUID, ...] = Field(min_length=1)
     evidence_ids: tuple[UUID, ...] = Field(min_length=1)
+    evidence_pack_ids: tuple[UUID, ...] = ()
     source_fact_refs: tuple[UUID, ...] = Field(min_length=1)
     reason_codes: tuple[str, ...] = Field(min_length=1)
     confidence: float = Field(ge=0, le=1)
@@ -72,13 +83,26 @@ class ClassificationPolicy(Contract):
     no_data: Literal["NOT_APPLICABLE", "INSUFFICIENT_INPUT"] = "NOT_APPLICABLE"
 
 
-def classify(scheme: ClassificationScheme, facts: RuleFactContext, hits: tuple[RuleHit, ...]) -> ClassificationOutcome:
+def classify(
+    scheme: ClassificationScheme, facts: RuleFactContext, hits: tuple[RuleHit, ...]
+) -> ClassificationOutcome:
     if scheme.tenant_id != facts.tenant_id or facts.jurisdiction_id not in scheme.jurisdiction_ids:
         raise LookupError("scheme not found")
     matches = []
     for hit in hits:
-        if (hit.tenant_id, hit.project_id, hit.analysis_snapshot_id, hit.data_item_id, hit.context_version) != (
-            facts.tenant_id, facts.project_id, facts.analysis_snapshot_id, facts.data_item_id, facts.context_version):
+        if (
+            hit.tenant_id,
+            hit.project_id,
+            hit.analysis_snapshot_id,
+            hit.data_item_id,
+            hit.context_version,
+        ) != (
+            facts.tenant_id,
+            facts.project_id,
+            facts.analysis_snapshot_id,
+            facts.data_item_id,
+            facts.context_version,
+        ):
             raise LookupError("rule hit not found")
         for action in hit.triggered_actions:
             if hit.matched and action.scheme_version_id == scheme.scheme_version_id:
@@ -88,25 +112,48 @@ def classify(scheme: ClassificationScheme, facts: RuleFactContext, hits: tuple[R
                     raise ValueError("rule action level outside scheme")
                 matches.append((hit, action))
     if not facts.data_item_id or not matches or not facts.evidence_ids:
-        return ClassificationOutcome(status="INSUFFICIENT_INPUT", reason_codes=("MISSING_DATA_RULE_OR_EVIDENCE",), rule_hits=hits)
+        return ClassificationOutcome(
+            status="INSUFFICIENT_INPUT",
+            reason_codes=("MISSING_DATA_RULE_OR_EVIDENCE",),
+            rule_hits=hits,
+        )
     # All matching provenance is retained. Priority resolves competing levels explicitly.
     top = max(h.priority for h, _ in matches)
     levels = {a.level_id for h, a in matches if h.priority == top and a.level_id}
     if len(levels) > 1:
-        return ClassificationOutcome(status="REVIEW_REQUIRED", reason_codes=("CLASSIFICATION_CONFLICT",), rule_hits=hits)
+        return ClassificationOutcome(
+            status="REVIEW_REQUIRED", reason_codes=("CLASSIFICATION_CONFLICT",), rule_hits=hits
+        )
     refs = tuple(sorted({ref for h, _ in matches for ref in h.matched_fact_refs}, key=str))
-    if not refs or any(not set(h.evidence_requirement) <= set(facts.evidence_types) for h, _ in matches):
-        return ClassificationOutcome(status="INSUFFICIENT_INPUT", reason_codes=("MISSING_VERIFIED_FACT_OR_EVIDENCE",), rule_hits=hits)
+    if not refs or any(
+        not set(h.evidence_requirement) <= set(facts.evidence_types) for h, _ in matches
+    ):
+        return ClassificationOutcome(
+            status="INSUFFICIENT_INPUT",
+            reason_codes=("MISSING_VERIFIED_FACT_OR_EVIDENCE",),
+            rule_hits=hits,
+        )
     review = facts.review_required or any(h.review_required for h, _ in matches)
     result = ClassificationResult(
-        tenant_id=facts.tenant_id, project_id=facts.project_id, data_item_id=facts.data_item_id,
-        jurisdiction_id=facts.jurisdiction_id, scheme_id=scheme.scheme_id,
+        tenant_id=facts.tenant_id,
+        project_id=facts.project_id,
+        data_item_id=facts.data_item_id,
+        jurisdiction_id=facts.jurisdiction_id,
+        scheme_id=scheme.scheme_id,
         scheme_version_id=scheme.scheme_version_id,
         category_ids=tuple(sorted({c for _, a in matches for c in a.category_ids}, key=str)),
-        level_id=next(iter(levels), None), rule_hit_ids=tuple(dict.fromkeys(h.rule_hit_id for h, _ in matches)),
-        evidence_ids=facts.evidence_ids, source_fact_refs=refs,
+        level_id=next(iter(levels), None),
+        rule_hit_ids=tuple(dict.fromkeys(h.rule_hit_id for h, _ in matches)),
+        evidence_ids=facts.evidence_ids,
+        evidence_pack_ids=facts.evidence_pack_ids,
+        source_fact_refs=refs,
         reason_codes=tuple(dict.fromkeys(a.reason_code for _, a in matches)),
-        confidence=facts.confidence, review_required=review,
+        confidence=facts.confidence,
+        review_required=review,
         status="REVIEW_REQUIRED" if review else "CLASSIFIED",
-        analysis_snapshot_id=facts.analysis_snapshot_id, context_version=facts.context_version)
-    return ClassificationOutcome(status=result.status, reason_codes=result.reason_codes, result=result, rule_hits=hits)
+        analysis_snapshot_id=facts.analysis_snapshot_id,
+        context_version=facts.context_version,
+    )
+    return ClassificationOutcome(
+        status=result.status, reason_codes=result.reason_codes, result=result, rule_hits=hits
+    )

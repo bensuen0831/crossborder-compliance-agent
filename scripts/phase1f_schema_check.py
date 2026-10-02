@@ -6,6 +6,7 @@ from sqlalchemy import inspect, text
 
 from crossborder_compliance.config import get_settings
 from crossborder_compliance.infrastructure.persistence.db import build_engine
+from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after
 
 REQUIRED = {
     "knowledge_documents",
@@ -61,7 +62,7 @@ def main():
             )
         ).scalar_one()
     checks = {
-        "phase1f_schema_present_under_current_head": revision in {"0006_phase1f", "0007_phase1g"},
+        "phase1f_schema_present_under_current_head": revision_at_or_after(revision, "0006_phase1f"),
         "required_canonical_tables": REQUIRED <= tables,
         "existing_collection_source_reused": {
             "knowledge_collections",

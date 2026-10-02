@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from decimal import Decimal
 from typing import Literal
 
@@ -16,15 +16,23 @@ class RuleValidationError(ValueError):
     pass
 
 
+class MissingRuleFact(RuleValidationError):
+    pass
+
+
 class FieldType(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
-    kind: Literal["string", "boolean", "integer", "decimal", "date", "datetime", "code", "list", "set"]
+    kind: Literal[
+        "string", "boolean", "integer", "decimal", "date", "datetime", "code", "list", "set"
+    ]
     nullable: bool = False
     item: FieldType | None = None
     codes: tuple[str, ...] = ()
 
     @model_validator(mode="after")
     def complete(self):
+        if len(self.codes) > 1000 or any(len(code) > 120 for code in self.codes):
+            raise ValueError("code allowlist exceeds bounds")
         if (self.kind in {"list", "set"}) != (self.item is not None):
             raise ValueError("collection requires item type; scalar cannot have item")
         if self.item and self.item.kind in {"list", "set"}:
@@ -61,12 +69,14 @@ def typed_value(value: object, spec: FieldType, *, literal: bool = False) -> obj
     if kind in {"date", "datetime"}:
         if literal and type(value) is str:
             try:
-                value = date.fromisoformat(value) if kind == "date" else datetime.fromisoformat(value)
+                value = (
+                    date.fromisoformat(value) if kind == "date" else datetime.fromisoformat(value)
+                )
             except ValueError as exc:
                 raise RuleValidationError("invalid ISO date") from exc
         if kind == "date" and type(value) is date:
             return value
-        if kind == "datetime" and type(value) is datetime and value.tzinfo is not None:
+        if kind == "datetime" and type(value) is datetime and type(value.tzinfo) is timezone:
             return value
     if kind in {"list", "set"} and type(value) in {list, tuple, set, frozenset}:
         if len(value) > 1000:
@@ -94,14 +104,29 @@ class ValidatedAST:
 
 def parse_ast(dsl: str | dict, schema: dict[str, FieldType]) -> ValidatedAST:
     """Parse only closed JSON syntax, then validate every branch before evaluation."""
-    if len(schema) > 100 or not schema:
+    if type(schema) is not dict or len(schema) > 100 or not schema:
         raise RuleValidationError("schema requires 1..100 fields")
+    if any(type(spec) is not FieldType for spec in schema.values()):
+        raise RuleValidationError("schema must contain validated field types")
     for name in schema:
-        if not re.fullmatch(r"[a-z][a-z0-9_]{0,79}", name):
+        if type(name) is not str or not re.fullmatch(r"[a-z][a-z0-9_]{0,79}", name):
             raise RuleValidationError("field names must be flat public identifiers")
+    for spec in schema.values():
+        specs = [spec] + ([spec.item] if spec.item is not None else [])
+        for value in specs:
+            if (
+                type(value) is not FieldType
+                or type(value.kind) is not str
+                or type(value.nullable) is not bool
+                or type(value.codes) is not tuple
+                or any(type(code) is not str for code in value.codes)
+            ):
+                raise RuleValidationError("invalid field schema")
+            FieldType.model_validate(value.model_dump())
     if isinstance(dsl, str):
         if len(dsl) > 65536:
             raise RuleValidationError("DSL exceeds size limit")
+
         def unique(pairs):
             result = {}
             for key, value in pairs:
@@ -109,6 +134,7 @@ def parse_ast(dsl: str | dict, schema: dict[str, FieldType]) -> ValidatedAST:
                     raise RuleValidationError("duplicate JSON key")
                 result[key] = value
             return result
+
         try:
             dsl = json.loads(dsl, object_pairs_hook=unique)
         except (ValueError, RecursionError) as exc:
@@ -122,13 +148,29 @@ def parse_ast(dsl: str | dict, schema: dict[str, FieldType]) -> ValidatedAST:
         if depth > 20 or count > 200 or type(raw) is not dict:
             raise RuleValidationError("invalid node or AST resource limit")
         op = raw.get("op")
+        if type(op) is not str:
+            raise RuleValidationError("operator must be a known string")
         if op in {"and", "or", "not"}:
             if set(raw) != {"op", "args"} or type(raw["args"]) is not list:
                 raise RuleValidationError("logical node requires args")
             if not 1 <= len(raw["args"]) <= 50 or (op == "not" and len(raw["args"]) != 1):
                 raise RuleValidationError("invalid logical arity")
             return TypedNode(op, children=tuple(node(c, depth + 1, element) for c in raw["args"]))
-        if op not in {"eq", "ne", "in", "contains", "gt", "gte", "lt", "lte", "exists", "date_before", "date_after", "any", "all"}:
+        if op not in {
+            "eq",
+            "ne",
+            "in",
+            "contains",
+            "gt",
+            "gte",
+            "lt",
+            "lte",
+            "exists",
+            "date_before",
+            "date_after",
+            "any",
+            "all",
+        }:
             raise RuleValidationError("unknown operator")
         expected = {"op", "field"}
         expected |= {"where"} if op in {"any", "all"} else set() if op == "exists" else {"value"}
@@ -171,18 +213,74 @@ def parse_ast(dsl: str | dict, schema: dict[str, FieldType]) -> ValidatedAST:
 
 
 def evaluate(ast: ValidatedAST, facts: dict[str, object]) -> bool:
-    if not isinstance(ast, ValidatedAST):
+    if type(ast) is not ValidatedAST or type(facts) is not dict:
         raise RuleValidationError("runtime accepts validated AST only")
+    # Python callers cannot forge a TypedNode carrying executable comparison objects.
+    # Revalidate the closed, bounded literal representation before touching fact values.
+    count = 0
+    literal_count = 0
+
+    def literal(value, depth=0):
+        nonlocal literal_count
+        literal_count += 1
+        if depth > 1 or literal_count > 10000:
+            raise RuleValidationError("AST literal resource limit")
+        kind = type(value)
+        if kind in {str, int, bool, type(None)}:
+            return value
+        if kind is Decimal:
+            return str(value)
+        if kind in {date, datetime}:
+            if kind is datetime and type(value.tzinfo) is not timezone:
+                raise RuleValidationError("datetime requires a fixed ISO timezone")
+            return value.isoformat()
+        if kind in {tuple, frozenset} and len(value) <= 1000:
+            return [literal(item, depth + 1) for item in value]
+        raise RuleValidationError("AST literals must be closed typed values")
+
+    def closed(node, depth=0):
+        nonlocal count
+        count += 1
+        if type(node) is not TypedNode or depth > 20 or count > 200:
+            raise RuleValidationError("invalid node or AST resource limit")
+        if type(node.op) is not str or type(node.children) is not tuple:
+            raise RuleValidationError("invalid typed node")
+        if node.op in {"and", "or", "not"}:
+            if node.field is not None or node.value is not None:
+                raise RuleValidationError("invalid logical typed node")
+            return {"op": node.op, "args": [closed(child, depth + 1) for child in node.children]}
+        raw = {"op": node.op, "field": node.field}
+        if node.op in {"any", "all"}:
+            if len(node.children) != 1:
+                raise RuleValidationError("invalid quantifier typed node")
+            raw["where"] = closed(node.children[0], depth + 1)
+        elif node.children:
+            raise RuleValidationError("unexpected predicate children")
+        elif node.op != "exists":
+            raw["value"] = literal(node.value)
+        return raw
+
+    if type(ast.schema) is not tuple or any(
+        type(pair) is not tuple
+        or len(pair) != 2
+        or type(pair[0]) is not str
+        or type(pair[1]) is not FieldType
+        for pair in ast.schema
+    ):
+        raise RuleValidationError("invalid typed AST schema")
+    ast = parse_ast(closed(ast.root), dict(ast.schema))
     schema = dict(ast.schema)
     if set(facts) - set(schema):
         raise RuleValidationError("unknown fact field")
     prepared = {key: typed_value(value, schema[key]) for key, value in facts.items()}
+
     # Validate missing inputs before short circuiting, including negated predicates.
     def check(n):
         if n.field and n.field != "$item" and n.op != "exists" and n.field not in prepared:
-            raise RuleValidationError("missing required fact")
+            raise MissingRuleFact("missing required fact")
         for child in n.children:
             check(child)
+
     check(ast.root)
 
     def run(n, item=None):
@@ -226,4 +324,5 @@ def evaluate(ast: ValidatedAST, facts: dict[str, object]) -> bool:
         if n.op == "lte":
             return left <= n.value
         raise RuleValidationError("invalid validated operator")
+
     return run(ast.root) is True

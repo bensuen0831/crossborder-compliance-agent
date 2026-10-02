@@ -1,5 +1,6 @@
 """Measured PostgreSQL Phase 1G schema assertions; preserves all earlier schema gates."""
 
+
 import json
 import os
 from pathlib import Path
@@ -8,6 +9,7 @@ from sqlalchemy import inspect, text
 
 from crossborder_compliance.config import get_settings
 from crossborder_compliance.infrastructure.persistence.db import build_engine
+from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after
 
 REQUIRED = {
     "knowledge_runtime_publications",
@@ -54,7 +56,7 @@ def main():
             ).all()
         )
     checks = {
-        "phase1g_schema_under_supported_head": revision in {"0007_phase1g", "0008_phase1h"},
+        "phase1g_schema_under_supported_head": revision_at_or_after(revision, "0007_phase1g"),
         "required_derived_tables": REQUIRED <= tables,
         "no_parallel_canonical_knowledge": not {
             "formal_knowledge_documents",

@@ -684,6 +684,30 @@ pub_checks={
 for name,passed in pub_checks.items():
     add(name,passed,'Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py')
 
+# Phase 1H additions preserve all preceding checks and rule numbers 1-133.
+ast_h = read_text(SRC / "domain" / "rule_ast.py")
+rules_h = read_text(SRC / "domain" / "rules.py")
+classification_h = read_text(SRC / "domain" / "classification.py")
+service_h = read_text(SRC / "application" / "classification_services.py")
+governance_h = read_text(SRC / "infrastructure" / "persistence" / "rule_governance.py")
+api_h = read_text(SRC / "interfaces" / "api" / "routes" / "classification.py")
+migration_h = read_text(ROOT / "alembic" / "versions" / "0008_phase1h_rule_classification.py")
+evidence_h = read_text(SRC / "infrastructure" / "classification_evidence.py")
+checks1h = {
+    "rule_runtime_validated_typed_ast": "class ValidatedAST" in ast_h and "parse_ast(c.conditions, c.fields)" in rules_h,
+    "rule_ast_no_unrestricted_calls": not occurrences(r"\b(eval|exec|compile|__import__|getattr|setattr|open)\s*\(", [SRC / "domain" / "rule_ast.py", SRC / "domain" / "rules.py"]),
+    "rule_domain_no_external_dependencies": not occurrences(r"\b(import|from)\s+(sqlalchemy|psycopg|redis|httpx|requests|langgraph|boto3|subprocess|os|importlib)\b", [SRC / "domain" / "rule_ast.py", SRC / "domain" / "rules.py", SRC / "domain" / "classification.py"]),
+    "formal_classification_versioned_provenance": all(field in classification_h for field in ("scheme_version_id", "jurisdiction_id", "rule_hit_ids", "evidence_ids", "source_fact_refs", "analysis_snapshot_id", "context_version")),
+    "no_data_typed_outcome": "facts.data_item_id is None" in service_h and 'reason_codes=("NO_DATA_ITEM",)' in service_h,
+    "rule_publish_gate_uses_existing_transaction": "transition_gate(session, row" in read_text(SRC / "infrastructure" / "persistence" / "config_admin_repositories.py") and all(value in governance_h for value in ("run_rule_tests", "validate_conflicts", "approved_by", "submitted_by")),
+    "rule_and_scheme_content_immutable": "phase1h_immutable_rule" in migration_h and "phase1h_immutable_scheme" in migration_h,
+    "api_references_only_no_narrative": all(value in class_block(api_h, "ClassificationRequest") for value in ("analysis_snapshot_id", "data_item_id", "scheme_version_id")) and not re.search(r"\b(values|facts|narrative|result|tenant_id)\s*:", class_block(api_h, "ClassificationRequest")),
+    "classification_reuses_scope_checked_evidence": "scoped_saved_response" in evidence_h and "source.retrieve(" not in evidence_h,
+    "classification_persisted_retry_unique": "uq_formal_classification_snapshot" in migration_h,
+}
+for name, passed in checks1h.items():
+    add(name, passed, "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence")
+
 failed = [check for check in checks if not check["pass"]]
 result = {
     "pass": not failed,

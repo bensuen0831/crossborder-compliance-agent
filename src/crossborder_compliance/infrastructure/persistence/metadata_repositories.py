@@ -973,6 +973,9 @@ class PostgresConfigRegistrySourceRepository(_TenantScopedMetadataRepository):
                     "safe_dsl": dict(version.safe_dsl_json or {}),
                     "scope": dict(version.scope_json or {}),
                     "priority": version.priority,
+                    "runtime_contract": version.runtime_contract_json,
+                    "governance": version.governance_json,
+                    "executable_v1": version.runtime_contract_json is not None,
                 }
                 for definition, version in rows
             ]

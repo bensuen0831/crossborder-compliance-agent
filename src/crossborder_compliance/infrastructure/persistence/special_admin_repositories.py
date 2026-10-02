@@ -30,6 +30,7 @@ from crossborder_compliance.infrastructure.persistence.metadata_repositories imp
     PostgresAdminMetadataRepository,
 )
 from crossborder_compliance.infrastructure.persistence.models import ClassificationSchemeEntity, JurisdictionEntity
+from crossborder_compliance.infrastructure.persistence.classification_governance import materialize_scheme, scheme_dates, validate_scheme
 
 
 def utcnow() -> datetime:
@@ -62,8 +63,7 @@ class PostgresClassificationAdminRepository:
                 )
             )
             session.flush()
-            session.add(
-                ClassificationSchemeVersionEntity(
+            version = ClassificationSchemeVersionEntity(
                     scheme_version_id=version_id,
                     tenant_id=self.tenant_id,
                     scheme_id=scheme_id,
@@ -72,7 +72,10 @@ class PostgresClassificationAdminRepository:
                     applicability_json=dict(payload.get("applicability", {})),
                     status="ACTIVE",
                 )
-            )
+            session.add(version)
+            scheme_dates(version, payload)
+            session.flush()
+            materialize_scheme(session, version)
         return {
             "definition_id": scheme_id,
             "version_id": version_id,
@@ -97,6 +100,8 @@ class PostgresClassificationAdminRepository:
             if row.record_version != expected_record_version:
                 raise MetadataOptimisticConcurrencyError("classification scheme version changed")
             row.applicability_json = dict(payload.get("applicability", {}))
+            scheme_dates(row, payload)
+            materialize_scheme(session, row)
             row.record_version += 1
             row.updated_at = utcnow()
         return self.get_version(version_id)
@@ -121,6 +126,7 @@ class PostgresClassificationAdminRepository:
                     ClassificationSchemeVersionEntity.scheme_version_id == str(version_id),
                     ClassificationSchemeVersionEntity.tenant_id == self.tenant_id,
                 )
+                .with_for_update()
             )
             if row is None:
                 raise LookupError("classification scheme version not found")
@@ -130,10 +136,26 @@ class PostgresClassificationAdminRepository:
                 raise MetadataLifecycleError(
                     f"invalid lifecycle transition: {row.lifecycle_status} -> {target_status}"
                 )
+            validate_scheme(row)
             row.lifecycle_status = target_status
             row.record_version += 1
             row.updated_at = utcnow()
             if target_status == GovernanceStatus.ACTIVE.value:
+                if row.applicability_json.get("phase1h"):
+                    # A canonical scheme has one current V1 generation; historic pins remain valid.
+                    scheme = session.scalar(select(ClassificationSchemeEntity).where(
+                        ClassificationSchemeEntity.tenant_id == self.tenant_id,
+                        ClassificationSchemeEntity.scheme_id == row.scheme_id).with_for_update())
+                    if scheme is None:
+                        raise LookupError("classification scheme not found")
+                    old_versions = session.scalars(select(ClassificationSchemeVersionEntity).where(
+                        ClassificationSchemeVersionEntity.tenant_id == self.tenant_id,
+                        ClassificationSchemeVersionEntity.scheme_id == row.scheme_id,
+                        ClassificationSchemeVersionEntity.scheme_version_id != row.scheme_version_id,
+                        ClassificationSchemeVersionEntity.lifecycle_status == "ACTIVE")).all()
+                    for old in old_versions:
+                        old.lifecycle_status = "SUPERSEDED"
+                        old.record_version += 1
                 session.add(
                     AdminPublishRecordEntity(
                         publish_record_id=str(uuid4()),
@@ -159,6 +181,29 @@ class PostgresClassificationAdminRepository:
                 )
         return self.get_version(version_id)
 
+    def create_version(self, scheme_id: UUID, *, payload: dict[str, object]) -> dict[str, object]:
+        self._policy.require(self._context, self._policy.draft_scope)
+        if not payload.get("applicability", {}).get("phase1h"):
+            raise ValueError("new classification version requires Phase 1H membership")
+        with self._sessions() as session, session.begin():
+            scheme = session.scalar(select(ClassificationSchemeEntity).where(
+                ClassificationSchemeEntity.scheme_id == str(scheme_id),
+                ClassificationSchemeEntity.tenant_id == self.tenant_id).with_for_update())
+            if scheme is None:
+                raise LookupError("classification scheme not found")
+            number = (session.scalar(select(func.max(ClassificationSchemeVersionEntity.version_no)).where(
+                ClassificationSchemeVersionEntity.tenant_id == self.tenant_id,
+                ClassificationSchemeVersionEntity.scheme_id == str(scheme_id))) or 0) + 1
+            version = ClassificationSchemeVersionEntity(scheme_version_id=str(uuid4()),
+                tenant_id=self.tenant_id, scheme_id=str(scheme_id), version_no=number,
+                lifecycle_status="DRAFT", applicability_json=dict(payload["applicability"]))
+            scheme_dates(version, payload)
+            session.add(version)
+            session.flush()
+            materialize_scheme(session, version)
+            ident = UUID(version.scheme_version_id)
+        return self.get_version(ident)
+
     def get_version(self, version_id: UUID) -> dict[str, object]:
         with self._sessions() as session:
             row = session.scalar(
@@ -176,6 +221,15 @@ class PostgresClassificationAdminRepository:
                 "lifecycle_status": row.lifecycle_status,
                 "record_version": row.record_version,
             }
+
+    def get_detail(self, version_id: UUID) -> dict[str, object]:
+        self._policy.require(self._context, self._policy.draft_scope)
+        result = self.get_version(version_id)
+        with self._sessions() as session:
+            row = session.scalar(select(ClassificationSchemeVersionEntity).where(
+                ClassificationSchemeVersionEntity.scheme_version_id == str(version_id),
+                ClassificationSchemeVersionEntity.tenant_id == self.tenant_id))
+            return {**result, "applicability": row.applicability_json}
 
     def history(self, definition_id: UUID) -> list[dict[str, object]]:
         with self._sessions() as session:
@@ -618,4 +672,3 @@ class PostgresJurisdictionAdminRepository:
             "registry_refresh_required": True,
             "existing_snapshot_switch": False,
         }
-

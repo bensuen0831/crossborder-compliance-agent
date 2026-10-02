@@ -50,7 +50,7 @@ app.include_router(metadata_router)
 app.include_router(admin_metadata_router)
 app.include_router(documents_router)
 app.include_router(context_resolution_router)
+app.include_router(classification_router)
 app.include_router(knowledge_router)
 
 app.include_router(retrieval_router)
-app.include_router(classification_router)
