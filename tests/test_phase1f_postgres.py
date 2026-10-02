@@ -584,11 +584,15 @@ def test_effective_lifecycle_and_language_exclusion(fixture):
     step(f, v, "expire")
     assert not scope(f).filter_spec.version_filter
     step(f, v, "archive")
-    future = f["repo"].create_version(v["document_id"], {
-        "collection_version_id": f["cv"], "language": "en",
-        "effective_from": (date.today()+timedelta(days=1)).isoformat(),
-        "provenance": {"fixture":True},
-    })
+    future = f["repo"].create_version(
+        v["document_id"],
+        {
+            "collection_version_id": f["cv"],
+            "language": "en",
+            "effective_from": (date.today() + timedelta(days=1)).isoformat(),
+            "provenance": {"fixture": True},
+        },
+    )
     ingest(f, future)
     step(f, future, "validate")
     step(f, future, "submit-review")
@@ -911,3 +915,152 @@ def test_real_api_contracts_and_isolation(fixture):
     assert client.get("/api/v1/admin/knowledge-sources/" + f["source"]).status_code == 403
     ctx[0] = RepositoryContext.user(uuid4(), "outsider", {"knowledge:admin"})
     assert client.get("/api/v1/admin/knowledge-sources/" + f["source"]).status_code == 404
+
+
+def test_domain_selected_item_stays_specific(fixture):
+    f = fixture
+    run = context(f, [f["domain"]], [f["domain"]])
+    a = publish(f)
+    publish(f, [binding(f, dimensions={"product": [f["b"]]})])
+    ident = item(f, f["a"], run["version"])
+    result = scope(f, subject_type="DATA_ITEM", subject_id=ident)
+    assert result.allowed_product_ids == (f["a"],)
+    assert result.filter_spec.version_filter == (a["knowledge_version_id"],)
+
+
+def test_missing_phase1e_context_and_source_revocation(fixture):
+    f = fixture
+    publish(f)
+    frozen = scope(f, snapshot_id=f["snapshot"])
+    assert frozen.filter_spec.version_filter
+    f["repo"].update_source(f["source"], {"validation_status": "PENDING"}, 1)
+    assert not scope(f, snapshot_id=f["snapshot"]).filter_spec.version_filter
+    project = uid()
+    with f["sf"]() as s, s.begin():
+        s.add(b.ProjectEntity(project_id=project, tenant_id=f["tenant"], name="No formal context"))
+    with pytest.raises(ValueError, match="PHASE1E_FORMAL_CONTEXT_REQUIRED"):
+        KnowledgeScopeResolver(f["repo"], f["ctx"]).resolve(project)
+
+
+def test_controlled_url_ingestion_uses_port_and_audit(fixture):
+    import json
+
+    f = fixture
+    v = draft(f)
+    payload = inputs(f)
+    payload.pop("nodes")
+    payload["url"] = "https://generic.example/official.json"
+
+    class Download:
+        def download(self, url):
+            assert url == payload["url"]
+            return json.dumps({"nodes": inputs(f)["nodes"]}).encode(), {
+                "request_audit": [{"host": "generic.example", "status": 200}]
+            }
+
+    service = KnowledgeIngestionService(f["repo"], storage=f["storage"], downloader=Download())
+    run = service.ingest(v["knowledge_version_id"], payload)
+    service.work(run["ingestion_run_id"])
+    with f["sf"]() as s:
+        stored = s.get(k.KnowledgeIngestionRunEntity, run["ingestion_run_id"])
+        assert (
+            stored.audit_json["request_audit"][0]["status"] == 200
+            and stored.audit_json["content_hash"]
+        )
+    assert f["repo"].get_version(v["knowledge_version_id"])["lifecycle"] == "INGESTED"
+    bad = draft(f)
+    with pytest.raises(ValueError):
+        service.ingest(
+            bad["knowledge_version_id"],
+            dict(payload, idempotency_key=uid(), url="https://unapproved.example/x"),
+        )
+
+
+def test_postgres_constraints_and_rollback(fixture):
+    from sqlalchemy.exc import IntegrityError
+
+    f = fixture
+    v = publish(f)
+    with pytest.raises(IntegrityError), f["sf"]() as s, s.begin():
+        s.execute(
+            text(
+                "UPDATE knowledge_document_versions SET lifecycle='INVALID' "
+                "WHERE knowledge_version_id=:id"
+            ),
+            {"id": v["knowledge_version_id"]},
+        )
+    assert f["repo"].get_version(v["knowledge_version_id"])["lifecycle"] == "ACTIVE"
+    newer = draft(f, doc=v["document_id"])
+    with pytest.raises(IntegrityError), f["sf"]() as s, s.begin():
+        s.execute(
+            text(
+                "UPDATE knowledge_document_versions SET lifecycle='ACTIVE' "
+                "WHERE knowledge_version_id=:id"
+            ),
+            {"id": newer["knowledge_version_id"]},
+        )
+    assert f["repo"].get_version(newer["knowledge_version_id"])["lifecycle"] == "DRAFT"
+    with pytest.raises(IntegrityError), f["sf"]() as s, s.begin():
+        s.execute(
+            text(
+                "UPDATE knowledge_structure_nodes SET parent_node_id=:missing "
+                "WHERE knowledge_version_id=:id"
+            ),
+            {"missing": uid(), "id": v["knowledge_version_id"]},
+        )
+    with pytest.raises(IntegrityError), f["sf"]() as s, s.begin():
+        s.execute(
+            text("UPDATE knowledge_document_versions SET version=1 WHERE knowledge_version_id=:id"),
+            {"id": newer["knowledge_version_id"]},
+        )
+
+
+def test_version_diff_all_structural_changes(fixture):
+    f = fixture
+    first = draft(f)
+    ingest(f, first)
+    second = draft(f, doc=first["document_id"])
+    payload = inputs(
+        f,
+        nodes=[
+            {
+                "node_type": "ACT",
+                "canonical_locator": "act",
+                "original_text": "Modified generic rule",
+            },
+            {
+                "node_type": "ANNEX",
+                "canonical_locator": "act/annex",
+                "parent_locator": "act",
+                "original_text": "Added annex",
+            },
+        ],
+        bindings=[binding(f, "GLOBAL", {})],
+    )
+    ingest(f, second, payload)
+    changes = f["repo"].compare_versions(
+        first["knowledge_version_id"], second["knowledge_version_id"]
+    )
+    assert (
+        changes["added_structure_nodes"] == ["act/annex"]
+        and changes["removed_structure_nodes"] == ["act/article/1"]
+        and changes["modified_structure_nodes"] == ["act"]
+    )
+    assert changes["binding_changed"] and not changes["source_changed"]
+
+
+def test_pending_translation_cannot_declare_official(fixture):
+    f = fixture
+    v = publish(f)
+    payload = dict(
+        source_language="en",
+        target_language="generic-other",
+        translated_text_ref="test://translation",
+        translation_method="OFFICIAL",
+        review_status="APPROVED",
+        reviewer="fabricated",
+        provenance={"fixture": True},
+    )
+    with pytest.raises(ValueError):
+        f["repo"].create_translation(v["knowledge_version_id"], payload)
+    assert count(f, k.KnowledgeTranslationEntity) == 0

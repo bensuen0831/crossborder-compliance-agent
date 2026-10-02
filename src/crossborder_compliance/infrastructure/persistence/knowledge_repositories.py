@@ -84,6 +84,30 @@ class PostgresKnowledgeRepository:
             raise ValueError("metadata not effective")
         return row
 
+    def product_lineage(self, s, ident, when):
+        """Registry ancestry only; never expand a domain into all registered products."""
+        refs = set()
+        current = self.metadata(s, ident, when=when)
+        while current:
+            if current.definition_id in refs:
+                raise ValueError("cyclic product registry")
+            if current.kind.lower() not in PRODUCT_DIMENSIONS:
+                raise ValueError("non-product context reference")
+            refs.add(current.definition_id)
+            current = (
+                self.metadata(s, current.parent_definition_id, when=when)
+                if current.parent_definition_id
+                else None
+            )
+        for link in self.rows(
+            s, m.MetadataBindingEntity, m.MetadataBindingEntity.source_definition_id == ident
+        ):
+            if effective(link, when):
+                target = self.metadata(s, link.target_definition_id, when=when)
+                if target.kind == "PRODUCT_TAG":
+                    refs.add(target.definition_id)
+        return refs
+
     def create_source(self, payload):
         self.admin()
         source = KnowledgeSource.model_validate(
@@ -939,7 +963,15 @@ class PostgresKnowledgeRepository:
                             raise ValueError("formal device project mismatch")
                         if device.system_id:
                             systems.add(device.system_id)
-                products &= project_products
+                bounded = set()
+                for linked in products:
+                    lineage = self.product_lineage(s, linked, when)
+                    for selected in project_products:
+                        if selected in lineage:
+                            bounded.add(linked)
+                        elif linked in self.product_lineage(s, selected, when):
+                            bounded.add(selected)
+                products = bounded
                 if not products:
                     unresolved = True
                     reasons.append("UNRESOLVED_SUBJECT_PRODUCT_SCOPE")
@@ -1060,6 +1092,7 @@ class PostgresKnowledgeRepository:
                     and binding.review_status == "APPROVED"
                     and collection.lifecycle_status in states
                     and source.config_json.get("enabled", False)
+                    and source.config_json.get("validation_status") == "VALIDATED"
                     and version.status == "ACTIVE"
                     and binding.status == "ACTIVE"
                 )
