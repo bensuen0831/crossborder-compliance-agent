@@ -2,9 +2,9 @@
 
 Phase: **1F — Knowledge Ingestion & Scope Resolver Foundation**.
 
-Tested SHA: `5acbcd1813cb80a2bd3d0f92d04dc68f5d4fc3db`. Run ID: `NOT_VERIFIED — final documentation CI pending`. Attempt: `NOT_VERIFIED`.
+Tested SHA: `70da467edc4881034ed919434ac38e39e0b8132e`. Run ID: `36968097285`. Attempt: `1`.
 Final evidence Source of Truth: [phase1f_final_remote.json](evidence/phase1f_final_remote.json).
-Artifact ID: `NOT_VERIFIED`. Artifact digest: `NOT_VERIFIED`.
+Artifact ID: `11210791229`. Artifact digest: `sha256:d04a97683672551979ed02ee1405a28a087fd2d5d94e5ef5419466cffad6303f`.
 
 | Empirical assertion | Actual result |
 |---|---|
@@ -29,3 +29,5 @@ New tables: knowledge_documents; knowledge_document_versions; knowledge_structur
 Reused: knowledge_source_definitions; knowledge_collections/versions; knowledge_bindings; regulatory_structure_nodes; evidence_references; citations; admin_change_sets/review_tasks/publish_records; registry_sync_events; analysis_snapshot_context_pins/registry_pins; Phase 1E contexts and Phase 1C model metadata. No parallel source/review/legal/classification tables are added. Downgrade drops extension columns/tables in dependency order; shared pgvector extension is preserved. Downgrade is a schema operation that removes Phase 1F data, not a runtime undo operation.
 
 PASS evidence: fresh upgrade 0001→0006 on real PostgreSQL; Phase 1F schema 29/29; all prior schema gates unchanged in assertion count, with current-head allowlists extended. Runtime checkpointer tables remain owned by LangGraph setup, not Alembic. Ingestion/lifecycle/index rollback and stale/concurrent writes are separately tested.
+
+Additional actual local migration assertion: empty PostgreSQL roundtrip 0006→0005→0006 PASS; see evidence/phase1f/local_final_gate/migration_roundtrip_result.json. Existing user/runtime databases were preserved.

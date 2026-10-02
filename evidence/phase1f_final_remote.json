@@ -1,0 +1,80 @@
+{
+  "phase": "1F",
+  "run_id": "36968097285",
+  "attempt": "1",
+  "tested_pr_head_sha": "70da467edc4881034ed919434ac38e39e0b8132e",
+  "runner_merge_sha": "5173dbc152690dc18a584be3077b110afa910d80",
+  "alembic_head": "0006_phase1f",
+  "pytest": {
+    "passed": 137,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true
+    },
+    "pass": true
+  },
+  "schema_gates": {
+    "phase1b": {
+      "pass": true,
+      "passed": 16,
+      "total": 16
+    },
+    "phase1c": {
+      "pass": true,
+      "passed": 20,
+      "total": 20
+    },
+    "phase1d": {
+      "pass": true,
+      "passed": 15,
+      "total": 15
+    },
+    "phase1e": {
+      "pass": true,
+      "passed": 22,
+      "total": 22
+    },
+    "phase1f": {
+      "pass": true,
+      "passed": 29,
+      "total": 29
+    }
+  },
+  "architecture": {
+    "pass": true,
+    "passed": 77,
+    "total": 77
+  },
+  "runtime": {
+    "pass": true,
+    "passed": 25,
+    "total": 25
+  },
+  "full_gate_log": {
+    "filename": "ci_complete.log",
+    "bytes": 62033,
+    "sha256": "b8b8fdc49a14b2985a5030efab2a23fbb9e3781b7f4a3104fe26e76c2344779f"
+  },
+  "pass": true,
+  "run_number": 91,
+  "workflow_conclusion": "success",
+  "artifact": {
+    "id": 11210791229,
+    "name": "phase1a-runtime-evidence-36968097285-1",
+    "digest": "sha256:d04a97683672551979ed02ee1405a28a087fd2d5d94e5ef5419466cffad6303f",
+    "size_in_bytes": 44189
+  },
+  "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/36968097285",
+  "full_run_log_archive_url": "https://api.github.com/repos/bensuen0831/crossborder-compliance-agent/actions/runs/36968097285/logs",
+  "artifact_download_url": "https://api.github.com/repos/bensuen0831/crossborder-compliance-agent/actions/artifacts/11210791229/zip",
+  "verification_method": "GitHub Actions REST + Checks measured summary; GitHub-archived full gate log with measured SHA256",
+  "local_archive_downloaded": false,
+  "local_archive_limitation": "Restricted egress blocks archive redirects. Full gate log and JUnit remain retained in the identified GitHub artifact; measured summary and identities were independently read through GitHub Checks API."
+}
