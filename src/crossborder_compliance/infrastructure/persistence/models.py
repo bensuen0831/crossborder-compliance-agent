@@ -432,6 +432,9 @@ class ClassificationResultEntity(TenantAuditMixin, Base):
     )
     confidence: Mapped[float] = mapped_column(Float, nullable=False)
     review_required: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
+    project_id: Mapped[str | None] = mapped_column(ForeignKey("projects.project_id"), nullable=True)
+    analysis_snapshot_id: Mapped[str | None] = mapped_column(ForeignKey("analysis_snapshots.analysis_snapshot_id"), nullable=True)
+    formal_provenance_json: Mapped[dict | None] = mapped_column(JSON, nullable=True)
 
 
 class ClassificationResultCategoryEntity(TenantAuditMixin, Base):
@@ -498,6 +501,7 @@ class RuleHitEntity(TenantAuditMixin, Base):
     subject_type: Mapped[str] = mapped_column(String(50), nullable=False)
     subject_id: Mapped[str] = mapped_column(String(36), nullable=False)
     evidence_json: Mapped[dict] = mapped_column(JSON, nullable=False, default=dict)
+    formal_provenance_json: Mapped[dict | None] = mapped_column(JSON, nullable=True)
 
 
 class LegalBasisItemEntity(TenantAuditMixin, EffectiveMixin, Base):

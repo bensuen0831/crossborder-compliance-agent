@@ -376,6 +376,8 @@ class RuleVersionEntity(TenantAuditMixin, EffectiveMixin, Base):
     safe_dsl_json: Mapped[dict] = mapped_column(JSON, nullable=False, default=dict)
     scope_json: Mapped[dict] = mapped_column(JSON, nullable=False, default=dict)
     priority: Mapped[int] = mapped_column(Integer, nullable=False, default=100)
+    runtime_contract_json: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    governance_json: Mapped[dict | None] = mapped_column(JSON, nullable=True)
 
 
 class RuleBindingEntity(TenantAuditMixin, EffectiveMixin, Base):

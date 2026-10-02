@@ -54,7 +54,7 @@ def main():
             ).all()
         )
     checks = {
-        "alembic_head_0007_phase1g": revision == "0007_phase1g",
+        "phase1g_schema_under_supported_head": revision in {"0007_phase1g", "0008_phase1h"},
         "required_derived_tables": REQUIRED <= tables,
         "no_parallel_canonical_knowledge": not {
             "formal_knowledge_documents",
