@@ -456,6 +456,30 @@ add(
 )
 
 add(
+    "business_fact_conflict_is_explicit",
+    "BusinessFactConflict" in context_services_text
+    and "BUSINESS_FACT_CONFLICT" in context_services_text
+    and "MULTIPLE_NORMALIZED_VALUES_FOR_FACT_TYPE" in context_services_text,
+    "Conflicting normalized values for one registry fact type create explicit reviewable conflict",
+)
+
+add(
+    "possible_duplicate_requires_review_conflict",
+    "DATA_ITEM_POSSIBLE_DUPLICATE" in context_services_text
+    and "SEMANTIC_CANDIDATE_ONLY" in context_services_text
+    and "reviewer_required" in context_services_text,
+    "Semantic POSSIBLE_SAME remains candidate-only and enters ContextConflict/review",
+)
+
+add(
+    "unresolved_party_requires_review_conflict",
+    "PARTY_CONTEXT_CONFLICT" in context_services_text
+    and "UNRESOLVED_PARTY" in context_services_text
+    and "save_party_resolution" in context_services_text,
+    "Unresolved PartyCandidate persists PartyResolution plus explicit reviewable conflict",
+)
+
+add(
     "data_item_source_trace_required",
     "formal DataItem requires SourceTrace" in context_services_text
     and "class DataItemSourceTraceLinkEntity" in context_models_text
