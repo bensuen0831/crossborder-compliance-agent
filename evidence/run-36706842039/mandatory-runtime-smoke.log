@@ -1,0 +1,1156 @@
+﻿2026-09-30T11:10:04.0215544Z Current runner version: '2.337.0'
+2026-09-30T11:10:04.0254205Z ##[group]Runner Image Provisioner
+2026-09-30T11:10:04.0255630Z Hosted Compute Agent
+2026-09-30T11:10:04.0256595Z Version: 20260828.587
+2026-09-30T11:10:04.0257674Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-30T11:10:04.0259018Z Build Date: 2026-08-28T16:44:25Z
+2026-09-30T11:10:04.0260151Z Worker ID: {ee7d4809-18a0-4bf4-b4b2-a3c607862bd3}
+2026-09-30T11:10:04.0261353Z Azure Region: centralus
+2026-09-30T11:10:04.0262406Z ##[endgroup]
+2026-09-30T11:10:04.0264836Z ##[group]Operating System
+2026-09-30T11:10:04.0266076Z Ubuntu
+2026-09-30T11:10:04.0266945Z 24.04.5
+2026-09-30T11:10:04.0267802Z LTS
+2026-09-30T11:10:04.0268734Z ##[endgroup]
+2026-09-30T11:10:04.0269572Z ##[group]Runner Image
+2026-09-30T11:10:04.0270631Z Image: ubuntu-24.04
+2026-09-30T11:10:04.0271529Z Version: 20260920.314.1
+2026-09-30T11:10:04.0273771Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260920.314/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-30T11:10:04.0276514Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260920.314
+2026-09-30T11:10:04.0278232Z ##[endgroup]
+2026-09-30T11:10:04.0280150Z ##[group]GITHUB_TOKEN Permissions
+2026-09-30T11:10:04.0283418Z Contents: read
+2026-09-30T11:10:04.0284578Z Metadata: read
+2026-09-30T11:10:04.0285509Z ##[endgroup]
+2026-09-30T11:10:04.0288945Z Secret source: Actions
+2026-09-30T11:10:04.0290593Z Cache mode: write
+2026-09-30T11:10:04.0291779Z Prepare workflow directory
+2026-09-30T11:10:04.0850483Z Prepare all required actions
+2026-09-30T11:10:04.0921948Z Getting action download info
+2026-09-30T11:10:04.4290375Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-09-30T11:10:04.5651335Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-09-30T11:10:04.6613366Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-09-30T11:10:04.8877253Z Complete job name: mandatory-runtime-smoke
+2026-09-30T11:10:04.9404305Z ##[group]Checking docker version
+2026-09-30T11:10:04.9418335Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2026-09-30T11:10:05.0120509Z '1.48'
+2026-09-30T11:10:05.0141523Z Docker daemon API version: '1.48'
+2026-09-30T11:10:05.0142353Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2026-09-30T11:10:05.0378157Z '1.48'
+2026-09-30T11:10:05.0397971Z Docker client API version: '1.48'
+2026-09-30T11:10:05.0403634Z ##[endgroup]
+2026-09-30T11:10:05.0409530Z ##[group]Clean up resources from previous jobs
+2026-09-30T11:10:05.0417536Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=46583a"
+2026-09-30T11:10:05.0685311Z ##[command]/usr/bin/docker network prune --force --filter "label=46583a"
+2026-09-30T11:10:05.0904166Z ##[endgroup]
+2026-09-30T11:10:05.0905196Z ##[group]Create local container network
+2026-09-30T11:10:05.0919869Z ##[command]/usr/bin/docker network create --label 46583a github_network_caeea64bf49f4a3d9457c6a779015390
+2026-09-30T11:10:05.1915312Z 847af1c7ca7376167157e386e99b29376dea819c6a2e80e6d2797743e6dae2b4
+2026-09-30T11:10:05.1924680Z ##[endgroup]
+2026-09-30T11:10:05.1960600Z ##[group]Starting postgres service container
+2026-09-30T11:10:05.1993010Z ##[command]/usr/bin/docker pull pgvector/pgvector:pg16
+2026-09-30T11:10:05.7767729Z pg16: Pulling from pgvector/pgvector
+2026-09-30T11:10:05.9303782Z 039e6f9f9752: Pulling fs layer
+2026-09-30T11:10:05.9307670Z 32a162df1425: Pulling fs layer
+2026-09-30T11:10:05.9309020Z d100bd361c59: Pulling fs layer
+2026-09-30T11:10:05.9310206Z ff16cf9d59a9: Pulling fs layer
+2026-09-30T11:10:05.9311384Z f4b681e14ff8: Pulling fs layer
+2026-09-30T11:10:05.9312554Z a8a8272ab698: Pulling fs layer
+2026-09-30T11:10:05.9313713Z 61c973a13167: Pulling fs layer
+2026-09-30T11:10:05.9321552Z a372a0a1082a: Pulling fs layer
+2026-09-30T11:10:05.9322882Z e7c73af1eeb3: Pulling fs layer
+2026-09-30T11:10:05.9329906Z 8654846d99fb: Pulling fs layer
+2026-09-30T11:10:05.9332462Z 03995e31cd48: Pulling fs layer
+2026-09-30T11:10:05.9333613Z 537cf577f508: Pulling fs layer
+2026-09-30T11:10:05.9334888Z efb5baa83a6e: Pulling fs layer
+2026-09-30T11:10:05.9335815Z 5471e06bfc52: Pulling fs layer
+2026-09-30T11:10:05.9337017Z c7449a7c51b4: Pulling fs layer
+2026-09-30T11:10:05.9338056Z 8c8ff1de0b18: Pulling fs layer
+2026-09-30T11:10:05.9339093Z e7c73af1eeb3: Waiting
+2026-09-30T11:10:05.9340052Z 8654846d99fb: Waiting
+2026-09-30T11:10:05.9341075Z 03995e31cd48: Waiting
+2026-09-30T11:10:05.9342347Z 537cf577f508: Waiting
+2026-09-30T11:10:05.9343695Z efb5baa83a6e: Waiting
+2026-09-30T11:10:05.9346795Z 5471e06bfc52: Waiting
+2026-09-30T11:10:05.9348353Z c7449a7c51b4: Waiting
+2026-09-30T11:10:05.9349809Z 8c8ff1de0b18: Waiting
+2026-09-30T11:10:05.9351418Z ff16cf9d59a9: Waiting
+2026-09-30T11:10:05.9352963Z f4b681e14ff8: Waiting
+2026-09-30T11:10:05.9354583Z a8a8272ab698: Waiting
+2026-09-30T11:10:05.9355876Z 61c973a13167: Waiting
+2026-09-30T11:10:05.9357684Z a372a0a1082a: Waiting
+2026-09-30T11:10:06.0512404Z 32a162df1425: Verifying Checksum
+2026-09-30T11:10:06.0514253Z 32a162df1425: Download complete
+2026-09-30T11:10:06.2234879Z d100bd361c59: Verifying Checksum
+2026-09-30T11:10:06.2236826Z d100bd361c59: Download complete
+2026-09-30T11:10:06.2978191Z ff16cf9d59a9: Verifying Checksum
+2026-09-30T11:10:06.2981636Z ff16cf9d59a9: Download complete
+2026-09-30T11:10:06.3010395Z 039e6f9f9752: Verifying Checksum
+2026-09-30T11:10:06.3026605Z 039e6f9f9752: Download complete
+2026-09-30T11:10:06.4475988Z 61c973a13167: Verifying Checksum
+2026-09-30T11:10:06.4477868Z 61c973a13167: Download complete
+2026-09-30T11:10:06.4888859Z a8a8272ab698: Verifying Checksum
+2026-09-30T11:10:06.4890929Z a8a8272ab698: Download complete
+2026-09-30T11:10:06.5180031Z f4b681e14ff8: Download complete
+2026-09-30T11:10:06.5913645Z a372a0a1082a: Download complete
+2026-09-30T11:10:06.6751530Z 8654846d99fb: Verifying Checksum
+2026-09-30T11:10:06.6754089Z 8654846d99fb: Download complete
+2026-09-30T11:10:06.7430422Z 03995e31cd48: Verifying Checksum
+2026-09-30T11:10:06.7433441Z 03995e31cd48: Download complete
+2026-09-30T11:10:06.8250028Z 537cf577f508: Verifying Checksum
+2026-09-30T11:10:06.8251535Z 537cf577f508: Download complete
+2026-09-30T11:10:06.9117242Z efb5baa83a6e: Verifying Checksum
+2026-09-30T11:10:06.9122322Z efb5baa83a6e: Download complete
+2026-09-30T11:10:06.9996257Z 5471e06bfc52: Verifying Checksum
+2026-09-30T11:10:07.0054279Z 5471e06bfc52: Download complete
+2026-09-30T11:10:07.0855536Z c7449a7c51b4: Verifying Checksum
+2026-09-30T11:10:07.0873070Z c7449a7c51b4: Download complete
+2026-09-30T11:10:07.1902502Z 8c8ff1de0b18: Verifying Checksum
+2026-09-30T11:10:07.4053544Z 8c8ff1de0b18: Download complete
+2026-09-30T11:10:07.4055152Z e7c73af1eeb3: Verifying Checksum
+2026-09-30T11:10:07.4062090Z e7c73af1eeb3: Download complete
+2026-09-30T11:10:08.2921368Z 039e6f9f9752: Pull complete
+2026-09-30T11:10:11.1890823Z 32a162df1425: Pull complete
+2026-09-30T11:10:11.3650179Z d100bd361c59: Pull complete
+2026-09-30T11:10:11.4201761Z ff16cf9d59a9: Pull complete
+2026-09-30T11:10:11.8572344Z f4b681e14ff8: Pull complete
+2026-09-30T11:10:11.9707538Z a8a8272ab698: Pull complete
+2026-09-30T11:10:11.9814739Z 61c973a13167: Pull complete
+2026-09-30T11:10:11.9943426Z a372a0a1082a: Pull complete
+2026-09-30T11:10:16.8397819Z e7c73af1eeb3: Pull complete
+2026-09-30T11:10:16.8773423Z 8654846d99fb: Pull complete
+2026-09-30T11:10:16.8921746Z 03995e31cd48: Pull complete
+2026-09-30T11:10:16.9049797Z 537cf577f508: Pull complete
+2026-09-30T11:10:16.9140316Z efb5baa83a6e: Pull complete
+2026-09-30T11:10:16.9258379Z 5471e06bfc52: Pull complete
+2026-09-30T11:10:16.9818136Z c7449a7c51b4: Pull complete
+2026-09-30T11:10:17.0688892Z 8c8ff1de0b18: Pull complete
+2026-09-30T11:10:17.0733776Z Digest: sha256:ccc6e83d6e35e931dc7c5def2022729d5a6c370318d099181995567ff1fb4d6b
+2026-09-30T11:10:17.0745349Z Status: Downloaded newer image for pgvector/pgvector:pg16
+2026-09-30T11:10:17.0761991Z docker.io/pgvector/pgvector:pg16
+2026-09-30T11:10:17.0853226Z ##[command]/usr/bin/docker create --name 4074d0515dc84a3b81e0793e78819706_pgvectorpgvectorpg16_cbf3f5 --label 46583a --network github_network_caeea64bf49f4a3d9457c6a779015390 --network-alias postgres -p 5432:5432 --health-cmd="pg_isready -U compliance -d compliance" --health-interval=5s --health-timeout=5s --health-retries=20 -e "POSTGRES_DB=compliance" -e "POSTGRES_USER=compliance" -e "POSTGRES_PASSWORD=compliance" -e GITHUB_ACTIONS=true -e CI=true pgvector/pgvector:pg16
+2026-09-30T11:10:17.1215578Z b83772597624083ee810a0798a378f76cb434ce0abbb74bef049dbd45a0b38b6
+2026-09-30T11:10:17.1239528Z ##[command]/usr/bin/docker start b83772597624083ee810a0798a378f76cb434ce0abbb74bef049dbd45a0b38b6
+2026-09-30T11:10:17.3875366Z b83772597624083ee810a0798a378f76cb434ce0abbb74bef049dbd45a0b38b6
+2026-09-30T11:10:17.3900873Z ##[command]/usr/bin/docker ps --all --filter id=b83772597624083ee810a0798a378f76cb434ce0abbb74bef049dbd45a0b38b6 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2026-09-30T11:10:17.4110120Z b83772597624083ee810a0798a378f76cb434ce0abbb74bef049dbd45a0b38b6 Up Less than a second (health: starting)
+2026-09-30T11:10:17.4122473Z ##[command]/usr/bin/docker port b83772597624083ee810a0798a378f76cb434ce0abbb74bef049dbd45a0b38b6
+2026-09-30T11:10:17.4344381Z 5432/tcp -> 0.0.0.0:5432
+2026-09-30T11:10:17.4346566Z 5432/tcp -> [::]:5432
+2026-09-30T11:10:17.4448353Z ##[endgroup]
+2026-09-30T11:10:17.4450424Z ##[group]Starting redis service container
+2026-09-30T11:10:17.4452535Z ##[command]/usr/bin/docker pull redis:7-alpine
+2026-09-30T11:10:17.9946748Z 7-alpine: Pulling from library/redis
+2026-09-30T11:10:18.1649668Z 16333ee0c00f: Pulling fs layer
+2026-09-30T11:10:18.1657184Z 83234986c742: Pulling fs layer
+2026-09-30T11:10:18.1666912Z 7eb50503c2b0: Pulling fs layer
+2026-09-30T11:10:18.1683706Z 1522f9c6f453: Pulling fs layer
+2026-09-30T11:10:18.1698698Z 9928009b15c8: Pulling fs layer
+2026-09-30T11:10:18.1706274Z 4f4fb700ef54: Pulling fs layer
+2026-09-30T11:10:18.1724440Z 4eb14bae0e1d: Pulling fs layer
+2026-09-30T11:10:18.1735773Z 1522f9c6f453: Waiting
+2026-09-30T11:10:18.1739610Z 9928009b15c8: Waiting
+2026-09-30T11:10:18.1747298Z 4f4fb700ef54: Waiting
+2026-09-30T11:10:18.1747677Z 4eb14bae0e1d: Waiting
+2026-09-30T11:10:18.3291290Z 7eb50503c2b0: Verifying Checksum
+2026-09-30T11:10:18.3299018Z 7eb50503c2b0: Download complete
+2026-09-30T11:10:18.3333836Z 83234986c742: Download complete
+2026-09-30T11:10:18.4135657Z 16333ee0c00f: Verifying Checksum
+2026-09-30T11:10:18.4136715Z 16333ee0c00f: Download complete
+2026-09-30T11:10:18.4698157Z 9928009b15c8: Verifying Checksum
+2026-09-30T11:10:18.4699794Z 9928009b15c8: Download complete
+2026-09-30T11:10:18.5823550Z 4f4fb700ef54: Verifying Checksum
+2026-09-30T11:10:18.5830253Z 4f4fb700ef54: Download complete
+2026-09-30T11:10:18.6207958Z 4eb14bae0e1d: Verifying Checksum
+2026-09-30T11:10:18.6219166Z 4eb14bae0e1d: Download complete
+2026-09-30T11:10:18.6555060Z 1522f9c6f453: Verifying Checksum
+2026-09-30T11:10:18.6586214Z 1522f9c6f453: Download complete
+2026-09-30T11:10:18.6779766Z 16333ee0c00f: Pull complete
+2026-09-30T11:10:18.7409168Z 83234986c742: Pull complete
+2026-09-30T11:10:18.9307686Z 7eb50503c2b0: Pull complete
+2026-09-30T11:10:19.1885336Z 1522f9c6f453: Pull complete
+2026-09-30T11:10:19.2007255Z 9928009b15c8: Pull complete
+2026-09-30T11:10:19.2117008Z 4f4fb700ef54: Pull complete
+2026-09-30T11:10:19.2244380Z 4eb14bae0e1d: Pull complete
+2026-09-30T11:10:19.2386942Z Digest: sha256:858f009f9709ce576febc734aa78b8f6d624b82571f9ddb6bda4377c833b3499
+2026-09-30T11:10:19.2400355Z Status: Downloaded newer image for redis:7-alpine
+2026-09-30T11:10:19.2411919Z docker.io/library/redis:7-alpine
+2026-09-30T11:10:19.2430870Z ##[command]/usr/bin/docker create --name e9f60a47abf14e0387c7c2b4f6b91a0e_redis7alpine_ff446e --label 46583a --network github_network_caeea64bf49f4a3d9457c6a779015390 --network-alias redis -p 6379:6379 --health-cmd="redis-cli ping" --health-interval=5s --health-timeout=3s --health-retries=20 -e GITHUB_ACTIONS=true -e CI=true redis:7-alpine
+2026-09-30T11:10:19.2668919Z 5de923fbf72edf4e6db86f45a294f66b33e28c2df2d025d1882c7a25fb15f24d
+2026-09-30T11:10:19.2690372Z ##[command]/usr/bin/docker start 5de923fbf72edf4e6db86f45a294f66b33e28c2df2d025d1882c7a25fb15f24d
+2026-09-30T11:10:19.4373517Z 5de923fbf72edf4e6db86f45a294f66b33e28c2df2d025d1882c7a25fb15f24d
+2026-09-30T11:10:19.4408090Z ##[command]/usr/bin/docker ps --all --filter id=5de923fbf72edf4e6db86f45a294f66b33e28c2df2d025d1882c7a25fb15f24d --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2026-09-30T11:10:19.4647309Z 5de923fbf72edf4e6db86f45a294f66b33e28c2df2d025d1882c7a25fb15f24d Up Less than a second (health: starting)
+2026-09-30T11:10:19.4669649Z ##[command]/usr/bin/docker port 5de923fbf72edf4e6db86f45a294f66b33e28c2df2d025d1882c7a25fb15f24d
+2026-09-30T11:10:19.4819213Z 6379/tcp -> 0.0.0.0:6379
+2026-09-30T11:10:19.4824830Z 6379/tcp -> [::]:6379
+2026-09-30T11:10:19.4844437Z ##[endgroup]
+2026-09-30T11:10:19.4855763Z ##[group]Waiting for all services to be ready
+2026-09-30T11:10:19.4870198Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" b83772597624083ee810a0798a378f76cb434ce0abbb74bef049dbd45a0b38b6
+2026-09-30T11:10:19.5017038Z starting
+2026-09-30T11:10:19.5042255Z postgres service is starting, waiting 2 seconds before checking again.
+2026-09-30T11:10:21.5028362Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" b83772597624083ee810a0798a378f76cb434ce0abbb74bef049dbd45a0b38b6
+2026-09-30T11:10:21.5171246Z starting
+2026-09-30T11:10:21.5187321Z postgres service is starting, waiting 3 seconds before checking again.
+2026-09-30T11:10:25.2049651Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" b83772597624083ee810a0798a378f76cb434ce0abbb74bef049dbd45a0b38b6
+2026-09-30T11:10:25.2194604Z healthy
+2026-09-30T11:10:25.2214149Z postgres service is healthy.
+2026-09-30T11:10:25.2215367Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 5de923fbf72edf4e6db86f45a294f66b33e28c2df2d025d1882c7a25fb15f24d
+2026-09-30T11:10:25.2347585Z healthy
+2026-09-30T11:10:25.2361589Z redis service is healthy.
+2026-09-30T11:10:25.2362350Z ##[endgroup]
+2026-09-30T11:10:25.2652866Z ##[group]Run actions/checkout@v4
+2026-09-30T11:10:25.2653383Z with:
+2026-09-30T11:10:25.2653679Z   repository: bensuen0831/crossborder-compliance-agent
+2026-09-30T11:10:25.2656952Z   token: ***
+2026-09-30T11:10:25.2657185Z   ssh-strict: true
+2026-09-30T11:10:25.2657413Z   ssh-user: git
+2026-09-30T11:10:25.2657641Z   persist-credentials: true
+2026-09-30T11:10:25.2657901Z   clean: true
+2026-09-30T11:10:25.2658141Z   sparse-checkout-cone-mode: true
+2026-09-30T11:10:25.2658411Z   fetch-depth: 1
+2026-09-30T11:10:25.2658644Z   fetch-tags: false
+2026-09-30T11:10:25.2658873Z   show-progress: true
+2026-09-30T11:10:25.2659100Z   lfs: false
+2026-09-30T11:10:25.2659315Z   submodules: false
+2026-09-30T11:10:25.2659549Z   set-safe-directory: true
+2026-09-30T11:10:25.2659815Z   allow-unsafe-pr-checkout: false
+2026-09-30T11:10:25.2660313Z env:
+2026-09-30T11:10:25.2660534Z   APP_ENV: LOCAL_SERVER
+2026-09-30T11:10:25.2661095Z   DATABASE_URL: ***localhost:5432/compliance
+2026-09-30T11:10:25.2661707Z   LANGGRAPH_DATABASE_URI: ***localhost:5432/compliance?sslmode=disable
+2026-09-30T11:10:25.2662105Z   REDIS_URL: redis://localhost:6379/0
+2026-09-30T11:10:25.2662402Z   LANGGRAPH_STRICT_MSGPACK: true
+2026-09-30T11:10:25.2662699Z   SMOKE_STATE_FILE: /tmp/phase1a_smoke_ids.json
+2026-09-30T11:10:25.2663029Z   EVIDENCE_DIR: artifacts/phase1a-runtime
+2026-09-30T11:10:25.2663320Z   PYTHONUNBUFFERED: 1
+2026-09-30T11:10:25.2663562Z ##[endgroup]
+2026-09-30T11:10:25.3922397Z Syncing repository: bensuen0831/crossborder-compliance-agent
+2026-09-30T11:10:25.3928994Z ##[group]Getting Git version info
+2026-09-30T11:10:25.3929869Z Working directory is '/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent'
+2026-09-30T11:10:25.3931021Z [command]/usr/bin/git version
+2026-09-30T11:10:25.3983168Z git version 2.55.0
+2026-09-30T11:10:25.4026048Z ##[endgroup]
+2026-09-30T11:10:25.4046144Z Temporarily overriding HOME='/home/runner/work/_temp/edfd7976-b2d7-4d7a-92fa-2ea48d83155e' before making global git config changes
+2026-09-30T11:10:25.4057454Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-30T11:10:25.4058986Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent
+2026-09-30T11:10:25.4125960Z Deleting the contents of '/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent'
+2026-09-30T11:10:25.4133137Z ##[group]Initializing the repository
+2026-09-30T11:10:25.4134507Z [command]/usr/bin/git init /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent
+2026-09-30T11:10:25.4224388Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-30T11:10:25.4234906Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-30T11:10:25.4251983Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-30T11:10:25.4252847Z hint: call:
+2026-09-30T11:10:25.4253334Z hint:
+2026-09-30T11:10:25.4254301Z hint: 	git config --global init.defaultBranch <name>
+2026-09-30T11:10:25.4255073Z hint:
+2026-09-30T11:10:25.4255693Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-30T11:10:25.4274927Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-30T11:10:25.4284664Z hint:
+2026-09-30T11:10:25.4285306Z hint: 	git branch -m <name>
+2026-09-30T11:10:25.4287354Z hint:
+2026-09-30T11:10:25.4288089Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-30T11:10:25.4291969Z Initialized empty Git repository in /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/.git/
+2026-09-30T11:10:25.4313805Z [command]/usr/bin/git remote add origin https://github.com/bensuen0831/crossborder-compliance-agent
+2026-09-30T11:10:25.4324734Z ##[endgroup]
+2026-09-30T11:10:25.4325443Z ##[group]Disabling automatic garbage collection
+2026-09-30T11:10:25.4326190Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-30T11:10:25.4380091Z ##[endgroup]
+2026-09-30T11:10:25.4381865Z ##[group]Setting up auth
+2026-09-30T11:10:25.4382676Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-30T11:10:25.4458268Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-30T11:10:25.4903658Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-30T11:10:25.4965756Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-30T11:10:25.5406728Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-30T11:10:25.5452047Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-30T11:10:25.5830111Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-30T11:10:25.5895017Z ##[endgroup]
+2026-09-30T11:10:25.5911960Z ##[group]Fetching the repository
+2026-09-30T11:10:25.5913492Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +dda9bd7a9ced55c5d07224e368d458fbc182417b:refs/remotes/pull/4/merge
+2026-09-30T11:10:26.0027870Z From https://github.com/bensuen0831/crossborder-compliance-agent
+2026-09-30T11:10:26.0045019Z  * [new ref]         dda9bd7a9ced55c5d07224e368d458fbc182417b -> pull/4/merge
+2026-09-30T11:10:26.0064519Z ##[endgroup]
+2026-09-30T11:10:26.0065354Z ##[group]Determining the checkout info
+2026-09-30T11:10:26.0066587Z ##[endgroup]
+2026-09-30T11:10:26.0067139Z [command]/usr/bin/git sparse-checkout disable
+2026-09-30T11:10:26.0166448Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-30T11:10:26.0237822Z ##[group]Checking out the ref
+2026-09-30T11:10:26.0238768Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/4/merge
+2026-09-30T11:10:26.0391559Z Note: switching to 'refs/remotes/pull/4/merge'.
+2026-09-30T11:10:26.0398956Z 
+2026-09-30T11:10:26.0529187Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-09-30T11:10:26.0530419Z changes and commit them, and you can discard any commits you make in this
+2026-09-30T11:10:26.0531971Z state without impacting any branches by switching back to a branch.
+2026-09-30T11:10:26.0554250Z 
+2026-09-30T11:10:26.0578853Z If you want to create a new branch to retain commits you create, you may
+2026-09-30T11:10:26.0579578Z do so (now or later) by using -c with the switch command. Example:
+2026-09-30T11:10:26.0580003Z 
+2026-09-30T11:10:26.0580178Z   git switch -c <new-branch-name>
+2026-09-30T11:10:26.0580439Z 
+2026-09-30T11:10:26.0580605Z Or undo this operation with:
+2026-09-30T11:10:26.0580843Z 
+2026-09-30T11:10:26.0580997Z   git switch -
+2026-09-30T11:10:26.0581182Z 
+2026-09-30T11:10:26.0581517Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-09-30T11:10:26.0581999Z 
+2026-09-30T11:10:26.0582537Z HEAD is now at dda9bd7 Merge 10b5b05aa1be7ee96fabc0175a087f0ee1c96435 into 1807cc703a37a1f3e523cc9c0ddc310ecdee44c1
+2026-09-30T11:10:26.0584553Z ##[endgroup]
+2026-09-30T11:10:26.0585463Z [command]/usr/bin/git log -1 --format=%H
+2026-09-30T11:10:26.0585944Z dda9bd7a9ced55c5d07224e368d458fbc182417b
+2026-09-30T11:10:26.0788874Z ##[group]Run actions/setup-python@v5
+2026-09-30T11:10:26.0789173Z with:
+2026-09-30T11:10:26.0789393Z   python-version: 3.12
+2026-09-30T11:10:26.0789635Z   cache: pip
+2026-09-30T11:10:26.0789853Z   check-latest: false
+2026-09-30T11:10:26.0792632Z   token: ***
+2026-09-30T11:10:26.0792873Z   update-environment: true
+2026-09-30T11:10:26.0793137Z   allow-prereleases: false
+2026-09-30T11:10:26.0793376Z   freethreaded: false
+2026-09-30T11:10:26.0793598Z env:
+2026-09-30T11:10:26.0793820Z   APP_ENV: LOCAL_SERVER
+2026-09-30T11:10:26.0794696Z   DATABASE_URL: ***localhost:5432/compliance
+2026-09-30T11:10:26.0795275Z   LANGGRAPH_DATABASE_URI: ***localhost:5432/compliance?sslmode=disable
+2026-09-30T11:10:26.0795671Z   REDIS_URL: redis://localhost:6379/0
+2026-09-30T11:10:26.0795965Z   LANGGRAPH_STRICT_MSGPACK: true
+2026-09-30T11:10:26.0796262Z   SMOKE_STATE_FILE: /tmp/phase1a_smoke_ids.json
+2026-09-30T11:10:26.0796591Z   EVIDENCE_DIR: artifacts/phase1a-runtime
+2026-09-30T11:10:26.0796931Z   PYTHONUNBUFFERED: 1
+2026-09-30T11:10:26.0797163Z ##[endgroup]
+2026-09-30T11:10:26.2210925Z ##[group]Installed versions
+2026-09-30T11:10:26.2296891Z (node:3268) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-30T11:10:26.2297886Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-30T11:10:26.2300926Z Successfully set up CPython (3.12.14)
+2026-09-30T11:10:26.2301896Z ##[endgroup]
+2026-09-30T11:10:26.4537040Z [command]/opt/hostedtoolcache/Python/3.12.14/x64/bin/pip cache dir
+2026-09-30T11:10:26.7403813Z /home/runner/.cache/pip
+2026-09-30T11:10:26.9336152Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.12.14-pip-74dfb8c734e5bd2d007f76e03b52332ad4b92df99c877d5b054e152f3eb4de34
+2026-09-30T11:10:26.9459131Z (node:3268) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-09-30T11:10:28.0811033Z Received 80350645 of 84544949 (95.0%), 76.7 MBs/sec
+2026-09-30T11:10:28.1145500Z Received 84544949 of 84544949 (100.0%), 78.1 MBs/sec
+2026-09-30T11:10:28.1146426Z Cache Size: ~81 MB (84544949 B)
+2026-09-30T11:10:28.1190480Z [command]/usr/bin/tar -xf /home/runner/work/_temp/8f69dd5f-c6a9-48d2-9836-b667757f9c3c/cache.tzst -P -C /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent --use-compress-program unzstd
+2026-09-30T11:10:28.3107622Z Cache restored successfully
+2026-09-30T11:10:28.3210376Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.12.14-pip-74dfb8c734e5bd2d007f76e03b52332ad4b92df99c877d5b054e152f3eb4de34
+2026-09-30T11:10:28.3386322Z ##[group]Run python -m pip install --upgrade pip
+2026-09-30T11:10:28.3386804Z [36;1mpython -m pip install --upgrade pip[0m
+2026-09-30T11:10:28.3387171Z [36;1mpython -m pip install -e ".[dev]"[0m
+2026-09-30T11:10:28.3588233Z shell: /usr/bin/bash -e {0}
+2026-09-30T11:10:28.3588569Z env:
+2026-09-30T11:10:28.3588812Z   APP_ENV: LOCAL_SERVER
+2026-09-30T11:10:28.3589498Z   DATABASE_URL: ***localhost:5432/compliance
+2026-09-30T11:10:28.3590088Z   LANGGRAPH_DATABASE_URI: ***localhost:5432/compliance?sslmode=disable
+2026-09-30T11:10:28.3590504Z   REDIS_URL: redis://localhost:6379/0
+2026-09-30T11:10:28.3590841Z   LANGGRAPH_STRICT_MSGPACK: true
+2026-09-30T11:10:28.3591157Z   SMOKE_STATE_FILE: /tmp/phase1a_smoke_ids.json
+2026-09-30T11:10:28.3591504Z   EVIDENCE_DIR: artifacts/phase1a-runtime
+2026-09-30T11:10:28.3591830Z   PYTHONUNBUFFERED: 1
+2026-09-30T11:10:28.3592161Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:28.3592693Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-09-30T11:10:28.3593147Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:28.3593551Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:28.3594261Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:28.3594714Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-09-30T11:10:28.3595068Z ##[endgroup]
+2026-09-30T11:10:28.9125946Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages (26.2.1)
+2026-09-30T11:10:29.3864285Z Obtaining file:///home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent
+2026-09-30T11:10:29.3884420Z   Installing build dependencies: started
+2026-09-30T11:10:30.1247164Z   Installing build dependencies: finished with status 'done'
+2026-09-30T11:10:30.1254294Z   Checking if build backend supports build_editable: started
+2026-09-30T11:10:30.4756231Z   Checking if build backend supports build_editable: finished with status 'done'
+2026-09-30T11:10:30.4761547Z   Getting requirements to build editable: started
+2026-09-30T11:10:30.8615637Z   Getting requirements to build editable: finished with status 'done'
+2026-09-30T11:10:30.8621680Z   Preparing editable metadata (pyproject.toml): started
+2026-09-30T11:10:31.0822071Z   Preparing editable metadata (pyproject.toml): finished with status 'done'
+2026-09-30T11:10:31.1211894Z Collecting fastapi<1,>=0.128 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:31.1229733Z   Using cached fastapi-0.142.2-py3-none-any.whl.metadata (27 kB)
+2026-09-30T11:10:31.1429315Z Collecting uvicorn<1,>=0.35 (from uvicorn[standard]<1,>=0.35->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:31.1446401Z   Using cached uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+2026-09-30T11:10:31.2467291Z Collecting pydantic<3,>=2.12 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:31.2482172Z   Using cached pydantic-2.13.5-py3-none-any.whl.metadata (110 kB)
+2026-09-30T11:10:31.2599490Z Collecting pydantic-settings<3,>=2.10 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:31.2616387Z   Using cached pydantic_settings-2.15.0-py3-none-any.whl.metadata (3.9 kB)
+2026-09-30T11:10:31.5112290Z Collecting sqlalchemy<3,>=2.0 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:31.5129475Z   Using cached sqlalchemy-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.7 kB)
+2026-09-30T11:10:31.5299825Z Collecting alembic<2,>=1.16 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:31.5315204Z   Using cached alembic-1.20.0-py3-none-any.whl.metadata (7.3 kB)
+2026-09-30T11:10:31.5412391Z Collecting psycopg<4,>=3.2 (from psycopg[binary]<4,>=3.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:31.5427251Z   Using cached psycopg-3.3.6-py3-none-any.whl.metadata (4.4 kB)
+2026-09-30T11:10:31.5711950Z Collecting langgraph<1.3,>=1.2 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:31.5727250Z   Using cached langgraph-1.2.12-py3-none-any.whl.metadata (4.9 kB)
+2026-09-30T11:10:31.5805443Z Collecting langgraph-checkpoint-postgres<3.2,>=3.1 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:31.5819116Z   Using cached langgraph_checkpoint_postgres-3.1.2-py3-none-any.whl.metadata (6.8 kB)
+2026-09-30T11:10:31.5977998Z Collecting redis<7,>=6 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:31.5992454Z   Using cached redis-6.4.0-py3-none-any.whl.metadata (10 kB)
+2026-09-30T11:10:31.7999487Z Collecting boto3<2,>=1.40 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:31.8017898Z   Using cached boto3-1.43.105-py3-none-any.whl.metadata (6.6 kB)
+2026-09-30T11:10:31.8181432Z Collecting opentelemetry-api<2,>=1.36 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:31.8202961Z   Using cached opentelemetry_api-1.45.0-py3-none-any.whl.metadata (1.4 kB)
+2026-09-30T11:10:31.8307711Z Collecting opentelemetry-sdk<2,>=1.36 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:31.8321924Z   Using cached opentelemetry_sdk-1.45.0-py3-none-any.whl.metadata (1.6 kB)
+2026-09-30T11:10:31.8428954Z Collecting opentelemetry-instrumentation-fastapi<1,>=0.57b0 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:31.8442969Z   Using cached opentelemetry_instrumentation_fastapi-0.66b0-py3-none-any.whl.metadata (2.2 kB)
+2026-09-30T11:10:31.8638765Z Collecting pytest<9,>=8.4 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:31.8654653Z   Using cached pytest-8.4.2-py3-none-any.whl.metadata (7.7 kB)
+2026-09-30T11:10:31.8758718Z Collecting httpx<1,>=0.28 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:31.8773872Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-09-30T11:10:32.1589364Z Collecting ruff<1,>=0.12 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.1604858Z   Using cached ruff-0.16.9-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (20 kB)
+2026-09-30T11:10:32.2480196Z Collecting mypy<2,>=1.17 (from crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.2495569Z   Using cached mypy-1.20.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-09-30T11:10:32.2596875Z Collecting Mako (from alembic<2,>=1.16->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.2610281Z   Using cached mako-1.4.3-py3-none-any.whl.metadata (2.9 kB)
+2026-09-30T11:10:32.2693744Z Collecting typing-extensions>=4.12 (from alembic<2,>=1.16->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.2707161Z   Using cached typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+2026-09-30T11:10:32.5091282Z Collecting botocore<1.44.0,>=1.43.105 (from boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.5106595Z   Using cached botocore-1.43.105-py3-none-any.whl.metadata (5.6 kB)
+2026-09-30T11:10:32.5168398Z Collecting jmespath<2.0.0,>=0.7.1 (from boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.5182546Z   Using cached jmespath-1.1.0-py3-none-any.whl.metadata (7.6 kB)
+2026-09-30T11:10:32.5272972Z Collecting s3transfer<0.20.0,>=0.19.0 (from boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.5288701Z   Using cached s3transfer-0.19.2-py3-none-any.whl.metadata (1.7 kB)
+2026-09-30T11:10:32.5363268Z Collecting python-dateutil<3.0.0,>=2.1 (from botocore<1.44.0,>=1.43.105->boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.5376635Z   Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+2026-09-30T11:10:32.5513396Z Collecting urllib3!=2.2.0,<3,>=1.25.4 (from botocore<1.44.0,>=1.43.105->boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.5528663Z   Using cached urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+2026-09-30T11:10:32.5885708Z Collecting starlette>=0.46.0 (from fastapi<1,>=0.128->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.5905349Z   Using cached starlette-1.7.0-py3-none-any.whl.metadata (6.6 kB)
+2026-09-30T11:10:32.6045847Z Collecting typing-inspection>=0.4.2 (from fastapi<1,>=0.128->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.6047309Z   Using cached typing_inspection-0.4.4-py3-none-any.whl.metadata (2.6 kB)
+2026-09-30T11:10:32.6101162Z Collecting annotated-doc>=0.0.2 (from fastapi<1,>=0.128->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.6132514Z   Using cached annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+2026-09-30T11:10:32.6355603Z Collecting anyio (from httpx<1,>=0.28->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.6385099Z   Using cached anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)
+2026-09-30T11:10:32.6565458Z Collecting certifi (from httpx<1,>=0.28->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.6605243Z   Using cached certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+2026-09-30T11:10:32.6755568Z Collecting httpcore==1.* (from httpx<1,>=0.28->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.6765301Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-09-30T11:10:32.6848606Z Collecting idna (from httpx<1,>=0.28->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.6863257Z   Using cached idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+2026-09-30T11:10:32.6924569Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1,>=0.28->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.6947368Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-09-30T11:10:32.7236531Z Collecting langchain-core<2,>=1.4.7 (from langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.7252205Z   Using cached langchain_core-1.6.6-py3-none-any.whl.metadata (4.8 kB)
+2026-09-30T11:10:32.7346060Z Collecting langgraph-checkpoint<5.0.0,>=4.1.0 (from langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.7360456Z   Using cached langgraph_checkpoint-4.2.0-py3-none-any.whl.metadata (6.7 kB)
+2026-09-30T11:10:32.7432014Z Collecting langgraph-prebuilt<1.2.0,>=1.1.0 (from langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.7453431Z   Using cached langgraph_prebuilt-1.1.0-py3-none-any.whl.metadata (5.2 kB)
+2026-09-30T11:10:32.7571253Z Collecting langgraph-sdk<0.5.0,>=0.4.2 (from langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.7585413Z   Using cached langgraph_sdk-0.4.5-py3-none-any.whl.metadata (5.1 kB)
+2026-09-30T11:10:32.8740485Z Collecting xxhash>=3.5.0 (from langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.8782643Z   Using cached xxhash-4.0.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (17 kB)
+2026-09-30T11:10:32.8862854Z Collecting jsonpatch<2.0.0,>=1.33.0 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.8876680Z   Using cached jsonpatch-1.33-py2.py3-none-any.whl.metadata (3.0 kB)
+2026-09-30T11:10:32.8924705Z Collecting langchain-protocol>=0.0.17 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.8937847Z   Using cached langchain_protocol-0.0.19-py3-none-any.whl.metadata (2.4 kB)
+2026-09-30T11:10:32.9431816Z Collecting langsmith<1.0.0,>=0.3.45 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.9445881Z   Using cached langsmith-0.14.1-py3-none-any.whl.metadata (22 kB)
+2026-09-30T11:10:32.9573058Z Collecting packaging>=23.2.0 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:32.9587522Z   Using cached packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+2026-09-30T11:10:33.0496603Z Collecting pyyaml<7.0.0,>=5.3.0 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.0513057Z   Using cached pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-09-30T11:10:33.0595252Z Collecting tenacity!=8.4.0,<10.0.0,>=8.1.0 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.0608024Z   Using cached tenacity-9.1.4-py3-none-any.whl.metadata (1.2 kB)
+2026-09-30T11:10:33.1559957Z Collecting uuid-utils<1.0,>=0.12.0 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.1574800Z   Using cached uuid_utils-0.17.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.4 kB)
+2026-09-30T11:10:33.1645726Z Collecting jsonpointer>=1.9 (from jsonpatch<2.0.0,>=1.33.0->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.1660006Z   Using cached jsonpointer-3.1.1-py3-none-any.whl.metadata (2.4 kB)
+2026-09-30T11:10:33.2070816Z Collecting ormsgpack>=1.12.0 (from langgraph-checkpoint<5.0.0,>=4.1.0->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.2086791Z   Using cached ormsgpack-1.12.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.2 kB)
+2026-09-30T11:10:33.4128185Z Collecting orjson>=3.11.5 (from langgraph-checkpoint-postgres<3.2,>=3.1->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.4147943Z   Using cached orjson-3.12.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (41 kB)
+2026-09-30T11:10:33.4230777Z Collecting psycopg-pool>=3.2.0 (from langgraph-checkpoint-postgres<3.2,>=3.1->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.4245566Z   Using cached psycopg_pool-3.3.3-py3-none-any.whl.metadata (2.8 kB)
+2026-09-30T11:10:33.5224757Z Collecting websockets<17,>=14 (from langgraph-sdk<0.5.0,>=0.4.2->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.5239439Z   Using cached websockets-16.1.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.8 kB)
+2026-09-30T11:10:33.5316280Z Collecting distro>=1.7.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.5330361Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-09-30T11:10:33.5398402Z Collecting httpx2<3,>=2 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.5413323Z   Using cached httpx2-2.13.1-py3-none-any.whl.metadata (9.8 kB)
+2026-09-30T11:10:33.5523295Z Collecting requests-toolbelt>=1.0.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.5538289Z   Using cached requests_toolbelt-1.0.0-py2.py3-none-any.whl.metadata (14 kB)
+2026-09-30T11:10:33.5704818Z Collecting requests>=2.0.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.5718162Z   Using cached requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+2026-09-30T11:10:33.5763540Z Collecting sniffio>=1.1 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.5775946Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-09-30T11:10:33.6318301Z Collecting zstandard>=0.23.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.6332803Z   Using cached zstandard-0.25.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.3 kB)
+2026-09-30T11:10:33.6412513Z Collecting httpcore2==2.13.1 (from httpx2<3,>=2->langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.6425175Z   Using cached httpcore2-2.13.1-py3-none-any.whl.metadata (26 kB)
+2026-09-30T11:10:33.6499427Z Collecting truststore>=0.10 (from httpx2<3,>=2->langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.6511970Z   Using cached truststore-0.10.4-py3-none-any.whl.metadata (4.4 kB)
+2026-09-30T11:10:33.6600530Z Collecting mypy_extensions>=1.0.0 (from mypy<2,>=1.17->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.6612990Z   Using cached mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)
+2026-09-30T11:10:33.6673046Z Collecting pathspec>=1.0.0 (from mypy<2,>=1.17->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.6865293Z   Using cached pathspec-1.1.1-py3-none-any.whl.metadata (14 kB)
+2026-09-30T11:10:33.8547909Z Collecting librt>=0.8.0 (from mypy<2,>=1.17->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.8564600Z   Using cached librt-0.16.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (1.3 kB)
+2026-09-30T11:10:33.8692103Z Collecting opentelemetry-instrumentation-asgi==0.66b0 (from opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.8706299Z   Using cached opentelemetry_instrumentation_asgi-0.66b0-py3-none-any.whl.metadata (2.0 kB)
+2026-09-30T11:10:33.8814497Z Collecting opentelemetry-instrumentation==0.66b0 (from opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.8828689Z   Using cached opentelemetry_instrumentation-0.66b0-py3-none-any.whl.metadata (7.2 kB)
+2026-09-30T11:10:33.8920164Z Collecting opentelemetry-semantic-conventions==0.66b0 (from opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.8933549Z   Using cached opentelemetry_semantic_conventions-0.66b0-py3-none-any.whl.metadata (2.4 kB)
+2026-09-30T11:10:33.9020580Z Collecting opentelemetry-util-http==0.66b0 (from opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:33.9033802Z   Using cached opentelemetry_util_http-0.66b0-py3-none-any.whl.metadata (2.6 kB)
+2026-09-30T11:10:34.1897348Z Collecting wrapt<3.0.0,>=1.0.0 (from opentelemetry-instrumentation==0.66b0->opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:34.1912614Z   Using cached wrapt-2.5.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (7.6 kB)
+2026-09-30T11:10:34.2037343Z Collecting asgiref~=3.0 (from opentelemetry-instrumentation-asgi==0.66b0->opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:34.2050634Z   Using cached asgiref-3.12.1-py3-none-any.whl.metadata (9.4 kB)
+2026-09-30T11:10:34.3420013Z Collecting psycopg-binary==3.3.6 (from psycopg[binary]<4,>=3.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:34.3431155Z   Using cached psycopg_binary-3.3.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.7 kB)
+2026-09-30T11:10:34.3492430Z Collecting annotated-types>=0.6.0 (from pydantic<3,>=2.12->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:34.3505008Z   Using cached annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+2026-09-30T11:10:35.0233655Z Collecting pydantic-core==2.46.5 (from pydantic<3,>=2.12->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:35.0254920Z   Using cached pydantic_core-2.46.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.6 kB)
+2026-09-30T11:10:35.0414830Z Collecting python-dotenv>=0.21.0 (from pydantic-settings<3,>=2.10->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:35.0428291Z   Using cached python_dotenv-1.2.3-py3-none-any.whl.metadata (29 kB)
+2026-09-30T11:10:35.0501525Z Collecting iniconfig>=1 (from pytest<9,>=8.4->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:35.0515130Z   Using cached iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+2026-09-30T11:10:35.0577080Z Collecting pluggy<2,>=1.5 (from pytest<9,>=8.4->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:35.0590239Z   Using cached pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+2026-09-30T11:10:35.0698142Z Collecting pygments>=2.7.2 (from pytest<9,>=8.4->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:35.0711219Z   Using cached pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+2026-09-30T11:10:35.0789650Z Collecting six>=1.5 (from python-dateutil<3.0.0,>=2.1->botocore<1.44.0,>=1.43.105->boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:35.0802492Z   Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+2026-09-30T11:10:35.1153779Z Collecting click>=7.0 (from uvicorn<1,>=0.35->uvicorn[standard]<1,>=0.35->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:35.1168022Z   Using cached click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+2026-09-30T11:10:35.1390222Z Collecting httptools>=0.8.0 (from uvicorn[standard]<1,>=0.35->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:35.1404095Z   Using cached httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+2026-09-30T11:10:35.2540164Z Collecting uvloop>=0.15.1 (from uvicorn[standard]<1,>=0.35->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:35.2556903Z   Using cached uvloop-0.22.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (4.9 kB)
+2026-09-30T11:10:35.3191469Z Collecting watchfiles>=0.20 (from uvicorn[standard]<1,>=0.35->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:35.3208545Z   Using cached watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+2026-09-30T11:10:35.4487144Z Collecting charset_normalizer<4,>=2 (from requests>=2.0.0->langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:35.4503792Z   Using cached charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+2026-09-30T11:10:35.5184906Z Collecting MarkupSafe>=2.0 (from Mako->alembic<2,>=1.16->crossborder-compliance-agent==0.1.0)
+2026-09-30T11:10:35.5202531Z   Using cached markupsafe-3.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+2026-09-30T11:10:35.5263512Z Using cached alembic-1.20.0-py3-none-any.whl (268 kB)
+2026-09-30T11:10:35.5278783Z Using cached boto3-1.43.105-py3-none-any.whl (140 kB)
+2026-09-30T11:10:35.5292336Z Using cached botocore-1.43.105-py3-none-any.whl (16.0 MB)
+2026-09-30T11:10:35.5362786Z Using cached fastapi-0.142.2-py3-none-any.whl (144 kB)
+2026-09-30T11:10:35.5376511Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-09-30T11:10:35.5389882Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-09-30T11:10:35.5402981Z Using cached jmespath-1.1.0-py3-none-any.whl (20 kB)
+2026-09-30T11:10:35.5415763Z Using cached langgraph-1.2.12-py3-none-any.whl (250 kB)
+2026-09-30T11:10:35.5429724Z Using cached langchain_core-1.6.6-py3-none-any.whl (572 kB)
+2026-09-30T11:10:35.5444653Z Using cached jsonpatch-1.33-py2.py3-none-any.whl (12 kB)
+2026-09-30T11:10:35.5457463Z Using cached langgraph_checkpoint-4.2.0-py3-none-any.whl (56 kB)
+2026-09-30T11:10:35.5471800Z Using cached langgraph_checkpoint_postgres-3.1.2-py3-none-any.whl (52 kB)
+2026-09-30T11:10:35.5484332Z Using cached langgraph_prebuilt-1.1.0-py3-none-any.whl (41 kB)
+2026-09-30T11:10:35.5497091Z Using cached langgraph_sdk-0.4.5-py3-none-any.whl (162 kB)
+2026-09-30T11:10:35.5510410Z Using cached langsmith-0.14.1-py3-none-any.whl (812 kB)
+2026-09-30T11:10:35.5525667Z Using cached httpx2-2.13.1-py3-none-any.whl (95 kB)
+2026-09-30T11:10:35.5538156Z Using cached httpcore2-2.13.1-py3-none-any.whl (83 kB)
+2026-09-30T11:10:35.5551036Z Using cached mypy-1.20.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (14.7 MB)
+2026-09-30T11:10:35.5616138Z Using cached opentelemetry_api-1.45.0-py3-none-any.whl (60 kB)
+2026-09-30T11:10:35.5629079Z Using cached opentelemetry_instrumentation_fastapi-0.66b0-py3-none-any.whl (14 kB)
+2026-09-30T11:10:35.5641740Z Using cached opentelemetry_instrumentation-0.66b0-py3-none-any.whl (36 kB)
+2026-09-30T11:10:35.5654581Z Using cached opentelemetry_instrumentation_asgi-0.66b0-py3-none-any.whl (15 kB)
+2026-09-30T11:10:35.5667253Z Using cached opentelemetry_semantic_conventions-0.66b0-py3-none-any.whl (206 kB)
+2026-09-30T11:10:35.5680577Z Using cached opentelemetry_util_http-0.66b0-py3-none-any.whl (8.4 kB)
+2026-09-30T11:10:35.5692558Z Using cached asgiref-3.12.1-py3-none-any.whl (25 kB)
+2026-09-30T11:10:35.5705084Z Using cached opentelemetry_sdk-1.45.0-py3-none-any.whl (140 kB)
+2026-09-30T11:10:35.5717623Z Using cached psycopg-3.3.6-py3-none-any.whl (215 kB)
+2026-09-30T11:10:35.5730785Z Using cached psycopg_binary-3.3.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.2 MB)
+2026-09-30T11:10:35.5760828Z Using cached pydantic-2.13.5-py3-none-any.whl (472 kB)
+2026-09-30T11:10:35.5775055Z Using cached pydantic_core-2.46.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-09-30T11:10:35.5794478Z Using cached pydantic_settings-2.15.0-py3-none-any.whl (69 kB)
+2026-09-30T11:10:35.5807217Z Using cached pytest-8.4.2-py3-none-any.whl (365 kB)
+2026-09-30T11:10:35.5820742Z Using cached pluggy-1.6.0-py3-none-any.whl (20 kB)
+2026-09-30T11:10:35.5833305Z Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+2026-09-30T11:10:35.5847753Z Using cached pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (807 kB)
+2026-09-30T11:10:35.5862943Z Using cached redis-6.4.0-py3-none-any.whl (279 kB)
+2026-09-30T11:10:35.5876701Z Using cached ruff-0.16.9-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (10.4 MB)
+2026-09-30T11:10:35.5924525Z Using cached s3transfer-0.19.2-py3-none-any.whl (90 kB)
+2026-09-30T11:10:35.5937886Z Using cached sqlalchemy-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.7 MB)
+2026-09-30T11:10:35.5965586Z Using cached tenacity-9.1.4-py3-none-any.whl (28 kB)
+2026-09-30T11:10:35.5978285Z Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+2026-09-30T11:10:35.5990709Z Using cached urllib3-2.8.0-py3-none-any.whl (135 kB)
+2026-09-30T11:10:35.6003777Z Using cached uuid_utils-0.17.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (323 kB)
+2026-09-30T11:10:35.6017677Z Using cached uvicorn-0.54.0-py3-none-any.whl (87 kB)
+2026-09-30T11:10:35.6030774Z Using cached websockets-16.1.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (187 kB)
+2026-09-30T11:10:35.6043810Z Using cached wrapt-2.5.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (250 kB)
+2026-09-30T11:10:35.6056977Z Using cached annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+2026-09-30T11:10:35.6069425Z Using cached annotated_types-0.8.0-py3-none-any.whl (13 kB)
+2026-09-30T11:10:35.6081572Z Using cached anyio-4.15.1-py3-none-any.whl (132 kB)
+2026-09-30T11:10:35.6094406Z Using cached click-8.5.0-py3-none-any.whl (125 kB)
+2026-09-30T11:10:35.6107089Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-09-30T11:10:35.6119342Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-09-30T11:10:35.6132313Z Using cached httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (523 kB)
+2026-09-30T11:10:35.6146345Z Using cached idna-3.20-py3-none-any.whl (69 kB)
+2026-09-30T11:10:35.6158698Z Using cached iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+2026-09-30T11:10:35.6170859Z Using cached jsonpointer-3.1.1-py3-none-any.whl (7.7 kB)
+2026-09-30T11:10:35.6182888Z Using cached langchain_protocol-0.0.19-py3-none-any.whl (7.3 kB)
+2026-09-30T11:10:35.6195863Z Using cached librt-0.16.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (531 kB)
+2026-09-30T11:10:35.6209794Z Using cached mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+2026-09-30T11:10:35.6222254Z Using cached orjson-3.12.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (131 kB)
+2026-09-30T11:10:35.6235385Z Using cached ormsgpack-1.12.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (212 kB)
+2026-09-30T11:10:35.6248128Z Using cached packaging-26.3-py3-none-any.whl (129 kB)
+2026-09-30T11:10:35.6260616Z Using cached pathspec-1.1.1-py3-none-any.whl (57 kB)
+2026-09-30T11:10:35.6273062Z Using cached psycopg_pool-3.3.3-py3-none-any.whl (40 kB)
+2026-09-30T11:10:35.6285748Z Using cached pygments-2.21.0-py3-none-any.whl (1.3 MB)
+2026-09-30T11:10:35.6301911Z Using cached python_dotenv-1.2.3-py3-none-any.whl (22 kB)
+2026-09-30T11:10:35.6314292Z Using cached requests-2.34.2-py3-none-any.whl (73 kB)
+2026-09-30T11:10:35.6327498Z Using cached charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (257 kB)
+2026-09-30T11:10:35.6340288Z Using cached certifi-2026.7.22-py3-none-any.whl (136 kB)
+2026-09-30T11:10:35.6352838Z Using cached requests_toolbelt-1.0.0-py2.py3-none-any.whl (54 kB)
+2026-09-30T11:10:35.6365255Z Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+2026-09-30T11:10:35.6377647Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-09-30T11:10:35.6389609Z Using cached starlette-1.7.0-py3-none-any.whl (78 kB)
+2026-09-30T11:10:35.6402028Z Using cached truststore-0.10.4-py3-none-any.whl (18 kB)
+2026-09-30T11:10:35.6415057Z Using cached typing_inspection-0.4.4-py3-none-any.whl (14 kB)
+2026-09-30T11:10:35.6427814Z Using cached uvloop-0.22.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.4 MB)
+2026-09-30T11:10:35.6455280Z Using cached watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (458 kB)
+2026-09-30T11:10:35.6469186Z Using cached xxhash-4.0.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (261 kB)
+2026-09-30T11:10:35.6483854Z Using cached zstandard-0.25.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.5 MB)
+2026-09-30T11:10:35.6515182Z Using cached mako-1.4.3-py3-none-any.whl (80 kB)
+2026-09-30T11:10:35.6529757Z Using cached markupsafe-3.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+2026-09-30T11:10:35.9064977Z Building wheels for collected packages: crossborder-compliance-agent
+2026-09-30T11:10:35.9075689Z   Building editable for crossborder-compliance-agent (pyproject.toml): started
+2026-09-30T11:10:36.1455761Z   Building editable for crossborder-compliance-agent (pyproject.toml): finished with status 'done'
+2026-09-30T11:10:36.1458141Z   Created wheel for crossborder-compliance-agent: filename=crossborder_compliance_agent-0.1.0-0.editable-py3-none-any.whl size=1766 sha256=aa284e9d3d65be91a132ae645f263dfdc79502c4bb911c6579abadc33ed040f0
+2026-09-30T11:10:36.1460190Z   Stored in directory: /tmp/pip-ephem-wheel-cache-sy6twa3g/wheels/12/f8/80/c6bd1cfdab3eeb06f1db320d3098645179f367c6a34f53dcf0
+2026-09-30T11:10:36.1484953Z Successfully built crossborder-compliance-agent
+2026-09-30T11:10:36.2909019Z Installing collected packages: zstandard, xxhash, wrapt, websockets, uvloop, uuid-utils, urllib3, typing-extensions, truststore, tenacity, sniffio, six, ruff, redis, pyyaml, python-dotenv, pygments, psycopg-binary, pluggy, pathspec, packaging, ormsgpack, orjson, opentelemetry-util-http, mypy_extensions, MarkupSafe, librt, jsonpointer, jmespath, iniconfig, idna, httptools, h11, distro, click, charset_normalizer, certifi, asgiref, annotated-types, annotated-doc, uvicorn, typing-inspection, sqlalchemy, requests, python-dateutil, pytest, pydantic-core, psycopg-pool, psycopg, opentelemetry-api, mypy, Mako, langchain-protocol, jsonpatch, httpcore2, httpcore, anyio, watchfiles, starlette, requests-toolbelt, pydantic, opentelemetry-semantic-conventions, httpx2, httpx, botocore, alembic, s3transfer, pydantic-settings, opentelemetry-sdk, opentelemetry-instrumentation, langsmith, fastapi, opentelemetry-instrumentation-asgi, langchain-core, boto3, opentelemetry-instrumentation-fastapi, langgraph-sdk, langgraph-checkpoint, langgraph-prebuilt, langgraph-checkpoint-postgres, langgraph, crossborder-compliance-agent
+2026-09-30T11:10:46.1786434Z 
+2026-09-30T11:10:46.1854191Z Successfully installed Mako-1.4.3 MarkupSafe-3.0.3 alembic-1.20.0 annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.15.1 asgiref-3.12.1 boto3-1.43.105 botocore-1.43.105 certifi-2026.7.22 charset_normalizer-3.5.2 click-8.5.0 crossborder-compliance-agent-0.1.0 distro-1.9.0 fastapi-0.142.2 h11-0.16.0 httpcore-1.0.9 httpcore2-2.13.1 httptools-0.8.0 httpx-0.28.1 httpx2-2.13.1 idna-3.20 iniconfig-2.3.0 jmespath-1.1.0 jsonpatch-1.33 jsonpointer-3.1.1 langchain-core-1.6.6 langchain-protocol-0.0.19 langgraph-1.2.12 langgraph-checkpoint-4.2.0 langgraph-checkpoint-postgres-3.1.2 langgraph-prebuilt-1.1.0 langgraph-sdk-0.4.5 langsmith-0.14.1 librt-0.16.0 mypy-1.20.2 mypy_extensions-1.1.0 opentelemetry-api-1.45.0 opentelemetry-instrumentation-0.66b0 opentelemetry-instrumentation-asgi-0.66b0 opentelemetry-instrumentation-fastapi-0.66b0 opentelemetry-sdk-1.45.0 opentelemetry-semantic-conventions-0.66b0 opentelemetry-util-http-0.66b0 orjson-3.12.0 ormsgpack-1.12.2 packaging-26.3 pathspec-1.1.1 pluggy-1.6.0 psycopg-3.3.6 psycopg-binary-3.3.6 psycopg-pool-3.3.3 pydantic-2.13.5 pydantic-core-2.46.5 pydantic-settings-2.15.0 pygments-2.21.0 pytest-8.4.2 python-dateutil-2.9.0.post0 python-dotenv-1.2.3 pyyaml-6.0.3 redis-6.4.0 requests-2.34.2 requests-toolbelt-1.0.0 ruff-0.16.9 s3transfer-0.19.2 six-1.17.0 sniffio-1.3.1 sqlalchemy-2.1.1 starlette-1.7.0 tenacity-9.1.4 truststore-0.10.4 typing-extensions-4.16.0 typing-inspection-0.4.4 urllib3-2.8.0 uuid-utils-0.17.1 uvicorn-0.54.0 uvloop-0.22.1 watchfiles-1.3.0 websockets-16.1.1 wrapt-2.5.0 xxhash-4.0.1 zstandard-0.25.0
+2026-09-30T11:10:46.6947733Z ##[group]Run bash smoke/run_gate.sh
+2026-09-30T11:10:46.6948087Z [36;1mbash smoke/run_gate.sh[0m
+2026-09-30T11:10:46.7017149Z shell: /usr/bin/bash -e {0}
+2026-09-30T11:10:46.7017432Z env:
+2026-09-30T11:10:46.7017652Z   APP_ENV: LOCAL_SERVER
+2026-09-30T11:10:46.7018270Z   DATABASE_URL: ***localhost:5432/compliance
+2026-09-30T11:10:46.7018840Z   LANGGRAPH_DATABASE_URI: ***localhost:5432/compliance?sslmode=disable
+2026-09-30T11:10:46.7019264Z   REDIS_URL: redis://localhost:6379/0
+2026-09-30T11:10:46.7019571Z   LANGGRAPH_STRICT_MSGPACK: true
+2026-09-30T11:10:46.7019886Z   SMOKE_STATE_FILE: /tmp/phase1a_smoke_ids.json
+2026-09-30T11:10:46.7020223Z   EVIDENCE_DIR: artifacts/phase1a-runtime
+2026-09-30T11:10:46.7020521Z   PYTHONUNBUFFERED: 1
+2026-09-30T11:10:46.7020831Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:46.7021284Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-09-30T11:10:46.7021770Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:46.7022170Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:46.7022558Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:46.7022952Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-09-30T11:10:46.7023298Z ##[endgroup]
+2026-09-30T11:10:46.7183385Z === Phase 1A.1 preflight ===
+2026-09-30T11:10:47.1617420Z {
+2026-09-30T11:10:47.1618758Z   "package_versions": {
+2026-09-30T11:10:47.1619261Z     "langgraph": "1.2.12",
+2026-09-30T11:10:47.1619780Z     "langgraph-checkpoint-postgres": "3.1.2",
+2026-09-30T11:10:47.1620333Z     "psycopg": "3.3.6",
+2026-09-30T11:10:47.1620778Z     "redis": "6.4.0"
+2026-09-30T11:10:47.1621157Z   },
+2026-09-30T11:10:47.1621541Z   "pgvector_available": true,
+2026-09-30T11:10:47.1622051Z   "pgvector_default_version": "0.8.6",
+2026-09-30T11:10:47.1622634Z   "pgvector_installed_version_before_migration": null,
+2026-09-30T11:10:47.1623190Z   "postgres_login": true,
+2026-09-30T11:10:47.1623641Z   "postgres_tcp": true,
+2026-09-30T11:10:47.1624815Z   "postgres_version": "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+2026-09-30T11:10:47.1625824Z   "python_modules": {
+2026-09-30T11:10:47.1626233Z     "langgraph": true,
+2026-09-30T11:10:47.1626642Z     "psycopg": true,
+2026-09-30T11:10:47.1627043Z     "redis": true
+2026-09-30T11:10:47.1627687Z   },
+2026-09-30T11:10:47.1628058Z   "python_version": "3.12.14",
+2026-09-30T11:10:47.1628513Z   "ready_for_mandatory_smoke": true,
+2026-09-30T11:10:47.1628986Z   "redis_ping": true,
+2026-09-30T11:10:47.1629389Z   "redis_version": "7.4.11"
+2026-09-30T11:10:47.1629808Z }
+2026-09-30T11:10:47.2139073Z === Real PostgreSQL domain migration ===
+2026-09-30T11:10:47.7350119Z INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+2026-09-30T11:10:47.7361163Z INFO  [alembic.runtime.migration] Will assume transactional DDL.
+2026-09-30T11:10:47.7511735Z INFO  [alembic.runtime.migration] Running upgrade  -> 0001_phase1a, Phase 1A runtime-owned domain tables only.
+2026-09-30T11:10:47.9515760Z === Post-Alembic schema proof (before LangGraph setup) ===
+2026-09-30T11:10:47.9606333Z /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/smoke/postgres_schema_evidence.py:83: SyntaxWarning: invalid escape sequence '\`'
+2026-09-30T11:10:47.9608213Z   ("Post-Alembic Snapshot", f"\`\`\`json\n{json.dumps(before, indent=2, sort_keys=True)}\n\`\`\`"),
+2026-09-30T11:10:47.9610382Z /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/smoke/postgres_schema_evidence.py:83: SyntaxWarning: invalid escape sequence '\`'
+2026-09-30T11:10:47.9612208Z   ("Post-Alembic Snapshot", f"\`\`\`json\n{json.dumps(before, indent=2, sort_keys=True)}\n\`\`\`"),
+2026-09-30T11:10:47.9614410Z /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/smoke/postgres_schema_evidence.py:84: SyntaxWarning: invalid escape sequence '\`'
+2026-09-30T11:10:47.9620481Z   ("Post-Runtime Snapshot", f"\`\`\`json\n{json.dumps(after, indent=2, sort_keys=True)}\n\`\`\`"),
+2026-09-30T11:10:47.9637797Z /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/smoke/postgres_schema_evidence.py:84: SyntaxWarning: invalid escape sequence '\`'
+2026-09-30T11:10:47.9639652Z   ("Post-Runtime Snapshot", f"\`\`\`json\n{json.dumps(after, indent=2, sort_keys=True)}\n\`\`\`"),
+2026-09-30T11:10:48.4788592Z {
+2026-09-30T11:10:48.4789322Z   "alembic_revision": "0001_phase1a",
+2026-09-30T11:10:48.4791764Z   "all_tables": [
+2026-09-30T11:10:48.4792081Z     "alembic_version",
+2026-09-30T11:10:48.4792435Z     "analysis_snapshots",
+2026-09-30T11:10:48.4792788Z     "api_idempotency_records",
+2026-09-30T11:10:48.4793135Z     "audit_events",
+2026-09-30T11:10:48.4793462Z     "execution_idempotency_records",
+2026-09-30T11:10:48.4793858Z     "review_tasks",
+2026-09-30T11:10:48.4794788Z     "workflow_events",
+2026-09-30T11:10:48.4795106Z     "workflow_node_runs",
+2026-09-30T11:10:48.4795448Z     "workflow_runs"
+2026-09-30T11:10:48.4795734Z   ],
+2026-09-30T11:10:48.4796011Z   "checkpoint_tables": [],
+2026-09-30T11:10:48.4796359Z   "domain_tables_from_database": [
+2026-09-30T11:10:48.4796737Z     "alembic_version",
+2026-09-30T11:10:48.4797074Z     "analysis_snapshots",
+2026-09-30T11:10:48.4797438Z     "api_idempotency_records",
+2026-09-30T11:10:48.4797803Z     "audit_events",
+2026-09-30T11:10:48.4798147Z     "execution_idempotency_records",
+2026-09-30T11:10:48.4798543Z     "review_tasks",
+2026-09-30T11:10:48.4798877Z     "workflow_events",
+2026-09-30T11:10:48.4799218Z     "workflow_node_runs",
+2026-09-30T11:10:48.4799561Z     "workflow_runs"
+2026-09-30T11:10:48.4799861Z   ],
+2026-09-30T11:10:48.4800218Z   "domain_tables_from_sqlalchemy_metadata": [
+2026-09-30T11:10:48.4800663Z     "analysis_snapshots",
+2026-09-30T11:10:48.4801018Z     "api_idempotency_records",
+2026-09-30T11:10:48.4801366Z     "audit_events",
+2026-09-30T11:10:48.4801701Z     "execution_idempotency_records",
+2026-09-30T11:10:48.4802165Z     "review_tasks",
+2026-09-30T11:10:48.4802485Z     "workflow_events",
+2026-09-30T11:10:48.4802833Z     "workflow_node_runs",
+2026-09-30T11:10:48.4803185Z     "workflow_runs"
+2026-09-30T11:10:48.4803502Z   ],
+2026-09-30T11:10:48.4803820Z   "pgvector_installed_version": "0.8.6",
+2026-09-30T11:10:48.4804655Z   "post_alembic_schema_proof": true
+2026-09-30T11:10:48.4805049Z }
+2026-09-30T11:10:48.5768387Z === Runtime versions ===
+2026-09-30T11:10:48.8725089Z Python: 3.12.14
+2026-09-30T11:10:48.8726392Z PostgreSQL: PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+2026-09-30T11:10:48.8745189Z pgvector: 0.8.6
+2026-09-30T11:10:48.8752247Z Redis: 7.4.11
+2026-09-30T11:10:48.8752786Z langgraph: 1.2.12
+2026-09-30T11:10:48.8753339Z langgraph-checkpoint-postgres: 3.1.2
+2026-09-30T11:10:48.8754210Z psycopg: 3.3.6
+2026-09-30T11:10:48.9220973Z === Process 1: start -> checkpoint -> interrupt -> exit ===
+2026-09-30T11:10:50.2820544Z {"checkpoint_next": ["node_b"], "checkpoint_row_count": 3, "domain_status": "REVIEW_REQUIRED", "process": "start", "review_task_count": 1, "thread_id": "a5b5497f-8ee4-47af-97b5-03d1e62a60a2", "workflow_run_id": "a5b5497f-8ee4-47af-97b5-03d1e62a60a2"}
+2026-09-30T11:10:50.5351854Z === Process 2: fresh process -> checkpoint load -> Command(resume) -> complete ===
+2026-09-30T11:10:51.7822465Z {"canonical_events": ["WORKFLOW_STARTED", "NODE_COMPLETED", "REVIEW_REQUIRED", "WORKFLOW_RESUMED", "WORKFLOW_COMPLETED"], "checkpoint_context_preserved": true, "domain_status": "COMPLETED", "process": "resume", "review_task_count": 1, "thread_id": "a5b5497f-8ee4-47af-97b5-03d1e62a60a2", "workflow_run_id": "a5b5497f-8ee4-47af-97b5-03d1e62a60a2"}
+2026-09-30T11:10:52.0668318Z === Process 3: duplicate client retry after completion ===
+2026-09-30T11:10:52.6577341Z {"event_counts_after": {"NODE_COMPLETED": 1, "REVIEW_REQUIRED": 1, "WORKFLOW_COMPLETED": 1, "WORKFLOW_RESUMED": 1, "WORKFLOW_STARTED": 1}, "event_counts_before": {"NODE_COMPLETED": 1, "REVIEW_REQUIRED": 1, "WORKFLOW_COMPLETED": 1, "WORKFLOW_RESUMED": 1, "WORKFLOW_STARTED": 1}, "process": "resume-retry", "review_task_count_after": 1, "review_task_count_before": 1, "safe": true, "status": "COMPLETED"}
+2026-09-30T11:10:52.7720537Z === Post-runtime checkpointer schema proof ===
+2026-09-30T11:10:52.7851425Z /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/smoke/postgres_schema_evidence.py:83: SyntaxWarning: invalid escape sequence '\`'
+2026-09-30T11:10:52.7853699Z   ("Post-Alembic Snapshot", f"\`\`\`json\n{json.dumps(before, indent=2, sort_keys=True)}\n\`\`\`"),
+2026-09-30T11:10:52.7855702Z /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/smoke/postgres_schema_evidence.py:83: SyntaxWarning: invalid escape sequence '\`'
+2026-09-30T11:10:52.7857385Z   ("Post-Alembic Snapshot", f"\`\`\`json\n{json.dumps(before, indent=2, sort_keys=True)}\n\`\`\`"),
+2026-09-30T11:10:52.7859244Z /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/smoke/postgres_schema_evidence.py:84: SyntaxWarning: invalid escape sequence '\`'
+2026-09-30T11:10:52.7861079Z   ("Post-Runtime Snapshot", f"\`\`\`json\n{json.dumps(after, indent=2, sort_keys=True)}\n\`\`\`"),
+2026-09-30T11:10:52.7863102Z /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/smoke/postgres_schema_evidence.py:84: SyntaxWarning: invalid escape sequence '\`'
+2026-09-30T11:10:52.7865160Z   ("Post-Runtime Snapshot", f"\`\`\`json\n{json.dumps(after, indent=2, sort_keys=True)}\n\`\`\`"),
+2026-09-30T11:10:53.3425662Z {
+2026-09-30T11:10:53.3426567Z   "checkpoint_tables_absent_immediately_after_domain_alembic": true,
+2026-09-30T11:10:53.3427703Z   "domain_alembic_created_domain_schema": true,
+2026-09-30T11:10:53.3428532Z   "domain_metadata_excludes_checkpoint_tables": true,
+2026-09-30T11:10:53.3429579Z   "langgraph_setup_created_checkpoint_schema": true,
+2026-09-30T11:10:53.3431109Z   "pgvector_extension_available_and_installed": true,
+2026-09-30T11:10:53.3431761Z   "post_alembic": {
+2026-09-30T11:10:53.3432492Z     "alembic_revision": "0001_phase1a",
+2026-09-30T11:10:53.3433083Z     "all_tables": [
+2026-09-30T11:10:53.3433722Z       "alembic_version",
+2026-09-30T11:10:53.3434664Z       "analysis_snapshots",
+2026-09-30T11:10:53.3444570Z       "api_idempotency_records",
+2026-09-30T11:10:53.3461902Z       "audit_events",
+2026-09-30T11:10:53.3462288Z       "execution_idempotency_records",
+2026-09-30T11:10:53.3463039Z       "review_tasks",
+2026-09-30T11:10:53.3463364Z       "workflow_events",
+2026-09-30T11:10:53.3463705Z       "workflow_node_runs",
+2026-09-30T11:10:53.3465990Z       "workflow_runs"
+2026-09-30T11:10:53.3466333Z     ],
+2026-09-30T11:10:53.3466638Z     "checkpoint_tables": [],
+2026-09-30T11:10:53.3467025Z     "domain_tables_from_database": [
+2026-09-30T11:10:53.3467422Z       "alembic_version",
+2026-09-30T11:10:53.3467764Z       "analysis_snapshots",
+2026-09-30T11:10:53.3468126Z       "api_idempotency_records",
+2026-09-30T11:10:53.3468499Z       "audit_events",
+2026-09-30T11:10:53.3468860Z       "execution_idempotency_records",
+2026-09-30T11:10:53.3469253Z       "review_tasks",
+2026-09-30T11:10:53.3469568Z       "workflow_events",
+2026-09-30T11:10:53.3469903Z       "workflow_node_runs",
+2026-09-30T11:10:53.3470240Z       "workflow_runs"
+2026-09-30T11:10:53.3470552Z     ],
+2026-09-30T11:10:53.3470881Z     "domain_tables_from_sqlalchemy_metadata": [
+2026-09-30T11:10:53.3471313Z       "analysis_snapshots",
+2026-09-30T11:10:53.3471694Z       "api_idempotency_records",
+2026-09-30T11:10:53.3472076Z       "audit_events",
+2026-09-30T11:10:53.3472421Z       "execution_idempotency_records",
+2026-09-30T11:10:53.3472822Z       "review_tasks",
+2026-09-30T11:10:53.3473138Z       "workflow_events",
+2026-09-30T11:10:53.3473563Z       "workflow_node_runs",
+2026-09-30T11:10:53.3473896Z       "workflow_runs"
+2026-09-30T11:10:53.3474426Z     ],
+2026-09-30T11:10:53.3474727Z     "pgvector_installed_version": "0.8.6"
+2026-09-30T11:10:53.3475125Z   },
+2026-09-30T11:10:53.3475697Z   "post_runtime": {
+2026-09-30T11:10:53.3500295Z     "alembic_revision": "0001_phase1a",
+2026-09-30T11:10:53.3504382Z     "all_tables": [
+2026-09-30T11:10:53.3508649Z       "alembic_version",
+2026-09-30T11:10:53.3509192Z       "analysis_snapshots",
+2026-09-30T11:10:53.3509753Z       "api_idempotency_records",
+2026-09-30T11:10:53.3510300Z       "audit_events",
+2026-09-30T11:10:53.3510798Z       "checkpoint_blobs",
+2026-09-30T11:10:53.3511348Z       "checkpoint_migrations",
+2026-09-30T11:10:53.3511901Z       "checkpoint_writes",
+2026-09-30T11:10:53.3512408Z       "checkpoints",
+2026-09-30T11:10:53.3512920Z       "execution_idempotency_records",
+2026-09-30T11:10:53.3513462Z       "review_tasks",
+2026-09-30T11:10:53.3514209Z       "workflow_events",
+2026-09-30T11:10:53.3514730Z       "workflow_node_runs",
+2026-09-30T11:10:53.3515254Z       "workflow_runs"
+2026-09-30T11:10:53.3515717Z     ],
+2026-09-30T11:10:53.3516165Z     "checkpoint_tables": [
+2026-09-30T11:10:53.3516678Z       "checkpoint_blobs",
+2026-09-30T11:10:53.3517183Z       "checkpoint_migrations",
+2026-09-30T11:10:53.3517693Z       "checkpoint_writes",
+2026-09-30T11:10:53.3518177Z       "checkpoints"
+2026-09-30T11:10:53.3518638Z     ],
+2026-09-30T11:10:53.3519097Z     "domain_tables_from_database": [
+2026-09-30T11:10:53.3519645Z       "alembic_version",
+2026-09-30T11:10:53.3520171Z       "analysis_snapshots",
+2026-09-30T11:10:53.3520700Z       "api_idempotency_records",
+2026-09-30T11:10:53.3521238Z       "audit_events",
+2026-09-30T11:10:53.3521723Z       "checkpoint_blobs",
+2026-09-30T11:10:53.3522236Z       "checkpoint_migrations",
+2026-09-30T11:10:53.3522760Z       "checkpoint_writes",
+2026-09-30T11:10:53.3523254Z       "checkpoints",
+2026-09-30T11:10:53.3523752Z       "execution_idempotency_records",
+2026-09-30T11:10:53.3526386Z       "review_tasks",
+2026-09-30T11:10:53.3527020Z       "workflow_events",
+2026-09-30T11:10:53.3529211Z       "workflow_node_runs",
+2026-09-30T11:10:53.3529555Z       "workflow_runs"
+2026-09-30T11:10:53.3529859Z     ],
+2026-09-30T11:10:53.3530186Z     "domain_tables_from_sqlalchemy_metadata": [
+2026-09-30T11:10:53.3530610Z       "analysis_snapshots",
+2026-09-30T11:10:53.3530958Z       "api_idempotency_records",
+2026-09-30T11:10:53.3531325Z       "audit_events",
+2026-09-30T11:10:53.3531649Z       "execution_idempotency_records",
+2026-09-30T11:10:53.3532035Z       "review_tasks",
+2026-09-30T11:10:53.3532338Z       "workflow_events",
+2026-09-30T11:10:53.3533005Z       "workflow_node_runs",
+2026-09-30T11:10:53.3533323Z       "workflow_runs"
+2026-09-30T11:10:53.3533607Z     ],
+2026-09-30T11:10:53.3534130Z     "pgvector_installed_version": "0.8.6"
+2026-09-30T11:10:53.3534530Z   }
+2026-09-30T11:10:53.3534785Z }
+2026-09-30T11:10:53.4494517Z === Mandatory DB/runtime assertions ===
+2026-09-30T11:10:54.0991162Z {
+2026-09-30T11:10:54.0995413Z   "all_mandatory_assertions_pass": true,
+2026-09-30T11:10:54.0998003Z   "analysis_snapshot_id": "23b45de7-adb2-4030-a133-11e5ee822deb",
+2026-09-30T11:10:54.0998540Z   "assertions": {
+2026-09-30T11:10:54.0999004Z     "analysis_snapshot_and_checkpoint_are_separate_sources": true,
+2026-09-30T11:10:54.0999556Z     "analysis_snapshot_exists": true,
+2026-09-30T11:10:54.1000016Z     "analysis_snapshot_id_preserved_after_restart": true,
+2026-09-30T11:10:54.1000535Z     "api_layer_has_no_raw_langgraph_import": true,
+2026-09-30T11:10:54.1000996Z     "audit_provenance_retained": true,
+2026-09-30T11:10:54.1001400Z     "canonical_events_only": true,
+2026-09-30T11:10:54.1001873Z     "domain_metadata_does_not_own_checkpoint_tables": true,
+2026-09-30T11:10:54.1002526Z     "external_workflow_event_contract_has_no_raw_langgraph_fields": true,
+2026-09-30T11:10:54.1003129Z     "final_workflow_status_completed": true,
+2026-09-30T11:10:54.1003603Z     "formal_completion_audit_count_eq_one": true,
+2026-09-30T11:10:54.1004518Z     "graph_runtime_checkpointer_state_schema_versions_retained": true,
+2026-09-30T11:10:54.1005135Z     "no_raw_langgraph_payload_keys_persisted": true,
+2026-09-30T11:10:54.1005909Z     "postgres_checkpoint_row_gt_zero": true,
+2026-09-30T11:10:54.1006419Z     "process1_checkpoint_existed_before_process_exit": true,
+2026-09-30T11:10:54.1007010Z     "process2_loaded_checkpoint_context_before_resume": true,
+2026-09-30T11:10:54.1007551Z     "resume_retry_event_counts_unchanged": true,
+2026-09-30T11:10:54.1008007Z     "resume_retry_review_count_unchanged": true,
+2026-09-30T11:10:54.1008424Z     "resume_retry_safe": true,
+2026-09-30T11:10:54.1008819Z     "review_required_event_count_eq_one": true,
+2026-09-30T11:10:54.1009277Z     "review_task_count_eq_one": true,
+2026-09-30T11:10:54.1009705Z     "tenant_id_preserved_after_restart": true,
+2026-09-30T11:10:54.1010159Z     "workflow_completed_event_count_eq_one": true,
+2026-09-30T11:10:54.1010629Z     "workflow_resumed_event_count_eq_one": true,
+2026-09-30T11:10:54.1011085Z     "workflow_run_exists": true,
+2026-09-30T11:10:54.1011477Z     "workflow_run_id_equals_thread_id": true
+2026-09-30T11:10:54.1011854Z   },
+2026-09-30T11:10:54.1012151Z   "audit_event_count": 2,
+2026-09-30T11:10:54.1012551Z   "canonical_event_counts": {
+2026-09-30T11:10:54.1012941Z     "NODE_COMPLETED": 1,
+2026-09-30T11:10:54.1013294Z     "REVIEW_REQUIRED": 1,
+2026-09-30T11:10:54.1013653Z     "WORKFLOW_COMPLETED": 1,
+2026-09-30T11:10:54.1014264Z     "WORKFLOW_RESUMED": 1,
+2026-09-30T11:10:54.1014625Z     "WORKFLOW_STARTED": 1
+2026-09-30T11:10:54.1014934Z   },
+2026-09-30T11:10:54.1015214Z   "canonical_events": [
+2026-09-30T11:10:54.1015589Z     "WORKFLOW_STARTED",
+2026-09-30T11:10:54.1015945Z     "NODE_COMPLETED",
+2026-09-30T11:10:54.1016274Z     "REVIEW_REQUIRED",
+2026-09-30T11:10:54.1016597Z     "WORKFLOW_RESUMED",
+2026-09-30T11:10:54.1016943Z     "WORKFLOW_COMPLETED"
+2026-09-30T11:10:54.1017287Z   ],
+2026-09-30T11:10:54.1017570Z   "checkpoint_query_error": null,
+2026-09-30T11:10:54.1017946Z   "checkpoint_row_count": 5,
+2026-09-30T11:10:54.1018282Z   "checkpoint_tables": [
+2026-09-30T11:10:54.1018602Z     "checkpoint_blobs",
+2026-09-30T11:10:54.1018942Z     "checkpoint_migrations",
+2026-09-30T11:10:54.1019316Z     "checkpoint_writes",
+2026-09-30T11:10:54.1019664Z     "checkpoints"
+2026-09-30T11:10:54.1019965Z   ],
+2026-09-30T11:10:54.1020284Z   "completion_audit_count": 1,
+2026-09-30T11:10:54.1020675Z   "process1_checkpoint_next": [
+2026-09-30T11:10:54.1021053Z     "node_b"
+2026-09-30T11:10:54.1021348Z   ],
+2026-09-30T11:10:54.1021697Z   "process2_checkpoint_values_before_resume": {
+2026-09-30T11:10:54.1022244Z     "analysis_snapshot_id": "23b45de7-adb2-4030-a133-11e5ee822deb",
+2026-09-30T11:10:54.1022984Z     "completed": false,
+2026-09-30T11:10:54.1023319Z     "node_a_completed": true,
+2026-09-30T11:10:54.1023680Z     "phase": "A_DONE",
+2026-09-30T11:10:54.1024350Z     "tenant_id": "371254fb-3a2b-4ae6-840f-47b749cf9125",
+2026-09-30T11:10:54.1024878Z     "workflow_run_id": "a5b5497f-8ee4-47af-97b5-03d1e62a60a2"
+2026-09-30T11:10:54.1025318Z   },
+2026-09-30T11:10:54.1025597Z   "raw_payload_key_hits": [],
+2026-09-30T11:10:54.1025972Z   "retained_versions": {
+2026-09-30T11:10:54.1026333Z     "checkpointer_version": "3.1.2",
+2026-09-30T11:10:54.1026782Z     "graph_definition_version": "phase1a-smoke-v1",
+2026-09-30T11:10:54.1027236Z     "langgraph_runtime_version": "1.2.12",
+2026-09-30T11:10:54.1027730Z     "state_schema_version": "phase1a-smoke-state-v1"
+2026-09-30T11:10:54.1028150Z   },
+2026-09-30T11:10:54.1028415Z   "review_task_count": 1,
+2026-09-30T11:10:54.1028794Z   "tenant_id": "371254fb-3a2b-4ae6-840f-47b749cf9125",
+2026-09-30T11:10:54.1029291Z   "thread_id": "a5b5497f-8ee4-47af-97b5-03d1e62a60a2",
+2026-09-30T11:10:54.1029813Z   "workflow_run_id": "a5b5497f-8ee4-47af-97b5-03d1e62a60a2",
+2026-09-30T11:10:54.1030292Z   "workflow_status": "COMPLETED"
+2026-09-30T11:10:54.1030634Z }
+2026-09-30T11:10:54.2650403Z === Full test suite; runtime tests are INCLUDED and may not skip ===
+2026-09-30T11:10:56.6130001Z ...............                                                          [100%]
+2026-09-30T11:10:56.6131490Z 15 passed in 0.87s
+2026-09-30T11:10:57.1929982Z === Architecture rule check ===
+2026-09-30T11:10:57.2298572Z {
+2026-09-30T11:10:57.2299599Z   "pass": true,
+2026-09-30T11:10:57.2300311Z   "passed": 16,
+2026-09-30T11:10:57.2300872Z   "total": 16,
+2026-09-30T11:10:57.2301423Z   "checks": [
+2026-09-30T11:10:57.2301962Z     {
+2026-09-30T11:10:57.2302575Z       "check": "domain_has_no_langgraph_import",
+2026-09-30T11:10:57.2303270Z       "pass": true,
+2026-09-30T11:10:57.2303808Z       "evidence": "clean"
+2026-09-30T11:10:57.2304715Z     },
+2026-09-30T11:10:57.2305247Z     {
+2026-09-30T11:10:57.2305790Z       "check": "domain_has_no_sqlalchemy_import",
+2026-09-30T11:10:57.2306458Z       "pass": true,
+2026-09-30T11:10:57.2307008Z       "evidence": "clean"
+2026-09-30T11:10:57.2307571Z     },
+2026-09-30T11:10:57.2308062Z     {
+2026-09-30T11:10:57.2308640Z       "check": "langgraph_runtime_isolated_to_adapter",
+2026-09-30T11:10:57.2309368Z       "pass": true,
+2026-09-30T11:10:57.2309899Z       "evidence": [
+2026-09-30T11:10:57.2310578Z         "src/crossborder_compliance/workflows/langgraph_adapter.py"
+2026-09-30T11:10:57.2311331Z       ]
+2026-09-30T11:10:57.2311825Z     },
+2026-09-30T11:10:57.2312276Z     {
+2026-09-30T11:10:57.2312754Z       "check": "no_eval_exec",
+2026-09-30T11:10:57.2313358Z       "pass": true,
+2026-09-30T11:10:57.2313884Z       "evidence": "clean"
+2026-09-30T11:10:57.2314612Z     },
+2026-09-30T11:10:57.2315099Z     {
+2026-09-30T11:10:57.2315651Z       "check": "human_review_node_not_agent",
+2026-09-30T11:10:57.2316330Z       "pass": true,
+2026-09-30T11:10:57.2316893Z       "evidence": "clean"
+2026-09-30T11:10:57.2317454Z     },
+2026-09-30T11:10:57.2317945Z     {
+2026-09-30T11:10:57.2318528Z       "check": "no_data_classifications_authoritative_table",
+2026-09-30T11:10:57.2319231Z       "pass": true,
+2026-09-30T11:10:57.2319949Z       "evidence": "classification_results remains authoritative contract rule"
+2026-09-30T11:10:57.2320818Z     },
+2026-09-30T11:10:57.2321310Z     {
+2026-09-30T11:10:57.2321888Z       "check": "stage1_explicit_cross_border_results",
+2026-09-30T11:10:57.2322601Z       "pass": true,
+2026-09-30T11:10:57.2323229Z       "evidence": "Stage1ComplianceResultDTO.cross_border_results"
+2026-09-30T11:10:57.2324115Z     },
+2026-09-30T11:10:57.2324609Z     {
+2026-09-30T11:10:57.2325202Z       "check": "legal_basis_rulehit_many_to_many_contract",
+2026-09-30T11:10:57.2325901Z       "pass": true,
+2026-09-30T11:10:57.2326506Z       "evidence": "LegalBasisItemDTO.rule_hit_ids[]"
+2026-09-30T11:10:57.2327189Z     },
+2026-09-30T11:10:57.2327951Z     {
+2026-09-30T11:10:57.2328579Z       "check": "domain_migration_does_not_own_checkpointer_schema",
+2026-09-30T11:10:57.2329328Z       "pass": true,
+2026-09-30T11:10:57.2329949Z       "evidence": "no checkpoint DDL in domain Alembic"
+2026-09-30T11:10:57.2330626Z     },
+2026-09-30T11:10:57.2331110Z     {
+2026-09-30T11:10:57.2331684Z       "check": "api_workflow_idempotency_separated",
+2026-09-30T11:10:57.2332378Z       "pass": true,
+2026-09-30T11:10:57.2332943Z       "evidence": "separate tables present"
+2026-09-30T11:10:57.2333600Z     },
+2026-09-30T11:10:57.2334346Z     {
+2026-09-30T11:10:57.2334975Z       "check": "workflow_state_has_no_runtime_services_or_secrets",
+2026-09-30T11:10:57.2335700Z       "pass": true,
+2026-09-30T11:10:57.2336232Z       "evidence": {
+2026-09-30T11:10:57.2336771Z         "forbidden": [
+2026-09-30T11:10:57.2337331Z           "db_session",
+2026-09-30T11:10:57.2337879Z           "repository",
+2026-09-30T11:10:57.2338395Z           "client",
+2026-09-30T11:10:57.2338936Z           "secret",
+2026-09-30T11:10:57.2339590Z           "api_key",
+2026-09-30T11:10:57.2340130Z           "provider",
+2026-09-30T11:10:57.2340656Z           "document_bytes",
+2026-09-30T11:10:57.2341213Z           "knowledge_chunks"
+2026-09-30T11:10:57.2341758Z         ]
+2026-09-30T11:10:57.2342241Z       }
+2026-09-30T11:10:57.2342734Z     },
+2026-09-30T11:10:57.2343213Z     {
+2026-09-30T11:10:57.2343797Z       "check": "durable_postgres_checkpointer_setup_present",
+2026-09-30T11:10:57.2344626Z       "pass": true,
+2026-09-30T11:10:57.2345444Z       "evidence": "PostgresSaver + official setup() path"
+2026-09-30T11:10:57.2346131Z     },
+2026-09-30T11:10:57.2346574Z     {
+2026-09-30T11:10:57.2347119Z       "check": "thread_id_backend_bound_to_workflow_run_id",
+2026-09-30T11:10:57.2347795Z       "pass": true,
+2026-09-30T11:10:57.2348373Z       "evidence": "workflow_run_id used as thread_id"
+2026-09-30T11:10:57.2348965Z     },
+2026-09-30T11:10:57.2349439Z     {
+2026-09-30T11:10:57.2350011Z       "check": "interrupt_pre_side_effect_event_idempotent",
+2026-09-30T11:10:57.2350677Z       "pass": true,
+2026-09-30T11:10:57.2351277Z       "evidence": "deterministic event + idempotent review key"
+2026-09-30T11:10:57.2351971Z     },
+2026-09-30T11:10:57.2352447Z     {
+2026-09-30T11:10:57.2353016Z       "check": "raw_langgraph_event_not_external_contract",
+2026-09-30T11:10:57.2353704Z       "pass": true,
+2026-09-30T11:10:57.2354453Z       "evidence": "canonical event boundary present"
+2026-09-30T11:10:57.2355102Z     },
+2026-09-30T11:10:57.2357191Z     {
+2026-09-30T11:10:57.2357823Z       "check": "no_country_product_regulation_business_logic_phase1a",
+2026-09-30T11:10:57.2358583Z       "pass": true,
+2026-09-30T11:10:57.2359194Z       "evidence": "no fixed named regulatory-document skills"
+2026-09-30T11:10:57.2359948Z     }
+2026-09-30T11:10:57.2360658Z   ]
+2026-09-30T11:10:57.2361311Z }
+2026-09-30T11:10:57.2361850Z === Gate complete ===
+2026-09-30T11:10:57.2362424Z Phase 1A Mandatory Runtime Gate = PASS
+2026-09-30T11:10:57.2666854Z - **run_id**: `36706842039`
+2026-09-30T11:10:57.2668161Z - **run_attempt**: `1`
+2026-09-30T11:10:57.2668967Z - **repository**: `bensuen0831/crossborder-compliance-agent`
+2026-09-30T11:10:57.2669823Z - **workflow**: `phase1a-runtime-smoke`
+2026-09-30T11:10:57.2670500Z - **job**: `mandatory-runtime-smoke`
+2026-09-30T11:10:57.2671225Z - **sha**: `dda9bd7a9ced55c5d07224e368d458fbc182417b`
+2026-09-30T11:10:57.2671972Z - **ref**: `refs/pull/4/merge`
+2026-09-30T11:10:57.2672588Z - **runner_os**: `Linux`
+2026-09-30T11:10:57.2673559Z - **run_url**: `https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/36706842039`
+2026-09-30T11:10:57.2800854Z ##[group]Run actions/upload-artifact@v4
+2026-09-30T11:10:57.2801171Z with:
+2026-09-30T11:10:57.2801441Z   name: phase1a-runtime-evidence-36706842039-1
+2026-09-30T11:10:57.2801806Z   path: artifacts/phase1a-runtime/
+2026-09-30T11:10:57.2802099Z   if-no-files-found: error
+2026-09-30T11:10:57.2802359Z   retention-days: 30
+2026-09-30T11:10:57.2802807Z   compression-level: 6
+2026-09-30T11:10:57.2803059Z   overwrite: false
+2026-09-30T11:10:57.2803306Z   include-hidden-files: false
+2026-09-30T11:10:57.2803566Z env:
+2026-09-30T11:10:57.2803784Z   APP_ENV: LOCAL_SERVER
+2026-09-30T11:10:57.2804608Z   DATABASE_URL: ***localhost:5432/compliance
+2026-09-30T11:10:57.2805197Z   LANGGRAPH_DATABASE_URI: ***localhost:5432/compliance?sslmode=disable
+2026-09-30T11:10:57.2805599Z   REDIS_URL: redis://localhost:6379/0
+2026-09-30T11:10:57.2805908Z   LANGGRAPH_STRICT_MSGPACK: true
+2026-09-30T11:10:57.2806218Z   SMOKE_STATE_FILE: /tmp/phase1a_smoke_ids.json
+2026-09-30T11:10:57.2806592Z   EVIDENCE_DIR: artifacts/phase1a-runtime
+2026-09-30T11:10:57.2806926Z   PYTHONUNBUFFERED: 1
+2026-09-30T11:10:57.2807241Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:57.2807676Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-09-30T11:10:57.2808108Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:57.2808518Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:57.2808907Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-09-30T11:10:57.2809299Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-09-30T11:10:57.2809640Z ##[endgroup]
+2026-09-30T11:10:57.4627918Z (node:3667) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-30T11:10:57.4629349Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-30T11:10:57.4916934Z With the provided path, there will be 21 files uploaded
+2026-09-30T11:10:57.4917930Z Artifact name is valid!
+2026-09-30T11:10:57.4954515Z Root directory input is valid!
+2026-09-30T11:10:57.7937408Z Beginning upload of artifact content to blob storage
+2026-09-30T11:10:57.8446816Z (node:3667) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-09-30T11:10:58.0004736Z Uploaded bytes 14252
+2026-09-30T11:10:58.0428601Z Finished uploading artifact content to blob storage!
+2026-09-30T11:10:58.0429983Z SHA256 digest of uploaded artifact zip is f1a07a5acd792c94a13629fe98650cc868f60afa06f0060ed37f73511629e7ab
+2026-09-30T11:10:58.0432889Z Finalizing artifact upload
+2026-09-30T11:10:58.2772129Z Artifact phase1a-runtime-evidence-36706842039-1.zip successfully finalized. Artifact ID 11092735843
+2026-09-30T11:10:58.2774128Z Artifact phase1a-runtime-evidence-36706842039-1 has been successfully uploaded! Final size is 14252 bytes. Artifact ID is 11092735843
+2026-09-30T11:10:58.2776279Z Artifact download URL: https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/36706842039/artifacts/11092735843
+2026-09-30T11:10:58.3011989Z Post job cleanup.
+2026-09-30T11:10:58.4337280Z (node:3700) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-30T11:10:58.4347214Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-30T11:10:58.4348688Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.12.14-pip-74dfb8c734e5bd2d007f76e03b52332ad4b92df99c877d5b054e152f3eb4de34, not saving cache.
+2026-09-30T11:10:58.4490039Z Post job cleanup.
+2026-09-30T11:10:58.5500412Z [command]/usr/bin/git version
+2026-09-30T11:10:58.5613326Z git version 2.55.0
+2026-09-30T11:10:58.5616957Z Temporarily overriding HOME='/home/runner/work/_temp/a1aae6a2-5c77-4eed-8b26-960d518ef1a7' before making global git config changes
+2026-09-30T11:10:58.5618269Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-30T11:10:58.5619901Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent
+2026-09-30T11:10:58.5714922Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-30T11:10:58.5799992Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-30T11:10:58.6203078Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-30T11:10:58.6252838Z http.https://github.com/.extraheader
+2026-09-30T11:10:58.6324909Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-30T11:10:58.6365703Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-30T11:10:58.6785271Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-30T11:10:58.6826641Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-30T11:10:58.7309004Z Print service container logs: 4074d0515dc84a3b81e0793e78819706_pgvectorpgvectorpg16_cbf3f5
+2026-09-30T11:10:58.7313543Z ##[command]/usr/bin/docker logs --details b83772597624083ee810a0798a378f76cb434ce0abbb74bef049dbd45a0b38b6
+2026-09-30T11:10:58.7463496Z  initdb: warning: enabling "trust" authentication for local connections
+2026-09-30T11:10:58.7464615Z  The files belonging to this database system will be owned by user "postgres".
+2026-09-30T11:10:58.7465843Z  initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+2026-09-30T11:10:58.7467368Z  2026-09-30 11:10:18.881 UTC [1] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+2026-09-30T11:10:58.7468541Z  2026-09-30 11:10:18.882 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2026-09-30T11:10:58.7469390Z  2026-09-30 11:10:18.882 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2026-09-30T11:10:58.7470140Z  2026-09-30 11:10:18.883 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-09-30T11:10:58.7470717Z  2026-09-30 11:10:18.888 UTC [63] LOG:  database system was shut down at 2026-09-30 11:10:18 UTC
+2026-09-30T11:10:58.7471235Z  2026-09-30 11:10:18.898 UTC [1] LOG:  database system is ready to accept connections
+2026-09-30T11:10:58.7471691Z  This user must also own the server process.
+2026-09-30T11:10:58.7474463Z  
+2026-09-30T11:10:58.7475230Z  The database cluster will be initialized with locale "en_US.utf8".
+2026-09-30T11:10:58.7476249Z  The default database encoding has accordingly been set to "UTF8".
+2026-09-30T11:10:58.7477142Z  The default text search configuration will be set to "english".
+2026-09-30T11:10:58.7477843Z  
+2026-09-30T11:10:58.7478328Z  Data page checksums are disabled.
+2026-09-30T11:10:58.7478950Z  
+2026-09-30T11:10:58.7479628Z  fixing permissions on existing directory /var/lib/postgresql/data ... ok
+2026-09-30T11:10:58.7480479Z  creating subdirectories ... ok
+2026-09-30T11:10:58.7481171Z  selecting dynamic shared memory implementation ... posix
+2026-09-30T11:10:58.7482062Z  selecting default max_connections ... 100
+2026-09-30T11:10:58.7482769Z  selecting default shared_buffers ... 128MB
+2026-09-30T11:10:58.7483460Z  selecting default time zone ... Etc/UTC
+2026-09-30T11:10:58.7484295Z  creating configuration files ... ok
+2026-09-30T11:10:58.7484949Z  running bootstrap script ... ok
+2026-09-30T11:10:58.7485752Z  performing post-bootstrap initialization ... ok
+2026-09-30T11:10:58.7486550Z  syncing data to disk ... ok
+2026-09-30T11:10:58.7486960Z  
+2026-09-30T11:10:58.7487248Z  
+2026-09-30T11:10:58.7487636Z  Success. You can now start the database server using:
+2026-09-30T11:10:58.7488125Z  
+2026-09-30T11:10:58.7488520Z      pg_ctl -D /var/lib/postgresql/data -l logfile start
+2026-09-30T11:10:58.7489005Z  
+2026-09-30T11:10:58.7490060Z  waiting for server to start....2026-09-30 11:10:18.313 UTC [47] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+2026-09-30T11:10:58.7491728Z  2026-09-30 11:10:18.313 UTC [47] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-09-30T11:10:58.7492554Z  2026-09-30 11:10:18.317 UTC [50] LOG:  database system was shut down at 2026-09-30 11:10:18 UTC
+2026-09-30T11:10:58.7493070Z  2026-09-30 11:10:18.326 UTC [47] LOG:  database system is ready to accept connections
+2026-09-30T11:10:58.7493479Z   done
+2026-09-30T11:10:58.7493697Z  server started
+2026-09-30T11:10:58.7494204Z  CREATE DATABASE
+2026-09-30T11:10:58.7494553Z  
+2026-09-30T11:10:58.7494830Z  
+2026-09-30T11:10:58.7495331Z  /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+2026-09-30T11:10:58.7496203Z  
+2026-09-30T11:10:58.7496814Z  waiting for server to shut down....2026-09-30 11:10:18.636 UTC [47] LOG:  received fast shutdown request
+2026-09-30T11:10:58.7497950Z  2026-09-30 11:10:18.648 UTC [47] LOG:  aborting any active transactions
+2026-09-30T11:10:58.7498895Z  2026-09-30 11:10:18.656 UTC [47] LOG:  background worker "logical replication launcher" (PID 53) exited with exit code 1
+2026-09-30T11:10:58.7499746Z  2026-09-30 11:10:18.658 UTC [48] LOG:  shutting down
+2026-09-30T11:10:58.7500259Z  2026-09-30 11:10:18.658 UTC [48] LOG:  checkpoint starting: shutdown immediate
+2026-09-30T11:10:58.7501336Z  2026-09-30 11:10:18.700 UTC [48] LOG:  checkpoint complete: wrote 922 buffers (5.6%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.035 s, sync=0.005 s, total=0.043 s; sync files=301, longest=0.004 s, average=0.001 s; distance=4255 kB, estimate=4255 kB; lsn=0/1912118, redo lsn=0/1912118
+2026-09-30T11:10:58.7502374Z  2026-09-30 11:10:18.736 UTC [47] LOG:  database system is shut down
+2026-09-30T11:10:58.7502732Z   done
+2026-09-30T11:10:58.7502947Z  server stopped
+2026-09-30T11:10:58.7503179Z  
+2026-09-30T11:10:58.7503446Z  PostgreSQL init process complete; ready for start up.
+2026-09-30T11:10:58.7503795Z  
+2026-09-30T11:10:58.7509913Z Stop and remove container: 4074d0515dc84a3b81e0793e78819706_pgvectorpgvectorpg16_cbf3f5
+2026-09-30T11:10:58.7515834Z ##[command]/usr/bin/docker rm --force b83772597624083ee810a0798a378f76cb434ce0abbb74bef049dbd45a0b38b6
+2026-09-30T11:10:58.9400209Z b83772597624083ee810a0798a378f76cb434ce0abbb74bef049dbd45a0b38b6
+2026-09-30T11:10:58.9455538Z Print service container logs: e9f60a47abf14e0387c7c2b4f6b91a0e_redis7alpine_ff446e
+2026-09-30T11:10:58.9457279Z ##[command]/usr/bin/docker logs --details 5de923fbf72edf4e6db86f45a294f66b33e28c2df2d025d1882c7a25fb15f24d
+2026-09-30T11:10:58.9620324Z  1:C 30 Sep 2026 11:10:19.446 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+2026-09-30T11:10:58.9622267Z  1:C 30 Sep 2026 11:10:19.446 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+2026-09-30T11:10:58.9623087Z  1:C 30 Sep 2026 11:10:19.446 * Redis version=7.4.11, bits=64, commit=00000000, modified=0, pid=1, just started
+2026-09-30T11:10:58.9624460Z  1:C 30 Sep 2026 11:10:19.446 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+2026-09-30T11:10:58.9625713Z  1:M 30 Sep 2026 11:10:19.446 * monotonic clock: POSIX clock_gettime
+2026-09-30T11:10:58.9634791Z  1:M 30 Sep 2026 11:10:19.447 * Running mode=standalone, port=6379.
+2026-09-30T11:10:58.9642015Z  1:M 30 Sep 2026 11:10:19.447 * Server initialized
+2026-09-30T11:10:58.9643273Z  1:M 30 Sep 2026 11:10:19.447 * Ready to accept connections tcp
+2026-09-30T11:10:58.9645258Z Stop and remove container: e9f60a47abf14e0387c7c2b4f6b91a0e_redis7alpine_ff446e
+2026-09-30T11:10:58.9646490Z ##[command]/usr/bin/docker rm --force 5de923fbf72edf4e6db86f45a294f66b33e28c2df2d025d1882c7a25fb15f24d
+2026-09-30T11:10:59.0815996Z 5de923fbf72edf4e6db86f45a294f66b33e28c2df2d025d1882c7a25fb15f24d
+2026-09-30T11:10:59.0832685Z Remove container network: github_network_caeea64bf49f4a3d9457c6a779015390
+2026-09-30T11:10:59.0851152Z ##[command]/usr/bin/docker network rm github_network_caeea64bf49f4a3d9457c6a779015390
+2026-09-30T11:10:59.1630238Z github_network_caeea64bf49f4a3d9457c6a779015390
+2026-09-30T11:10:59.1707329Z Cleaning up orphan processes
+2026-09-30T11:10:59.2041185Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
