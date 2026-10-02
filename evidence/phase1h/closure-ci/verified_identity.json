@@ -1,0 +1,145 @@
+{
+  "tested_closure_sha": "5f5fd433fda3595c975b58f3f41dd7b9a6b4c834",
+  "tested_implementation_sha": "1de60800efa7dc2e9f7092842e0044899eb74690",
+  "run_id": 37023286829,
+  "run_attempt": 1,
+  "run_number": 113,
+  "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37023286829",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "id": 110891494879,
+      "name": "contract-tests",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m pip install --upgrade pip",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m pip install -e \".[dev]\"",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Contract/static test subset",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Architecture rules",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 110891495397,
+      "name": "mandatory-runtime-smoke",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install project runtime and test dependencies",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run mandatory PostgreSQL-backed LangGraph gate",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Publish measured Phase 1G empirical evidence",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload empirical Phase 1A.1 evidence",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 11233694905,
+      "name": "phase1a-runtime-evidence-37023286829-1",
+      "digest": "sha256:17d4756f146f0c8efd165dbe2567966f7dc22f85b0f8ff8ed3b554a8ca02ed33",
+      "size_in_bytes": 53747,
+      "expired": false
+    }
+  ],
+  "artifact_content_download": "NOT verified: active egress denies artifact/log hosts. Run/jobs/head/artifact metadata verified through API; local measured counts and hashes separately retained."
+}

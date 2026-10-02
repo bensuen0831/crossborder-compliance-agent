@@ -1,6 +1,6 @@
 # Phase 1H integration handoff — Track A
 
-Implementation and local gates PASS. Remote implementation CI [37022353868](https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37022353868) PASS at `1de60800efa7dc2e9f7092842e0044899eb74690`; contract-tests and mandatory-runtime-smoke both SUCCESS. Documentation closure and final publication CI are recorded after their execution. Phase 1H final PASS and Phase 1I entry issuance require those remaining closure gates.
+Implementation and local gates PASS. Remote implementation CI [37022353868](https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37022353868) PASS at `1de60800efa7dc2e9f7092842e0044899eb74690`; contract-tests and mandatory-runtime-smoke both SUCCESS. Documentation closure CI [37023286829](https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37023286829) **PASS** at `5f5fd433fda3595c975b58f3f41dd7b9a6b4c834`, both jobs SUCCESS. All twelve delivery documents were present at that tested closure. Phase1I_entry_decision.md is issued after this evidence; its later evidence-only publication commit requires its own final branch CI before final delivery PASS.
 
 | # | Delivery field | Value |
 |---:|---|---|
@@ -25,7 +25,7 @@ Implementation and local gates PASS. Remote implementation CI [37022353868](http
 | 19 | Merge order | Review Track A migration/shared changes first; coordinate B/C/D overlaps; update their baselines only by authorized integration. No merge performed; final main regression remains integration owner's duty |
 | 20 | Post-merge tests | Fresh and verified0007 migration/equivalence/downgrade; full `bash smoke/run_gate.sh`; Phase1H HTTP authorization/publication/replay tests; required remote CI at integrated SHA |
 | 21 | Demo / UAT | Publish own-tenant scheme; draft V1 rule plus passing persisted cases; submit and independent approve/publish via existing admin; pin authorized snapshot; execute by item/scheme IDs; inspect hit/fact/evidence reasons; retry same result; revoke evidence and verify denied read; future scheme/rule must not alter old snapshot |
-| 22 | PASS / BLOCKED | Implementation PASS; final delivery closure pending verified closure CI. No Phase1I code, merge, frontend/admin UI, risk/path or LLM work |
+| 22 | PASS / BLOCKED | Implementation and documentation closure PASS at verified SHAs; entry evidence issued after closure. Final publication commit must pass remote CI before final delivery PASS. No Phase1I code, merge, frontend/admin UI, risk/path or LLM work |
 
 ## Measured evidence and reproducibility
 
@@ -41,4 +41,8 @@ Original `/workspace/crossborder-compliance-agent` remains at verified base; imp
 
 ## Required delivery documents
 
-Complete: Phase1H_rule_classification_design.md; rule_dsl_result.md; rule_ast_result.md; rule_engine_result.md; rule_publish_gate_result.md; classification_domain_result.md; classification_service_result.md; security_isolation_result.md; appended Phase1H migration_result.md, test_result.md, architecture_rule_check.md and files_created_modified.md. Phase1I_entry_decision.md is withheld until documentation closure CI succeeds.
+Complete: Phase1H_rule_classification_design.md; rule_dsl_result.md; rule_ast_result.md; rule_engine_result.md; rule_publish_gate_result.md; classification_domain_result.md; classification_service_result.md; security_isolation_result.md; appended Phase1H migration_result.md, test_result.md, architecture_rule_check.md and files_created_modified.md. Phase1I_entry_decision.md is now issued after documentation closure CI SUCCESS; no Phase1I code is started.
+
+## Verified documentation closure
+
+Tested closure SHA `5f5fd433fda3595c975b58f3f41dd7b9a6b4c834`; remote run [37023286829](https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37023286829), attempt1, SUCCESS. Both mandatory runtime and contract jobs passed. [Verified identity](evidence/phase1h/closure-ci/verified_identity.json), [documentation-only diff](evidence/phase1h/closure-ci/documentation_only_diff.json), [tested delivery hashes](evidence/phase1h/closure-ci/delivery_hashes.json). Application/migration/test code is byte-identical to tested implementation. A later entry-evidence commit is deliberately not represented as the earlier tested closure. Consult PR head/checks and final handoff response for its own tested SHA/run.
