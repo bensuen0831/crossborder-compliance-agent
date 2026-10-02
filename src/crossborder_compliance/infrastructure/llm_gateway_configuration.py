@@ -6,11 +6,13 @@ from uuid import UUID
 
 from sqlalchemy import select
 
+from crossborder_compliance.application.llm_gateway_policy import required_capabilities
 from crossborder_compliance.domain.llm_gateway import (
     GatewayDenied,
     ModelCandidate,
     ModelUsagePolicy,
 )
+from crossborder_compliance.domain.metadata import ModelCapabilityCode
 from crossborder_compliance.infrastructure.persistence import metadata_models as m
 from crossborder_compliance.infrastructure.persistence import models as b
 from crossborder_compliance.infrastructure.persistence.metadata_repositories import (
@@ -391,11 +393,13 @@ class PostgresLLMConfiguration:
                 )
                 if not version or not self._effective(version, self._as_of(request)):
                     raise GatewayDenied("RESOURCE_NOT_FOUND")
+                self._prompt_capabilities(request, version.capability_requirement_json)
                 return version.template_text
         self.prompt_registry.refresh()
         row = self.prompt_registry.get(request.prompt_id)
         if row is None:
             raise GatewayDenied("RESOURCE_NOT_FOUND")
+        self._prompt_capabilities(request, row.get("capability_requirement", []))
         self._pin(
             request,
             "LLM_PROMPT",
@@ -405,6 +409,12 @@ class PostgresLLMConfiguration:
             row["version_no"],
         )
         return str(row["template_text"])
+
+    @staticmethod
+    def _prompt_capabilities(request, codes):
+        required = {ModelCapabilityCode(code) for code in (codes or [])}
+        if not required <= required_capabilities(request):
+            raise GatewayDenied("PROMPT_CAPABILITY_REQUIRED")
 
     def revalidate(self, request, model):
         self.authorize(request)

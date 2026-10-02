@@ -321,3 +321,21 @@ def test_prompt_registry_reuse_and_pin(foundation):
     config = PostgresLLMConfiguration(f["sf"], ctx)
     assert config.prompt(request) == "Generic trusted prompt"
     assert any(p["pin_type"] == "LLM_PROMPT" for p in config.pins.list_pins(f["snapshot"]))
+
+
+def test_governed_prompt_cannot_hide_unsupported_capability(foundation):
+    f = foundation
+    admin = PostgresGovernedArtifactAdminRepository(f["sf"], _ctx(f["tenant"]), "prompts")
+    draft = admin.create_draft(
+        code=uuid4().hex,
+        display_name="Generic vision prompt",
+        payload={"template_text": "Generic prompt", "capability_requirement": ["VISION"]},
+    )
+    publish(admin, draft)
+    prompt = UUID(draft["definition_id"])
+    ctx = RepositoryContext.user(
+        f["tenant"], "prompt-user", set(f["ctx"].permission.scopes) | {f"prompt:{prompt}:use"}
+    )
+    config = PostgresLLMConfiguration(f["sf"], ctx)
+    with pytest.raises(GatewayDenied, match="PROMPT_CAPABILITY_REQUIRED"):
+        config.prompt(f["request"].model_copy(update={"prompt_id": prompt}))
