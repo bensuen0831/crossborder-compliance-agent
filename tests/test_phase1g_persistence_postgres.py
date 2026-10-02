@@ -30,7 +30,10 @@ def policies(f, **changes):
     r.publish_policy("sufficiency", suff["policy_version_id"], 1)
     p = r.create_policy(
         "retrieval",
-        dict(vector_weight=0, lexical_weight=1, sufficiency_policy_id=suff["policy_id"], **changes),
+        dict(
+            dict(vector_weight=0, lexical_weight=1, sufficiency_policy_id=suff["policy_id"]),
+            **changes,
+        ),
     )
     r.publish_policy("retrieval", p["policy_version_id"], 1)
     return r, p, suff

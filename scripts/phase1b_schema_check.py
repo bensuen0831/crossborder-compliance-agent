@@ -108,7 +108,7 @@ def main() -> None:
     }
 
     assertions = {
-        "phase1b_schema_present_under_current_head": alembic_revision in {"0002_phase1b", "0003_phase1c", "0004_phase1d", "0005_phase1e", "0006_phase1f"},
+        "phase1b_schema_present_under_current_head": alembic_revision in {"0002_phase1b", "0003_phase1c", "0004_phase1d", "0005_phase1e", "0006_phase1f", "0007_phase1g"},
         "all_required_phase1b_tables_exist": not required_missing,
         "no_parallel_classification_source_table": "data_classifications" not in tables,
         "workflow_stage_view_not_persisted": "workflow_stage_views" not in tables,

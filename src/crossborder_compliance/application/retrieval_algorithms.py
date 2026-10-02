@@ -162,6 +162,8 @@ class KnowledgeSufficiencyService:
                 claims[evidence.conflict_key].add(evidence.claim_hash)
         conflicts = sum(len(values) for values in claims.values() if len(values) > 1)
         reasons = []
+        if scope.unresolved_scopes:
+            reasons.append("FORMAL_SCOPE_UNRESOLVED")
         if not jurisdiction or not all(jurisdiction.values()):
             reasons.append("JURISDICTION_SPECIFIC_EVIDENCE_MISSING")
         if not official:

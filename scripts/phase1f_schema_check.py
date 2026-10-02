@@ -61,7 +61,7 @@ def main():
             )
         ).scalar_one()
     checks = {
-        "alembic_head_0006_phase1f": revision == "0006_phase1f",
+        "phase1f_schema_present_under_current_head": revision in {"0006_phase1f", "0007_phase1g"},
         "required_canonical_tables": REQUIRED <= tables,
         "existing_collection_source_reused": {
             "knowledge_collections",

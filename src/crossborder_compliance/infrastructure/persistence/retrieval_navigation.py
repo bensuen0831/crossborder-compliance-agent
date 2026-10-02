@@ -344,6 +344,19 @@ class PostgresRetrievalNavigationRepository(PostgresRetrievalRepository):
             )
             return dict(row.payload_json, record_version=row.record_version)
 
+    def graph_effective(self, row, scope):
+        from datetime import date
+
+        data = row.payload_json
+        start = data.get("effective_from")
+        end = data.get("effective_to")
+        return (
+            row.source_knowledge_version_id in scope.filter_spec.version_filter
+            and row.jurisdiction_id in scope.allowed_jurisdiction_ids
+            and (not start or date.fromisoformat(start) <= scope.effective_as_of)
+            and (not end or date.fromisoformat(end) >= scope.effective_as_of)
+        )
+
     def graph_neighbors(self, plan, candidates, limit):
         # All expansion endpoints must map to canonical chunks inside the same hard-filtered set.
         with self.sessions() as s:
@@ -351,7 +364,7 @@ class PostgresRetrievalNavigationRepository(PostgresRetrievalRepository):
             nodes = {
                 n.graph_node_id: n
                 for n in self.rows(s, node_model, node_model.status == "ACTIVE")
-                if n.source_knowledge_version_id in plan.filter_spec.version_filter
+                if self.graph_effective(n, plan.scope)
             }
             starting = set()
             for c in candidates:
@@ -373,7 +386,8 @@ class PostgresRetrievalNavigationRepository(PostgresRetrievalRepository):
             targets = set()
             for edge in self.rows(s, edge_model, edge_model.status == "ACTIVE"):
                 if (
-                    edge.source_node_id in starting
+                    self.graph_effective(edge, plan.scope)
+                    and edge.source_node_id in starting
                     and edge.target_node_id in nodes
                     and edge.source_node_id in nodes
                 ):

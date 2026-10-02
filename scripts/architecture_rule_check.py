@@ -595,6 +595,77 @@ new_checks={
 }
 for name,passed in new_checks.items(): add(name,passed,'Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage')
 
+# Phase 1G executable boundaries; mandatory PostgreSQL tests prove the behavioral cases.
+gd=read_text(SRC/'domain/retrieval.py')
+gs=read_text(SRC/'application/retrieval_services.py')
+ga=read_text(SRC/'application/retrieval_algorithms.py')
+ge=read_text(SRC/'application/external_evidence_services.py')
+gr=read_text(SRC/'infrastructure/persistence/retrieval_repositories.py')
+gn=read_text(SRC/'infrastructure/persistence/retrieval_navigation.py')
+gm=read_text(SRC/'infrastructure/persistence/retrieval_models.py')
+gsearch=read_text(SRC/'infrastructure/retrieval_search.py')
+gfiles=[SRC/'application/retrieval_services.py',SRC/'application/retrieval_algorithms.py',
+        SRC/'application/external_evidence_services.py',SRC/'domain/retrieval.py']
+gimports=[n.module or '' for p in gfiles for n in ast.walk(ast.parse(read_text(p)))
+          if isinstance(n,ast.ImportFrom)]
+pipeline=next(n for n in ast.walk(ast.parse(gs)) if isinstance(n,ast.FunctionDef) and n.name=='retrieve')
+call_lines={ast.unparse(n.func):n.lineno for n in ast.walk(pipeline) if isinstance(n,ast.Call)}
+hard_cte=gsearch.split('class ScopedPostgresSearch')[0]
+checks1g={
+ 'retrieval_consumes_phase1f_scope':all(x in gs for x in ('KnowledgeScopeResolver','filter_spec')) and
+     'KnowledgeScope' in gd and not any('document_parsers' in x for x in gimports),
+ 'retrieval_hard_filters_before_similarity':'filtered AS MATERIALIZED' in hard_cte and
+     all(x in hard_cte for x in ('tenant_id=:tenant','v.lifecycle IN','b.permission_scopes_json',
+         'b.knowledge_binding_id IN','c.knowledge_version_id IN','effective_from')) and
+     'FROM filtered WHERE search_vector' in gsearch and 'FROM filtered f' in gsearch,
+ 'retrieval_indexes_are_derived':'i.derived=true' in hard_cte and 'legal_source_of_truth' in gm and
+     'knowledge_document_versions' in hard_cte,
+ 'hybrid_merge_deterministic_score_provenance':'RECIPROCAL_RANK_FUSION' in gd and all(x in ga for x in ('WEIGHTED_SCORE','lexical_score',
+     'vector_score','hybrid_score','chunk_id')) and 'sorted(' in ga,
+ 'reranker_allowed_candidates_only':'RERANK_OUTSIDE_ALLOWED_SET' in ga and 'candidate_hash' in ga,
+ 'rerank_scope_revalidation':call_lines.get('RetrievalScopeValidator(repo).validate',0)>
+     call_lines.get('RerankService(self.reranker).rerank',0)>0,
+ 'evidence_pack_complete_provenance':all(x in gd for x in ('knowledge_document_id','knowledge_version_id',
+     'structure_node_id','chunk_id','citation_id','source_url','content_hash','knowledge_index_version',
+     'retrieval_policy_version','analysis_snapshot_id')),
+ 'rag_context_not_legal_source':'legal_source_of_truth: Literal[False]' in gd and
+     'legal_decision: Literal[False]' in gd,
+ 'sufficiency_is_policy_driven':all(x in ga for x in ('policy.required_topic_refs',
+     'policy.required_regulation_refs','policy.minimum_evidence_quality','policy.authoritative_tiers')) and
+     not any(re.search(r'openai|ollama|langgraph|vector',x,re.I) for x in gimports),
+ 'generic_knowledge_not_jurisdiction_sufficient':'and e.jurisdiction_specific' in ga and
+     'JURISDICTION_SPECIFIC_EVIDENCE_MISSING' in ga,
+ 'external_preserves_formal_scope':all(x in ge for x in ('rule_permits','ProductScopeResolver',
+     'JurisdictionScopeResolver','PermissionScopeResolver','repo.retrieval_context')),
+ 'unverified_discovery_not_evidence':'DISCOVERY_CANNOT_BECOME_EVIDENCE' in ge and
+     'discovery-only source cannot enter evidence' in gd,
+ 'official_external_validation':all(x in ge for x in ('ATTRIBUTION_MISMATCH','EXTERNAL_EVIDENCE_NOT_EFFECTIVE',
+     'EXTERNAL_HASH_OR_SIZE_FAILED','EXTERNAL_CITATION_INVALID','OFFICIAL_SOURCE_TYPE_MISMATCH')),
+ 'runtime_external_not_active':'ck_runtime_external_not_active' in gm and
+     "status='VERIFIED' AND NOT active_knowledge" in gm and 'active_knowledge: Literal[False]' in gd,
+ 'external_snapshot_reproducible':'repo.saved_external' in ge and 'RUNTIME_EXTERNAL_EVIDENCE' in gr and
+     'parsed_artifact_version' in gd and 'original_content' in gm,
+ 'fallback_guidance_nonempty':all(x in ga for x in ('conservative_controls=action(',
+     'evidence_acquisition_steps=action(','operational_next_steps=action(')),
+ 'fallback_not_compliance_path':'compliance_path: Literal[False]' in gd and
+     'finalization_requires_verification: Literal[True]' in gd,
+ 'retrieval_policy_snapshot_pinned':'snapshot policy family immutable' in gr and
+     'PHASE1G_' in gr and 'AnalysisSnapshotRegistryPinEntity' in gr,
+ 'no_country_product_regulation_retrieval_branch':not occurrences(
+     r"\bif\s+.*\b(country_code|product_code|regulation_code)\b.*(?:==|in)\s*[\"'\[{]",gfiles),
+ 'retrieval_services_no_provider_sql_graph_sdk':not any(re.search(
+     r'sqlalchemy|pgvector|openai|qwen|deepseek|ollama|vllm|neo4j|langgraph',x,re.I) for x in gimports),
+ 'wiki_reuses_durable_review':'AdminReviewTaskEntity' in gn and 'wiki_reviews' in gm and
+     'ck_wiki_review_boundary' in gm and 'independent pending human review required' in gn,
+ 'wiki_not_official_legal_evidence':'ck_wiki_derived' in gm and 'NOT official_evidence AND NOT legal_basis' in gm,
+ 'graph_reviewed_derived_provenance':'source_evidence_id' in gm and 'review_task_id' in gm and
+     'legal_applicability' in gm and 'graph_provenance' in gn,
+ 'runtime_client_cannot_supply_scope':'KnowledgeScope' not in read_text(SRC/'interfaces/api/retrieval_schemas.py') and
+     "extra='forbid'" in read_text(SRC/'interfaces/api/retrieval_schemas.py').replace('"',"'"),
+}
+for name,passed in checks1g.items():
+    add(name,passed,'Rules 115–132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases')
+
 failed = [check for check in checks if not check["pass"]]
 result = {
     "pass": not failed,
@@ -615,7 +686,7 @@ if evidence_dir:
             f"| {i} | `{check['check']}` | **{'PASS' if check['pass'] else 'FAIL'}** | `{evidence}` |"
         )
     (out / "architecture_rule_check.md").write_text(
-        "# Phase 1F Architecture Rule Check\n\n"
+        "# Phase 1G Architecture Rule Check\n\n"
         f"**Decision: {'PASS' if not failed else 'FAIL'} — {result['passed']}/{result['total']} checks passed.**\n\n"
         + "\n".join(rows)
         + "\n",

@@ -302,6 +302,7 @@ class PostgresRetrievalRepository(PostgresKnowledgeRepository):
                         for binding in bindings
                         for j in binding.dimensions_json.get("jurisdiction", [])
                         if j in plan.scope.allowed_jurisdiction_ids
+                        and j in source.get("jurisdiction_refs", ())
                     }
                 )
                 tier = {
