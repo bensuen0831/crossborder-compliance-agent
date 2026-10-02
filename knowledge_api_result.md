@@ -2,9 +2,9 @@
 
 Phase: **1F — Knowledge Ingestion & Scope Resolver Foundation**.
 
-Tested SHA: `4e7d0d9759c42b2da91a23dea47f2cdea0243449`. Run ID: `36973419700`. Attempt: `1`.
+Tested SHA: `7391b9728e788b70e11885fe23d64980dcc3db37`. Run ID: `36973990791`. Attempt: `1`.
 Final evidence Source of Truth: [phase1f_final_remote.json](evidence/phase1f_final_remote.json).
-Artifact ID: `11213170166`. Artifact digest: `sha256:be40b7ccc016e51895c067b3779783aa921450505f2fd52b64457ff36db99b03`.
+Artifact ID: `11212349170`. Artifact digest: `sha256:b31ac0fe52e103fa291e2c5f1356bee52a47ffd0fa0fc3b4f9774534cf43b47d`.
 
 | Empirical assertion | Actual result |
 |---|---|

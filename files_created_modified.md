@@ -2,9 +2,9 @@
 
 Phase: **1F — Knowledge Ingestion & Scope Resolver Foundation**.
 
-Tested SHA: `4e7d0d9759c42b2da91a23dea47f2cdea0243449`. Run ID: `36973419700`. Attempt: `1`.
+Tested SHA: `7391b9728e788b70e11885fe23d64980dcc3db37`. Run ID: `36973990791`. Attempt: `1`.
 Final evidence Source of Truth: [phase1f_final_remote.json](evidence/phase1f_final_remote.json).
-Artifact ID: `11213170166`. Artifact digest: `sha256:be40b7ccc016e51895c067b3779783aa921450505f2fd52b64457ff36db99b03`.
+Artifact ID: `11212349170`. Artifact digest: `sha256:b31ac0fe52e103fa291e2c5f1356bee52a47ffd0fa0fc3b4f9774534cf43b47d`.
 
 | Empirical assertion | Actual result |
 |---|---|
@@ -44,16 +44,45 @@ Actual Phase 1F files relative to integrated main, including delivery evidence. 
 | A | `evidence/phase1f-main-start-gate/local-regression/pytest_full.log` |
 | A | `evidence/phase1f-main-start-gate/local-regression/runtime_verify.json` |
 | A | `evidence/phase1f-main-start-gate/main_start_gate_manifest.json` |
+| A | `evidence/phase1f/local_final_gate/alembic_upgrade.log` |
 | A | `evidence/phase1f/local_final_gate/architecture_rule_check.json` |
+| A | `evidence/phase1f/local_final_gate/architecture_rule_check.md` |
+| A | `evidence/phase1f/local_final_gate/architecture_rule_check_stdout.json` |
 | A | `evidence/phase1f/local_final_gate/ci_complete.log` |
 | A | `evidence/phase1f/local_final_gate/ci_run_evidence.json` |
+| A | `evidence/phase1f/local_final_gate/ci_run_evidence.md` |
+| A | `evidence/phase1f/local_final_gate/database_schema_result.md` |
 | A | `evidence/phase1f/local_final_gate/evidence_file_manifest.json` |
 | A | `evidence/phase1f/local_final_gate/migration_roundtrip_result.json` |
+| A | `evidence/phase1f/local_final_gate/phase1b_schema_check.json` |
+| A | `evidence/phase1f/local_final_gate/phase1c_database_schema_result.md` |
+| A | `evidence/phase1f/local_final_gate/phase1c_schema_check.json` |
+| A | `evidence/phase1f/local_final_gate/phase1c_security_result.md` |
+| A | `evidence/phase1f/local_final_gate/phase1d_database_schema_result.md` |
+| A | `evidence/phase1f/local_final_gate/phase1d_schema_check.json` |
+| A | `evidence/phase1f/local_final_gate/phase1e_database_schema_result.md` |
+| A | `evidence/phase1f/local_final_gate/phase1e_schema_check.json` |
 | A | `evidence/phase1f/local_final_gate/phase1f_empirical_summary.json` |
 | A | `evidence/phase1f/local_final_gate/phase1f_schema_check.json` |
+| A | `evidence/phase1f/local_final_gate/post_alembic_schema.json` |
+| A | `evidence/phase1f/local_final_gate/post_runtime_schema.json` |
+| A | `evidence/phase1f/local_final_gate/postgres_schema_evidence.md` |
+| A | `evidence/phase1f/local_final_gate/postgres_schema_state.json` |
+| A | `evidence/phase1f/local_final_gate/preflight.json` |
+| A | `evidence/phase1f/local_final_gate/process1.log` |
+| A | `evidence/phase1f/local_final_gate/process2.log` |
+| A | `evidence/phase1f/local_final_gate/process3_resume_retry.log` |
+| A | `evidence/phase1f/local_final_gate/pytest_full.log` |
 | A | `evidence/phase1f/local_final_gate/pytest_full.xml` |
 | A | `evidence/phase1f/local_final_gate/pytest_full_summary.json` |
+| A | `evidence/phase1f/local_final_gate/runtime_assertions.json` |
+| A | `evidence/phase1f/local_final_gate/runtime_event_evidence.md` |
+| A | `evidence/phase1f/local_final_gate/runtime_smoke_result.md` |
 | A | `evidence/phase1f/local_final_gate/runtime_verify.json` |
+| A | `evidence/phase1f/local_final_gate/runtime_versions.md` |
+| A | `evidence/phase1f/local_final_gate/source_of_truth_check.md` |
+| A | `evidence/phase1f/local_final_gate/test_result.md` |
+| A | `evidence/phase1f/repository_final_status.json` |
 | A | `evidence/phase1f/run_36968097285/annotations.json` |
 | A | `evidence/phase1f/run_36968097285/artifacts.json` |
 | A | `evidence/phase1f/run_36968097285/empirical_summary.json` |
@@ -64,6 +93,16 @@ Actual Phase 1F files relative to integrated main, including delivery evidence. 
 | A | `evidence/phase1f/run_36968764193/empirical_summary.json` |
 | A | `evidence/phase1f/run_36968764193/jobs.json` |
 | A | `evidence/phase1f/run_36968764193/run.json` |
+| A | `evidence/phase1f/run_36970889455/annotations.json` |
+| A | `evidence/phase1f/run_36970889455/artifacts.json` |
+| A | `evidence/phase1f/run_36970889455/empirical_summary.json` |
+| A | `evidence/phase1f/run_36970889455/jobs.json` |
+| A | `evidence/phase1f/run_36970889455/run.json` |
+| A | `evidence/phase1f/run_36973419700/annotations.json` |
+| A | `evidence/phase1f/run_36973419700/artifacts.json` |
+| A | `evidence/phase1f/run_36973419700/empirical_summary.json` |
+| A | `evidence/phase1f/run_36973419700/jobs.json` |
+| A | `evidence/phase1f/run_36973419700/run.json` |
 | A | `evidence/phase1f_final_remote.json` |
 | A | `evidence_citation_result.md` |
 | M | `files_created_modified.md` |
@@ -107,44 +146,10 @@ Actual Phase 1F files relative to integrated main, including delivery evidence. 
 | A | `tests/test_phase1f_postgres.py` |
 | A | `tests/test_phase1f_snapshot_scope.py` |
 | A | `translation_provenance_result.md` |
-| A | `evidence/phase1f/local_final_gate/alembic_upgrade.log` |
-| A | `evidence/phase1f/local_final_gate/architecture_rule_check.md` |
-| A | `evidence/phase1f/local_final_gate/architecture_rule_check_stdout.json` |
-| A | `evidence/phase1f/local_final_gate/ci_run_evidence.md` |
-| A | `evidence/phase1f/local_final_gate/database_schema_result.md` |
-| A | `evidence/phase1f/local_final_gate/phase1b_schema_check.json` |
-| A | `evidence/phase1f/local_final_gate/phase1c_database_schema_result.md` |
-| A | `evidence/phase1f/local_final_gate/phase1c_schema_check.json` |
-| A | `evidence/phase1f/local_final_gate/phase1c_security_result.md` |
-| A | `evidence/phase1f/local_final_gate/phase1d_database_schema_result.md` |
-| A | `evidence/phase1f/local_final_gate/phase1d_schema_check.json` |
-| A | `evidence/phase1f/local_final_gate/phase1e_database_schema_result.md` |
-| A | `evidence/phase1f/local_final_gate/phase1e_schema_check.json` |
-| A | `evidence/phase1f/local_final_gate/post_alembic_schema.json` |
-| A | `evidence/phase1f/local_final_gate/post_runtime_schema.json` |
-| A | `evidence/phase1f/local_final_gate/postgres_schema_evidence.md` |
-| A | `evidence/phase1f/local_final_gate/postgres_schema_state.json` |
-| A | `evidence/phase1f/local_final_gate/preflight.json` |
-| A | `evidence/phase1f/local_final_gate/process1.log` |
-| A | `evidence/phase1f/local_final_gate/process2.log` |
-| A | `evidence/phase1f/local_final_gate/process3_resume_retry.log` |
-| A | `evidence/phase1f/local_final_gate/pytest_full.log` |
-| A | `evidence/phase1f/local_final_gate/runtime_assertions.json` |
-| A | `evidence/phase1f/local_final_gate/runtime_event_evidence.md` |
-| A | `evidence/phase1f/local_final_gate/runtime_smoke_result.md` |
-| A | `evidence/phase1f/local_final_gate/runtime_versions.md` |
-| A | `evidence/phase1f/local_final_gate/source_of_truth_check.md` |
-| A | `evidence/phase1f/local_final_gate/test_result.md` |
-| A | `evidence/phase1f/repository_final_status.json` |
-| A | `evidence/phase1f/run_36970889455/annotations.json` |
-| A | `evidence/phase1f/run_36970889455/artifacts.json` |
-| A | `evidence/phase1f/run_36970889455/empirical_summary.json` |
-| A | `evidence/phase1f/run_36970889455/jobs.json` |
-| A | `evidence/phase1f/run_36970889455/run.json` |
-| A | `evidence/phase1f/run_36973419700/annotations.json` |
-| A | `evidence/phase1f/run_36973419700/artifacts.json` |
-| A | `evidence/phase1f/run_36973419700/empirical_summary.json` |
-| A | `evidence/phase1f/run_36973419700/jobs.json` |
-| A | `evidence/phase1f/run_36973419700/run.json` |
+| A | `evidence/phase1f/run_36973990791/annotations.json` |
+| A | `evidence/phase1f/run_36973990791/artifacts.json` |
+| A | `evidence/phase1f/run_36973990791/empirical_summary.json` |
+| A | `evidence/phase1f/run_36973990791/jobs.json` |
+| A | `evidence/phase1f/run_36973990791/run.json` |
 
 PASS assertions: source/migration/tests/gates/routes are traceable to actual Git diff; existing source tables and gates reused. files_created_modified.md lists itself as a delivery update. Final governance file is generated only after successful final empirical CI.
