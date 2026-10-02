@@ -79,6 +79,12 @@ def test_generic_http_credential_resolved_only_inside_adapter(caplog):
     assert len(observed) == 1
 
 
+@pytest.mark.parametrize("secret", ('quote"key', "back\\slash", "unicode£"))
+def test_secret_filter_checks_decoded_values_not_json_escaping(secret):
+    with pytest.raises(GatewayDenied, match="MODEL_RESPONSE_SECRET_DETECTED"):
+        HTTPProviderAdapter._without_secret({"nested": [secret]}, secret)
+
+
 @pytest.mark.parametrize(
     "response",
     [

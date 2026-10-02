@@ -112,8 +112,18 @@ class HTTPProviderAdapter:
 
     @staticmethod
     def _without_secret(value, secret):
-        if secret and secret in json.dumps(value, ensure_ascii=False):
-            raise GatewayDenied("MODEL_RESPONSE_SECRET_DETECTED")
+        if not secret:
+            return
+        if isinstance(value, str):
+            if secret in value:
+                raise GatewayDenied("MODEL_RESPONSE_SECRET_DETECTED")
+        elif isinstance(value, dict):
+            for key, child in value.items():
+                HTTPProviderAdapter._without_secret(key, secret)
+                HTTPProviderAdapter._without_secret(child, secret)
+        elif isinstance(value, (tuple, list)):
+            for child in value:
+                HTTPProviderAdapter._without_secret(child, secret)
 
     def _decode(self, payload, body):
         return ProviderResult.model_validate(body)
