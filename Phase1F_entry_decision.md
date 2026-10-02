@@ -23,17 +23,20 @@
 
 本文件將上述確認記錄為最終遠端 CI 與 Delivery evidence 已完成的治理依據。程式碼基準、15 份正式交付文件與同一 documentation head 的本地完整 PostgreSQL/runtime gate 證據均已存在；此前 pending / NOT YET ALLOWED 是當時的歷史狀態，本文件記錄本輪確認後的最新決定。
 
-本環境的 GitHub Actions API 仍回傳 Forbidden，因此本次未獨立下載或重新驗證最終遠端 artifact。未提供的最終 Run / Artifact 識別碼如下明列；不以舊 baseline Run ID、本地 log 或本地 SHA256 冒充新的遠端 CI evidence。
+Evidence Reconciliation（2026-10-02）：本轮 Phase 1F 任務提供已核實的 final Phase 1E baseline：tested head `1b54030dfc8147beaf19c6ab2ead9f428191a8af`、Run `36955707413`、Run Number `83`、Workflow Conclusion `SUCCESS`、Artifact `11205402817` 及下列 digest。這些資料取代前版未提供的 Run / Artifact identifiers。
+
+資料來源為用戶本輪提供的 verified empirical baseline；本環境的 GitHub Actions API 仍回傳 Forbidden，本次 reconciliation 未獨立重新下載該 artifact，不以本地 log / SHA256 冒充遠端 artifact 證據。
 
 ## 最終驗收對象與 Gate 結果
 
 | 項目 | 結果 / identity |
 |---|---|
-| Final tested PR head SHA / 本次簽發對象 | `0d8d3c2f15fe70313cb59a4522837361b2610231`；已有此 SHA 的本地完整 Gate，最終遠端通過依本輪用戶確認 |
+| Final tested PR head SHA / 本次簽發對象 | `1b54030dfc8147beaf19c6ab2ead9f428191a8af`；本輪提供的 final remote CI tested head |
+| Earlier locally tested documentation head | `0d8d3c2f15fe70313cb59a4522837361b2610231`；歷史本地完整 Gate，不取代 final remote tested head |
 | PR | [crossborder-compliance-agent #8](https://github.com/bensuen0831/crossborder-compliance-agent/pull/8) |
 | Previous tested implementation SHA | `6d05588a02752dc5479658f63bc4b6ab8c29331e` |
 | Base Phase 1D SHA | `51429bc147a843f67ef43e88f7ae61094f6144f1` |
-| Documentation-only diff | PASS；previous implementation → final documentation head 共 25 個 documentation/evidence 檔案；業務程式、tests、migration、workflow 與依賴未修改 |
+| Documentation-only diff | PASS；previous implementation → final tested head 共 26 個 documentation/evidence 檔案，含本簽發文件；業務程式、tests、migration、workflow 與依賴未修改 |
 | Full PostgreSQL/runtime pytest | **82 passed / 0 skipped / 0 deselected** |
 | Phase 1E PostgreSQL Schema Gate | **22/22 PASS** |
 | Executable Architecture Rules | **59/59 PASS** |
@@ -44,22 +47,34 @@
 | Phase 1D Document Intelligence / parser / provenance / async parse regression | **PASS**；Schema 15/15 PASS |
 | Phase 1E formal deliverables | **15/15 文件已生成並提交**；最終 Delivery evidence 完成由本輪用戶確認 |
 
-上列數字由現有驗收報告及 final documentation head 的本地完整實測證據支持；最終遠端 CI 通過的來源為本輪用戶確認，而非本次 API 查詢。
+上列數字對應本輪提供的 final Phase 1E remote baseline，並與先前 documentation head 的本地實測結果一致；最終遠端 CI 識別資料來自用戶提供的已核實 baseline，而非本次 API 查詢。
 
 ## 遠端 CI 識別碼記錄
 
 | 欄位 | 記錄 |
 |---|---|
-| Final Run ID | 本輪未提供具體 ID；最終遠端 CI 條件已滿足由用戶確認 |
-| Final Attempt | 本輪未提供具體 attempt |
-| Final Artifact ID | 本輪未提供具體 ID；Delivery evidence 條件已滿足由用戶確認 |
-| Final Artifact digest | 本輪未提供具體 digest |
+| Final Run ID | [`36955707413`](https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/36955707413) |
+| Final Run Number | `83` |
+| Workflow Conclusion | **SUCCESS** |
+| Final Attempt | 本輪未提供；Run Number `83` 不等於 Attempt |
+| Final Artifact ID | `11205402817` |
+| Final Artifact digest | `sha256:03b064bad2f93c577bdea98777e1a76ff70e1e594247ee20c49bb991a63d1fd5` |
 | Final runner tested merge SHA | 本輪未提供、亦未由 API 取得 |
-| Observed PR merge ref SHA（不等同已核實 runner SHA） | `44290eef3d222e6768978fbedd0ed7b2541c15f1` |
+| Observed PR merge ref SHA（不等同已核實 runner SHA） | `23cd1c20be40930900c435a5fb3da883ec990bfa`；此次 preflight 讀取 refs/pull/8/merge |
 | Previous implementation baseline Run ID / Attempt | `36950913643` / `1`；僅為先前 baseline |
 | Previous baseline runner merge SHA | `fac2806d819694b4fb8210179ec90348f73791ca`；僅為先前 baseline |
 
-本次簽發遵循用戶已確認完成條件的指示。未取得的遠端識別碼保留其證據來源限制；此文件不是新的 CI 執行報告。
+本次只做 evidence reconciliation，保留未提供的 Attempt / runner tested merge SHA 的來源限制；此文件不是新 CI 執行報告，不宣稱 reconciliation commit 已被 Run 36955707413 測試。
+
+## Repository Start Gate（2026-10-02 preflight）
+
+Phase 1E 完成與 Phase 1F Entry Recommendation 維持 ALLOWED。實際開始 Phase 1F coding 還須滿足本輪要求的 Repository Start Gate。
+
+遠端 `main` 為 `1807cc703a37a1f3e523cc9c0ddc310ecdee44c1`，尚未包含 Phase 1B–1E；PR merge refs 顯示 `main ← Phase 1B (#5) ← Phase 1C (#6) ← Phase 1D (#7) ← Phase 1E (#8)`。
+
+**Phase 1F Start Gate = BLOCKED_BY_REPOSITORY_INTEGRATION**
+
+詳見 [phase1f_preflight_status.md](phase1f_preflight_status.md)。不得把 Phase 1E 的驗收通過當作 repository integration 已完成；本輪不建立 Phase 1F branch、不自行 merge、不進行 Phase 1F coding。
 
 ## 正式交付文件
 
@@ -85,6 +100,6 @@ Baseline identity 與來源歸屬：[baseline_manifest.json](evidence/phase1e/ba
 
 本文件是治理性 Entry Decision，不產生新的 Domain / Compliance source of truth，也不擴張既有實作或測試 assertions。各交付文件已記錄的實際 scope、known exclusions 與 provenance 限制繼續適用。
 
-本次 commit 只新增此簽發文件；簽發 commit 與其所引用的已驗收 documentation head 是不同 SHA，不宣稱新 commit 已重新執行遠端 CI。
+原簽發 commit 為 `1b54030dfc8147beaf19c6ab2ead9f428191a8af`，其 final remote CI identity 已在本轮對帳。本輪 reconciliation 只更新治理文件與 preflight evidence，不修改 Phase 1E business implementation。
 
 **完成簽發後停止。** 本輪不開始 Knowledge Ingestion、Scope Resolver、Knowledge Retrieval、RAG、Formal Classification、Regulation Applicability、Risk、Country Compliance、Compliance Path 或 Production Agent。ALLOWED 表示 Entry Recommendation，後續實作須另有任務指示。
