@@ -477,6 +477,9 @@ class PostgresRetrievalRepository(PostgresKnowledgeRepository):
             )
         )
         suff = KnowledgeSufficiencyService().assess(pack, scope, suffpolicy)
+        suff = suff.model_copy(
+            update={"sufficiency_result_id": rag.knowledge_sufficiency.sufficiency_result_id}
+        )
         fallback = FallbackGuidanceService().build(suff, suffpolicy)
         # Excluded objects and request-private trace details are never rendered as evidence.
         response["rag_context_pack"] = rag.model_copy(

@@ -87,6 +87,17 @@ class KnowledgeRetrievalService:
                     repo.model_config(policy.rerank_config_id, "RERANK")
                 result = RerankService(self.reranker).rerank(query.query_text, candidates, policy)
                 candidates, rerank_dropped = result.candidates, result.dropped
+            if policy.graph_expansion_enabled:
+                neighbors = repo.graph_neighbors(plan, candidates, policy.graph_expansion_limit)
+                existing = {c.chunk_id for c in candidates}
+                candidates = candidates + tuple(c for c in neighbors if c.chunk_id not in existing)
+                traces.append(
+                    RetrievalTrace(
+                        stage="GRAPH",
+                        reason_code="DERIVED_REVIEWED_GRAPH_ONLY",
+                        details={"expanded_count": len(neighbors)},
+                    )
+                )
             # Resolve again against immutable snapshot and current revocations after adapters ran.
             current = KnowledgeScopeResolver(repo, self.context).resolve(
                 query.project_id,

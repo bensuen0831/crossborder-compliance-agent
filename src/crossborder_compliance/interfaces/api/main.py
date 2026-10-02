@@ -10,14 +10,18 @@ from crossborder_compliance.interfaces.api.routes.knowledge import router as kno
 from crossborder_compliance.observability.logging import configure_logging
 from crossborder_compliance.observability.tracing import configure_tracing
 
+from crossborder_compliance.interfaces.api.routes.retrieval import router as retrieval_router
+
 configure_logging()
 settings = get_settings()
 configure_tracing(settings.otel_service_name)
 
-app = FastAPI(title="Cross-border Compliance Agent", version="0.6.0-phase1f")
+app = FastAPI(title="Cross-border Compliance Agent", version="0.7.0-phase1g")
 app.include_router(health_router)
 app.include_router(metadata_router)
 app.include_router(admin_metadata_router)
 app.include_router(documents_router)
 app.include_router(context_resolution_router)
 app.include_router(knowledge_router)
+
+app.include_router(retrieval_router)
