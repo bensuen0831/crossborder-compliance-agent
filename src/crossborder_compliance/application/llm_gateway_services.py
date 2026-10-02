@@ -68,7 +68,10 @@ class LLMService:
 
     def _prepare(self, request):
         self.configuration.authorize(request)
-        items = self.inputs.load(self.context, request.project_id, request.input_refs)
+        try:
+            items = self.inputs.load(self.context, request.project_id, request.input_refs)
+        except (LookupError, PermissionError):
+            raise GatewayDenied("RESOURCE_NOT_FOUND") from None
         if tuple(item.ref for item in items) != request.input_refs:
             raise GatewayDenied("RESOURCE_NOT_FOUND")
         for item in items:

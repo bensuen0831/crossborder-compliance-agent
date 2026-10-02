@@ -220,6 +220,17 @@ def test_client_cannot_supply_authorization_policy_or_provider_in_dto():
         )
 
 
+def test_missing_and_unauthorized_input_have_same_public_denial():
+    f = fixture()
+    f["source"].items.clear()
+    with pytest.raises(GatewayDenied, match="RESOURCE_NOT_FOUND"):
+        f["service"].chat(f["request"])
+    f["source"].items[f["ref"]] = f["item"].model_copy(update={"tenant_id": uuid4()})
+    with pytest.raises(GatewayDenied, match="RESOURCE_NOT_FOUND"):
+        f["service"].chat(f["request"])
+    assert not f["provider"].calls
+
+
 @pytest.mark.parametrize(
     "operation,result",
     [
