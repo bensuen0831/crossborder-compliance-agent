@@ -106,3 +106,27 @@
 91. Parse Run 必須 versioned；AnalysisSnapshot 必須 pin 指定 ParseRun，Resume 不得靜默切換。
 92. Parser / OCR / Vision Provider 必須 Adapter 化；Provider-specific SDK 不得進 Domain / Application / LangGraph。
 93. Document Parse Quality 未達 Gate 時，不得靜默進正式分析；必須保留 WARNING / REVIEW_REQUIRED / FAILED 狀態。
+
+
+## Phase 1E Context Resolution / Formal Data Inventory / Data Flow Addendum
+
+94. Phase 1D Candidate 不得直接成為正式 Compliance Input；任何 Candidate → Formal Object 必須保留 Resolution / Validation Record。
+95. Product Context 必須由 Registry / Evidence / Explicit User Selection 解決；產品業務值不得 hard-code 於 Domain / Application Service。
+96. Explicit Product Selection 與 Document-detected Product 發生實質衝突時，必須輸出 `PRODUCT_CONTEXT_CONFLICT`，不得靜默覆蓋任一來源。
+97. 未選 Product 但已有 Document Evidence 時必須 Document-first；不得因未選 Product 自動擴大至所有 Product Knowledge Scope。
+98. Formal `data_items` 必須可回溯所有 Candidate / SourceTrace；Candidate 不得因 Resolution 而刪除。
+99. Original Field Count、Normalized Data Item Count、Data Group Count 必須分離並由 structured persistence programmatic aggregation。
+100. Formal DataFlow 必須使用 authoritative `data_flow_nodes` / `data_flow_edges` / `data_item_flow_links`，不得以 narrative 或第二套 formal flow store 取代。
+101. Jurisdiction Context 只表示位置/管轄上下文，不等於 Regulation Applicability 或 Cross-border Legal Status。
+102. AI / Semantic Resolution 只能形成 Candidate / Confidence / Suggestion；不得直接 merge Formal DataItem 或形成正式 Context。
+103. Data Item / Data Flow / Context 更新必須 versioned 並可由 AnalysisSnapshot pin；既有 Snapshot / Resume 不得靜默切換新 Context。
+
+## Phase 1E.1 delivery evidence references
+
+Phase 1E implementation baseline: source SHA `6d05588a02752dc5479658f63bc4b6ab8c29331e`, runner merge SHA `fac2806d819694b4fb8210179ec90348f73791ca`, GitHub Actions Run `36950913643`, Attempt `1` (user-provided verified baseline).
+
+Baseline results: full PostgreSQL/runtime pytest **82 passed / 0 skipped / 0 deselected**, Phase 1E schema **22/22 PASS**, executable architecture checks **59/59 PASS**, Alembic head **0005_phase1e**, Phase 1A–1D regressions **PASS**.
+
+Actual executable checks and limitations are documented in [architecture_rule_check.md](architecture_rule_check.md). Scope and source-of-truth boundaries are in [Phase1E_context_resolution_design.md](Phase1E_context_resolution_design.md); evidence attribution is recorded in [baseline_manifest.json](evidence/phase1e/baseline_manifest.json).
+
+These references document the existing rules; they do not change implementation or add rule behavior. The documentation closure head requires a new complete CI result before any Phase 1F entry decision. Baseline/local artifacts are not substitutes for that final run.
