@@ -1,7 +1,7 @@
 {
   "verified_round2_base": "594be84cfc471af4c12f28600b22cffb66f830f7",
   "input_head": "c43ab49f408a1e70c01cd637b327968538d98e23",
-  "tested_executable_head": "92b063515d5e52bc80c41050a7b77b0cfd83004c",
+  "tested_executable_head": "9ad6335e1f4969044c886bdd0ee22a3585e058c2",
   "backend_source_sha": "a469c94d630b6078aacdd83c22ffd62f4acfcaf2",
   "migration_head": "0010_phase1j",
   "migration": {
@@ -64,9 +64,20 @@
     "stage1_integrity_checks": 14,
     "pass": true
   },
-  "local_full_gate_runs": 1,
+  "local_full_gate_runs": 2,
   "remote_closure": "Final exact-head workflow result is recorded in Draft PR19 checks and final_branch_ci evidence; never inferred from prior J-A CI.",
   "pr": "https://github.com/bensuen0831/crossborder-compliance-agent/pull/19",
   "merged": false,
-  "later_phase_started": false
+  "later_phase_started": false,
+  "ci_collection_fix": {
+    "initial_run": 37325896348,
+    "initial_head": "ebd6fa7dfc0e7ac51831381769354900fc762248",
+    "error": "ModuleNotFoundError: scripts in bare CI ownership-test collection",
+    "affected_file": "tests/test_phase1j_ownership.py",
+    "fix": "Use the retained1K-A runpy path-loading pattern",
+    "backend_or_migration_changed": false,
+    "bare_ci_subset_passed": 363,
+    "intentional_runtime_deselections": 203,
+    "permitted_closure_blocker_full_repeat": true
+  }
 }

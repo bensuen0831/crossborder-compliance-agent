@@ -13,4 +13,4 @@ Actual PostgreSQL acceptance PASS:
 - Independently retained published J policy, J pin and J result each refuse downgrade transactionally; head/schema remain unchanged until explicit archive/export.
 - Historical H/I migration regression tests retain all original assertions and accept actual graph descendants through the existing lineage helper.
 
-Focused evidence: `artifacts/phase1j-migration-immutable-focused.log`, `artifacts/phase1j-migrations-final-focused.log`, `artifacts/phase1j-migrations/phase1j_migration_dual_path.json`. J schema gate:36/36 PASS. Closure evidence was generated in `artifacts/phase1j-b-closure/`; final remote evidence is uploaded by the existing mandatory runtime CI job.
+Focused evidence: `artifacts/phase1j-migration-immutable-focused.log`, `artifacts/phase1j-migrations-final-focused.log`, `artifacts/phase1j-migrations/phase1j_migration_dual_path.json`. J schema gate:36/36 PASS. Closure evidence was generated in `artifacts/phase1j-b-closure-fix/`; final remote evidence is uploaded by the existing mandatory runtime CI job.
