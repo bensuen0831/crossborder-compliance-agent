@@ -534,7 +534,6 @@ class PostgresCountryComplianceRepository:
                     flow.project_id != str(request.project_id)
                     or detail.version != pin.data_flow_version
                     or detail.validation_status != "VALIDATED"
-                    or detail.review_required
                 ):
                     raise LookupError("formal data flow unavailable")
                 items = tuple(
@@ -546,6 +545,16 @@ class PostgresCountryComplianceRepository:
                         )
                     )
                 )
+                for ident in items:
+                    linked_item = self.get(s, b.DataItemEntity, ident)
+                    linked_detail = self.get(s, c.DataItemResolutionDetailEntity, ident)
+                    if (
+                        linked_item.project_id != str(request.project_id)
+                        or linked_detail.version != pin.data_inventory_version
+                        or linked_detail.validation_status != "VALIDATED"
+                        or linked_detail.review_required
+                    ):
+                        raise LookupError("flow includes unavailable formal item")
                 flows = (request.subject_id,)
             elif request.subject_type == "SCENARIO":
                 items = ()
