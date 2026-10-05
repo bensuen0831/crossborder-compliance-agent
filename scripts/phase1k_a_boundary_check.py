@@ -7,6 +7,7 @@ Integration may use only the verified Phase 1H baseline, not hashes of live file
 import ast
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 
@@ -26,6 +27,24 @@ def check(root):
             | {"alembic/versions/0008_phase1h_rule_classification.py"}
         )
         manifest = approved["files"]
+    round2 = root / "evidence/round2-integration/approved_phase1i_baseline.json"
+    if round2.exists():
+        approved_i = json.loads(round2.read_text())
+        baseline_authorized = baseline_authorized and (
+            approved_i["base_sha"] == "14cba25353d9ab7dda84e9620ff3197d9e2a3d1d"
+            and approved_i["original_track_b_base"] == "f563e5067308e7eab6d3f89321b8b30da7c39044"
+            and set(approved_i["files"]) == set(manifest)
+            | {"alembic/versions/0009_phase1i_applicability.py"}
+        )
+        # Verify the approved hashes against exact reviewed Git blobs, never
+        # derive approval from the files currently being checked.
+        baseline_authorized = baseline_authorized and all(
+            hashlib.sha256(subprocess.check_output(
+                ["git", "show", approved_i["base_sha"] + ":" + path], cwd=root
+            )).hexdigest() == digest
+            for path, digest in approved_i["files"].items()
+        )
+        manifest = approved_i["files"]
     files = list((root / "src").rglob("llm_gateway*.py"))
     source = {p.name: p.read_text() for p in files}
     appfiles = [p for p in files if "/application/" in str(p) or "/domain/" in str(p)]
