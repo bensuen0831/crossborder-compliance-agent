@@ -42,6 +42,22 @@ from crossborder_compliance.infrastructure.persistence.retrieval_repositories im
 
 
 class PostgresCountryComplianceRepository:
+    def initialize_decisions(self, project_id, snapshot_id):
+        from crossborder_compliance.infrastructure.persistence.decision_repository import initialize
+        return initialize(self, project_id, snapshot_id)
+
+    def prepare_decision(self, request):
+        from crossborder_compliance.infrastructure.persistence.decision_repository import prepare
+        return prepare(self, request)
+
+    def save_decision(self, request, result):
+        from crossborder_compliance.infrastructure.persistence.decision_repository import save
+        return save(self, request, result)
+
+    def read_decision(self, stage, ident):
+        from crossborder_compliance.infrastructure.persistence.decision_repository import read
+        return read(self, stage, ident)
+
     def __init__(self, sessions, context):
         self.sessions, self.context = sessions, context
         self.tenant = str(context.tenant_id)

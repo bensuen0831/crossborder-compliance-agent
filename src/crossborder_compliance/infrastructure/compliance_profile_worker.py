@@ -4,6 +4,7 @@ from uuid import UUID
 
 from crossborder_compliance.application.metadata_services import RegistrySyncService
 from crossborder_compliance.domain.compliance_profiles import PHASE1I_CONFIG_KINDS
+from crossborder_compliance.domain.decision_policies import PHASE1J_POLICY_KINDS
 from crossborder_compliance.domain.security import RepositoryContext
 from crossborder_compliance.infrastructure.knowledge_publication_worker import (
     KnowledgePublicationWorker,
@@ -20,7 +21,7 @@ class ProfileProjectionEvents:
         self.repository = repository
 
     def pending(self, limit=100):
-        return self.repository.pending(limit, object_kinds=tuple(sorted(PHASE1I_CONFIG_KINDS)))
+        return self.repository.pending(limit, object_kinds=tuple(sorted(PHASE1I_CONFIG_KINDS | PHASE1J_POLICY_KINDS)))
 
     def mark_applied(self, ident):
         self.repository.mark_applied(ident)
@@ -39,7 +40,7 @@ class ComplianceProfilePublicationWorker(KnowledgePublicationWorker):
         source = PostgresRegistrySourceRepository(self.sessions, context)
         registries = {
             kind: self.projections.setdefault((tenant, kind), GenericMetadataRegistry(source, kind))
-            for kind in PHASE1I_CONFIG_KINDS
+            for kind in PHASE1I_CONFIG_KINDS | PHASE1J_POLICY_KINDS
         }
         return RegistrySyncService(
             ProfileProjectionEvents(PostgresRegistrySyncEventRepository(self.sessions, context)),

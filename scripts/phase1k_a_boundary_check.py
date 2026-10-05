@@ -8,11 +8,13 @@ import ast
 import hashlib
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 
 def check(root):
     root = Path(root)
+    sys.path.insert(0, str(root))
     manifest = json.loads((root / "evidence/phase1k-a/frozen_baseline_manifest.json").read_text())[
         "files"
     ]
@@ -74,6 +76,11 @@ def check(root):
         # Only the six reviewed canonical runtime files have a different owner.
         # All other paths retain their independently approved Phase1I hashes.
         manifest = {**manifest, **approved_l["paths"]}
+    from scripts.phase1j_ownership import overlay
+    j_authorized, j_paths, _ = overlay(root)
+    baseline_authorized = baseline_authorized and j_authorized
+    # Only reviewed shared J owner files and its single migration change owner.
+    manifest = {**manifest, **{p: h for p, h in j_paths.items() if p in manifest or p.startswith("alembic/versions/")}}
     files = list((root / "src").rglob("llm_gateway*.py"))
     source = {p.name: p.read_text() for p in files}
     appfiles = [p for p in files if "/application/" in str(p) or "/domain/" in str(p)]

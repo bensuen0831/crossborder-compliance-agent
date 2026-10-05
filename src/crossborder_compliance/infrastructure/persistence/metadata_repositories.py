@@ -22,6 +22,7 @@ from crossborder_compliance.domain.metadata import (
 )
 from crossborder_compliance.domain.security import RepositoryContext
 from crossborder_compliance.domain.compliance_profiles import PHASE1I_CONFIG_KINDS
+from crossborder_compliance.domain.decision_policies import PHASE1J_POLICY_KINDS
 from crossborder_compliance.infrastructure.persistence.compliance_profile_governance import (
     lock_definition,
     transition_validation,
@@ -79,7 +80,7 @@ class PostgresAdminMetadataRepository(_TenantScopedMetadataRepository):
         display_name: str,
         parent_definition_id: UUID | None = None,
     ) -> dict[str, object]:
-        if kind in PHASE1I_CONFIG_KINDS | {"SCENARIO", "SKILL"}:
+        if kind in PHASE1I_CONFIG_KINDS | PHASE1J_POLICY_KINDS | {"SCENARIO", "SKILL"}:
             from crossborder_compliance.domain.localized_metadata import validate_stable_metadata_code
             validate_stable_metadata_code(code)
         if parent_definition_id is not None:

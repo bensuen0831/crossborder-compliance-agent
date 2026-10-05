@@ -9,6 +9,7 @@ from crossborder_compliance.infrastructure.compliance_profile_worker import (
 from crossborder_compliance.interfaces.api.routes.country_compliance import (
     router as country_compliance_router,
 )
+from crossborder_compliance.interfaces.api.routes.decisions import router as decisions_router
 from crossborder_compliance.infrastructure.knowledge_publication_worker import (
     KnowledgePublicationWorker,
 )
@@ -62,6 +63,7 @@ app.include_router(documents_router)
 app.include_router(context_resolution_router)
 app.include_router(classification_router)
 app.include_router(country_compliance_router)
+app.include_router(decisions_router)
 app.include_router(knowledge_router)
 
 app.include_router(retrieval_router)

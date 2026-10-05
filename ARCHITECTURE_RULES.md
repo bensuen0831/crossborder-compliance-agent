@@ -188,3 +188,10 @@ These references document the existing rules; they do not change implementation 
 149. Phase1I ends at applicability and capability availability: no Phase1J obligation/path/risk/recommendation/final decision, full workflow, frontend, LLM gateway or document generation.
 150. Only Phase1I owns0009; migrations0001–0008 remain frozen. Empty PostgreSQL and exact verified0008 upgrades must be equivalent; downgrade must refuse retained authoritative I data.
 151. Presentation locale (zh-CN/zh-HK/en-US) is distinct from machine status/reason codes and official source/evidence/citation language. Governed generic localized display payloads reuse existing MetadataVersion/JurisdictionConfig; API fallback is deterministic and cannot invoke runtime machine translation or alter formal applicability semantics.
+
+## Phase1J Formal Decision Addendum
+
+152. Formal decision dependency order is applicability→obligation→candidate→risk→recommendation→final; risk and capability availability cannot create legal obligations/prohibitions or change applicability/viability.
+153. Authoritative J evaluation/ranking is deterministic, governed and pinned; LLM may explain formal results only and cannot decide obligations, viability, scores, recommendations or paths.
+154. Final/recommendation results cannot conceal conflict, insufficiency, review or unmet legal conditions; unresolved selection remains absent and formal legal prohibition requires traceable legal authority.
+155. J results retain canonical upstream/legal/evidence identities, immutable snapshot/config/policy provenance and idempotent authorization-revalidated persistence; workflow checkpoint/locale is not decision authority.
