@@ -1,0 +1,32 @@
+
+> @crossborder/m0-preview@0.1.0 test:e2e
+> playwright test --repeat-each=3
+
+
+Running 12 tests using 1 worker
+
+(node:72096) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 e2e/knowledge.spec.ts:11:1 › real knowledge search, canonical citation, sufficiency, fallback and runtime status (3.8s)
+  ✓   2 e2e/knowledge.spec.ts:31:1 › identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side (4.1s)
+  ✓   3 e2e/knowledge.spec.ts:53:1 › no-match query renders empty evidence and actionable backend guidance on a narrow viewport (2.5s)
+  ✓   4 e2e/knowledge.spec.ts:63:1 › canonical Admin route inspects real Knowledge version and denies the normal project user (4.0s)
+(node:72501) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   5 e2e/knowledge.spec.ts:11:1 › real knowledge search, canonical citation, sufficiency, fallback and runtime status (3.9s)
+  ✓   6 e2e/knowledge.spec.ts:31:1 › identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side (4.4s)
+  ✓   7 e2e/knowledge.spec.ts:53:1 › no-match query renders empty evidence and actionable backend guidance on a narrow viewport (2.5s)
+  ✓   8 e2e/knowledge.spec.ts:63:1 › canonical Admin route inspects real Knowledge version and denies the normal project user (3.9s)
+(node:72900) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   9 e2e/knowledge.spec.ts:11:1 › real knowledge search, canonical citation, sufficiency, fallback and runtime status (4.3s)
+  ✓  10 e2e/knowledge.spec.ts:31:1 › identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side (3.9s)
+  ✓  11 e2e/knowledge.spec.ts:53:1 › no-match query renders empty evidence and actionable backend guidance on a narrow viewport (3.0s)
+  ✓  12 e2e/knowledge.spec.ts:63:1 › canonical Admin route inspects real Knowledge version and denies the normal project user (4.2s)
+
+  12 passed (47.5s)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

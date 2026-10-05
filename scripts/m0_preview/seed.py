@@ -30,7 +30,7 @@ def seed_persona(label):
         "actor_id": f["ctx"].user_context.user_id,
         "display_name": f"UAT User {label}",
         "tenant_label": f"Synthetic Tenant {label}",
-        "permissions": sorted(f["ctx"].permission.scopes),
+        "permissions": sorted(set(f["ctx"].permission.scopes) | {"metadata:admin", "metadata:review", "metadata:publish"}),
         "contexts": [{
             "project_id": f["project"],
             "display_name": f"Generic Project · UAT {label}",

@@ -19,6 +19,16 @@ const presentationSchemas: Record<string, object> = {
       identity_key: { type: 'string', minLength: 1 }, display_name: { type: 'string' }, tenant_label: { type: 'string' },
       organization_label: { type: ['string', 'null'] }, department_label: { type: ['string', 'null'] },
       demo: { type: 'boolean' }, permissions: { type: 'array', items: { type: 'string' } },
+      admin_context: {
+        type: 'object', required: ['actorId', 'tenantId', 'roles', 'grants', 'backendScopes'],
+        properties: {
+          actorId: { type: 'string', minLength: 1 }, tenantId: { type: 'string', format: 'uuid' },
+          ingestionAvailable: { type: 'boolean' },
+          organizationId: { type: 'string' }, departmentId: { type: 'string' }, projectId: { type: 'string', format: 'uuid' },
+          roles: { type: 'array', items: { type: 'string' } }, backendScopes: { type: 'array', items: { type: 'string' } },
+          grants: { type: 'object', additionalProperties: { type: 'array', items: { enum: ['VIEW', 'EDIT', 'REVIEW', 'APPROVE', 'PUBLISH', 'ARCHIVE', 'DOWNLOAD', 'EXPORT', 'OPERATIONS'] } } },
+        },
+      },
       contexts: { type: 'array', items: { type: 'object', required: ['project_id', 'display_name', 'analysis_snapshot_id', 'policy_id'],
         properties: { project_id: { type: 'string', format: 'uuid' }, display_name: { type: 'string' }, analysis_snapshot_id: { type: 'string', format: 'uuid' }, policy_id: { type: 'string', format: 'uuid' } } } },
     },
@@ -43,11 +53,12 @@ export function validateContract<T>(name: string, body: unknown): T {
 const sessionPath = import.meta.env.VITE_SESSION_PATH ?? '/api/v1/session';
 export const demoEnabled = import.meta.env.VITE_M0_DEMO === 'true';
 
-async function request<T>(path: string, options: RequestInit = {}, schema?: string): Promise<T> {
+export async function request<T>(path: string, options: RequestInit = {}, schema?: string, transport: typeof fetch = fetch): Promise<T> {
   let response: Response;
   try {
-    response = await fetch(path, { ...options, credentials: 'same-origin', headers: {
+    response = await transport(path, { ...options, credentials: 'same-origin', headers: {
       Accept: 'application/json', ...(options.body ? { 'Content-Type': 'application/json' } : {}),
+      ...options.headers,
     } });
   } catch (error) {
     if (error instanceof DOMException && error.name === 'AbortError') throw error;
@@ -57,9 +68,9 @@ async function request<T>(path: string, options: RequestInit = {}, schema?: stri
   if (!response.ok) {
     const data = body && typeof body === 'object' ? body as Record<string, unknown> : {};
     // Do not display serialized validation inputs, sensitive bodies or stack traces.
-    const message = typeof data.message === 'string' ? data.message :
-      typeof data.detail === 'string' ? data.detail : `HTTP_${response.status}`;
-    throw new ApiError(response.status, message, typeof data.trace_id === 'string' ? data.trace_id : undefined);
+    const message = `HTTP_${response.status}`;
+    const trace = typeof data.trace_id === 'string' && /^[A-Za-z0-9_-]{1,100}$/.test(data.trace_id) ? data.trace_id : undefined;
+    throw new ApiError(response.status, message, trace);
   }
   return schema ? validateContract<T>(schema, body) : body as T;
 }
@@ -77,7 +88,7 @@ export const api = {
     { method: 'POST', body: JSON.stringify(payload), signal }, 'RetrievalResponseDTO'),
   readiness: (id: string, signal?: AbortSignal) => request<Readiness>(
     `/api/v1/admin/knowledge-versions/${encodeURIComponent(id)}/runtime-readiness`, { signal }, 'KnowledgeRuntimeReadinessResult'),
-  demoLogin: (persona: 'A' | 'B') => {
+  demoLogin: (persona: 'A' | 'B' | 'PROJECT') => {
     if (!demoEnabled) return Promise.reject(new ApiError(403, 'DEMO_DISABLED'));
     return request<Session>('/m0-demo/login', { method: 'POST', body: JSON.stringify({ persona }) }, 'Session');
   },

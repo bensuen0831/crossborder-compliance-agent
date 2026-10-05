@@ -19,6 +19,7 @@ describe('frozen API contracts', () => {
   });
   it('fails closed on a malformed session integration response', () => {
     expect(() => validateContract('Session', { ...session, contexts: 'FORGED' })).toThrow('API_CONTRACT_MISMATCH');
+    expect(() => validateContract('Session', { ...session, admin_context: { roles: ['admin'] } })).toThrow('API_CONTRACT_MISMATCH');
   });
   it('rejects malformed status and fabricated legal evidence at the API boundary', () => {
     expect(() => validateContract('RetrievalResponseDTO', { ...fixture, status: 'FAKE_SUCCESS' })).toThrow('API_CONTRACT_MISMATCH');
@@ -38,6 +39,10 @@ describe('frozen API contracts', () => {
   it('preserves safe trace IDs and does not serialize sensitive validation bodies', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({ detail: [{ input: 'SENSITIVE_BODY' }], trace_id: 'trace-safe' }), { status: 422 })));
     await expect(api.health()).rejects.toMatchObject({ status: 422, message: 'HTTP_422', traceId: 'trace-safe' });
+  });
+  it('hides raw error strings and unsafe trace IDs on the shared Admin/M0 transport', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({ detail: 'API_KEY_SECRET', trace_id: '<script>secret</script>' }), { status: 403 })));
+    await expect(api.health()).rejects.toMatchObject({ message: 'HTTP_403', traceId: undefined });
   });
   it.each([401, 403, 404])('preserves authorization/scoped absence HTTP %s', async (status) => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response('{}', { status })));

@@ -25,6 +25,21 @@ export interface Session {
   permissions: string[];
   contexts: AuthorizedContext[];
   demo: boolean;
+  /** Effective grants computed by the trusted host/BFF; absence gates Admin closed. */
+  admin_context?: AdminContext;
+}
+export type AdminOperation = 'VIEW' | 'EDIT' | 'REVIEW' | 'APPROVE' | 'PUBLISH' | 'ARCHIVE' | 'DOWNLOAD' | 'EXPORT' | 'OPERATIONS';
+export interface AdminContext {
+  /** Trusted deployment capability: storage and ingestion consumer are available. */
+  ingestionAvailable?: boolean;
+  actorId: string;
+  tenantId: string;
+  organizationId?: string;
+  departmentId?: string;
+  projectId?: string;
+  roles: readonly string[];
+  grants: Readonly<Record<string, readonly AdminOperation[]>>;
+  backendScopes: readonly string[];
 }
 export interface MetadataItem {
   definition_id?: string;

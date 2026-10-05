@@ -24,12 +24,18 @@ def create_demo_app(manifest_path: Path):
 
     app = FastAPI(title="M0 Local UAT", lifespan=baseline.lifespan)
     for router in (
-        baseline.health_router, baseline.metadata_router, baseline.documents_router,
-        baseline.context_resolution_router, baseline.knowledge_router,
-        baseline.retrieval_router,
+        baseline.health_router, baseline.metadata_router, baseline.admin_metadata_router,
+        baseline.documents_router, baseline.context_resolution_router,
+        baseline.classification_router, baseline.knowledge_router, baseline.retrieval_router,
     ):
         app.include_router(router)
 
+    # Server-owned synthetic project persona strips all admin scopes. No browser grants.
+    manifest["PROJECT"] = {
+        **manifest["A"], "display_name": "UAT Project User",
+        "permissions": [p for p in manifest["A"]["permissions"]
+                        if p not in {"knowledge:admin", "metadata:admin", "metadata:review", "metadata:publish"}],
+    }
     sessions = {}
 
     def resolve(request):
@@ -40,7 +46,7 @@ def create_demo_app(manifest_path: Path):
         return token, manifest[entry[0]]
 
     def presentation(token, persona):
-        return {
+        result = {
             "identity_key": sessions[token][2],
             "display_name": persona["display_name"],
             "tenant_label": persona["tenant_label"],
@@ -50,6 +56,23 @@ def create_demo_app(manifest_path: Path):
             "contexts": persona["contexts"],
             "demo": True,
         }
+        scopes = persona["permissions"]
+        grants = {}
+        if "knowledge:admin" in scopes:
+            grants["knowledge-versions"] = ["VIEW", "EDIT", "REVIEW", "APPROVE", "PUBLISH", "ARCHIVE", "OPERATIONS"]
+        if "metadata:admin" in scopes:
+            for resource in ("jurisdictions", "scenarios", "products", "knowledge-collections", "templates", "prompts", "models", "rules"):
+                grants[resource] = ["VIEW", "EDIT", "REVIEW"]
+                if "metadata:review" in scopes:
+                    grants[resource].append("APPROVE")
+                if "metadata:publish" in scopes:
+                    grants[resource].extend(["PUBLISH", "ARCHIVE"])
+        if grants:
+            result["admin_context"] = {
+                "actorId": persona["actor_id"], "tenantId": persona["tenant_id"],
+                "roles": ["local-uat-admin"], "grants": grants, "backendScopes": scopes,
+            }
+        return result
 
     @app.middleware("http")
     async def trusted_session(request: Request, call_next):

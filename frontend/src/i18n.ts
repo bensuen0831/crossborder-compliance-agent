@@ -2,6 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 const zh = {
+  admin: '管理操作', adminSubtitle: '透過既有治理介面維護版本、審核與發佈狀態。', loginProject: '登入一般專案 UAT 使用者',
   workspace: 'Knowledge workspace', knowledge: '知識與證據', operational: '運行狀態',
   subtitle: '在授權範圍內查找知識，檢視每項證據的來源與版本。',
   search: '查詢知識', query: '知識問題或關鍵字', queryPlaceholder: '輸入問題或關鍵字，查詢已發布的授權知識',
@@ -37,6 +38,7 @@ const zh = {
   action_KEEP_UNVERIFIED_LEGAL_ASSERTIONS_OUT_OF_FINALIZATION: '未驗證的法律斷言不得進入定稿。',
 };
 const en: typeof zh = {
+  admin: 'Admin operations', adminSubtitle: 'Inspect and maintain versions through the existing governed APIs.', loginProject: 'Sign in project UAT user',
   workspace: 'Knowledge workspace', knowledge: 'Knowledge & Evidence', operational: 'Runtime status',
   subtitle: 'Find knowledge within authorized scope and inspect source and version provenance.',
   search: 'Search knowledge', query: 'Question or keywords', queryPlaceholder: 'Search published knowledge within your authorized scope',

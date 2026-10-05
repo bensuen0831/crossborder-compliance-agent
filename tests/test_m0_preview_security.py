@@ -8,6 +8,7 @@ from fastapi.testclient import TestClient
 from phase1g_fixtures import publish
 from test_phase1f_postgres import binding, fixture as fixture
 from test_phase1g_persistence_postgres import policies
+from test_phase1h_postgres import foundation as foundation
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location("m0_uat_server", ROOT / "scripts/m0_preview/server.py")
@@ -90,3 +91,56 @@ def test_m0_logout_revokes_cookie_session(demo):
     assert c.post("/m0-demo/logout").status_code == 200
     c.cookies.set("m0_session", token)
     assert c.get("/m0-demo/session").status_code == 401
+
+
+def test_stage1_project_user_cannot_perform_admin_actions(demo):
+    c, _, _, visible, _ = demo
+    login = c.post('/m0-demo/login', json={'persona': 'PROJECT'})
+    assert login.status_code == 200
+    assert 'admin_context' not in login.json()
+    version = visible['knowledge_version_id']
+    for action in ('approve', 'publish', 'archive'):
+        response = c.post(f'/api/v1/admin/knowledge-versions/{version}/{action}',
+                          json={'expected_record_version': 1})
+        assert response.status_code == 403, (action, response.status_code)
+    from uuid import uuid4
+    for action in ('approve', 'publish', 'archive'):
+        response = c.post(f'/api/v1/admin/rules/{uuid4()}/{action}',
+                          json={'expected_record_version': 1})
+        assert response.status_code == 403, (action, response.status_code)
+    assert c.post(f'/api/v1/admin/knowledge-versions/{version}/recovery').status_code == 404
+    assert c.get(f'/api/v1/admin/knowledge-versions/{version}').status_code == 403
+
+
+def test_stage1_admin_inspects_real_version_and_runtime(demo):
+    c, f, _, visible, _ = demo
+    session = c.post('/m0-demo/login', json={'persona': 'A'}).json()
+    assert session['admin_context']['tenantId'] == f['tenant']
+    assert 'VIEW' in session['admin_context']['grants']['knowledge-versions']
+    version = visible['knowledge_version_id']
+    assert c.get(f'/api/v1/admin/knowledge-versions/{version}').status_code == 200
+    assert c.get(f'/api/v1/admin/knowledge-versions/{version}/runtime-readiness').status_code == 200
+
+
+def test_stage1_adapter_consumes_phase1h_rule_contract(foundation, tmp_path, monkeypatch):
+    from test_phase1h_postgres import payload
+    f = foundation
+    persona = {
+        'tenant_id': str(f['tenant']), 'actor_id': 'author', 'display_name': 'UAT Rule Admin',
+        'tenant_label': 'Synthetic Rule Tenant', 'contexts': [],
+        'permissions': ['metadata:admin', 'metadata:review', 'metadata:publish'],
+    }
+    path = tmp_path / 'rules-personas.json'
+    path.write_text(json.dumps({'A': persona, 'B': persona}))
+    monkeypatch.setenv('M0_LOCAL_UAT', '1')
+    with TestClient(server.create_demo_app(path)) as c:
+        login = c.post('/m0-demo/login', json={'persona': 'A'}).json()
+        assert 'VIEW' in login['admin_context']['grants']['rules']
+        created = c.post(f"/api/v1/admin/rules/{f['rule']}/versions", json={'payload': payload(f['contract'])})
+        assert created.status_code == 200
+        version = created.json()['version_id']
+        assert c.get(f'/api/v1/admin/rules/{version}').json()['runtime_contract']['dsl_version'] == 1
+        assert c.post(f'/api/v1/admin/rules/{version}/validate').json()['status'] == 'PASS'
+        c.post('/m0-demo/login', json={'persona': 'PROJECT'})
+        assert c.get(f'/api/v1/admin/rules/{version}').status_code == 403
+        assert c.post(f'/api/v1/admin/rules/{version}/validate').status_code == 403

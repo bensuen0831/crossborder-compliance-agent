@@ -1,7 +1,3 @@
-# Track delivery evidence index
+# Delivery handoff index
 
-Original source-track evidence is preserved verbatim; Stage 1 alpha has a separate handoff.
-
-- [phase1k-a](docs/delivery/phase1k-a/integration_handoff.md)
-- [m0](docs/delivery/m0/integration_handoff.md)
-- [admin-foundation](docs/delivery/admin-foundation/integration_handoff.md)
+Current integration: stage1_alpha_integration_handoff.md. Historical Track B: docs/delivery/phase1k-a/integration_handoff.md. Historical Track D: docs/delivery/admin-foundation/integration_handoff.md. Track C: docs/delivery/m0/. Original source ancestry is preserved by merge commits.

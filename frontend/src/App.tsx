@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { api, ApiError, demoEnabled } from './api/client';
 import type { EvidenceItem, RetrievalRequest, Session } from './api/contracts';
 import { enterpriseTheme } from './theme';
+import { AdminRoute } from './routes/AdminRoute';
 import { ContextSelector } from './components/ContextSelector';
 import { EvidenceCard, EvidenceTable, SourceCitationDrawer } from './components/Evidence';
 import { FallbackPanel, SufficiencyPanel } from './components/Sufficiency';
@@ -15,21 +16,22 @@ import { RuntimeStatus, StatusHealthIndicator } from './components/RuntimeStatus
 import { EmptyState, ErrorState, FeatureGate, LoadingState, PermissionDenied } from './components/States';
 import { useRetrieval, useScope } from './features/knowledge/queries';
 
-function PageHeader({ runtime }: { runtime: boolean }) {
+function PageHeader({ runtime, admin = false }: { runtime: boolean; admin?: boolean }) {
   const { t } = useTranslation();
   return <header className="page-heading"><Typography.Text className="eyebrow">M0 / KNOWLEDGE FOUNDATION</Typography.Text>
-    <Typography.Title level={1}>{t(runtime ? 'operational' : 'knowledge')}</Typography.Title>
+    <Typography.Title level={1}>{t(admin ? 'admin' : runtime ? 'operational' : 'knowledge')}</Typography.Title>
     <Typography.Paragraph type="secondary">{t('subtitle')}</Typography.Paragraph>
   </header>;
 }
 
-function SideNavigation() {
+function SideNavigation({ adminAvailable }: { adminAvailable: boolean }) {
   const { t } = useTranslation();
   const location = useLocation();
   return <nav aria-label="Main navigation">
     <Menu theme="dark" mode="inline" selectedKeys={[location.pathname]} items={[
       { key: '/knowledge', icon: <SearchOutlined />, label: <Link to="/knowledge">{t('knowledge')}</Link> },
       { key: '/runtime', icon: <ApiOutlined />, label: <Link to="/runtime">{t('operational')}</Link> },
+      { key: '/admin', disabled: !adminAvailable, icon: <SafetyCertificateOutlined />, label: <Link to="/admin">{t('admin')}</Link> },
       { type: 'group', label: t('future'), children: [
         { key: 'stage1', disabled: true, icon: <SafetyCertificateOutlined />, label: <FeatureGate label="Stage 1" /> },
       ] },
@@ -60,18 +62,19 @@ function Workspace({ session }: { session: Session }) {
   };
   const choose = (id: string) => { setProject(id); setSubmitted(null); setSelectedId(undefined); };
   const runtime = location.pathname === '/runtime';
+  const admin = location.pathname.startsWith('/admin');
   return <Layout className="workspace-layout">
     <Layout.Sider width={230} breakpoint="lg" collapsedWidth={0} className="sidebar">
       <div className="wordmark"><span className="brand-mark"><BookOutlined /></span><span>CROSSBORDER<small>Evidence workspace</small></span></div>
-      <SideNavigation />
+      <SideNavigation adminAvailable={!!session.admin_context}/>
       <div className="sidebar-foot"><Tag>V3.6 · M0</Tag><Typography.Paragraph type="secondary">{t('noLegalResult')}</Typography.Paragraph></div>
     </Layout.Sider>
     <Layout>
       <div className="workspace-topbar"><Space><Avatar size="small">{session.display_name.slice(0, 1)}</Avatar><Typography.Text>{session.display_name}</Typography.Text><Tag>{session.tenant_label}</Tag>
         {session.organization_label && <Tag>{session.organization_label}</Tag>}{session.department_label && <Tag>{session.department_label}</Tag>}</Space><StatusHealthIndicator /></div>
-      <Layout.Content className="workspace-content"><PageHeader runtime={runtime} />
+      <Layout.Content className="workspace-content"><PageHeader runtime={runtime} admin={admin}/>
         {session.demo && <Alert className="demo-banner" type="info" showIcon title={t('demo')} description={t('demoNote')} />}
-        <div className="workspace-grid"><section className="main-column">
+        <div className={`workspace-grid ${admin ? 'admin-workspace-grid' : ''}`}><section className="main-column">
           <ContextSelector session={session} context={context} choose={choose} scope={scope.data} scopeError={scope.error} scopeLoading={scope.isFetching} />
           {session.contexts.length === 0 && <EmptyState title={t('noContext')} />}
           <Routes>
@@ -89,12 +92,13 @@ function Workspace({ session }: { session: Session }) {
                   </Card> : <Alert type="info" title={`Retrieval: ${retrieval.data?.status ?? 'UNAVAILABLE'}`} />}
             </>} />
             <Route path="/runtime" element={<RuntimeStatus session={session} versions={[...new Set(items.flatMap((item) => item.knowledge_version_id ? [item.knowledge_version_id] : []))]} />} />
+            <Route path="/admin/*" element={<AdminRoute session={session} context={context}/>} />
             <Route path="*" element={<Navigate replace to="/knowledge" />} />
           </Routes>
-        </section><aside className="insight-column" aria-label={t('sufficiency')}>
+        </section>{!admin && <aside className="insight-column" aria-label={t('sufficiency')}>
           {rag ? <><SufficiencyPanel result={rag.knowledge_sufficiency} />{rag.fallback_guidance_context && <FallbackPanel guidance={rag.fallback_guidance_context} />}</> :
             <Card title={t('sufficiency')}><Typography.Paragraph type="secondary">{t('startHint')}</Typography.Paragraph></Card>}
-        </aside></div>
+        </aside>}</div>
       </Layout.Content>
     </Layout>
     <SourceCitationDrawer item={selected} close={() => setSelectedId(undefined)} />
@@ -107,7 +111,7 @@ export default function App() {
   const [switching, setSwitching] = useState(false);
   const [loginError, setLoginError] = useState<Error | null>(null);
   const session = useQuery({ queryKey: ['session'], queryFn: ({ signal }) => api.session(signal), enabled: !switching, retry: false, staleTime: 0, gcTime: 0 });
-  const changeIdentity = async (persona?: 'A' | 'B') => {
+  const changeIdentity = async (persona?: 'A' | 'B' | 'PROJECT') => {
     setSwitching(true); setLoginError(null);
     await queryClient.cancelQueries();
     queryClient.clear();
@@ -120,7 +124,7 @@ export default function App() {
   return <ConfigProvider theme={enterpriseTheme}>
     <div className="global-bar"><Space><SafetyCertificateOutlined /><span>{t('workspace')}</span></Space>
       <Space wrap><Select aria-label="Language" value={i18n.language} options={[{ value: 'zh-Hant', label: '繁體中文' }, { value: 'en', label: 'English' }]} onChange={(lang) => void i18n.changeLanguage(lang)} />
-        {demoEnabled && <><Button disabled={switching} onClick={() => void changeIdentity('A')}>{t('loginA')}</Button><Button disabled={switching} onClick={() => void changeIdentity('B')}>{t('loginB')}</Button></>}
+        {demoEnabled && <><Button disabled={switching} onClick={() => void changeIdentity('A')}>{t('loginA')}</Button><Button disabled={switching} onClick={() => void changeIdentity('B')}>{t('loginB')}</Button><Button disabled={switching} onClick={() => void changeIdentity('PROJECT')}>{t('loginProject')}</Button></>}
         {session.isSuccess && <Button onClick={() => void changeIdentity()}>{t('signOut')}</Button>}
       </Space>
     </div>

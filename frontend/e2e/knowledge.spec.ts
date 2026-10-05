@@ -59,3 +59,30 @@ test('no-match query renders empty evidence and actionable backend guidance on a
   await expect(page.getByText('證據補足指引', { exact: true })).toBeVisible();
   await expect(page.getByRole('progressbar')).toHaveCount(0);
 });
+
+test('canonical Admin route inspects real Knowledge version and denies the normal project user', async ({ page }) => {
+  await page.goto('/'); await signIn(page, 'A');
+  await page.getByRole('textbox', { name: '知識問題或關鍵字' }).fill('Generic');
+  const response = page.waitForResponse(r => r.url().includes('/knowledge/retrieve') && r.status() === 200);
+  await page.getByRole('button', { name: '查詢知識', exact: true }).click();
+  const evidence = (await (await response).json()).rag_context_pack.evidence_pack.items[0];
+  await page.getByRole('link', { name: '管理操作', exact: true }).click();
+  await page.getByRole('button', { name: 'Knowledge operations', exact: true }).click();
+  await page.getByLabel('Knowledge version ID', { exact: true }).fill(evidence.knowledge_version_id);
+  await page.getByRole('button', { name: 'Open version', exact: true }).click();
+  await expect(page.getByText('ACTIVE', { exact: true })).toBeVisible();
+  await expect(page.getByText('READY', { exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: /recovery|reindex/i })).toHaveCount(0);
+  await page.screenshot({ path: 'test-results/integrated-admin.png', fullPage: true });
+  await page.getByRole('button', { name: 'Rules · Phase 1H', exact: true }).click();
+  await expect(page.getByLabel('Rule version ID')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Rule authoring unavailable' })).toBeDisabled();
+  await page.getByRole('button', { name: '登入一般專案 UAT 使用者' }).click();
+  await expect(page.getByText('UAT Project User', { exact: true })).toBeVisible();
+  await expect(page.getByLabel('Knowledge version ID', { exact: true })).toHaveCount(0);
+  for (const action of ['approve', 'publish', 'archive']) {
+    const denied = await page.request.post(`/api/v1/admin/knowledge-versions/${evidence.knowledge_version_id}/${action}`, { data: { expected_record_version: 1 } });
+    expect(denied.status()).toBe(403);
+  }
+  expect((await page.request.post(`/api/v1/admin/knowledge-versions/${evidence.knowledge_version_id}/recovery`)).status()).toBe(404);
+});

@@ -1,0 +1,1123 @@
+{
+  "base": "700951ebb9ebdf33e399158fd3fb53bb4a6c87e7",
+  "frontend": [
+    "frontend/.gitignore",
+    "frontend/e2e/knowledge.spec.ts",
+    "frontend/eslint.config.js",
+    "frontend/index.html",
+    "frontend/package-lock.json",
+    "frontend/package.json",
+    "frontend/playwright.config.ts",
+    "frontend/src/App.tsx",
+    "frontend/src/api/client.test.ts",
+    "frontend/src/api/client.ts",
+    "frontend/src/api/contracts.ts",
+    "frontend/src/api/generated.ts",
+    "frontend/src/api/openapi.json",
+    "frontend/src/components/ContextSelector.tsx",
+    "frontend/src/components/Evidence.tsx",
+    "frontend/src/components/QueryPanel.tsx",
+    "frontend/src/components/RuntimeStatus.tsx",
+    "frontend/src/components/States.tsx",
+    "frontend/src/components/Sufficiency.tsx",
+    "frontend/src/components/critical.test.tsx",
+    "frontend/src/features/admin/AdminFeature.tsx",
+    "frontend/src/features/admin/KnowledgeAdmin.tsx",
+    "frontend/src/features/admin/ResourceAdmin.tsx",
+    "frontend/src/features/admin/RuleAdmin.tsx",
+    "frontend/src/features/admin/RuntimeStatus.tsx",
+    "frontend/src/features/admin/admin.css",
+    "frontend/src/features/admin/admin.test.tsx",
+    "frontend/src/features/admin/client.ts",
+    "frontend/src/features/admin/contracts.ts",
+    "frontend/src/features/admin/presentation.ts",
+    "frontend/src/features/admin/resources.ts",
+    "frontend/src/features/knowledge/presentation.ts",
+    "frontend/src/features/knowledge/queries.ts",
+    "frontend/src/i18n.ts",
+    "frontend/src/main.tsx",
+    "frontend/src/routes/AdminRoute.tsx",
+    "frontend/src/styles.css",
+    "frontend/src/test/fixtures/jurisdictions.json",
+    "frontend/src/test/fixtures/products.json",
+    "frontend/src/test/fixtures/readiness.json",
+    "frontend/src/test/fixtures/retrieval.json",
+    "frontend/src/test/fixtures/scenarios.json",
+    "frontend/src/test/fixtures/session.json",
+    "frontend/src/test/setup.ts",
+    "frontend/src/theme.ts",
+    "frontend/tsconfig.json",
+    "frontend/vite.config.ts"
+  ],
+  "backend": [
+    "pyproject.toml",
+    "src/crossborder_compliance/application/llm_gateway_policy.py",
+    "src/crossborder_compliance/application/llm_gateway_ports.py",
+    "src/crossborder_compliance/application/llm_gateway_redaction.py",
+    "src/crossborder_compliance/application/llm_gateway_services.py",
+    "src/crossborder_compliance/domain/llm_gateway.py",
+    "src/crossborder_compliance/infrastructure/llm_gateway_configuration.py",
+    "src/crossborder_compliance/infrastructure/llm_gateway_http.py"
+  ],
+  "validation": [
+    ".github/workflows/m0-h5-preview.yml",
+    "evidence/m0/knowledge-evidence.png",
+    "evidence/m0/local-validation.json",
+    "evidence/m0/remote-ci.json",
+    "evidence/phase1k-a/delivery_manifest.json",
+    "evidence/phase1k-a/early_checkpoint_process_check.json",
+    "evidence/phase1k-a/early_checkpoint_remote_receipt.json",
+    "evidence/phase1k-a/frozen_baseline_manifest.json",
+    "evidence/phase1k-a/implementation-ci/annotations.json",
+    "evidence/phase1k-a/implementation-ci/artifacts.json",
+    "evidence/phase1k-a/implementation-ci/empirical_summary.json",
+    "evidence/phase1k-a/implementation-ci/jobs.json",
+    "evidence/phase1k-a/implementation-ci/run.json",
+    "evidence/phase1k-a/implementation-ci/verified_identity.json",
+    "evidence/phase1k-a/local-final/alembic_upgrade.log",
+    "evidence/phase1k-a/local-final/architecture_rule_check.json",
+    "evidence/phase1k-a/local-final/architecture_rule_check.md",
+    "evidence/phase1k-a/local-final/architecture_rule_check_stdout.json",
+    "evidence/phase1k-a/local-final/ci_complete.log",
+    "evidence/phase1k-a/local-final/ci_run_evidence.json",
+    "evidence/phase1k-a/local-final/ci_run_evidence.md",
+    "evidence/phase1k-a/local-final/database_schema_result.md",
+    "evidence/phase1k-a/local-final/evidence_file_manifest.json",
+    "evidence/phase1k-a/local-final/phase1b_schema_check.json",
+    "evidence/phase1k-a/local-final/phase1c_database_schema_result.md",
+    "evidence/phase1k-a/local-final/phase1c_schema_check.json",
+    "evidence/phase1k-a/local-final/phase1c_security_result.md",
+    "evidence/phase1k-a/local-final/phase1d_database_schema_result.md",
+    "evidence/phase1k-a/local-final/phase1d_schema_check.json",
+    "evidence/phase1k-a/local-final/phase1e_database_schema_result.md",
+    "evidence/phase1k-a/local-final/phase1e_schema_check.json",
+    "evidence/phase1k-a/local-final/phase1f_schema_check.json",
+    "evidence/phase1k-a/local-final/phase1g_empirical_summary.json",
+    "evidence/phase1k-a/local-final/phase1g_schema_check.json",
+    "evidence/phase1k-a/local-final/phase1k_a_boundary_check.json",
+    "evidence/phase1k-a/local-final/post_alembic_schema.json",
+    "evidence/phase1k-a/local-final/post_runtime_schema.json",
+    "evidence/phase1k-a/local-final/postgres_schema_evidence.md",
+    "evidence/phase1k-a/local-final/postgres_schema_state.json",
+    "evidence/phase1k-a/local-final/preflight.json",
+    "evidence/phase1k-a/local-final/process1.log",
+    "evidence/phase1k-a/local-final/process2.log",
+    "evidence/phase1k-a/local-final/process3_resume_retry.log",
+    "evidence/phase1k-a/local-final/pytest_full.log",
+    "evidence/phase1k-a/local-final/pytest_full.xml",
+    "evidence/phase1k-a/local-final/pytest_full_summary.json",
+    "evidence/phase1k-a/local-final/runtime_assertions.json",
+    "evidence/phase1k-a/local-final/runtime_event_evidence.md",
+    "evidence/phase1k-a/local-final/runtime_smoke_result.md",
+    "evidence/phase1k-a/local-final/runtime_verify.json",
+    "evidence/phase1k-a/local-final/runtime_versions.md",
+    "evidence/phase1k-a/local-final/source_of_truth_check.md",
+    "evidence/phase1k-a/local-final/test_result.md",
+    "evidence/phase1k-a/prior-phase1g-docs/files_created_modified.md",
+    "evidence/phase1k-a/prior-phase1g-docs/test_result.md",
+    "evidence/stage1-alpha/approved_phase1h_baseline.json",
+    "evidence/stage1-alpha/b/architecture.json",
+    "evidence/stage1-alpha/b/llm_boundary.json",
+    "evidence/stage1-alpha/b/phase1h_schema_check.json",
+    "evidence/stage1-alpha/b/pytest_full_summary.json",
+    "evidence/stage1-alpha/b/runtime_verify.json",
+    "evidence/stage1-alpha/c/browser_summary.json",
+    "evidence/stage1-alpha/c/gate.json",
+    "evidence/stage1-alpha/changed_files.json",
+    "evidence/stage1-alpha/delivery_preservation.json",
+    "evidence/stage1-alpha/final/architecture.json",
+    "evidence/stage1-alpha/final/browser.log",
+    "evidence/stage1-alpha/final/browser_summary.json",
+    "evidence/stage1-alpha/final/build.log",
+    "evidence/stage1-alpha/final/frontend_unit.log",
+    "evidence/stage1-alpha/final/gate_summary.json",
+    "evidence/stage1-alpha/final/integrated-admin.png",
+    "evidence/stage1-alpha/final/integration_integrity.json",
+    "evidence/stage1-alpha/final/knowledge-evidence.png",
+    "evidence/stage1-alpha/final/lint.log",
+    "evidence/stage1-alpha/final/llm_boundary.json",
+    "evidence/stage1-alpha/final/local_code_scope.json",
+    "evidence/stage1-alpha/final/npm_ci.log",
+    "evidence/stage1-alpha/final/phase1b_schema_check.json",
+    "evidence/stage1-alpha/final/phase1c_schema_check.json",
+    "evidence/stage1-alpha/final/phase1d_schema_check.json",
+    "evidence/stage1-alpha/final/phase1e_schema_check.json",
+    "evidence/stage1-alpha/final/phase1f_schema_check.json",
+    "evidence/stage1-alpha/final/phase1g_schema_check.json",
+    "evidence/stage1-alpha/final/phase1h_schema_check.json",
+    "evidence/stage1-alpha/final/post_alembic_schema.json",
+    "evidence/stage1-alpha/final/post_runtime_schema.json",
+    "evidence/stage1-alpha/final/pytest_full.log",
+    "evidence/stage1-alpha/final/pytest_summary.json",
+    "evidence/stage1-alpha/final/runtime_verify.json",
+    "evidence/stage1-alpha/final/typecheck.log",
+    "evidence/stage1-alpha/start_gate.json",
+    "scripts/m0_preview/export_contracts.py",
+    "scripts/m0_preview/seed.py",
+    "scripts/m0_preview/server.py",
+    "scripts/phase1k_a_boundary_check.py",
+    "scripts/stage1_alpha_integrity.py",
+    "tests/phase1k_a_fixtures.py",
+    "tests/test_admin_control_plane_api.py",
+    "tests/test_m0_preview_security.py",
+    "tests/test_phase1k_a_architecture.py",
+    "tests/test_phase1k_a_configuration_postgres.py",
+    "tests/test_phase1k_a_gateway.py",
+    "tests/test_phase1k_a_http_redaction.py"
+  ],
+  "documentation": [
+    "Admin_control_plane_foundation_design.md",
+    "Admin_demo_runbook.md",
+    "Phase1K_A_llm_gateway_foundation_design.md",
+    "admin_backend_gap_report.md",
+    "admin_gap_reconciliation.md",
+    "architecture_boundary_check.md",
+    "data_redaction_result.md",
+    "docs/delivery/admin-foundation/Admin_control_plane_foundation_design.md",
+    "docs/delivery/admin-foundation/Admin_demo_runbook.md",
+    "docs/delivery/admin-foundation/admin_backend_gap_report.md",
+    "docs/delivery/admin-foundation/files_created_modified.md",
+    "docs/delivery/admin-foundation/frontend_test_result.md",
+    "docs/delivery/admin-foundation/integration_handoff.md",
+    "docs/delivery/m0/M0_demo_runbook.md",
+    "docs/delivery/m0/M0_h5_preview_design.md",
+    "docs/delivery/m0/evidence_ui_result.md",
+    "docs/delivery/m0/files_created_modified.md",
+    "docs/delivery/m0/frontend_architecture_result.md",
+    "docs/delivery/m0/frontend_test_result.md",
+    "docs/delivery/m0/integration_handoff.md",
+    "docs/delivery/m0/knowledge_search_ui_result.md",
+    "docs/delivery/m0/security_demo_result.md",
+    "docs/delivery/m0/sufficiency_ui_result.md",
+    "docs/delivery/phase1h/files_created_modified.md",
+    "docs/delivery/phase1h/test_result.md",
+    "docs/delivery/phase1k-a/files_created_modified.md",
+    "docs/delivery/phase1k-a/integration_handoff.md",
+    "docs/delivery/phase1k-a/test_result.md",
+    "docs/m0/M0_demo_runbook.md",
+    "docs/m0/M0_h5_preview_design.md",
+    "docs/m0/evidence_ui_result.md",
+    "docs/m0/files_created_modified.md",
+    "docs/m0/frontend_architecture_result.md",
+    "docs/m0/frontend_test_result.md",
+    "docs/m0/integration_handoff.md",
+    "docs/m0/knowledge_search_ui_result.md",
+    "docs/m0/security_demo_result.md",
+    "docs/m0/sufficiency_ui_result.md",
+    "files_created_modified.md",
+    "frontend_consolidation_result.md",
+    "frontend_dependency_integration_result.md",
+    "frontend_test_result.md",
+    "integration_handoff.md",
+    "knowledge_operations_ui_result.md",
+    "llm_service_contract_result.md",
+    "model_router_result.md",
+    "model_usage_policy_result.md",
+    "phase1k_a_parallel_checkpoint.json",
+    "phase1k_a_parallel_checkpoint.md",
+    "phase1k_a_start_gate.md",
+    "provider_adapter_result.md",
+    "rbac_admin_result.md",
+    "runtime_publication_ui_result.md",
+    "security_boundary_result.md",
+    "security_integration_result.md",
+    "stage1_alpha_integration_design.md",
+    "stage1_alpha_integration_handoff.md",
+    "test_result.md",
+    "track_b_integration_result.md",
+    "track_c_integration_result.md",
+    "track_d_integration_result.md",
+    "versioned_resource_admin_result.md",
+    "zero_code_extension_result.md"
+  ],
+  "files": [
+    {
+      "status": "A",
+      "path": ".github/workflows/m0-h5-preview.yml"
+    },
+    {
+      "status": "A",
+      "path": "Admin_control_plane_foundation_design.md"
+    },
+    {
+      "status": "A",
+      "path": "Admin_demo_runbook.md"
+    },
+    {
+      "status": "A",
+      "path": "Phase1K_A_llm_gateway_foundation_design.md"
+    },
+    {
+      "status": "A",
+      "path": "admin_backend_gap_report.md"
+    },
+    {
+      "status": "A",
+      "path": "admin_gap_reconciliation.md"
+    },
+    {
+      "status": "A",
+      "path": "architecture_boundary_check.md"
+    },
+    {
+      "status": "A",
+      "path": "data_redaction_result.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/admin-foundation/Admin_control_plane_foundation_design.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/admin-foundation/Admin_demo_runbook.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/admin-foundation/admin_backend_gap_report.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/admin-foundation/files_created_modified.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/admin-foundation/frontend_test_result.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/admin-foundation/integration_handoff.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/m0/M0_demo_runbook.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/m0/M0_h5_preview_design.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/m0/evidence_ui_result.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/m0/files_created_modified.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/m0/frontend_architecture_result.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/m0/frontend_test_result.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/m0/integration_handoff.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/m0/knowledge_search_ui_result.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/m0/security_demo_result.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/m0/sufficiency_ui_result.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/phase1h/files_created_modified.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/phase1h/test_result.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/phase1k-a/files_created_modified.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/phase1k-a/integration_handoff.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/delivery/phase1k-a/test_result.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/m0/M0_demo_runbook.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/m0/M0_h5_preview_design.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/m0/evidence_ui_result.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/m0/files_created_modified.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/m0/frontend_architecture_result.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/m0/frontend_test_result.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/m0/integration_handoff.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/m0/knowledge_search_ui_result.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/m0/security_demo_result.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/m0/sufficiency_ui_result.md"
+    },
+    {
+      "status": "A",
+      "path": "evidence/m0/knowledge-evidence.png"
+    },
+    {
+      "status": "A",
+      "path": "evidence/m0/local-validation.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/m0/remote-ci.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/delivery_manifest.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/early_checkpoint_process_check.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/early_checkpoint_remote_receipt.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/frozen_baseline_manifest.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/implementation-ci/annotations.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/implementation-ci/artifacts.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/implementation-ci/empirical_summary.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/implementation-ci/jobs.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/implementation-ci/run.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/implementation-ci/verified_identity.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/alembic_upgrade.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/architecture_rule_check.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/architecture_rule_check.md"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/architecture_rule_check_stdout.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/ci_complete.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/ci_run_evidence.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/ci_run_evidence.md"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/database_schema_result.md"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/evidence_file_manifest.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/phase1b_schema_check.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/phase1c_database_schema_result.md"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/phase1c_schema_check.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/phase1c_security_result.md"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/phase1d_database_schema_result.md"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/phase1d_schema_check.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/phase1e_database_schema_result.md"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/phase1e_schema_check.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/phase1f_schema_check.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/phase1g_empirical_summary.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/phase1g_schema_check.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/phase1k_a_boundary_check.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/post_alembic_schema.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/post_runtime_schema.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/postgres_schema_evidence.md"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/postgres_schema_state.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/preflight.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/process1.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/process2.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/process3_resume_retry.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/pytest_full.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/pytest_full.xml"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/pytest_full_summary.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/runtime_assertions.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/runtime_event_evidence.md"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/runtime_smoke_result.md"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/runtime_verify.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/runtime_versions.md"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/source_of_truth_check.md"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/local-final/test_result.md"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/prior-phase1g-docs/files_created_modified.md"
+    },
+    {
+      "status": "A",
+      "path": "evidence/phase1k-a/prior-phase1g-docs/test_result.md"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/approved_phase1h_baseline.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/b/architecture.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/b/llm_boundary.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/b/phase1h_schema_check.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/b/pytest_full_summary.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/b/runtime_verify.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/c/browser_summary.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/c/gate.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/changed_files.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/delivery_preservation.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/architecture.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/browser.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/browser_summary.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/build.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/frontend_unit.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/gate_summary.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/integrated-admin.png"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/integration_integrity.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/knowledge-evidence.png"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/lint.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/llm_boundary.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/local_code_scope.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/npm_ci.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/phase1b_schema_check.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/phase1c_schema_check.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/phase1d_schema_check.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/phase1e_schema_check.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/phase1f_schema_check.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/phase1g_schema_check.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/phase1h_schema_check.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/post_alembic_schema.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/post_runtime_schema.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/pytest_full.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/pytest_summary.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/runtime_verify.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/final/typecheck.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/start_gate.json"
+    },
+    {
+      "status": "M",
+      "path": "files_created_modified.md"
+    },
+    {
+      "status": "A",
+      "path": "frontend/.gitignore"
+    },
+    {
+      "status": "A",
+      "path": "frontend/e2e/knowledge.spec.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/eslint.config.js"
+    },
+    {
+      "status": "A",
+      "path": "frontend/index.html"
+    },
+    {
+      "status": "A",
+      "path": "frontend/package-lock.json"
+    },
+    {
+      "status": "A",
+      "path": "frontend/package.json"
+    },
+    {
+      "status": "A",
+      "path": "frontend/playwright.config.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/App.tsx"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/api/client.test.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/api/client.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/api/contracts.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/api/generated.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/api/openapi.json"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/components/ContextSelector.tsx"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/components/Evidence.tsx"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/components/QueryPanel.tsx"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/components/RuntimeStatus.tsx"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/components/States.tsx"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/components/Sufficiency.tsx"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/components/critical.test.tsx"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/features/admin/AdminFeature.tsx"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/features/admin/KnowledgeAdmin.tsx"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/features/admin/ResourceAdmin.tsx"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/features/admin/RuleAdmin.tsx"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/features/admin/RuntimeStatus.tsx"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/features/admin/admin.css"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/features/admin/admin.test.tsx"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/features/admin/client.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/features/admin/contracts.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/features/admin/presentation.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/features/admin/resources.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/features/knowledge/presentation.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/features/knowledge/queries.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/i18n.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/main.tsx"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/routes/AdminRoute.tsx"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/styles.css"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/test/fixtures/jurisdictions.json"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/test/fixtures/products.json"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/test/fixtures/readiness.json"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/test/fixtures/retrieval.json"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/test/fixtures/scenarios.json"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/test/fixtures/session.json"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/test/setup.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/theme.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/tsconfig.json"
+    },
+    {
+      "status": "A",
+      "path": "frontend/vite.config.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend_consolidation_result.md"
+    },
+    {
+      "status": "A",
+      "path": "frontend_dependency_integration_result.md"
+    },
+    {
+      "status": "A",
+      "path": "frontend_test_result.md"
+    },
+    {
+      "status": "A",
+      "path": "integration_handoff.md"
+    },
+    {
+      "status": "A",
+      "path": "knowledge_operations_ui_result.md"
+    },
+    {
+      "status": "A",
+      "path": "llm_service_contract_result.md"
+    },
+    {
+      "status": "A",
+      "path": "model_router_result.md"
+    },
+    {
+      "status": "A",
+      "path": "model_usage_policy_result.md"
+    },
+    {
+      "status": "A",
+      "path": "phase1k_a_parallel_checkpoint.json"
+    },
+    {
+      "status": "A",
+      "path": "phase1k_a_parallel_checkpoint.md"
+    },
+    {
+      "status": "A",
+      "path": "phase1k_a_start_gate.md"
+    },
+    {
+      "status": "A",
+      "path": "provider_adapter_result.md"
+    },
+    {
+      "status": "M",
+      "path": "pyproject.toml"
+    },
+    {
+      "status": "A",
+      "path": "rbac_admin_result.md"
+    },
+    {
+      "status": "A",
+      "path": "runtime_publication_ui_result.md"
+    },
+    {
+      "status": "A",
+      "path": "scripts/m0_preview/export_contracts.py"
+    },
+    {
+      "status": "A",
+      "path": "scripts/m0_preview/seed.py"
+    },
+    {
+      "status": "A",
+      "path": "scripts/m0_preview/server.py"
+    },
+    {
+      "status": "A",
+      "path": "scripts/phase1k_a_boundary_check.py"
+    },
+    {
+      "status": "A",
+      "path": "scripts/stage1_alpha_integrity.py"
+    },
+    {
+      "status": "A",
+      "path": "security_boundary_result.md"
+    },
+    {
+      "status": "A",
+      "path": "security_integration_result.md"
+    },
+    {
+      "status": "A",
+      "path": "src/crossborder_compliance/application/llm_gateway_policy.py"
+    },
+    {
+      "status": "A",
+      "path": "src/crossborder_compliance/application/llm_gateway_ports.py"
+    },
+    {
+      "status": "A",
+      "path": "src/crossborder_compliance/application/llm_gateway_redaction.py"
+    },
+    {
+      "status": "A",
+      "path": "src/crossborder_compliance/application/llm_gateway_services.py"
+    },
+    {
+      "status": "A",
+      "path": "src/crossborder_compliance/domain/llm_gateway.py"
+    },
+    {
+      "status": "A",
+      "path": "src/crossborder_compliance/infrastructure/llm_gateway_configuration.py"
+    },
+    {
+      "status": "A",
+      "path": "src/crossborder_compliance/infrastructure/llm_gateway_http.py"
+    },
+    {
+      "status": "A",
+      "path": "stage1_alpha_integration_design.md"
+    },
+    {
+      "status": "A",
+      "path": "stage1_alpha_integration_handoff.md"
+    },
+    {
+      "status": "M",
+      "path": "test_result.md"
+    },
+    {
+      "status": "A",
+      "path": "tests/phase1k_a_fixtures.py"
+    },
+    {
+      "status": "A",
+      "path": "tests/test_admin_control_plane_api.py"
+    },
+    {
+      "status": "A",
+      "path": "tests/test_m0_preview_security.py"
+    },
+    {
+      "status": "A",
+      "path": "tests/test_phase1k_a_architecture.py"
+    },
+    {
+      "status": "A",
+      "path": "tests/test_phase1k_a_configuration_postgres.py"
+    },
+    {
+      "status": "A",
+      "path": "tests/test_phase1k_a_gateway.py"
+    },
+    {
+      "status": "A",
+      "path": "tests/test_phase1k_a_http_redaction.py"
+    },
+    {
+      "status": "A",
+      "path": "track_b_integration_result.md"
+    },
+    {
+      "status": "A",
+      "path": "track_c_integration_result.md"
+    },
+    {
+      "status": "A",
+      "path": "track_d_integration_result.md"
+    },
+    {
+      "status": "A",
+      "path": "versioned_resource_admin_result.md"
+    },
+    {
+      "status": "A",
+      "path": "zero_code_extension_result.md"
+    }
+  ]
+}

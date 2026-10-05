@@ -1,0 +1,32 @@
+{
+  "checks": {
+    "business_fact_resolution_preserves_candidate": true,
+    "candidate_resolution_persists_candidate_formal_boundary": true,
+    "canonical_coordinates_are_optional_context_fields": true,
+    "data_flow_is_structured": true,
+    "data_item_detail_one_to_one": true,
+    "data_item_flow_link_is_structured": true,
+    "existing_review_task_reused": true,
+    "formal_counts_are_separate": true,
+    "formal_data_item_has_candidate_links": true,
+    "formal_data_item_has_source_trace_links": true,
+    "jurisdiction_is_context_not_regulation": true,
+    "no_parallel_data_flow_source_of_truth": true,
+    "no_parallel_data_item_source_of_truth": true,
+    "phase1b_formal_tables_remain_present": true,
+    "phase1e_required_tables_present": true,
+    "phase1e_schema_present_under_current_head": true,
+    "product_conflict_explicit": true,
+    "product_context_candidate_registry_fk": true,
+    "product_context_registry_fk": true,
+    "scenario_context_registry_fk": true,
+    "scenario_resolution_registry_fk": true,
+    "snapshot_context_pin_versioned": true
+  },
+  "forbidden_present": [],
+  "missing_tables": [],
+  "pass": true,
+  "passed": 22,
+  "revision": "0008_phase1h",
+  "total": 22
+}
