@@ -104,7 +104,8 @@ jobs:
           done
           cat /tmp/m0-frontend.log
           exit 1
-      - run: npm run test:e2e --prefix frontend
+      - name: Real browser UAT without retries, three independent executions per scenario
+        run: npm run test:e2e --prefix frontend -- --repeat-each=3
       - uses: actions/upload-artifact@v4
         if: always()
         with:
