@@ -1,0 +1,40 @@
+{
+  "final_main_sha": "594be84cfc471af4c12f28600b22cffb66f830f7",
+  "terminal_prs": {
+    "18": {
+      "head": "14cba25353d9ab7dda84e9620ff3197d9e2a3d1d",
+      "merge_sha": "d83d8db17dd2b16b54038009d8547e290e8949ae",
+      "merged_at": "2026-10-05T07:21:19Z"
+    },
+    "17": {
+      "head": "ce54b44d5d5c48fc26d21fab679f25524ceb37c4",
+      "merge_sha": "9f3a7da1fc92b821827a6393c7fe05dd98f65eb3",
+      "merged_at": "2026-10-05T07:43:34Z"
+    },
+    "16": {
+      "head": "80e531573d0fdd687430178019601d482246823d",
+      "merge_sha": "594be84cfc471af4c12f28600b22cffb66f830f7",
+      "merged_at": "2026-10-05T08:00:56Z"
+    }
+  },
+  "source_ancestry": true,
+  "writer_guard": true,
+  "main_tree_equals_tested_pr16_head": true,
+  "migration_lineage": {
+    "0001_phase1a": null,
+    "0002_phase1b": "0001_phase1a",
+    "0003_phase1c": "0002_phase1b",
+    "0004_phase1d": "0003_phase1c",
+    "0005_phase1e": "0004_phase1d",
+    "0006_phase1f": "0005_phase1e",
+    "0007_phase1g": "0006_phase1f",
+    "0009_phase1i": "0008_phase1h",
+    "0008_phase1h": "0007_phase1g"
+  },
+  "historical_0001_0008_unchanged": true,
+  "phase1i_alembic_tree_unchanged": true,
+  "architecture_rules": "1\u2013151 exact source preserved",
+  "frontend_unchanged_since_verified_stage1_main": true,
+  "eight_historical_documents_preserved": true,
+  "final_system_gates": "Pending; static proofs alone are not release PASS"
+}

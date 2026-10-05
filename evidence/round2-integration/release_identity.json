@@ -1,0 +1,148 @@
+{
+  "repository": "bensuen0831/crossborder-compliance-agent",
+  "initial_main": "700951ebb9ebdf33e399158fd3fb53bb4a6c87e7",
+  "pr18": {
+    "source": "14cba25353d9ab7dda84e9620ff3197d9e2a3d1d",
+    "head": "14cba25353d9ab7dda84e9620ff3197d9e2a3d1d",
+    "merge": "d83d8db17dd2b16b54038009d8547e290e8949ae",
+    "main_backend_ci": 37277326614
+  },
+  "pr17": {
+    "source": "6c2aacd6475af0c0533717daa54b8e48946647e1",
+    "main_sync": "062c5fb64d0196bed7d45cfdb6d64495dd5aafcf",
+    "head": "ce54b44d5d5c48fc26d21fab679f25524ceb37c4",
+    "merge": "9f3a7da1fc92b821827a6393c7fe05dd98f65eb3",
+    "branch_backend_ci": 37278632353,
+    "branch_frontend_ci": 37278632485,
+    "main_backend_ci": 37279353012,
+    "main_frontend_ci": 37279356177
+  },
+  "pr16": {
+    "source": "39be101e565fa4966e834180523f6ba47a96e5fc",
+    "main_sync": "6fc908f845fac81cd54a520708c76638e423a4fa",
+    "head": "80e531573d0fdd687430178019601d482246823d",
+    "merge": "594be84cfc471af4c12f28600b22cffb66f830f7",
+    "branch_backend_ci": 37280325654,
+    "branch_frontend_ci": 37280322038,
+    "main_backend_ci": 37281030481,
+    "main_frontend_ci": 37281034373
+  },
+  "final_main": "594be84cfc471af4c12f28600b22cffb66f830f7",
+  "v3.6-phase1i-pass": {
+    "target": "d83d8db17dd2b16b54038009d8547e290e8949ae",
+    "object": "537fcc8f99158484d2c6fc94af22d1eac81cee28"
+  },
+  "v3.6-round2-integration-pass": {
+    "target": "594be84cfc471af4c12f28600b22cffb66f830f7",
+    "object": "8b92aaa5e0ccaf088e4c5389e33083a1fca5a83e"
+  },
+  "verified_at": "2026-10-05T16:14:43.562951+08:00",
+  "backend": {
+    "backend": {
+      "passed": 487,
+      "skipped": 0,
+      "failed": 0,
+      "errors": 0,
+      "deselected": 0,
+      "phase_coverage": {
+        "phase1b": true,
+        "phase1c": true,
+        "phase1d": true,
+        "phase1e": true,
+        "phase1f": true,
+        "phase1g": true,
+        "phase1h": true,
+        "phase1i": true
+      },
+      "pass": true
+    },
+    "architecture": {
+      "passed": 135,
+      "total": 135
+    },
+    "runtime": {
+      "passed": 25,
+      "total": 25
+    },
+    "migration": {
+      "baseline": "700951ebb9ebdf33e399158fd3fb53bb4a6c87e7",
+      "baseline_revision": "0008_phase1h",
+      "head": "0009_phase1i",
+      "fresh_upgrade": true,
+      "verified_0008_upgrade": true,
+      "schema_equivalence": true,
+      "empty_downgrade_roundtrip": true,
+      "authoritative_downgrade_refused": true
+    },
+    "schemas": {
+      "phase1d_schema_check": {
+        "passed": 15,
+        "total": 15
+      },
+      "phase1f_schema_check": {
+        "passed": 29,
+        "total": 29
+      },
+      "phase1b_schema_check": {
+        "passed": 16,
+        "total": 16
+      },
+      "phase1e_schema_check": {
+        "passed": 22,
+        "total": 22
+      },
+      "phase1c_schema_check": {
+        "passed": 20,
+        "total": 20
+      },
+      "phase1i_schema_check": {
+        "passed": 24,
+        "total": 24
+      },
+      "phase1h_schema_check": {
+        "passed": 20,
+        "total": 20
+      },
+      "phase1g_schema_check": {
+        "passed": 58,
+        "total": 58
+      }
+    }
+  },
+  "browser": {
+    "startTime": "2026-10-05T08:03:07.246Z",
+    "duration": 256354.28999999998,
+    "expected": 36,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "frontend_unit": 63,
+  "i18n": {
+    "status": "PASS",
+    "locales": [
+      "zh-CN",
+      "zh-HK",
+      "en-US"
+    ],
+    "keys_per_locale": 262,
+    "checked_files": 27,
+    "hard_coded_ui_strings": 0,
+    "missing_keys": 0
+  },
+  "llm": {
+    "passed": 20,
+    "total": 20
+  },
+  "integrity": {
+    "passed": 13,
+    "total": 13
+  },
+  "workflow_tests": {
+    "tests.test_phase1l_a_contracts": 5,
+    "tests.test_phase1l_a_locale": 25,
+    "tests.test_phase1l_a_skeleton": 15
+  },
+  "overall": "PASS",
+  "phase1j_repository_entry": "ALLOWED"
+}

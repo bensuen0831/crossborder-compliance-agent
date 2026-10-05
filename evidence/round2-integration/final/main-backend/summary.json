@@ -1,0 +1,72 @@
+{
+  "backend": {
+    "passed": 487,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true
+    },
+    "pass": true
+  },
+  "architecture": {
+    "passed": 135,
+    "total": 135
+  },
+  "runtime": {
+    "passed": 25,
+    "total": 25
+  },
+  "migration": {
+    "baseline": "700951ebb9ebdf33e399158fd3fb53bb4a6c87e7",
+    "baseline_revision": "0008_phase1h",
+    "head": "0009_phase1i",
+    "fresh_upgrade": true,
+    "verified_0008_upgrade": true,
+    "schema_equivalence": true,
+    "empty_downgrade_roundtrip": true,
+    "authoritative_downgrade_refused": true
+  },
+  "schemas": {
+    "phase1d_schema_check": {
+      "passed": 15,
+      "total": 15
+    },
+    "phase1f_schema_check": {
+      "passed": 29,
+      "total": 29
+    },
+    "phase1b_schema_check": {
+      "passed": 16,
+      "total": 16
+    },
+    "phase1e_schema_check": {
+      "passed": 22,
+      "total": 22
+    },
+    "phase1c_schema_check": {
+      "passed": 20,
+      "total": 20
+    },
+    "phase1i_schema_check": {
+      "passed": 24,
+      "total": 24
+    },
+    "phase1h_schema_check": {
+      "passed": 20,
+      "total": 20
+    },
+    "phase1g_schema_check": {
+      "passed": 58,
+      "total": 58
+    }
+  }
+}

@@ -1,0 +1,29 @@
+
+> @crossborder/m0-preview@0.1.0 build
+> npm run check:i18n && npm run typecheck && vite build
+
+
+> @crossborder/m0-preview@0.1.0 check:i18n
+> node scripts/check-i18n.mjs
+
+{"status":"PASS","locales":["zh-CN","zh-HK","en-US"],"keys_per_locale":262,"checked_files":27,"hard_coded_ui_strings":0,"missing_keys":0}
+
+> @crossborder/m0-preview@0.1.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 3464 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                         0.62 kB │ gzip:   0.35 kB
+dist/assets/index-CEyeJlrF.css         10.00 kB │ gzip:   2.97 kB
+dist/assets/contracts-CilQLgCS.js     149.70 kB │ gzip:  45.05 kB
+dist/assets/index-DeU9gUEe.js         245.84 kB │ gzip:  75.79 kB
+dist/assets/enterprise-DmX50ILd.js  1,042.80 kB │ gzip: 335.30 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 5.54s

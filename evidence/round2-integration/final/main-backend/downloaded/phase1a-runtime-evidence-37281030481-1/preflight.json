@@ -1,0 +1,23 @@
+{
+  "package_versions": {
+    "langgraph": "1.2.12",
+    "langgraph-checkpoint-postgres": "3.1.2",
+    "psycopg": "3.3.6",
+    "redis": "6.4.0"
+  },
+  "pgvector_available": true,
+  "pgvector_default_version": "0.8.7",
+  "pgvector_installed_version_before_migration": null,
+  "postgres_login": true,
+  "postgres_tcp": true,
+  "postgres_version": "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+  "python_modules": {
+    "langgraph": true,
+    "psycopg": true,
+    "redis": true
+  },
+  "python_version": "3.12.14",
+  "ready_for_mandatory_smoke": true,
+  "redis_ping": true,
+  "redis_version": "7.4.11"
+}

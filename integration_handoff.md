@@ -1,8 +1,11 @@
-# Round 2 integration: integration_handoff.md
+# Round2 integration handoff
 
-This integration-level index preserves both independently tested Track reports without reattributing their evidence to the integrated main.
+ROUND 2 FORMAL MAIN INTEGRATION CLOSURE = PASS
 
-- [Phase1I historical report](docs/delivery/phase1i/integration_handoff.md) — source `14cba25353d9ab7dda84e9620ff3197d9e2a3d1d`.
-- [Stage1-alpha historical report](docs/delivery/stage1-alpha/integration_handoff.md) — source `6c2aacd6475af0c0533717daa54b8e48946647e1`.
+PHASE 1J REPOSITORY ENTRY = ALLOWED
 
-Phase1I main integration: `d83d8db17dd2b16b54038009d8547e290e8949ae`; exact-main backend CI `37277326614` SUCCESS; migration `0009_phase1i`; architecture135/135; runtime25/25;356 full pytest with zero skips/deselections. Stage1-alpha integration validation is pending; no combined-main success or Phase1J entry is claimed.
+Canonical baseline: `594be84cfc471af4c12f28600b22cffb66f830f7`, tag `v3.6-round2-integration-pass`. Migration0009_phase1i, Rules1–151, architecture135/135, runtime25/25, 487 backend tests, 63 frontend tests and 36 browser UAT cases; all required zero-skip/no-retry gates PASS.
+
+Read docs/integration/round2/final_main_validation.md for the32-field release record and evidence limitations, and production_gap_reconciliation.md for remaining gaps. Historical source reports remain under their owned delivery locations. New entry decision: Phase1J_repository_entry_decision.md.
+
+Future work starts from the exact verified final main/tag, never the old Phase1H base or an evidence-delivery commit. This closure task did not start Phase1J/1L-B/M1. Services must be started for tests; the cloud task is already isolated, so no Git worktree is needed unless explicitly requested.

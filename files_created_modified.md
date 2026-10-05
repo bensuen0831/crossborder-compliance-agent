@@ -1,8 +1,7 @@
-# Round 2 integration: files_created_modified.md
+# Round2 files created/modified
 
-This integration-level index preserves both independently tested Track reports without reattributing their evidence to the integrated main.
+Final tested main `594be84cfc471af4c12f28600b22cffb66f830f7`. Complete legitimate main delta from verified Phase1H is recorded in evidence/round2-integration/final/main_changed_files.json.
 
-- [Phase1I historical report](docs/delivery/phase1i/files_created_modified.md) — source `14cba25353d9ab7dda84e9620ff3197d9e2a3d1d`.
-- [Stage1-alpha historical report](docs/delivery/stage1-alpha/files_created_modified.md) — source `6c2aacd6475af0c0533717daa54b8e48946647e1`.
+Integration-only changes beyond tested Track contents: preserved eight source delivery documents; root integration indexes; two checker updates; generated OpenAPI/types refresh; independently sourced Phase1I baseline and six-path Phase1L-A owner overlay; reviewed integration documents. No migration, Gateway/policy, workflow implementation or new legal/product feature was edited. All additional source-head commits were reviewed and independently tested.
 
-Phase1I main integration: `d83d8db17dd2b16b54038009d8547e290e8949ae`; exact-main backend CI `37277326614` SUCCESS; migration `0009_phase1i`; architecture135/135; runtime25/25;356 full pytest with zero skips/deselections. Stage1-alpha integration validation is pending; no combined-main success or Phase1J entry is claimed.
+Post-tag closure delivery adds only documentation and empirical evidence on the evidence-only branch. It does not change main or either formal tag. The older untracked Phase1H_integration_closure.md is an historical blocked attempt and is excluded from current release delivery.

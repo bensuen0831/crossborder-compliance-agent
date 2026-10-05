@@ -1,0 +1,78 @@
+{
+  "all_mandatory_assertions_pass": true,
+  "analysis_snapshot_id": "1bffddf4-d10c-4f75-9350-e5b58e691f5c",
+  "assertions": {
+    "analysis_snapshot_and_checkpoint_are_separate_sources": true,
+    "analysis_snapshot_exists": true,
+    "analysis_snapshot_id_preserved_after_restart": true,
+    "api_layer_has_no_raw_langgraph_import": true,
+    "audit_provenance_retained": true,
+    "canonical_events_only": true,
+    "domain_metadata_does_not_own_checkpoint_tables": true,
+    "external_workflow_event_contract_has_no_raw_langgraph_fields": true,
+    "final_workflow_status_completed": true,
+    "formal_completion_audit_count_eq_one": true,
+    "graph_runtime_checkpointer_state_schema_versions_retained": true,
+    "no_raw_langgraph_payload_keys_persisted": true,
+    "postgres_checkpoint_row_gt_zero": true,
+    "process1_checkpoint_existed_before_process_exit": true,
+    "process2_loaded_checkpoint_context_before_resume": true,
+    "resume_retry_event_counts_unchanged": true,
+    "resume_retry_review_count_unchanged": true,
+    "resume_retry_safe": true,
+    "review_required_event_count_eq_one": true,
+    "review_task_count_eq_one": true,
+    "tenant_id_preserved_after_restart": true,
+    "workflow_completed_event_count_eq_one": true,
+    "workflow_resumed_event_count_eq_one": true,
+    "workflow_run_exists": true,
+    "workflow_run_id_equals_thread_id": true
+  },
+  "audit_event_count": 2,
+  "canonical_event_counts": {
+    "NODE_COMPLETED": 1,
+    "REVIEW_REQUIRED": 1,
+    "WORKFLOW_COMPLETED": 1,
+    "WORKFLOW_RESUMED": 1,
+    "WORKFLOW_STARTED": 1
+  },
+  "canonical_events": [
+    "WORKFLOW_STARTED",
+    "NODE_COMPLETED",
+    "REVIEW_REQUIRED",
+    "WORKFLOW_RESUMED",
+    "WORKFLOW_COMPLETED"
+  ],
+  "checkpoint_query_error": null,
+  "checkpoint_row_count": 5,
+  "checkpoint_tables": [
+    "checkpoint_blobs",
+    "checkpoint_migrations",
+    "checkpoint_writes",
+    "checkpoints"
+  ],
+  "completion_audit_count": 1,
+  "process1_checkpoint_next": [
+    "node_b"
+  ],
+  "process2_checkpoint_values_before_resume": {
+    "analysis_snapshot_id": "1bffddf4-d10c-4f75-9350-e5b58e691f5c",
+    "completed": false,
+    "node_a_completed": true,
+    "phase": "A_DONE",
+    "tenant_id": "0966f80a-e1e6-47ba-9797-03c853507b6f",
+    "workflow_run_id": "93c97e69-570d-4278-af73-db1f542829db"
+  },
+  "raw_payload_key_hits": [],
+  "retained_versions": {
+    "checkpointer_version": "3.1.2",
+    "graph_definition_version": "phase1a-smoke-v1",
+    "langgraph_runtime_version": "1.2.12",
+    "state_schema_version": "phase1a-smoke-state-v1"
+  },
+  "review_task_count": 1,
+  "tenant_id": "0966f80a-e1e6-47ba-9797-03c853507b6f",
+  "thread_id": "93c97e69-570d-4278-af73-db1f542829db",
+  "workflow_run_id": "93c97e69-570d-4278-af73-db1f542829db",
+  "workflow_status": "COMPLETED"
+}

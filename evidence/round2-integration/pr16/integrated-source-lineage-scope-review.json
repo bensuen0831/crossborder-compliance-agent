@@ -1,0 +1,22 @@
+{
+  "head": "80e531573d0fdd687430178019601d482246823d",
+  "ancestry": "all source heads retained",
+  "migration_lineage": {
+    "0001_phase1a": null,
+    "0002_phase1b": "0001_phase1a",
+    "0003_phase1c": "0002_phase1b",
+    "0004_phase1d": "0003_phase1c",
+    "0005_phase1e": "0004_phase1d",
+    "0006_phase1f": "0005_phase1e",
+    "0007_phase1g": "0006_phase1f",
+    "0009_phase1i": "0008_phase1h",
+    "0008_phase1h": "0007_phase1g"
+  },
+  "frozen_0001_0008": "byte-identical",
+  "alembic_tree": "exact Phase1I source tree",
+  "rules": "1\u2013151 exact preserved",
+  "frontend": "byte-identical to verified Stage1-alpha main",
+  "Phase1I_changed_src": "byte-identical to tested source",
+  "Phase1L_A_changed_src": "byte-identical to tested source",
+  "scope": "No Phase1J/1L-B/M1 implementation paths; old future DTO reference declarations remain unchanged, not implemented services"
+}

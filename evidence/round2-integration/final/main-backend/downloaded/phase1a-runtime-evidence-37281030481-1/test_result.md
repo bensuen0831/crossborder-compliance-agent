@@ -1,0 +1,26 @@
+# Phase 1A.1 Test Result
+
+**Decision: PASS**
+
+~~~text
+........................................................................ [ 14%]
+........................................................................ [ 29%]
+........................................................................ [ 44%]
+........................................................................ [ 59%]
+........................................................................ [ 73%]
+........................................................................ [ 88%]
+.......................................................                  [100%]
+=============================== warnings summary ===============================
+tests/test_phase1c_admin_api.py::test_model_admin_response_never_returns_secret_and_unsafe_url_rejected
+  /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/src/crossborder_compliance/interfaces/api/routes/admin_metadata.py:183: StarletteDeprecationWarning: 'HTTP_422_UNPROCESSABLE_ENTITY' is deprecated. Use 'HTTP_422_UNPROCESSABLE_CONTENT' instead.
+    _translate_error(exc)
+
+tests/test_phase1h_migrations.py::test_fresh_and_frozen_0007_paths_equivalent_and_downgrade
+tests/test_phase1i_migrations.py::test_phase1i_fresh_verified_0008_equivalence_and_downgrade
+  /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/tests/test_phase1h_migrations.py:45: SAWarning: Did not recognize type 'vector' of column 'embedding_vector'
+    for c in inspector.get_columns(table)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/artifacts/phase1a-runtime/pytest_full.xml -
+487 passed, 3 warnings in 232.88s (0:03:52)
+~~~

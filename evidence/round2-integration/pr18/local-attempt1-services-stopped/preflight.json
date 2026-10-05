@@ -1,0 +1,21 @@
+{
+  "package_versions": {
+    "langgraph": "1.2.12",
+    "langgraph-checkpoint-postgres": "3.1.2",
+    "psycopg": "3.3.6",
+    "redis": "6.4.0"
+  },
+  "pgvector_available": false,
+  "postgres_login": false,
+  "postgres_tcp": false,
+  "postgres_tcp_error": "[Errno 111] Connection refused",
+  "python_modules": {
+    "langgraph": true,
+    "psycopg": true,
+    "redis": true
+  },
+  "python_version": "3.12.14",
+  "ready_for_mandatory_smoke": false,
+  "redis_error": "ConnectionError: Error 111 connecting to 127.0.0.1:6379. Connection refused.",
+  "redis_ping": false
+}

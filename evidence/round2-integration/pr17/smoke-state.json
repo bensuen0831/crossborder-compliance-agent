@@ -1,0 +1,40 @@
+{
+  "analysis_snapshot_id": "25608b54-53c6-4d51-a9fe-d31ad4a37a92",
+  "checkpointer_version": "3.1.2",
+  "graph_definition_version": "phase1a-smoke-v1",
+  "langgraph_runtime_version": "1.2.12",
+  "process1_checkpoint_next": [
+    "node_b"
+  ],
+  "process1_checkpoint_row_count": 3,
+  "process1_checkpoint_values": {
+    "analysis_snapshot_id": "25608b54-53c6-4d51-a9fe-d31ad4a37a92",
+    "completed": false,
+    "node_a_completed": true,
+    "phase": "A_DONE",
+    "tenant_id": "4c63a801-b0f9-4f5a-965b-748c067c57bd",
+    "workflow_run_id": "034bfc53-8ae4-4067-a00b-8ebb04cfaea9"
+  },
+  "process2_checkpoint_context_preserved": true,
+  "process2_checkpoint_values_before_resume": {
+    "analysis_snapshot_id": "25608b54-53c6-4d51-a9fe-d31ad4a37a92",
+    "completed": false,
+    "node_a_completed": true,
+    "phase": "A_DONE",
+    "tenant_id": "4c63a801-b0f9-4f5a-965b-748c067c57bd",
+    "workflow_run_id": "034bfc53-8ae4-4067-a00b-8ebb04cfaea9"
+  },
+  "project_version_id": "4710880f-dc74-4879-8378-9924e0a867ce",
+  "resume_retry_event_counts_unchanged": true,
+  "resume_retry_returned_existing_status": "COMPLETED",
+  "resume_retry_review_count_unchanged": true,
+  "resume_retry_safe": true,
+  "review_decision": {
+    "decided_by": "phase1a-smoke",
+    "decision": "APPROVE"
+  },
+  "state_schema_version": "phase1a-smoke-state-v1",
+  "tenant_id": "4c63a801-b0f9-4f5a-965b-748c067c57bd",
+  "thread_id": "034bfc53-8ae4-4067-a00b-8ebb04cfaea9",
+  "workflow_run_id": "034bfc53-8ae4-4067-a00b-8ebb04cfaea9"
+}

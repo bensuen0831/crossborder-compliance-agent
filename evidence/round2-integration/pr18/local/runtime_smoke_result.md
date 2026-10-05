@@ -1,0 +1,54 @@
+# Phase 1A.1 Mandatory PostgreSQL-backed LangGraph Runtime Smoke
+
+## Gate Decision
+
+**PASS**
+
+## Mandatory Assertions
+
+| Mandatory assertion | Result |
+|---|---|
+| `postgres_checkpoint_row_gt_zero` | **PASS** |
+| `workflow_run_exists` | **PASS** |
+| `analysis_snapshot_exists` | **PASS** |
+| `analysis_snapshot_and_checkpoint_are_separate_sources` | **PASS** |
+| `workflow_run_id_equals_thread_id` | **PASS** |
+| `review_task_count_eq_one` | **PASS** |
+| `review_required_event_count_eq_one` | **PASS** |
+| `workflow_resumed_event_count_eq_one` | **PASS** |
+| `workflow_completed_event_count_eq_one` | **PASS** |
+| `formal_completion_audit_count_eq_one` | **PASS** |
+| `final_workflow_status_completed` | **PASS** |
+| `tenant_id_preserved_after_restart` | **PASS** |
+| `analysis_snapshot_id_preserved_after_restart` | **PASS** |
+| `graph_runtime_checkpointer_state_schema_versions_retained` | **PASS** |
+| `audit_provenance_retained` | **PASS** |
+| `canonical_events_only` | **PASS** |
+| `no_raw_langgraph_payload_keys_persisted` | **PASS** |
+| `external_workflow_event_contract_has_no_raw_langgraph_fields` | **PASS** |
+| `api_layer_has_no_raw_langgraph_import` | **PASS** |
+| `domain_metadata_does_not_own_checkpoint_tables` | **PASS** |
+| `process1_checkpoint_existed_before_process_exit` | **PASS** |
+| `process2_loaded_checkpoint_context_before_resume` | **PASS** |
+| `resume_retry_safe` | **PASS** |
+| `resume_retry_event_counts_unchanged` | **PASS** |
+| `resume_retry_review_count_unchanged` | **PASS** |
+
+## Workflow Identity
+
+- workflow_run_id: `15f74bac-1ccd-4619-8d50-cd563acd7a1f`
+- thread_id: `15f74bac-1ccd-4619-8d50-cd563acd7a1f`
+- tenant_id: `b7c76048-2c96-45bb-8dc0-91b1666d52b6`
+- analysis_snapshot_id: `72672dc6-a67e-4dab-913a-78a2a31a547e`
+
+## Checkpoint Evidence
+
+- tables: `['checkpoint_blobs', 'checkpoint_migrations', 'checkpoint_writes', 'checkpoints']`
+- rows for thread: `5`
+- process-1 rows before exit: `3`
+
+## Resume Retry
+
+- safe: `True`
+- events unchanged: `True`
+- review count unchanged: `True`

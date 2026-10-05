@@ -1,0 +1,21 @@
+{
+  "source_sha": "39be101e565fa4966e834180523f6ba47a96e5fc",
+  "source_implementation_paths": [
+    "src/crossborder_compliance/application/ports.py",
+    "src/crossborder_compliance/application/workflow_classification.py",
+    "src/crossborder_compliance/application/workflow_skeleton.py",
+    "src/crossborder_compliance/infrastructure/persistence/repositories.py",
+    "src/crossborder_compliance/infrastructure/persistence/runtime_operations.py",
+    "src/crossborder_compliance/infrastructure/persistence/workflow_authorization.py",
+    "src/crossborder_compliance/workflows/canonical.py",
+    "src/crossborder_compliance/workflows/events.py",
+    "src/crossborder_compliance/workflows/langgraph_adapter.py",
+    "src/crossborder_compliance/workflows/runtime_context.py"
+  ],
+  "new_migration": false,
+  "competing_domain_contracts": false,
+  "new_workflow_event_authority": false,
+  "scope": "Canonical workflow factory/stages injected into existing runtime; future stages UnavailableStage; no Phase1I applicability production wiring",
+  "locale": "RuntimeContext preferred_locale is presentation-only; source test_phase1l_a_locale.py must rerun on integrated exact head",
+  "pending": "Actual integrated-head backend/frontend/locale/HITL/idempotence tests and frozen-baseline coexistence correction review"
+}
