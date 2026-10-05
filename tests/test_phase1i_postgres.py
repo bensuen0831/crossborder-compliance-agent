@@ -991,3 +991,55 @@ def test_template_capability_binding_requires_governed_published_version(foundat
             .lifecycle_status
             == "ACTIVE"
         )
+
+
+def test_private_profile_labels_and_configuration_are_filtered_per_actor(foundation_i):
+    from fastapi import FastAPI
+    from fastapi.testclient import TestClient
+
+    from crossborder_compliance.interfaces.api.dependencies import get_repository_context
+    from crossborder_compliance.interfaces.api.routes.metadata import router
+
+    f = foundation_i
+    restricted = "metadata:restricted-profile"
+    private = publish_config(
+        f,
+        "COUNTRY_PROFILE",
+        {
+            **f["country_payload"],
+            "permission_scopes": [restricted],
+            "localized_display": {
+                "localized_display_names": {
+                    "zh-HK": "受限設定",
+                    "zh-CN": "受限配置",
+                    "en-US": "Restricted profile",
+                }
+            },
+        },
+    )
+    app = FastAPI()
+    app.include_router(router)
+    current = [f["ctx"]]
+    app.dependency_overrides[get_repository_context] = lambda: current[0]
+    with TestClient(app) as client:
+        for locale in ("zh-CN", "zh-HK", "en-US"):
+            data = client.get("/api/v1/metadata/country-profiles", params={"locale": locale}).json()
+            assert private["definition_id"] not in {row["definition_id"] for row in data["items"]}
+            assert data["health"]["entry_count"] == 1
+        current[0] = RepositoryContext.user(
+            UUID(f["tenant"]), "authorized-other", set(f["ctx"].permission.scopes) | {restricted}
+        )
+        rows = client.get("/api/v1/metadata/country-profiles", params={"locale": "zh-HK"}).json()[
+            "items"
+        ]
+        assert private["definition_id"] in {row["definition_id"] for row in rows}
+        current[0] = f["ctx"]
+        assert private["definition_id"] not in {
+            row["definition_id"]
+            for row in client.get("/api/v1/metadata/country-profiles").json()["items"]
+        }
+    with f["sf"]() as session:
+        assert private["definition_id"] not in {
+            row[0].definition_id
+            for row in f["compliance_repo"].active_configs(session, "COUNTRY_PROFILE", date.today())
+        }

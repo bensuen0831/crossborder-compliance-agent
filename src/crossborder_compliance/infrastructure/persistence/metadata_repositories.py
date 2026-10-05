@@ -444,7 +444,13 @@ class PostgresRegistrySourceRepository(_TenantScopedMetadataRepository):
                 )
                 .order_by(MetadataDefinitionEntity.code)
             ).all()
-            return [self._project(definition, version) for definition, version in rows]
+            return [
+                self._project(definition, version)
+                for definition, version in rows
+                if self._context.permission.system
+                or set((version.payload_json or {}).get("permission_scopes") or ())
+                <= self._context.permission.scopes
+            ]
 
     def load_active_version(self, kind: str, definition_id: UUID) -> dict[str, object] | None:
         rows = self.load_active(kind)

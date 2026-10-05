@@ -149,6 +149,12 @@ class PostgresCountryComplianceRepository:
         result = []
         for definition, version in pairs:
             config = CONFIG_TYPES[kind].model_validate(version.payload_json)
+            if (
+                not self.context.permission.system
+                and not set(getattr(config, "permission_scopes", ()))
+                <= self.context.permission.scopes
+            ):
+                continue
             if version.approved_by and version.published_at and effective(config, when):
                 result.append((definition, version, config))
         return sorted(result, key=lambda p: str(p[0].definition_id))
