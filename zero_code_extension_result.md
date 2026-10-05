@@ -1,11 +1,8 @@
-# Phase1I — configuration-only extension
+# Round 2 integration: zero_code_extension_result.md
 
-Phase1I Track: `phase1i-applicability-country-scenario`; verified base `700951ebb9ebdf33e399158fd3fb53bb4a6c87e7` / `v3.6-phase1h-pass`. Frozen implementation SHA: `131d101cdd02999aa478c1a730f492c1729caf30`. DRAFT PR: [#18](https://github.com/bensuen0831/crossborder-compliance-agent/pull/18), target main; no merge. Final validation evidence is recorded in [test_result.md](test_result.md) and `evidence/phase1i`. Earlier-phase sections, where present, remain historical evidence.
+This integration-level index preserves both independently tested Track reports without reattributing their evidence to the integrated main.
 
-The PostgreSQL test publishes an additional canonical jurisdiction plus generic FILING capability and country profile through the existing metadata lifecycle. The existing outbox/RegistrySyncService produces a derived projection and is idempotent. A new validated Phase1E context/snapshot selects that jurisdiction; explicit I initialization and the same generic facade resolve the profile and NOT_APPLICABLE availability without changing Python country logic or restarting a process. The old snapshot rejects the unselected new jurisdiction.
+- [Phase1I historical report](docs/delivery/phase1i/zero_code_extension_result.md) — source `14cba25353d9ab7dda84e9620ff3197d9e2a3d1d`.
+- [Stage1-alpha historical report](docs/delivery/stage1-alpha/zero_code_extension_result.md) — source `6c2aacd6475af0c0533717daa54b8e48946647e1`.
 
-A published new country-profile version is immediately visible through the runtime metadata API while the original applicability result retains its previously pinned profile/configuration. Scenario and capability differences live in typed payloads, not named-country classes. Generic multilingual labels similarly publish in the same version authority and are exposed through metadata APIs.
-
-Zero-code extension configures availability and reviewed applicability rules. It does not generate or implement new legal mechanism algorithms, obligations, workflow stages, frontend translations or document generation.
-
-Final measured code `b2312e9ec48bd05e3398c23f79dcfcf1faf69b9f`:356 full pytest /72 I tests PASS; canonical migration, schema, architecture and runtime gates PASS. Authoritative final measurements: [local_final_manifest.json](evidence/phase1i/local_final_manifest.json).
+Phase1I main integration: `d83d8db17dd2b16b54038009d8547e290e8949ae`; exact-main backend CI `37277326614` SUCCESS; migration `0009_phase1i`; architecture135/135; runtime25/25;356 full pytest with zero skips/deselections. Stage1-alpha integration validation is pending; no combined-main success or Phase1J entry is claimed.
