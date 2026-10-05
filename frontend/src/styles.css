@@ -1,0 +1,46 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+  background: #0b1020;
+}
+/* Layout only. Component colors, spacing density and statuses use Ant Design tokens. */
+body { margin: 0; min-width: 360px; }
+.global-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 28px; border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent); }
+.workspace-layout { min-height: calc(100vh - 65px); }
+.sidebar { border-right: 1px solid color-mix(in srgb, currentColor 12%, transparent); }
+.wordmark { display: flex; align-items: center; gap: 10px; padding: 32px 22px; font-weight: 700; letter-spacing: .08em; }
+.wordmark small { display: block; margin-top: 6px; font-size: 11px; font-weight: 400; letter-spacing: .02em; opacity: .65; }
+.brand-mark { font-size: 26px; }
+.sidebar-foot { padding: 24px; margin-top: 80px; }
+.sidebar .ant-menu-item-disabled { height: 72px; line-height: normal; }
+.feature-gate .ant-tag { white-space: normal; margin-inline-end: 0; }
+.workspace-topbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 36px; border-bottom: 1px solid color-mix(in srgb, currentColor 10%, transparent); }
+.workspace-content { padding: 36px; max-width: 1700px; width: 100%; margin: 0 auto; }
+.page-heading { margin-bottom: 26px; }
+.page-heading h1 { margin-top: 12px; margin-bottom: 12px; letter-spacing: -.02em; }
+.eyebrow { font-size: 11px; letter-spacing: .16em; opacity: .65; }
+.demo-banner { margin-bottom: 24px; }
+.workspace-grid { display: grid; grid-template-columns: minmax(0, 2.1fr) minmax(320px, 1fr); gap: 24px; align-items: start; }
+.main-column, .insight-column { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.scope-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+.scope-note { font-size: 12px; margin-top: 4px; line-height: 1.7; }
+.evidence-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.card-action { margin-top: 18px; }
+.reason-codes { margin-top: 12px; }
+.guidance-action { padding-block: 8px; }
+.source-excerpt, .provenance { white-space: pre-wrap; overflow-wrap: anywhere; }
+.provenance { font-size: 12px; }
+.sign-in-state { max-width: 760px; margin: 80px auto; padding: 24px; }
+.full-width { width: 100%; }
+.welcome-card { padding-block: 30px; }
+@media (max-width: 1200px) {
+  .workspace-content { padding: 24px; }
+  .workspace-grid { grid-template-columns: minmax(0, 1fr); }
+  .insight-column { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .global-bar, .workspace-topbar { flex-wrap: wrap; padding: 12px 16px; }
+  .workspace-content { padding: 20px 16px; }
+  .scope-fields, .evidence-grid, .insight-column { grid-template-columns: 1fr; }
+  .page-heading h1 { font-size: 30px; }
+}

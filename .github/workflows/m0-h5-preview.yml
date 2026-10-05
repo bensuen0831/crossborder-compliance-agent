@@ -1,0 +1,115 @@
+name: M0 Knowledge & Evidence Preview
+
+on:
+  pull_request:
+    paths:
+      - frontend/**
+      - scripts/m0_preview/**
+      - tests/test_m0_preview_security.py
+      - docs/m0/**
+      - .github/workflows/m0-h5-preview.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+
+  real-backend-uat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_DB: m0_preview
+          POSTGRES_USER: compliance
+          POSTGRES_PASSWORD: compliance
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd="pg_isready -U compliance -d m0_preview"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+        options: >-
+          --health-cmd="redis-cli ping"
+          --health-interval=5s --health-timeout=3s --health-retries=20
+    env:
+      APP_ENV: LOCAL_SERVER
+      DATABASE_URL: postgresql+psycopg://compliance:compliance@127.0.0.1:5432/m0_preview
+      LANGGRAPH_DATABASE_URI: postgresql://compliance:compliance@127.0.0.1:5432/m0_preview?sslmode=disable
+      REDIS_URL: redis://127.0.0.1:6379/0
+      M0_LOCAL_UAT: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+      VITE_M0_DEMO: 'true'
+      VITE_SESSION_PATH: /m0-demo/session
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: python -m pip install -e '.[dev]'
+      - name: Check reproducible frozen API generation
+        run: |
+          npm ci --prefix frontend --no-audit --no-fund
+          python scripts/m0_preview/export_contracts.py
+          npm run generate:types --prefix frontend
+          git diff --exit-code -- frontend/src/api/openapi.json frontend/src/api/generated.ts
+      - run: alembic upgrade head
+      - run: pytest -q tests/test_m0_preview_security.py
+      - name: Seed synthetic UAT through existing Phase 1F/G services
+        run: python scripts/m0_preview/seed.py --output /tmp/m0-personas.json
+      - name: Start unchanged backend routers behind loopback UAT adapter
+        run: |
+          python scripts/m0_preview/server.py --manifest /tmp/m0-personas.json > /tmp/m0-backend.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8010/health/live > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/m0-backend.log
+          exit 1
+      - name: Fresh frontend and Chromium
+        working-directory: frontend
+        run: |
+          npx playwright install --with-deps chromium
+          npm run dev > /tmp/m0-frontend.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:5173 > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/m0-frontend.log
+          exit 1
+      - name: Real browser UAT without retries, three independent executions per scenario
+        run: npm run test:e2e --prefix frontend -- --repeat-each=3
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m0-browser-uat-${{ github.run_id }}-${{ github.run_attempt }}
+          path: frontend/test-results/
+          if-no-files-found: error
+          retention-days: 30

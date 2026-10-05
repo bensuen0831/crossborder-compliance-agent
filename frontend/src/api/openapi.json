@@ -1,0 +1,1822 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Cross-border Compliance Agent",
+    "version": "0.7.0-phase1g"
+  },
+  "paths": {
+    "/health/ready": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Ready",
+        "operationId": "ready_health_ready_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/metadata/jurisdictions": {
+      "get": {
+        "tags": [
+          "metadata"
+        ],
+        "summary": "Jurisdictions",
+        "operationId": "jurisdictions_api_v1_metadata_jurisdictions_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/metadata/scenarios": {
+      "get": {
+        "tags": [
+          "metadata"
+        ],
+        "summary": "Scenarios",
+        "operationId": "scenarios_api_v1_metadata_scenarios_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/metadata/products": {
+      "get": {
+        "tags": [
+          "metadata"
+        ],
+        "summary": "Products",
+        "operationId": "products_api_v1_metadata_products_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{project_id}/knowledge-scope": {
+      "get": {
+        "tags": [
+          "knowledge-foundation"
+        ],
+        "summary": "Project Scope",
+        "operationId": "project_scope_api_v1_projects__project_id__knowledge_scope_get",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "analysis_snapshot_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Analysis Snapshot Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeScope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{project_id}/knowledge/retrieve": {
+      "post": {
+        "tags": [
+          "scope-first-retrieval"
+        ],
+        "summary": "Retrieve",
+        "operationId": "retrieve_api_v1_projects__project_id__knowledge_retrieve_post",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RetrievalRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetrievalResponseDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/retrieval-runs/{id}": {
+      "get": {
+        "tags": [
+          "scope-first-retrieval"
+        ],
+        "summary": "Retrieval Run",
+        "operationId": "retrieval_run_api_v1_retrieval_runs__id__get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetrievalResponseDTO"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/evidence-packs/{id}": {
+      "get": {
+        "tags": [
+          "scope-first-retrieval"
+        ],
+        "summary": "Evidence Pack",
+        "operationId": "evidence_pack_api_v1_evidence_packs__id__get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvidencePack"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/knowledge-sufficiency/{id}": {
+      "get": {
+        "tags": [
+          "scope-first-retrieval"
+        ],
+        "summary": "Sufficiency",
+        "operationId": "sufficiency_api_v1_knowledge_sufficiency__id__get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeSufficiencyResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-versions/{id}/runtime-readiness": {
+      "get": {
+        "tags": [
+          "scope-first-retrieval"
+        ],
+        "summary": "Runtime Readiness",
+        "operationId": "runtime_readiness_api_v1_admin_knowledge_versions__id__runtime_readiness_get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeRuntimeReadinessResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "KnowledgeScope": {
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "title": "Tenant Id"
+          },
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "analysis_snapshot_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Analysis Snapshot Id"
+          },
+          "subject_type": {
+            "type": "string",
+            "title": "Subject Type"
+          },
+          "subject_id": {
+            "type": "string",
+            "title": "Subject Id"
+          },
+          "allowed_jurisdiction_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Allowed Jurisdiction Ids",
+            "default": []
+          },
+          "allowed_product_domain_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Allowed Product Domain Ids",
+            "default": []
+          },
+          "allowed_product_category_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Allowed Product Category Ids",
+            "default": []
+          },
+          "allowed_product_family_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Allowed Product Family Ids",
+            "default": []
+          },
+          "allowed_product_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Allowed Product Ids",
+            "default": []
+          },
+          "allowed_product_tag_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Allowed Product Tag Ids",
+            "default": []
+          },
+          "allowed_scenario_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Allowed Scenario Ids",
+            "default": []
+          },
+          "allowed_industry_refs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Allowed Industry Refs",
+            "default": []
+          },
+          "allowed_data_category_refs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Allowed Data Category Refs",
+            "default": []
+          },
+          "allowed_scope_types": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Allowed Scope Types"
+          },
+          "permission_filters": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Permission Filters"
+          },
+          "lifecycle_filters": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Lifecycle Filters"
+          },
+          "effective_as_of": {
+            "type": "string",
+            "format": "date",
+            "title": "Effective As Of"
+          },
+          "excluded_bindings": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Excluded Bindings"
+          },
+          "unresolved_scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Unresolved Scopes"
+          },
+          "reason_codes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reason Codes"
+          },
+          "review_required": {
+            "type": "boolean",
+            "title": "Review Required"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "filter_spec": {
+            "$ref": "#/components/schemas/KnowledgeFilterSpec"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "tenant_id",
+          "project_id",
+          "subject_type",
+          "subject_id",
+          "allowed_scope_types",
+          "permission_filters",
+          "lifecycle_filters",
+          "effective_as_of",
+          "excluded_bindings",
+          "unresolved_scopes",
+          "reason_codes",
+          "review_required",
+          "version",
+          "filter_spec"
+        ],
+        "title": "KnowledgeScope"
+      },
+      "KnowledgeFilterSpec": {
+        "properties": {
+          "tenant_filter": {
+            "type": "string",
+            "title": "Tenant Filter"
+          },
+          "permission_filter": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Permission Filter"
+          },
+          "lifecycle_filter": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Lifecycle Filter"
+          },
+          "effective_date_filter": {
+            "type": "string",
+            "format": "date",
+            "title": "Effective Date Filter"
+          },
+          "jurisdiction_filter": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Jurisdiction Filter"
+          },
+          "product_filter": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Product Filter"
+          },
+          "scenario_filter": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Scenario Filter"
+          },
+          "industry_filter": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Industry Filter"
+          },
+          "data_category_filter": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Data Category Filter"
+          },
+          "language_filter": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Language Filter"
+          },
+          "scope_type_filter": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Scope Type Filter"
+          },
+          "version_filter": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Version Filter"
+          },
+          "binding_filter": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Binding Filter"
+          },
+          "filter_order": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Filter Order",
+            "default": [
+              "tenant",
+              "permission",
+              "lifecycle",
+              "version",
+              "effective_date",
+              "product",
+              "jurisdiction",
+              "scenario",
+              "industry",
+              "data_category",
+              "language"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "tenant_filter",
+          "permission_filter",
+          "lifecycle_filter",
+          "effective_date_filter",
+          "jurisdiction_filter",
+          "product_filter",
+          "scenario_filter",
+          "industry_filter",
+          "data_category_filter",
+          "language_filter",
+          "scope_type_filter",
+          "version_filter",
+          "binding_filter"
+        ],
+        "title": "KnowledgeFilterSpec"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "RetrievalRequestDTO": {
+        "properties": {
+          "analysis_snapshot_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Analysis Snapshot Id"
+          },
+          "policy_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Policy Id"
+          },
+          "query_text": {
+            "type": "string",
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Query Text"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          },
+          "subject_type": {
+            "type": "string",
+            "enum": [
+              "PROJECT",
+              "DATA_ITEM",
+              "DATA_FLOW"
+            ],
+            "title": "Subject Type",
+            "default": "PROJECT"
+          },
+          "subject_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subject Id"
+          },
+          "languages": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Languages",
+            "default": []
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "analysis_snapshot_id",
+          "policy_id",
+          "query_text",
+          "idempotency_key"
+        ],
+        "title": "RetrievalRequestDTO"
+      },
+      "RetrievalResponseDTO": {
+        "properties": {
+          "retrieval_run_id": {
+            "type": "string",
+            "title": "Retrieval Run Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "RUNNING",
+              "COMPLETED",
+              "FAILED"
+            ],
+            "title": "Status"
+          },
+          "query": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Query"
+          },
+          "traces": {
+            "items": {
+              "$ref": "#/components/schemas/RetrievalTrace"
+            },
+            "type": "array",
+            "title": "Traces"
+          },
+          "statistics": {
+            "$ref": "#/components/schemas/RetrievalStatistics"
+          },
+          "record_version": {
+            "type": "integer",
+            "title": "Record Version"
+          },
+          "rag_context_pack": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RAGContextPack"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "retrieval_run_id",
+          "status",
+          "query",
+          "traces",
+          "statistics",
+          "record_version",
+          "rag_context_pack"
+        ],
+        "title": "RetrievalResponseDTO"
+      },
+      "RetrievalTrace": {
+        "properties": {
+          "stage": {
+            "type": "string",
+            "title": "Stage"
+          },
+          "reason_code": {
+            "type": "string",
+            "title": "Reason Code"
+          },
+          "details": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Details"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "stage",
+          "reason_code"
+        ],
+        "title": "RetrievalTrace"
+      },
+      "RetrievalStatistics": {
+        "properties": {
+          "lexical_count": {
+            "type": "integer",
+            "title": "Lexical Count",
+            "default": 0
+          },
+          "vector_count": {
+            "type": "integer",
+            "title": "Vector Count",
+            "default": 0
+          },
+          "deduplicated_count": {
+            "type": "integer",
+            "title": "Deduplicated Count",
+            "default": 0
+          },
+          "reranked_count": {
+            "type": "integer",
+            "title": "Reranked Count",
+            "default": 0
+          },
+          "dropped_count": {
+            "type": "integer",
+            "title": "Dropped Count",
+            "default": 0
+          },
+          "internal_evidence_count": {
+            "type": "integer",
+            "title": "Internal Evidence Count",
+            "default": 0
+          },
+          "external_evidence_count": {
+            "type": "integer",
+            "title": "External Evidence Count",
+            "default": 0
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "RetrievalStatistics"
+      },
+      "RAGContextPack": {
+        "properties": {
+          "structured_context": {
+            "$ref": "#/components/schemas/FormalContext"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/KnowledgeScope"
+          },
+          "evidence_pack": {
+            "$ref": "#/components/schemas/EvidencePack"
+          },
+          "knowledge_sufficiency": {
+            "$ref": "#/components/schemas/KnowledgeSufficiencyResult"
+          },
+          "external_augmentation_metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "External Augmentation Metadata"
+          },
+          "fallback_guidance_context": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ActionableFallbackGuidanceContext"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "derived": {
+            "type": "boolean",
+            "const": true,
+            "title": "Derived",
+            "default": true
+          },
+          "legal_decision": {
+            "type": "boolean",
+            "const": false,
+            "title": "Legal Decision",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "structured_context",
+          "scope",
+          "evidence_pack",
+          "knowledge_sufficiency",
+          "external_augmentation_metadata"
+        ],
+        "title": "RAGContextPack"
+      },
+      "FormalContext": {
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "subject_type": {
+            "type": "string",
+            "enum": [
+              "PROJECT",
+              "DATA_ITEM",
+              "DATA_FLOW"
+            ],
+            "title": "Subject Type"
+          },
+          "subject_id": {
+            "type": "string",
+            "title": "Subject Id"
+          },
+          "context_version": {
+            "type": "integer",
+            "title": "Context Version"
+          },
+          "dimensions": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Dimensions"
+          },
+          "product_unresolved": {
+            "type": "boolean",
+            "title": "Product Unresolved"
+          },
+          "reason_codes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reason Codes",
+            "default": []
+          },
+          "system_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "System Ids",
+            "default": []
+          },
+          "party_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Party Ids",
+            "default": []
+          },
+          "product_lineages": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "type": "object"
+            },
+            "type": "object",
+            "title": "Product Lineages",
+            "default": {}
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "project_id",
+          "subject_type",
+          "subject_id",
+          "context_version",
+          "dimensions",
+          "product_unresolved"
+        ],
+        "title": "FormalContext"
+      },
+      "EvidencePack": {
+        "properties": {
+          "evidence_pack_id": {
+            "type": "string",
+            "title": "Evidence Pack Id"
+          },
+          "retrieval_run_id": {
+            "type": "string",
+            "title": "Retrieval Run Id"
+          },
+          "analysis_snapshot_id": {
+            "type": "string",
+            "title": "Analysis Snapshot Id"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/EvidencePackItem"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "manifest": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Manifest"
+          },
+          "derived": {
+            "type": "boolean",
+            "const": true,
+            "title": "Derived",
+            "default": true
+          },
+          "legal_source_of_truth": {
+            "type": "boolean",
+            "const": false,
+            "title": "Legal Source Of Truth",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "evidence_pack_id",
+          "retrieval_run_id",
+          "analysis_snapshot_id",
+          "items",
+          "manifest"
+        ],
+        "title": "EvidencePack"
+      },
+      "EvidencePackItem": {
+        "properties": {
+          "evidence_item_id": {
+            "type": "string",
+            "title": "Evidence Item Id"
+          },
+          "knowledge_document_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Knowledge Document Id"
+          },
+          "knowledge_version_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Knowledge Version Id"
+          },
+          "external_evidence_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External Evidence Id"
+          },
+          "structure_node_id": {
+            "type": "string",
+            "title": "Structure Node Id"
+          },
+          "chunk_id": {
+            "type": "string",
+            "title": "Chunk Id"
+          },
+          "citation_id": {
+            "type": "string",
+            "title": "Citation Id"
+          },
+          "source_id": {
+            "type": "string",
+            "title": "Source Id"
+          },
+          "source_url": {
+            "type": "string",
+            "title": "Source Url"
+          },
+          "source_authority": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Authority"
+          },
+          "source_tier": {
+            "type": "string",
+            "enum": [
+              "T1_PRIMARY_OFFICIAL",
+              "T2_OFFICIAL_GUIDANCE",
+              "T3_INTERGOVERNMENTAL",
+              "T3_APPROVED_SECONDARY",
+              "T4_UNVERIFIED_WEB",
+              "T4_LLM_DISCOVERY_ONLY"
+            ],
+            "title": "Source Tier"
+          },
+          "jurisdiction_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Jurisdiction Id"
+          },
+          "jurisdiction_specific": {
+            "type": "boolean",
+            "title": "Jurisdiction Specific",
+            "default": false
+          },
+          "canonical_locator": {
+            "type": "string",
+            "title": "Canonical Locator"
+          },
+          "language": {
+            "type": "string",
+            "title": "Language"
+          },
+          "effective_from": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective From"
+          },
+          "effective_to": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective To"
+          },
+          "lexical_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lexical Score"
+          },
+          "vector_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vector Score"
+          },
+          "hybrid_score": {
+            "type": "number",
+            "title": "Hybrid Score",
+            "default": 0
+          },
+          "rerank_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rerank Score"
+          },
+          "scope_validation_status": {
+            "type": "string",
+            "const": "VALIDATED",
+            "title": "Scope Validation Status",
+            "default": "VALIDATED"
+          },
+          "evidence_quality": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Evidence Quality"
+          },
+          "content_hash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Content Hash"
+          },
+          "retrieval_run_id": {
+            "type": "string",
+            "title": "Retrieval Run Id"
+          },
+          "analysis_snapshot_id": {
+            "type": "string",
+            "title": "Analysis Snapshot Id"
+          },
+          "knowledge_index_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Knowledge Index Version"
+          },
+          "retrieval_policy_version": {
+            "type": "string",
+            "title": "Retrieval Policy Version"
+          },
+          "original_text": {
+            "type": "string",
+            "title": "Original Text"
+          },
+          "topic_refs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Topic Refs",
+            "default": []
+          },
+          "regulation_refs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Regulation Refs",
+            "default": []
+          },
+          "conflict_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Conflict Key"
+          },
+          "claim_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Claim Hash"
+          },
+          "provenance": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Provenance"
+          },
+          "derived": {
+            "type": "boolean",
+            "const": true,
+            "title": "Derived",
+            "default": true
+          },
+          "legal_decision": {
+            "type": "boolean",
+            "const": false,
+            "title": "Legal Decision",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "evidence_item_id",
+          "structure_node_id",
+          "chunk_id",
+          "citation_id",
+          "source_id",
+          "source_url",
+          "source_tier",
+          "canonical_locator",
+          "language",
+          "evidence_quality",
+          "content_hash",
+          "retrieval_run_id",
+          "analysis_snapshot_id",
+          "retrieval_policy_version",
+          "original_text",
+          "provenance"
+        ],
+        "title": "EvidencePackItem"
+      },
+      "KnowledgeSufficiencyResult": {
+        "properties": {
+          "sufficiency_result_id": {
+            "type": "string",
+            "title": "Sufficiency Result Id"
+          },
+          "tenant_id": {
+            "type": "string",
+            "title": "Tenant Id"
+          },
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "analysis_snapshot_id": {
+            "type": "string",
+            "title": "Analysis Snapshot Id"
+          },
+          "subject_type": {
+            "type": "string",
+            "title": "Subject Type"
+          },
+          "subject_id": {
+            "type": "string",
+            "title": "Subject Id"
+          },
+          "jurisdiction_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Jurisdiction Ids"
+          },
+          "retrieval_run_id": {
+            "type": "string",
+            "title": "Retrieval Run Id"
+          },
+          "evidence_pack_id": {
+            "type": "string",
+            "title": "Evidence Pack Id"
+          },
+          "jurisdiction_coverage": {
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "type": "object",
+            "title": "Jurisdiction Coverage"
+          },
+          "regulation_coverage": {
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "type": "object",
+            "title": "Regulation Coverage"
+          },
+          "official_source_coverage": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Official Source Coverage"
+          },
+          "effective_date_coverage": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Effective Date Coverage"
+          },
+          "evidence_quality": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Evidence Quality"
+          },
+          "evidence_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Evidence Count"
+          },
+          "conflicting_evidence_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Conflicting Evidence Count"
+          },
+          "missing_topics": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Missing Topics"
+          },
+          "reason_codes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reason Codes"
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence"
+          },
+          "review_required": {
+            "type": "boolean",
+            "title": "Review Required"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUFFICIENT",
+              "PARTIALLY_SUFFICIENT",
+              "INSUFFICIENT",
+              "CONFLICTED"
+            ],
+            "title": "Status"
+          },
+          "policy_version": {
+            "type": "string",
+            "title": "Policy Version"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "sufficiency_result_id",
+          "tenant_id",
+          "project_id",
+          "analysis_snapshot_id",
+          "subject_type",
+          "subject_id",
+          "jurisdiction_ids",
+          "retrieval_run_id",
+          "evidence_pack_id",
+          "jurisdiction_coverage",
+          "regulation_coverage",
+          "official_source_coverage",
+          "effective_date_coverage",
+          "evidence_quality",
+          "evidence_count",
+          "conflicting_evidence_count",
+          "missing_topics",
+          "reason_codes",
+          "confidence",
+          "review_required",
+          "status",
+          "policy_version"
+        ],
+        "title": "KnowledgeSufficiencyResult"
+      },
+      "ActionableFallbackGuidanceContext": {
+        "properties": {
+          "verified_requirements": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Verified Requirements",
+            "default": []
+          },
+          "verified_controls": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Verified Controls",
+            "default": []
+          },
+          "conservative_controls": {
+            "items": {
+              "$ref": "#/components/schemas/GuidanceAction"
+            },
+            "type": "array",
+            "title": "Conservative Controls"
+          },
+          "evidence_acquisition_steps": {
+            "items": {
+              "$ref": "#/components/schemas/GuidanceAction"
+            },
+            "type": "array",
+            "title": "Evidence Acquisition Steps"
+          },
+          "jurisdiction_verification_steps": {
+            "items": {
+              "$ref": "#/components/schemas/GuidanceAction"
+            },
+            "type": "array",
+            "title": "Jurisdiction Verification Steps"
+          },
+          "unresolved_legal_questions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Unresolved Legal Questions"
+          },
+          "operational_next_steps": {
+            "items": {
+              "$ref": "#/components/schemas/GuidanceAction"
+            },
+            "type": "array",
+            "title": "Operational Next Steps"
+          },
+          "prohibited_assertions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Prohibited Assertions"
+          },
+          "evidence_status": {
+            "type": "string",
+            "enum": [
+              "SUFFICIENT",
+              "PARTIALLY_SUFFICIENT",
+              "INSUFFICIENT",
+              "CONFLICTED"
+            ],
+            "title": "Evidence Status"
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence"
+          },
+          "review_recommended": {
+            "type": "boolean",
+            "title": "Review Recommended",
+            "default": true
+          },
+          "finalization_requires_verification": {
+            "type": "boolean",
+            "const": true,
+            "title": "Finalization Requires Verification",
+            "default": true
+          },
+          "compliance_path": {
+            "type": "boolean",
+            "const": false,
+            "title": "Compliance Path",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "conservative_controls",
+          "evidence_acquisition_steps",
+          "jurisdiction_verification_steps",
+          "unresolved_legal_questions",
+          "operational_next_steps",
+          "prohibited_assertions",
+          "evidence_status",
+          "confidence"
+        ],
+        "title": "ActionableFallbackGuidanceContext"
+      },
+      "GuidanceAction": {
+        "properties": {
+          "action_code": {
+            "type": "string",
+            "title": "Action Code"
+          },
+          "jurisdiction_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Jurisdiction Ids",
+            "default": []
+          },
+          "topic_refs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Topic Refs",
+            "default": []
+          },
+          "evidence_refs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Evidence Refs",
+            "default": []
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "action_code"
+        ],
+        "title": "GuidanceAction"
+      },
+      "KnowledgeRuntimeReadinessResult": {
+        "properties": {
+          "knowledge_version_id": {
+            "type": "string",
+            "title": "Knowledge Version Id"
+          },
+          "tenant_id": {
+            "type": "string",
+            "title": "Tenant Id"
+          },
+          "publication_event_id": {
+            "type": "string",
+            "title": "Publication Event Id"
+          },
+          "event_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Event Version"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "BUILDING",
+              "READY",
+              "FAILED"
+            ],
+            "title": "Status"
+          },
+          "index_version_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Index Version Id"
+          },
+          "embedding_config_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Embedding Config Id"
+          },
+          "registry_projection_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registry Projection Version"
+          },
+          "cache_generation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cache Generation"
+          },
+          "checks": {
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "type": "object",
+            "title": "Checks"
+          },
+          "reason_codes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reason Codes",
+            "default": []
+          },
+          "assets": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Assets"
+          },
+          "record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Record Version"
+          },
+          "derived": {
+            "type": "boolean",
+            "const": true,
+            "title": "Derived",
+            "default": true
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "knowledge_version_id",
+          "tenant_id",
+          "publication_event_id",
+          "event_version",
+          "status",
+          "record_version"
+        ],
+        "title": "KnowledgeRuntimeReadinessResult"
+      }
+    }
+  }
+}
