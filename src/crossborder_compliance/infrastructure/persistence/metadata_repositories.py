@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from datetime import date, datetime, timezone
 from uuid import UUID, uuid4
 
@@ -21,6 +22,12 @@ from crossborder_compliance.domain.metadata import (
     validate_endpoint_config,
 )
 from crossborder_compliance.domain.security import RepositoryContext
+from crossborder_compliance.domain.compliance_profiles import PHASE1I_CONFIG_KINDS
+from crossborder_compliance.infrastructure.persistence.compliance_profile_governance import (
+    lock_definition,
+    transition_validation,
+    validate_payload,
+)
 from crossborder_compliance.infrastructure.persistence.metadata_models import (
     AdminPublishRecordEntity,
     AnalysisSnapshotRegistryPinEntity,
@@ -73,6 +80,9 @@ class PostgresAdminMetadataRepository(_TenantScopedMetadataRepository):
         display_name: str,
         parent_definition_id: UUID | None = None,
     ) -> dict[str, object]:
+        if kind in PHASE1I_CONFIG_KINDS:
+            if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}", code):
+                raise ValueError("Phase1I metadata code must be locale-neutral ASCII")
         if parent_definition_id is not None:
             with self._sessions() as session:
                 parent = self._scoped(
@@ -111,6 +121,8 @@ class PostgresAdminMetadataRepository(_TenantScopedMetadataRepository):
             )
             if definition is None:
                 raise LookupError("metadata definition not found in tenant scope")
+            definition = lock_definition(session, definition)
+            phase1i_values = validate_payload(session, definition, payload)
             max_version = session.scalar(
                 select(func.max(MetadataVersionEntity.version_no)).where(
                     MetadataVersionEntity.tenant_id == self.tenant_id,
@@ -129,6 +141,8 @@ class PostgresAdminMetadataRepository(_TenantScopedMetadataRepository):
                 effective_to=effective_to,
                 status="ACTIVE",
             )
+            for key, value in phase1i_values.items():
+                setattr(row, key, value)
             session.add(row)
             session.flush()
             return self._version_dict(row)
@@ -141,6 +155,19 @@ class PostgresAdminMetadataRepository(_TenantScopedMetadataRepository):
         expected_record_version: int,
     ) -> dict[str, object]:
         with self._sessions() as session, session.begin():
+            candidate = self._scoped(
+                session, MetadataVersionEntity, MetadataVersionEntity.version_id, version_id
+            )
+            phase1i_values = {}
+            if candidate is not None:
+                definition = self._scoped(
+                    session, MetadataDefinitionEntity, MetadataDefinitionEntity.definition_id,
+                    UUID(candidate.definition_id),
+                )
+                if definition is not None:
+                    lock_definition(session, definition)
+                    phase1i_values = validate_payload(session, definition, payload)
+            phase1i_values.pop("payload_json", None)
             result = session.execute(
                 update(MetadataVersionEntity)
                 .where(
@@ -153,6 +180,7 @@ class PostgresAdminMetadataRepository(_TenantScopedMetadataRepository):
                     payload_json=dict(payload),
                     record_version=MetadataVersionEntity.record_version + 1,
                     updated_at=utcnow(),
+                    **phase1i_values,
                 )
             )
             if result.rowcount != 1:
@@ -180,6 +208,7 @@ class PostgresAdminMetadataRepository(_TenantScopedMetadataRepository):
             )
             if row is None:
                 raise LookupError("metadata version not found in tenant scope")
+            row = transition_validation(session, row, actor_id, target_status)
             if row.record_version != expected_record_version:
                 raise MetadataOptimisticConcurrencyError("metadata version changed")
             current = row.lifecycle_status

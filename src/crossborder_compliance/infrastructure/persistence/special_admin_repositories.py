@@ -554,6 +554,8 @@ class PostgresJurisdictionAdminRepository:
 
     def create_draft(self, *, code: str, display_name: str, payload: dict[str, object]) -> dict[str, object]:
         self._policy.require(self._context, self._policy.draft_scope)
+        from crossborder_compliance.domain.localized_metadata import validate_localized_payload
+        validate_localized_payload(payload)
         jurisdiction_id = str(uuid4())
         definition_id = str(uuid4())
         version_id = str(uuid4())

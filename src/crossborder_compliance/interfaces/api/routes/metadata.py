@@ -6,6 +6,8 @@ from fastapi import APIRouter, Depends
 
 from crossborder_compliance.config import get_settings
 from crossborder_compliance.domain.security import RepositoryContext
+from crossborder_compliance.domain.localized_metadata import PresentationLocale
+from crossborder_compliance.interfaces.api.metadata_presenter import present_metadata
 from crossborder_compliance.infrastructure.persistence.db import build_session_factory
 from crossborder_compliance.infrastructure.registry_catalog import TenantRegistryProvider
 from crossborder_compliance.interfaces.api.dependencies import get_repository_context
@@ -21,14 +23,15 @@ def _provider() -> TenantRegistryProvider:
     return TenantRegistryProvider(sf)
 
 
-def _response(resource: str, context: RepositoryContext):
+def _response(resource: str, context: RepositoryContext, locale: PresentationLocale | None = None):
+    _provider().invalidate(context, resource)
     registry = _provider()(context, resource)
     if registry is None:
         return {"registry_version": "EMPTY", "health": {"status": "UNAVAILABLE"}, "items": []}
     return {
         "registry_version": registry.version(),
         "health": registry.health(),
-        "items": registry.list(),
+        "items": [present_metadata(row, locale) for row in registry.list()] if locale else registry.list(),
     }
 
 
@@ -46,35 +49,48 @@ def bootstrap_metadata():
 
 
 @router.get("/jurisdictions")
-def jurisdictions(context: RepositoryContext = Depends(get_repository_context)):
-    return _response("jurisdictions", context)
+def jurisdictions(context: RepositoryContext = Depends(get_repository_context), locale: PresentationLocale | None = None):
+    return _response("jurisdictions", context, locale)
 
 
 @router.get("/scenarios")
-def scenarios(context: RepositoryContext = Depends(get_repository_context)):
-    return _response("scenarios", context)
+def scenarios(context: RepositoryContext = Depends(get_repository_context), locale: PresentationLocale | None = None):
+    return _response("scenarios", context, locale)
 
 
 @router.get("/products")
-def products(context: RepositoryContext = Depends(get_repository_context)):
-    return _response("products", context)
+def products(context: RepositoryContext = Depends(get_repository_context), locale: PresentationLocale | None = None):
+    return _response("products", context, locale)
 
 
 @router.get("/data-types")
-def data_types(context: RepositoryContext = Depends(get_repository_context)):
-    return _response("data-types", context)
+def data_types(context: RepositoryContext = Depends(get_repository_context), locale: PresentationLocale | None = None):
+    return _response("data-types", context, locale)
 
 
 @router.get("/data-flow-types")
-def data_flow_types(context: RepositoryContext = Depends(get_repository_context)):
-    return _response("data-flow-types", context)
+def data_flow_types(context: RepositoryContext = Depends(get_repository_context), locale: PresentationLocale | None = None):
+    return _response("data-flow-types", context, locale)
 
 
 @router.get("/classification-schemes")
-def classification_schemes(context: RepositoryContext = Depends(get_repository_context)):
-    return _response("classification-schemes", context)
+def classification_schemes(context: RepositoryContext = Depends(get_repository_context), locale: PresentationLocale | None = None):
+    return _response("classification-schemes", context, locale)
 
 
 @router.get("/model-capabilities")
-def model_capabilities(context: RepositoryContext = Depends(get_repository_context)):
-    return _response("model-capabilities", context)
+def model_capabilities(context: RepositoryContext = Depends(get_repository_context), locale: PresentationLocale | None = None):
+    return _response("model-capabilities", context, locale)
+
+
+def _generic_runtime_endpoint(resource):
+    def endpoint(context: RepositoryContext = Depends(get_repository_context), locale: PresentationLocale | None = None):
+        # Existing provider stays a projection; refresh derives newly committed metadata.
+        _provider().invalidate(context, resource)
+        return _response(resource, context, locale)
+    endpoint.__name__ = "runtime_" + resource.replace("-", "_")
+    return endpoint
+
+
+for _resource in ("skills", "country-profiles", "scenario-adjustments", "country-capabilities", "applicability-configs", "rule-packs"):
+    router.add_api_route("/" + _resource, _generic_runtime_endpoint(_resource), methods=["GET"])

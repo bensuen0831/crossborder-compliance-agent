@@ -26,6 +26,12 @@ class TenantRegistryProvider:
         "products": "PRODUCT",
         "data-types": "DATA_TYPE",
         "data-flow-types": "DATA_FLOW_TYPE",
+        "skills": "SKILL",
+        "country-profiles": "COUNTRY_PROFILE",
+        "scenario-adjustments": "SCENARIO_ADJUSTMENT",
+        "country-capabilities": "COUNTRY_CAPABILITY",
+        "applicability-configs": "APPLICABILITY_CONFIG",
+        "rule-packs": "RULE_PACK",
     }
 
     def __init__(self, session_factory):
