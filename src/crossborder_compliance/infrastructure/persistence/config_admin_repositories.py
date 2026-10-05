@@ -28,6 +28,9 @@ from crossborder_compliance.infrastructure.persistence.metadata_models import (
 from crossborder_compliance.infrastructure.persistence.metadata_repositories import (
     MetadataOptimisticConcurrencyError,
 )
+from crossborder_compliance.infrastructure.persistence.rule_governance import (
+    contract_values, replace_tests, transition_gate,
+)
 
 
 def utcnow() -> datetime:
@@ -123,7 +126,11 @@ class PostgresGovernedArtifactAdminRepository:
         with self._sessions() as session, session.begin():
             session.add(definition_model(**definition_kwargs))
             session.flush()
-            session.add(version_model(**version_kwargs))
+            version = version_model(**version_kwargs)
+            session.add(version)
+            session.flush()
+            if version_model is RuleVersionEntity:
+                replace_tests(session, version, payload)
         return {
             "definition_id": definition_id,
             "version_id": version_id,
@@ -148,6 +155,10 @@ class PostgresGovernedArtifactAdminRepository:
         }
         self._apply_payload(model, values, payload)
         with self._sessions() as session, session.begin():
+            if model is RuleVersionEntity:
+                existing = session.scalar(select(model).where(pk == str(version_id), model.tenant_id == self.tenant_id).with_for_update())
+                if existing is not None and existing.runtime_contract_json is not None and "runtime_contract" not in payload:
+                    raise ValueError("V1 draft updates require the complete runtime_contract and tests")
             result = session.execute(
                 update(model)
                 .where(
@@ -160,6 +171,9 @@ class PostgresGovernedArtifactAdminRepository:
             )
             if result.rowcount != 1:
                 raise MetadataOptimisticConcurrencyError("draft update failed or version changed")
+            if model is RuleVersionEntity:
+                row = session.scalar(select(model).where(pk == str(version_id), model.tenant_id == self.tenant_id))
+                replace_tests(session, row, payload)
         return self.get_version(version_id)
 
     def transition(
@@ -193,6 +207,7 @@ class PostgresGovernedArtifactAdminRepository:
                     getattr(model, pk_name) == str(version_id),
                     model.tenant_id == self.tenant_id,
                 )
+                .with_for_update()
             )
             if row is None:
                 raise LookupError("config version not found in tenant scope")
@@ -202,6 +217,8 @@ class PostgresGovernedArtifactAdminRepository:
                 raise MetadataLifecycleError(
                     f"invalid lifecycle transition: {row.lifecycle_status} -> {target_status}"
                 )
+            if model is RuleVersionEntity:
+                transition_gate(session, row, target_status, self._context.permission.actor_id)
             row.lifecycle_status = target_status
             row.record_version += 1
             row.updated_at = utcnow()
@@ -300,6 +317,7 @@ class PostgresGovernedArtifactAdminRepository:
             target["safe_dsl_json"] = dict(payload.get("safe_dsl", {}))
             target["scope_json"] = dict(payload.get("scope", {}))
             target["priority"] = int(payload.get("priority", 100))
+            target.update(contract_values(payload))
         elif model is TemplateVersionEntity:
             target["field_schema_json"] = dict(payload.get("field_schema", {}))
             target["content_ref"] = payload.get("content_ref")

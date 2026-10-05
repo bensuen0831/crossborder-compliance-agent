@@ -4,6 +4,7 @@ from pathlib import Path
 from sqlalchemy import inspect, text
 from crossborder_compliance.config import get_settings
 from crossborder_compliance.infrastructure.persistence.db import build_engine
+from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after
 
 REQUIRED_TABLES={
 "canonical_document_nodes","document_parse_run_details","document_parse_quality_results","document_parse_tasks",
@@ -26,7 +27,7 @@ def main():
     document_version_aggregate_columns = set(cols("document_versions")) | set(cols("document_version_intelligence"))
     source_trace_aggregate_columns = set(cols("source_trace_refs")) | set(cols("source_trace_details"))
     checks={
-        "phase1d_schema_present_under_current_head":revision in {"0004_phase1d","0005_phase1e", "0006_phase1f", "0007_phase1g"},
+        "phase1d_schema_present_under_current_head":revision_at_or_after(revision, "0004_phase1d"),
         "required_tables_present":REQUIRED_TABLES<=tables,
         "document_versions_metadata_fields": {"filename","size_bytes","language","storage_ref","content_hash","mime_type"}<=document_version_aggregate_columns,
         "document_version_intelligence_one_to_one": set(insp.get_pk_constraint("document_version_intelligence").get("constrained_columns") or [])=={"document_version_id"},

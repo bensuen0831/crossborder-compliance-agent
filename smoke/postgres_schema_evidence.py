@@ -7,6 +7,7 @@ from sqlalchemy import inspect
 from crossborder_compliance.config import get_settings
 from crossborder_compliance.infrastructure.persistence.db import build_engine
 from crossborder_compliance.infrastructure.persistence.models import Base
+from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after
 from smoke.evidence_utils import EVIDENCE_DIR, write_json, write_markdown
 
 STATE_JSON = EVIDENCE_DIR / "postgres_schema_state.json"
@@ -47,7 +48,7 @@ def main() -> None:
 
     if args.phase == "post-alembic":
         ok = (
-            current["alembic_revision"] in {"0002_phase1b", "0003_phase1c", "0004_phase1d", "0005_phase1e", "0006_phase1f", "0007_phase1g"}
+            revision_at_or_after(current["alembic_revision"], "0002_phase1b")
             and bool(current["pgvector_installed_version"])
             and not current["checkpoint_tables"]
             and "checkpoints" not in current["domain_tables_from_sqlalchemy_metadata"]
@@ -63,7 +64,7 @@ def main() -> None:
         and "checkpoints" not in after.get("domain_tables_from_sqlalchemy_metadata", [])
     )
     evidence = {
-        "domain_alembic_created_domain_schema": before.get("alembic_revision") in {"0002_phase1b", "0003_phase1c", "0004_phase1d", "0005_phase1e", "0006_phase1f", "0007_phase1g"},
+        "domain_alembic_created_domain_schema": revision_at_or_after(before.get("alembic_revision"), "0002_phase1b"),
         "pgvector_extension_available_and_installed": bool(after.get("pgvector_installed_version")),
         "checkpoint_tables_absent_immediately_after_domain_alembic": not bool(before.get("checkpoint_tables")),
         "langgraph_setup_created_checkpoint_schema": runtime_created_checkpoint_schema,

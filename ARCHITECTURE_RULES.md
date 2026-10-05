@@ -164,3 +164,12 @@ These references document the existing rules; they do not change implementation 
 132. Retrieval, sufficiency and trust parameters come from versioned policy / config / registry, never Agent routing.
 
 133. Normal content publication automatically propagates through the existing transactional registry outbox to runtime projections and derived retrieval assets. New analyses require ACTIVE + READY assets. Manual refresh/reindex is recovery tooling only; existing snapshots never change their knowledge/index/embedding/policy pins.
+
+## Phase 1H Safe Rule Engine / Formal Classification Addendum
+
+134. Rule runtime accepts only statically validated typed AST over declared flat fields. Rule DSL cannot invoke Python, imports, reflection, shell, filesystem, network or models. Missing/type-invalid inputs cannot silently become a formal decision.
+135. Rule Engine is pure Domain evaluation over authorized Typed RuleFactContext and snapshot-pinned approved rule versions; it cannot fetch Database, Knowledge, retrieval, LLM or Agent services.
+136. Formal ClassificationResult must retain subject, tenant/project, jurisdiction, scheme version, RuleHits, authorized evidence, source facts, reason codes and analysis/context pins. It persists only in canonical classification_results; narrative and model output are not accepted as a formal result.
+137. Missing DataItem or insufficient facts/evidence produces a typed NOT_APPLICABLE/INSUFFICIENT_INPUT outcome without fabricated classification. Non-matched rules require review only when the input facts already require review.
+138. Executable rule publication must pass schema/AST/static validation, persisted rule tests, conflict/priority checks and independent durable review inside the existing Admin Publish/outbox transaction. Approved rule/scheme content and formal results are immutable; retries cannot create competing formal results for one snapshot/subject/scheme version.
+139. Classification consumes formal Phase 1E context and existing Phase 1F/1G evidence through authorized, scope-revalidating interfaces. Configuration pins are explicit and immutable; execution cannot silently select new rules or broaden knowledge scope.
