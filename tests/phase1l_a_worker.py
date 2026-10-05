@@ -60,6 +60,7 @@ def adapter(ids):
             GRAPH_VERSION,
             installed_version("langgraph"),
             installed_version("langgraph-checkpoint-postgres"),
+            preferred_locale=ids.get("preferred_locale"),
         ),
         graph_factory=factory,
     )
@@ -73,14 +74,19 @@ if __name__ == "__main__":
     wf = UUID(ids["run"])
     if action == "start":
         ref = runtime.start(wf, factory.initial_state(wf))
-    else:
+    elif action == "resume":
         ref = runtime.resume(wf, ids["decision"])
+    elif action != "inspect":
+        raise ValueError("unsupported test operation")
+    checkpoint = runtime.inspect_checkpoint_state(wf)
     print(
         json.dumps(
             {
-                "status": ref.status,
+                "status": runtime.get_status(wf) if action == "inspect" else ref.status,
                 "reviews": repo.review_task_count(wf),
-                "checkpoint": runtime.inspect_checkpoint_state(wf)["values"],
+                "checkpoint": checkpoint["values"],
+                "checkpoint_id": checkpoint["config"]["configurable"]["checkpoint_id"],
+                "next": checkpoint["next"],
             }
         )
     )

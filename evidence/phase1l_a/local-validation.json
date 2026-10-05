@@ -3,13 +3,23 @@
   "working_tree_validation": true,
   "full_gate_exit_code": 0,
   "pytest": {
-    "passed": 304,
+    "passed": 329,
+    "skipped": 0,
     "failed": 0,
     "errors": 0,
-    "skipped": 0,
-    "deselected": 0
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true
+    },
+    "pass": true
   },
-  "added_tests": 20,
+  "added_tests": 45,
   "local_versions": {
     "postgresql": "17.11",
     "redis": "8.0.2",
@@ -18,10 +28,10 @@
     "checkpointer": "3.1.2"
   },
   "hashes": {
-    "ci_complete.log": "44dd3fa88b37b87bb67b4874536ed20edadb0a4c9c6f894c8d11da74f50d56cf",
-    "pytest_full.xml": "a59c69bb5043c8418179d074be2600197db7e848456f541d2118295280b279e1",
-    "pytest_full.log": "00af5d0d1aa8480c3742fbec12fbbc6ab9de5de43a0f2473de352dc0b352be32",
-    "runtime_verify.json": "2ea737f8bdd2800a4d4efcc340c3c213220e5503874acd09e3159481be5cdd28",
+    "ci_complete.log": "0e8c275a6a7bea26a6c39c3b0c399b1c8739ee5dc80b529ae114f88e3018c165",
+    "pytest_full.xml": "65baa25eff30620d8995ca28939a680c0dc300f77a47313d54e606ab381bc061",
+    "pytest_full.log": "1dd2db89f95bc8bccd8dfd84c81a3b50dcc193a60e8033fb0d4fdb3328b81738",
+    "runtime_verify.json": "fc718378d7d7c0d8b6bd6fa7032a787797177eb93252f8cfe79dde29738a2a10",
     "architecture_rule_check.json": "8c753591913ad189b557dd924a863ae63de4ca40e5859e016fa038f60a50e8ed",
     "phase1h_schema_check.json": "1147654c13f4f38d8d5f99f12543960327f3b9c962956fa2122dd31d362818fe"
   },
@@ -39,5 +49,13 @@
     "pass": true,
     "passed": 20,
     "total": 20
-  }
+  },
+  "validated_parent_sha": "2064459e828758bda2587ce3c51352c8c450d8df",
+  "locale_tests": 25,
+  "supported_locales": [
+    "zh-CN",
+    "zh-HK",
+    "en-US"
+  ],
+  "evidence_directory": "artifacts/phase1l-a-locale"
 }

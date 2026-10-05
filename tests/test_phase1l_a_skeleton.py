@@ -189,6 +189,7 @@ def test_postgres_process_restart_review_idempotency_and_snapshot(
     sessions = build_session_factory(get_settings().database_url)[1]
     ids = {k: str(uuid4()) for k in ("tenant", "project", "version", "snapshot", "run", "request")}
     ids["review_status"] = review_status
+    ids["preferred_locale"] = "zh-CN"
     with sessions() as db, db.begin():
         db.add(
             ProjectEntity(
@@ -240,13 +241,20 @@ def test_postgres_process_restart_review_idempotency_and_snapshot(
 
     first = worker("start")
     assert first["status"] == "REVIEW_REQUIRED" and first["reviews"] == 1
+    for locale in ("zh-HK", "en-US", "zh-CN"):
+        ids["preferred_locale"] = locale
+        manifest.write_text(json.dumps(ids))
+        assert worker("inspect") == first
+    ids["preferred_locale"] = "zh-HK"
+    manifest.write_text(json.dumps(ids))
     duplicate = worker("start")
-    assert duplicate["checkpoint"] == first["checkpoint"] and duplicate["reviews"] == 1
+    assert duplicate == first
     with sessions() as db:
         review = db.scalar(
             select(ReviewTaskEntity).where(ReviewTaskEntity.workflow_run_id == ids["run"])
         )
-        snapshot_before = db.get(AnalysisSnapshotEntity, ids["snapshot"]).provenance_json
+        snapshot = db.get(AnalysisSnapshotEntity, ids["snapshot"])
+        snapshot_before = {c.name: getattr(snapshot, c.name) for c in snapshot.__table__.columns}
         ids["decision"] = ReviewDecisionDTO(
             review_id=UUID(review.review_id),
             decision=decision_code,
@@ -257,6 +265,7 @@ def test_postgres_process_restart_review_idempotency_and_snapshot(
                 "generated_by": "test-human",
             },
         ).model_dump(mode="json")
+    ids["preferred_locale"] = "en-US"
     manifest.write_text(json.dumps(ids))
     runtime, factory, _ = adapter(ids)
     assert factory.authorization.authorize_review(UUID(ids["run"]), ids["decision"])
@@ -271,8 +280,12 @@ def test_postgres_process_restart_review_idempotency_and_snapshot(
     resumed = worker("resume")
     assert resumed["status"] == ("WARNING" if decision_code == "APPROVE" else "FAILED")
     assert resumed["reviews"] == 1
-    repeated = worker("resume")
-    assert repeated["checkpoint"] == resumed["checkpoint"] and repeated["reviews"] == 1
+    assert resumed["checkpoint_id"] != first["checkpoint_id"]
+    for locale in ("zh-CN", "zh-HK", "en-US"):
+        ids["preferred_locale"] = locale
+        manifest.write_text(json.dumps(ids))
+        assert worker("inspect") == resumed
+        assert worker("resume") == resumed
     events = list(runtime.stream_events(UUID(ids["run"])))
     assert events and len({e.event_id for e in events}) == len(events)
     assert {"RUNNING", "WAITING", "REVIEW_REQUIRED"} <= {e.status for e in events}
@@ -280,10 +293,15 @@ def test_postgres_process_restart_review_idempotency_and_snapshot(
     assert all("raw_event_name" not in e.payload for e in events)
     assert resumed["checkpoint"]["identity"]["analysis_snapshot_id"] == ids["snapshot"]
     with sessions() as db:
-        assert db.get(AnalysisSnapshotEntity, ids["snapshot"]).provenance_json == snapshot_before
+        snapshot = db.get(AnalysisSnapshotEntity, ids["snapshot"])
+        assert {
+            c.name: getattr(snapshot, c.name) for c in snapshot.__table__.columns
+        } == snapshot_before
     foreign = dict(ids, tenant=str(uuid4()))
-    foreign_runtime, _, _ = adapter(foreign)
-    with pytest.raises(PermissionError):
-        foreign_runtime.inspect_checkpoint_state(UUID(ids["run"]))
-    with pytest.raises(PermissionError):
-        list(foreign_runtime.stream_events(UUID(ids["run"])))
+    for locale in ("zh-CN", "zh-HK", "en-US"):
+        foreign["preferred_locale"] = locale
+        foreign_runtime, _, _ = adapter(foreign)
+        with pytest.raises(PermissionError):
+            foreign_runtime.inspect_checkpoint_state(UUID(ids["run"]))
+        with pytest.raises(PermissionError):
+            list(foreign_runtime.stream_events(UUID(ids["run"])))
