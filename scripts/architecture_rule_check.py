@@ -4,9 +4,11 @@ import ast
 import json
 import os
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 SRC = ROOT / "src" / "crossborder_compliance"
 
 
@@ -742,6 +744,10 @@ checks1i["locale_metadata_single_versioned_authority"] = "localized_display: Loc
 checks1i["locale_no_business_translations_in_domain_application"] = not occurrences(r"[\u3400-\u9fff]", [*i_files, SRC / "domain/localized_metadata.py"])
 for name, passed in checks1i.items():
     add(name, passed, "Phase1I Rules140–150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py")
+
+from scripts.phase1j_architecture_checks import check as check_phase1j
+for name, passed in check_phase1j(ROOT).items():
+    add(name, passed, "Phase1J Rules152–155; focused contracts/engines/PostgreSQL/migration tests")
 
 failed = [check for check in checks if not check["pass"]]
 result = {

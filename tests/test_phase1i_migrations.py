@@ -15,6 +15,7 @@ from test_phase1h_migrations import migrate, schema
 from crossborder_compliance.config import get_settings
 from crossborder_compliance.infrastructure.persistence import metadata_models as m
 from crossborder_compliance.infrastructure.persistence import models as b
+from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after
 
 pytestmark = pytest.mark.runtime_smoke
 BASE = "700951ebb9ebdf33e399158fd3fb53bb4a6c87e7"
@@ -68,9 +69,15 @@ def test_phase1i_fresh_verified_0008_equivalence_and_downgrade(tmp_path):
             assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0008_phase1h"
         assert "regulation_applicability_results" not in inspect(engine).get_table_names()
         engine.dispose()
-        upgrade = migrate(ROOT, urls[1], "upgrade", "0009_phase1i")
+        upgrade = migrate(ROOT, urls[1], "upgrade", "head")
         assert upgrade.returncode == 0, upgrade.stderr
         assert catalog(urls[0]) == catalog(urls[1])
+        engine = create_engine(urls[0])
+        with engine.connect() as conn:
+            observed_head = conn.scalar(text("SELECT version_num FROM alembic_version"))
+        assert revision_at_or_after(observed_head, "0009_phase1i")
+        evidence["observed_head"] = observed_head
+        engine.dispose()
         evidence.update(fresh_upgrade=True, verified_0008_upgrade=True, schema_equivalence=True)
         for u in urls:
             down = migrate(ROOT, u, "downgrade", "0008_phase1h")
@@ -94,10 +101,12 @@ def test_phase1i_fresh_verified_0008_equivalence_and_downgrade(tmp_path):
                     display_name="retained identity",
                 )
             )
+        with engine.connect() as conn:
+            head_before_refusal = conn.scalar(text("SELECT version_num FROM alembic_version"))
         down = migrate(ROOT, urls[0], "downgrade", "0008_phase1h")
         assert down.returncode != 0 and "archive/export" in down.stderr
         with engine.connect() as conn:
-            assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0009_phase1i"
+            assert conn.scalar(text("SELECT version_num FROM alembic_version")) == head_before_refusal
             assert conn.scalar(text("SELECT count(*) FROM metadata_definitions")) == 1
         engine.dispose()
         evidence["authoritative_downgrade_refused"] = True

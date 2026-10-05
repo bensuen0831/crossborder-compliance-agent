@@ -1,0 +1,25 @@
+# Phase1J implementation plan (future task)
+
+This plan does not authorize bulk implementation in J-A. Base: `594be84cfc471af4c12f28600b22cffb66f830f7`; reverify the approved integrated design baseline, ownership and clean dedicated worktree before a later implementation task. If a frozen contract must be redesigned, STOP with HIGH_REASONING_ESCALATION_REQUIRED and state the exact conflict.
+
+| Checkpoint | Exact work / reused owner | Focused acceptance |
+|---|---|---|
+| J-B1 typed contracts/policies | Add v2 typed extensions/envelope and four metadata payload validators; preserve v1 DTOs, I legal_obligation=False, H CLASSIFY actions and existing AST; examples have no country law baked into Python | old DTO compatibility; stable codes/three-locale invariance; bounded predicate/static validation; missing facts; supported legal effect vs capability-only input |
+| J-B2 obligation/candidate | Pure obligation policy binding and deterministic template instantiation from authorized typed E/G/H/I inputs; configuration-driven subject/jurisdiction coverage | all applicability states; conditional/unmet distinctions; same risk/different obligations; capability absence cannot create/cancel obligations; no-data scenario and DATA_FLOW scope; legal conflict preserved |
+| J-B3 risk | Pure factor/dimension aggregate and band-only mode with decimal weights/rounding, policy versions and coverage | exact boundaries; missing never zero; optional-factor coverage; deterministic replay/permutation; no DB/vector/LLM/agent/provider dependencies; high risk does not cause legal prohibition |
+| J-B4 recommendation/final | Typed deterministic criteria/comparability/ties; provenance-preserving selection and final assembly | tie→no selection/review; prohibited excluded; conditional alternatives retain unmet requirements; conflict/insufficiency/review not concealed; actions not performed imply no fabricated fulfillment/residual-risk reduction |
+| J-B5 governance/persistence | Extend existing country-compliance port/repository/admin/outbox/projections and explicit snapshot pin initializer; implement reserved0010 only after ownership check | actual PG isolation/read/replay, owner/project scopes, revoked evidence/access, inactive/unpublished/effective-date rejection, immutable policy/pins/results, idempotent retries/concurrency, no duplicate authority |
+| J-B6 transport | Reference-only trusted application/API boundaries; locale presenter uses existing generic labels and formal refs | reject client-injected facts/scores/status/config; v1 projection cannot execute; subject mapping explicit; upstream IDs scoped; source/citation unchanged across locales |
+| J-B7 closure | One complete fresh-DB gate after executable work/focused tests complete; Draft PR final-head remote checks; measured logs and handoff | fresh/exact0009 dual-path0010 equivalence/downgrade; earlier schema regressions; full architecture/runtime/pytest with no skipped required cases; exact-head CI |
+
+Planned executable files stay within existing domain/contracts + pure decision helpers, application/country_compliance_services, country-compliance persistence/governance, canonical API presenters/routes, metadata registry catalog and owning tests. Shared interface edits require integration review. Do not change workflow state/runtime, Stage1 UI, production auth, LLM service or frozen migrations. Existing L-A future stage bindings remain unconfigured; L-B wiring is a separate task.
+
+## Permanent rule review and evidence
+
+The four proposed Rules152–155 are semantic invariants, not implementation details. Apply them with executable checks in the future owner task; J-A leaves ARCHITECTURE_RULES.md unchanged. Reuse actual migration graph/schema checks and existing mandatory smoke gate. No artificial passing tests, duplicate full suites or inferred measurements. During coding run only focused suites; run full regression once before closure, and repeat only when a closure-blocking executable fix changes code. Redirect logs and inspect summaries/failures; trigger remote CI once and inspect at reasonable intervals.
+
+Update phase_progress_checkpoint.md after meaningful checkpoints with baseline/current implementation SHA, completed work, next exact command/action, changed files/migrations, tests already passed, blockers and files not requiring reread. A tracked checkpoint records its input HEAD; the eventual commit hash is reported by Git/PR, avoiding a self-referential rewrite/CI loop.
+
+## J-A acceptance
+
+Required: exact baseline Start Gate; targeted reuse audit covering all five decisions and immediate canonical interfaces; typed/status/authority/locale/tie contracts frozen; future0010 ownership and dual-path/downgrade decision; Rules1–151 and all executable files/migrations unchanged; the four design documents plus checkpoint committed; Draft PR→main; no merge. Local closure regression validates the unchanged round2 backend; it does not claim unimplemented J engines passed tests. No later phase entry decision or implementation is issued.

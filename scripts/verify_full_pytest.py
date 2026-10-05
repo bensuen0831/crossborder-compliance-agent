@@ -24,7 +24,7 @@ def main():
     }
     phases = {
         phase: any(phase in c.get("classname", "") for c in cases)
-        for phase in ("phase1b", "phase1c", "phase1d", "phase1e", "phase1f", "phase1g", "phase1h", "phase1i")
+        for phase in ("phase1b", "phase1c", "phase1d", "phase1e", "phase1f", "phase1g", "phase1h", "phase1i", "phase1j")
     }
     result = {
         **counts,

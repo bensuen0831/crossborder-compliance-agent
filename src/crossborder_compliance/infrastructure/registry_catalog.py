@@ -32,6 +32,10 @@ class TenantRegistryProvider:
         "country-capabilities": "COUNTRY_CAPABILITY",
         "applicability-configs": "APPLICABILITY_CONFIG",
         "rule-packs": "RULE_PACK",
+        "obligation-policies": "OBLIGATION_POLICY",
+        "compliance-path-policies": "COMPLIANCE_PATH_POLICY",
+        "risk-policies": "RISK_POLICY",
+        "recommendation-policies": "RECOMMENDATION_POLICY",
     }
 
     def __init__(self, session_factory):
