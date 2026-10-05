@@ -1,0 +1,16 @@
+# Phase progress checkpoint
+
+Updated: 2026-10-05 (Asia/Shanghai). Task: Phase1J-A DESIGN / CONTRACT FREEZE only.
+
+- Baseline SHA: `594be84cfc471af4c12f28600b22cffb66f830f7`; tag `v3.6-round2-integration-pass`; exact remote main/tag and merge-base verified.
+- Current SHA: `594be84cfc471af4c12f28600b22cffb66f830f7` (input HEAD before the design-only commit; final commit is reported by Git/PR).
+- Branch/worktree: `phase1j-obligation-risk-path` / `/workspace/phase1j-obligation-risk-path`; initially clean, no existing Phase1J branch/implementation found; previous worktrees/checkpoint preserved.
+- Completed work: Start Gate PASS (single head0009, Rules1–151); targeted E/G/H/I/metadata/persistence/DTO/L-A/Stage1 audit; five formal decision contracts, version compatibility, legal/risk separation, deterministic conditions/ranking/ties, conservative unresolved states and multilingual boundary frozen; future0010 reserved; proposed Rules152–155 only in design.
+- Next exact action: commit/push the five design-only documents and open Draft PR to main; inspect CI at reasonable intervals, record final Git/PR identity in the standalone artifact checkpoint, then STOP without merge or bulk implementation.
+- Changed files: docs/phase1j/Phase1J_design_freeze.md; docs/phase1j/Phase1J_contract_matrix.md; docs/phase1j/Phase1J_persistence_decision.md; docs/phase1j/Phase1J_implementation_plan.md; phase_progress_checkpoint.md.
+- Migrations: NONE created/modified. Existing head0009_phase1i. Future0010_phase1j reserved exclusively to Phase1J; reverify ownership before implementation.
+- Tests already passed: Start Gate assertions and actual single Alembic head; local closure487 passed,0 failures/errors/skipped/deselected; B–I schema regressions PASS; architecture135/135; runtime25/25; existing H/I migration dual-path/downgrade cases included. One closure sequence resumed after initial collection failed before test execution on missing baseline-declared jsonschema; prerequisite installed through existing uv, then pytest/architecture completed. Original collection failure evidence preserved. No J unit tests or0010 migration tests are claimed. Measured logs/hashes: artifacts/phase1j-a/closure_manifest.json.
+- Unresolved blocker: NONE; no frozen-contract redesign needed. Pure stage calculators and authoritative result storage are proven missing capabilities; metadata/rule/evidence/workflow/repository infrastructure remains reused.
+- Files that do NOT need to be re-read: entire repository; ARCHITECTURE_RULES.md Rules1–151; frozen migrations0001–0009; reviewed Phase1I/Stage1-alpha/L-A handoffs; already audited E context, G evidence/sufficiency, H rules/classification, I profiles/applicability, contracts.py v1 DTOs, snapshot/persistence interfaces. Reuse the audit anchors in Phase1J_contract_matrix.md; inspect only directly affected interfaces/tests during future implementation.
+
+Execution mode: focused tests during implementation, one full gate before closure; rerun only after a closure-blocking executable fix. Keep long logs in artifacts, inspect summaries/failures. No speculative frozen redesign: STOP with HIGH_REASONING_ESCALATION_REQUIRED on a proven conflict. No later phase implementation.
