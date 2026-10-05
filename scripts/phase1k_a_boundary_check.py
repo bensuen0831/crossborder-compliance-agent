@@ -1,7 +1,7 @@
-"""Track B boundaries with an explicit approved Phase 1H integration baseline.
+"""Track B boundaries with explicit, reviewed integration baseline owners.
 
-The original source-track manifest remains immutable historical evidence.
-Integration may use only the verified Phase 1H baseline, not hashes of live files.
+Historical manifests remain immutable. Round2 approvals are independently
+verified against exact source Git blobs and never derived from live files.
 """
 
 import ast
@@ -45,6 +45,35 @@ def check(root):
             for path, digest in approved_i["files"].items()
         )
         manifest = approved_i["files"]
+    workflow_overlay = root / "evidence/round2-integration/approved_phase1l_a_overlay.json"
+    if workflow_overlay.exists():
+        approved_l = json.loads(workflow_overlay.read_text())
+        expected_paths = {
+            "src/crossborder_compliance/application/ports.py",
+            "src/crossborder_compliance/infrastructure/persistence/repositories.py",
+            "src/crossborder_compliance/infrastructure/persistence/runtime_operations.py",
+            "src/crossborder_compliance/workflows/events.py",
+            "src/crossborder_compliance/workflows/langgraph_adapter.py",
+            "src/crossborder_compliance/workflows/runtime_context.py",
+        }
+        baseline_authorized = baseline_authorized and round2.exists() and (
+            approved_l["source_sha"] == "39be101e565fa4966e834180523f6ba47a96e5fc"
+            and set(approved_l["paths"]) == expected_paths
+            and expected_paths <= set(manifest)
+            and subprocess.run(
+                ["git", "merge-base", "--is-ancestor", approved_l["source_sha"], "HEAD"],
+                cwd=root, check=False,
+            ).returncode == 0
+        )
+        baseline_authorized = baseline_authorized and all(
+            hashlib.sha256(subprocess.check_output(
+                ["git", "show", approved_l["source_sha"] + ":" + path], cwd=root
+            )).hexdigest() == digest
+            for path, digest in approved_l["paths"].items()
+        )
+        # Only the six reviewed canonical runtime files have a different owner.
+        # All other paths retain their independently approved Phase1I hashes.
+        manifest = {**manifest, **approved_l["paths"]}
     files = list((root / "src").rglob("llm_gateway*.py"))
     source = {p.name: p.read_text() for p in files}
     appfiles = [p for p in files if "/application/" in str(p) or "/domain/" in str(p)]

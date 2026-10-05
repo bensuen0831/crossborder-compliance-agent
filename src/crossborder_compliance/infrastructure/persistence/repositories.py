@@ -30,13 +30,14 @@ class RuntimeRepository:
             s.add(AuditEventEntity(audit_event_id=self._audit_id(workflow_run_id,"workflow-created"),tenant_id=str(tenant_id),workflow_run_id=str(workflow_run_id),
                 analysis_snapshot_id=str(snapshot_id),event_type="WORKFLOW_CREATED",provenance_json={"thread_id":str(workflow_run_id),"snapshot_id":str(snapshot_id)}))
 
-    def ensure_review_task(self, *, workflow_run_id: UUID, tenant_id: UUID, idempotency_key: str) -> UUID:
+    def ensure_review_task(self, *, workflow_run_id: UUID, tenant_id: UUID, idempotency_key: str,
+                           review_type: str = "PHASE1A_SMOKE_REVIEW", reason: str = "Verify durable interrupt/resume") -> UUID:
         with self._sessions() as s:
             existing=s.scalar(select(ReviewTaskEntity).where(ReviewTaskEntity.tenant_id==str(tenant_id),ReviewTaskEntity.idempotency_key==idempotency_key))
             if existing: return UUID(existing.review_id)
             review_id=uuid4()
             s.add(ReviewTaskEntity(review_id=str(review_id),workflow_run_id=str(workflow_run_id),thread_id=str(workflow_run_id),tenant_id=str(tenant_id),
-                review_type="PHASE1A_SMOKE_REVIEW",object_type="WORKFLOW_RUN",object_id=str(workflow_run_id),reason="Verify durable interrupt/resume",
+                review_type=review_type,object_type="WORKFLOW_RUN",object_id=str(workflow_run_id),reason=reason,
                 status="PENDING",idempotency_key=idempotency_key))
             try:
                 s.commit()
@@ -88,3 +89,20 @@ class RuntimeRepository:
     def canonical_event_types(self, workflow_run_id: UUID) -> list[str]:
         with self._sessions() as s:
             return list(s.scalars(select(WorkflowEventEntity.event_type).where(WorkflowEventEntity.workflow_run_id==str(workflow_run_id)).order_by(WorkflowEventEntity.occurred_at)))
+
+    def workflow_events(self, workflow_run_id: UUID, tenant_id: UUID) -> list[WorkflowEventDTO]:
+        from crossborder_compliance.domain.contracts import ProvenanceDTO, WorkflowEventType
+
+        with self._sessions() as session:
+            rows = session.scalars(select(WorkflowEventEntity).where(
+                WorkflowEventEntity.workflow_run_id == str(workflow_run_id),
+                WorkflowEventEntity.tenant_id == str(tenant_id),
+            ).order_by(WorkflowEventEntity.occurred_at, WorkflowEventEntity.event_id))
+            return [WorkflowEventDTO(
+                event_id=UUID(row.event_id), workflow_run_id=workflow_run_id,
+                event_type=WorkflowEventType(row.event_type), node_code=row.node_code,
+                status=row.payload_json.get("status"), payload=row.payload_json,
+                timestamp=row.occurred_at, request_id=row.payload_json.get("request_id", "persisted"),
+                provenance=ProvenanceDTO(source_type="workflow_runtime", source_ref=str(workflow_run_id),
+                    generated_by="CanonicalWorkflowEventReader"),
+            ) for row in rows]

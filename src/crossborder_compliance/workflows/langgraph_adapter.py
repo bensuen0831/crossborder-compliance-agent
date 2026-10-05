@@ -33,13 +33,16 @@ def installed_version(name: str, fallback: str = "unavailable") -> str:
         return fallback
 
 class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
-    def __init__(self, *, postgres_uri: str, context: RuntimeContext):
+    def __init__(self, *, postgres_uri: str, context: RuntimeContext, graph_factory=None):
         self.postgres_uri = postgres_uri
         self.context = context
+        self.graph_factory = graph_factory
         if os.getenv("LANGGRAPH_STRICT_MSGPACK", "true").lower() not in {"1", "true", "yes"}:
             raise ValueError("LANGGRAPH_STRICT_MSGPACK must be enabled")
 
     def _graph(self, checkpointer):
+        if self.graph_factory is not None:
+            return self.graph_factory.build(checkpointer, self.context)
         END, START, StateGraph, _Command, interrupt, _ = _require_langgraph()
         ops = self.context.operations
         request_id = self.context.request_id
@@ -139,11 +142,22 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
         return {"configurable": {"thread_id": str(workflow_run_id)}, "recursion_limit": 20}
 
     def start(self, workflow_run_id: UUID, initial_state: dict[str, Any]) -> WorkflowRunRef:
+        if self.graph_factory is not None:
+            self.graph_factory.validate(workflow_run_id, initial_state)
+            if initial_state != self.graph_factory.initial_state(workflow_run_id):
+                raise ValueError("canonical initial state must be server-generated")
         *_, PostgresSaver = _require_langgraph()
         with PostgresSaver.from_conn_string(self.postgres_uri) as checkpointer:
             checkpointer.setup()
             graph = self._graph(checkpointer)
-            tenant = UUID(str(initial_state["tenant_id"]))
+            if self.graph_factory is not None:
+                existing = graph.get_state(self._runtime_config(workflow_run_id))
+                if existing.values:
+                    self.graph_factory.validate(workflow_run_id, existing.values)
+                    return WorkflowRunRef(workflow_run_id, str(workflow_run_id), self.get_status(workflow_run_id))
+                tenant = UUID(initial_state["identity"]["tenant_id"])
+            else:
+                tenant = UUID(str(initial_state["tenant_id"]))
             self.context.operations.record_event(
                 tenant,
                 canonical_event(
@@ -152,10 +166,12 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
                     tenant_id=tenant,
                     request_id=self.context.request_id,
                     status="RUNNING",
+                    payload={"status": "RUNNING", "request_id": self.context.request_id}
+                    if self.graph_factory is not None else None,
                     event_key="workflow:started",
                 ),
             )
-            graph.invoke(initial_state, self._config(workflow_run_id))
+            graph.invoke(initial_state, self._runtime_config(workflow_run_id))
         return WorkflowRunRef(
             workflow_run_id=workflow_run_id,
             thread_id=str(workflow_run_id),
@@ -168,7 +184,9 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
         review_decision: ReviewDecisionDTO | dict[str, Any],
     ) -> WorkflowRunRef:
         current_status = self.get_status(workflow_run_id)
-        if current_status == "COMPLETED":
+        if current_status == "COMPLETED" or (
+            self.graph_factory is not None and current_status in {"WARNING", "FAILED"}
+        ):
             return WorkflowRunRef(
                 workflow_run_id=workflow_run_id,
                 thread_id=str(workflow_run_id),
@@ -181,10 +199,15 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
             if isinstance(review_decision, ReviewDecisionDTO)
             else review_decision
         )
+        if self.graph_factory is not None:
+            decision = self.graph_factory.authorize_resume(workflow_run_id, decision)
         with PostgresSaver.from_conn_string(self.postgres_uri) as checkpointer:
             checkpointer.setup()
             graph = self._graph(checkpointer)
-            graph.invoke(Command(resume=decision), self._config(workflow_run_id))
+            if self.graph_factory is not None:
+                saved = graph.get_state(self._runtime_config(workflow_run_id))
+                self.graph_factory.validate(workflow_run_id, saved.values)
+            graph.invoke(Command(resume=decision), self._runtime_config(workflow_run_id))
         return WorkflowRunRef(
             workflow_run_id=workflow_run_id,
             thread_id=str(workflow_run_id),
@@ -192,11 +215,15 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
         )
 
     def inspect_checkpoint_state(self, workflow_run_id: UUID) -> dict[str, Any]:
+        if self.graph_factory is not None:
+            self.graph_factory.authorize(workflow_run_id, "read")
         *_, PostgresSaver = _require_langgraph()
         with PostgresSaver.from_conn_string(self.postgres_uri) as checkpointer:
             checkpointer.setup()
             graph = self._graph(checkpointer)
-            snapshot = graph.get_state(self._config(workflow_run_id))
+            snapshot = graph.get_state(self._runtime_config(workflow_run_id))
+            if self.graph_factory is not None and snapshot.values:
+                self.graph_factory.validate(workflow_run_id, snapshot.values, "read")
             return {
                 "values": dict(snapshot.values or {}),
                 "next": list(snapshot.next or ()),
@@ -208,7 +235,17 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
         raise NotImplementedError("Phase 1A skeleton")
 
     def get_status(self, workflow_run_id: UUID) -> str:
+        if self.graph_factory is not None:
+            self.graph_factory.authorize(workflow_run_id, "read")
         return self.context.operations.status(workflow_run_id)
 
+    def _runtime_config(self, workflow_run_id):
+        if self.graph_factory is not None:
+            return self.graph_factory.config(workflow_run_id)
+        return self._config(workflow_run_id)
+
     def stream_events(self, workflow_run_id: UUID) -> Iterable[WorkflowEventDTO]:
+        if self.graph_factory is not None:
+            identity = self.graph_factory.authorize(workflow_run_id, "read")
+            return iter(self.context.operations.workflow_events(workflow_run_id, identity.tenant_id))
         return iter(())
