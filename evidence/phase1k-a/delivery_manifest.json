@@ -1,0 +1,97 @@
+{
+  "phase": "1K-A",
+  "scope_status": "PHASE 1K-A FOUNDATION PASS",
+  "full_phase1k_pass": false,
+  "base_sha": "f563e5067308e7eab6d3f89321b8b30da7c39044",
+  "implementation_ci": {
+    "run_id": 37019990110,
+    "run_number": 110,
+    "attempt": 1,
+    "tested_pr_head_sha": "256b74df044870487d668764ffc0aa704806224e",
+    "runner_merge_sha": "64be7b05cf38aa8a8446dda95e0ed8402ee471aa",
+    "artifact_id": 11231744443,
+    "artifact_digest": "sha256:e5390bf776f66cf50dc207c550dedad1f9f37cb6a3439c0fa54755c26f140c34",
+    "full_gate_log": {
+      "filename": "ci_complete.log",
+      "bytes": 74540,
+      "sha256": "131e01c87043cc4b3f4769c4fbcaff278815e5207309bfd2b12dd5178b8ab09f"
+    },
+    "conclusion": "success",
+    "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37019990110",
+    "verified": true
+  },
+  "pytest": {
+    "passed": 276,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true
+    },
+    "pass": true
+  },
+  "track_b_test_count": 76,
+  "test_module_counts": {
+    "tests.test_phase1k_a_architecture": 1,
+    "tests.test_phase1k_a_configuration_postgres": 12,
+    "tests.test_phase1k_a_gateway": 40,
+    "tests.test_phase1k_a_http_redaction": 23
+  },
+  "existing_architecture": {
+    "pass": true,
+    "passed": 108,
+    "total": 108
+  },
+  "track_b_boundaries": {
+    "phase": "1K-A boundary",
+    "passed": 20,
+    "total": 20,
+    "pass": true,
+    "checks": {
+      "frozen_1a_1g_implementation_unchanged": true,
+      "migrations_0001_0007_unchanged_no_0008": true,
+      "domain_application_provider_sdk_orm_free": true,
+      "no_parallel_registry": true,
+      "existing_model_registry_reused": true,
+      "existing_governed_policy_source_reused": true,
+      "existing_prompt_registry_reused": true,
+      "existing_snapshot_pins_reused": true,
+      "canonical_capabilities_reused": true,
+      "all_seven_service_operations": true,
+      "request_is_reference_only": true,
+      "policy_precedes_router_and_call": true,
+      "tenant_project_policy_intersection": true,
+      "model_policy_restricts_fallback_pool": true,
+      "redaction_proof_validated_before_external": true,
+      "irreversible_mapping_boundary": true,
+      "secret_values_only_in_transport": true,
+      "safe_audit_shape": true,
+      "partial_stream_cannot_fallback": true,
+      "http_redirects_and_remote_schema_refs_denied": true
+    }
+  },
+  "migration_changes": [],
+  "pr": 12,
+  "draft": true,
+  "merged": false,
+  "documents": {
+    "Phase1K_A_llm_gateway_foundation_design.md": "ee5ae8dbe739219112d545d62cb809d850c1618cfccc60a35008c32c62bdd94e",
+    "llm_service_contract_result.md": "92e2cb4a08b2f08c94067cc0f18cba99c8be55719b7cbeae72a6ba949838de8e",
+    "model_router_result.md": "db39e097d270f953297c3048e2a7083cdfacd1c01596869ecbc9c3e80bf365c5",
+    "model_usage_policy_result.md": "ff8cd34e64b8d074ac1e7290d0c501a6cec827bf0e1416bcdea0525e5d5af886",
+    "data_redaction_result.md": "0ed946e7e053aaab1d200c5c734ded34ce2d7fad3fb82866a0d4c239cd97d3aa",
+    "provider_adapter_result.md": "3bf9a1c5626221bde76094fe37a0a3c2d7d56e548d0e40ef2df7d1251b5aaca9",
+    "security_boundary_result.md": "81fcc8bda56b04b40f35d6f6fc03320013469ef352a5bb718ad883c921da82c4",
+    "test_result.md": "75d3c16b435fbec017e652f6b22bd9997f3e48a3ab731922d2630402f362f39c",
+    "architecture_boundary_check.md": "0519efccbb4fb2936b79a50955f4e1d566b863c4c13a8236500c9e758d12e16c",
+    "files_created_modified.md": "2ad2d097d4df51dc9c8fb4de3addaeb05f043bafadaf018c75bf18aa4b988168",
+    "integration_handoff.md": "90c963a68e13455c164e70dc1e9c5ed30837d11cc53e8536ccc69fdddeb919e6"
+  },
+  "final_documentation_ci_required": true
+}

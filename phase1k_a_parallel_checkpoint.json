@@ -1,0 +1,30 @@
+{
+  "track": "B \u2014 Phase 1K-A",
+  "branch": "phase1k-llm-gateway-foundation",
+  "worktree": "/workspace/phase1k-llm-gateway-foundation",
+  "base_sha": "f563e5067308e7eab6d3f89321b8b30da7c39044",
+  "inspection_head_sha": "f563e5067308e7eab6d3f89321b8b30da7c39044",
+  "merge_base": "f563e5067308e7eab6d3f89321b8b30da7c39044",
+  "created_exactly_from_baseline": true,
+  "before_checkpoint_status": " M pyproject.toml\n?? phase1k_a_start_gate.md\n?? src/crossborder_compliance/application/llm_gateway_policy.py\n?? src/crossborder_compliance/application/llm_gateway_ports.py\n?? src/crossborder_compliance/application/llm_gateway_redaction.py\n?? src/crossborder_compliance/application/llm_gateway_services.py\n?? src/crossborder_compliance/domain/llm_gateway.py\n?? src/crossborder_compliance/infrastructure/llm_gateway_configuration.py\n?? src/crossborder_compliance/infrastructure/llm_gateway_http.py\n",
+  "preserved_work_hashes": {
+    "phase1k_a_start_gate.md": "3e79b4d8ec7dcc2f49dae79c6009b121af00b669336d2a7c3421bef8d839976e",
+    "pyproject.toml": "41ba744803a4b5622971354498d9fa1ee4ec89c43cfb0462bd46f3bab9fa6d73",
+    "src/crossborder_compliance/application/llm_gateway_policy.py": "d092c9be1d3c826a68150fc62f89eb4d9d580741aeb4b3a3abd07bf048e8ddcb",
+    "src/crossborder_compliance/application/llm_gateway_ports.py": "c3b1f163ae49aa3bc8657c50db776720d51ca93f60494f4677cbd80709cb4f95",
+    "src/crossborder_compliance/application/llm_gateway_redaction.py": "a92690070507a911e0682bde41951327fcca77637e698bf02c87a4da2f6219e3",
+    "src/crossborder_compliance/application/llm_gateway_services.py": "07fe3544936dbb5ff39ebf4a4569bd09cb68ef99632904d2a81384d67b9316a7",
+    "src/crossborder_compliance/domain/llm_gateway.py": "d4dc4af8755b7fa29de6c3c1ecfa7d4b4bad961bca083bfea03ceb020f684736",
+    "src/crossborder_compliance/infrastructure/llm_gateway_configuration.py": "630436bd72ed3dcbc3ed7722071380845ec2703862117923e79a0caaeb4d88fb",
+    "src/crossborder_compliance/infrastructure/llm_gateway_http.py": "969aa7ae3eb9efaed41262755238a458ff32dba2c40c4242d6fcf615e14cfcb5"
+  },
+  "migration_changes": [],
+  "shared_files": [
+    "pyproject.toml"
+  ],
+  "same_worktree_other_task_detected": false,
+  "concurrency_check_limit": "Observed worktrees, branch reflog, process cwd/parent chain and owned file changes; not global visibility into other Codex sessions.",
+  "start_gate": "PASS",
+  "foundation_status": "WORK_IN_PROGRESS_NOT_VALIDATED",
+  "tests": "No Phase 1K-A tests or final CI executed yet; syntax parsing only."
+}
