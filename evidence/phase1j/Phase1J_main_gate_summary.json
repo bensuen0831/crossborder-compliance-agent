@@ -1,0 +1,93 @@
+{
+  "source_sha": "65f80e04641930c5f1c03824841c1d299a30d4c8",
+  "baseline_sha": "594be84cfc471af4c12f28600b22cffb66f830f7",
+  "merge_commit": "f1353372a1d8894535dc71765e3cd62597619fd5",
+  "final_main_sha": "f1353372a1d8894535dc71765e3cd62597619fd5",
+  "review_id": 5417337120,
+  "review": "PASS",
+  "exact_main_ci": {
+    "run_id": "37337618576",
+    "run_attempt": "1",
+    "repository": "bensuen0831/crossborder-compliance-agent",
+    "workflow": "phase1a-runtime-smoke",
+    "job": "mandatory-runtime-smoke",
+    "sha": "f1353372a1d8894535dc71765e3cd62597619fd5",
+    "tested_pr_head_sha": "f1353372a1d8894535dc71765e3cd62597619fd5",
+    "runner_checkout_sha": "f1353372a1d8894535dc71765e3cd62597619fd5",
+    "ref": "refs/heads/main",
+    "runner_os": "Linux",
+    "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37337618576"
+  },
+  "ci_conclusion": "success",
+  "migration_head": "0010_phase1j",
+  "single_migration_head": true,
+  "migration_dual_path": {
+    "verified_base": "594be84cfc471af4c12f28600b22cffb66f830f7",
+    "baseline_revision": "0009_phase1i",
+    "head": "0010_phase1j",
+    "fresh_upgrade": true,
+    "exact_0009_upgrade": true,
+    "full_catalog_equivalence": true,
+    "empty_roundtrip": true,
+    "policy_transactional_refusal": true,
+    "pin_transactional_refusal": true,
+    "result_transactional_refusal": true
+  },
+  "full_pytest": {
+    "passed": 566,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "phase1j_tests": 79,
+  "architecture": {
+    "pass": true,
+    "passed": 151,
+    "total": 151,
+    "rules": 155,
+    "rules_1_151_byte_preserved": true
+  },
+  "runtime": {
+    "pass": true,
+    "passed": 25,
+    "total": 25
+  },
+  "schema_regressions": {
+    "phase1b": true,
+    "phase1c": true,
+    "phase1d": true,
+    "phase1e": true,
+    "phase1f": true,
+    "phase1g": true,
+    "phase1h": true,
+    "phase1i": true,
+    "phase1j": true
+  },
+  "phase1j_schema": {
+    "pass": true,
+    "passed": 36,
+    "total": 36
+  },
+  "security_ownership_idempotency": "PASS",
+  "later_phase_implementation": false,
+  "tag": "v3.6-phase1j-pass",
+  "tag_target": "f1353372a1d8894535dc71765e3cd62597619fd5",
+  "tag_remote_verified": true,
+  "phase1l_b_entry": "ALLOWED",
+  "m1_entry": "ALLOWED",
+  "closure": "PASS",
+  "evidence_branch": "phase1j-closure-evidence"
+}
