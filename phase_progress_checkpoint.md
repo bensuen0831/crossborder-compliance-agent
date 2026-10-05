@@ -3,14 +3,14 @@
 Updated: 2026-10-05 (Asia/Shanghai). Task: Phase1J-B authorized implementation.
 
 - Baseline SHA: `594be84cfc471af4c12f28600b22cffb66f830f7`; tag `v3.6-round2-integration-pass`; exact remote main/tag and merge-base verified.
-- Current SHA: `a469c94d630b6078aacdd83c22ffd62f4acfcaf2` (committed J-B executable implementation).
+- Current SHA: `92b063515d5e52bc80c41050a7b77b0cfd83004c` (implementation + authenticated ownership overlay; executable policy/backend source a469c94).
 - Branch/worktree: `phase1j-obligation-risk-path` / `/workspace/phase1j-obligation-risk-path`; initially clean, no existing Phase1J branch/implementation found; previous worktrees/checkpoint preserved.
 - Completed work: J-B Start Gate PASS at c43ab49; J-B1–9 implemented: typed v2 contracts/policies, pure staged engines,0010 persistence, existing governance/registry/pins and reference-only API. v1 contracts unchanged. Existing Rule AST and locale contract reused; Decimal risk, conservative states, capability/legal separation and deterministic tie/final behavior verified.
-- Next exact action: verify exact Git-object J ownership overlay and consolidated focused J tests; then ONE fresh-DB closure gate.
+- Next exact action: commit delivery documents/evidence, push SAME Draft PR19 once, verify final exact-head CI; then STOP without merge or J-C.
 - Changed files: see exact list below; all backend J/shared governance/test-infrastructure ownership. No frontend or L-B wiring changes.
 - Migrations: 0010_phase1j only, parent0009_phase1i;0001–0009 unchanged. Fresh and exact verified Round2/0009→0010 full catalogs equivalent; empty roundtrip and retained policy/pin/result downgrade refusal PASS.
-- Tests already passed:36 initial contracts/engine cases and21 initial actual PostgreSQL cases PASS. Additional real API, policy-state immutability, source revocation, flow/subject fingerprint rejection and scenario-only checks passed in focused subsets; final consolidated focused pass pending. Migration J/I dual path2 PASS; measured J schema36/36 and architecture151/151 PASS. Includes preserved v1 schema, all applicability states, Decimal boundaries, unknown facts, prohibition provenance, capability gap, conflict, ties, replay/permutation and parent scope. No full suite rerun during implementation.
-- Unresolved blocker: no frozen architecture conflict. Closure pending expanded focused pass, reviewed Git-object ownership overlay and full/remote gates. Fixed J/H transaction lock ordering and scenario optional-scope compatibility using existing contracts.
+- Tests already passed:36 initial contracts/engine cases and21 initial actual PostgreSQL cases PASS. Consolidated contracts/engines40 + actual PostgreSQL30 =70 PASS,197.31s; J migration1 PASS; ownership8 PASS (79 J cases total). Retained1K-A test also PASS. Migration J/I dual path2 PASS; measured J schema36/36 and architecture151/151 PASS. Includes preserved v1 schema, all applicability states, Decimal boundaries, unknown facts, prohibition provenance, capability gap, conflict, ties, replay/permutation and parent scope. One fresh-DB full closure gate PASS:566/566,0 failed/errors/skipped/deselected; architecture151/151; runtime25/25; B–I schema regressions and J36/36 PASS.
+- Unresolved blocker: no frozen architecture conflict. Local closure complete; final exact-head remote CI pending. Exact owner overlay tests8/8, retained1K-A20/20 and Stage1 integrity14/14 PASS. Fixed J/H transaction lock ordering and scenario optional-scope compatibility using existing contracts.
 
 - Files that do NOT need to be re-read: entire repository; ARCHITECTURE_RULES.md Rules1–151; frozen migrations0001–0009; reviewed Phase1I/Stage1-alpha/L-A handoffs; already audited E context, G evidence/sufficiency, H rules/classification, I profiles/applicability, contracts.py v1 DTOs, snapshot/persistence interfaces. Reuse the audit anchors in Phase1J_contract_matrix.md; inspect only directly affected interfaces/tests during future implementation.
 
@@ -53,3 +53,5 @@ Changed paths at this implementation checkpoint:
 - `tests/test_phase1j_engines.py`
 - `tests/test_phase1j_migrations.py`
 - `tests/test_phase1j_postgres.py`
+
+Closure evidence: `evidence/phase1j/Phase1J_gate_summary.json`; four delivery result documents under `docs/phase1j/`. Final delivery commit is documents/evidence only; its exact HEAD and remote run are recorded in PR19 checks and `artifacts/phase1j-b-closure/final_branch_ci.json`. No additional executable changes after the successful full gate.

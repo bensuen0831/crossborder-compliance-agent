@@ -1,0 +1,72 @@
+{
+  "verified_round2_base": "594be84cfc471af4c12f28600b22cffb66f830f7",
+  "input_head": "c43ab49f408a1e70c01cd637b327968538d98e23",
+  "tested_executable_head": "92b063515d5e52bc80c41050a7b77b0cfd83004c",
+  "backend_source_sha": "a469c94d630b6078aacdd83c22ffd62f4acfcaf2",
+  "migration_head": "0010_phase1j",
+  "migration": {
+    "verified_base": "594be84cfc471af4c12f28600b22cffb66f830f7",
+    "baseline_revision": "0009_phase1i",
+    "head": "0010_phase1j",
+    "fresh_upgrade": true,
+    "exact_0009_upgrade": true,
+    "full_catalog_equivalence": true,
+    "empty_roundtrip": true,
+    "policy_transactional_refusal": true,
+    "pin_transactional_refusal": true,
+    "result_transactional_refusal": true
+  },
+  "focused_phase1j_tests": 79,
+  "full_pytest": {
+    "passed": 566,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "architecture": {
+    "rules": 155,
+    "passed": 151,
+    "total": 151,
+    "retained_checks": 135,
+    "new_checks": 16
+  },
+  "runtime": {
+    "pass": true,
+    "assertions": 25
+  },
+  "schema_regressions": {
+    "phase1b_schema_check": true,
+    "phase1c_schema_check": true,
+    "phase1d_schema_check": true,
+    "phase1e_schema_check": true,
+    "phase1f_schema_check": true,
+    "phase1g_schema_check": true,
+    "phase1h_schema_check": true,
+    "phase1i_schema_check": true,
+    "phase1j_schema_check": true
+  },
+  "ownership": {
+    "phase1j_tests": 8,
+    "retained_1k_a_checks": 20,
+    "stage1_integrity_checks": 14,
+    "pass": true
+  },
+  "local_full_gate_runs": 1,
+  "remote_closure": "Final exact-head workflow result is recorded in Draft PR19 checks and final_branch_ci evidence; never inferred from prior J-A CI.",
+  "pr": "https://github.com/bensuen0831/crossborder-compliance-agent/pull/19",
+  "merged": false,
+  "later_phase_started": false
+}

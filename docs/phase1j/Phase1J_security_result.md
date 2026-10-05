@@ -1,0 +1,9 @@
+# Phase1J security and replay
+
+Focused real PostgreSQL/API checks cover tenant and owner isolation; decision/project permissions; read without execute permission; retained H/I read authorization; current official source revocation; immutable result, pin, policy, policy lifecycle/publication and request alias; changed facts requiring a new snapshot; policy historical replay without latest selection; explicit empty universe; duplicate-policy conflict; server rejection of fabricated computation; and reference-only request validation.
+
+Same formal input returns the original authority even with a new request key. The alias retains each key's fingerprint; the same key against a different authorized DATA_FLOW subject rejects without overwriting the DATA_ITEM result. Concurrent identical writers return one result. J writers serialize within tenant/project request-key scope using a transaction advisory lock, revalidate H/I through their existing transactions, then acquire the snapshot row lock and recheck context/pins. This avoids acquiring the same snapshot lock across nested H transactions. Parent scoped FKs and immutable scoped insertion triggers provide additional DB enforcement.
+
+Canonical LegalBasis/Evidence/Citation IDs remain references to existing authorities. Citation IDs are selected from the currently authorized G pack and intersected through canonical Citation.evidence_id; retrieval-item IDs are not confused with EvidenceReference IDs. Scenario-only execution uses real independent E facts/I applicability without fabricated classification. Locale presentations preserve the complete formal payload and official support; configured fallback is deterministic.
+
+No production authentication upgrade or LLM/provider workflow integration is included. Final consolidated/full and exact-head remote gate counts are recorded in Phase1J_test_result.md.
