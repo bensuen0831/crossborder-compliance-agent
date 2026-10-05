@@ -7,7 +7,7 @@ Phase1I Track: `phase1i-applicability-country-scenario`; verified base `700951eb
 |1|Task|Phase1I Applicability + Country Capability + Scenario Adjustment + Generic Skills + multilingual metadata|
 |2|Branch|phase1i-applicability-country-scenario|
 |3|Verified base|700951ebb9ebdf33e399158fd3fb53bb4a6c87e7 / v3.6-phase1h-pass|
-|4|Final SHA|Final exact branch HEAD is reported with its successful CI in the final delivery report; code SHA 131d101cdd02999aa478c1a730f492c1729caf30 is frozen and recorded in local evidence. Documentation/entry commits remain separately attributable.|
+|4|Final SHA|Final exact branch HEAD is reported with its successful CI in the final delivery report; final code SHA b2312e9ec48bd05e3398c23f79dcfcf1faf69b9f is frozen and recorded in local evidence. Documentation/entry commits remain separately attributable.|
 |5|PR|DRAFT #18 → main; no merge|
 |6|Files|evidence/phase1i/files_changed.json and files_created_modified.md|
 |7|Migration|Exclusive0009_phase1i; frozen0001–0008 unchanged; explicit immutable result/config/pin extensions|
