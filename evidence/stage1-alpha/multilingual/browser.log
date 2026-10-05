@@ -1,0 +1,56 @@
+
+> @crossborder/m0-preview@0.1.0 test:e2e
+> playwright test --repeat-each=3
+
+
+Running 36 tests using 1 worker
+
+(node:83304) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 e2e/knowledge.spec.ts:35:1 › zh-CN › real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching (6.6s)
+  ✓   2 e2e/knowledge.spec.ts:78:1 › zh-CN › identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side (4.9s)
+  ✓   3 e2e/knowledge.spec.ts:100:1 › zh-CN › no-match query renders empty evidence and actionable backend guidance on a narrow viewport (3.1s)
+  ✓   4 e2e/knowledge.spec.ts:110:1 › zh-CN › canonical Admin route inspects real Knowledge version and denies the normal project user (4.8s)
+  ✓   5 e2e/knowledge.spec.ts:35:1 › zh-HK › real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching (6.5s)
+  ✓   6 e2e/knowledge.spec.ts:78:1 › zh-HK › identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side (5.3s)
+  ✓   7 e2e/knowledge.spec.ts:100:1 › zh-HK › no-match query renders empty evidence and actionable backend guidance on a narrow viewport (3.0s)
+  ✓   8 e2e/knowledge.spec.ts:110:1 › zh-HK › canonical Admin route inspects real Knowledge version and denies the normal project user (4.1s)
+  ✓   9 e2e/knowledge.spec.ts:35:1 › en-US › real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching (7.2s)
+  ✓  10 e2e/knowledge.spec.ts:78:1 › en-US › identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side (5.0s)
+  ✓  11 e2e/knowledge.spec.ts:100:1 › en-US › no-match query renders empty evidence and actionable backend guidance on a narrow viewport (3.1s)
+  ✓  12 e2e/knowledge.spec.ts:110:1 › en-US › canonical Admin route inspects real Knowledge version and denies the normal project user (5.0s)
+(node:84348) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  13 e2e/knowledge.spec.ts:35:1 › zh-CN › real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching (7.4s)
+  ✓  14 e2e/knowledge.spec.ts:78:1 › zh-CN › identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side (5.3s)
+  ✓  15 e2e/knowledge.spec.ts:100:1 › zh-CN › no-match query renders empty evidence and actionable backend guidance on a narrow viewport (4.0s)
+  ✓  16 e2e/knowledge.spec.ts:110:1 › zh-CN › canonical Admin route inspects real Knowledge version and denies the normal project user (5.3s)
+  ✓  17 e2e/knowledge.spec.ts:35:1 › zh-HK › real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching (7.3s)
+  ✓  18 e2e/knowledge.spec.ts:78:1 › zh-HK › identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side (4.9s)
+  ✓  19 e2e/knowledge.spec.ts:100:1 › zh-HK › no-match query renders empty evidence and actionable backend guidance on a narrow viewport (2.9s)
+  ✓  20 e2e/knowledge.spec.ts:110:1 › zh-HK › canonical Admin route inspects real Knowledge version and denies the normal project user (4.6s)
+  ✓  21 e2e/knowledge.spec.ts:35:1 › en-US › real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching (7.2s)
+  ✓  22 e2e/knowledge.spec.ts:78:1 › en-US › identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side (5.2s)
+  ✓  23 e2e/knowledge.spec.ts:100:1 › en-US › no-match query renders empty evidence and actionable backend guidance on a narrow viewport (2.7s)
+  ✓  24 e2e/knowledge.spec.ts:110:1 › en-US › canonical Admin route inspects real Knowledge version and denies the normal project user (4.6s)
+(node:85224) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  25 e2e/knowledge.spec.ts:35:1 › zh-CN › real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching (6.6s)
+  ✓  26 e2e/knowledge.spec.ts:78:1 › zh-CN › identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side (4.0s)
+  ✓  27 e2e/knowledge.spec.ts:100:1 › zh-CN › no-match query renders empty evidence and actionable backend guidance on a narrow viewport (2.7s)
+  ✓  28 e2e/knowledge.spec.ts:110:1 › zh-CN › canonical Admin route inspects real Knowledge version and denies the normal project user (4.2s)
+  ✓  29 e2e/knowledge.spec.ts:35:1 › zh-HK › real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching (6.2s)
+  ✓  30 e2e/knowledge.spec.ts:78:1 › zh-HK › identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side (4.8s)
+  ✓  31 e2e/knowledge.spec.ts:100:1 › zh-HK › no-match query renders empty evidence and actionable backend guidance on a narrow viewport (2.9s)
+  ✓  32 e2e/knowledge.spec.ts:110:1 › zh-HK › canonical Admin route inspects real Knowledge version and denies the normal project user (4.3s)
+  ✓  33 e2e/knowledge.spec.ts:35:1 › en-US › real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching (6.2s)
+  ✓  34 e2e/knowledge.spec.ts:78:1 › en-US › identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side (4.3s)
+  ✓  35 e2e/knowledge.spec.ts:100:1 › en-US › no-match query renders empty evidence and actionable backend guidance on a narrow viewport (2.8s)
+  ✓  36 e2e/knowledge.spec.ts:110:1 › en-US › canonical Admin route inspects real Knowledge version and denies the normal project user (3.9s)
+
+  36 passed (2.9m)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

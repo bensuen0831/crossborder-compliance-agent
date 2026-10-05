@@ -2,7 +2,7 @@ import type { Payload, RegistryItem } from './contracts';
 
 export function parseObject(text: string): Payload {
   const value: unknown = JSON.parse(text);
-  if (!value || Array.isArray(value) || typeof value !== 'object') throw new Error('Enter a JSON object.');
+  if (!value || Array.isArray(value) || typeof value !== 'object') throw new Error('ui.objectError');
   return value as Payload;
 }
 export function itemId(item: RegistryItem): string {

@@ -45,9 +45,13 @@ def verify():
         path.read_text().count("createRoot(")
         for path in (ROOT / "frontend/src").rglob("*.tsx")
     ) == 1
+    canonical = json.loads(git("show", f"{SOURCES['C']}:frontend/package.json"))
+    integrated = json.loads((ROOT / "frontend/package.json").read_text())
     checks["canonical_dependencies_unchanged"] = all(
-        (ROOT / "frontend" / path).read_bytes() == git("show", f"{SOURCES['C']}:frontend/{path}")
-        for path in ("package.json", "package-lock.json")
+        integrated[field] == canonical[field]
+        for field in ("dependencies", "devDependencies", "engines")
+    ) and (ROOT / "frontend/package-lock.json").read_bytes() == git(
+        "show", f"{SOURCES['C']}:frontend/package-lock.json"
     )
     checks["no_integration_migration"] = not git("diff", "--name-only", BASE, "--", "alembic").strip()
     checks["one_shared_http_transport"] = "fetch(" not in (ROOT / "frontend/src/features/admin/client.ts").read_text()

@@ -1,5 +1,6 @@
 import { Alert, Button, Empty, Result, Skeleton, Space, Tag, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { errorLabel } from '../api/errors';
 import { ApiError } from '../api/client';
 
 export function LoadingState() {
@@ -17,7 +18,7 @@ export function ErrorState({ error, retry }: { error: Error; retry?: () => void 
   const { t } = useTranslation();
   if (error instanceof ApiError && [401, 403].includes(error.status)) return <PermissionDenied />;
   return <Alert type="error" showIcon title={t('error')} description={<Space orientation="vertical">
-    <span>{error.message}</span>
+    <span>{errorLabel(error)}</span>
     {error instanceof ApiError && error.traceId && <Typography.Text code>{t('trace')}: {error.traceId}</Typography.Text>}
     {retry && <Button onClick={retry}>{t('retry')}</Button>}
   </Space>} />;

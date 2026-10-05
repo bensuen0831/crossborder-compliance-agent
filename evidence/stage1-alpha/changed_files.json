@@ -8,10 +8,12 @@
     "frontend/package-lock.json",
     "frontend/package.json",
     "frontend/playwright.config.ts",
+    "frontend/scripts/check-i18n.mjs",
     "frontend/src/App.tsx",
     "frontend/src/api/client.test.ts",
     "frontend/src/api/client.ts",
     "frontend/src/api/contracts.ts",
+    "frontend/src/api/errors.ts",
     "frontend/src/api/generated.ts",
     "frontend/src/api/openapi.json",
     "frontend/src/components/ContextSelector.tsx",
@@ -32,9 +34,14 @@
     "frontend/src/features/admin/contracts.ts",
     "frontend/src/features/admin/presentation.ts",
     "frontend/src/features/admin/resources.ts",
+    "frontend/src/features/knowledge/formatting.ts",
     "frontend/src/features/knowledge/presentation.ts",
     "frontend/src/features/knowledge/queries.ts",
     "frontend/src/i18n.ts",
+    "frontend/src/locales/en-US.json",
+    "frontend/src/locales/multilingual.test.tsx",
+    "frontend/src/locales/zh-CN.json",
+    "frontend/src/locales/zh-HK.json",
     "frontend/src/main.tsx",
     "frontend/src/routes/AdminRoute.tsx",
     "frontend/src/styles.css",
@@ -44,6 +51,8 @@
     "frontend/src/test/fixtures/retrieval.json",
     "frontend/src/test/fixtures/scenarios.json",
     "frontend/src/test/fixtures/session.json",
+    "frontend/src/test/i18n-policy.test.ts",
+    "frontend/src/test/session-presentation.test.tsx",
     "frontend/src/test/setup.ts",
     "frontend/src/theme.ts",
     "frontend/tsconfig.json",
@@ -151,6 +160,26 @@
     "evidence/stage1-alpha/final/pytest_summary.json",
     "evidence/stage1-alpha/final/runtime_verify.json",
     "evidence/stage1-alpha/final/typecheck.log",
+    "evidence/stage1-alpha/multilingual/alembic.txt",
+    "evidence/stage1-alpha/multilingual/architecture.json",
+    "evidence/stage1-alpha/multilingual/browser.log",
+    "evidence/stage1-alpha/multilingual/browser_summary.json",
+    "evidence/stage1-alpha/multilingual/build.log",
+    "evidence/stage1-alpha/multilingual/contracts.log",
+    "evidence/stage1-alpha/multilingual/gate_summary.json",
+    "evidence/stage1-alpha/multilingual/integrated-admin-en-US.png",
+    "evidence/stage1-alpha/multilingual/integrated-admin-zh-CN.png",
+    "evidence/stage1-alpha/multilingual/integrated-admin-zh-HK.png",
+    "evidence/stage1-alpha/multilingual/integrity.json",
+    "evidence/stage1-alpha/multilingual/knowledge-evidence-en-US.png",
+    "evidence/stage1-alpha/multilingual/knowledge-evidence-zh-CN.png",
+    "evidence/stage1-alpha/multilingual/knowledge-evidence-zh-HK.png",
+    "evidence/stage1-alpha/multilingual/lint.log",
+    "evidence/stage1-alpha/multilingual/llm.json",
+    "evidence/stage1-alpha/multilingual/npm-ci.log",
+    "evidence/stage1-alpha/multilingual/pytest.log",
+    "evidence/stage1-alpha/multilingual/typecheck.log",
+    "evidence/stage1-alpha/multilingual/unit.log",
     "evidence/stage1-alpha/start_gate.json",
     "scripts/m0_preview/export_contracts.py",
     "scripts/m0_preview/seed.py",
@@ -213,6 +242,7 @@
     "llm_service_contract_result.md",
     "model_router_result.md",
     "model_usage_policy_result.md",
+    "multilingual_frontend_result.md",
     "phase1k_a_parallel_checkpoint.json",
     "phase1k_a_parallel_checkpoint.md",
     "phase1k_a_start_gate.md",
@@ -749,6 +779,86 @@
     },
     {
       "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/alembic.txt"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/architecture.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/browser.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/browser_summary.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/build.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/contracts.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/gate_summary.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/integrated-admin-en-US.png"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/integrated-admin-zh-CN.png"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/integrated-admin-zh-HK.png"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/integrity.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/knowledge-evidence-en-US.png"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/knowledge-evidence-zh-CN.png"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/knowledge-evidence-zh-HK.png"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/lint.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/llm.json"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/npm-ci.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/pytest.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/typecheck.log"
+    },
+    {
+      "status": "A",
+      "path": "evidence/stage1-alpha/multilingual/unit.log"
+    },
+    {
+      "status": "A",
       "path": "evidence/stage1-alpha/start_gate.json"
     },
     {
@@ -785,6 +895,10 @@
     },
     {
       "status": "A",
+      "path": "frontend/scripts/check-i18n.mjs"
+    },
+    {
+      "status": "A",
       "path": "frontend/src/App.tsx"
     },
     {
@@ -798,6 +912,10 @@
     {
       "status": "A",
       "path": "frontend/src/api/contracts.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/api/errors.ts"
     },
     {
       "status": "A",
@@ -881,6 +999,10 @@
     },
     {
       "status": "A",
+      "path": "frontend/src/features/knowledge/formatting.ts"
+    },
+    {
+      "status": "A",
       "path": "frontend/src/features/knowledge/presentation.ts"
     },
     {
@@ -890,6 +1012,22 @@
     {
       "status": "A",
       "path": "frontend/src/i18n.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/locales/en-US.json"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/locales/multilingual.test.tsx"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/locales/zh-CN.json"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/locales/zh-HK.json"
     },
     {
       "status": "A",
@@ -926,6 +1064,14 @@
     {
       "status": "A",
       "path": "frontend/src/test/fixtures/session.json"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/test/i18n-policy.test.ts"
+    },
+    {
+      "status": "A",
+      "path": "frontend/src/test/session-presentation.test.tsx"
     },
     {
       "status": "A",
@@ -974,6 +1120,10 @@
     {
       "status": "A",
       "path": "model_usage_policy_result.md"
+    },
+    {
+      "status": "A",
+      "path": "multilingual_frontend_result.md"
     },
     {
       "status": "A",

@@ -1,20 +1,20 @@
 import type { Action, AdminSession, Lifecycle, Operation, Resource } from './contracts';
 
-const payload = { name: 'payload', label: 'Version metadata (JSON)', type: 'json' as const };
+const payload = { name: 'payload', label: "ui.metadataPayload", type: 'json' as const };
 export const resources: readonly Resource[] = [
-  { key: 'jurisdictions', label: 'Jurisdictions', group: 'Metadata', family: 'metadata', registry: 'jurisdictions', fields: [payload] },
-  { key: 'scenarios', label: 'Business scenarios', group: 'Metadata', family: 'metadata', registry: 'scenarios', fields: [payload] },
-  { key: 'products', label: 'Products', group: 'Metadata', family: 'metadata', registry: 'products', fields: [payload] },
-  { key: 'knowledge-collections', label: 'Knowledge collections', group: 'Knowledge', family: 'metadata', fields: [payload] },
-  { key: 'knowledge-versions', label: 'Knowledge operations', group: 'Knowledge', family: 'knowledge', fields: [] },
-  { key: 'templates', label: 'Templates', group: 'Configuration', family: 'metadata', fields: [{ name: 'content_ref', label: 'Content reference', type: 'text' }, { name: 'field_schema', label: 'Field schema (JSON)', type: 'json' }] },
-  { key: 'prompts', label: 'Prompts', group: 'Configuration', family: 'metadata', fields: [{ name: 'template_text', label: 'Prompt template', type: 'text' }, { name: 'capability_requirement', label: 'Capability requirements (JSON array)', type: 'json' }] },
-  { key: 'models', label: 'Models', group: 'Configuration', family: 'metadata', fields: [payload] },
-  { key: 'rules', label: 'Rules · Phase 1H', group: 'Configuration', family: 'metadata', fields: [] },
+  { key: 'jurisdictions', label: "ui.jurisdictions", group: "ui.metadataGroup", family: 'metadata', registry: 'jurisdictions', fields: [payload] },
+  { key: 'scenarios', label: "ui.scenarios", group: "ui.metadataGroup", family: 'metadata', registry: 'scenarios', fields: [payload] },
+  { key: 'products', label: "ui.products", group: "ui.metadataGroup", family: 'metadata', registry: 'products', fields: [payload] },
+  { key: 'knowledge-collections', label: "ui.collections", group: "ui.knowledgeGroup", family: 'metadata', fields: [payload] },
+  { key: 'knowledge-versions', label: "ui.knowledgeOperations", group: "ui.knowledgeGroup", family: 'knowledge', fields: [] },
+  { key: 'templates', label: "ui.templates", group: "ui.configurationGroup", family: 'metadata', fields: [{ name: 'content_ref', label: "ui.contentRef", type: 'text' }, { name: 'field_schema', label: "ui.fieldSchema", type: 'json' }] },
+  { key: 'prompts', label: "ui.prompts", group: "ui.configurationGroup", family: 'metadata', fields: [{ name: 'template_text', label: "ui.promptTemplate", type: 'text' }, { name: 'capability_requirement', label: "ui.capabilityRequirements", type: 'json' }] },
+  { key: 'models', label: "ui.models", group: "ui.configurationGroup", family: 'metadata', fields: [payload] },
+  { key: 'rules', label: "ui.rules", group: "ui.configurationGroup", family: 'metadata', fields: [] },
   ...[
-    ['product-domains', 'Product domains / tags'], ['regulations', 'Regulation metadata'],
-    ['country-config', 'Country configuration'], ['skills', 'Skills'],
-  ].map(([key, label]): Resource => ({ key, label, group: 'Integration boundaries', family: 'boundary', fields: [], gap: 'No corresponding Admin endpoint is exposed in the integrated backend. See ADMIN_BACKEND_GAP.' })),
+    ['product-domains', "ui.productDomains"], ['regulations', "ui.regulations"],
+    ['country-config', "ui.countryConfig"], ['skills', "ui.skills"],
+  ].map(([key, label]): Resource => ({ key, label, group: "ui.boundariesGroup", family: 'boundary', fields: [], gap: "ui.boundaryGap" })),
 ];
 
 export const operationFor: Record<Action, Operation> = {
@@ -33,13 +33,13 @@ export function allowed(session: AdminSession, resource: Resource, operation: Op
     && session.backendScopes.includes(backendScope(resource, operation));
 }
 const metadataActions: Partial<Record<Lifecycle, readonly Action[]>> = {
-  DRAFT: ['submit-review', 'archive'], PENDING_REVIEW: ['approve', 'reject'],
-  APPROVED: ['publish', 'archive'], ACTIVE: ['supersede', 'archive'],
+  DRAFT: ['submit-review', "archive"], PENDING_REVIEW: ['approve', "reject"],
+  APPROVED: ['publish', "archive"], ACTIVE: ['supersede', "archive"],
   SUPERSEDED: ['archive'], EXPIRED: ['archive'],
 };
 const knowledgeActions: Partial<Record<Lifecycle, readonly Action[]>> = {
   INGESTED: ['validate'], VALIDATED: ['submit-review'], PENDING_REVIEW: ['approve'],
-  APPROVED: ['publish'], ACTIVE: ['supersede', 'expire'], EXPIRED: ['archive'],
+  APPROVED: ['publish'], ACTIVE: ['supersede', "expire"], EXPIRED: ['archive'],
 };
 export function actions(resource: Resource, status: Lifecycle): readonly Action[] {
   return (resource.family === 'knowledge' ? knowledgeActions : metadataActions)[status] ?? [];

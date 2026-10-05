@@ -12,10 +12,10 @@
 | Architecture Rules 1–139 | 118/118 executable checks PASS |
 | LLM security/boundary checks | 20/20 PASS |
 | Single-host/source-ancestry/evidence/dependency integrity | 13/13 PASS |
-| npm ci, lock integrity, frozen API/type regeneration | PASS, canonical C package/lock/generated API unchanged |
+| npm ci, lock integrity, frozen API/type regeneration | PASS, C declared dependencies/lock/generated API unchanged; package scripts add mandatory i18n policy |
 | Typecheck / canonical lint / production build | PASS |
-| Final frontend unit | 46 PASS |
-| Real PostgreSQL/Redis/Chromium browser UAT | 12 PASS, four scenarios × three independent executions, zero retries |
+| Final frontend unit | 63 PASS |
+| Real PostgreSQL/Redis/Chromium browser UAT | 36 PASS, three locales × four scenarios × three independent executions, zero retries |
 | M0/session/Admin/Rule API security | 8 PASS (included in full Python count) |
 | Alembic head / migration diff against approved H | 0008_phase1h / no diff |
 
@@ -28,3 +28,5 @@ Known non-blocking warnings: existing Starlette 422 deprecation, SQLAlchemy pgve
 The final npm ci uses a workspace-local cache because the sandbox cannot write the default home cache; install/typecheck/lint/unit/build then passed without lock drift.
 
 Raw focused summaries, schema/runtime JSON, sanitized test logs and demo screenshots live under evidence/stage1-alpha/final. Historical original evidence remains under docs/delivery, verified by SHA-256.
+
+Multilingual final gate: zh-CN/zh-HK/en-US each cover Knowledge, Evidence/Citation, Sufficiency/Fallback, Runtime and Admin; 262 UI keys per locale with mandatory build policy and six negative policy tests. Final backend rerun: 370 PASS, zero skips. See multilingual_frontend_result.md and evidence/stage1-alpha/multilingual for current logs, screenshots and the session/background refresh regression. The earlier final/ directory retains the pre-multilingual 46-unit/12-browser proof. Old exact-head frontend CI at 91cafd failed browser checks; no overall remote PASS is claimed for that SHA. Updated exact-head CI is recorded in the Draft PR/final response.

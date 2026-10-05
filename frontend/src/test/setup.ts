@@ -8,5 +8,5 @@ global.ResizeObserver = class { observe() {} unobserve() {} disconnect() {} };
 HTMLElement.prototype.scrollIntoView = vi.fn();
 const computed = window.getComputedStyle;
 window.getComputedStyle = (element) => computed(element);
-beforeEach(async () => { await i18n.changeLanguage('en'); });
+beforeEach(async () => { await i18n.changeLanguage('en-US'); });
 afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals(); });

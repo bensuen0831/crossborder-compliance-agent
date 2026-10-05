@@ -6,6 +6,11 @@ import { Link, Navigate, Route, Routes, useLocation, useNavigate } from 'react-r
 import { useTranslation } from 'react-i18next';
 import { api, ApiError, demoEnabled } from './api/client';
 import type { EvidenceItem, RetrievalRequest, Session } from './api/contracts';
+import enUS from 'antd/locale/en_US';
+import zhCN from 'antd/locale/zh_CN';
+import zhHK from 'antd/locale/zh_HK';
+import { currentLocale, supportedLocales, type Locale } from './i18n';
+import { formatNumber } from './features/knowledge/formatting';
 import { enterpriseTheme } from './theme';
 import { AdminRoute } from './routes/AdminRoute';
 import { ContextSelector } from './components/ContextSelector';
@@ -18,22 +23,22 @@ import { useRetrieval, useScope } from './features/knowledge/queries';
 
 function PageHeader({ runtime, admin = false }: { runtime: boolean; admin?: boolean }) {
   const { t } = useTranslation();
-  return <header className="page-heading"><Typography.Text className="eyebrow">M0 / KNOWLEDGE FOUNDATION</Typography.Text>
+  return <header className="page-heading"><Typography.Text className="eyebrow">{t('ui.foundation')}</Typography.Text>
     <Typography.Title level={1}>{t(admin ? 'admin' : runtime ? 'operational' : 'knowledge')}</Typography.Title>
-    <Typography.Paragraph type="secondary">{t('subtitle')}</Typography.Paragraph>
+    <Typography.Paragraph type="secondary">{t(admin ? 'adminSubtitle' : 'subtitle')}</Typography.Paragraph>
   </header>;
 }
 
 function SideNavigation({ adminAvailable }: { adminAvailable: boolean }) {
   const { t } = useTranslation();
   const location = useLocation();
-  return <nav aria-label="Main navigation">
+  return <nav aria-label={t('ui.navigation')}>
     <Menu theme="dark" mode="inline" selectedKeys={[location.pathname]} items={[
       { key: '/knowledge', icon: <SearchOutlined />, label: <Link to="/knowledge">{t('knowledge')}</Link> },
       { key: '/runtime', icon: <ApiOutlined />, label: <Link to="/runtime">{t('operational')}</Link> },
       { key: '/admin', disabled: !adminAvailable, icon: <SafetyCertificateOutlined />, label: <Link to="/admin">{t('admin')}</Link> },
       { type: 'group', label: t('future'), children: [
-        { key: 'stage1', disabled: true, icon: <SafetyCertificateOutlined />, label: <FeatureGate label="Stage 1" /> },
+        { key: 'stage1', disabled: true, icon: <SafetyCertificateOutlined />, label: <FeatureGate label={t('ui.stage1')} /> },
       ] },
     ]} />
   </nav>;
@@ -65,9 +70,9 @@ function Workspace({ session }: { session: Session }) {
   const admin = location.pathname.startsWith('/admin');
   return <Layout className="workspace-layout">
     <Layout.Sider width={230} breakpoint="lg" collapsedWidth={0} className="sidebar">
-      <div className="wordmark"><span className="brand-mark"><BookOutlined /></span><span>CROSSBORDER<small>Evidence workspace</small></span></div>
+      <div className="wordmark"><span className="brand-mark"><BookOutlined /></span><span>{t('ui.brand')}<small>{t('ui.brandSubtitle')}</small></span></div>
       <SideNavigation adminAvailable={!!session.admin_context}/>
-      <div className="sidebar-foot"><Tag>V3.6 · M0</Tag><Typography.Paragraph type="secondary">{t('noLegalResult')}</Typography.Paragraph></div>
+      <div className="sidebar-foot"><Tag>{t('ui.release')}</Tag><Typography.Paragraph type="secondary">{t('noLegalResult')}</Typography.Paragraph></div>
     </Layout.Sider>
     <Layout>
       <div className="workspace-topbar"><Space><Avatar size="small">{session.display_name.slice(0, 1)}</Avatar><Typography.Text>{session.display_name}</Typography.Text><Tag>{session.tenant_label}</Tag>
@@ -82,14 +87,14 @@ function Workspace({ session }: { session: Session }) {
               <QueryPanel disabled={!context || !scope.isSuccess || scope.isFetching} busy={retrieval.isFetching} submit={submit} />
               {retrieval.isFetching ? <Card><LoadingState /></Card> : retrieval.error ? <ErrorState error={retrieval.error} retry={() => void retrieval.refetch()} /> : !submitted ?
                 <Card className="welcome-card"><EmptyState title={t('readyToSearch')} description={t('startHint')} /></Card> : rag ?
-                  <Card title={<Space>{t('evidence')}<Tag>{rag.knowledge_sufficiency.evidence_count}</Tag></Space>}
+                  <Card title={<Space>{t('evidence')}<Tag>{formatNumber(rag.knowledge_sufficiency.evidence_count)}</Tag></Space>}
                     extra={<Button onClick={() => navigate('/runtime')}>{t('operational')}</Button>}>
                     {items.length === 0 ? <EmptyState title={t('evidenceEmpty')} description={t('evidenceEmptyDetail')} /> :
                       <Tabs items={[
-                        { key: 'cards', label: 'Cards', children: <div className="evidence-grid">{items.map((item) => <EvidenceCard key={item.evidence_item_id} item={item} open={() => open(item)} />)}</div> },
-                        { key: 'table', label: 'Table', children: <EvidenceTable items={items} jurisdictions={jurisdictions.data} open={open} /> },
+                        { key: 'cards', label: t('ui.cards'), children: <div className="evidence-grid">{items.map((item) => <EvidenceCard key={item.evidence_item_id} item={item} open={() => open(item)} />)}</div> },
+                        { key: 'table', label: t('ui.table'), children: <EvidenceTable items={items} jurisdictions={jurisdictions.data} open={open} /> },
                       ]} />}
-                  </Card> : <Alert type="info" title={`Retrieval: ${retrieval.data?.status ?? 'UNAVAILABLE'}`} />}
+                  </Card> : <Alert type="info" title={t('ui.retrievalStatus', { status: retrieval.data?.status ?? t('notAvailable') })} />}
             </>} />
             <Route path="/runtime" element={<RuntimeStatus session={session} versions={[...new Set(items.flatMap((item) => item.knowledge_version_id ? [item.knowledge_version_id] : []))]} />} />
             <Route path="/admin/*" element={<AdminRoute session={session} context={context}/>} />
@@ -121,15 +126,15 @@ export default function App() {
     } catch (error) { setLoginError(error instanceof Error ? error : new ApiError(0, 'SIGN_IN_FAILED')); }
     finally { setSwitching(false); }
   };
-  return <ConfigProvider theme={enterpriseTheme}>
+  return <ConfigProvider theme={enterpriseTheme} locale={{ 'en-US': enUS, 'zh-CN': zhCN, 'zh-HK': zhHK }[currentLocale()]}>
     <div className="global-bar"><Space><SafetyCertificateOutlined /><span>{t('workspace')}</span></Space>
-      <Space wrap><Select aria-label="Language" value={i18n.language} options={[{ value: 'zh-Hant', label: '繁體中文' }, { value: 'en', label: 'English' }]} onChange={(lang) => void i18n.changeLanguage(lang)} />
+      <Space wrap><Select aria-label={t('ui.language')} value={currentLocale()} options={supportedLocales.map(locale => ({ value: locale, label: t({ 'zh-CN': 'ui.localeCN', 'zh-HK': 'ui.localeHK', 'en-US': 'ui.localeEN' }[locale]) }))} onChange={(lang: Locale) => void i18n.changeLanguage(lang)} />
         {demoEnabled && <><Button disabled={switching} onClick={() => void changeIdentity('A')}>{t('loginA')}</Button><Button disabled={switching} onClick={() => void changeIdentity('B')}>{t('loginB')}</Button><Button disabled={switching} onClick={() => void changeIdentity('PROJECT')}>{t('loginProject')}</Button></>}
         {session.isSuccess && <Button onClick={() => void changeIdentity()}>{t('signOut')}</Button>}
       </Space>
     </div>
     {loginError && <ErrorState error={loginError} />}
-    {switching || session.isFetching ? <div className="sign-in-state"><LoadingState /></div> : session.isSuccess ?
+    {switching || session.isPending ? <div className="sign-in-state"><LoadingState /></div> : session.isSuccess ?
       <Workspace key={session.data.identity_key} session={session.data} /> : <div className="sign-in-state">
         {session.error instanceof ApiError && session.error.status === 404 ? <Alert type="info" title={t('sessionUnavailable')} description={t('sessionHint')} /> : session.error ?
           <ErrorState error={session.error} retry={() => void session.refetch()} /> : <PermissionDenied />}

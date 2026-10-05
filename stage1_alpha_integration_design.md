@@ -17,3 +17,5 @@ The canonical C AppShell owns one BrowserRouter, QueryClientProvider, theme, i18
 No migration or schema gap was introduced. Head remains 0008_phase1h; Architecture Rules 1–139 remain unchanged. No Phase 1I/1L domain or workflow work is included.
 
 Production authentication, fine-grained contextual backend RBAC and ingestion infrastructure remain owned upstream capabilities. The demo uses the explicitly enabled loopback-only synthetic trusted-session adapter; it does not implement production login. Missing Admin capabilities remain unavailable or gated; see admin_backend_gap_report.md.
+
+The frontend multilingual baseline shares canonical C i18next across M0 and Admin, with zh-CN, zh-HK and en-US. Mandatory catalog/React UI checks run before production build. Locale is presentation-only local preference, absent from query keys, retrieval bodies and Domain codes. Official Evidence stays original-language content. See multilingual_frontend_result.md for state invariance, Intl formatting and I18N_METADATA_BACKEND_GAP.

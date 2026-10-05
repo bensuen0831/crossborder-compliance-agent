@@ -50,7 +50,8 @@ describe('critical presentation behavior', () => {
     render(<><LoadingState /><EmptyState title="No evidence" /><ErrorState error={new ApiError(500, 'SERVER_FAILED', 'trace-123')} /></>, { wrapper });
     expect(screen.getByRole('status')).toBeInTheDocument();
     expect(screen.getByText('No evidence')).toBeVisible();
-    expect(screen.getByText('SERVER_FAILED')).toBeVisible();
+    expect(screen.getByText('Request failed (HTTP 500).')).toBeVisible();
+    expect(screen.queryByText('SERVER_FAILED')).not.toBeInTheDocument();
     expect(screen.getByText(/trace-123/)).toBeVisible();
   });
   it('marks unfinished features as unavailable without fake workflow progress', () => {

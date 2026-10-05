@@ -1,6 +1,6 @@
 # Frontend dependency integration result
 
-Canonical frontend/package.json and frontend/package-lock.json are byte-identical to tested C SHA 3f89f1e8f16402f4754b474260cb9022a4bf92c6. No new dependency, unrelated upgrade or silent major-version change was performed on C. All D runtime/test dependencies already exist in C; D modules were checked against the existing C toolchain. D's separate lockfile and package were removed, rather than combined. The original D dependency tree remains recoverable from its source SHA.
+Canonical dependencies, devDependencies and engines remain identical to tested C SHA 3f89f1e8f16402f4754b474260cb9022a4bf92c6; frontend/package-lock.json remains byte-identical. frontend/package.json adds only the check:i18n script and its mandatory pre-build invocation; declared dependency versions do not change. No new dependency, unrelated upgrade or silent major-version change was performed on C. All D runtime/test dependencies already exist in C; D modules were checked against the existing C toolchain. D's separate lockfile and package were removed, rather than combined. The original D dependency tree remains recoverable from its source SHA.
 
 Where C and D had different development-tool majors (Vite/plugin, hooks lint, jsdom, Vitest), the final versions are the pre-existing C versions, validated by the moved D tests, canonical lint and production build.
 
@@ -36,4 +36,4 @@ Where C and D had different development-tool majors (Vite/plugin, hooks lint, js
 | vite | ^7.2.0 | ^6.3.0 | 7.3.6 | Yes: canonical C copy | Retain tested C lock/toolchain |
 | vitest | ^4.0.0 | ^3.2.0 | 4.1.11 | Yes: canonical C copy | Retain tested C lock/toolchain |
 
-Final: one production package.json, one lockfile, one Vite build and one React root. npm ci and frozen API/type regeneration pass without lock/generated-file drift.
+Final: one production package.json, one lockfile, one Vite build and one React root. npm ci and frozen API/type regeneration pass without lock/generated-file drift. The catalog checker uses the existing TypeScript dependency and Node built-ins; no additional production or development dependency is introduced.

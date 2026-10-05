@@ -2,9 +2,9 @@
 
 Net diff from approved Phase 1H base `700951ebb9ebdf33e399158fd3fb53bb4a6c87e7` to the final integration tree. A=added, M=modified, D=deleted. Original inventories remain under docs/delivery/phase1h, phase1k-a, m0 and admin-foundation. The JSON inventory excludes no changed path, including its own path.
 
-Totals: 222 changed paths; 47 frontend; 8 backend/Python package; 104 tests/scripts/CI/evidence; 63 delivery documentation. Machine-readable list: evidence/stage1-alpha/changed_files.json.
+Totals: 252 changed paths; 56 frontend; 8 backend/Python package; 124 tests/scripts/CI/evidence; 64 delivery documentation. Machine-readable list: evidence/stage1-alpha/changed_files.json.
 
-Package changes against main: frontend/package.json and frontend/package-lock.json added by C; both remain byte-identical to tested C. D's standalone package.json, package-lock.json, index.html, src/main.tsx, Vite/TypeScript/lint/test configuration were removed during consolidation and remain recoverable in its tested source/merge ancestry. No Alembic file changed. Python package changes come from tested B, with no unrelated upgrade.
+Package changes against main: frontend/package.json and frontend/package-lock.json added by C; declared dependencies/devDependencies/engines and the lockfile remain identical to tested C. package.json adds only mandatory i18n-check/build scripts. D's standalone package.json, package-lock.json, index.html, src/main.tsx, Vite/TypeScript/lint/test configuration were removed during consolidation and remain recoverable in its tested source/merge ancestry. No Alembic file changed. Python package changes come from tested B, with no unrelated upgrade.
 
 Original overlap: B/D root delivery files overlap and were normalized with both originals preserved. C had no original identical changed path overlap with H/B/D. Authorized consolidation intentionally changes C App/API/session/style/i18n and moves D modules into C. These are integration seams; no backend Domain semantics changed.
 
@@ -19,10 +19,12 @@ Original overlap: B/D root delivery files overlap and were normalized with both 
 | A | frontend/package-lock.json |
 | A | frontend/package.json |
 | A | frontend/playwright.config.ts |
+| A | frontend/scripts/check-i18n.mjs |
 | A | frontend/src/App.tsx |
 | A | frontend/src/api/client.test.ts |
 | A | frontend/src/api/client.ts |
 | A | frontend/src/api/contracts.ts |
+| A | frontend/src/api/errors.ts |
 | A | frontend/src/api/generated.ts |
 | A | frontend/src/api/openapi.json |
 | A | frontend/src/components/ContextSelector.tsx |
@@ -43,9 +45,14 @@ Original overlap: B/D root delivery files overlap and were normalized with both 
 | A | frontend/src/features/admin/contracts.ts |
 | A | frontend/src/features/admin/presentation.ts |
 | A | frontend/src/features/admin/resources.ts |
+| A | frontend/src/features/knowledge/formatting.ts |
 | A | frontend/src/features/knowledge/presentation.ts |
 | A | frontend/src/features/knowledge/queries.ts |
 | A | frontend/src/i18n.ts |
+| A | frontend/src/locales/en-US.json |
+| A | frontend/src/locales/multilingual.test.tsx |
+| A | frontend/src/locales/zh-CN.json |
+| A | frontend/src/locales/zh-HK.json |
 | A | frontend/src/main.tsx |
 | A | frontend/src/routes/AdminRoute.tsx |
 | A | frontend/src/styles.css |
@@ -55,6 +62,8 @@ Original overlap: B/D root delivery files overlap and were normalized with both 
 | A | frontend/src/test/fixtures/retrieval.json |
 | A | frontend/src/test/fixtures/scenarios.json |
 | A | frontend/src/test/fixtures/session.json |
+| A | frontend/src/test/i18n-policy.test.ts |
+| A | frontend/src/test/session-presentation.test.tsx |
 | A | frontend/src/test/setup.ts |
 | A | frontend/src/theme.ts |
 | A | frontend/tsconfig.json |
@@ -168,6 +177,26 @@ Original overlap: B/D root delivery files overlap and were normalized with both 
 | A | evidence/stage1-alpha/final/pytest_summary.json |
 | A | evidence/stage1-alpha/final/runtime_verify.json |
 | A | evidence/stage1-alpha/final/typecheck.log |
+| A | evidence/stage1-alpha/multilingual/alembic.txt |
+| A | evidence/stage1-alpha/multilingual/architecture.json |
+| A | evidence/stage1-alpha/multilingual/browser.log |
+| A | evidence/stage1-alpha/multilingual/browser_summary.json |
+| A | evidence/stage1-alpha/multilingual/build.log |
+| A | evidence/stage1-alpha/multilingual/contracts.log |
+| A | evidence/stage1-alpha/multilingual/gate_summary.json |
+| A | evidence/stage1-alpha/multilingual/integrated-admin-en-US.png |
+| A | evidence/stage1-alpha/multilingual/integrated-admin-zh-CN.png |
+| A | evidence/stage1-alpha/multilingual/integrated-admin-zh-HK.png |
+| A | evidence/stage1-alpha/multilingual/integrity.json |
+| A | evidence/stage1-alpha/multilingual/knowledge-evidence-en-US.png |
+| A | evidence/stage1-alpha/multilingual/knowledge-evidence-zh-CN.png |
+| A | evidence/stage1-alpha/multilingual/knowledge-evidence-zh-HK.png |
+| A | evidence/stage1-alpha/multilingual/lint.log |
+| A | evidence/stage1-alpha/multilingual/llm.json |
+| A | evidence/stage1-alpha/multilingual/npm-ci.log |
+| A | evidence/stage1-alpha/multilingual/pytest.log |
+| A | evidence/stage1-alpha/multilingual/typecheck.log |
+| A | evidence/stage1-alpha/multilingual/unit.log |
 | A | evidence/stage1-alpha/start_gate.json |
 | A | scripts/m0_preview/export_contracts.py |
 | A | scripts/m0_preview/seed.py |
@@ -233,6 +262,7 @@ Original overlap: B/D root delivery files overlap and were normalized with both 
 | A | llm_service_contract_result.md |
 | A | model_router_result.md |
 | A | model_usage_policy_result.md |
+| A | multilingual_frontend_result.md |
 | A | phase1k_a_parallel_checkpoint.json |
 | A | phase1k_a_parallel_checkpoint.md |
 | A | phase1k_a_start_gate.md |

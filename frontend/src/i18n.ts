@@ -1,71 +1,40 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import zhCN from './locales/zh-CN.json';
+import zhHK from './locales/zh-HK.json';
+import enUS from './locales/en-US.json';
 
-const zh = {
-  admin: '管理操作', adminSubtitle: '透過既有治理介面維護版本、審核與發佈狀態。', loginProject: '登入一般專案 UAT 使用者',
-  workspace: 'Knowledge workspace', knowledge: '知識與證據', operational: '運行狀態',
-  subtitle: '在授權範圍內查找知識，檢視每項證據的來源與版本。',
-  search: '查詢知識', query: '知識問題或關鍵字', queryPlaceholder: '輸入問題或關鍵字，查詢已發布的授權知識',
-  context: '分析上下文', project: '專案 / 已固定的分析版本', product: '產品', scenario: '情境', jurisdiction: '管轄區', domain: '產品領域',
-  pinned: 'Scope 由後端依分析快照固定；修改 Product／Scenario／Jurisdiction 須建立新的正式 Context，M0 僅供檢視。',
-  noContext: '此身分沒有可用的授權分析上下文。',
-  chooseContext: '先選擇專案與分析快照，再開始查詢。',
-  source: '來源與引用', evidence: '證據', evidenceEmpty: '本次查詢沒有授權證據',
-  evidenceEmptyDetail: '請參考後端提供的缺口與下一步指引。',
-  readyToSearch: '準備查找可追溯的證據', startHint: '結果將包含來源、引用位置與知識版本。此預覽不產生法律結論。',
-  sufficiency: '知識充分性', reasons: '後端原因碼', missing: '缺少的 Topic',
-  SUFFICIENT: '充分', PARTIALLY_SUFFICIENT: '部分充分', INSUFFICIENT: '不足', CONFLICTED: '存在衝突',
-  fallback: '證據補足指引', fallbackNote: '以下為後端提供的行動與待確認問題，不是最終合規路徑。',
-  acquisition: '取得證據', jurisdictionSteps: '確認管轄與時效', operationalSteps: '下一步', conservative: '保守控制', questions: '待確認問題', prohibited: '禁止作出的斷言',
-  permission: '需要授權', permissionHint: '登入或請管理員授予所需權限。未授權內容不會呈現。',
-  sessionUnavailable: '認證介面尚未連接', sessionHint: '部署環境需提供可信 Session 與授權 Context 清單。詳見 M0 runbook。',
-  retry: '重試', loading: '載入中', error: '無法完成請求', trace: '追蹤識別碼',
-  notAvailable: '未提供', published: '已發布知識版本', readiness: 'Runtime materialization',
-  runtimeRestricted: 'Runtime readiness 限 knowledge:admin。一般使用者不會發出 Admin 請求。',
-  backendStatus: 'API 可達', backendUnavailable: 'API 無回應',
-  healthNote: '此指標為 API 回應狀態；資料庫與索引是否 READY 以後端 readiness 結果為準。',
-  demo: '本機 UAT · 合成資料', demoNote: '這些是已寫入 PostgreSQL 並由真實檢索 API 返回的合成測試證據，不是官方法律內容。',
-  loginA: '登入 UAT 使用者 A', loginB: '登入 UAT 使用者 B', signOut: '登出',
-  comingSoon: 'Coming in next milestone', future: '後續里程碑',
-  noLegalResult: 'M0 · Knowledge & Evidence Preview',
-  locator: '引用位置', authority: '來源權威', tier: '來源級別', type: '證據類型', version: '知識版本', effective: '生效期間',
-  validation: 'Scope 驗證', provenance: '檢索來源追溯', excerpt: '授權原文摘錄', snapshot: '分析快照', policy: '檢索策略版本',
-  internal: 'Canonical knowledge', external: 'Verified external evidence',
-  noReadiness: '先查詢證據，再檢視對應知識版本的運行狀態。',
-  action_ACQUIRE_APPROVED_EVIDENCE_FOR_MISSING_COVERAGE: '取得已審核的證據，補足缺少的涵蓋範圍。',
-  action_VERIFY_SOURCE_JURISDICTION_AND_EFFECTIVE_DATES: '確認證據來源的管轄區與生效日期。',
-  action_PRESERVE_CONTEXT_AND_EVIDENCE_PROVENANCE: '保留目前上下文與證據來源紀錄。',
-  action_KEEP_UNVERIFIED_LEGAL_ASSERTIONS_OUT_OF_FINALIZATION: '未驗證的法律斷言不得進入定稿。',
-};
-const en: typeof zh = {
-  admin: 'Admin operations', adminSubtitle: 'Inspect and maintain versions through the existing governed APIs.', loginProject: 'Sign in project UAT user',
-  workspace: 'Knowledge workspace', knowledge: 'Knowledge & Evidence', operational: 'Runtime status',
-  subtitle: 'Find knowledge within authorized scope and inspect source and version provenance.',
-  search: 'Search knowledge', query: 'Question or keywords', queryPlaceholder: 'Search published knowledge within your authorized scope',
-  context: 'Analysis context', project: 'Project / pinned analysis snapshot', product: 'Product', scenario: 'Scenario', jurisdiction: 'Jurisdiction', domain: 'Product domain',
-  pinned: 'Scope is pinned by the backend snapshot. Changing dimensions requires a new formal context; M0 is read-only.',
-  noContext: 'No authorized analysis context is available for this identity.', chooseContext: 'Select a project and snapshot before searching.',
-  source: 'Source & citation', evidence: 'Evidence', evidenceEmpty: 'No authorized evidence for this query', evidenceEmptyDetail: 'See the backend coverage gaps and next actions.',
-  readyToSearch: 'Find evidence you can trace', startHint: 'Results include sources, citations and versions. This preview does not produce legal conclusions.',
-  sufficiency: 'Knowledge sufficiency', reasons: 'Backend reason codes', missing: 'Missing topics',
-  SUFFICIENT: 'Sufficient', PARTIALLY_SUFFICIENT: 'Partially sufficient', INSUFFICIENT: 'Insufficient', CONFLICTED: 'Conflicted',
-  fallback: 'Evidence acquisition guidance', fallbackNote: 'Backend actions and unresolved questions; these are not a final compliance path.',
-  acquisition: 'Acquire evidence', jurisdictionSteps: 'Verify jurisdiction and dates', operationalSteps: 'Next actions', conservative: 'Conservative controls', questions: 'Unresolved questions', prohibited: 'Prohibited assertions',
-  permission: 'Authorization required', permissionHint: 'Sign in or request the necessary access. Unauthorized content is not displayed.',
-  sessionUnavailable: 'Authentication adapter not connected', sessionHint: 'Deployment must provide trusted sessions and authorized contexts. See the M0 runbook.',
-  retry: 'Retry', loading: 'Loading', error: 'Request failed', trace: 'Trace ID', notAvailable: 'Not provided',
-  published: 'Published knowledge version', readiness: 'Runtime materialization', runtimeRestricted: 'Runtime readiness requires knowledge:admin. Ordinary users do not issue admin requests.',
-  backendStatus: 'API reachable', backendUnavailable: 'API unavailable', healthNote: 'API response status only. Database and index readiness come from backend runtime checks.',
-  demo: 'Local UAT · synthetic data', demoNote: 'Synthetic PostgreSQL fixtures returned by the real retrieval API; these are not official legal sources.',
-  loginA: 'Sign in as UAT user A', loginB: 'Sign in as UAT user B', signOut: 'Sign out',
-  comingSoon: 'Coming in next milestone', future: 'Future milestone', noLegalResult: 'M0 · Knowledge & Evidence Preview',
-  locator: 'Citation locator', authority: 'Source authority', tier: 'Source tier', type: 'Evidence type', version: 'Knowledge version', effective: 'Effective dates',
-  validation: 'Scope validation', provenance: 'Retrieval provenance', excerpt: 'Authorized source excerpt', snapshot: 'Analysis snapshot', policy: 'Retrieval policy version',
-  internal: 'Canonical knowledge', external: 'Verified external evidence', noReadiness: 'Search for evidence before viewing knowledge runtime status.',
-  action_ACQUIRE_APPROVED_EVIDENCE_FOR_MISSING_COVERAGE: 'Acquire approved evidence for missing coverage.',
-  action_VERIFY_SOURCE_JURISDICTION_AND_EFFECTIVE_DATES: 'Verify source jurisdiction and effective dates.',
-  action_PRESERVE_CONTEXT_AND_EVIDENCE_PROVENANCE: 'Preserve the current context and evidence provenance.',
-  action_KEEP_UNVERIFIED_LEGAL_ASSERTIONS_OUT_OF_FINALIZATION: 'Keep unverified legal assertions out of finalization.',
-};
-void i18n.use(initReactI18next).init({ resources: { 'zh-Hant': { translation: zh }, en: { translation: en } }, lng: 'zh-Hant', fallbackLng: 'en', showSupportNotice: false, interpolation: { escapeValue: false } });
+export const supportedLocales = ['zh-CN', 'zh-HK', 'en-US'] as const;
+export type Locale = typeof supportedLocales[number];
+const preferenceKey = 'stage1-alpha.ui-locale';
+function preference(): Locale {
+  try {
+    const stored = localStorage.getItem(preferenceKey);
+    return supportedLocales.find(locale => locale === stored) ?? 'zh-HK';
+  } catch { return 'zh-HK'; }
+}
+export function currentLocale(): Locale {
+  return supportedLocales.find(locale => locale === i18n.resolvedLanguage) ?? 'en-US';
+}
+void i18n.use(initReactI18next).init({
+  resources: { 'zh-CN': { translation: zhCN }, 'zh-HK': { translation: zhHK }, 'en-US': { translation: enUS } },
+  lng: preference(), supportedLngs: [...supportedLocales], load: 'currentOnly', fallbackLng: 'en-US',
+  keySeparator: false, showSupportNotice: false, interpolation: { escapeValue: false },
+  parseMissingKeyHandler: key => {
+    console.error('I18N_MISSING_KEY', key);
+    return { 'zh-CN': zhCN, 'zh-HK': zhHK, 'en-US': enUS }[currentLocale()]['ui.translationUnavailable'];
+  },
+});
+i18n.on('languageChanged', language => {
+  if (!supportedLocales.some(locale => locale === language)) return;
+  try { localStorage.setItem(preferenceKey, language); } catch { /* Preference is optional. */ }
+  if (typeof document !== 'undefined') {
+    document.documentElement.lang = language;
+    document.title = `${i18n.t('knowledge')} | ${i18n.t('ui.brand')}`;
+  }
+});
+if (typeof document !== 'undefined') {
+  document.documentElement.lang = currentLocale();
+  document.title = `${i18n.t('knowledge')} | ${i18n.t('ui.brand')}`;
+}
 export default i18n;

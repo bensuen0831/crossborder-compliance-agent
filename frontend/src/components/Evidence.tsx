@@ -2,6 +2,7 @@ import { Button, Card, Descriptions, Drawer, Empty, Space, Table, Tag, Typograph
 import { FileSearchOutlined, LinkOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import type { EvidenceItem, Metadata } from '../api/contracts';
+import { formatDate } from '../features/knowledge/formatting';
 import { evidenceTitle, metadataLabel, safeSourceUrl } from '../features/knowledge/presentation';
 
 export function EvidenceCard({ item, open }: { item: EvidenceItem; open: () => void }) {
@@ -37,14 +38,14 @@ export function SourceCitationDrawer({ item, close }: { item?: EvidenceItem; clo
         { key: 'url', label: t('source'), children: url ? <a href={url} target="_blank" rel="noopener noreferrer" referrerPolicy="no-referrer">{item.source_url}</a> : <span>{item.source_url}</span> },
         { key: 'locator', label: t('locator'), children: item.canonical_locator },
         { key: 'tier', label: t('tier'), children: item.source_tier },
-        { key: 'citation', label: 'Citation ID', children: <Typography.Text code>{item.citation_id}</Typography.Text> },
+        { key: 'citation', label: t('ui.citationId'), children: <Typography.Text code>{item.citation_id}</Typography.Text> },
         { key: 'version', label: t('version'), children: item.knowledge_version_id ?? item.external_evidence_id },
-        { key: 'date', label: t('effective'), children: `${item.effective_from ?? t('notAvailable')} → ${item.effective_to ?? '—'}` },
+        { key: 'date', label: t('effective'), children: `${formatDate(item.effective_from)} → ${formatDate(item.effective_to)}` },
         { key: 'validation', label: t('validation'), children: item.scope_validation_status },
         { key: 'snapshot', label: t('snapshot'), children: item.analysis_snapshot_id },
         { key: 'policy', label: t('policy'), children: item.retrieval_policy_version },
-        { key: 'index', label: 'Index version', children: item.knowledge_index_version ?? t('notAvailable') },
-        { key: 'hash', label: 'SHA-256', children: <Typography.Text code>{item.content_hash}</Typography.Text> },
+        { key: 'index', label: t('ui.indexVersion'), children: item.knowledge_index_version ?? t('notAvailable') },
+        { key: 'hash', label: t('ui.contentHash'), children: <Typography.Text code>{item.content_hash}</Typography.Text> },
       ]} />
       <Typography.Title level={5}>{t('excerpt')}</Typography.Title>
       <Typography.Paragraph className="source-excerpt">{item.original_text}</Typography.Paragraph>

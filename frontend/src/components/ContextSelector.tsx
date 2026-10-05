@@ -34,7 +34,7 @@ export function ContextSelector({ session, context, choose, scope, scopeError, s
     </Form>
     {[products, scenarios, jurisdictions].map((q, index) => q.error && <ErrorState key={index} error={q.error} />)}
     <Typography.Paragraph type="secondary" className="scope-note">{t('pinned')}</Typography.Paragraph>
-    {scope && <Space wrap>{scope.allowed_scope_types.map((value) => <Tag key={value}>{value}</Tag>)}<Tag>{scope.permission_filters.join(' · ') || 'No knowledge permissions'}</Tag></Space>}
+    {scope && <Space wrap>{scope.allowed_scope_types.map((value) => <Tag key={value}>{value}</Tag>)}<Tag>{scope.permission_filters.join(' · ') || t('ui.noKnowledgePermissions')}</Tag></Space>}
     {scope?.review_required && <Alert type="warning" showIcon title={scope.reason_codes.join(' · ')} />}
   </Card>;
 }
