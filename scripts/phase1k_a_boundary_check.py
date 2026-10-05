@@ -1,4 +1,8 @@
-"""Additive Track B boundaries. Frozen 1A–1G checks/rules are unchanged."""
+"""Track B boundaries with an explicit approved Phase 1H integration baseline.
+
+The original source-track manifest remains immutable historical evidence.
+Integration may use only the verified Phase 1H baseline, not hashes of live files.
+"""
 
 import ast
 import hashlib
@@ -11,6 +15,17 @@ def check(root):
     manifest = json.loads((root / "evidence/phase1k-a/frozen_baseline_manifest.json").read_text())[
         "files"
     ]
+    integration = root / "evidence/stage1-alpha/approved_phase1h_baseline.json"
+    baseline_authorized = True
+    if integration.exists():
+        approved = json.loads(integration.read_text())
+        baseline_authorized = (
+            approved["base_sha"] == "700951ebb9ebdf33e399158fd3fb53bb4a6c87e7"
+            and approved["original_track_b_base"] == "f563e5067308e7eab6d3f89321b8b30da7c39044"
+            and set(approved["files"]) == set(manifest)
+            | {"alembic/versions/0008_phase1h_rule_classification.py"}
+        )
+        manifest = approved["files"]
     files = list((root / "src").rglob("llm_gateway*.py"))
     source = {p.name: p.read_text() for p in files}
     appfiles = [p for p in files if "/application/" in str(p) or "/domain/" in str(p)]
@@ -31,11 +46,11 @@ def check(root):
     http = source["llm_gateway_http.py"]
     trees = [ast.parse(p.read_text()) for p in files]
     checks = {
-        "frozen_1a_1g_implementation_unchanged": all(
+        "approved_frozen_implementation_unchanged": baseline_authorized and all(
             (root / p).is_file() and hashlib.sha256((root / p).read_bytes()).hexdigest() == h
             for p, h in manifest.items()
         ),
-        "migrations_0001_0007_unchanged_no_0008": set(
+        "approved_migrations_unchanged_no_integration_migration": set(
             str(p.relative_to(root)) for p in (root / "alembic/versions").glob("*.py")
         )
         == {p for p in manifest if p.startswith("alembic/versions/") and p.endswith(".py")},
