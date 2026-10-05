@@ -1,0 +1,12 @@
+# PR17 integration-only contract correction review
+
+The source ancestry is unchanged. Main-sync merge062c5fb64d0196bed7d45cfdb6d64495dd5aafcf has parents6c2aacd6475af0c0533717daa54b8e48946647e1 andd83d8db17dd2b16b54038009d8547e290e8949ae. Git conflicts were exactly the four declared delivery documents; both source copies were preserved byte-for-byte under docs/delivery/phase1i and docs/delivery/stage1-alpha.
+
+Two integration validation contracts required correction. The user explicitly authorized these two limited changes after the executable-conflict stop was reported.
+
+1. scripts/stage1_alpha_integrity.py originally compared all Alembic changes with Phase1H, rejecting the inherited, exclusively Phase1I-owned0009. It now strictly compares the complete Alembic working tree against reviewed Phase1I source14cba25353d9ab7dda84e9620ff3197d9e2a3d1d. This includes env.py and all migrations: no Stage1-alpha migration creation or modification is permitted. Historical Phase1H migrations remain identical. Other ancestry, backend source, historical evidence and one-host checks are unchanged; no assertion is disabled.
+2. Existing M0 export_contracts.py and generate:types regenerate frontend/src/api/openapi.json and generated.ts from the already-merged API. Changes reflect existing metadata locale parameters/validation and current transitive schema generation. No new routes are selected, no applicability UI is exposed, and UI/domain/auth/business code is unchanged. Generation must reproduce without tracked drift in exact-head CI.
+
+Review: integration-only scope PASS; existing backend Domain/source, frontend UI, dependency declarations/lockfile, migrations and architecture rules unchanged relative to the main-sync merge. This review is not a test result. New exact-head backend and frontend/real-backend CI must pass before Ready/merge. Initial12/13 integrity failure and OpenAPI drift are retained as integration evidence rather than hidden.
+
+Additional independent blocker: the unchanged1K-A checker rejects inherited Phase1I frozen-file hashes and migration set (18/20). Full pre-correction pytest:441 passed,1 failed. This requires separate authorization and an independently derived approved baseline, not a live-file manifest or weakened security assertions. No branch merge is allowed while it fails.

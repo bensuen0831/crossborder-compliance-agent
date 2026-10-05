@@ -178,6 +178,24 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** HTTPValidationError */
+        HTTPValidationError: {
+            /** Detail */
+            detail?: components["schemas"]["ValidationError"][];
+        };
+        /** ValidationError */
+        ValidationError: {
+            /** Location */
+            loc: (string | number)[];
+            /** Message */
+            msg: string;
+            /** Error Type */
+            type: string;
+            /** Input */
+            input?: unknown;
+            /** Context */
+            ctx?: Record<string, never>;
+        };
         /** KnowledgeScope */
         KnowledgeScope: {
             /** Tenant Id */
@@ -310,24 +328,6 @@ export interface components {
              *     ]
              */
             filter_order: string[];
-        };
-        /** HTTPValidationError */
-        HTTPValidationError: {
-            /** Detail */
-            detail?: components["schemas"]["ValidationError"][];
-        };
-        /** ValidationError */
-        ValidationError: {
-            /** Location */
-            loc: (string | number)[];
-            /** Message */
-            msg: string;
-            /** Error Type */
-            type: string;
-            /** Input */
-            input?: unknown;
-            /** Context */
-            ctx?: Record<string, never>;
         };
         /** RetrievalRequestDTO */
         RetrievalRequestDTO: {
@@ -826,7 +826,9 @@ export interface operations {
     };
     jurisdictions_api_v1_metadata_jurisdictions_get: {
         parameters: {
-            query?: never;
+            query?: {
+                locale?: ("zh-CN" | "zh-HK" | "en-US") | null;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -840,13 +842,24 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };
     };
     scenarios_api_v1_metadata_scenarios_get: {
         parameters: {
-            query?: never;
+            query?: {
+                locale?: ("zh-CN" | "zh-HK" | "en-US") | null;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -862,11 +875,22 @@ export interface operations {
                     "application/json": unknown;
                 };
             };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
         };
     };
     products_api_v1_metadata_products_get: {
         parameters: {
-            query?: never;
+            query?: {
+                locale?: ("zh-CN" | "zh-HK" | "en-US") | null;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -880,6 +904,15 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

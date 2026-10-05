@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "700951ebb9ebdf33e399158fd3fb53bb4a6c87e7"
+DOMAIN_BASE = "14cba25353d9ab7dda84e9620ff3197d9e2a3d1d"
 SOURCES = {
     "B": "45af99271559ee6fd1f652e8ad169fc9afb11c55",
     "C": "3f89f1e8f16402f4754b474260cb9022a4bf92c6",
@@ -53,7 +54,9 @@ def verify():
     ) and (ROOT / "frontend/package-lock.json").read_bytes() == git(
         "show", f"{SOURCES['C']}:frontend/package-lock.json"
     )
-    checks["no_integration_migration"] = not git("diff", "--name-only", BASE, "--", "alembic").strip()
+    # Phase1I owns the inherited0009. Stage1-alpha must preserve its entire
+    # reviewed Alembic tree byte-for-byte and introduce no migration changes.
+    checks["no_integration_migration"] = not git("diff", "--name-only", DOMAIN_BASE, "--", "alembic").strip()
     checks["one_shared_http_transport"] = "fetch(" not in (ROOT / "frontend/src/features/admin/client.ts").read_text()
     return {"status": "PASS" if all(checks.values()) else "FAIL", "checks": checks}
 
