@@ -1,0 +1,34 @@
+{
+  "backend_pytest": {
+    "passed": 370,
+    "skipped": 0
+  },
+  "frontend_unit": {
+    "passed": 46
+  },
+  "browser": {
+    "passed": 12,
+    "scenarios": 4,
+    "repeat_each": 3,
+    "retries": 0
+  },
+  "architecture": {
+    "passed": 118,
+    "total": 118,
+    "rules": "1–139"
+  },
+  "llm_boundary": {
+    "passed": 20,
+    "total": 20
+  },
+  "integration_integrity": {
+    "passed": 13,
+    "total": 13
+  },
+  "alembic_head": "0008_phase1h",
+  "new_migrations": 0,
+  "production_hosts": 1,
+  "production_package_trees": 1,
+  "status": "LOCAL_GATES_PASS",
+  "remote_ci": "To be attested on final pushed SHA in Draft PR / remote closure report"
+}

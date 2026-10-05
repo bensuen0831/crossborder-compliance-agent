@@ -175,10 +175,13 @@ def test_fresh_and_frozen_0007_paths_equivalent_and_downgrade(tmp_path):
                     runtime_contract_json={},
                 )
             )
+        with engine.connect() as conn:
+            head_before_refusal = conn.scalar(text("SELECT version_num FROM alembic_version"))
         refusal = migrate(ROOT, urls[0], "downgrade", "0007_phase1g")
         assert refusal.returncode != 0 and "archive/export" in refusal.stderr
         with engine.connect() as conn:
-            assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "0008_phase1h"
+            # Transactional refusal retains the actual starting revision, including valid descendants.
+            assert conn.scalar(text("SELECT version_num FROM alembic_version")) == head_before_refusal
             assert conn.scalar(text("SELECT count(*) FROM rule_versions")) == 1
         engine.dispose()
         evidence["authoritative_data_downgrade_refused"] = True

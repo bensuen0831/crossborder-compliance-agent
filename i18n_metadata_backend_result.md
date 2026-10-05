@@ -1,0 +1,18 @@
+# Phase1I — multilingual metadata backend
+
+Phase1I Track: `phase1i-applicability-country-scenario`; verified base `700951ebb9ebdf33e399158fd3fb53bb4a6c87e7` / `v3.6-phase1h-pass`. Frozen implementation SHA: `131d101cdd02999aa478c1a730f492c1729caf30`. DRAFT PR: [#18](https://github.com/bensuen0831/crossborder-compliance-agent/pull/18), target main; no merge. Final validation evidence is recorded in [test_result.md](test_result.md) and `evidence/phase1i`. Earlier-phase sections, where present, remain historical evidence.
+
+Gap ID: `I18N_METADATA_BACKEND_GAP`. Disposition: RESOLVED for this scope. Discovery found no typed generic locale/fallback presenter. Existing MetadataVersion payloads and the canonical JURISDICTION_CONFIG overlay already provided version-compatible persistence and Registry projection; these are reused as the single source of truth. No localization table or alternate jurisdiction/skill/configuration authority was created.
+
+One generic LocalizedDisplayMetadata contains localized_display_names (zh-CN / zh-HK / en-US) and a governed fallback_locale. Optional localized_display and localized_code_labels use that same contract in I configurations and existing SCENARIO/SKILL/JURISDICTION_CONFIG payloads. Governance validates payloads before review/publication. Machine statuses and reason/input/output/priority/check identifiers remain locale-neutral codes. New country/scenario/skill/jurisdiction metadata identities reject localized authoritative codes.
+
+Fallback: requested locale → configured fallback locale → canonical display name → stable code. No runtime LLM translation is called. Registry APIs expose the versioned raw display payload plus a resolved `presentation` object when locale is requested. I metadata resources refresh derived projection from canonical committed versions without restarting the service.
+
+Applicability presentation resolves labels from the exact configuration version attached to the result and returns an unchanged formal result beside display data. Official source language, original regulation/evidence, citations and LegalBasis references are untouched. Localized status strings such as 适用, 適用 and Applicable are rejected by formal status/reason contracts.
+
+Tests prove independently resolved locale labels, identical stable codes, deterministic missing-translation fallback, invalid locale/empty-label rejection, unchanged result semantics/legal provenance, real jurisdiction/versioned metadata APIs and no hard-coded country/scenario translation in I domain/application files. No frontend switcher, frontend resource bundle or document translation.
+
+
+## Final actor-scoped metadata visibility
+
+Frozen delivery implementation SHA: `b2312e9ec48bd05e3398c23f79dcfcf1faf69b9f` (supersedes the earlier131d101 implementation after final review). Registry source filtering applies versioned permission_scopes before list projection, locale presentation, health counts and version summaries. Canonical profile selection uses the same actor boundary; an unauthorized profile cannot leak through a locale query or contaminate eligible-profile resolution. The runtime API invalidates per-resource cached projections before reading so another actor's earlier projection cannot expose labels. Actual PostgreSQL/API tests switch authorized/unauthorized actors and all three locales, proving restricted names/configuration and summary counts stay hidden. The earlier passing local/CI evidence remains historical, not the final gate.

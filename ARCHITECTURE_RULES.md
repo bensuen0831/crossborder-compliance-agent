@@ -173,3 +173,18 @@ These references document the existing rules; they do not change implementation 
 137. Missing DataItem or insufficient facts/evidence produces a typed NOT_APPLICABLE/INSUFFICIENT_INPUT outcome without fabricated classification. Non-matched rules require review only when the input facts already require review.
 138. Executable rule publication must pass schema/AST/static validation, persisted rule tests, conflict/priority checks and independent durable review inside the existing Admin Publish/outbox transaction. Approved rule/scheme content and formal results are immutable; retries cannot create competing formal results for one snapshot/subject/scheme version.
 139. Classification consumes formal Phase 1E context and existing Phase 1F/1G evidence through authorized, scope-revalidating interfaces. Configuration pins are explicit and immutable; execution cannot silently select new rules or broaden knowledge scope.
+
+## Phase 1I Applicability / Country / Scenario Addendum
+
+140. Regulation applicability must reference canonical KnowledgeDocumentVersion, RegulatoryStructureNode and LegalBasis identities; no duplicate regulation, article or legal-basis source of truth.
+141. CountryComplianceProfile, ScenarioAdjustmentProfile, CountryCapability and applicability/rule-pack configuration use existing versioned metadata, independent review, publish outbox and registry projections.
+142. Scenario adjustment deterministically merges configuration within the fixed standard pipeline. Required/disabled skills, evidence profiles and contradictory checks/priorities cannot be silently resolved.
+143. Generic country capabilities are configuration/discovery boundaries; classification consumes Phase1H. No country-specific root graph, classifier, Python legal mechanism or core country branch.
+144. Applicability consumes validated Phase1E context, Phase1F pinned scope, Phase1G revalidated evidence/sufficiency/fallback and Phase1H formal classification/RuleHits. Reference-only clients cannot supply facts, identity, scope or decisions.
+145. New configuration pins require approved ACTIVE effective versions; legal sources also require READY and an existing authorized snapshot scope. Historical replay retains exact profile/rule/knowledge/binding pins and revalidates current access.
+146. Missing, partial, insufficient or conflicted evidence must conservatively preserve review/conflict and fallback. Contradictory RuleHits cannot produce a last-writer-wins applicability result.
+147. Scenario-only applicability requires independent validated facts, scenario/jurisdiction and sufficient project evidence. Explicit scenario RuleHits delegate to the existing Phase1H engine; no data item means no fabricated ClassificationResult.
+148. Applicability results retain full canonical provenance, immutable snapshot identity and idempotent persistence. Existing LegalBasis M:N links associate only matching canonical RuleHits and article evidence.
+149. Phase1I ends at applicability and capability availability: no Phase1J obligation/path/risk/recommendation/final decision, full workflow, frontend, LLM gateway or document generation.
+150. Only Phase1I owns0009; migrations0001–0008 remain frozen. Empty PostgreSQL and exact verified0008 upgrades must be equivalent; downgrade must refuse retained authoritative I data.
+151. Presentation locale (zh-CN/zh-HK/en-US) is distinct from machine status/reason codes and official source/evidence/citation language. Governed generic localized display payloads reuse existing MetadataVersion/JurisdictionConfig; API fallback is deterministic and cannot invoke runtime machine translation or alter formal applicability semantics.

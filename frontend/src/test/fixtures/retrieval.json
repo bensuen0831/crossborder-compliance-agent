@@ -1,0 +1,425 @@
+{
+  "retrieval_run_id": "f7746992-0868-4e58-868a-d93b5fb42488",
+  "status": "COMPLETED",
+  "query": {
+    "project_id": "36403c06-1b1a-4a6e-98e8-b5cd0812ecfb",
+    "analysis_snapshot_id": "3db75b4d-89af-49eb-94a6-41158128a773",
+    "policy_id": "68f295c8-b8ab-4319-8455-2e1cadcdd35e",
+    "query_text": "Generic",
+    "idempotency_key": "m0-contract-capture",
+    "subject_type": "PROJECT",
+    "subject_id": null,
+    "languages": []
+  },
+  "traces": [
+    {
+      "stage": "SCOPE",
+      "reason_code": "PHASE1F_HARD_FILTERS_APPLIED",
+      "details": {
+        "filter_order": [
+          "tenant",
+          "permission",
+          "lifecycle",
+          "version",
+          "effective_date",
+          "product",
+          "jurisdiction",
+          "scenario",
+          "industry",
+          "data_category",
+          "language"
+        ]
+      }
+    },
+    {
+      "stage": "REVALIDATION",
+      "reason_code": "PASS",
+      "details": {
+        "dropped": []
+      }
+    }
+  ],
+  "statistics": {
+    "lexical_count": 2,
+    "vector_count": 0,
+    "deduplicated_count": 2,
+    "reranked_count": 0,
+    "dropped_count": 0,
+    "internal_evidence_count": 2,
+    "external_evidence_count": 0
+  },
+  "record_version": 2,
+  "rag_context_pack": {
+    "structured_context": {
+      "project_id": "36403c06-1b1a-4a6e-98e8-b5cd0812ecfb",
+      "subject_type": "PROJECT",
+      "subject_id": "36403c06-1b1a-4a6e-98e8-b5cd0812ecfb",
+      "context_version": 1,
+      "dimensions": {
+        "jurisdiction": [
+          "f8b17271-7e71-4f24-82e8-d7223497a879"
+        ],
+        "jurisdiction_group": [],
+        "product_domain": [
+          "75c3cc58-b0ba-449c-a0ac-111bc6c0d39e"
+        ],
+        "product_category": [
+          "5f7152a9-d16f-4235-af3f-68070a2d7587"
+        ],
+        "product_family": [
+          "68908b43-b539-47aa-ad84-b2eab2c4bbed"
+        ],
+        "product": [
+          "7a90f87f-58dc-4e98-a395-eb585505951c"
+        ],
+        "product_tag": [
+          "24204ace-2a7f-4ccc-af8d-a4ce8e72ffdd"
+        ],
+        "scenario": [
+          "bc49510c-1801-4439-94a1-217b892f5588"
+        ],
+        "industry": [],
+        "data_category": []
+      },
+      "product_unresolved": false,
+      "reason_codes": [],
+      "system_ids": [],
+      "party_ids": [],
+      "product_lineages": {
+        "7a90f87f-58dc-4e98-a395-eb585505951c": {
+          "product_domain": [
+            "75c3cc58-b0ba-449c-a0ac-111bc6c0d39e"
+          ],
+          "product_category": [
+            "5f7152a9-d16f-4235-af3f-68070a2d7587"
+          ],
+          "product_family": [
+            "68908b43-b539-47aa-ad84-b2eab2c4bbed"
+          ],
+          "product": [
+            "7a90f87f-58dc-4e98-a395-eb585505951c"
+          ],
+          "product_tag": [
+            "24204ace-2a7f-4ccc-af8d-a4ce8e72ffdd"
+          ]
+        }
+      }
+    },
+    "scope": {
+      "tenant_id": "6ed2f563-bc8f-48af-bac6-85f69dc4ebd3",
+      "project_id": "36403c06-1b1a-4a6e-98e8-b5cd0812ecfb",
+      "analysis_snapshot_id": "3db75b4d-89af-49eb-94a6-41158128a773",
+      "subject_type": "PROJECT",
+      "subject_id": "36403c06-1b1a-4a6e-98e8-b5cd0812ecfb",
+      "allowed_jurisdiction_ids": [
+        "f8b17271-7e71-4f24-82e8-d7223497a879"
+      ],
+      "allowed_product_domain_ids": [
+        "75c3cc58-b0ba-449c-a0ac-111bc6c0d39e"
+      ],
+      "allowed_product_category_ids": [
+        "5f7152a9-d16f-4235-af3f-68070a2d7587"
+      ],
+      "allowed_product_family_ids": [
+        "68908b43-b539-47aa-ad84-b2eab2c4bbed"
+      ],
+      "allowed_product_ids": [
+        "7a90f87f-58dc-4e98-a395-eb585505951c"
+      ],
+      "allowed_product_tag_ids": [
+        "24204ace-2a7f-4ccc-af8d-a4ce8e72ffdd"
+      ],
+      "allowed_scenario_ids": [
+        "bc49510c-1801-4439-94a1-217b892f5588"
+      ],
+      "allowed_industry_refs": [],
+      "allowed_data_category_refs": [],
+      "allowed_scope_types": [
+        "PRODUCT_SPECIFIC"
+      ],
+      "permission_filters": [
+        "knowledge:admin",
+        "read:internal"
+      ],
+      "lifecycle_filters": [
+        "PINNED_APPROVED"
+      ],
+      "effective_as_of": "2026-10-02",
+      "excluded_bindings": [],
+      "unresolved_scopes": [],
+      "reason_codes": [],
+      "review_required": false,
+      "version": 1,
+      "filter_spec": {
+        "tenant_filter": "6ed2f563-bc8f-48af-bac6-85f69dc4ebd3",
+        "permission_filter": [
+          "knowledge:admin",
+          "read:internal"
+        ],
+        "lifecycle_filter": [
+          "PINNED_APPROVED"
+        ],
+        "effective_date_filter": "2026-10-02",
+        "jurisdiction_filter": [
+          "f8b17271-7e71-4f24-82e8-d7223497a879"
+        ],
+        "product_filter": {
+          "product_domain": [
+            "75c3cc58-b0ba-449c-a0ac-111bc6c0d39e"
+          ],
+          "product_category": [
+            "5f7152a9-d16f-4235-af3f-68070a2d7587"
+          ],
+          "product_family": [
+            "68908b43-b539-47aa-ad84-b2eab2c4bbed"
+          ],
+          "product": [
+            "7a90f87f-58dc-4e98-a395-eb585505951c"
+          ],
+          "product_tag": [
+            "24204ace-2a7f-4ccc-af8d-a4ce8e72ffdd"
+          ]
+        },
+        "scenario_filter": [
+          "bc49510c-1801-4439-94a1-217b892f5588"
+        ],
+        "industry_filter": [],
+        "data_category_filter": [],
+        "language_filter": [],
+        "scope_type_filter": [
+          "PRODUCT_SPECIFIC"
+        ],
+        "version_filter": [
+          "d9b39e7f-58dc-4180-a339-bc2464c901f5"
+        ],
+        "binding_filter": [
+          "7d27f410-267b-4666-b625-6b944fb7ec95"
+        ],
+        "filter_order": [
+          "tenant",
+          "permission",
+          "lifecycle",
+          "version",
+          "effective_date",
+          "product",
+          "jurisdiction",
+          "scenario",
+          "industry",
+          "data_category",
+          "language"
+        ]
+      }
+    },
+    "evidence_pack": {
+      "evidence_pack_id": "e8fa3e42-f49d-4a13-96f0-509a7ed3631a",
+      "retrieval_run_id": "f7746992-0868-4e58-868a-d93b5fb42488",
+      "analysis_snapshot_id": "3db75b4d-89af-49eb-94a6-41158128a773",
+      "items": [
+        {
+          "evidence_item_id": "714b52cd-a529-40d0-84d7-d074bc1f0754",
+          "knowledge_document_id": "bbdf8807-ee2f-453c-adf1-b0892272e179",
+          "knowledge_version_id": "d9b39e7f-58dc-4180-a339-bc2464c901f5",
+          "external_evidence_id": null,
+          "structure_node_id": "eed19061-7b1d-4c29-aabd-c9c407b3118c",
+          "chunk_id": "a90699bf-2716-4fbf-9b82-e64fe755aefa",
+          "citation_id": "d23ad6d2-b449-4a5a-afca-e24fd70ce4c9",
+          "source_id": "19533aef-31bc-4443-a05e-935e50ef944b",
+          "source_url": "https://generic.example/official.json",
+          "source_authority": null,
+          "source_tier": "T1_PRIMARY_OFFICIAL",
+          "jurisdiction_id": null,
+          "jurisdiction_specific": false,
+          "canonical_locator": "act/article/1",
+          "language": "en",
+          "effective_from": "2026-10-02",
+          "effective_to": null,
+          "lexical_score": 0.1,
+          "vector_score": null,
+          "hybrid_score": 0.01639344262295082,
+          "rerank_score": null,
+          "scope_validation_status": "VALIDATED",
+          "evidence_quality": 1.0,
+          "content_hash": "b29619e060f2aa098618e58c2093668aa314784b3def371a0906ff02fa079aab",
+          "retrieval_run_id": "f7746992-0868-4e58-868a-d93b5fb42488",
+          "analysis_snapshot_id": "3db75b4d-89af-49eb-94a6-41158128a773",
+          "knowledge_index_version": "cc85478e-c693-420b-819c-a3154fef83f1",
+          "retrieval_policy_version": "9d21c96c-6867-41d4-81c5-55221124d8b3",
+          "original_text": "Generic rule original text",
+          "topic_refs": [],
+          "regulation_refs": [],
+          "conflict_key": null,
+          "claim_hash": null,
+          "provenance": {
+            "source_id": "19533aef-31bc-4443-a05e-935e50ef944b",
+            "document_id": "bbdf8807-ee2f-453c-adf1-b0892272e179",
+            "official_source": "https://generic.example/official.json",
+            "content_hash": "0c5261d76a85ccbc30484d8619c5ec647ade879091d5ba22b185f0b2d4df5c2e",
+            "source_evidence_id": "a65f0ead-ab04-4148-983f-015e0684f72f",
+            "source_hash": "48694a1032e4598b8171200d2e2fd19832984289da0b282858eea96083143536",
+            "chunking_strategy": "structure-aware-v1"
+          },
+          "derived": true,
+          "legal_decision": false
+        },
+        {
+          "evidence_item_id": "a52f9f9a-cd29-477d-a986-5743e01cec63",
+          "knowledge_document_id": "bbdf8807-ee2f-453c-adf1-b0892272e179",
+          "knowledge_version_id": "d9b39e7f-58dc-4180-a339-bc2464c901f5",
+          "external_evidence_id": null,
+          "structure_node_id": "9820612f-3596-4c4d-a8a2-115e310f5efe",
+          "chunk_id": "dc606173-a662-47f1-aed7-22f0db5d542f",
+          "citation_id": "53b092cf-48d6-43b7-b9db-968e77db3e97",
+          "source_id": "19533aef-31bc-4443-a05e-935e50ef944b",
+          "source_url": "https://generic.example/official.json",
+          "source_authority": null,
+          "source_tier": "T1_PRIMARY_OFFICIAL",
+          "jurisdiction_id": null,
+          "jurisdiction_specific": false,
+          "canonical_locator": "act",
+          "language": "en",
+          "effective_from": "2026-10-02",
+          "effective_to": null,
+          "lexical_score": 0.1,
+          "vector_score": null,
+          "hybrid_score": 0.016129032258064516,
+          "rerank_score": null,
+          "scope_validation_status": "VALIDATED",
+          "evidence_quality": 1.0,
+          "content_hash": "926bf014b300eae21b653b8f6fd62f288af9ade06960eab9a6be719dcd4ae5e2",
+          "retrieval_run_id": "f7746992-0868-4e58-868a-d93b5fb42488",
+          "analysis_snapshot_id": "3db75b4d-89af-49eb-94a6-41158128a773",
+          "knowledge_index_version": "cc85478e-c693-420b-819c-a3154fef83f1",
+          "retrieval_policy_version": "9d21c96c-6867-41d4-81c5-55221124d8b3",
+          "original_text": "Generic Official Regulation",
+          "topic_refs": [],
+          "regulation_refs": [],
+          "conflict_key": null,
+          "claim_hash": null,
+          "provenance": {
+            "source_id": "19533aef-31bc-4443-a05e-935e50ef944b",
+            "document_id": "bbdf8807-ee2f-453c-adf1-b0892272e179",
+            "official_source": "https://generic.example/official.json",
+            "content_hash": "0c5261d76a85ccbc30484d8619c5ec647ade879091d5ba22b185f0b2d4df5c2e",
+            "source_evidence_id": "5f2c11e1-b4d7-46e8-b67b-7db2d5a2c818",
+            "source_hash": "48694a1032e4598b8171200d2e2fd19832984289da0b282858eea96083143536",
+            "chunking_strategy": "structure-aware-v1"
+          },
+          "derived": true,
+          "legal_decision": false
+        }
+      ],
+      "manifest": {
+        "retrieval_policy_version": "9d21c96c-6867-41d4-81c5-55221124d8b3",
+        "sufficiency_policy_version": "9ef77179-b78f-4255-aa8b-f6d53d773f02",
+        "scope_version": 1,
+        "knowledge_indexes": {
+          "d9b39e7f-58dc-4180-a339-bc2464c901f5": "cc85478e-c693-420b-819c-a3154fef83f1"
+        },
+        "embedding_record_ids": [],
+        "derived": true,
+        "external_artifacts": []
+      },
+      "derived": true,
+      "legal_source_of_truth": false
+    },
+    "knowledge_sufficiency": {
+      "sufficiency_result_id": "f03f210d-c21c-4057-b8a6-7a8abfc670b7",
+      "tenant_id": "6ed2f563-bc8f-48af-bac6-85f69dc4ebd3",
+      "project_id": "36403c06-1b1a-4a6e-98e8-b5cd0812ecfb",
+      "analysis_snapshot_id": "3db75b4d-89af-49eb-94a6-41158128a773",
+      "subject_type": "PROJECT",
+      "subject_id": "36403c06-1b1a-4a6e-98e8-b5cd0812ecfb",
+      "jurisdiction_ids": [
+        "f8b17271-7e71-4f24-82e8-d7223497a879"
+      ],
+      "retrieval_run_id": "f7746992-0868-4e58-868a-d93b5fb42488",
+      "evidence_pack_id": "e8fa3e42-f49d-4a13-96f0-509a7ed3631a",
+      "jurisdiction_coverage": {
+        "f8b17271-7e71-4f24-82e8-d7223497a879": false
+      },
+      "regulation_coverage": {},
+      "official_source_coverage": 0.0,
+      "effective_date_coverage": 1.0,
+      "evidence_quality": 1.0,
+      "evidence_count": 2,
+      "conflicting_evidence_count": 0,
+      "missing_topics": [],
+      "reason_codes": [
+        "JURISDICTION_SPECIFIC_EVIDENCE_MISSING",
+        "OFFICIAL_EFFECTIVE_EVIDENCE_MISSING",
+        "AUTHORITATIVE_EVIDENCE_COUNT_LOW"
+      ],
+      "confidence": 0.0,
+      "review_required": true,
+      "status": "INSUFFICIENT",
+      "policy_version": "9ef77179-b78f-4255-aa8b-f6d53d773f02"
+    },
+    "external_augmentation_metadata": {
+      "attempted": false,
+      "reason_codes": []
+    },
+    "fallback_guidance_context": {
+      "verified_requirements": [],
+      "verified_controls": [],
+      "conservative_controls": [
+        {
+          "action_code": "KEEP_UNVERIFIED_LEGAL_ASSERTIONS_OUT_OF_FINALIZATION",
+          "jurisdiction_ids": [
+            "f8b17271-7e71-4f24-82e8-d7223497a879"
+          ],
+          "topic_refs": [],
+          "evidence_refs": []
+        }
+      ],
+      "evidence_acquisition_steps": [
+        {
+          "action_code": "ACQUIRE_APPROVED_EVIDENCE_FOR_MISSING_COVERAGE",
+          "jurisdiction_ids": [
+            "f8b17271-7e71-4f24-82e8-d7223497a879"
+          ],
+          "topic_refs": [],
+          "evidence_refs": []
+        }
+      ],
+      "jurisdiction_verification_steps": [
+        {
+          "action_code": "VERIFY_SOURCE_JURISDICTION_AND_EFFECTIVE_DATES",
+          "jurisdiction_ids": [
+            "f8b17271-7e71-4f24-82e8-d7223497a879"
+          ],
+          "topic_refs": [],
+          "evidence_refs": []
+        }
+      ],
+      "unresolved_legal_questions": [
+        "JURISDICTION_SPECIFIC_EVIDENCE_MISSING",
+        "OFFICIAL_EFFECTIVE_EVIDENCE_MISSING",
+        "AUTHORITATIVE_EVIDENCE_COUNT_LOW"
+      ],
+      "operational_next_steps": [
+        {
+          "action_code": "PRESERVE_CONTEXT_AND_EVIDENCE_PROVENANCE",
+          "jurisdiction_ids": [
+            "f8b17271-7e71-4f24-82e8-d7223497a879"
+          ],
+          "topic_refs": [],
+          "evidence_refs": []
+        }
+      ],
+      "prohibited_assertions": [
+        "UNSUPPORTED_LEGAL_APPLICABILITY",
+        "CROSS_BORDER_LEGAL_DECISION",
+        "LEGAL_OBLIGATION",
+        "RISK_SCORE",
+        "COMPLIANCE_PATH"
+      ],
+      "evidence_status": "INSUFFICIENT",
+      "confidence": 0.0,
+      "review_recommended": true,
+      "finalization_requires_verification": true,
+      "compliance_path": false
+    },
+    "derived": true,
+    "legal_decision": false
+  }
+}
