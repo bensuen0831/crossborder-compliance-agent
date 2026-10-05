@@ -16,3 +16,16 @@ Local full PostgreSQL gate: **284 passed / 0 skipped / 0 deselected / 0 failed /
 [Full local log](evidence/phase1h/local-implementation/ci_complete.log), [test summary](evidence/phase1h/local-implementation/pytest_full_summary.json), [migration evidence](evidence/phase1h/local-implementation/phase1h_migration_dual_path.json), [hash manifest](evidence/phase1h/local-implementation/manifest.json).
 
 Remote implementation and documentation-closure evidence is recorded separately in [Phase1H_delivery_handoff.md](Phase1H_delivery_handoff.md). Overall Phase 1H closure requires that final remote branch CI pass. PR [#13](https://github.com/bensuen0831/crossborder-compliance-agent/pull/13) remains **DRAFT; do not merge**. No Phase 1I implementation is authorized here.
+
+
+# Phase1I — security and isolation
+
+Phase1I Track: `phase1i-applicability-country-scenario`; verified base `700951ebb9ebdf33e399158fd3fb53bb4a6c87e7` / `v3.6-phase1h-pass`. Frozen implementation SHA: `131d101cdd02999aa478c1a730f492c1729caf30`. DRAFT PR: [#18](https://github.com/bensuen0831/crossborder-compliance-agent/pull/18), target main; no merge. Final validation evidence is recorded in [test_result.md](test_result.md) and `evidence/phase1i`. Earlier-phase sections, where present, remain historical evidence.
+
+Trusted RepositoryContext supplies tenant/actor/scopes. Applicability execute/read and project:{id}:comply scopes are required; current H result and G saved evidence authorization remain in force. Read does not require execute permission, but retains the existing classification/evidence read permissions and owner visibility. Wrong tenant/project/snapshot/jurisdiction/subject/config/retrieval/H-result references fail closed. Result writes reject identities differing from the original request.
+
+Clients cannot post tenant, facts, scope, narrative or formal applicability decisions: requests forbid extra fields. References are resolved through canonical stores; classification context/item identity, flow-linked validated inventory, saved retrieval subject, pinned config/rule/knowledge versions and evidence visibility are revalidated. Historical profile/configuration replay cannot widen the original knowledge universe. Changed scenario binding digests or required resource versions are rejected.
+
+PostgreSQL protects profile identity/version/published payload/provenance, I pins and results. Independent I review is mandatory even for a system actor; failed validation produces no publish outbox event. Existing unrelated metadata deletion behavior is preserved. Current evidence/source revocation blocks saved positive result reads rather than leaking stale evidence.
+
+Tests: real PostgreSQL/API cross-tenant/project/actor/operation denial, reference spoofing, wrong classification, source revocation, immutable updates, review failure, result identity and locale-neutral machine-code validation. Existing Phase1B–H security regressions are included in the mandatory full suite.

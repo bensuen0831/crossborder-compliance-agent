@@ -85,3 +85,20 @@ Local full PostgreSQL gate: **284 passed / 0 skipped / 0 deselected / 0 failed /
 [Full local log](evidence/phase1h/local-implementation/ci_complete.log), [test summary](evidence/phase1h/local-implementation/pytest_full_summary.json), [migration evidence](evidence/phase1h/local-implementation/phase1h_migration_dual_path.json), [hash manifest](evidence/phase1h/local-implementation/manifest.json).
 
 Remote implementation and documentation-closure evidence is recorded separately in [Phase1H_delivery_handoff.md](Phase1H_delivery_handoff.md). Overall Phase 1H closure requires that final remote branch CI pass. PR [#13](https://github.com/bensuen0831/crossborder-compliance-agent/pull/13) remains **DRAFT; do not merge**. No Phase 1I implementation is authorized here.
+
+
+# Phase1I — validation and attribution
+
+Phase1I Track: `phase1i-applicability-country-scenario`; verified base `700951ebb9ebdf33e399158fd3fb53bb4a6c87e7` / `v3.6-phase1h-pass`. Frozen implementation SHA: `131d101cdd02999aa478c1a730f492c1729caf30`. DRAFT PR: [#18](https://github.com/bensuen0831/crossborder-compliance-agent/pull/18), target main; no merge. Final validation evidence is recorded in [test_result.md](test_result.md) and `evidence/phase1i`. Earlier-phase sections, where present, remain historical evidence.
+
+The final-code mandatory gate includes Phase1I unit, PostgreSQL/API, locale and dual-path migration tests; all historical runtime tests are included. Required final results are recorded in evidence/phase1i/local/pytest_full_summary.json, all phase schema JSONs, architecture_rule_check.json, runtime_verify.json and the full ci_complete.log. Phase1I source tests use actual PostgreSQL, real existing context/knowledge/rule/governance services and Redis; inherited embedding fixtures inject deterministic adapters, not production provider execution.
+
+The first complete353-case run passed at0347fc5702bac9639d66631878adf472b4ce5bd6 and remote CI37271852286 SUCCESS. The final code adds locale-neutral formal reason/config identifiers and durable prompt/template resource publication checks; it requires a new complete gate and exact-head remote run. Do not substitute the earlier run for final delivery proof. No skipped/deselected tests are accepted by the gate.
+
+Expected unchanged historical gate assertions: B16, C20, D15, E22, F29, G58, H20; I24; architecture135; runtime25. Final observed counts and final remote conclusions are appended below after measurement. Remote job/API/artifact identity is kept separate from local logs; unavailable remote log bytes/hashes are never inferred.
+
+## Phase1I final measured local gate
+
+Code SHA `131d101cdd02999aa478c1a730f492c1729caf30`: **355 passed / 0 failed / 0 errors / 0 skipped / 0 deselected**, including **71 Phase1I tests** (43 pure domain/locale,27 real PostgreSQL/API,1 dual-path migration). I schema24/24, architecture135/135, runtime25/25; Phase1B–H schema regressions16/20/15/22/29/58/20 all PASS. Fresh and verified0008→0009 schema equivalence and downgrade roundtrip/refusal PASS.
+
+The complete local log, XML, JSONs and SHA-256 manifest are in [evidence/phase1i/local](evidence/phase1i/local) and [local_manifest.json](evidence/phase1i/local_manifest.json). Local artifacts explicitly identify the frozen tested code SHA; subsequent documentation commits are separate. Final-head remote CI must pass before the entry decision and final delivery.

@@ -205,3 +205,12 @@ Local full PostgreSQL gate: **284 passed / 0 skipped / 0 deselected / 0 failed /
 [Full local log](evidence/phase1h/local-implementation/ci_complete.log), [test summary](evidence/phase1h/local-implementation/pytest_full_summary.json), [migration evidence](evidence/phase1h/local-implementation/phase1h_migration_dual_path.json), [hash manifest](evidence/phase1h/local-implementation/manifest.json).
 
 Remote implementation and documentation-closure evidence is recorded separately in [Phase1H_delivery_handoff.md](Phase1H_delivery_handoff.md). Overall Phase 1H closure requires that final remote branch CI pass. PR [#13](https://github.com/bensuen0831/crossborder-compliance-agent/pull/13) remains **DRAFT; do not merge**. No Phase 1I implementation is authorized here.
+
+
+# Phase1I — owned files
+
+Phase1I Track: `phase1i-applicability-country-scenario`; verified base `700951ebb9ebdf33e399158fd3fb53bb4a6c87e7` / `v3.6-phase1h-pass`. Frozen implementation SHA: `131d101cdd02999aa478c1a730f492c1729caf30`. DRAFT PR: [#18](https://github.com/bensuen0831/crossborder-compliance-agent/pull/18), target main; no merge. Final validation evidence is recorded in [test_result.md](test_result.md) and `evidence/phase1i`. Earlier-phase sections, where present, remain historical evidence.
+
+The complete owned file list is recorded in evidence/phase1i/files_changed.json. New files comprise I pure contracts/localization, application facade/ports, authorized persistence/governance/model, existing-outbox projection worker, references-only APIs/presenter, migration0009, schema gate, tests and delivery documents/evidence.
+
+Shared extensions: existing metadata/admin/registry/runtime-API/main lifespan, Alembic env imports, architecture checker/rules, full-suite phase coverage and mandatory gate. One historical migration regression assertion becomes starting-head-based. These are required backend/test infrastructure extensions. No migration0001–0008, existing business workflows, frontend, Phase1J/K/L mechanisms or another worktree is modified. No dependency or lockfile change.
