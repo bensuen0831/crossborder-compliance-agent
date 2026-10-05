@@ -6,8 +6,10 @@ New ownership roots: frontend/, scripts/m0_preview/, docs/m0/, evidence/m0/.
 Additional Track C files: tests/test_m0_preview_security.py and
 .github/workflows/m0-h5-preview.yml. The test is additive; existing tests are unchanged.
 Evidence includes a synthetic UAT screenshot, measured local-validation.json and exact-head
-GitHub run/job/artifact metadata in remote-ci.json. Metadata distinguishes blocked downloads
-from inspected local output and does not claim local verification of remote archive digests.
+GitHub run/job/artifact metadata plus empirical check annotations in remote-ci.json. Verification
+history preserves the earlier failed browser step and the later nine passing independent
+executions. Metadata distinguishes blocked downloads from inspected output and does not claim
+local verification of remote archive digests.
 
 Frontend contains package.json/lockfile, Vite/TS/ESLint/Playwright settings, AppShell/routes,
 central theme/i18n/layout, exact exported OpenAPI/generated types, centralized client/contracts,

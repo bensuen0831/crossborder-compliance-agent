@@ -1,8 +1,450 @@
 {
   "baseline": "f563e5067308e7eab6d3f89321b8b30da7c39044",
-  "tested_implementation_sha": "90b4ac5b06f0e12e95a559e7c7354f409d292b4e",
+  "tested_implementation_sha": "83cd43df1245c66539ac13c8269791b8f182ebbe",
+  "application_implementation_sha": "90b4ac5b06f0e12e95a559e7c7354f409d292b4e",
   "source": "GitHub Actions REST API, queried 2026-10-05",
   "runs": [
+    {
+      "id": 37250600944,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37250600944",
+      "workflow": "M0 Knowledge & Evidence Preview",
+      "workflow_path": ".github/workflows/m0-h5-preview.yml",
+      "head_sha": "83cd43df1245c66539ac13c8269791b8f182ebbe",
+      "event": "pull_request",
+      "attempt": 1,
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-05T01:13:41Z",
+      "updated_at": "2026-10-05T01:16:14Z",
+      "jobs": [
+        {
+          "id": 111577240788,
+          "name": "real-backend-uat",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37250600944/job/111577240788",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Initialize containers",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m pip install -e '.[dev]'",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check reproducible frozen API generation",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run alembic upgrade head",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run pytest -q tests/test_m0_preview_security.py",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Seed synthetic UAT through existing Phase 1F/G services",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Start unchanged backend routers behind loopback UAT adapter",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Fresh frontend and Chromium",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Real browser UAT without retries, three independent executions per scenario",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/upload-artifact@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Stop containers",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "id": 111577240936,
+          "name": "frontend",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37250600944/job/111577240936",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm ci --no-audit --no-fund",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm run typecheck",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm run lint",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm test",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm run build",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 11320058466,
+          "name": "m0-browser-uat-37250600944-1",
+          "size_in_bytes": 351020,
+          "digest": "sha256:bcbcc4a9d842ba77c28ba9d9a733bf6f2af09ebbd2488910432f148aa160a470",
+          "expired": false,
+          "created_at": "2026-10-05T01:16:08Z",
+          "expires_at": "2026-11-04T01:16:06Z",
+          "head_sha": "83cd43df1245c66539ac13c8269791b8f182ebbe",
+          "download_attempted": false,
+          "download_verified": false
+        }
+      ]
+    },
+    {
+      "id": 37250600937,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37250600937",
+      "workflow": "phase1a-runtime-smoke",
+      "workflow_path": ".github/workflows/phase1a-runtime-smoke.yml",
+      "head_sha": "83cd43df1245c66539ac13c8269791b8f182ebbe",
+      "event": "pull_request",
+      "attempt": 1,
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-05T01:13:41Z",
+      "updated_at": "2026-10-05T01:15:52Z",
+      "jobs": [
+        {
+          "id": 111577240900,
+          "name": "contract-tests",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37250600937/job/111577240900",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m pip install --upgrade pip",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m pip install -e \".[dev]\"",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Contract/static test subset",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Architecture rules",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "id": 111577240975,
+          "name": "mandatory-runtime-smoke",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37250600937/job/111577240975",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Initialize containers",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Install project runtime and test dependencies",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run mandatory PostgreSQL-backed LangGraph gate",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Publish measured Phase 1G empirical evidence",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Upload empirical Phase 1A.1 evidence",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Stop containers",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 11320419202,
+          "name": "phase1a-runtime-evidence-37250600937-1",
+          "size_in_bytes": 50239,
+          "digest": "sha256:a04f3d15d3a2b36eaa9c059c229f4c788461531f9259d8ba5cd24e05c82ba847",
+          "expired": false,
+          "created_at": "2026-10-05T01:15:48Z",
+          "expires_at": "2026-11-04T01:15:47Z",
+          "head_sha": "83cd43df1245c66539ac13c8269791b8f182ebbe",
+          "download_attempted": false,
+          "download_verified": false
+        }
+      ]
+    }
+  ],
+  "measured_check_annotations": [
+    {
+      "job": "real-backend-uat",
+      "check_run_id": 111577240788,
+      "source": "Playwright GitHub reporter check annotation",
+      "message": "  9 passed (36.5s)"
+    },
+    {
+      "job": "mandatory-runtime-smoke",
+      "check_run_id": 111577240975,
+      "source": "GitHub check annotation",
+      "summary": {
+        "phase": "1G",
+        "run_id": "37250600937",
+        "attempt": "1",
+        "tested_pr_head_sha": "83cd43df1245c66539ac13c8269791b8f182ebbe",
+        "runner_merge_sha": "e6f3da2c615095cb1bd967546ecec3ab4f886b89",
+        "alembic_head": "0007_phase1g",
+        "pytest": {
+          "passed": 205,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0,
+          "deselected": 0,
+          "phase_coverage": {
+            "phase1b": true,
+            "phase1c": true,
+            "phase1d": true,
+            "phase1e": true,
+            "phase1f": true,
+            "phase1g": true
+          },
+          "pass": true
+        },
+        "schema_gates": {
+          "phase1b": {
+            "pass": true,
+            "passed": 16,
+            "total": 16
+          },
+          "phase1c": {
+            "pass": true,
+            "passed": 20,
+            "total": 20
+          },
+          "phase1d": {
+            "pass": true,
+            "passed": 15,
+            "total": 15
+          },
+          "phase1e": {
+            "pass": true,
+            "passed": 22,
+            "total": 22
+          },
+          "phase1f": {
+            "pass": true,
+            "passed": 29,
+            "total": 29
+          },
+          "phase1g": {
+            "pass": true,
+            "passed": 58,
+            "total": 58
+          }
+        },
+        "architecture": {
+          "pass": true,
+          "passed": 108,
+          "total": 108
+        },
+        "runtime": {
+          "pass": true,
+          "passed": 25,
+          "total": 25
+        },
+        "full_gate_log": {
+          "filename": "ci_complete.log",
+          "bytes": 74460,
+          "sha256": "a8c4caf37a96c55d9e40218f36d82ca55293d284cd7e49656714be8bdac00571"
+        },
+        "pass": true
+      }
+    }
+  ],
+  "prior_implementation_runs": [
     {
       "id": 37019134461,
       "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37019134461",
@@ -356,5 +798,203 @@
       ]
     }
   ],
-  "download_limitation": "Full logs and artifact archives were not downloaded: the session proxy returns Forbidden for results-receiver.actions.githubusercontent.com and productionresultssa15.blob.core.windows.net. These exact hosts were saved to the environment configuration draft; activation requires Review/Save/Publish. Digests are GitHub API metadata, not locally recomputed archive hashes."
+  "failed_verification": {
+    "id": 37250154464,
+    "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37250154464",
+    "workflow": "M0 Knowledge & Evidence Preview",
+    "workflow_path": ".github/workflows/m0-h5-preview.yml",
+    "head_sha": "c14c1d267ace7ee98d2c811855638d70d27341bc",
+    "event": "pull_request",
+    "attempt": 1,
+    "status": "completed",
+    "conclusion": "failure",
+    "created_at": "2026-10-05T01:07:21Z",
+    "updated_at": "2026-10-05T01:10:04Z",
+    "jobs": [
+      {
+        "id": 111575977726,
+        "name": "frontend",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37250154464/job/111575977726",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm ci --no-audit --no-fund",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run typecheck",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run lint",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm test",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run build",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "id": 111575978104,
+        "name": "real-backend-uat",
+        "status": "completed",
+        "conclusion": "failure",
+        "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37250154464/job/111575978104",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python -m pip install -e '.[dev]'",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Check reproducible frozen API generation",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run alembic upgrade head",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run pytest -q tests/test_m0_preview_security.py",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Seed synthetic UAT through existing Phase 1F/G services",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Start unchanged backend routers behind loopback UAT adapter",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Fresh frontend and Chromium",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run test:e2e --prefix frontend",
+            "status": "completed",
+            "conclusion": "failure"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 11320207731,
+        "name": "m0-browser-uat-37250154464-1",
+        "size_in_bytes": 353844,
+        "digest": "sha256:0a56720b103d3baafa9cc6000e091c7e264d2f274a7e98ea69c2cab12c81d75d",
+        "expired": false,
+        "created_at": "2026-10-05T01:09:59Z",
+        "expires_at": "2026-11-04T01:09:58Z",
+        "head_sha": "c14c1d267ace7ee98d2c811855638d70d27341bc",
+        "download_attempted": false,
+        "download_verified": false
+      }
+    ]
+  },
+  "failure_analysis": "The c14c1d2 browser step failed while frontend quality and full regression passed. Its raw download was blocked and its root cause is unconfirmed. Application source did not change; standard GitHub reporter and failure trace/screenshot capture were added, with retries still zero and three independent executions per scenario. Local 9/9 and subsequent remote 9/9 passed. Preserve this as an intermittent CI/UAT investigation risk; do not claim a proven root-cause fix.",
+  "download_limitation": "Full logs and artifact archives were not downloaded: the session proxy returns Forbidden for results-receiver.actions.githubusercontent.com and productionresultssa15.blob.core.windows.net. These exact hosts were saved to the environment configuration draft; activation requires Review/Save/Publish. Digests are GitHub API metadata, not locally recomputed archive hashes. Later artifact archives were not downloaded; their digests remain server-reported metadata. Measured regression and browser results above were retrieved directly through supported GitHub check annotations."
 }
