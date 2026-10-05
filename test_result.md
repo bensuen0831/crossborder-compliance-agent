@@ -110,3 +110,9 @@ Final code revision `b2312e9ec48bd05e3398c23f79dcfcf1faf69b9f` adds one real Pos
 Code SHA `b2312e9ec48bd05e3398c23f79dcfcf1faf69b9f`: **356 passed / 0 failed / 0 errors / 0 skipped / 0 deselected**. This includes **72 Phase1I cases** (43 pure domain/locale,28 PostgreSQL/API,1 independent dual-path migration). Schema B–I16/20/15/22/29/58/20/24, architecture135/135 and runtime25/25 all PASS. Both migration paths/equivalence and empty/retained-data downgrade behavior PASS.
 
 Final complete logs/XML/JSONs are in [evidence/phase1i/local-final](evidence/phase1i/local-final); bytes and hashes are recorded in [local_final_manifest.json](evidence/phase1i/local_final_manifest.json). Earlier evidence remains separately attributed. The remote gate must test the forthcoming exact documentation head including this source before entry issuance.
+
+## Verified delivery-head remote gate
+
+[37273823320](https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37273823320) /attempt1: **SUCCESS** at exact delivery head `3cec1be0a7e927b0790017d651f8cd279cb71aba`. Both contract-tests and mandatory-runtime-smoke completed successfully. Artifact ID11329900303, API digest `sha256:10fcb9cf6785ab7c7bc52f480d3a27205b59a518d3a547a80f396980de483d7a`. Complete remote log bytes/hash and detailed remote counts are unavailable through the signed-download network route; they are not substituted with local measurements.
+
+Phase1J_entry_decision.md was issued only after this remote PASS and all356-case local/migration/schema/architecture/runtime gates. Final issuance HEAD remains subject to its own remote CI.
