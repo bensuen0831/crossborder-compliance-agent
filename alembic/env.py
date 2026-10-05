@@ -9,6 +9,8 @@ from crossborder_compliance.infrastructure.persistence import metadata_models as
 from crossborder_compliance.infrastructure.persistence import document_models as _document_models  # noqa: F401
 from crossborder_compliance.infrastructure.persistence import context_models as _context_models  # noqa: F401
 
+from crossborder_compliance.infrastructure.persistence import applicability_models as _applicability_models  # noqa: F401
+
 config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)

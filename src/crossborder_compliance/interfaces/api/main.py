@@ -3,6 +3,12 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from crossborder_compliance.config import get_settings
+from crossborder_compliance.infrastructure.compliance_profile_worker import (
+    ComplianceProfilePublicationWorker,
+)
+from crossborder_compliance.interfaces.api.routes.country_compliance import (
+    router as country_compliance_router,
+)
 from crossborder_compliance.infrastructure.knowledge_publication_worker import (
     KnowledgePublicationWorker,
 )
@@ -38,9 +44,13 @@ async def lifespan(app):
     )
     app.state.knowledge_publication_worker = worker
     worker.start()
+    profile_worker = ComplianceProfilePublicationWorker(sessions)
+    app.state.compliance_profile_worker = profile_worker
+    profile_worker.start()
     try:
         yield
     finally:
+        profile_worker.stop()
         worker.stop()
 
 
@@ -51,6 +61,7 @@ app.include_router(admin_metadata_router)
 app.include_router(documents_router)
 app.include_router(context_resolution_router)
 app.include_router(classification_router)
+app.include_router(country_compliance_router)
 app.include_router(knowledge_router)
 
 app.include_router(retrieval_router)

@@ -156,3 +156,14 @@ Local full PostgreSQL gate: **284 passed / 0 skipped / 0 deselected / 0 failed /
 [Full local log](evidence/phase1h/local-implementation/ci_complete.log), [test summary](evidence/phase1h/local-implementation/pytest_full_summary.json), [migration evidence](evidence/phase1h/local-implementation/phase1h_migration_dual_path.json), [hash manifest](evidence/phase1h/local-implementation/manifest.json).
 
 Remote implementation and documentation-closure evidence is recorded separately in [Phase1H_delivery_handoff.md](Phase1H_delivery_handoff.md). Overall Phase 1H closure requires that final remote branch CI pass. PR [#13](https://github.com/bensuen0831/crossborder-compliance-agent/pull/13) remains **DRAFT; do not merge**. No Phase 1I implementation is authorized here.
+
+
+# Phase1I — architecture preservation
+
+Phase1I Track: `phase1i-applicability-country-scenario`; verified base `700951ebb9ebdf33e399158fd3fb53bb4a6c87e7` / `v3.6-phase1h-pass`. Frozen implementation SHA: `131d101cdd02999aa478c1a730f492c1729caf30`. DRAFT PR: [#18](https://github.com/bensuen0831/crossborder-compliance-agent/pull/18), target main; no merge. Final validation evidence is recorded in [test_result.md](test_result.md) and `evidence/phase1i`. Earlier-phase sections, where present, remain historical evidence.
+
+Rules1–139 are preserved as an exact prefix of the verified baseline. Append-only Rules140–151 cover canonical applicability, shared metadata governance/outbox, deterministic scenario configuration, generic capabilities, scoped formal inputs, active/READY new pins versus exact historical replay, conservative evidence/conflict handling, no-data scenario delegation, immutable canonical provenance, phase/migration boundaries and locale-neutral presentation.
+
+The executable checker retains all118 preceding checks and adds17 I checks (135 total). Domain/application purity, no eval/exec or country translation branches, one legal/knowledge/registry authority and no workflow/frontend/provider changes are verified alongside runtime tests. Static checks complement the PostgreSQL/API tests and do not establish legal correctness on their own.
+
+Final complete measured table/JSON is retained under evidence/phase1i/local. Frozen migration and architecture-prefix hashes are recorded in the local manifest.

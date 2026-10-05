@@ -50,6 +50,9 @@ python scripts/phase1g_schema_check.py | tee "$EVIDENCE_DIR/phase1g_schema_check
 echo "=== Phase 1H safe rule / formal classification schema verification ==="
 python scripts/phase1h_schema_check.py | tee "$EVIDENCE_DIR/phase1h_schema_check.json"
 
+echo "=== Phase1I country/scenario/applicability schema verification ==="
+python scripts/phase1i_schema_check.py | tee "$EVIDENCE_DIR/phase1i_schema_check.json"
+
 echo "=== Runtime versions ==="
 python smoke/runtime_versions.py
 
@@ -98,3 +101,5 @@ echo "Phase 1F Knowledge Ingestion / Scope Resolver Foundation Gate = PASS"
 
 echo "Phase 1G Scope-first Retrieval / Evidence Foundation Gate = PASS"
 echo "Phase 1H Safe Rule Engine / Formal Classification Gate = PASS"
+
+echo "Phase1I Applicability / Country / Scenario Gate = PASS"
