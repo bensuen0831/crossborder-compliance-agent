@@ -2,13 +2,18 @@
 
 from typing import Annotated, Literal
 
-from pydantic import Field
+from pydantic import Field, TypeAdapter
 
 from crossborder_compliance.domain.rules import Contract
 
 PresentationLocale = Literal["zh-CN", "zh-HK", "en-US"]
 StableDisplayCode = Annotated[str, Field(pattern=r"^[A-Z][A-Z0-9_]{0,119}$")]
 DisplayLabel = Annotated[str, Field(min_length=1, max_length=400)]
+StableMetadataCode = Annotated[str, Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$")]
+
+
+def validate_stable_metadata_code(code: str) -> None:
+    TypeAdapter(StableMetadataCode).validate_python(code)
 
 
 class LocalizedDisplayMetadata(Contract):
@@ -48,8 +53,6 @@ def validate_localized_payload(payload: dict) -> None:
         LocalizedDisplayMetadata.model_validate(payload["localized_display"])
     # Labels for stable reasons/statuses remain display-only metadata in that same version.
     if "localized_code_labels" in payload:
-        from pydantic import TypeAdapter
-
         TypeAdapter(dict[StableDisplayCode, LocalizedDisplayMetadata]).validate_python(
             payload["localized_code_labels"]
         )

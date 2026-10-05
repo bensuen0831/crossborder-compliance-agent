@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import re
 from datetime import date, datetime, timezone
 from uuid import UUID, uuid4
 
@@ -80,9 +79,9 @@ class PostgresAdminMetadataRepository(_TenantScopedMetadataRepository):
         display_name: str,
         parent_definition_id: UUID | None = None,
     ) -> dict[str, object]:
-        if kind in PHASE1I_CONFIG_KINDS:
-            if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}", code):
-                raise ValueError("Phase1I metadata code must be locale-neutral ASCII")
+        if kind in PHASE1I_CONFIG_KINDS | {"SCENARIO", "SKILL"}:
+            from crossborder_compliance.domain.localized_metadata import validate_stable_metadata_code
+            validate_stable_metadata_code(code)
         if parent_definition_id is not None:
             with self._sessions() as session:
                 parent = self._scoped(
