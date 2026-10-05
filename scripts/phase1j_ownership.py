@@ -12,6 +12,10 @@ from pathlib import Path
 BASE = "c43ab49f408a1e70c01cd637b327968538d98e23"
 ROUND2 = "594be84cfc471af4c12f28600b22cffb66f830f7"
 SHARED = {
+    "ARCHITECTURE_RULES.md",
+    "scripts/architecture_rule_check.py",
+    "scripts/verify_full_pytest.py",
+    "smoke/run_gate.sh",
     "alembic/env.py",
     "src/crossborder_compliance/application/country_compliance_services.py",
     "src/crossborder_compliance/infrastructure/compliance_profile_worker.py",
