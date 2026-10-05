@@ -1,11 +1,14 @@
 """Owner approvals use finite exact Git blobs, never current acceptance hashes."""
 
 import json
+import runpy
 from pathlib import Path
 
 import pytest
 
-from scripts.phase1j_ownership import overlay
+overlay = runpy.run_path(
+    str(Path(__file__).resolve().parents[1] / "scripts/phase1j_ownership.py")
+)["overlay"]
 
 
 def test_reviewed_owner_record_and_untouched_historical_migrations():
