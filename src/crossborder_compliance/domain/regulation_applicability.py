@@ -12,6 +12,7 @@ from crossborder_compliance.domain.compliance_profiles import (
     CountryComplianceProfile,
     ScenarioExecutionConfiguration,
 )
+from crossborder_compliance.domain.localized_metadata import StableDisplayCode
 from crossborder_compliance.domain.retrieval import (
     ActionableFallbackGuidanceContext,
     KnowledgeSufficiencyResult,
@@ -140,7 +141,7 @@ class RegulationApplicabilityResult(Contract):
     regulation_version_ref: UUID
     regulatory_structure_node_ids: tuple[UUID, ...]
     applicability_status: ApplicabilityStatus
-    reason_codes: tuple[str, ...] = Field(min_length=1)
+    reason_codes: tuple[StableDisplayCode, ...] = Field(min_length=1)
     analysis_as_of_date: date
     classification_result_ids: tuple[UUID, ...]
     rule_hit_ids: tuple[UUID, ...]
@@ -167,7 +168,7 @@ class RegulationApplicabilityResult(Contract):
 
 class EvidenceValidationResult(Contract):
     status: Literal["SUFFICIENT", "INSUFFICIENT_EVIDENCE", "CONFLICTED", "REVIEW_REQUIRED"]
-    reason_codes: tuple[str, ...]
+    reason_codes: tuple[StableDisplayCode, ...]
 
 
 class EvidenceValidationSkill:
@@ -187,7 +188,7 @@ class EvidenceValidationSkill:
 class LegalBasisValidationResult(Contract):
     status: Literal["VALIDATED", "INSUFFICIENT_EVIDENCE"]
     legal_basis_ids: tuple[UUID, ...]
-    reason_codes: tuple[str, ...]
+    reason_codes: tuple[StableDisplayCode, ...]
 
 
 class LegalBasisSkill:

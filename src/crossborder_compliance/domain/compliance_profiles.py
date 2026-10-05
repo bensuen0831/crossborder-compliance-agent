@@ -10,6 +10,7 @@ from pydantic import Field, model_validator
 from crossborder_compliance.domain.localized_metadata import (
     LocalizedDisplayMetadata,
     StableDisplayCode,
+    StableMetadataCode,
 )
 from crossborder_compliance.domain.rules import Contract
 
@@ -80,11 +81,13 @@ class CapabilityConfig(EffectiveConfig):
     kind: CapabilityKind
     availability: Literal["CONFIGURED", "NOT_APPLICABLE", "REVIEW_REQUIRED"] = "CONFIGURED"
     data_specific: bool = True
-    required_inputs: tuple[str, ...] = ()
+    required_inputs: tuple[StableMetadataCode, ...] = ()
     rule_pack_ids: tuple[UUID, ...] = ()
     knowledge_collection_ids: tuple[UUID, ...] = ()
     template_scope_ids: tuple[UUID, ...] = ()
-    reason_codes: tuple[str, ...] = Field(default=("CAPABILITY_CONFIGURED",), min_length=1)
+    reason_codes: tuple[StableDisplayCode, ...] = Field(
+        default=("CAPABILITY_CONFIGURED",), min_length=1
+    )
 
 
 class ClassificationCapability(CapabilityConfig):
@@ -117,13 +120,13 @@ class RegulatorCapability(CapabilityConfig):
 
 class ConditionalSkill(Contract):
     skill_id: UUID
-    when_inputs: tuple[str, ...] = Field(min_length=1)
+    when_inputs: tuple[StableMetadataCode, ...] = Field(min_length=1)
 
 
 class ScenarioAdjustmentConfig(EffectiveConfig):
     scenario_definition_id: UUID
-    required_inputs: tuple[str, ...] = ()
-    optional_inputs: tuple[str, ...] = ()
+    required_inputs: tuple[StableMetadataCode, ...] = ()
+    optional_inputs: tuple[StableMetadataCode, ...] = ()
     required_skill_ids: tuple[UUID, ...] = ()
     conditional_skill_ids: tuple[ConditionalSkill, ...] = ()
     disabled_skill_ids: tuple[UUID, ...] = ()
@@ -132,10 +135,12 @@ class ScenarioAdjustmentConfig(EffectiveConfig):
     rule_scope_bindings: tuple[UUID, ...] = ()
     template_scope_bindings: tuple[UUID, ...] = ()
     evidence_requirement_profile_id: UUID | None = None
-    risk_dimension_priorities: dict[str, int] = Field(default_factory=dict)
-    required_outputs: tuple[str, ...] = ()
-    optional_outputs: tuple[str, ...] = ()
-    scenario_specific_checks: dict[str, str] = Field(default_factory=dict)
+    risk_dimension_priorities: dict[StableDisplayCode, int] = Field(default_factory=dict)
+    required_outputs: tuple[StableMetadataCode, ...] = ()
+    optional_outputs: tuple[StableMetadataCode, ...] = ()
+    scenario_specific_checks: dict[StableMetadataCode, StableMetadataCode] = Field(
+        default_factory=dict
+    )
 
     @model_validator(mode="after")
     def safe_adjustment(self):
@@ -202,8 +207,8 @@ class ScenarioExecutionConfiguration(Contract):
     status: Literal["READY", "REVIEW_REQUIRED"]
     pipeline: tuple[str, ...] = STANDARD_COMPLIANCE_PIPELINE
     profile_versions: tuple[tuple[UUID, UUID, int], ...] = ()
-    required_inputs: tuple[str, ...] = ()
-    optional_inputs: tuple[str, ...] = ()
+    required_inputs: tuple[StableMetadataCode, ...] = ()
+    optional_inputs: tuple[StableMetadataCode, ...] = ()
     missing_inputs: tuple[str, ...] = ()
     required_skill_ids: tuple[UUID, ...] = ()
     conditional_skill_ids: tuple[UUID, ...] = ()
@@ -213,11 +218,13 @@ class ScenarioExecutionConfiguration(Contract):
     rule_scope_bindings: tuple[UUID, ...] = ()
     template_scope_bindings: tuple[UUID, ...] = ()
     evidence_requirement_profile_id: UUID | None = None
-    risk_dimension_priorities: dict[str, int] = Field(default_factory=dict)
-    required_outputs: tuple[str, ...] = ()
-    optional_outputs: tuple[str, ...] = ()
-    scenario_specific_checks: dict[str, str] = Field(default_factory=dict)
-    conflict_codes: tuple[str, ...] = ()
+    risk_dimension_priorities: dict[StableDisplayCode, int] = Field(default_factory=dict)
+    required_outputs: tuple[StableMetadataCode, ...] = ()
+    optional_outputs: tuple[StableMetadataCode, ...] = ()
+    scenario_specific_checks: dict[StableMetadataCode, StableMetadataCode] = Field(
+        default_factory=dict
+    )
+    conflict_codes: tuple[StableDisplayCode, ...] = ()
 
     @model_validator(mode="after")
     def fixed_pipeline(self):
@@ -325,7 +332,7 @@ class CapabilityResult(Contract):
     country_profile_id: UUID | None = None
     country_profile_version_id: UUID | None = None
     capability_version_id: UUID | None = None
-    reason_codes: tuple[str, ...]
+    reason_codes: tuple[StableDisplayCode, ...]
     classification_result_ids: tuple[UUID, ...] = ()
     rule_hit_ids: tuple[UUID, ...] = ()
     evidence_ids: tuple[UUID, ...] = ()

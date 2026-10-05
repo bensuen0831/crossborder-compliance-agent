@@ -952,3 +952,42 @@ def test_actual_flow_consumes_linked_h_classification_and_exact_flow_evidence(fo
                 update={"retrieval_run_id": UUID(f["retrieval"]["retrieval_run_id"])}
             )
         )
+
+
+def test_template_capability_binding_requires_governed_published_version(foundation_i):
+    from crossborder_compliance.infrastructure.persistence.config_admin_repositories import (
+        PostgresGovernedArtifactAdminRepository,
+    )
+
+    f = foundation_i
+    repo = PostgresGovernedArtifactAdminRepository(f["sf"], f["ctx"], "templates")
+    draft = repo.create_draft(
+        code=str(uuid4()),
+        display_name="Governed resource",
+        payload={"template_type": "GENERIC", "content_ref": "test://template"},
+    )
+    ident = UUID(draft["version_id"])
+    with f["sf"]() as session:
+        with pytest.raises(ValueError):
+            f["compliance_repo"].validate_resource(
+                session, m.TemplateVersionEntity, ident, date.today()
+            )
+    v = repo.transition(ident, target_status="PENDING_REVIEW", expected_record_version=1)
+    reviewer = PostgresGovernedArtifactAdminRepository(
+        f["sf"],
+        RepositoryContext.user(
+            UUID(f["tenant"]), "independent-reviewer", set(f["ctx"].permission.scopes)
+        ),
+        "templates",
+    )
+    v = reviewer.transition(
+        ident, target_status="APPROVED", expected_record_version=v["record_version"]
+    )
+    repo.transition(ident, target_status="ACTIVE", expected_record_version=v["record_version"])
+    with f["sf"]() as session:
+        assert (
+            f["compliance_repo"]
+            .validate_resource(session, m.TemplateVersionEntity, ident, date.today())
+            .lifecycle_status
+            == "ACTIVE"
+        )

@@ -228,8 +228,21 @@ class PostgresCountryComplianceRepository:
                 )
                 dependencies["RULE_PACK"].update(getattr(config, "rule_pack_ids", ()))
             for kind, identifiers in dependencies.items():
+                if kind == "RULE_PACK":
+                    identifiers.update(
+                        ident
+                        for _, _, config in selected
+                        for ident in getattr(config, "rule_pack_ids", ())
+                    )
                 available = self.active_configs(s, kind, snapshot.analysis_as_of_date)
                 selected.extend(p for p in available if UUID(p[0].definition_id) in identifiers)
+            for _, _, config in selected:
+                for kind, model, identifiers in self.resource_references(config):
+                    for ident in identifiers:
+                        resource = self.validate_resource(
+                            s, model, ident, snapshot.analysis_as_of_date
+                        )
+                        self.add_pin(s, snapshot_id, kind, ident, ident, ident, resource.version_no)
             for definition, version, config in selected:
                 if (
                     hasattr(config, "permission_scopes")
@@ -335,6 +348,22 @@ class PostgresCountryComplianceRepository:
                 ):
                     for ident in identifiers:
                         binding = self.get(s, model, ident)
+                        if kind == "TEMPLATE_BINDING":
+                            resource = self.validate_resource(
+                                s,
+                                m.TemplateVersionEntity,
+                                binding.template_version_id,
+                                snapshot.analysis_as_of_date,
+                            )
+                            self.add_pin(
+                                s,
+                                snapshot_id,
+                                "TEMPLATE",
+                                resource.template_version_id,
+                                resource.template_version_id,
+                                resource.template_version_id,
+                                resource.version_no,
+                            )
                         payload = {
                             col.name: str(getattr(binding, col.name))
                             for col in model.__table__.columns
@@ -352,6 +381,41 @@ class PostgresCountryComplianceRepository:
                 s, snapshot_id, "CONFIGURATION", jurisdiction_id, snapshot_id, snapshot_id, 1
             )
             return {"status": "PINNED", "pins": [p.version_id for p in self.pins(s, snapshot_id)]}
+
+    @staticmethod
+    def resource_references(config):
+        return (
+            ("PROMPT", m.PromptVersionEntity, getattr(config, "prompt_config_ids", ())),
+            ("TEMPLATE", m.TemplateVersionEntity, getattr(config, "template_scope_ids", ())),
+        )
+
+    def validate_resource(self, session, model, ident, when, historical=False):
+        resource = self.get(session, model, ident)
+        states = {"ACTIVE", "SUPERSEDED", "EXPIRED", "ARCHIVED"} if historical else {"ACTIVE"}
+        if resource.lifecycle_status not in states or not self.date_valid(resource, when):
+            raise ValueError("profile resource requires a published effective version")
+        kind = "PROMPT" if model is m.PromptVersionEntity else "TEMPLATE"
+        if not session.scalar(
+            select(m.AdminPublishRecordEntity).where(
+                m.AdminPublishRecordEntity.tenant_id == self.tenant,
+                m.AdminPublishRecordEntity.object_kind == kind,
+                m.AdminPublishRecordEntity.version_id == str(ident),
+            )
+        ):
+            raise ValueError("profile resource requires durable publication provenance")
+        return resource
+
+    def validate_resource_pins(self, session, config, pins, when):
+        for kind, model, identifiers in self.resource_references(config):
+            for ident in identifiers:
+                resource = self.validate_resource(session, model, ident, when, historical=True)
+                if not any(
+                    p.pin_type == "PHASE1I_" + kind
+                    and p.version_id == str(ident)
+                    and p.version_no == resource.version_no
+                    for p in pins
+                ):
+                    raise LookupError("profile resource is not snapshot pinned")
 
     @staticmethod
     def date_valid(row, when):
@@ -415,6 +479,7 @@ class PostgresCountryComplianceRepository:
                 if kind not in {"COUNTRY_PROFILE", "SCENARIO_ADJUSTMENT", "COUNTRY_CAPABILITY"}:
                     continue
                 row, config = self.published(s, pin, kind, snapshot.analysis_as_of_date)
+                self.validate_resource_pins(s, config, pins, snapshot.analysis_as_of_date)
                 if kind == "COUNTRY_PROFILE" and config.jurisdiction_id == jurisdiction_id:
                     profiles.append(CountryComplianceProfile(**self.envelope(row, config)))
                 elif kind == "SCENARIO_ADJUSTMENT" and config.scenario_definition_id in scenarios:
@@ -843,6 +908,9 @@ class PostgresCountryComplianceRepository:
                 raise LookupError("scenario rule binding outside pinned scope")
         for ident in adjustment.template_scope_bindings:
             binding = self.get(s, m.TemplateBindingEntity, ident)
+            self.validate_resource(
+                s, m.TemplateVersionEntity, binding.template_version_id, when, historical=True
+            )
             if not self.date_valid(binding, when):
                 raise LookupError("scenario template binding ineffective")
 

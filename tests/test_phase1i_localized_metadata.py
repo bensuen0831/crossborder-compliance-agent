@@ -103,3 +103,23 @@ def test_generic_registry_presenter_keeps_canonical_identity_and_payload():
         )
         assert projected["presentation"]["requested_locale"] == locale
     assert "presentation" not in row
+
+
+def test_localized_labels_cannot_be_persisted_as_formal_configuration_codes():
+    from crossborder_compliance.domain.compliance_profiles import (
+        CapabilityConfig,
+        ScenarioAdjustmentConfig,
+    )
+
+    for label in ("适用", "適用", "Applicable"):
+        with pytest.raises(ValidationError):
+            CapabilityConfig(kind="FILING", effective_from="2025-01-01", reason_codes=(label,))
+        result = RegulationApplicabilitySkill().execute(prepared()).model_dump(mode="json")
+        with pytest.raises(ValidationError):
+            RegulationApplicabilityResult.model_validate({**result, "reason_codes": [label]})
+    with pytest.raises(ValidationError):
+        ScenarioAdjustmentConfig(
+            scenario_definition_id=uuid4(),
+            effective_from="2025-01-01",
+            required_inputs=("跨境資料",),
+        )

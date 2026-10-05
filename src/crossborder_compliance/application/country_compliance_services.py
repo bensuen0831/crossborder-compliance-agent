@@ -13,6 +13,7 @@ from crossborder_compliance.domain.compliance_profiles import (
     ScenarioExecutionConfiguration,
     resolve_capability,
 )
+from crossborder_compliance.domain.localized_metadata import StableDisplayCode
 from crossborder_compliance.domain.regulation_applicability import (
     ApplicabilityInput,
     RegulationApplicabilityResult,
@@ -38,7 +39,7 @@ class CountryProfileResolution(Contract):
     profiles: tuple[CountryComplianceProfile, ...]
     capabilities: tuple[CountryCapability, ...]
     scenario_configuration: ScenarioExecutionConfiguration
-    reason_codes: tuple[str, ...]
+    reason_codes: tuple[StableDisplayCode, ...]
 
 
 class CountryComplianceRepositoryPort(Protocol):
