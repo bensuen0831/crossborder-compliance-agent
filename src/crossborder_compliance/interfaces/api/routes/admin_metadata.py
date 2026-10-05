@@ -38,6 +38,12 @@ router = APIRouter(prefix="/api/v1/admin", tags=["admin-metadata"])
 _GENERIC_KINDS = {
     "scenarios": "SCENARIO",
     "products": "PRODUCT",
+    "skills": "SKILL",
+    "country-profiles": "COUNTRY_PROFILE",
+    "scenario-adjustments": "SCENARIO_ADJUSTMENT",
+    "country-capabilities": "COUNTRY_CAPABILITY",
+    "applicability-configs": "APPLICABILITY_CONFIG",
+    "rule-packs": "RULE_PACK",
 }
 _GOVERNED_ARTIFACTS = {
     "prompts",
@@ -55,6 +61,12 @@ _ALL_RESOURCES = (
     "rules",
     "templates",
     "knowledge-collections",
+    "skills",
+    "country-profiles",
+    "scenario-adjustments",
+    "country-capabilities",
+    "applicability-configs",
+    "rule-packs",
 )
 
 

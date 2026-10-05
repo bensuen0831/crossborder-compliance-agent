@@ -1,7 +1,8 @@
-# Zero-code extension result
+# Round 2 integration: zero_code_extension_result.md
 
-Operational jurisdiction/scenario/product values are obtained from metadata endpoints. A newly published value can appear in resource lists and Knowledge scope selectors without a frontend source edit; form options are not embedded country/scenario/product arrays. A frontend test returns previously unknown metadata values and confirms they populate the scope controls.
+This integration-level index preserves both independently tested Track reports without reattributing their evidence to the integrated main.
 
-Common lifecycle pages and field descriptors are shared. Track C can supply descriptors through `AdminHost.resources`, provided they reference existing backend contracts. Adding new business entries through current APIs does not create frontend CRUD code. Source/document/version IDs remain explicit where list contracts are missing.
+- [Phase1I historical report](docs/delivery/phase1i/zero_code_extension_result.md) — source `14cba25353d9ab7dda84e9620ff3197d9e2a3d1d`.
+- [Stage1-alpha historical report](docs/delivery/stage1-alpha/zero_code_extension_result.md) — source `6c2aacd6475af0c0533717daa54b8e48946647e1`.
 
-This is a foundation for metadata-driven administration, not proof that every future resource is zero-code today. Product Domain/Tag, Regulation metadata, Skill and dedicated Country-config Admin endpoints are not exposed in this base. No server-provided form schema/catalog endpoint exists, and additional binding dimensions lack metadata lists. These resources remain visible integration boundaries rather than invented APIs. Rule authoring awaits Phase 1H. Template/Prompt forms use supported backend fields; Knowledge Collection payload uses the existing governed artifact contract.
+Phase1I main integration: `d83d8db17dd2b16b54038009d8547e290e8949ae`; exact-main backend CI `37277326614` SUCCESS; migration `0009_phase1i`; architecture135/135; runtime25/25;356 full pytest with zero skips/deselections. Stage1-alpha integration validation is pending; no combined-main success or Phase1J entry is claimed.

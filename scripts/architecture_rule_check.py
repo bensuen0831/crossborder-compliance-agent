@@ -708,6 +708,41 @@ checks1h = {
 for name, passed in checks1h.items():
     add(name, passed, "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence")
 
+# Phase1I append-only executable checks; preceding architecture checks remain intact.
+profiles_i = read_text(SRC / "domain/compliance_profiles.py")
+applicability_i = read_text(SRC / "domain/regulation_applicability.py")
+service_i = read_text(SRC / "application/country_compliance_services.py")
+repository_i = read_text(SRC / "infrastructure/persistence/country_compliance_repository.py")
+governance_i = read_text(SRC / "infrastructure/persistence/compliance_profile_governance.py")
+model_i = read_text(SRC / "infrastructure/persistence/applicability_models.py")
+worker_i = read_text(SRC / "infrastructure/compliance_profile_worker.py")
+api_i = read_text(SRC / "interfaces/api/routes/country_compliance.py")
+migration_i = read_text(ROOT / "alembic/versions/0009_phase1i_applicability.py")
+i_files = [SRC / "domain/compliance_profiles.py", SRC / "domain/regulation_applicability.py", SRC / "application/country_compliance_services.py"]
+checks1i = {
+    "applicability_canonical_identity": all(x in model_i for x in ("knowledge_document_versions.knowledge_version_id", "metadata_versions.version_id", "retrieval_runs.retrieval_run_id")) and all(x in repository_i for x in ("RegulatoryStructureNodeEntity", "LegalBasisItemEntity", "KnowledgeStructureNodeEntity")),
+    "profile_reuses_metadata_governance": all(x in governance_i for x in ("MetadataDefinitionEntity", "MetadataVersionEntity", "independent Phase1I")) and "validate_payload(session, definition, payload)" in read_text(metadata_repositories),
+    "profile_reuses_registry_outbox": "RegistrySyncService(" in worker_i and "PostgresRegistrySyncEventRepository" in worker_i and "profile_worker.start()" in gmain,
+    "scenario_fixed_pipeline_deterministic": "STANDARD_COMPLIANCE_PIPELINE" in profiles_i and "def fixed_pipeline" in profiles_i and "ordered = sorted(profiles" in profiles_i,
+    "scenario_conflicts_typed": all(x in profiles_i for x in ("REQUIRED_DISABLED_SKILL_CONFLICT", "EVIDENCE_PROFILE_CONFLICT", "risk_dimension_priorities", "scenario_specific_checks", 'field.upper() + "_CONFLICT"')),
+    "generic_country_capabilities_only": all(x in profiles_i for x in ("CLASSIFICATION", "CROSS_BORDER", "LOCALIZATION", "FILING", "IMPACT_ASSESSMENT", "CONTRACT", "REGULATOR", "CAPABILITY_NOT_CONFIGURED")) and "legal_obligation: Literal[False]" in profiles_i,
+    "generic_skills_pure": not occurrences(r"\b(import|from)\s+(sqlalchemy|psycopg|redis|httpx|requests|langgraph|boto3|openai|subprocess)\b", i_files),
+    "applicability_scope_revalidation": all(x in repository_i for x in ("AnalysisSnapshotContextPinEntity", "scoped_saved_response", "RULE_V1", "scope.filter_spec.version_filter", "classification_result_ids")),
+    "applicability_reference_only_api": not re.search(r"\b(tenant_id|facts|knowledge_scope|narrative|applicability_status)\s*:", class_block(api_i, "ApplicabilityExecutionRequest")),
+    "profile_new_pin_ready_and_historical": all(x in repository_i for x in ('legal.lifecycle != "ACTIVE"', 'KnowledgeRuntimePublicationEntity.status == "READY"', '"SUPERSEDED", "EXPIRED", "ARCHIVED"', '"PHASE1I_CONFIGURATION"')),
+    "applicability_conflicts_and_insufficiency": all(x in applicability_i for x in ("CONTRADICTORY_PHASE1H_RULEHITS", "EVIDENCE_NOT_SUFFICIENT", "fallback_guidance_context=inputs.fallback_guidance_context")),
+    "scenario_no_fake_classification": '"SCENARIO"' in repository_i and "SafeRuleEngine().evaluate" in repository_i and "data_item_id=None" in repository_i and "ClassificationResultEntity(" not in repository_i,
+    "applicability_immutable_retry_canonical_links": all(x in model_i for x in ("uq_applicability_resolution", "input_fingerprint", "result_json")) and all(x in repository_i for x in ("LegalBasisRuleHitLinkEntity", "LegalBasisEvidenceLinkEntity", "formal_hit.legal_basis_ids")) and "phase1i_applicability_immutable" in migration_i,
+    "applicability_has_no_country_branch_or_provider": not occurrences(r"\bif\s+.*\b(country_code|regulation_code)\b.*(?:==|in)\s*[\"'\[{]", i_files),
+    "phase1i_migration_frozen_explicit_dual_path": 'down_revision = "0008_phase1h"' in migration_i and 'op.create_table(' in migration_i and 'archive/export Phase1I' in migration_i and (ROOT / "tests/test_phase1i_migrations.py").exists(),
+}
+locale_i = read_text(SRC / "domain/localized_metadata.py")
+presenter_i = read_text(SRC / "interfaces/api/metadata_presenter.py")
+checks1i["locale_metadata_single_versioned_authority"] = "localized_display: LocalizedDisplayMetadata" in profiles_i and "validate_localized_payload" in governance_i and all(x in locale_i for x in ('"zh-CN"', '"zh-HK"', '"en-US"', "fallback_locale")) and "deepcopy(result)" in presenter_i
+checks1i["locale_no_business_translations_in_domain_application"] = not occurrences(r"[\u3400-\u9fff]", [*i_files, SRC / "domain/localized_metadata.py"])
+for name, passed in checks1i.items():
+    add(name, passed, "Phase1I Rules140–150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py")
+
 failed = [check for check in checks if not check["pass"]]
 result = {
     "pass": not failed,
