@@ -7,3 +7,5 @@ RegulationApplicabilitySkill, LegalBasisSkill, EvidenceValidationSkill, DataClas
 LegalBasisSkill validates the canonical knowledge version/node/basis/evidence projection. EvidenceValidationSkill consumes formal Phase1G sufficiency and cannot promote partial or conflicted evidence. DataClassificationSkill consumes scoped H classifications, never classifies narrative. Jurisdiction/scope boundaries verify existing formal/pinned identities.
 
 The explicit scenario RuleHit adapter closes a documented gap: it delegates validated business facts, already pinned H rules and same-snapshot scoped G PROJECT evidence to the existing SafeRuleEngine with data_item_id=None. It stores canonical SCENARIO RuleHits without writing a ClassificationResult. Actual no-data PostgreSQL tests prove this path and data-specific capability NOT_APPLICABLE behavior.
+
+Final measured code `b2312e9ec48bd05e3398c23f79dcfcf1faf69b9f`:356 full pytest /72 I tests PASS; canonical migration, schema, architecture and runtime gates PASS. Authoritative final measurements: [local_final_manifest.json](evidence/phase1i/local_final_manifest.json).

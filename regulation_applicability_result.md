@@ -9,3 +9,5 @@ Statuses: APPLICABLE, NOT_APPLICABLE, CONDITIONALLY_APPLICABLE, INSUFFICIENT_EVI
 DATA_ITEM uses exact item evidence/H outputs; DATA_FLOW uses validated canonical flow plus linked items and exact flow evidence; SCENARIO requires formal facts/scenario/jurisdiction and independent sufficient project evidence with requires_classification=False. No raw reparse, unpinned rule selection, country classifier or fabricated classification.
 
 POST `/api/v1/projects/{project_id}/regulation-applicability` accepts references only. GET `/api/v1/regulation-applicability/{result_id}` revalidates current access and evidence while preserving immutable output. Presentation is separate at `.../{result_id}/presentation?locale=...`; formal status/reason codes never become localized strings.
+
+Final measured code `b2312e9ec48bd05e3398c23f79dcfcf1faf69b9f`:356 full pytest /72 I tests PASS; canonical migration, schema, architecture and runtime gates PASS. Authoritative final measurements: [local_final_manifest.json](evidence/phase1i/local_final_manifest.json).

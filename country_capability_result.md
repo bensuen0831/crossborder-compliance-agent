@@ -7,3 +7,5 @@ Typed capabilities: CLASSIFICATION, CROSS_BORDER, LOCALIZATION, FILING, IMPACT_A
 Classification consumes the existing Phase1H formal result; the API validates its actual project, snapshot, item, jurisdiction and context version. Other capabilities expose configured availability/discovery only. Every CapabilityResult carries `legal_obligation=False`; future facade methods cannot produce filing, assessment, contract or regulator obligations. Missing or conflicting capability configuration is never inferred from the country name. Data-specific operations without a formal item return NOT_APPLICABLE (or the explicit insufficient-input policy).
 
 All seven kinds have tests. Runtime metadata/API tests cover capability discovery, scope denials, governed resource dependencies and scenario-only no-data behavior. No named-country class, root graph or core jurisdiction if/else exists.
+
+Final measured code `b2312e9ec48bd05e3398c23f79dcfcf1faf69b9f`:356 full pytest /72 I tests PASS; canonical migration, schema, architecture and runtime gates PASS. Authoritative final measurements: [local_final_manifest.json](evidence/phase1i/local_final_manifest.json).

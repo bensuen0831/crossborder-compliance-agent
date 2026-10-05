@@ -9,3 +9,5 @@ The adapter verifies knowledge/node/basis tenant, jurisdiction, version, effecti
 Existing LegalBasisRuleHitLink and LegalBasisEvidenceLink M:N tables are reused. Links are created only for RuleHits explicitly declaring that basis and the corresponding canonical article evidence; arbitrary pack evidence is not associated with every legal basis. Formal results retain other authorized evidence as provenance without claiming those extra citations prove the article.
 
 Tests cover real canonical chain, missing/wrong locator, current evidence revocation, idempotent associations and unchanged official authority across zh-CN/zh-HK/en-US presentation.
+
+Final measured code `b2312e9ec48bd05e3398c23f79dcfcf1faf69b9f`:356 full pytest /72 I tests PASS; canonical migration, schema, architecture and runtime gates PASS. Authoritative final measurements: [local_final_manifest.json](evidence/phase1i/local_final_manifest.json).

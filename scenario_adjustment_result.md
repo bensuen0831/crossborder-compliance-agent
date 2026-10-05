@@ -9,3 +9,5 @@ Phase1I Track: `phase1i-applicability-country-scenario`; verified base `700951eb
 Explicit initialization pins profile/skill versions and binding digests in existing AnalysisSnapshotRegistryPin. New prompt/template dependencies require effective ACTIVE versions and the existing AdminPublishRecord. Historical replay retains exact version references; changed bindings fail closed. Knowledge bindings must remain within Phase1G's revalidated pinned scope, rule bindings within Phase1H's rule pins, and the evidence requirement must be the actual pinned Phase1G policy family.
 
 Evidence: `tests/test_phase1i_domain.py` deterministic ordering, conflicts, conditional/missing inputs, immutable pipeline; `tests/test_phase1i_postgres.py` real publication, profile history, snapshot isolation and controlled template availability. No custom graph, risk computation or frontend.
+
+Final measured code `b2312e9ec48bd05e3398c23f79dcfcf1faf69b9f`:356 full pytest /72 I tests PASS; canonical migration, schema, architecture and runtime gates PASS. Authoritative final measurements: [local_final_manifest.json](evidence/phase1i/local_final_manifest.json).

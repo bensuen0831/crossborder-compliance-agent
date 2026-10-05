@@ -57,3 +57,8 @@ A separate applicability presentation endpoint resolves labels from the result's
 ## Final dependency and code contract checks
 
 Formal status/reason/input/output/check/priority identifiers have locale-neutral typed code constraints. Optional Prompt/Template version dependencies are required to have effective ACTIVE state and the existing shared AdminPublishRecord when newly pinned; replay validates exact historical versions. Capability rule-pack dependencies reuse the same generic metadata universe. No provider, document generation or additional publication store is introduced.
+
+
+## Final actor-scoped metadata visibility
+
+Frozen delivery implementation SHA: `b2312e9ec48bd05e3398c23f79dcfcf1faf69b9f` (supersedes the earlier131d101 implementation after final review). Registry source filtering applies versioned permission_scopes before list projection, locale presentation, health counts and version summaries. Canonical profile selection uses the same actor boundary; an unauthorized profile cannot leak through a locale query or contaminate eligible-profile resolution. The runtime API invalidates per-resource cached projections before reading so another actor's earlier projection cannot expose labels. Actual PostgreSQL/API tests switch authorized/unauthorized actors and all three locales, proving restricted names/configuration and summary counts stay hidden. The earlier passing local/CI evidence remains historical, not the final gate.

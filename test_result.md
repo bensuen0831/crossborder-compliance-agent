@@ -102,3 +102,11 @@ Expected unchanged historical gate assertions: B16, C20, D15, E22, F29, G58, H20
 Code SHA `131d101cdd02999aa478c1a730f492c1729caf30`: **355 passed / 0 failed / 0 errors / 0 skipped / 0 deselected**, including **71 Phase1I tests** (43 pure domain/locale,27 real PostgreSQL/API,1 dual-path migration). I schema24/24, architecture135/135, runtime25/25; Phase1B–H schema regressions16/20/15/22/29/58/20 all PASS. Fresh and verified0008→0009 schema equivalence and downgrade roundtrip/refusal PASS.
 
 The complete local log, XML, JSONs and SHA-256 manifest are in [evidence/phase1i/local](evidence/phase1i/local) and [local_manifest.json](evidence/phase1i/local_manifest.json). Local artifacts explicitly identify the frozen tested code SHA; subsequent documentation commits are separate. Final-head remote CI must pass before the entry decision and final delivery.
+
+Final code revision `b2312e9ec48bd05e3398c23f79dcfcf1faf69b9f` adds one real PostgreSQL/API actor-visibility regression. Its new full gate must include356 tests (72 Phase1I); observed results will be recorded in evidence/phase1i/local-final. Earlier353/355 runs are preserved separately and do not substitute for final proof.
+
+## Final scoped delivery gate — observed PASS
+
+Code SHA `b2312e9ec48bd05e3398c23f79dcfcf1faf69b9f`: **356 passed / 0 failed / 0 errors / 0 skipped / 0 deselected**. This includes **72 Phase1I cases** (43 pure domain/locale,28 PostgreSQL/API,1 independent dual-path migration). Schema B–I16/20/15/22/29/58/20/24, architecture135/135 and runtime25/25 all PASS. Both migration paths/equivalence and empty/retained-data downgrade behavior PASS.
+
+Final complete logs/XML/JSONs are in [evidence/phase1i/local-final](evidence/phase1i/local-final); bytes and hashes are recorded in [local_final_manifest.json](evidence/phase1i/local_final_manifest.json). Earlier evidence remains separately attributed. The remote gate must test the forthcoming exact documentation head including this source before entry issuance.

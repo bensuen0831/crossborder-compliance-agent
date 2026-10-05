@@ -7,3 +7,5 @@ The PostgreSQL test publishes an additional canonical jurisdiction plus generic 
 A published new country-profile version is immediately visible through the runtime metadata API while the original applicability result retains its previously pinned profile/configuration. Scenario and capability differences live in typed payloads, not named-country classes. Generic multilingual labels similarly publish in the same version authority and are exposed through metadata APIs.
 
 Zero-code extension configures availability and reviewed applicability rules. It does not generate or implement new legal mechanism algorithms, obligations, workflow stages, frontend translations or document generation.
+
+Final measured code `b2312e9ec48bd05e3398c23f79dcfcf1faf69b9f`:356 full pytest /72 I tests PASS; canonical migration, schema, architecture and runtime gates PASS. Authoritative final measurements: [local_final_manifest.json](evidence/phase1i/local_final_manifest.json).

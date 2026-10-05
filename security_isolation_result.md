@@ -29,3 +29,8 @@ Clients cannot post tenant, facts, scope, narrative or formal applicability deci
 PostgreSQL protects profile identity/version/published payload/provenance, I pins and results. Independent I review is mandatory even for a system actor; failed validation produces no publish outbox event. Existing unrelated metadata deletion behavior is preserved. Current evidence/source revocation blocks saved positive result reads rather than leaking stale evidence.
 
 Tests: real PostgreSQL/API cross-tenant/project/actor/operation denial, reference spoofing, wrong classification, source revocation, immutable updates, review failure, result identity and locale-neutral machine-code validation. Existing Phase1B–H security regressions are included in the mandatory full suite.
+
+
+## Final actor-scoped metadata visibility
+
+Frozen delivery implementation SHA: `b2312e9ec48bd05e3398c23f79dcfcf1faf69b9f` (supersedes the earlier131d101 implementation after final review). Registry source filtering applies versioned permission_scopes before list projection, locale presentation, health counts and version summaries. Canonical profile selection uses the same actor boundary; an unauthorized profile cannot leak through a locale query or contaminate eligible-profile resolution. The runtime API invalidates per-resource cached projections before reading so another actor's earlier projection cannot expose labels. Actual PostgreSQL/API tests switch authorized/unauthorized actors and all three locales, proving restricted names/configuration and summary counts stay hidden. The earlier passing local/CI evidence remains historical, not the final gate.

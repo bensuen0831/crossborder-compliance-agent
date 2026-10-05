@@ -11,3 +11,8 @@ Fallback: requested locale → configured fallback locale → canonical display 
 Applicability presentation resolves labels from the exact configuration version attached to the result and returns an unchanged formal result beside display data. Official source language, original regulation/evidence, citations and LegalBasis references are untouched. Localized status strings such as 适用, 適用 and Applicable are rejected by formal status/reason contracts.
 
 Tests prove independently resolved locale labels, identical stable codes, deterministic missing-translation fallback, invalid locale/empty-label rejection, unchanged result semantics/legal provenance, real jurisdiction/versioned metadata APIs and no hard-coded country/scenario translation in I domain/application files. No frontend switcher, frontend resource bundle or document translation.
+
+
+## Final actor-scoped metadata visibility
+
+Frozen delivery implementation SHA: `b2312e9ec48bd05e3398c23f79dcfcf1faf69b9f` (supersedes the earlier131d101 implementation after final review). Registry source filtering applies versioned permission_scopes before list projection, locale presentation, health counts and version summaries. Canonical profile selection uses the same actor boundary; an unauthorized profile cannot leak through a locale query or contaminate eligible-profile resolution. The runtime API invalidates per-resource cached projections before reading so another actor's earlier projection cannot expose labels. Actual PostgreSQL/API tests switch authorized/unauthorized actors and all three locales, proving restricted names/configuration and summary counts stay hidden. The earlier passing local/CI evidence remains historical, not the final gate.
