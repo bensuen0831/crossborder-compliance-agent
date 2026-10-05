@@ -25,8 +25,23 @@ and the unchanged `bash smoke/run_gate.sh` against a newly created isolated data
 log, JUnit XML, schema/runtime/architecture results. Local logs reside in ignored
 `artifacts/m0-regression/`; they are working-tree results, not claims that the early checkpoint
 SHA contains later work. Browser screenshots/JSON reside in frontend/test-results and CI artifacts.
-Exact remote run/head/result will be recorded after the final implementation is pushed and tested.
-No old CI run or local hash is substituted for a new GitHub artifact digest.
+The pushed implementation `90b4ac5b06f0e12e95a559e7c7354f409d292b4e` has independently
+completed both remote workflows successfully:
+
+- [M0 frontend quality and real-backend UAT, run 37019134461](https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37019134461): both jobs and every step succeeded, including typecheck/lint/unit/build, reproducible contract generation, five backend security tests, fresh backend/frontend start and browser E2E.
+- [Original regression workflow, run 37019134460](https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37019134460): contract-tests and mandatory-runtime-smoke jobs and every step succeeded, including the unchanged full gate and empirical evidence publication.
+
+`evidence/m0/remote-ci.json` records REST API run/job/artifact metadata with exact head and
+server-reported artifact digests. The browser artifact is `m0-browser-uat-37019134461-1`
+(ID 11232417610); the regression artifact is `phase1a-runtime-evidence-37019134460-1`
+(ID 11232307638). Full log/archive downloads were denied by the session proxy at
+`results-receiver.actions.githubusercontent.com` and `productionresultssa15.blob.core.windows.net`.
+Those exact hosts are saved in the environment configuration draft; Review/Save/Publish is
+required for activation. Archive contents have not been inspected and their hashes have not
+been independently recomputed here. The numerical counts above are executed local results;
+remote PASS is established separately by GitHub run/job/step conclusions.
+No old CI run or local hash is substituted for a new GitHub artifact digest. Evidence-only
+successor commits must also pass their own PR checks before integration.
 
 Frontend fixtures are actual sanitized synthetic HTTP responses captured from the UAT backend.
 Tests mutate status/contract fields only inside test code. They are not imported by the app bundle.
