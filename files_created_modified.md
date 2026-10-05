@@ -143,3 +143,25 @@ Phase 1E formal Context remains the only context input. Phase 1F PostgreSQL Sour
 Excluded: production model/provider execution, LLM answers, formal classification, regulation applicability, country-specific compliance routing, risk, Candidate/Final Compliance Path, required regulatory-document decisions and production legal agents. External parsing currently accepts attributed canonical JSON through the existing controlled MIME boundary; HTML/PDF web crawling and unrestricted discovery are outside this foundation. Embedding/rerank tests use explicit deterministic adapters behind ports. Original source text is preserved; no reviewed translation becomes original official text.
 
 Phase 1A–1F regressions pass under the current 0007 migration. Earlier migration files 0001–0006 are unchanged. The historical Phase 1F main baseline remains `fe4e1bb8b0002aa9b4c68106bea5ebc0898fed95`; its 142-test baseline is historical and is not substituted for this Phase 1G 200-test result.
+
+# Track D — Admin control plane foundation (2026-10-02)
+
+Base: `f563e5067308e7eab6d3f89321b8b30da7c39044`; local branch: `admin-control-plane-foundation`.
+Previous phase inventory above is preserved. No backend source, existing tests, dependency declarations, or Alembic migrations were modified.
+
+Created:
+
+- `frontend/admin/package.json`, `package-lock.json`, `tsconfig.json`, `vite.config.ts`, `eslint.config.js`, `.gitignore`, `index.html` — isolated React/TypeScript tooling, frozen dependency lock, /admin mount and internal API proxy.
+- `frontend/admin/src/contracts.ts`, `resources.ts`, `client.ts` — shared host/session/permission contracts, capability descriptors, API-family lifecycles and existing-API transport.
+- `frontend/admin/src/AdminFeature.tsx`, `main.tsx`, `admin.css` — modular authenticated-host boundary, resource navigation, scoped tokens and responsive layouts.
+- `frontend/admin/src/ResourceAdmin.tsx` — shared versioned resource lifecycle/editor/history/impact/comparison page.
+- `frontend/admin/src/KnowledgeAdmin.tsx`, `RuntimeStatus.tsx` — Knowledge source/document/import/scope/quality/governance and automatic publication evidence.
+- `frontend/admin/tests/setup.ts`, `admin.test.tsx` — 24 component/transport/permission/lifecycle/status checks.
+- `tests/test_admin_control_plane_api.py` — 2 real PostgreSQL/Redis existing-API wire-flow tests with explicit test identity/artifact adapters and background workers.
+- `Admin_control_plane_foundation_design.md`, `versioned_resource_admin_result.md`, `knowledge_operations_ui_result.md`, `rbac_admin_result.md`, `runtime_publication_ui_result.md`, `zero_code_extension_result.md`, `admin_backend_gap_report.md`, `frontend_test_result.md`, `Admin_demo_runbook.md`, `integration_handoff.md` — requested design/results/gaps/evidence/demo/handoff.
+
+Modified: `files_created_modified.md` only by appending this Track D inventory.
+
+Ignored/local outputs: frontend `node_modules/` and `dist/`; Python caches/egg-info are ignored by existing rules. Reusable runtime tooling, signed service packages, virtualenv, database, helper scripts, logs and evidence are under `/workspace/.onboarding`, outside the checkout. User-uploaded request remains under `/workspace/attachments`.
+
+Cloud configuration: confirmed saved `install_script` and `start_skill` draft. No secrets/network/repository membership replaced; no environment publication, code commit/push/merge or deployment performed. Validation: original runtime gate 200/200; final Python 202/202; frontend 24/24; build/type/lint PASS. Production browser demo remains blocked by the documented upstream contracts.
