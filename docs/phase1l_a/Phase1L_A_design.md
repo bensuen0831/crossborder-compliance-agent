@@ -1,0 +1,11 @@
+# Phase 1L-A canonical workflow skeleton
+
+Baseline: 700951ebb9ebdf33e399158fd3fb53bb4a6c87e7, tag v3.6-phase1h-pass, migration 0008_phase1h, rules 1–139. The exact-main baseline CI 37254295087 succeeded. Dedicated branch phase1l-a-workflow-skeleton and worktree /workspace/crossborder-phase1l-a were created from this commit; origin/main and tag were verified, the remote branch was absent and the worktree clean before coding. Architecture start gate: 118/118. M0 and the original work checkout were preserved.
+
+REUSE: WorkflowRuntimePort, LangGraphWorkflowRuntimeAdapter, RuntimeContext, official PostgreSQL PostgresSaver/setup, WorkflowRun, AnalysisSnapshot, ReviewTask and WorkflowEvent storage. EXTEND: optional graph factory, canonical reference state and runtime operation metadata/read projection. CUSTOM_BUILD: orchestration-only stage/authorization interfaces and thin graph composition; no dependency additions. ClassificationWorkflowStage delegates to the real Phase 1H ClassificationService.
+
+One deterministic sixteen-step semantic graph: Requirement, Formal Context, Data/Flow, Jurisdiction, Knowledge Scope, Retrieval, Sufficiency, Classification, Applicability, Obligation, Candidate Path, Risk, Recommendation, Final Path, Documents/Templates, Report. It is independent of the five-stage presenter projection. No country/product/scenario graph exists.
+
+No legal implementation is supplied for future stages. Every unbound stage explicitly returns CAPABILITY_NOT_CONFIGURED and stops with WARNING. The default composition does not run a complete compliance workflow. Synthetic stage ports appear only in tests; a compile/order test does not demonstrate production legal analysis. Current classification delegation is available as an explicit application binding; other owning services must supply authorized persisted refs before integration.
+
+No migration, permanent rule, rule-engine change, LLM Gateway, API, frontend or Phase 1L-B implementation. PROPOSED_FOR_PHASE1L_FINAL: formal service compositions should enforce connector cancellation/deadline behavior and durable execution idempotency; review integration should coordinate worker delivery concurrency. These are integration proposals, not allocated permanent rules.
