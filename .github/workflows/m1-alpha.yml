@@ -1,0 +1,101 @@
+name: M1 Intake Analysis Alpha
+on:
+  pull_request:
+    paths: ['frontend/**', 'docs/m1/**', 'artifacts/m1/**', '.github/workflows/m1-alpha.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  frontend-real-backend-uat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_DB: m1_uat
+          POSTGRES_USER: compliance
+          POSTGRES_PASSWORD: compliance
+        ports: ['5432:5432']
+        options: --health-cmd="pg_isready -U compliance -d m1_uat" --health-interval=5s --health-timeout=5s --health-retries=20
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+        options: --health-cmd="redis-cli ping" --health-interval=5s --health-timeout=3s --health-retries=20
+    env:
+      APP_ENV: LOCAL_SERVER
+      DATABASE_URL: postgresql+psycopg://compliance:compliance@127.0.0.1:5432/m1_uat
+      LANGGRAPH_DATABASE_URI: postgresql://compliance:compliance@127.0.0.1:5432/m1_uat?sslmode=disable
+      REDIS_URL: redis://127.0.0.1:6379/0
+      M0_LOCAL_UAT: '1'
+      VITE_M0_DEMO: 'true'
+      VITE_SESSION_PATH: /m0-demo/session
+      M1_UAT_MANIFEST: /tmp/m1-personas.json
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: python -m pip install -e '.[dev]'
+      - run: python frontend/scripts/m1/boundary_check.py
+      - name: Reproduce canonical frontend and M1 model contracts
+        run: |
+          npm ci --prefix frontend --no-audit --no-fund
+          python frontend/scripts/m1/export_contracts.py
+          frontend/node_modules/.bin/openapi-typescript frontend/src/api/m1-schemas.json -o frontend/src/api/m1-generated.ts
+          git diff --exit-code -- frontend/src/api/m1-schemas.json frontend/src/api/m1-generated.ts
+          npm run typecheck --prefix frontend
+          npm run lint --prefix frontend
+          npm test --prefix frontend
+          npm run check:i18n --prefix frontend
+          npm run build --prefix frontend
+      - name: Existing schema and canonical two-tenant formal fixtures
+        run: |
+          alembic upgrade head
+          test "$(alembic heads | awk '{print $1}')" = 0010_phase1j
+          python frontend/scripts/m1/uat.py --manifest /tmp/m1-personas.json --seed
+      - name: Loopback trusted session and unchanged formal API routers
+        run: |
+          python frontend/scripts/m1/uat.py --manifest /tmp/m1-personas.json > /tmp/m1-backend.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8010/health/live > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/m1-backend.log
+          exit 1
+      - name: Canonical frontend and Chromium
+        run: |
+          cd frontend
+          npx playwright install --with-deps chromium
+          npm run dev > /tmp/m1-frontend.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:5173 > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/m1-frontend.log
+          exit 1
+      - name: Three-locale real-backend UAT, zero retries
+        run: npm run test:e2e --prefix frontend -- m1.spec.ts
+      - name: Exact-head measured result
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          x = json.load(open('frontend/test-results/results.json'))['stats']
+          assert x['expected'] == 3 and x['unexpected'] == x['skipped'] == x['flaky'] == 0
+          head = subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          print('::notice::M1_EXACT_HEAD_SUMMARY=' + json.dumps({'tested_sha':head,'browser':x,'retry_count':0,'alembic':'0010_phase1j'}))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m1-uat-${{ github.run_id }}
+          path: frontend/test-results/
+          if-no-files-found: error

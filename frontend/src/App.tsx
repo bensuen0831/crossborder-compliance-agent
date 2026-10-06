@@ -12,6 +12,7 @@ import zhHK from 'antd/locale/zh_HK';
 import { currentLocale, supportedLocales, type Locale } from './i18n';
 import { formatNumber } from './features/knowledge/formatting';
 import { enterpriseTheme } from './theme';
+import { IntakeFeature } from './features/intake/IntakeFeature';
 import { AdminRoute } from './routes/AdminRoute';
 import { ContextSelector } from './components/ContextSelector';
 import { EvidenceCard, EvidenceTable, SourceCitationDrawer } from './components/Evidence';
@@ -21,10 +22,10 @@ import { RuntimeStatus, StatusHealthIndicator } from './components/RuntimeStatus
 import { EmptyState, ErrorState, FeatureGate, LoadingState, PermissionDenied } from './components/States';
 import { useRetrieval, useScope } from './features/knowledge/queries';
 
-function PageHeader({ runtime, admin = false }: { runtime: boolean; admin?: boolean }) {
+function PageHeader({ runtime, admin = false, intake = false }: { runtime: boolean; admin?: boolean; intake?: boolean }) {
   const { t } = useTranslation();
   return <header className="page-heading"><Typography.Text className="eyebrow">{t('ui.foundation')}</Typography.Text>
-    <Typography.Title level={1}>{t(admin ? 'admin' : runtime ? 'operational' : 'knowledge')}</Typography.Title>
+    <Typography.Title level={1}>{t(intake ? 'ui.m1.title' : admin ? 'admin' : runtime ? 'operational' : 'knowledge')}</Typography.Title>
     <Typography.Paragraph type="secondary">{t(admin ? 'adminSubtitle' : 'subtitle')}</Typography.Paragraph>
   </header>;
 }
@@ -35,6 +36,7 @@ function SideNavigation({ adminAvailable }: { adminAvailable: boolean }) {
   return <nav aria-label={t('ui.navigation')}>
     <Menu theme="dark" mode="inline" selectedKeys={[location.pathname]} items={[
       { key: '/knowledge', icon: <SearchOutlined />, label: <Link to="/knowledge">{t('knowledge')}</Link> },
+      { key: '/intake', icon: <SafetyCertificateOutlined />, label: <Link to="/intake">{t('ui.m1.title')}</Link> },
       { key: '/runtime', icon: <ApiOutlined />, label: <Link to="/runtime">{t('operational')}</Link> },
       { key: '/admin', disabled: !adminAvailable, icon: <SafetyCertificateOutlined />, label: <Link to="/admin">{t('admin')}</Link> },
       { type: 'group', label: t('future'), children: [
@@ -48,6 +50,7 @@ function Workspace({ session }: { session: Session }) {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [project, setProject] = useState<string>();
   const [submitted, setSubmitted] = useState<RetrievalRequest | null>(null);
   const [selectedId, setSelectedId] = useState<string>();
@@ -65,9 +68,10 @@ function Workspace({ session }: { session: Session }) {
     setSubmitted({ query_text: query, analysis_snapshot_id: context.analysis_snapshot_id, policy_id: context.policy_id,
       idempotency_key: crypto.randomUUID(), subject_type: 'PROJECT', languages: [] });
   };
-  const choose = (id: string) => { setProject(id); setSubmitted(null); setSelectedId(undefined); };
+  const choose = (id: string) => { if (project && project !== id) { const predicate = (query: { queryKey: readonly unknown[] }) => String(query.queryKey[0]).startsWith('m1-') && query.queryKey.includes(project); void queryClient.cancelQueries({ predicate }); queryClient.removeQueries({ predicate }); } setProject(id); setSubmitted(null); setSelectedId(undefined); };
   const runtime = location.pathname === '/runtime';
   const admin = location.pathname.startsWith('/admin');
+  const intake = location.pathname === '/intake';
   return <Layout className="workspace-layout">
     <Layout.Sider width={230} breakpoint="lg" collapsedWidth={0} className="sidebar">
       <div className="wordmark"><span className="brand-mark"><BookOutlined /></span><span>{t('ui.brand')}<small>{t('ui.brandSubtitle')}</small></span></div>
@@ -77,9 +81,9 @@ function Workspace({ session }: { session: Session }) {
     <Layout>
       <div className="workspace-topbar"><Space><Avatar size="small">{session.display_name.slice(0, 1)}</Avatar><Typography.Text>{session.display_name}</Typography.Text><Tag>{session.tenant_label}</Tag>
         {session.organization_label && <Tag>{session.organization_label}</Tag>}{session.department_label && <Tag>{session.department_label}</Tag>}</Space><StatusHealthIndicator /></div>
-      <Layout.Content className="workspace-content"><PageHeader runtime={runtime} admin={admin}/>
+      <Layout.Content className="workspace-content"><PageHeader runtime={runtime} admin={admin} intake={intake}/>
         {session.demo && <Alert className="demo-banner" type="info" showIcon title={t('demo')} description={t('demoNote')} />}
-        <div className={`workspace-grid ${admin ? 'admin-workspace-grid' : ''}`}><section className="main-column">
+        <div className={`workspace-grid ${admin || intake ? 'admin-workspace-grid' : ''}`}><section className="main-column">
           <ContextSelector session={session} context={context} choose={choose} scope={scope.data} scopeError={scope.error} scopeLoading={scope.isFetching} />
           {session.contexts.length === 0 && <EmptyState title={t('noContext')} />}
           <Routes>
@@ -96,11 +100,12 @@ function Workspace({ session }: { session: Session }) {
                       ]} />}
                   </Card> : <Alert type="info" title={t('ui.retrievalStatus', { status: retrieval.data?.status ?? t('notAvailable') })} />}
             </>} />
+            <Route path="/intake" element={context ? <IntakeFeature key={`${session.identity_key}:${context.project_id}:${context.analysis_snapshot_id}`} session={session} context={context}/> : <EmptyState title={t('chooseContext')}/>}/>
             <Route path="/runtime" element={<RuntimeStatus session={session} versions={[...new Set(items.flatMap((item) => item.knowledge_version_id ? [item.knowledge_version_id] : []))]} />} />
             <Route path="/admin/*" element={<AdminRoute session={session} context={context}/>} />
             <Route path="*" element={<Navigate replace to="/knowledge" />} />
           </Routes>
-        </section>{!admin && <aside className="insight-column" aria-label={t('sufficiency')}>
+        </section>{!admin && !intake && <aside className="insight-column" aria-label={t('sufficiency')}>
           {rag ? <><SufficiencyPanel result={rag.knowledge_sufficiency} />{rag.fallback_guidance_context && <FallbackPanel guidance={rag.fallback_guidance_context} />}</> :
             <Card title={t('sufficiency')}><Typography.Paragraph type="secondary">{t('startHint')}</Typography.Paragraph></Card>}
         </aside>}</div>

@@ -22,7 +22,7 @@ body { margin: 0; min-width: 360px; }
 .demo-banner { margin-bottom: 24px; }
 .workspace-grid { display: grid; grid-template-columns: minmax(0, 2.1fr) minmax(320px, 1fr); gap: 24px; align-items: start; }
 .main-column, .insight-column { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
-.scope-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+.scope-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px; }
 .scope-note { font-size: 12px; margin-top: 4px; line-height: 1.7; }
 .evidence-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .card-action { margin-top: 18px; }
@@ -46,3 +46,8 @@ body { margin: 0; min-width: 360px; }
 }
 
 .admin-workspace-grid { grid-template-columns: minmax(0, 1fr); }
+
+/* Trusted scope codes may be long; preserve them without page overflow. */
+.scope-tags { max-width: 100%; }
+.scope-tags .ant-space-item { min-width: 0; max-width: 100%; }
+.scope-tags .ant-tag { white-space: normal; overflow-wrap: anywhere; max-width: 100%; }
