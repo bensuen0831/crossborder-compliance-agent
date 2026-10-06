@@ -7,3 +7,5 @@ Both DATA_AWARE and SCENARIO_LEVEL pass actual cross-process requirement-confirm
 Non-HITL recovery uses the same adapter: an existing checkpoint with pending tasks and no interrupts resumes via invoke(None), instead of silently returning RUNNING. A process exit after obligation persistence but before its node checkpoint recovers through final with exactly one authority per J stage. Human interrupts are never consumed by start().
 
 A transaction advisory delivery lock serializes concurrent callers of the existing runtime. Bounded lock contention raises WorkflowDeliveryRetryableFailure, separate from StageTransientFailure/node retries. Locks release on error/process exit; no lease/checkpoint table is introduced.
+
+Checkpoint context/knowledge-scope references must equal the prepared immutable plan, and sufficiency/fallback retrieval must match the planned subject. Another authorized subject in the same project/snapshot is rejected before its evidence status can route the workflow.
