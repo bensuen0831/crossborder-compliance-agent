@@ -19,6 +19,7 @@ docs/m2a/M2A_persistence_result.md
 docs/m2a/M2A_security_boundary_result.md
 docs/m2a/M2A_snapshot_integration_result.md
 docs/m2a/M2A_test_result.md
+docs/m2a/M2B_entry_decision.md
 evidence/m2a/approved_owner_overlay.json
 evidence/m2a/blocker_evidence.json
 evidence/m2a/local_closure.json
@@ -28,6 +29,7 @@ evidence/m2a/phase1k_a_boundary.json
 evidence/m2a/pytest_full_summary.json
 evidence/m2a/stage1_integrity.json
 evidence/m2a/start_gate.json
+evidence/m2a/verified_code_ci.json
 frontend/e2e/m2a.spec.ts
 frontend/scripts/m2a/export_contracts.py
 frontend/scripts/m2a/uat.py
