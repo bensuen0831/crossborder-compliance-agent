@@ -83,7 +83,9 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id):
         project_id,
         confirmed_intake_version_id=intake_version_id,
         structured_snapshot_id=snapshot_id,
-        selected_product_scope=tuple(UUID(x) for x in intake.selected_products),
+        selected_product_scope=tuple(
+            UUID(x) for x in intake.selected_product_domains + intake.selected_products
+        ),
         selected_scenarios=(UUID(intake.business_scenario),),
         jurisdictions=tuple(
             dict(

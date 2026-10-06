@@ -90,7 +90,7 @@ def delivery(request, context, project_id, snapshot_id, operation, expected_run=
         from crossborder_compliance.infrastructure.intake_composition import intake_workflow_host
         try:
             run_id, prepared = intake_workflow_host(sf, context, project_id, snapshot_id)
-        except LookupError as exc:
+        except (LookupError, PermissionError) as exc:
             raise HTTPException(409, "WORKFLOW_HOST_PLAN_REQUIRED") from exc
     else:
         try:

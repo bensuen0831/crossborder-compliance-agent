@@ -425,3 +425,31 @@ def test_unknown_or_other_project_refs_cannot_confirm(foundation_j, field):
     assert response.status_code == 404, response.text
     assert not facts(f, record["project_id"])
     assert c.get(f"/api/v1/projects/{record['project_id']}/intake").json()["status"] == "DRAFT"
+
+
+def test_selected_domain_reuses_existing_product_scope_and_pins(foundation_j):
+    f = foundation_j
+    binding(f)
+    _, client, context, values = setup(f)
+    record = confirm(
+        client,
+        create(
+            client, {**values, "selected_product_domains": [f["domain"]], "data_volume": "3"}
+        ).json(),
+    )
+    repo = PostgresContextResolutionRepository(
+        f["sf"], project_context(f["sf"], context, UUID(record["project_id"]))
+    )
+    product = repo.get_product_context(UUID(record["project_id"]))
+    assert {"dimension_type": "PRODUCT_DOMAIN", "definition_id": f["domain"]} in product[0][
+        "definitions"
+    ]
+    with f["sf"]() as s:
+        assert s.scalar(
+            select(m.AnalysisSnapshotRegistryPinEntity).where(
+                m.AnalysisSnapshotRegistryPinEntity.analysis_snapshot_id
+                == record["analysis_snapshot_id"],
+                m.AnalysisSnapshotRegistryPinEntity.pin_type == "INTAKE_METADATA",
+                m.AnalysisSnapshotRegistryPinEntity.object_id == f["domain"],
+            )
+        )
