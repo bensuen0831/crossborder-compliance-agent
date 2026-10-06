@@ -10,4 +10,10 @@ for cls in [ClassificationResult, RegulationApplicabilityResult, ProjectIntakeCo
     spec = cls.model_json_schema(ref_template='#/components/schemas/{model}')
     schemas.update(spec.pop('$defs', {}))
     schemas[cls.__name__] = spec
-out.write_text(json.dumps({'openapi': '3.1.0', 'info': {'title': 'M1 baseline models', 'version': 'phase1j'}, 'paths': {}, 'components': {'schemas': schemas}}, indent=2) + '\n')
+from fastapi import FastAPI
+from crossborder_compliance.interfaces.api.routes.workflow import router
+app = FastAPI()
+app.include_router(router)
+workflow = app.openapi()
+schemas.update(workflow['components']['schemas'])
+out.write_text(json.dumps({'openapi': '3.1.0', 'info': {'title': 'M1 baseline models', 'version': 'phase1j'}, 'paths': workflow['paths'], 'components': {'schemas': schemas}}, indent=2) + '\n')

@@ -7,6 +7,35 @@ from pathlib import Path
 
 BASE = "f1353372a1d8894535dc71765e3cd62597619fd5"
 SHARED = {"src/crossborder_compliance/workflows/langgraph_adapter.py"}
+VERIFIED_SOURCE = "019a7f39767bef81e3078ad0efe2f4d59374799d"
+
+
+def owner_provenance(root, source=VERIFIED_SOURCE):
+    """Prove the reviewed owner's boundary, independent of later owners."""
+    if source != VERIFIED_SOURCE:
+        return False
+
+    def git(*args):
+        return subprocess.check_output(["git", *args], cwd=root, stderr=subprocess.DEVNULL)
+
+    return (
+        subprocess.run(["git", "merge-base", "--is-ancestor", BASE, source], cwd=root).returncode
+        == 0
+        and subprocess.run(
+            ["git", "merge-base", "--is-ancestor", source, "HEAD"], cwd=root
+        ).returncode
+        == 0
+        and not git(
+            "diff",
+            BASE,
+            source,
+            "--",
+            "frontend",
+            "alembic",
+            "src/crossborder_compliance/domain",
+            "ARCHITECTURE_RULES.md",
+        )
+    )
 
 
 def overlay(root):
@@ -36,10 +65,13 @@ def overlay(root):
             and source != BASE
             and ancestor(BASE, source)
             and ancestor(source, "HEAD")
+            and ancestor(source, VERIFIED_SOURCE)
+            and owner_provenance(root)
             and set(data["paths"]) == SHARED
         )
         valid = valid and all(
             hashlib.sha256(git("show", source + ":" + p)).hexdigest() == h
+            and (root / p).read_bytes() == git("show", source + ":" + p)
             for p, h in data["paths"].items()
         )
         old = set(
@@ -56,8 +88,10 @@ def overlay(root):
         valid = valid and (root / "ARCHITECTURE_RULES.md").read_bytes() == git(
             "show", BASE + ":ARCHITECTURE_RULES.md"
         )
+        # Current Domain/Alembic/Rules remain frozen; frontend provenance is
+        # proved against the exact L-B source above, not a later M1 descendant.
         valid = valid and not git(
-            "diff", BASE, "--", "frontend", "alembic", "src/crossborder_compliance/domain"
+            "diff", BASE, "--", "alembic", "src/crossborder_compliance/domain"
         )
         return valid, data["paths"], source
     except (KeyError, OSError, ValueError, subprocess.CalledProcessError):

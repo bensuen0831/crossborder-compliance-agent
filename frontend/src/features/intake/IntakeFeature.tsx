@@ -1,5 +1,5 @@
 import { useState, type CSSProperties } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Alert, Button, Card, Steps, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
 import type { AuthorizedContext, Session } from '../../api/contracts';
@@ -7,7 +7,7 @@ import { currentLocale } from '../../i18n';
 import { ErrorState, LoadingState } from '../../components/States';
 import { AnalysisPanel } from '../analysis/AnalysisPanel';
 import { m1Api } from './api';
-import { emptyDraft, optionId, optionLabel, type Draft, type GovernedOption } from './contracts';
+import { emptyDraft, optionId, optionLabel, type Draft, type GovernedOption, type WorkflowView } from './contracts';
 import './intake.css';
 
 export function IntakeFeature({ session, context }: { session: Session; context: AuthorizedContext }) {
@@ -18,6 +18,10 @@ export function IntakeFeature({ session, context }: { session: Session; context:
   const [step, setStep] = useState(0);
   const [draft, setDraft] = useState(emptyDraft);
   const [confirmed, setConfirmed] = useState(false);
+  const [workflow, setWorkflow] = useState<WorkflowView>();
+  const execute = useMutation({ mutationFn: () => m1Api.workflowStart(context), onSuccess: setWorkflow, retry: false });
+  const refresh = useMutation({ mutationFn: () => m1Api.workflowRead(workflow!.workflow_run_id), onSuccess: setWorkflow, retry: false });
+  const workflowStatus: Record<string, string> = { RUNNING: 'ui.m1.workflowRunning', COMPLETED: 'ui.m1.workflowCompleted', REVIEW_REQUIRED: 'ui.m1.reviewRequired', WARNING: 'ui.m1.workflowWarning', FAILED: 'ui.m1.workflowFailed', CANCELLED: 'ui.m1.workflowFailed' };
   const metadata = useQuery({ queryKey: ['m1-metadata', session.identity_key, context.project_id, locale],
     queryFn: async ({ signal }): Promise<Record<string, GovernedOption[]>> => Object.fromEntries(await Promise.all(['scenarios', 'products', 'jurisdictions', 'data-types'].map(async key => [key, (await m1Api.metadata(key, locale, signal)).items]))), retry: false, gcTime: 0 });
   const items = useQuery({ queryKey: ['m1-items', session.identity_key, context.project_id, context.analysis_snapshot_id], queryFn: ({ signal }) => m1Api.items(context, signal), retry: false, gcTime: 0 });
@@ -35,7 +39,7 @@ export function IntakeFeature({ session, context }: { session: Session; context:
     return <span className="m1-value" key={id}>{metadataRow ? optionLabel(metadataRow) : items.data?.find(row => row.data_item_id === id)?.display_name ?? parties.data?.find(row => row.project_party_id === id)?.display_name ?? id}</span>;
   })}</dd></div>);
   return <section style={themeStyle} className="m1-feature" aria-label={t('ui.m1.title')}>
-    <Alert type="info" showIcon title={t('ui.m1.localDraft')} description={t('ui.m1.workflowPending')}/>
+    <Alert type="info" showIcon title={t('ui.m1.localDraft')} description={t('ui.m1.workflowPrepared')}/>
     <Steps current={step} items={['ui.m1.step1', 'ui.m1.step2', 'ui.m1.step3', 'ui.m1.step4'].map(key => ({ title: t(key) }))}/>
     {[metadata, items, parties].map((query, index) => query.isPending ? <LoadingState key={index}/> : query.error && <ErrorState key={index} error={query.error}/>)}
     <Card title={t(['ui.m1.step1', 'ui.m1.step2', 'ui.m1.step3', 'ui.m1.step4'][step])}>
@@ -62,10 +66,19 @@ export function IntakeFeature({ session, context }: { session: Session; context:
           <Alert type="warning" title={t('ui.m1.documentGap')}/><Button disabled>{t('ui.m1.upload')}</Button><p>{t('ui.m1.untrusted')}</p></>}
         {step === 3 && <><dl className="m1-summary">{summary}</dl>{!valid && <Alert type="warning" title={t('ui.m1.missingInputs')}/>}
           <label className="m1-confirm"><input type="checkbox" checked={confirmed} disabled={!valid} onChange={event => setConfirmed(event.target.checked)}/>{t('ui.m1.confirmFacts')}</label>
-          {confirmed && <Alert type="info" title={t('ui.m1.factsOnly')}/>}<Button disabled>{t('ui.m1.execute')}</Button><p>{t('ui.m1.workflowPending')}</p></>}
+          {confirmed && <Alert type="info" title={t('ui.m1.factsOnly')}/>}<Button disabled={!confirmed || !valid || !!workflow} loading={execute.isPending} onClick={() => execute.mutate()}>{t('ui.m1.execute')}</Button><p>{t('ui.m1.workflowPrepared')}</p></>}
         <div className="m1-actions">{step > 0 && <Button onClick={() => setStep(value => value - 1)}>{t('ui.m1.back')}</Button>}{step < 3 && <Button htmlType="submit" disabled={step === 0 && (!draft.scenario || !draft.product)}>{t('ui.m1.next')}</Button>}</div>
       </form>
     </Card>
-    <AnalysisPanel context={context} identity={session.identity_key}/>
+    {(execute.isPending || refresh.isPending) && <LoadingState/>}
+    {(execute.error || refresh.error) && <ErrorState error={execute.error ?? refresh.error!}/>}
+    {workflow && <Card title={t('ui.m1.workflowExecution')}>
+      <Alert type={workflow.status === 'COMPLETED' ? 'info' : 'warning'} title={t(workflowStatus[workflow.status] ?? 'ui.m1.unknownStatus')}/>
+      <dl><dt>{t('ui.m1.workflowRun')}</dt><dd data-testid="workflow-run-id">{workflow.workflow_run_id}</dd><dt>{t('snapshot')}</dt><dd data-testid="workflow-snapshot-id">{workflow.analysis_snapshot_id}</dd></dl>
+      {workflow.reason_codes.length > 0 && <p>{workflow.reason_codes.join(' · ')}</p>}
+      {workflow.review_id && <p>{t('ui.m1.pendingReview')} · {workflow.review_id}</p>}
+      <Button loading={refresh.isPending} onClick={() => refresh.mutate()}>{t('ui.m1.workflowRefresh')}</Button>
+    </Card>}
+    <AnalysisPanel context={context} identity={session.identity_key} workflow={workflow}/>
   </section>;
 }

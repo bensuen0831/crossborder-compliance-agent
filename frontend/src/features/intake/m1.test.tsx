@@ -55,7 +55,7 @@ describe('M1 presentation and intake', () => {
     const confirm = screen.getByRole('checkbox', { name: i18n.t('ui.m1.confirmFacts') });
     expect(confirm).toBeEnabled(); await userEvent.click(confirm);
     expect(screen.getByText(i18n.t('ui.m1.factsOnly'))).toBeVisible();
-    expect(screen.getByRole('button', { name: i18n.t('ui.m1.execute') })).toBeDisabled();
+    expect(screen.getByRole('button', { name: i18n.t('ui.m1.execute') })).toBeEnabled();
     expect(writes).toEqual([]);
     await i18n.changeLanguage(locale === 'en-US' ? 'zh-HK' : 'en-US');
     expect(screen.getByRole('checkbox', { name: i18n.t('ui.m1.confirmFacts') })).toBeChecked();

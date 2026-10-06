@@ -1,0 +1,37 @@
+{
+  "base_sha": "f1353372a1d8894535dc71765e3cd62597619fd5",
+  "phase1l_b_source": "019a7f39767bef81e3078ad0efe2f4d59374799d",
+  "m1_source": "5b1aaf5df05de458a65ead497536b323ecb16ce9",
+  "sync_merge": "69a8bc3aefa326523064793f01ca4dedb48000fb",
+  "integration_paths": [
+    "scripts/phase1l_b_ownership.py",
+    "frontend/scripts/m1/boundary_check.py",
+    "scripts/m1_phase1lb_ownership.py",
+    "tests/test_m1_phase1lb_ownership.py",
+    "evidence/integration/m1-phase1lb/approved_sources.json",
+    "src/crossborder_compliance/interfaces/api/workflow_app.py",
+    "src/crossborder_compliance/interfaces/api/routes/workflow.py",
+    "tests/test_m1_workflow_api.py",
+    "frontend/scripts/m1/uat.py",
+    "frontend/scripts/m1/export_contracts.py",
+    "frontend/src/api/m1-schemas.json",
+    "frontend/src/api/m1-generated.ts",
+    "frontend/src/features/intake/api.ts",
+    "frontend/src/features/intake/contracts.ts",
+    "frontend/src/features/intake/IntakeFeature.tsx",
+    "frontend/src/features/intake/m1.test.tsx",
+    "frontend/src/features/intake/workflow.test.tsx",
+    "frontend/src/features/analysis/AnalysisPanel.tsx",
+    "frontend/src/locales/en-US.json",
+    "frontend/src/locales/zh-CN.json",
+    "frontend/src/locales/zh-HK.json",
+    "frontend/e2e/m1.spec.ts",
+    ".github/workflows/m1-alpha.yml",
+    "docs/integration/m1-phase1lb/integration_contract.md"
+  ],
+  "ownership_scopes": {
+    "phase1l_b": "backend orchestration; original forbidden scopes unchanged",
+    "m1": "original frontend-only owner",
+    "integration": "finite path set; bridge/guards/UI binding/tests only"
+  }
+}

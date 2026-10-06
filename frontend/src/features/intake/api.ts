@@ -1,8 +1,23 @@
 import { ApiError, request } from '../../api/client';
 import type { AuthorizedContext, RetrievalResponse } from '../../api/contracts';
 import type { Locale } from '../../i18n';
-import type { Applicability, Classification, ContextItem, GovernedOption, Party } from './contracts';
+import type { Applicability, Classification, ContextItem, GovernedOption, Party, WorkflowView } from './contracts';
 export const m1Api = {
+  workflowStart: async (context: AuthorizedContext) => {
+    const value = await request<WorkflowView>(`/api/v1/projects/${context.project_id}/snapshots/${context.analysis_snapshot_id}/workflow`, { method: 'POST', body: '{}' }, 'WorkflowView');
+    if (value.project_id !== context.project_id || value.analysis_snapshot_id !== context.analysis_snapshot_id) throw new ApiError(404, 'RESULT_CONTEXT_MISMATCH');
+    return value;
+  },
+  workflowRead: async (run: string) => {
+    const value = await request<WorkflowView>(`/api/v1/workflows/${encodeURIComponent(run)}`, {}, 'WorkflowView');
+    if (value.workflow_run_id !== run) throw new ApiError(404, 'RESULT_CONTEXT_MISMATCH');
+    return value;
+  },
+  workflowEvidence: async (context: AuthorizedContext, run: string, signal?: AbortSignal) => {
+    const value = await request<RetrievalResponse>(`/api/v1/retrieval-runs/${encodeURIComponent(run)}`, { signal }, 'RetrievalResponseDTO');
+    if (!value.rag_context_pack || value.rag_context_pack.scope.project_id !== context.project_id || value.rag_context_pack.scope.analysis_snapshot_id !== context.analysis_snapshot_id) throw new ApiError(404, 'RESULT_CONTEXT_MISMATCH');
+    return value;
+  },
   metadata: (resource: string, locale: Locale, signal?: AbortSignal) => request<{ items: GovernedOption[] }>(`/api/v1/metadata/${encodeURIComponent(resource)}?locale=${locale}`, { signal }, 'Metadata'),
   items: (context: AuthorizedContext, signal?: AbortSignal) => request<ContextItem[]>(`/api/v1/projects/${context.project_id}/data-items`, { signal }),
   documents: (context: AuthorizedContext, signal?: AbortSignal) => request<Record<string, unknown>>(`/api/v1/projects/${context.project_id}/document-analysis-summary`, { signal }),
