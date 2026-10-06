@@ -62,6 +62,9 @@ class StageExecutionRequest(ReferenceModel):
     identity: ExecutionIdentity
     step: SemanticStep
     result_refs: dict[SemanticStep, UUID] = Field(default_factory=dict, max_length=16)
+    result_ref_sets: dict[SemanticStep, tuple[UUID, ...]] = Field(
+        default_factory=dict, max_length=16
+    )
     fallback_ref: UUID | None = None
     review_ref: UUID | None = None
     idempotency_key: str = Field(max_length=160)
@@ -71,6 +74,7 @@ class StageExecutionRequest(ReferenceModel):
 class StageExecutionResult(ReferenceModel):
     status: StageOutcomeCode
     result_ref: UUID | None = None
+    related_result_refs: tuple[UUID, ...] = Field(default=(), max_length=128)
     fallback_ref: UUID | None = None
     reason_codes: tuple[str, ...] = Field(default=(), max_length=16)
 
@@ -82,6 +86,10 @@ class StageExecutionResult(ReferenceModel):
             raise ValueError("structured reason codes only")
         if self.status == StageOutcomeCode.EVIDENCE_INSUFFICIENT and self.fallback_ref is None:
             raise ValueError("persisted actionable fallback reference required")
+        if len(set(self.related_result_refs)) != len(self.related_result_refs):
+            raise ValueError("unique related result references required")
+        if self.related_result_refs and self.result_ref != self.related_result_refs[0]:
+            raise ValueError("primary result must identify the first related reference")
         return self
 
 
@@ -128,6 +136,10 @@ class WorkflowExecutionPolicy(ReferenceModel):
 
 class StageTransientFailure(Exception):
     """Only this explicit exception participates in bounded node retry."""
+
+
+class WorkflowDeliveryRetryableFailure(Exception):
+    """Queue delivery contention; deliberately distinct from node retry."""
 
 
 class StageBusinessFailure(Exception):
