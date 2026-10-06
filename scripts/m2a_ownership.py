@@ -24,6 +24,7 @@ SHARED = frozenset(
         "frontend/src/App.tsx",
         "frontend/src/api/client.ts",
         "frontend/src/features/intake/IntakeFeature.tsx",
+        "frontend/src/features/intake/api.ts",
         "frontend/src/features/intake/contracts.ts",
         "frontend/src/locales/en-US.json",
         "frontend/src/locales/zh-CN.json",
