@@ -93,7 +93,11 @@ def delivery(request, context, project_id, snapshot_id, operation, expected_run=
         except LookupError as exc:
             raise HTTPException(409, "WORKFLOW_HOST_PLAN_REQUIRED") from exc
     else:
-        run_id, prepared = provider(context, project_id, snapshot_id)
+        try:
+            run_id, prepared = provider(context, project_id, snapshot_id)
+        except LookupError:
+            from crossborder_compliance.infrastructure.intake_composition import intake_workflow_host
+            run_id, prepared = intake_workflow_host(sf, context, project_id, snapshot_id)
     run_id, plan = UUID(str(run_id)), FormalWorkflowPlan.model_validate(prepared)
     if (plan.tenant_id, plan.project_id, plan.analysis_snapshot_id) != (
         context.tenant_id,

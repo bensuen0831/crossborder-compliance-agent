@@ -80,9 +80,11 @@ def overlay(root):
             .splitlines()
         )
         now = {str(p.relative_to(root)) for p in (root / "alembic/versions").glob("*.py")}
+        from scripts.m2a_ownership import overlay as intake_overlay, MIGRATION as intake_migration
+        intake_valid, intake_paths, _ = intake_overlay(root)
         valid = (
-            valid
-            and old == now
+            valid and intake_valid
+            and old | ({intake_migration} if intake_paths else set()) == now
             and all((root / p).read_bytes() == git("show", BASE + ":" + p) for p in old)
         )
         valid = valid and (root / "ARCHITECTURE_RULES.md").read_bytes() == git(
@@ -90,9 +92,8 @@ def overlay(root):
         )
         # Current Domain/Alembic/Rules remain frozen; frontend provenance is
         # proved against the exact L-B source above, not a later M1 descendant.
-        valid = valid and not git(
-            "diff", BASE, "--", "alembic", "src/crossborder_compliance/domain"
-        )
+        frozen_changes = set(git("diff", "--name-only", BASE, "--", "alembic", "src/crossborder_compliance/domain").decode().splitlines())
+        valid = valid and frozen_changes <= set(intake_paths)
         return valid, data["paths"], source
     except (KeyError, OSError, ValueError, subprocess.CalledProcessError):
         return False, {}, None

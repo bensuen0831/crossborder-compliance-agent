@@ -1,10 +1,10 @@
 """Production intake over the canonical Project/ProjectVersion aggregate."""
 
 from copy import deepcopy
-from typing import Protocol
+from typing import Literal, Protocol
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, create_model
+from pydantic import BaseModel, ConfigDict, Field, create_model, model_validator
 
 from crossborder_compliance.domain.contracts import ProjectIntakeContext
 
@@ -19,9 +19,24 @@ _authority = {
     "updated_at",
     "provenance",
 }
+
+
+class BoundedIntakeFacts(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    @model_validator(mode="after")
+    def bounded(self):
+        for value in self.model_dump().values():
+            if isinstance(value, str) and len(value) > 4096:
+                raise ValueError("intake text exceeds4096 characters")
+            if isinstance(value, list) and (len(value) > 128 or any(len(x) > 256 for x in value)):
+                raise ValueError("intake reference collection exceeds bounds")
+        return self
+
+
 IntakeFacts = create_model(
     "IntakeFacts",
-    __config__=ConfigDict(extra="forbid"),
+    __base__=BoundedIntakeFacts,
     **{
         name: (field.annotation, deepcopy(field))
         for name, field in ProjectIntakeContext.model_fields.items()
@@ -54,7 +69,7 @@ class IntakeView(BaseModel):
     project_id: UUID
     project_version_id: UUID
     version: int = Field(ge=1)
-    status: str
+    status: Literal["DRAFT", "CONFIRMED", "SUPERSEDED"]
     intake: ProjectIntakeContext
     analysis_snapshot_id: UUID | None = None
     workflow_run_id: UUID | None = None

@@ -94,6 +94,12 @@ python scripts/verify_full_pytest.py "$EVIDENCE_DIR"
 echo "=== Architecture rule check ==="
 python scripts/architecture_rule_check.py | tee "$EVIDENCE_DIR/architecture_rule_check_stdout.json"
 
+echo "=== Additive M2-A boundaries ==="
+python scripts/m2a_ownership.py | tee "$EVIDENCE_DIR/m2a_ownership.json"
+python scripts/m2a_architecture_check.py | tee "$EVIDENCE_DIR/m2a_architecture_check.json"
+python scripts/phase1k_a_boundary_check.py | tee "$EVIDENCE_DIR/phase1k_a_boundary.json"
+python scripts/stage1_alpha_integrity.py | tee "$EVIDENCE_DIR/stage1_integrity.json"
+
 echo "=== Gate complete ==="
 echo "Phase 1A Mandatory Runtime Gate = PASS"
 echo "Phase 1B PostgreSQL Regression Gate = PASS"

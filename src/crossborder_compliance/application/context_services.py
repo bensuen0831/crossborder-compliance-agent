@@ -31,8 +31,16 @@ class BusinessFactNormalizationService:
     def __init__(self, repository: ContextResolutionRepositoryPort):
         self.repository = repository
 
-    def normalize(self, project_id: UUID, *, version: int) -> list[BusinessFact]:
+    def normalize(self, project_id: UUID, *, version: int,
+                  confirmed_intake_version_id: UUID | None = None,
+                  structured_snapshot_id: UUID | None = None) -> list[BusinessFact]:
         candidates = self.repository.list_candidate_facts(project_id)
+        if confirmed_intake_version_id is not None:
+            if structured_snapshot_id is None:
+                raise ValueError("structured input requires its exact snapshot")
+            candidates = candidates + self.repository.structured_fact_inputs(
+                project_id, confirmed_intake_version_id, structured_snapshot_id
+            )
         groups: dict[tuple[str, str], list[dict[str, object]]] = {}
         normalized_values_by_type: dict[str, set[str]] = {}
         for candidate in candidates:
@@ -42,6 +50,8 @@ class BusinessFactNormalizationService:
             )
             trace_ids = tuple(UUID(x) for x in candidate.get("source_trace_ids", []))
             if registry is None:
+                if candidate.get("structured_provenance"):
+                    raise ValueError("structured fact binding no longer governed")
                 self.repository.save_candidate_resolution(CandidateResolution(
                     uuid4(), "BUSINESS_FACT", UUID(str(candidate["candidate_id"])),
                     "BUSINESS_FACT", None, ResolutionAction.REVIEW_REQUIRED,
@@ -82,11 +92,16 @@ class BusinessFactNormalizationService:
                 ),
                 conflict_status="CONFLICT" if has_conflict else "NONE",
                 review_required=has_conflict, version=version,
+                structured_provenance=tuple(p for row in rows
+                    for p in row.get("structured_provenance", ())),
             )
             self.repository.save_business_fact(
-                fact, tuple(UUID(str(row["candidate_id"])) for row in rows)
+                fact, tuple(UUID(str(row["candidate_id"])) for row in rows
+                            if row.get("candidate_id") is not None)
             )
             for row in rows:
+                if row.get("candidate_id") is None:
+                    continue  # Explicit structured origin is not a document candidate.
                 self.repository.save_candidate_resolution(CandidateResolution(
                     uuid4(), "BUSINESS_FACT", UUID(str(row["candidate_id"])),
                     "BUSINESS_FACT", fact.fact_id,
@@ -734,10 +749,16 @@ class ContextResolutionService:
         data_item_flow_bindings: dict[str, list[str]] | None = None,
         data_groups: tuple[dict[str, object], ...] = (),
         workflow_run_id: UUID | None = None,
+        confirmed_intake_version_id: UUID | None = None,
+        structured_snapshot_id: UUID | None = None,
     ) -> dict[str, object]:
         run = self.repository.start_context_run(project_id)
         version = int(run["version"])
-        self.business_facts.normalize(project_id, version=version)
+        self.business_facts.normalize(
+            project_id, version=version,
+            confirmed_intake_version_id=confirmed_intake_version_id,
+            structured_snapshot_id=structured_snapshot_id,
+        )
         self.products.resolve(
             project_id, selected_scope=selected_product_scope,
             detected_scope=detected_product_scope, version=version,

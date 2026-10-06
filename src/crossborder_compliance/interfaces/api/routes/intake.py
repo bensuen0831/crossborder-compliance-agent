@@ -4,7 +4,7 @@ from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Request
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import DBAPIError, IntegrityError
 
 from crossborder_compliance.application.intake_services import (
     ConfirmProjectIntake,
@@ -29,6 +29,12 @@ def invoke(request, context, operation, *args):
         raise HTTPException(404, "intake resource not found") from exc
     except (IntakeConflict, IntegrityError) as exc:
         raise HTTPException(409, "INTAKE_VERSION_OR_IDEMPOTENCY_CONFLICT") from exc
+    except DBAPIError as exc:
+        # A concurrent REPEATABLE READ confirmation must be retried from a
+        # fresh authorized transaction, never surfaced as a false confirmation.
+        if getattr(exc.orig, "sqlstate", None) in {"40001", "40P01"}:
+            raise HTTPException(409, "INTAKE_CONCURRENT_TRANSACTION_RETRY") from exc
+        raise
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc
 

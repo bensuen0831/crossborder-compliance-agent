@@ -50,7 +50,9 @@ def project_context(sessions, context, project_id):
     return replace(
         context,
         permission=replace(
-            context.permission, scopes=context.permission.scopes | {f"project:{project_id}:comply"}
+            context.permission,
+            scopes=context.permission.scopes
+            | {f"project:{project_id}:comply", f"project:{project_id}:classify"},
         ),
     )
 
@@ -58,6 +60,11 @@ def project_context(sessions, context, project_id):
 def prepare_snapshot(sessions, context, intake, snapshot_id, run_id):
     project_id = intake.project_id
     context = project_context(sessions, context, project_id)
+    from crossborder_compliance.infrastructure.persistence.structured_intake import (
+        validate_references,
+    )
+
+    validate_references(sessions, context, intake, snapshot_id)
     repo = PostgresContextResolutionRepository(sessions, context)
     locations = {
         kind: values
@@ -68,8 +75,14 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id):
             ("STORAGE", intake.storage_locations),
         )
     }
+    with sessions() as s:
+        intake_version_id = UUID(
+            s.get(b.AnalysisSnapshotEntity, str(snapshot_id)).project_version_id
+        )
     result = ContextResolutionService(repo).run(
         project_id,
+        confirmed_intake_version_id=intake_version_id,
+        structured_snapshot_id=snapshot_id,
         selected_product_scope=tuple(UUID(x) for x in intake.selected_products),
         selected_scenarios=(UUID(intake.business_scenario),),
         jurisdictions=tuple(
@@ -89,6 +102,25 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id):
         analysis_snapshot_id=snapshot_id,
         project_id=project_id,
         context_resolution_run_id=context_run,
+    )
+    # Initialize the owning H rule/config pins without classifying nonexistent
+    # data. The unique eligible governed scheme is frozen for this snapshot.
+    from crossborder_compliance.infrastructure.persistence.classification_repository import (
+        PostgresFormalClassificationRepository,
+    )
+
+    with sessions() as s:
+        schemes = s.scalars(
+            select(m.ClassificationSchemeVersionEntity).where(
+                m.ClassificationSchemeVersionEntity.tenant_id == str(context.tenant_id),
+                m.ClassificationSchemeVersionEntity.lifecycle_status == "ACTIVE",
+            )
+        ).all()
+        if len(schemes) != 1:
+            raise ValueError("M2A_CLASSIFICATION_CONFIGURATION_GAP")
+        scheme_version_id = UUID(schemes[0].scheme_version_id)
+    PostgresFormalClassificationRepository(sessions, context).pin_configuration(
+        project_id, snapshot_id, scheme_version_id
     )
     retrieval = PostgresRetrievalRepository(sessions, context)
     KnowledgeScopeResolver(retrieval, context).resolve(
@@ -179,6 +211,9 @@ def intake_workflow_host(sessions, context, project_id, snapshot_id):
     view = PostgresProjectRepository(sessions, context).read_intake(project_id)
     if view.status != "CONFIRMED" or view.analysis_snapshot_id != snapshot_id:
         raise LookupError("confirmed intake snapshot not found")
+    from crossborder_compliance.infrastructure.persistence.structured_intake import authorize_pins
+
+    authorize_pins(sessions, context, snapshot_id)
     with sessions() as s:
         snapshot = s.scalar(
             select(b.AnalysisSnapshotEntity).where(

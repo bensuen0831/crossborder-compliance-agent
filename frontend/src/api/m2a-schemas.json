@@ -444,6 +444,11 @@
           },
           "status": {
             "type": "string",
+            "enum": [
+              "DRAFT",
+              "CONFIRMED",
+              "SUPERSEDED"
+            ],
             "title": "Status"
           },
           "intake": {

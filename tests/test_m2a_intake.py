@@ -3,7 +3,6 @@
 # ruff: noqa: F401,F811 -- inherited PostgreSQL fixture graph
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date
-from datetime import date
 from uuid import UUID, uuid4
 
 import pytest
@@ -149,6 +148,7 @@ def test_atomic_confirmation_exact_snapshot_and_canonical_start(foundation_j):
     one = create(c, facts).json()
     url = f"/api/v1/projects/{one['project_id']}/intake"
     from crossborder_compliance.application.intake_services import ConfirmProjectIntake
+
     intake_service(f["sf"], ctx).confirm(
         UUID(one["project_id"]), ConfirmProjectIntake(expected_version=1)
     )
@@ -171,7 +171,10 @@ def test_atomic_confirmation_exact_snapshot_and_canonical_start(foundation_j):
         ).status_code
         == 409
     )
-    start = f"/api/v1/projects/{one['project_id']}/snapshots/{confirmed['analysis_snapshot_id']}/workflow"
+    start = (
+        f"/api/v1/projects/{one['project_id']}/snapshots/"
+        f"{confirmed['analysis_snapshot_id']}/workflow"
+    )
     response = c.post(start, json={})
     assert response.status_code == 200, response.text
     result = response.json()

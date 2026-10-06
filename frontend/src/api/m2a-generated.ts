@@ -134,8 +134,11 @@ export interface components {
             project_version_id: string;
             /** Version */
             version: number;
-            /** Status */
-            status: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "DRAFT" | "CONFIRMED" | "SUPERSEDED";
             intake: components["schemas"]["ProjectIntakeContext"];
             /** Analysis Snapshot Id */
             analysis_snapshot_id?: string | null;

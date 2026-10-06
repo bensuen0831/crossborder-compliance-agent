@@ -86,8 +86,13 @@ class ProjectIntakeOperations:
             intake=ProjectIntakeContext.model_validate(row.intake_json),
             analysis_snapshot_id=snapshot.analysis_snapshot_id if snapshot else None,
             workflow_run_id=snapshot.provenance_json.get("workflow_run_id") if snapshot else None,
-            retrieval_policy_id=(snapshot.provenance_json.get("formal_workflow_plan", {})
-                                 .get("retrieval_query", {}).get("policy_id") if snapshot else None),
+            retrieval_policy_id=(
+                snapshot.provenance_json.get("formal_workflow_plan", {})
+                .get("retrieval_query", {})
+                .get("policy_id")
+                if snapshot
+                else None
+            ),
         )
 
     def _intake_key(self, s, operation, key, payload):

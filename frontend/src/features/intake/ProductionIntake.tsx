@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Alert, Button, Card } from 'antd';
@@ -16,6 +16,7 @@ export function ProductionIntake({ session, context }: { session: Session; conte
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [createKey, setCreateKey] = useState(crypto.randomUUID());
   const cache = useQueryClient();
+  const saveAttempt = useRef<{ payload: string; key: string } | null>(null);
   const queryKey = ['m2a-intake', session.identity_key, project];
   const saved = useQuery({ queryKey, queryFn: ({ signal }) => intakeApi.read(project!, signal), enabled: !!project, retry: false, gcTime: 0 });
   const create = useMutation({ mutationFn: () => intakeApi.create(name, date, createKey), retry: false, onSuccess: record => { cache.setQueryData(['m2a-intake', session.identity_key, record.project_id], record); setParams({ project_id: record.project_id }); setCreateKey(crypto.randomUUID()); } });
@@ -29,7 +30,7 @@ export function ProductionIntake({ session, context }: { session: Session; conte
       <Alert type="info" title={t('ui.m2a.saved', { version: saved.data.version, status: saved.data.status })}/>
       <p data-testid="intake-project-id">{saved.data.project_id}</p>
       <IntakeFeature key={`${session.identity_key}:${project}:${saved.data.version}`} session={session} persistence={{ record: saved.data,
-        save: async draft => { const value = await intakeApi.save(saved.data, draftFacts(saved.data, draft), crypto.randomUUID()); cache.setQueryData(queryKey, value); },
+        save: async draft => { const facts = draftFacts(saved.data, draft); const payload = JSON.stringify([saved.data.project_id, saved.data.version, facts]); if (saveAttempt.current?.payload !== payload) saveAttempt.current = { payload, key: crypto.randomUUID() }; const value = await intakeApi.save(saved.data, facts, saveAttempt.current.key); cache.setQueryData(queryKey, value); },
         confirm: async () => { const value = await intakeApi.confirm(saved.data); cache.setQueryData(queryKey, value); return value; } }}/>
     </> : context && <IntakeFeature key={`${session.identity_key}:${context.project_id}:${context.analysis_snapshot_id}`} session={session} context={context}/>}
   </>;

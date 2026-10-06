@@ -1,7 +1,10 @@
 """Generate the intake transport contract from its canonical backend DTOs."""
+
 import json
 from pathlib import Path
+
 from fastapi import FastAPI
+
 from crossborder_compliance.interfaces.api.routes.intake import router
 
 app = FastAPI()

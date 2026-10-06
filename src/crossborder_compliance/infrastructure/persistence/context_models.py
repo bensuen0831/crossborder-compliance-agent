@@ -31,6 +31,9 @@ class BusinessFactEntity(TenantAuditMixin, Base):
     conflict_status: Mapped[str] = mapped_column(String(40), nullable=False, default="NONE")
     review_required: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
     version: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
+    structured_provenance_json: Mapped[list] = mapped_column(
+        JSON, nullable=False, default=list, server_default="[]"
+    )
 
 
 class BusinessFactResolutionEntity(TenantAuditMixin, Base):

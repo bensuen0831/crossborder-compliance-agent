@@ -1,7 +1,7 @@
-name: M1 Intake Analysis Alpha
+name: M2A Production Intake
 on:
   pull_request:
-    paths: ['src/crossborder_compliance/infrastructure/persistence/workflow_read_projection.py', 'src/crossborder_compliance/interfaces/api/routes/workflow.py', 'src/crossborder_compliance/interfaces/api/workflow_app.py', 'scripts/m1_phase1lb_ownership.py', 'scripts/phase1l_b_ownership.py', 'tests/test_m1*', 'evidence/integration/m1-phase1lb/**', 'frontend/**', 'docs/m1/**', 'artifacts/m1/**', '.github/workflows/m1-alpha.yml']
+    paths: ['src/**', 'alembic/**', 'tests/test_m2a*', 'scripts/m2a*', 'evidence/m2a/**', 'docs/m2a/**', '.github/workflows/m2a-intake.yml', 'src/crossborder_compliance/infrastructure/persistence/workflow_read_projection.py', 'src/crossborder_compliance/interfaces/api/routes/workflow.py', 'src/crossborder_compliance/interfaces/api/workflow_app.py', 'scripts/m1_phase1lb_ownership.py', 'scripts/phase1l_b_ownership.py', 'tests/test_m1*', 'evidence/integration/m1-phase1lb/**', 'frontend/**', 'docs/m1/**', 'artifacts/m1/**', '.github/workflows/m1-alpha.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -30,7 +30,7 @@ jobs:
       M0_LOCAL_UAT: '1'
       VITE_M0_DEMO: 'true'
       VITE_SESSION_PATH: /m0-demo/session
-      M1_UAT_MANIFEST: /tmp/m1-personas.json
+      M2A_UAT_MANIFEST: /tmp/m1-personas.json
     steps:
       - uses: actions/checkout@v4
         with:
@@ -50,9 +50,9 @@ jobs:
       - name: Reproduce canonical frontend and M1 model contracts
         run: |
           npm ci --prefix frontend --no-audit --no-fund
-          python frontend/scripts/m1/export_contracts.py
-          frontend/node_modules/.bin/openapi-typescript frontend/src/api/m1-schemas.json -o frontend/src/api/m1-generated.ts
-          git diff --exit-code -- frontend/src/api/m1-schemas.json frontend/src/api/m1-generated.ts
+          python frontend/scripts/m2a/export_contracts.py
+          frontend/node_modules/.bin/openapi-typescript frontend/src/api/m2a-schemas.json -o frontend/src/api/m2a-generated.ts
+          git diff --exit-code -- frontend/src/api/m2a-schemas.json frontend/src/api/m2a-generated.ts
           npm run typecheck --prefix frontend
           npm run lint --prefix frontend
           npm test --prefix frontend
@@ -62,10 +62,10 @@ jobs:
         run: |
           alembic upgrade head
           python -c "from alembic.config import Config; from alembic.script import ScriptDirectory; from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after; heads = ScriptDirectory.from_config(Config('alembic.ini')).get_heads(); assert len(heads) == 1 and revision_at_or_after(heads[0], '0010_phase1j')"
-          python frontend/scripts/m1/uat.py --manifest /tmp/m1-personas.json --seed
+          python frontend/scripts/m2a/uat.py --manifest /tmp/m1-personas.json --seed
       - name: Loopback trusted session and canonical workflow bridge and formal read APIs
         run: |
-          python frontend/scripts/m1/uat.py --manifest /tmp/m1-personas.json > /tmp/m1-backend.log 2>&1 &
+          python frontend/scripts/m2a/uat.py --manifest /tmp/m1-personas.json > /tmp/m1-backend.log 2>&1 &
           for attempt in $(seq 1 30); do
             if curl --fail --silent http://127.0.0.1:8010/health/live > /dev/null; then exit 0; fi
             sleep 1
@@ -84,7 +84,7 @@ jobs:
           cat /tmp/m1-frontend.log
           exit 1
       - name: Three-locale real-backend UAT, zero retries
-        run: npm run test:e2e --prefix frontend -- m1.spec.ts
+        run: npm run test:e2e --prefix frontend -- m2a.spec.ts
       - name: Exact-head measured result
         run: |
           python - <<'PY'
@@ -92,12 +92,12 @@ jobs:
           x = json.load(open('frontend/test-results/results.json'))['stats']
           assert x['expected'] == 3 and x['unexpected'] == x['skipped'] == x['flaky'] == 0
           head = subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
-          print('::notice::M1_EXACT_HEAD_SUMMARY=' + json.dumps({'tested_sha':head,'browser':x,'retry_count':0,'alembic':__import__('alembic.script',fromlist=['ScriptDirectory']).ScriptDirectory('alembic').get_current_head()}))
+          print('::notice::M2A_EXACT_HEAD_SUMMARY=' + json.dumps({'tested_sha':head,'browser':x,'retry_count':0,'alembic':__import__('alembic.script',fromlist=['ScriptDirectory']).ScriptDirectory('alembic').get_current_head()}))
           PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: m1-uat-${{ github.run_id }}
+          name: m2a-uat-${{ github.run_id }}
           path: |
             frontend/test-results/
             /tmp/m1-backend.log
