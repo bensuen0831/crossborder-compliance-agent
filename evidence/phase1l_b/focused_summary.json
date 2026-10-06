@@ -1,0 +1,36 @@
+{
+  "base_sha": "f1353372a1d8894535dc71765e3cd62597619fd5",
+  "source_sha": "34c75641050f7a8c5cc133fb8373e17dc71ec818",
+  "phase1l_b_focused": {
+    "contracts": 28,
+    "postgres": 8,
+    "ownership": 7,
+    "passed": 43
+  },
+  "retained_phase1l_a_focused": 45,
+  "architecture": {
+    "passed": 151,
+    "total": 151
+  },
+  "phase1k_a": {
+    "passed": 20,
+    "total": 20
+  },
+  "stage1_integrity": "PASS",
+  "full_closure_certificate": "Final exact-head Draft PR CI checks and uploaded runtime artifacts",
+  "local_full_gate_runs": 0,
+  "migration": "NONE; single0010_phase1j",
+  "frontend_changes": false,
+  "domain_rules_changes": false,
+  "current_blockers": [],
+  "closure_repeat": {
+    "initial_ci_run": 37400069345,
+    "initial_head": "e4e5777b0b43c3d871a50be6ece4b09695d79c55",
+    "initial_ci_result": "SUCCESS",
+    "blocking_regression": "Sufficiency accepted a different authorized retrieval subject within the same project/snapshot",
+    "counterexample_failed_before_fix": true,
+    "executable_fix_sha": "34c75641050f7a8c5cc133fb8373e17dc71ec818",
+    "focused_after_fix": 43,
+    "permitted_full_repeat": true
+  }
+}

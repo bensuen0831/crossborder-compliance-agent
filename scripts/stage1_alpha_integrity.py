@@ -25,6 +25,9 @@ def verify():
     from scripts.phase1j_ownership import overlay
     j_authorized, j_paths, j_source = overlay(ROOT)
     checks["reviewed_j_owner_overlay"] = j_authorized
+    from scripts.phase1l_b_ownership import overlay as workflow_overlay
+    workflow_authorized, workflow_paths, workflow_source = workflow_overlay(ROOT)
+    checks["reviewed_l_b_owner_overlay"] = workflow_authorized
     for owner, sha in {"H": BASE, **SOURCES}.items():
         checks[f"{owner}_ancestry_preserved"] = subprocess.run(
             ["git", "merge-base", "--is-ancestor", sha, "HEAD"], cwd=ROOT,
@@ -33,7 +36,7 @@ def verify():
         track_base = git("merge-base", BASE, SOURCES[owner]).decode().strip()
         paths = git("diff", "--name-only", track_base, SOURCES[owner], "--", "src").decode().splitlines()
         checks[f"{owner}_backend_identical_to_tested_source"] = all(
-            (ROOT / path).read_bytes() == git("show", f"{j_source if j_authorized and path in j_paths else SOURCES[owner]}:{path}")
+            (ROOT / path).read_bytes() == git("show", f"{workflow_source if workflow_authorized and path in workflow_paths else j_source if j_authorized and path in j_paths else SOURCES[owner]}:{path}")
             for path in paths
             if subprocess.run(["git", "cat-file", "-e", f"{SOURCES[owner]}:{path}"], cwd=ROOT,
                               stderr=subprocess.DEVNULL).returncode == 0

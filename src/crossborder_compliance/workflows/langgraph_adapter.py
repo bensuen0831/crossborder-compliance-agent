@@ -154,6 +154,11 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
                 existing = graph.get_state(self._runtime_config(workflow_run_id))
                 if existing.values:
                     self.graph_factory.validate(workflow_run_id, existing.values)
+                    # A crashed delivery can leave a durable, non-interrupted
+                    # execution position. Resume that position, never replay
+                    # initial input or consume a human interrupt implicitly.
+                    if existing.next and not any(task.interrupts for task in existing.tasks):
+                        graph.invoke(None, self._runtime_config(workflow_run_id))
                     return WorkflowRunRef(workflow_run_id, str(workflow_run_id), self.get_status(workflow_run_id))
                 tenant = UUID(initial_state["identity"]["tenant_id"])
             else:
