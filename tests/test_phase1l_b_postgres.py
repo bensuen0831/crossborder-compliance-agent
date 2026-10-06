@@ -324,3 +324,35 @@ def test_process_crash_after_formal_save_before_checkpoint_recovers_without_dupl
                 )
                 == 1
             )
+
+
+def test_sufficiency_cannot_consume_another_authorized_subjects_retrieval(foundation_j):
+    from test_phase1g_persistence_postgres import query, service
+
+    from crossborder_compliance.application.workflow_skeleton import (
+        SemanticStep,
+        StageExecutionRequest,
+    )
+    from crossborder_compliance.infrastructure.persistence.retrieval_repositories import (
+        PostgresRetrievalRepository,
+    )
+
+    f = foundation_j
+    m = manifest(f)
+    _, factory = build(m)
+    repo = PostgresRetrievalRepository(f["sf"], f["ctx"])
+    other = service(f, repo).retrieve(
+        query(f, f["policy"], subject_type="PROJECT", subject_id=f["project"])
+    )
+    refs = {step: UUID(m["plan"]["context_resolution_run_id"]) for step in PIPELINE[:6]}
+    refs[SemanticStep.KNOWLEDGE_SCOPE] = UUID(f["snapshot"])
+    refs[SemanticStep.RETRIEVAL] = UUID(other["retrieval_run_id"])
+    request = StageExecutionRequest(
+        identity=factory.authorize(UUID(m["run"]), "execute"),
+        step=SemanticStep.SUFFICIENCY,
+        result_refs=refs,
+        idempotency_key="subject-scope-regression",
+        timeout_seconds=30,
+    )
+    with pytest.raises(PermissionError, match="retrieval scope mismatch"):
+        factory.stages[SemanticStep.SUFFICIENCY].execute(request)

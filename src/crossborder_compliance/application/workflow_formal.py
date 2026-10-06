@@ -172,6 +172,17 @@ class FormalWorkflowStages:
             required = [s for s in required if s != SemanticStep.CLASSIFICATION]
         if any(s not in request.result_refs for s in required):
             raise ValueError("missing upstream workflow reference")
+        for step in list(SemanticStep)[:4]:
+            if (
+                step in request.result_refs
+                and request.result_refs[step] != p.context_resolution_run_id
+            ):
+                raise PermissionError("workflow context reference mismatch")
+        if (
+            SemanticStep.KNOWLEDGE_SCOPE in request.result_refs
+            and request.result_refs[SemanticStep.KNOWLEDGE_SCOPE] != p.analysis_snapshot_id
+        ):
+            raise PermissionError("workflow scope reference mismatch")
 
     def _context(self):
         p = self.plan
@@ -204,6 +215,12 @@ class FormalWorkflowStages:
         ) != (p.tenant_id, p.project_id, p.analysis_snapshot_id) or UUID(
             rag.evidence_pack.retrieval_run_id
         ) != run:
+            raise PermissionError("retrieval scope mismatch")
+        q = p.retrieval_query
+        if (rag.scope.subject_type, UUID(rag.scope.subject_id)) != (
+            q.subject_type,
+            UUID(q.subject_id or q.project_id),
+        ):
             raise PermissionError("retrieval scope mismatch")
         return rag
 

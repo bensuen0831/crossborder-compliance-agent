@@ -195,6 +195,10 @@ def test_nodes_delegate_to_actual_formal_service_and_cannot_fabricate_final(case
                 if request.step == SemanticStep.APPLICABILITY
                 else uuid4()
             )
+            if request.step in list(SemanticStep)[:4]:
+                ref = plan.context_resolution_run_id
+            elif request.step == SemanticStep.KNOWLEDGE_SCOPE:
+                ref = plan.analysis_snapshot_id
             return StageExecutionResult(
                 status="SUCCESS", result_ref=ref, related_result_refs=(ref,)
             )
@@ -271,3 +275,31 @@ def test_plan_authorization_rejects_mismatched_refs_before_runtime_side_effects(
     authority.identity = authority.identity.model_copy(update={field: uuid4()})
     with pytest.raises(PermissionError):
         auth.authorize(authority.identity.workflow_run_id, "execute")
+
+
+@pytest.mark.parametrize("step", [SemanticStep.FORMAL_CONTEXT, SemanticStep.KNOWLEDGE_SCOPE])
+def test_checkpoint_reference_cannot_replace_the_pinned_context_or_scope(step):
+    authority = Authority()
+    plan = plan_for(decision_fixture(), authority)
+    stages = FormalWorkflowStages(
+        plan,
+        contexts=None,
+        knowledge_scope=None,
+        retrieval=None,
+        evidence=None,
+        classification=None,
+        country=None,
+        decisions=None,
+    )
+    refs = {s: plan.context_resolution_run_id for s in list(SemanticStep)[:6]}
+    refs[SemanticStep.KNOWLEDGE_SCOPE] = plan.analysis_snapshot_id
+    refs[step] = uuid4()
+    request = StageExecutionRequest(
+        identity=authority.identity,
+        step=SemanticStep.SUFFICIENCY,
+        result_refs=refs,
+        idempotency_key="checkpoint-ref-test",
+        timeout_seconds=30,
+    )
+    with pytest.raises(PermissionError):
+        stages.execute(request)
