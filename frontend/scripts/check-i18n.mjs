@@ -9,7 +9,10 @@ const locales = ['zh-CN', 'zh-HK', 'en-US'];
 const catalogs = Object.fromEntries(locales.map(locale => [locale, JSON.parse(fs.readFileSync(path.join(root, 'src/locales', `${locale}.json`), 'utf8'))]));
 const keys = Object.keys(catalogs['en-US']).sort();
 const issues = [];
-const dynamicKeys = ['SUFFICIENT', 'PARTIALLY_SUFFICIENT', 'INSUFFICIENT', 'CONFLICTED',
+const dynamicKeys = [
+  ...(fs.existsSync(path.join(root, 'src/features/intake')) ? ['scenario', 'product', 'source', 'destination', 'processing', 'storage', 'categories', 'dataTypes', 'items', 'organizations', 'thirdParties', 'flows', 'purpose', 'description', 'documents'].map(field => `ui.m1.field.${field}`) : []),
+  ...(fs.existsSync(path.join(root, 'src/features/intake')) ? ['classification', 'applicability', 'retrieval'].map(field => `ui.m1.ref.${field}`) : []),
+  ...(fs.existsSync(path.join(root, 'src/features/intake')) ? ['data_item_id', 'source_location', 'destination_location'].map(field => `ui.m1.flow.${field}`) : []),'SUFFICIENT', 'PARTIALLY_SUFFICIENT', 'INSUFFICIENT', 'CONFLICTED',
   ...['validate', 'submit-review', 'approve', 'reject', 'publish', 'supersede', 'expire', 'archive'].map(action => `ui.action.${action}`)];
 for (const key of dynamicKeys) if (!keys.includes(key)) issues.push(`missing dynamic key ${key}`);
 for (const locale of locales) {

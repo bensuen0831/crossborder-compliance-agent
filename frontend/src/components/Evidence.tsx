@@ -36,6 +36,7 @@ export function SourceCitationDrawer({ item, close }: { item?: EvidenceItem; clo
       <Descriptions bordered column={1} size="small" items={[
         { key: 'authority', label: t('authority'), children: item.source_authority ?? t('notAvailable') },
         { key: 'url', label: t('source'), children: url ? <a href={url} target="_blank" rel="noopener noreferrer" referrerPolicy="no-referrer">{item.source_url}</a> : <span>{item.source_url}</span> },
+        { key: 'language', label: t('ui.m1.sourceLanguage'), children: item.language },
         { key: 'locator', label: t('locator'), children: item.canonical_locator },
         { key: 'tier', label: t('tier'), children: item.source_tier },
         { key: 'citation', label: t('ui.citationId'), children: <Typography.Text code>{item.citation_id}</Typography.Text> },
