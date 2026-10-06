@@ -1,0 +1,3 @@
+# M1 canonical workflow binding
+
+Step4 confirms local intake then explicitly starts the server-authorized existing snapshot. Local draft facts are not represented as persisted facts. Browser calls canonical START once, consumes H/I/G read references and official evidence; no browser H/I/J POST orchestration. Locale retains workflow/snapshot/results and causes no analysis rerun. Context/tenant change clears state. Partial evidence shows WARNING/fallback without fabricated applicability; review-required displays pending review, never APPROVED. Current-project context is distinguished from the unresolved snapshot formal projection.

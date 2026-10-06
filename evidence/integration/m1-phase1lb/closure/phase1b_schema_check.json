@@ -1,0 +1,26 @@
+{
+  "alembic_revision": "0010_phase1j",
+  "assertions": {
+    "all_required_phase1b_tables_exist": true,
+    "api_and_execution_idempotency_separate": true,
+    "conversation_fk_verified": true,
+    "domain_metadata_excludes_langgraph_checkpoint_tables": true,
+    "important_data_item_index_verified": true,
+    "important_project_index_verified": true,
+    "legal_basis_evidence_m2m_table_present": true,
+    "legal_basis_rule_hit_fk_verified": true,
+    "legal_basis_rule_hit_m2m_table_present": true,
+    "legal_basis_rule_hit_unique_verified": true,
+    "no_parallel_classification_source_table": true,
+    "phase1b_schema_present_under_current_head": true,
+    "project_version_fk_verified": true,
+    "project_version_unique_verified": true,
+    "regulatory_structure_node_present": true,
+    "workflow_stage_view_not_persisted": true
+  },
+  "domain_checkpoint_tables": [],
+  "forbidden_present": [],
+  "pass": true,
+  "required_missing": [],
+  "table_count": 178
+}

@@ -1,0 +1,1384 @@
+{
+  "config": {
+    "argv": [
+      "/opt/hostedtoolcache/node/24.21.0/x64/bin/node",
+      "/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/node_modules/.bin/playwright",
+      "test",
+      "knowledge.spec.ts",
+      "--repeat-each=3"
+    ],
+    "configFile": "/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/playwright.config.ts",
+    "rootDir": "/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "ci": {
+        "commitHref": "https://github.com/bensuen0831/crossborder-compliance-agent/commit/83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1",
+        "commitHash": "83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1",
+        "buildHref": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37425901297"
+      },
+      "gitCommit": {
+        "shortHash": "83d79c7",
+        "hash": "83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1",
+        "subject": "Merge pull request #20 from bensuen0831/milestone-m1-intake-analysis-alpha",
+        "body": "Merge pull request #20 from bensuen0831/milestone-m1-intake-analysis-alpha\n\nM1 intake: execute canonical Phase1L-B workflow and read result references",
+        "author": {
+          "name": "bensuen0831",
+          "email": "bensuen0831@gmail.com",
+          "time": 1791269319000
+        },
+        "committer": {
+          "name": "GitHub",
+          "email": "noreply@github.com",
+          "time": 1791269319000
+        },
+        "branch": "HEAD"
+      },
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results",
+        "repeatEach": 3,
+        "retries": 0,
+        "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/bensuen0831/crossborder-compliance-agent/commit/83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1",
+            "commitHash": "83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1",
+            "buildHref": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37425901297"
+          },
+          "gitCommit": {
+            "shortHash": "83d79c7",
+            "hash": "83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1",
+            "subject": "Merge pull request #20 from bensuen0831/milestone-m1-intake-analysis-alpha",
+            "body": "Merge pull request #20 from bensuen0831/milestone-m1-intake-analysis-alpha\n\nM1 intake: execute canonical Phase1L-B workflow and read result references",
+            "author": {
+              "name": "bensuen0831",
+              "email": "bensuen0831@gmail.com",
+              "time": 1791269319000
+            },
+            "committer": {
+              "name": "GitHub",
+              "email": "noreply@github.com",
+              "time": 1791269319000
+            },
+            "branch": "HEAD"
+          },
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "github",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "knowledge.spec.ts",
+      "file": "knowledge.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "zh-CN",
+          "file": "knowledge.spec.ts",
+          "line": 30,
+          "column": 36,
+          "specs": [
+            {
+              "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 11222,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:51:10.655Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-0b60468ad3f0e7d43d04",
+              "file": "knowledge.spec.ts",
+              "line": 35,
+              "column": 1
+            },
+            {
+              "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 9874,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:51:22.429Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-8dd866e07faf1be9735f",
+              "file": "knowledge.spec.ts",
+              "line": 78,
+              "column": 1
+            },
+            {
+              "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5119,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:51:32.335Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-876eaec5bf6a738bfb5e",
+              "file": "knowledge.spec.ts",
+              "line": 100,
+              "column": 1
+            },
+            {
+              "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6459,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:51:37.484Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-e7b0e0156daad214e7f9",
+              "file": "knowledge.spec.ts",
+              "line": 110,
+              "column": 1
+            },
+            {
+              "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 9586,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:52:37.235Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-d3944b20403f6186a873",
+              "file": "knowledge.spec.ts",
+              "line": 35,
+              "column": 1
+            },
+            {
+              "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6594,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:52:47.007Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-2574bb448052658a30f2",
+              "file": "knowledge.spec.ts",
+              "line": 78,
+              "column": 1
+            },
+            {
+              "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3815,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:52:53.632Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-5115b3b1ecd560c98b19",
+              "file": "knowledge.spec.ts",
+              "line": 100,
+              "column": 1
+            },
+            {
+              "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6168,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:52:57.509Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-6d1376389c6ffb2c24ba",
+              "file": "knowledge.spec.ts",
+              "line": 110,
+              "column": 1
+            },
+            {
+              "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 9752,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:53:58.150Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-dda41e6663428b209eb9",
+              "file": "knowledge.spec.ts",
+              "line": 35,
+              "column": 1
+            },
+            {
+              "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6876,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:54:08.061Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-cc0cf75578a17cdabad2",
+              "file": "knowledge.spec.ts",
+              "line": 78,
+              "column": 1
+            },
+            {
+              "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3798,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:54:14.959Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-1ce4d0ffd93482f439fe",
+              "file": "knowledge.spec.ts",
+              "line": 100,
+              "column": 1
+            },
+            {
+              "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6398,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:54:18.782Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-f0423c344536d11c42d2",
+              "file": "knowledge.spec.ts",
+              "line": 110,
+              "column": 1
+            }
+          ]
+        },
+        {
+          "title": "zh-HK",
+          "file": "knowledge.spec.ts",
+          "line": 30,
+          "column": 36,
+          "specs": [
+            {
+              "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 9404,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:51:43.969Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-0a96abc15f2dda4c5fc5",
+              "file": "knowledge.spec.ts",
+              "line": 35,
+              "column": 1
+            },
+            {
+              "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6835,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:51:53.390Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-8733610e07b010e8fa07",
+              "file": "knowledge.spec.ts",
+              "line": 78,
+              "column": 1
+            },
+            {
+              "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3664,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:52:00.244Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-e2e4fd7d9bc32c84d4f7",
+              "file": "knowledge.spec.ts",
+              "line": 100,
+              "column": 1
+            },
+            {
+              "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6485,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:52:03.930Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-7bfee08198fd2c785605",
+              "file": "knowledge.spec.ts",
+              "line": 110,
+              "column": 1
+            },
+            {
+              "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 9783,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:53:03.699Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-30696c1d5e85d629d00e",
+              "file": "knowledge.spec.ts",
+              "line": 35,
+              "column": 1
+            },
+            {
+              "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6801,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:53:13.505Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-31d5c14cfa13ee5e5c71",
+              "file": "knowledge.spec.ts",
+              "line": 78,
+              "column": 1
+            },
+            {
+              "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4038,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:53:20.322Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-8ddc6fe461b5acff19a3",
+              "file": "knowledge.spec.ts",
+              "line": 100,
+              "column": 1
+            },
+            {
+              "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6503,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:53:24.376Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-c5780d1c7257a34b453f",
+              "file": "knowledge.spec.ts",
+              "line": 110,
+              "column": 1
+            },
+            {
+              "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 10361,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:54:25.199Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-6537ab8173d8722a8702",
+              "file": "knowledge.spec.ts",
+              "line": 35,
+              "column": 1
+            },
+            {
+              "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6745,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:54:35.578Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-ff4ba225448488663398",
+              "file": "knowledge.spec.ts",
+              "line": 78,
+              "column": 1
+            },
+            {
+              "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3825,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:54:42.341Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-fa77bad325b1d871879a",
+              "file": "knowledge.spec.ts",
+              "line": 100,
+              "column": 1
+            },
+            {
+              "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6605,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:54:46.191Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-c02f2f4dcdacf259aeb7",
+              "file": "knowledge.spec.ts",
+              "line": 110,
+              "column": 1
+            }
+          ]
+        },
+        {
+          "title": "en-US",
+          "file": "knowledge.spec.ts",
+          "line": 30,
+          "column": 36,
+          "specs": [
+            {
+              "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 9372,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:52:10.435Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-4b26de3bfa3520b14869",
+              "file": "knowledge.spec.ts",
+              "line": 35,
+              "column": 1
+            },
+            {
+              "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6634,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:52:19.826Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-b838484ae1edd2ec3fc3",
+              "file": "knowledge.spec.ts",
+              "line": 78,
+              "column": 1
+            },
+            {
+              "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3581,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:52:26.499Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-bbb453f16e90ff390dd1",
+              "file": "knowledge.spec.ts",
+              "line": 100,
+              "column": 1
+            },
+            {
+              "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6338,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:52:30.108Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-836a98032f52ad92e7e9",
+              "file": "knowledge.spec.ts",
+              "line": 110,
+              "column": 1
+            },
+            {
+              "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 9564,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:53:30.899Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-4e2370e83f2375fdece6",
+              "file": "knowledge.spec.ts",
+              "line": 35,
+              "column": 1
+            },
+            {
+              "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6643,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:53:40.480Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-12b9438e56ef84423f87",
+              "file": "knowledge.spec.ts",
+              "line": 78,
+              "column": 1
+            },
+            {
+              "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3914,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:53:47.142Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-8a20d4fb3cc2891758d1",
+              "file": "knowledge.spec.ts",
+              "line": 100,
+              "column": 1
+            },
+            {
+              "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6385,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:53:51.075Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-33dddcc567fff4227261",
+              "file": "knowledge.spec.ts",
+              "line": 110,
+              "column": 1
+            },
+            {
+              "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 9486,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:54:52.815Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-19c17f63a001866ad372",
+              "file": "knowledge.spec.ts",
+              "line": 35,
+              "column": 1
+            },
+            {
+              "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6906,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:55:02.323Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-b3a58ca6b439a390a23e",
+              "file": "knowledge.spec.ts",
+              "line": 78,
+              "column": 1
+            },
+            {
+              "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3771,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:55:09.251Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-6fd4ce3d2cdf6f190865",
+              "file": "knowledge.spec.ts",
+              "line": 100,
+              "column": 1
+            },
+            {
+              "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6605,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-06T06:55:13.040Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0828a03cd0e93ee0ce1b-d718cec4fd439b592a3a",
+              "file": "knowledge.spec.ts",
+              "line": 110,
+              "column": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-06T06:51:09.603Z",
+    "duration": 250261.866,
+    "expected": 36,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

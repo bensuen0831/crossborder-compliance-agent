@@ -1,0 +1,110 @@
+{
+  "run_id": 37425895624,
+  "sha": "83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1",
+  "event": "workflow_dispatch",
+  "conclusion": "success",
+  "checkout_identity": {
+    "run_id": "37425895624",
+    "run_attempt": "1",
+    "repository": "bensuen0831/crossborder-compliance-agent",
+    "workflow": "phase1a-runtime-smoke",
+    "job": "mandatory-runtime-smoke",
+    "sha": "83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1",
+    "tested_pr_head_sha": "83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1",
+    "runner_checkout_sha": "83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1",
+    "ref": "refs/heads/main",
+    "runner_os": "Linux",
+    "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37425895624"
+  },
+  "pytest": {
+    "passed": 620,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "architecture": {
+    "passed": 151,
+    "total": 151
+  },
+  "runtime": {
+    "passed": 25,
+    "total": 25
+  },
+  "migration": {
+    "verified_base": "594be84cfc471af4c12f28600b22cffb66f830f7",
+    "baseline_revision": "0009_phase1i",
+    "head": "0010_phase1j",
+    "fresh_upgrade": true,
+    "exact_0009_upgrade": true,
+    "full_catalog_equivalence": true,
+    "empty_roundtrip": true,
+    "policy_transactional_refusal": true,
+    "pin_transactional_refusal": true,
+    "result_transactional_refusal": true
+  },
+  "contract_static_subset": {
+    "passed": 399,
+    "skipped": 7,
+    "deselected": 214,
+    "selection": "not runtime_smoke",
+    "full_suite_includes_all": true
+  },
+  "schemas": {
+    "phase1d_schema_check": {
+      "passed": 15,
+      "total": 15
+    },
+    "phase1f_schema_check": {
+      "passed": 29,
+      "total": 29
+    },
+    "phase1b_schema_check": {
+      "passed": 16,
+      "total": 16
+    },
+    "phase1e_schema_check": {
+      "passed": 22,
+      "total": 22
+    },
+    "phase1c_schema_check": {
+      "passed": 20,
+      "total": 20
+    },
+    "phase1i_schema_check": {
+      "passed": 24,
+      "total": 24
+    },
+    "phase1j_schema_check": {
+      "passed": 36,
+      "total": 36
+    },
+    "phase1h_schema_check": {
+      "passed": 20,
+      "total": 20
+    },
+    "phase1g_schema_check": {
+      "passed": 58,
+      "total": 58
+    }
+  },
+  "groups": {
+    "phase1j": 79,
+    "phase1l_a": 45,
+    "phase1l_b": 43,
+    "m1_workflow_api": 3,
+    "m1_phase1lb_ownership": 8
+  }
+}

@@ -1,0 +1,3 @@
+# PR20 sync and merge
+
+Original owner source `5b1aaf5df05de458a65ead497536b323ecb16ce9`. Normal local sync merge `69a8bc3aefa326523064793f01ca4dedb48000fb`, parents original M1 source and PR21 main. Integration commits `a3ba2667bc4fe397c339f591192cb55cb13a8bc2` and `a753aa12150e1c81456f18ed3c0d5d53b2fc58ea`. Original tested commits remain ancestors. Actual GitHub PR20 merge `83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1` has parents `[da22aa5d2994107c8cb6abbf023745a0c307ba15, a753aa12150e1c81456f18ed3c0d5d53b2fc58ea]`. PR20 exact-head CI IDs: `{"backend": 37424490298, "m0": 37424490299, "m1": 37424490432}`; all SUCCESS before Ready/merge.
