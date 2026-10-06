@@ -30,6 +30,7 @@ class ComplianceWorkflowState(TypedDict):
     identity: dict
     current_step: str
     result_refs: dict[str, str]
+    result_ref_sets: dict[str, list[str]]
     completed_steps: list[str]
     fallback_ref: str | None
     review_ref: str | None
@@ -43,6 +44,9 @@ class StateEnvelope(ReferenceModel):
     identity: ExecutionIdentity
     current_step: SemanticStep = SemanticStep.REQUIREMENT
     result_refs: dict[SemanticStep, UUID] = Field(default_factory=dict, max_length=16)
+    result_ref_sets: dict[SemanticStep, tuple[UUID, ...]] = Field(
+        default_factory=dict, max_length=16
+    )
     completed_steps: tuple[SemanticStep, ...] = Field(default=(), max_length=16)
     fallback_ref: UUID | None = None
     review_ref: UUID | None = None
@@ -61,16 +65,22 @@ class StateEnvelope(ReferenceModel):
             raise ValueError("bounded visits required")
         if len(set(self.completed_steps)) != len(self.completed_steps):
             raise ValueError("completed steps must be unique")
+        for step, refs in self.result_ref_sets.items():
+            if not refs or len(refs) > 128 or len(set(refs)) != len(refs):
+                raise ValueError("bounded unique result references required")
+            if self.result_refs.get(step) != refs[0]:
+                raise ValueError("primary and related result references must agree")
         return self
 
 
 class CanonicalGraphFactory:
-    def __init__(self, *, authorization, stages=None, policy=None):
+    def __init__(self, *, authorization, stages=None, policy=None, emit_result_refs=False):
         self.authorization = authorization
         self.stages = dict(stages or {})
         if not all(isinstance(k, SemanticStep) for k in self.stages):
             raise ValueError("stage bindings require semantic step keys")
         self.policy = policy or WorkflowExecutionPolicy()
+        self.emit_result_refs = emit_result_refs
 
     def authorize(self, workflow_run_id, operation):
         identity = self.authorization.authorize(workflow_run_id, operation)
@@ -128,6 +138,16 @@ class CanonicalGraphFactory:
                         "reason_codes": list(state.reason_codes),
                         "status": status,
                         "request_id": context.request_id,
+                        **(
+                            {
+                                "result_refs": {
+                                    k.value: [str(v) for v in state.result_ref_sets.get(k, (ref,))]
+                                    for k, ref in state.result_refs.items()
+                                }
+                            }
+                            if self.emit_result_refs
+                            else {}
+                        ),
                     },
                     event_key=f"canonical:{state.current_step}:{state.step_count}:{suffix}",
                 ),
@@ -157,6 +177,7 @@ class CanonicalGraphFactory:
                     identity=state.identity,
                     step=step,
                     result_refs=state.result_refs,
+                    result_ref_sets=state.result_ref_sets,
                     fallback_ref=state.fallback_ref,
                     review_ref=state.review_ref,
                     idempotency_key=f"stage:{wf}:{step}:{state.review_ref or 'initial'}",
@@ -202,8 +223,11 @@ class CanonicalGraphFactory:
                         break
                 assert result is not None
                 refs = dict(state.result_refs)
+                ref_sets = dict(state.result_ref_sets)
                 if result.result_ref:
                     refs[step] = result.result_ref
+                    if result.related_result_refs:
+                        ref_sets[step] = result.related_result_refs
                 status = result.status
                 if status in {
                     StageOutcomeCode.SUCCESS,
@@ -224,7 +248,13 @@ class CanonicalGraphFactory:
                 completed = list(state.completed_steps)
                 if route == "NEXT" and step not in completed:
                     completed.append(step)
-                current = current.model_copy(update={"reason_codes": result.reason_codes})
+                current = current.model_copy(
+                    update={
+                        "reason_codes": result.reason_codes,
+                        "result_refs": refs,
+                        "result_ref_sets": ref_sets,
+                    }
+                )
                 event(
                     current,
                     WorkflowEventType.NODE_COMPLETED,
@@ -238,6 +268,9 @@ class CanonicalGraphFactory:
                 return {
                     "current_step": step.value,
                     "result_refs": {k.value: str(v) for k, v in refs.items()},
+                    "result_ref_sets": {
+                        k.value: [str(v) for v in values] for k, values in ref_sets.items()
+                    },
                     "completed_steps": [s.value for s in completed],
                     "fallback_ref": str(result.fallback_ref)
                     if result.fallback_ref
