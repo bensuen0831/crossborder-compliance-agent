@@ -91,7 +91,10 @@ class _TenantScopedRepository:
         )
 
 
-class PostgresProjectRepository(_TenantScopedRepository):
+from crossborder_compliance.infrastructure.persistence.project_intake import ProjectIntakeOperations
+
+
+class PostgresProjectRepository(ProjectIntakeOperations, _TenantScopedRepository):
     def add_project(self, project: Project) -> Project:
         self._assert_tenant(project.tenant_id)
         row = ProjectEntity(
