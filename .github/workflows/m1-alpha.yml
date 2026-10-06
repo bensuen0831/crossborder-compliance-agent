@@ -1,7 +1,7 @@
 name: M1 Intake Analysis Alpha
 on:
   pull_request:
-    paths: ['src/crossborder_compliance/interfaces/api/routes/workflow.py', 'src/crossborder_compliance/interfaces/api/workflow_app.py', 'scripts/m1_phase1lb_ownership.py', 'scripts/phase1l_b_ownership.py', 'tests/test_m1*', 'evidence/integration/m1-phase1lb/**', 'frontend/**', 'docs/m1/**', 'artifacts/m1/**', '.github/workflows/m1-alpha.yml']
+    paths: ['src/crossborder_compliance/infrastructure/persistence/workflow_read_projection.py', 'src/crossborder_compliance/interfaces/api/routes/workflow.py', 'src/crossborder_compliance/interfaces/api/workflow_app.py', 'scripts/m1_phase1lb_ownership.py', 'scripts/phase1l_b_ownership.py', 'tests/test_m1*', 'evidence/integration/m1-phase1lb/**', 'frontend/**', 'docs/m1/**', 'artifacts/m1/**', '.github/workflows/m1-alpha.yml']
   workflow_dispatch:
 permissions:
   contents: read

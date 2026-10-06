@@ -13,3 +13,5 @@ Step4 factual confirmation starts the authorized existing snapshot; local intake
 Only M1_WORKFLOW_INTEGRATION_PENDING_PHASE1L_B is eligible for closure after empirical integrated UAT. Other intake persistence/project creation, binary linkage, category catalog, scenario availability/localization, snapshot projections/discovery/legal-detail, production identity/CSRF and fine-grained RBAC gaps remain open. This work does not solve production plan provisioning or claim production readiness.
 
 Focused ownership/API/frontend checks precede one local full backend/frontend gate. PR20 then requires exact-head backend, M1 UAT and M0 CI before Ready/merge. Final exact-main system gates precede the annotated integration tag. Final immutable identities/evidence are delivered separately after freezing main/tag. No M2 or Phase1K-B implementation.
+
+The bridge uses a read-only persistence projection for scoped run/snapshot/review identifiers. ORM rows remain within persistence; the API imports no ORM models. This exact integration path creates no store, migration, or Domain decision.

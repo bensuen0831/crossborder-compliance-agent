@@ -9,7 +9,6 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel, ConfigDict, Field
-from sqlalchemy import select
 
 from crossborder_compliance.application.workflow_formal import FormalWorkflowPlan
 from crossborder_compliance.application.workflow_skeleton import WorkflowDeliveryRetryableFailure
@@ -22,15 +21,11 @@ from crossborder_compliance.infrastructure.persistence.country_compliance_reposi
     PostgresCountryComplianceRepository,
 )
 from crossborder_compliance.infrastructure.persistence.db import build_session_factory
-from crossborder_compliance.infrastructure.persistence.models import (
-    AnalysisSnapshotEntity,
-    ProjectEntity,
-    ProjectVersionEntity,
-    ReviewTaskEntity,
-    WorkflowRunEntity,
-)
 from crossborder_compliance.infrastructure.persistence.retrieval_repositories import (
     PostgresRetrievalRepository,
+)
+from crossborder_compliance.infrastructure.persistence.workflow_read_projection import (
+    WorkflowReadProjection,
 )
 from crossborder_compliance.infrastructure.workflow_formal_composition import (
     formal_workflow_runtime,
@@ -82,22 +77,7 @@ def scope(sf, context, project_id, snapshot_id, operation):
         or f"project:{project_id}:comply" not in context.permission.scopes
     ):
         raise LookupError("workflow resource not found")
-    with sf() as session:
-        snapshot = session.get(AnalysisSnapshotEntity, str(snapshot_id))
-        version = (
-            session.get(ProjectVersionEntity, snapshot.project_version_id) if snapshot else None
-        )
-        project = session.get(ProjectEntity, str(project_id))
-        if (
-            not snapshot
-            or not version
-            or not project
-            or version.project_id != str(project_id)
-            or any(row.tenant_id != str(context.tenant_id) for row in (snapshot, version, project))
-            or snapshot.status != "ACTIVE"
-            or project.status != "ACTIVE"
-        ):
-            raise LookupError("workflow resource not found")
+    WorkflowReadProjection(sf, context).require_scope(project_id, snapshot_id)
 
 
 def delivery(request, context, project_id, snapshot_id, operation, expected_run=None):
@@ -157,17 +137,7 @@ def view(sf, runtime, context, run_id, project_id, snapshot_id):
             raise LookupError("workflow resource not found")
     review_id = state.get("review_ref")
     if runtime.get_status(run_id) == "REVIEW_REQUIRED" and not review_id:
-        with sf() as session:
-            review_id = session.scalar(
-                select(ReviewTaskEntity.review_id)
-                .where(
-                    ReviewTaskEntity.workflow_run_id == str(run_id),
-                    ReviewTaskEntity.tenant_id == str(context.tenant_id),
-                    ReviewTaskEntity.review_type == "WORKFLOW_STAGE_REVIEW",
-                    ReviewTaskEntity.status == "PENDING",
-                )
-                .order_by(ReviewTaskEntity.created_at.desc())
-            )
+        review_id = WorkflowReadProjection(sf, context).pending_review(run_id)
     return WorkflowView(
         workflow_run_id=run_id,
         project_id=project_id,
@@ -215,17 +185,7 @@ def start(
 def read(run_id: UUID, request: Request, context: Context):
     try:
         sf = sessions(request)
-        with sf() as session:
-            run = session.get(WorkflowRunEntity, str(run_id))
-            snapshot = (
-                session.get(AnalysisSnapshotEntity, run.analysis_snapshot_id) if run else None
-            )
-            version = (
-                session.get(ProjectVersionEntity, snapshot.project_version_id) if snapshot else None
-            )
-            if not run or run.tenant_id != str(context.tenant_id) or not version:
-                raise LookupError("workflow resource not found")
-            project_id, snapshot_id = UUID(version.project_id), UUID(run.analysis_snapshot_id)
+        project_id, snapshot_id = WorkflowReadProjection(sf, context).run_scope(run_id)
         sf, runtime, _, _ = delivery(request, context, project_id, snapshot_id, "read", run_id)
         return view(sf, runtime, context, run_id, project_id, snapshot_id)
     except Exception as exc:
