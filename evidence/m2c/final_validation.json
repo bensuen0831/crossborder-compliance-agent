@@ -1,0 +1,2164 @@
+{
+  "decision": "M2-C = PASS",
+  "m2c0": "PASS",
+  "m2c1": "PASS",
+  "m2d_entry": "ALLOWED",
+  "m2d_implementation_started": false,
+  "branch": "milestone-m2c-stage1-results",
+  "final_code_sha": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+  "baseline_sha": "42571c7148456f41adb64d2528c169a357214a25",
+  "draft_pr": 24,
+  "main_merged": false,
+  "migration_head": "0014_m2c_formal_result_authority",
+  "backend": {
+    "passed": 727,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "new_m2c_tests": 40,
+  "runtime": {
+    "all_mandatory_assertions_pass": true,
+    "analysis_snapshot_id": "6124b663-0c9d-42ec-8b63-fb52195e6906",
+    "assertions": {
+      "analysis_snapshot_and_checkpoint_are_separate_sources": true,
+      "analysis_snapshot_exists": true,
+      "analysis_snapshot_id_preserved_after_restart": true,
+      "api_layer_has_no_raw_langgraph_import": true,
+      "audit_provenance_retained": true,
+      "canonical_events_only": true,
+      "domain_metadata_does_not_own_checkpoint_tables": true,
+      "external_workflow_event_contract_has_no_raw_langgraph_fields": true,
+      "final_workflow_status_completed": true,
+      "formal_completion_audit_count_eq_one": true,
+      "graph_runtime_checkpointer_state_schema_versions_retained": true,
+      "no_raw_langgraph_payload_keys_persisted": true,
+      "postgres_checkpoint_row_gt_zero": true,
+      "process1_checkpoint_existed_before_process_exit": true,
+      "process2_loaded_checkpoint_context_before_resume": true,
+      "resume_retry_event_counts_unchanged": true,
+      "resume_retry_review_count_unchanged": true,
+      "resume_retry_safe": true,
+      "review_required_event_count_eq_one": true,
+      "review_task_count_eq_one": true,
+      "tenant_id_preserved_after_restart": true,
+      "workflow_completed_event_count_eq_one": true,
+      "workflow_resumed_event_count_eq_one": true,
+      "workflow_run_exists": true,
+      "workflow_run_id_equals_thread_id": true
+    },
+    "audit_event_count": 2,
+    "canonical_event_counts": {
+      "NODE_COMPLETED": 1,
+      "REVIEW_REQUIRED": 1,
+      "WORKFLOW_COMPLETED": 1,
+      "WORKFLOW_RESUMED": 1,
+      "WORKFLOW_STARTED": 1
+    },
+    "canonical_events": [
+      "WORKFLOW_STARTED",
+      "NODE_COMPLETED",
+      "REVIEW_REQUIRED",
+      "WORKFLOW_RESUMED",
+      "WORKFLOW_COMPLETED"
+    ],
+    "checkpoint_query_error": null,
+    "checkpoint_row_count": 5,
+    "checkpoint_tables": [
+      "checkpoint_blobs",
+      "checkpoint_migrations",
+      "checkpoint_writes",
+      "checkpoints"
+    ],
+    "completion_audit_count": 1,
+    "process1_checkpoint_next": [
+      "node_b"
+    ],
+    "process2_checkpoint_values_before_resume": {
+      "analysis_snapshot_id": "6124b663-0c9d-42ec-8b63-fb52195e6906",
+      "completed": false,
+      "node_a_completed": true,
+      "phase": "A_DONE",
+      "tenant_id": "358f5648-a57d-4fa7-baf8-2eb1b54a558f",
+      "workflow_run_id": "95bab2e8-2d23-4e28-9f9b-d8180af44181"
+    },
+    "raw_payload_key_hits": [],
+    "retained_versions": {
+      "checkpointer_version": "3.1.2",
+      "graph_definition_version": "phase1a-smoke-v1",
+      "langgraph_runtime_version": "1.2.14",
+      "state_schema_version": "phase1a-smoke-state-v1"
+    },
+    "review_task_count": 1,
+    "tenant_id": "358f5648-a57d-4fa7-baf8-2eb1b54a558f",
+    "thread_id": "95bab2e8-2d23-4e28-9f9b-d8180af44181",
+    "workflow_run_id": "95bab2e8-2d23-4e28-9f9b-d8180af44181",
+    "workflow_status": "COMPLETED"
+  },
+  "architecture": {
+    "existing": {
+      "pass": true,
+      "passed": 151,
+      "total": 151,
+      "checks": [
+        {
+          "check": "domain_has_no_langgraph_import",
+          "pass": true,
+          "evidence": "clean"
+        },
+        {
+          "check": "domain_has_no_sqlalchemy_import",
+          "pass": true,
+          "evidence": "clean"
+        },
+        {
+          "check": "application_has_no_sqlalchemy_import",
+          "pass": true,
+          "evidence": "clean"
+        },
+        {
+          "check": "langgraph_runtime_isolated_to_adapter",
+          "pass": true,
+          "evidence": [
+            "src/crossborder_compliance/workflows/langgraph_adapter.py"
+          ]
+        },
+        {
+          "check": "no_eval_exec",
+          "pass": true,
+          "evidence": "clean"
+        },
+        {
+          "check": "human_review_node_not_agent",
+          "pass": true,
+          "evidence": "clean"
+        },
+        {
+          "check": "classification_results_is_only_formal_classification_source",
+          "pass": true,
+          "evidence": "classification_results present; data_classifications absent"
+        },
+        {
+          "check": "workflow_stage_view_not_persisted",
+          "pass": true,
+          "evidence": "no WorkflowStageView persistence model/table"
+        },
+        {
+          "check": "regulatory_structure_node_is_canonical_persistence",
+          "pass": true,
+          "evidence": "RegulatoryStructureNodeEntity present"
+        },
+        {
+          "check": "stage1_explicit_cross_border_results",
+          "pass": true,
+          "evidence": "Stage1ComplianceResultDTO.cross_border_results"
+        },
+        {
+          "check": "legal_basis_rulehit_many_to_many_contract",
+          "pass": true,
+          "evidence": "LegalBasisItemDTO.rule_hit_ids[]"
+        },
+        {
+          "check": "legal_basis_rulehit_many_to_many_persistence",
+          "pass": true,
+          "evidence": "association table legal_basis_rule_hit_links"
+        },
+        {
+          "check": "domain_migration_does_not_own_checkpointer_schema",
+          "pass": true,
+          "evidence": "no checkpoint internal DDL in Domain Alembic"
+        },
+        {
+          "check": "api_workflow_idempotency_separated",
+          "pass": true,
+          "evidence": "separate tables present"
+        },
+        {
+          "check": "workflow_state_has_no_runtime_services_or_secrets",
+          "pass": true,
+          "evidence": {
+            "forbidden": [
+              "db_session",
+              "repository",
+              "client",
+              "secret",
+              "api_key",
+              "provider",
+              "document_bytes",
+              "knowledge_chunks"
+            ]
+          }
+        },
+        {
+          "check": "durable_postgres_checkpointer_setup_present",
+          "pass": true,
+          "evidence": "PostgresSaver + official setup() path"
+        },
+        {
+          "check": "thread_id_backend_bound_to_workflow_run_id",
+          "pass": true,
+          "evidence": "workflow_run_id used as LangGraph thread_id"
+        },
+        {
+          "check": "conversation_thread_not_langgraph_thread_id",
+          "pass": true,
+          "evidence": "ConversationThreadEntity has no standalone LangGraph thread_id field"
+        },
+        {
+          "check": "interrupt_pre_side_effect_event_idempotent",
+          "pass": true,
+          "evidence": "deterministic event + idempotent review key"
+        },
+        {
+          "check": "raw_langgraph_event_not_external_contract",
+          "pass": true,
+          "evidence": "canonical event boundary present"
+        },
+        {
+          "check": "api_routes_do_not_return_or_import_orm_models",
+          "pass": true,
+          "evidence": "API layer uses Pydantic/Application DTOs only"
+        },
+        {
+          "check": "domain_repositories_are_automatically_tenant_scoped",
+          "pass": true,
+          "evidence": [
+            "PostgresProjectRepository",
+            "PostgresPartyRepository",
+            "PostgresDocumentRepository",
+            "PostgresDataInventoryRepository",
+            "PostgresJurisdictionRepository",
+            "PostgresClassificationRepository",
+            "PostgresEvidenceRepository",
+            "PostgresLegalBasisRepository",
+            "PostgresAnalysisSnapshotRepository",
+            "PostgresWorkflowRunRepository",
+            "PostgresReviewRepository",
+            "PostgresAnalysisStageRepository",
+            "PostgresConversationRepository"
+          ]
+        },
+        {
+          "check": "no_second_classification_repository",
+          "pass": true,
+          "evidence": "one ClassificationRepository adapter; no parallel DataClassificationRepository"
+        },
+        {
+          "check": "no_country_product_regulation_fixed_business_logic",
+          "pass": true,
+          "evidence": "no fixed country/product/regulatory-document business skills"
+        },
+        {
+          "check": "frontend_has_no_business_metadata_enum",
+          "pass": true,
+          "evidence": "no hard-coded frontend business option lists"
+        },
+        {
+          "check": "agent_skill_has_no_model_name_or_base_url",
+          "pass": true,
+          "evidence": "no provider/model/base-url binding in agent/skill/workflow code"
+        },
+        {
+          "check": "prompt_business_content_not_embedded_in_agent",
+          "pass": true,
+          "evidence": "no embedded business prompt in agent/skill code"
+        },
+        {
+          "check": "registry_not_source_of_truth",
+          "pass": true,
+          "evidence": "ProjectionRegistry explicitly identifies itself as non-authoritative projection"
+        },
+        {
+          "check": "admin_draft_not_runtime_visible",
+          "pass": true,
+          "evidence": "runtime loaders filter ACTIVE lifecycle versions only"
+        },
+        {
+          "check": "model_secret_not_persisted_in_metadata",
+          "pass": true,
+          "evidence": "model metadata stores secret_ref only; no credential-value columns"
+        },
+        {
+          "check": "snapshot_not_dynamic_registry_lookup_on_resume",
+          "pass": true,
+          "evidence": "resume adapter does not consult registry; snapshot pins are immutable"
+        },
+        {
+          "check": "registry_publish_uses_transactional_outbox",
+          "pass": true,
+          "evidence": "publish and RegistrySyncEvent are written inside the same DB transaction"
+        },
+        {
+          "check": "no_country_specific_registry_branch",
+          "pass": true,
+          "evidence": "registry resolution is metadata/binding driven"
+        },
+        {
+          "check": "graph_state_has_no_document_binary",
+          "pass": true,
+          "evidence": "LangGraph state contains references only; no document binary fields"
+        },
+        {
+          "check": "canonical_document_not_llm_narrative",
+          "pass": true,
+          "evidence": "canonical parser output is structured and parser-driven, not LLM narrative"
+        },
+        {
+          "check": "candidate_vision_has_no_legal_result",
+          "pass": true,
+          "evidence": "CandidateDiagramResult contains candidate nodes/edges only"
+        },
+        {
+          "check": "extracted_result_has_source_trace",
+          "pass": true,
+          "evidence": "candidate facts/items/flows carry SourceTraceRef and persistence rejects empty provenance"
+        },
+        {
+          "check": "spreadsheet_preserves_row_column_provenance",
+          "pass": true,
+          "evidence": "XLSX adapter preserves row/column/header/formula/merged-cell metadata"
+        },
+        {
+          "check": "formal_counts_not_llm",
+          "pass": true,
+          "evidence": "DocumentAnalysisSummary is programmatically aggregated from persistence"
+        },
+        {
+          "check": "parse_run_is_versioned",
+          "pass": true,
+          "evidence": "Phase 1B parse-run identity + Phase 1D one-to-one detail extension has explicit version and unique tenant/document/version constraint"
+        },
+        {
+          "check": "snapshot_can_pin_parse_run",
+          "pass": true,
+          "evidence": "AnalysisSnapshot has immutable parse-run pin persistence"
+        },
+        {
+          "check": "parser_provider_is_adapter_only",
+          "pass": true,
+          "evidence": "provider SDKs isolated to infrastructure/document_parsers.py"
+        },
+        {
+          "check": "phase1d_has_no_country_product_regulation_logic",
+          "pass": true,
+          "evidence": "Document Intelligence foundation contains no fixed country/product/regulation decisions"
+        },
+        {
+          "check": "candidate_not_formal_compliance_input",
+          "pass": true,
+          "evidence": "Candidate \u2192 Resolution \u2192 Formal object boundary is persisted; candidates are retained"
+        },
+        {
+          "check": "product_context_is_registry_driven",
+          "pass": true,
+          "evidence": "Product Context resolves ACTIVE metadata definitions and persists registry bindings"
+        },
+        {
+          "check": "no_product_search_all_scope",
+          "pass": true,
+          "evidence": "No selection uses document-detected scope or unresolved generic scope; never all products"
+        },
+        {
+          "check": "product_conflict_is_explicit",
+          "pass": true,
+          "evidence": "Explicit selection vs detected scope conflict is persisted as PRODUCT_CONTEXT_CONFLICT"
+        },
+        {
+          "check": "business_fact_conflict_is_explicit",
+          "pass": true,
+          "evidence": "Conflicting normalized values for one registry fact type create explicit reviewable conflict"
+        },
+        {
+          "check": "possible_duplicate_requires_review_conflict",
+          "pass": true,
+          "evidence": "Semantic POSSIBLE_SAME remains candidate-only and enters ContextConflict/review"
+        },
+        {
+          "check": "unresolved_party_requires_review_conflict",
+          "pass": true,
+          "evidence": "Unresolved PartyCandidate persists PartyResolution plus explicit reviewable conflict"
+        },
+        {
+          "check": "data_item_source_trace_required",
+          "pass": true,
+          "evidence": "Formal data_items retain all candidate and SourceTrace links"
+        },
+        {
+          "check": "formal_counts_are_separate",
+          "pass": true,
+          "evidence": "Raw occurrence, normalized DataItem and DataGroup counts are separate programmatic aggregates"
+        },
+        {
+          "check": "no_parallel_data_item_source_of_truth",
+          "pass": true,
+          "evidence": "Phase 1B data_items remains authoritative; Phase 1E adds detail/link tables only"
+        },
+        {
+          "check": "no_parallel_data_flow_source_of_truth",
+          "pass": true,
+          "evidence": "Phase 1B data_flow_nodes/data_flow_edges/data_item_flow_links remain authoritative"
+        },
+        {
+          "check": "data_flow_is_structured",
+          "pass": true,
+          "evidence": "Formal flow uses structured Node/Edge/DataItemFlowLink plus versioned detail"
+        },
+        {
+          "check": "jurisdiction_not_regulation_decision",
+          "pass": true,
+          "evidence": "Jurisdiction Context carries location context only; no regulation/cross-border legal decision"
+        },
+        {
+          "check": "semantic_resolution_candidate_only",
+          "pass": true,
+          "evidence": "Semantic similarity can create candidate/review evidence but does not directly merge formal DataItems"
+        },
+        {
+          "check": "context_snapshot_versioned",
+          "pass": true,
+          "evidence": "AnalysisSnapshot pins immutable versioned Context/DataInventory/DataFlow versions"
+        },
+        {
+          "check": "no_country_product_rule_logic",
+          "pass": true,
+          "evidence": "No country/product-code/regulation decision routing, risk, or compliance-path logic"
+        },
+        {
+          "check": "knowledge_platform_not_vector_db",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "scope_resolver_has_no_retrieval",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "hard_filter_precedes_similarity",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "unrelated_product_knowledge_excluded",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "unresolved_product_scope_fail_safe",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "knowledge_chunk_has_provenance",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "vector_index_is_derived",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "fts_index_is_derived",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "registry_not_knowledge_source",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "translation_review_boundary",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "knowledge_quality_before_active",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "snapshot_pins_knowledge_version",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "phase1f_uses_phase1e_context",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "no_country_specific_knowledge_branch",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "no_regulation_business_decision",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "controlled_downloader_boundary",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "knowledge_ingestion_no_graph_checkpoints",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "no_parallel_knowledge_source",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "retrieval_consumes_phase1f_scope",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "retrieval_hard_filters_before_similarity",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "retrieval_indexes_are_derived",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "hybrid_merge_deterministic_score_provenance",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "reranker_allowed_candidates_only",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "rerank_scope_revalidation",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "evidence_pack_complete_provenance",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "rag_context_not_legal_source",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "sufficiency_is_policy_driven",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "generic_knowledge_not_jurisdiction_sufficient",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "external_preserves_formal_scope",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "unverified_discovery_not_evidence",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "official_external_validation",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "runtime_external_not_active",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "external_snapshot_reproducible",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "fallback_guidance_nonempty",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "fallback_not_compliance_path",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "retrieval_policy_snapshot_pinned",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "no_country_product_regulation_retrieval_branch",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "retrieval_services_no_provider_sql_graph_sdk",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "wiki_reuses_durable_review",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "wiki_not_official_legal_evidence",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "graph_reviewed_derived_provenance",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "runtime_client_cannot_supply_scope",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "normal_publish_automatic_runtime_sync",
+          "pass": true,
+          "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+        },
+        {
+          "check": "publication_reuses_registry_outbox_service",
+          "pass": true,
+          "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+        },
+        {
+          "check": "runtime_ready_before_new_retrieval",
+          "pass": true,
+          "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+        },
+        {
+          "check": "publication_snapshot_stability",
+          "pass": true,
+          "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+        },
+        {
+          "check": "publication_duplicate_retry_safe",
+          "pass": true,
+          "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+        },
+        {
+          "check": "publication_failed_build_not_ready",
+          "pass": true,
+          "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+        },
+        {
+          "check": "runtime_materialization_no_agent_graph",
+          "pass": true,
+          "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+        },
+        {
+          "check": "rule_runtime_validated_typed_ast",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "rule_ast_no_unrestricted_calls",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "rule_domain_no_external_dependencies",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "formal_classification_versioned_provenance",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "no_data_typed_outcome",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "rule_publish_gate_uses_existing_transaction",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "rule_and_scheme_content_immutable",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "api_references_only_no_narrative",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "classification_reuses_scope_checked_evidence",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "classification_persisted_retry_unique",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "applicability_canonical_identity",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "profile_reuses_metadata_governance",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "profile_reuses_registry_outbox",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "scenario_fixed_pipeline_deterministic",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "scenario_conflicts_typed",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "generic_country_capabilities_only",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "generic_skills_pure",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "applicability_scope_revalidation",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "applicability_reference_only_api",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "profile_new_pin_ready_and_historical",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "applicability_conflicts_and_insufficiency",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "scenario_no_fake_classification",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "applicability_immutable_retry_canonical_links",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "applicability_has_no_country_branch_or_provider",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "phase1i_migration_frozen_explicit_dual_path",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "locale_metadata_single_versioned_authority",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "locale_no_business_translations_in_domain_application",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "j_approved_rules_append_only",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_v1_contracts_byte_preserved",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_dependency_order_authority",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_domain_application_pure",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_no_llm_authority",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_legal_stage_excludes_future_risk",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_decimal_risk_governed_examples",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_recommendation_no_tie_choice",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_final_preserves_unresolved",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_reference_only_request",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_existing_registry_policy_governance",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_five_immutable_result_authorities",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_canonical_provenance_refs",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_locale_neutral_canonical_decimal",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_security_idempotency_revalidation",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_migration_dual_path_test",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        }
+      ]
+    },
+    "m2a": {
+      "pass": true,
+      "passed": 13,
+      "total": 13,
+      "checks": {
+        "intake_draft_not_formal_input": true,
+        "confirmed_intake_required_for_snapshot": true,
+        "snapshot_pins_intake_version": true,
+        "no_parallel_project_source_of_truth": true,
+        "no_parallel_intake_source_of_truth": true,
+        "frontend_does_not_authorize": true,
+        "frontend_does_not_create_formal_decision": true,
+        "intake_metadata_is_registry_driven": true,
+        "cross_tenant_intake_forbidden": true,
+        "workflow_start_requires_authorized_snapshot": true,
+        "browser_cannot_inject_policy_or_decision": true,
+        "manual_fact_uses_canonical_provenance_without_fake_document": true,
+        "missing_formal_facts_controlled_stop": true
+      }
+    },
+    "m2b": {
+      "pass": true,
+      "passed": 27,
+      "total": 27,
+      "checks": {
+        "stable_canonical_data_item_identity": true,
+        "immutable_inventory_version_detail": true,
+        "inventory_version_scoped_membership": true,
+        "inventory_version_scoped_candidate_links": true,
+        "inventory_version_scoped_source_trace_links": true,
+        "snapshot_cannot_see_future_provenance": true,
+        "phase1f_reads_exact_inventory_version": true,
+        "phase1h_reads_exact_inventory_version": true,
+        "phase1i_reads_exact_inventory_version": true,
+        "snapshot_evidence_scoped_to_input_universe": true,
+        "no_latest_version_fallback": true,
+        "historical_snapshot_immutable": true,
+        "unknown_legacy_provenance_not_fabricated": true,
+        "version_scoped_product_and_flow_links": true,
+        "binary_not_in_workflow_state": true,
+        "document_source_of_truth_is_single": true,
+        "parse_run_source_of_truth_is_single": true,
+        "document_candidate_requires_genuine_source_trace": true,
+        "no_fake_parse_run": true,
+        "manual_and_document_provenance_distinct": true,
+        "snapshot_pins_exact_document_universe": true,
+        "confirmed_snapshot_is_not_mutated": true,
+        "binary_storage_is_infrastructure_boundary": true,
+        "frontend_does_not_authorize_upload": true,
+        "frontend_does_not_formalize_facts": true,
+        "document_parser_not_reimplemented": true,
+        "cross_source_conflict_uses_existing_authority": true
+      }
+    },
+    "c0": {
+      "pass_": true,
+      "passed": 15,
+      "total": 15,
+      "checks": {
+        "crossborder_status_not_derived_from_final_path_status": true,
+        "conditional_proposal_not_equal_conditional_transfer": true,
+        "crossborder_has_formal_owner": true,
+        "crossborder_policy_is_versioned_and_pinned": true,
+        "crossborder_has_legal_basis_and_evidence": true,
+        "required_document_has_formal_owner": true,
+        "required_document_has_requirement_level": true,
+        "required_document_is_metadata_rule_driven": true,
+        "template_availability_does_not_change_legal_requirement": true,
+        "required_document_does_not_trigger_generation": true,
+        "stage2_requires_user_opt_in": true,
+        "frontend_has_no_crossborder_decision_logic": true,
+        "frontend_has_no_document_requirement_logic": true,
+        "historical_snapshot_preserves_crossborder_result": true,
+        "historical_snapshot_preserves_document_requirement": true
+      }
+    },
+    "c1": {
+      "pass_": true,
+      "passed": 15,
+      "total": 15,
+      "checks": {
+        "single_canonical_graph": true,
+        "formal_order": true,
+        "nodes_delegate_authority": true,
+        "legacy_version_closed": true,
+        "typed_aggregation_has_no_infrastructure": true,
+        "aggregation_reads_owning_results": true,
+        "exact_document_universe": true,
+        "exact_context_membership": true,
+        "result_scope_revalidated": true,
+        "historical_authority_gap_explicit": true,
+        "frontend_uses_authority_not_path_status": true,
+        "frontend_requires_no_decision_write": true,
+        "unassessed_subjects_fail_closed": true,
+        "template_does_not_change_requirement": true,
+        "stage2_unavailable_and_opt_in_only": true
+      }
+    }
+  },
+  "architecture_passed": 221,
+  "c0_c1_checks_proven_by_exact_head_full_pytest": true,
+  "frontend": {
+    "passed": 108,
+    "failed": 0,
+    "skipped": 0,
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "build": "PASS",
+    "i18n": {
+      "status": "PASS",
+      "locales": [
+        "zh-CN",
+        "zh-HK",
+        "en-US"
+      ],
+      "keys_per_locale": 494,
+      "checked_files": 40,
+      "hard_coded_ui_strings": 0,
+      "missing_keys": 0
+    },
+    "source_sha": "70b5c69d9f820918fb5561bcad403219714a8da9"
+  },
+  "frontend_exact_head_ci_passed": 108,
+  "browsers": {
+    "m2c": {
+      "stats": {
+        "startTime": "2026-10-07T16:11:34.951Z",
+        "duration": 475888.028,
+        "expected": 12,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "retry_count": 0,
+      "cases": [
+        {
+          "title": "four-step intake, canonical results, official citation and locale state invariance",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "four-step intake, canonical results, official citation and locale state invariance",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "four-step intake, canonical results, official citation and locale state invariance",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "new persisted project, refresh, exact snapshot and canonical START/READ in zh-CN",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "new persisted project, refresh, exact snapshot and canonical START/READ in zh-HK",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "new persisted project, refresh, exact snapshot and canonical START/READ in en-US",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "real binary, pinned documents and canonical workflow in zh-CN",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "real binary, pinned documents and canonical workflow in zh-HK",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "real binary, pinned documents and canonical workflow in en-US",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "Stage 1 formal authorities, visualizations and exact-snapshot reread in zh-CN",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "Stage 1 formal authorities, visualizations and exact-snapshot reread in zh-HK",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "Stage 1 formal authorities, visualizations and exact-snapshot reread in en-US",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        }
+      ]
+    },
+    "m2b": {
+      "stats": {
+        "startTime": "2026-10-07T16:13:12.243Z",
+        "duration": 489141.966,
+        "expected": 9,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "retry_count": 0,
+      "cases": [
+        {
+          "title": "four-step intake, canonical results, official citation and locale state invariance",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "four-step intake, canonical results, official citation and locale state invariance",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "four-step intake, canonical results, official citation and locale state invariance",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "new persisted project, refresh, exact snapshot and canonical START/READ in zh-CN",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "new persisted project, refresh, exact snapshot and canonical START/READ in zh-HK",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "new persisted project, refresh, exact snapshot and canonical START/READ in en-US",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "real binary, pinned documents and canonical workflow in zh-CN",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "real binary, pinned documents and canonical workflow in zh-HK",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "real binary, pinned documents and canonical workflow in en-US",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        }
+      ]
+    },
+    "m1": {
+      "stats": {
+        "startTime": "2026-10-07T16:25:36.940Z",
+        "duration": 138677.61500000002,
+        "expected": 3,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "retry_count": 0,
+      "cases": [
+        {
+          "title": "four-step intake, canonical results, official citation and locale state invariance",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "four-step intake, canonical results, official citation and locale state invariance",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "four-step intake, canonical results, official citation and locale state invariance",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        }
+      ]
+    },
+    "m2a": {
+      "stats": {
+        "startTime": "2026-10-07T16:13:14.885Z",
+        "duration": 153142.01700000002,
+        "expected": 3,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "retry_count": 0,
+      "cases": [
+        {
+          "title": "new persisted project, refresh, exact snapshot and canonical START/READ in zh-CN",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "new persisted project, refresh, exact snapshot and canonical START/READ in zh-HK",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "new persisted project, refresh, exact snapshot and canonical START/READ in en-US",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        }
+      ]
+    },
+    "m0": {
+      "stats": {
+        "startTime": "2026-10-07T16:10:46.478Z",
+        "duration": 249819.66700000002,
+        "expected": 36,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "retry_count": 0,
+      "cases": [
+        {
+          "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        },
+        {
+          "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "retry": 0
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ci": [
+    {
+      "workflow": "phase1a-runtime-smoke",
+      "run_id": 37649725078,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37649725078",
+      "conclusion": "SUCCESS",
+      "tested_sha": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+      "runner_checkout_sha": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+      "checkout_jobs": {
+        "contract-tests": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+        "mandatory-runtime-smoke": "2c3dc003c70829c02e24f4fc56402c306273baa0"
+      }
+    },
+    {
+      "workflow": "M2C Formal Result Workspace",
+      "run_id": 37649725111,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37649725111",
+      "conclusion": "SUCCESS",
+      "tested_sha": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+      "runner_checkout_sha": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+      "checkout_jobs": {
+        "frontend-real-backend-uat": "2c3dc003c70829c02e24f4fc56402c306273baa0"
+      }
+    },
+    {
+      "workflow": "M2B Production Document Integration",
+      "run_id": 37649725057,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37649725057",
+      "conclusion": "SUCCESS",
+      "tested_sha": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+      "runner_checkout_sha": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+      "checkout_jobs": {
+        "frontend-real-backend-uat": "2c3dc003c70829c02e24f4fc56402c306273baa0"
+      }
+    },
+    {
+      "workflow": "M1 Intake Analysis Alpha",
+      "run_id": 37649725091,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37649725091",
+      "conclusion": "SUCCESS",
+      "tested_sha": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+      "runner_checkout_sha": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+      "checkout_jobs": {
+        "frontend-real-backend-uat": "2c3dc003c70829c02e24f4fc56402c306273baa0"
+      }
+    },
+    {
+      "workflow": "M2A Production Intake",
+      "run_id": 37649724995,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37649724995",
+      "conclusion": "SUCCESS",
+      "tested_sha": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+      "runner_checkout_sha": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+      "checkout_jobs": {
+        "frontend-real-backend-uat": "2c3dc003c70829c02e24f4fc56402c306273baa0"
+      }
+    },
+    {
+      "workflow": "M0 Knowledge & Evidence Preview",
+      "run_id": 37649725045,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37649725045",
+      "conclusion": "SUCCESS",
+      "tested_sha": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+      "runner_checkout_sha": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+      "checkout_jobs": {
+        "frontend": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+        "real-backend-uat": "2c3dc003c70829c02e24f4fc56402c306273baa0"
+      }
+    }
+  ],
+  "ci_identity": {
+    "run_id": "37649725078",
+    "run_attempt": "1",
+    "repository": "bensuen0831/crossborder-compliance-agent",
+    "workflow": "phase1a-runtime-smoke",
+    "job": "mandatory-runtime-smoke",
+    "sha": "5374b3d6740516da0fd05ef6f49911bcd198ca9e",
+    "tested_pr_head_sha": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+    "runner_checkout_sha": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+    "ref": "refs/pull/24/merge",
+    "runner_os": "Linux",
+    "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37649725078"
+  },
+  "migration": {
+    "head": "0014_m2c_formal_result_authority",
+    "parent": "0013_m2b_context_temporal_contract",
+    "dual_path": "PASS",
+    "schema_equivalence": "PASS",
+    "empty_downgrade_reupgrade": "PASS",
+    "authoritative_data_and_governed_policy_retention_refusal": "PASS",
+    "frozen_migration_sha256": {
+      "alembic/versions/0001_phase1a_runtime_tables.py": "d8a3d4c060beaa95ee2daab5658a476854640c24b3100cee6ebd4c44d86d793a",
+      "alembic/versions/0002_phase1b_domain_foundation.py": "4fa947ad533c7faeaa5d8893917a7c1fcb9933436be9ec41180524eae4c3b9da",
+      "alembic/versions/0003_phase1c_metadata_registry.py": "fb8c17f96cfe83c6cbb9f5d1b71450f1e77ae1ee1a9d9df334f6fefff24d66b1",
+      "alembic/versions/0004_phase1d_document_intelligence.py": "9f1bf0b1ad8924d698a66d996571565fe5ffd22808f906d639d04549fa8d48ff",
+      "alembic/versions/0005_phase1e_context_resolution.py": "6f524b052b4e13df4d809f9ab85157999df43ed9f819d76f5aff9e52493993e3",
+      "alembic/versions/0006_phase1f_knowledge_scope.py": "5c4ffecc8cf1ff7787bb282eaed18699b918ad5e40c44e23f761fefd0eeb6085",
+      "alembic/versions/0007_phase1g_retrieval_evidence.py": "47117a332785bb63d7ef6ae3537bce321732e9d570f2afc005051888c8c5d4b4",
+      "alembic/versions/0008_phase1h_rule_classification.py": "04ac67c7ffe3445a1d89b633549690d0c59fa12ac978e90ca5514b5902484f77",
+      "alembic/versions/0009_phase1i_applicability.py": "e363840390a0cb673aef676d75c02c24ed8ea7002a9c1a03605db80bf30447e8",
+      "alembic/versions/0010_phase1j_formal_decisions.py": "cebbe1158f5b98ca0c2a7dd87726111f50e2fc24f1f83f828ac1243d24d0e57f",
+      "alembic/versions/0011_m2a_structured_intake.py": "573785cdee48f57d8ff7761b49d73e57cf110befd4a14d3e1fcae031e5a89cf0",
+      "alembic/versions/0012_m2b_document_inputs.py": "f732e59b44c6fb54a4880f5ca777140560614a675315f9ec8f94212409b4cb8f",
+      "alembic/versions/0013_m2b_context_temporal_contract.py": "79133fdda7aeda64a1c10e164abe1fbde73534dfecb3f7397a0b8f642ad33561"
+    }
+  },
+  "changed_files": [
+    ".github/workflows/m2c-stage1-results.yml",
+    "alembic/env.py",
+    "alembic/versions/0014_m2c_formal_result_authority.py",
+    "docs/m2c/M2C0_design.md",
+    "docs/m2c/M2C0_gate_result.md",
+    "docs/m2c/M2C1_design.md",
+    "docs/m2c/M2C_api_contract.md",
+    "docs/m2c/M2C_architecture_rule_check.md",
+    "docs/m2c/M2C_files_created_modified.md",
+    "docs/m2c/M2C_implementation_result.md",
+    "docs/m2c/M2C_test_result.md",
+    "docs/m2c/integration_handoff.md",
+    "evidence/m2c/C0_gate_result.json",
+    "evidence/m2c/c0-focused.xml",
+    "evidence/m2c/c0-regressions.xml",
+    "evidence/m2c/c0_approved_owner_overlay.json",
+    "evidence/m2c/c1_approved_owner_overlay.json",
+    "evidence/m2c/closure_pytest.xml",
+    "evidence/m2c/closure_runtime.json",
+    "evidence/m2c/local_validation.json",
+    "frontend/e2e/fixtures/m2c-intake.docx",
+    "frontend/e2e/m2c.spec.ts",
+    "frontend/scripts/m1/export_contracts.py",
+    "frontend/scripts/m1/uat.py",
+    "frontend/scripts/m2a/uat.py",
+    "frontend/scripts/m2c/export_contracts.py",
+    "frontend/src/App.tsx",
+    "frontend/src/api/client.ts",
+    "frontend/src/api/m2c-generated.ts",
+    "frontend/src/api/m2c-schemas.json",
+    "frontend/src/features/intake/IntakeFeature.tsx",
+    "frontend/src/features/results/Stage1Workspace.tsx",
+    "frontend/src/features/results/api.ts",
+    "frontend/src/features/results/pg-fixture.json",
+    "frontend/src/features/results/results.test.tsx",
+    "frontend/src/locales/en-US.json",
+    "frontend/src/locales/zh-CN.json",
+    "frontend/src/locales/zh-HK.json",
+    "frontend/src/styles.css",
+    "frontend/src/theme.ts",
+    "scripts/m2a_ownership.py",
+    "scripts/m2b_ownership.py",
+    "scripts/m2c_architecture_check.py",
+    "scripts/m2c_ownership.py",
+    "scripts/m2c_projection_architecture.py",
+    "scripts/m2c_projection_ownership.py",
+    "src/crossborder_compliance/application/country_compliance_services.py",
+    "src/crossborder_compliance/application/formal_result_services.py",
+    "src/crossborder_compliance/application/stage1_result.py",
+    "src/crossborder_compliance/application/workflow_formal.py",
+    "src/crossborder_compliance/application/workflow_skeleton.py",
+    "src/crossborder_compliance/domain/formal_result_contracts.py",
+    "src/crossborder_compliance/domain/formal_result_engine.py",
+    "src/crossborder_compliance/domain/formal_result_policies.py",
+    "src/crossborder_compliance/infrastructure/persistence/compliance_profile_governance.py",
+    "src/crossborder_compliance/infrastructure/persistence/country_compliance_repository.py",
+    "src/crossborder_compliance/infrastructure/persistence/decision_models.py",
+    "src/crossborder_compliance/infrastructure/persistence/formal_result_governance.py",
+    "src/crossborder_compliance/infrastructure/persistence/formal_result_models.py",
+    "src/crossborder_compliance/infrastructure/persistence/formal_result_repository.py",
+    "src/crossborder_compliance/infrastructure/persistence/metadata_repositories.py",
+    "src/crossborder_compliance/infrastructure/persistence/workflow_read_projection.py",
+    "src/crossborder_compliance/infrastructure/registry_catalog.py",
+    "src/crossborder_compliance/infrastructure/workflow_formal_composition.py",
+    "src/crossborder_compliance/interfaces/api/routes/admin_metadata.py",
+    "src/crossborder_compliance/interfaces/api/routes/decisions.py",
+    "src/crossborder_compliance/interfaces/api/routes/metadata.py",
+    "src/crossborder_compliance/interfaces/api/routes/workflow.py",
+    "src/crossborder_compliance/workflows/canonical.py",
+    "tests/conftest.py",
+    "tests/m2c_policy_fixtures.py",
+    "tests/test_m1_workflow_api.py",
+    "tests/test_m2a_structured_intake.py",
+    "tests/test_m2b_integration.py",
+    "tests/test_m2b_migrations.py",
+    "tests/test_m2c_architecture.py",
+    "tests/test_m2c_authority_contracts.py",
+    "tests/test_m2c_authority_postgres.py",
+    "tests/test_m2c_migrations.py",
+    "tests/test_m2c_projection_architecture.py",
+    "tests/test_m2c_workflow_contracts.py",
+    "tests/test_m2c_workflow_postgres.py",
+    "tests/test_phase1j_postgres.py",
+    "tests/test_phase1l_a_skeleton.py",
+    "tests/test_phase1l_b_contracts.py",
+    "tests/test_phase1l_b_postgres.py"
+  ],
+  "source_identity": {
+    "tested_pr_head": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+    "sha256": {
+      "ARCHITECTURE_RULES.md": "59ccfdeaafc729f0f34252cf5eaf8a9fce8d129cbab5ae1b8870108a36712d01",
+      "alembic/versions/0001_phase1a_runtime_tables.py": "d8a3d4c060beaa95ee2daab5658a476854640c24b3100cee6ebd4c44d86d793a",
+      "alembic/versions/0002_phase1b_domain_foundation.py": "4fa947ad533c7faeaa5d8893917a7c1fcb9933436be9ec41180524eae4c3b9da",
+      "alembic/versions/0003_phase1c_metadata_registry.py": "fb8c17f96cfe83c6cbb9f5d1b71450f1e77ae1ee1a9d9df334f6fefff24d66b1",
+      "alembic/versions/0004_phase1d_document_intelligence.py": "9f1bf0b1ad8924d698a66d996571565fe5ffd22808f906d639d04549fa8d48ff",
+      "alembic/versions/0005_phase1e_context_resolution.py": "6f524b052b4e13df4d809f9ab85157999df43ed9f819d76f5aff9e52493993e3",
+      "alembic/versions/0006_phase1f_knowledge_scope.py": "5c4ffecc8cf1ff7787bb282eaed18699b918ad5e40c44e23f761fefd0eeb6085",
+      "alembic/versions/0007_phase1g_retrieval_evidence.py": "47117a332785bb63d7ef6ae3537bce321732e9d570f2afc005051888c8c5d4b4",
+      "alembic/versions/0008_phase1h_rule_classification.py": "04ac67c7ffe3445a1d89b633549690d0c59fa12ac978e90ca5514b5902484f77",
+      "alembic/versions/0009_phase1i_applicability.py": "e363840390a0cb673aef676d75c02c24ed8ea7002a9c1a03605db80bf30447e8",
+      "alembic/versions/0010_phase1j_formal_decisions.py": "cebbe1158f5b98ca0c2a7dd87726111f50e2fc24f1f83f828ac1243d24d0e57f",
+      "alembic/versions/0011_m2a_structured_intake.py": "573785cdee48f57d8ff7761b49d73e57cf110befd4a14d3e1fcae031e5a89cf0",
+      "alembic/versions/0012_m2b_document_inputs.py": "f732e59b44c6fb54a4880f5ca777140560614a675315f9ec8f94212409b4cb8f",
+      "alembic/versions/0013_m2b_context_temporal_contract.py": "79133fdda7aeda64a1c10e164abe1fbde73534dfecb3f7397a0b8f642ad33561",
+      "alembic/versions/0014_m2c_formal_result_authority.py": "63f1e8f97587dd52983d51cb632972ef9a9d0a7b83f60f4f32678ba3d29bd266",
+      "frontend/e2e/m2c.spec.ts": "ecdca592242133ca194060349a9ef8f9d48f31ba7283768c403a72bcb5104b74",
+      "frontend/src/App.tsx": "98a81508152414f752e90a5ac5ddcbd0e25a252807103785aaa8cbedb3a1c481",
+      "frontend/src/api/client.test.ts": "e5943aa592b33fcd3147a7ce0254489b0902f7289d37c0e462972f57ef7b0487",
+      "frontend/src/api/client.ts": "a17ff3a7b638155414302e4d0507a0dd5e4bb06dc7d613eda159e9236a4dd548",
+      "frontend/src/api/contracts.ts": "541d55422cebc93883a0b612bf1ca763e46476d686e008ae64f901fc1df595bb",
+      "frontend/src/api/errors.ts": "a1eef518a2aa8ba51e58522aa66c03e6394202a206f0eaded97263194e92efc3",
+      "frontend/src/api/generated.ts": "87081aa3351fbfaa0aef9f041869ee2af46dfa0a609b07a901102cf1a1b552eb",
+      "frontend/src/api/m1-generated.ts": "446a77981257ee4424a27a46a4f977a9c66bcebc0bcda510aba917adf1f52fd8",
+      "frontend/src/api/m1-schemas.json": "53e6b9173eccf01e2ef6f08b580440de8f025e1f2cd425f6cb673cdde592fad2",
+      "frontend/src/api/m2a-generated.ts": "c2082691f590a05b10115846a5a22d37b2a8e07076e65a3dc7ba858ba29e75b5",
+      "frontend/src/api/m2a-schemas.json": "746bc5c1689810c598009552260fcdc4fc94a297848196bc230b7b1762e3d46e",
+      "frontend/src/api/m2c-generated.ts": "a88a3054a72100dda822a21a54fe6f6e457e2a5dc273c6a054adeec8a3a0958a",
+      "frontend/src/api/m2c-schemas.json": "619603298b7bc3da9c2feaa1d809ed84d28756d2546618cd4c404e8c5e7b3fb9",
+      "frontend/src/api/openapi.json": "6aa949bb1f5877130c30184eabdfa2fcff859be31d2f27e173ef2e22a57077e6",
+      "frontend/src/components/ContextSelector.tsx": "c6368d1c6a7d062bd4c39b1c5732cc010e339aa25f6f9737dda97535886345cc",
+      "frontend/src/components/Evidence.tsx": "35daacccfdbaa5d367a59e00abc46273c3467d1deaaad884899b7e63b7e333f9",
+      "frontend/src/components/QueryPanel.tsx": "c5f2f78fd41806fdf2c9f73c3ea3f2c15617f360440c813b4f378c3936915172",
+      "frontend/src/components/RuntimeStatus.tsx": "acd6173d4b916aa42ab32b286f11b2764d581c655d78ce9a03c9a823dbac8dc6",
+      "frontend/src/components/States.tsx": "4b086f2b53b3d1b1cee06c13dc5981c5eb1d6bb42dd9680c6f235df0ab1eaca0",
+      "frontend/src/components/Sufficiency.tsx": "c3265f2697372d476d6bf384edd74ad5815e25c5ea68674c5584575b5b85e249",
+      "frontend/src/components/critical.test.tsx": "34e302c829dae688086164a1de5f7cd5b5659becf10a348d6bd98534cfe803ee",
+      "frontend/src/features/admin/AdminFeature.tsx": "3deb74c1a985a5a4aee36c02d164cebdf5c4682b31f948b2750702e3cf24ccf6",
+      "frontend/src/features/admin/KnowledgeAdmin.tsx": "4b6590995e8d4bb739187dd1bb8c4d718d2665b398f0b308049b545aca3e6e13",
+      "frontend/src/features/admin/ResourceAdmin.tsx": "8eb82c3e4e083f0112afd1a6e2728005152cbcae9792902ea6d7094c2ccf9da2",
+      "frontend/src/features/admin/RuleAdmin.tsx": "b606ab975a625c718707ae572a4b0eb0c58d01f580dec75aea48ed9e83a8d8a1",
+      "frontend/src/features/admin/RuntimeStatus.tsx": "5a7f02008d5979e905c2331eb58e080daaa4e5e53d581030c11de1037c997817",
+      "frontend/src/features/admin/admin.css": "1f4deb0ebd3c831e522e0ec3347663fe501a016fcce7e9bfedf0eb29d6f60ff2",
+      "frontend/src/features/admin/admin.test.tsx": "e52d3990fd8f87ebbbdc6c19bff5acc048fa6da3abce45146791e0c803720ebb",
+      "frontend/src/features/admin/client.ts": "c9176ee83e2173aae42b0edb1cb40ac416e3543f9dd1d9b3c45eef7c962bff11",
+      "frontend/src/features/admin/contracts.ts": "1f7c37d9b51a8d0ca46929bdc9c960e6f086b30e51c1b88b4b784eca65387675",
+      "frontend/src/features/admin/presentation.ts": "027a29a4dcd73a7cbd9e2e455675c778517ee0a1ce2fca7d51487725dddf5b09",
+      "frontend/src/features/admin/resources.ts": "5112f652a2825087cbbc36ceb4feadfdf42f070da821d40a557b7327ce1a6b3a",
+      "frontend/src/features/analysis/AnalysisPanel.tsx": "8a2b5a2b9f39ab08d7743f42de3384fb4ed9e0d39cd07a53e491f7492d647444",
+      "frontend/src/features/intake/DocumentInputs.tsx": "49882958f4d834d315ddf5fd50aa8a88d6f81cd5b4ac712b222453870372d1b9",
+      "frontend/src/features/intake/IntakeFeature.tsx": "04839d455b66b10e34884258f9c6ba6afd8cdbea645373bbb092a1325354de47",
+      "frontend/src/features/intake/ProductionIntake.tsx": "0a593e34a453aa253360ef921b6b758fafe836f4ca2cee3051c6ac10e4f58d66",
+      "frontend/src/features/intake/api.ts": "05dddd13db2cfb442d4caa4d0cf69eb951e55e1336e1c0bcef2f048898fc2958",
+      "frontend/src/features/intake/contracts.ts": "d5f6d3abded45a327ff81b23ca194a3b1d8671d4d699ef238070124791fc5f84",
+      "frontend/src/features/intake/documentApi.ts": "c6888cd0d03cb8283ee1c827cb1c2beb22dd35c10b494f1ea04758f6187bd415",
+      "frontend/src/features/intake/intake.css": "edff52cf43346239743880595b7c994d3389a6475968da7baaf4af387af5081b",
+      "frontend/src/features/intake/m1.test.tsx": "e6b8615adc4b59b23182fc5167d218e124c9c3d026ee130dc1c79572684d5108",
+      "frontend/src/features/intake/m2a-fixture.json": "a45eadb4fe59364a7f0c3c62e19f3668166affa288ffc22fc2836b348b9359c5",
+      "frontend/src/features/intake/m2a.test.tsx": "4b247bf64db692b4be0c04653ae39292d726e417a64a05f26d19e753e23fb978",
+      "frontend/src/features/intake/m2b.test.tsx": "6eb4c5cb7de0d332c98500adba5c555b06ea07a8cc31e6ad896bd62cd3dc51d9",
+      "frontend/src/features/intake/persistence.ts": "8e382f75ba4002b88c0aa358461d0a01f6366bdb83c213e3d1f17d824a2ab327",
+      "frontend/src/features/intake/uat-fixture.json": "a3b01ce99407d20a3eaa41267d383e137ede38bd4a58777701a0fdd1a7aaf599",
+      "frontend/src/features/intake/workflow.test.tsx": "e90f86446760d153cf0b77358e21683c90ae04d7a18da5352b41965e2be1ca77",
+      "frontend/src/features/knowledge/formatting.ts": "1ac01f3d4dd873922aaf42ca3217eba71fa2fbe4cdcb4c9fedbc35863aec7d70",
+      "frontend/src/features/knowledge/presentation.ts": "ceb78f6f1cce3b1ebed804552e8adafe855e0ee760b6926f7a8a375555423309",
+      "frontend/src/features/knowledge/queries.ts": "a3a71194b6a2b357c8ad44e485ec28ccfcc01fb949dffe5cfb038ce2a1591a84",
+      "frontend/src/features/results/Stage1Workspace.tsx": "1e66e9c7d8d49163a30e22f17b12032cf02e7d6ef66258e26e3da0f6ab9b27c4",
+      "frontend/src/features/results/api.ts": "81c9a88bc8686b7dc61de687efae189689e6c4d1c893a7b993a2c666e549d9e5",
+      "frontend/src/features/results/pg-fixture.json": "c8eafe858a86b2ec55c75bab561c7604326da95c081fba39e5ec8bda5fdf55c4",
+      "frontend/src/features/results/results.test.tsx": "596263a13f494428cb2302136ced68f63a697e0dd89084700792632cc6b7c757",
+      "frontend/src/i18n.ts": "f6b6b9034fc890dcb38f4d0abd8cf3d5b0929eddb68cd26654cbb6739b7b5ac4",
+      "frontend/src/locales/en-US.json": "2b735a052f0888147be50e43f9153c66ebe096cf0d418000e65b947ee78b71d3",
+      "frontend/src/locales/multilingual.test.tsx": "8338cc4574aa31f2c7c711864efd64e84a9ceeabf8944bbca0df2b41e5874cfa",
+      "frontend/src/locales/zh-CN.json": "f0df4b8395fba566a0ff9b2cc4039eaa9638d422bce15ecd7d7fcaf7bf785a90",
+      "frontend/src/locales/zh-HK.json": "d1ef2f92178cf3ab0da3f3a74e462ddd4e177ebf2200f9810a0eb59ab4f9b8ba",
+      "frontend/src/main.tsx": "6a6f4da92870d6bcf913023f6fc96ea2a7d649e70c942fee4904002a37cdcd3d",
+      "frontend/src/routes/AdminRoute.tsx": "8e50c576d9a31dbb1bea6b4a1e7b65259476abba8f251c5737ce8fa85fe2a486",
+      "frontend/src/styles.css": "2281c701858fd488885fb352a2273e783dfef4965856615b8872170a8e010399",
+      "frontend/src/test/fixtures/jurisdictions.json": "9a6e605b1faf460b54baa644232c97c708d77f5a7a0148015fc0354bd53fd40f",
+      "frontend/src/test/fixtures/products.json": "d87fd568be168fdbf8294850871a0563d5cfeb68b3334126cc565dd8cdad0e31",
+      "frontend/src/test/fixtures/readiness.json": "afdda573368efe6ea7f3e2abf1ab5b73dc11b3f923bd82113d0052bd978486f6",
+      "frontend/src/test/fixtures/retrieval.json": "23054b255b3ccfadc3e98843bc8e56ee8b2840d32e47c970c1068c9989f16e42",
+      "frontend/src/test/fixtures/scenarios.json": "10bad0a9f8afe44fa0176865cd405177751810e5fd404a37c142ccf0c9dca51e",
+      "frontend/src/test/fixtures/session.json": "5b59b51e2d9fe536765347da59668ebdc0a0f3437762f59239301ba065c59d6d",
+      "frontend/src/test/i18n-policy.test.ts": "b9fb3b524534088432144a8421d58fc0d79792166de28bd11a84b1d513d4abdd",
+      "frontend/src/test/session-presentation.test.tsx": "d761a22e31eca434f4f44dc213b5e47957249e032044922bc19ea2d570295442",
+      "frontend/src/test/setup.ts": "d24c89819ae69bb7b14f9618016b05f87cc1efaaf2a88f2883be4b5b8e7aa60f",
+      "frontend/src/theme.ts": "7229c3490220b987e7846518cd814be1947f09aff50a30894e500961112e68f7",
+      "src/crossborder_compliance/application/classification_services.py": "896d0e9b8a9411d4fab05ed6b7930b98d151c8eee488b1cd9b0a9c1063ac19c6",
+      "src/crossborder_compliance/application/context_ports.py": "5072840e3542db8108aafc708f4394a1696d1797ee2d6b5c1d16231be571ebd2",
+      "src/crossborder_compliance/application/context_services.py": "eaccfc0b24046ab7711fab9e1741bee728707f99353e8497daa82fafbfa2cdd9",
+      "src/crossborder_compliance/application/country_compliance_services.py": "db91a0922bfcf502eab227da15473c5508ca68ef55f26a624b4b285078e4a352",
+      "src/crossborder_compliance/application/decision_services.py": "63b599e6b1fc58fac26f72f5df6db08f2a3667e2b39c0463fe44f8a5834578d5",
+      "src/crossborder_compliance/application/document_ports.py": "ddd37391082ba601e0bc2a89d69d2e2a664e8a98e005a9f3070303b50d281f98",
+      "src/crossborder_compliance/application/document_services.py": "326c0f4de72696c6e802dab10181d2d731433e6fb6ad249432b88d67d19d0707",
+      "src/crossborder_compliance/application/document_upload.py": "f9b18c03a867085096b95f2c3c43fe14b8fd3cae9b1f6b3337a76a45df703414",
+      "src/crossborder_compliance/application/dtos.py": "b80e1c672c37ef8b3556c4c7bcfe52a575661ccffb524ba2d3202b692d700ac8",
+      "src/crossborder_compliance/application/external_evidence_services.py": "e3c9631211991f1a2bd9882f804a6dca43a88426d4e15960f3f3e4502e1afde6",
+      "src/crossborder_compliance/application/formal_result_services.py": "511cd783acb33b2ca0384df404469bb33a551f8a3311e721cecd68c3c00f56cd",
+      "src/crossborder_compliance/application/intake_services.py": "9000525d479913d9c40a7d38bfa919834c126fa10d793a38e6bf12d61a83334b",
+      "src/crossborder_compliance/application/knowledge_ports.py": "30dfd26ce4b535fd2eeead1a9f2ed3751f5d2756d83828252fad704ecc5beac7",
+      "src/crossborder_compliance/application/knowledge_runtime_services.py": "4e290a2e21206a2e20e34ac6fd25be2c8953ede2501fc5a39e4f3ccec86957db",
+      "src/crossborder_compliance/application/knowledge_services.py": "2d5905f144c83e3f158435f324110faa360a168c96e852cd8c2e745ca606497d",
+      "src/crossborder_compliance/application/llm_gateway_policy.py": "de56ba4af7c514cf7d6e90492295a7607ab472cdbe2d37ece3677aaf91359b75",
+      "src/crossborder_compliance/application/llm_gateway_ports.py": "c3b1f163ae49aa3bc8657c50db776720d51ca93f60494f4677cbd80709cb4f95",
+      "src/crossborder_compliance/application/llm_gateway_redaction.py": "a92690070507a911e0682bde41951327fcca77637e698bf02c87a4da2f6219e3",
+      "src/crossborder_compliance/application/llm_gateway_services.py": "c55d194a82118897e585b8cdf8c67613c072e7e7d22ea6a51f412836dd602405",
+      "src/crossborder_compliance/application/metadata_services.py": "5d872d37cd90428d175ac42853b23763b2ccf0d79437cb0229970c541c7d0578",
+      "src/crossborder_compliance/application/ports.py": "3153f3dc36effca595f14f450dc42ec33628ce2f475acf9647ba00e1a6de3ac1",
+      "src/crossborder_compliance/application/registry_ports.py": "bfee9a3c583919084d2fe6c3ca89702098b2f083d0b0b1e8ef539277c4dfa894",
+      "src/crossborder_compliance/application/repository_ports.py": "fc65383318eda8f3065b415a42b7494ce16105c31b9313e05e4bc06fc98a9016",
+      "src/crossborder_compliance/application/retrieval_algorithms.py": "fd57a16d0f5087c1b72830fba1b3cf37cf7e1320b665efc9f11f22792b4d98e9",
+      "src/crossborder_compliance/application/retrieval_ports.py": "e8d75ced5c34965a1f3fa66efa0b616791bb1af50c144d295f41971fcff90f04",
+      "src/crossborder_compliance/application/retrieval_services.py": "4aba9c05cd59b021a33531974404c8fdaeed0b58e749eaf96bbf63bb058bf6f0",
+      "src/crossborder_compliance/application/stage1_result.py": "6b15141fc0ac106254d8627f5e32bbfe207d8c53a436762cbdf17653adb1bc60",
+      "src/crossborder_compliance/application/structured_intake.py": "7f3a5012cdff143bde648284f1a1ed445edb8229469ba8908ee7b76b2e4cba1e",
+      "src/crossborder_compliance/application/workflow_classification.py": "180277894913f48100cca3239b12cfbf87350a188c0481a1fb0a11b9746461b8",
+      "src/crossborder_compliance/application/workflow_formal.py": "19a03525e7794cd9d5c451e4307dab902d0e2ee87d1a6734d5c8e7e9bb3e2c1a",
+      "src/crossborder_compliance/application/workflow_skeleton.py": "74f733f8a01312e6705fc0d9f5863c5f16411fdf749ded98418a28f546bcbda0",
+      "src/crossborder_compliance/config.py": "6811aa6031750a8693cc4b0d412a2bfc395e3de2ce8b5563608153f0d3e1b68b",
+      "src/crossborder_compliance/domain/classification.py": "c6af186024ac0a98644344db371b1c1604c55863442158d042686abe577a3778",
+      "src/crossborder_compliance/domain/compliance_profiles.py": "5a2def38b6c0e7962048fb236b98dc3673faf6b8fde622fd4e8459e5bd71edd4",
+      "src/crossborder_compliance/domain/context_resolution.py": "a58ded1d8ad9602e972462ce9c3c65117826d009375e66e19aa5b9988b7dfade",
+      "src/crossborder_compliance/domain/contracts.py": "eb51ad687550fda3179b6515251fab1e4f764ff1a514416c63ca3f9b67c2ed3b",
+      "src/crossborder_compliance/domain/decision_contracts.py": "ded608301206fae397788fe4c85d4daeb805a25e1873e5b8305a9bac9840dfcb",
+      "src/crossborder_compliance/domain/decision_engine.py": "234d7194d2558b62882304d4c40fe1f575fa8572a69340d84fcb24c2e07e8a38",
+      "src/crossborder_compliance/domain/decision_policies.py": "bae084f1c1ff05e7a202b6ac91428ea86f0b47de63c388107d31f64920007952",
+      "src/crossborder_compliance/domain/decision_risk.py": "7196488036b4044e6a3b58c1d288556999fc2f6d736f274b934b4cf994487541",
+      "src/crossborder_compliance/domain/document_intelligence.py": "f494dabfaa123904f7569dc864205c226ddfe2738618355aa0a9e0a3549acead",
+      "src/crossborder_compliance/domain/entities.py": "777eafa9b31659b97cce73ed6d8e6b38016b2ae062a67b464d6b557ce1d75be9",
+      "src/crossborder_compliance/domain/formal_result_contracts.py": "07355f8ff339cedb8ed0cee6bdbcac8c4a1086aa3a46d6698ea323135ce1b330",
+      "src/crossborder_compliance/domain/formal_result_engine.py": "d7bcc7e2fcc317f90d6ecb068bc2f9e127886555c5e49a86dcefc9fba9067a7a",
+      "src/crossborder_compliance/domain/formal_result_policies.py": "005427d8da7554e4ad7b8856ebeaaf6711a7171a65aecad664bbfe67d31e894d",
+      "src/crossborder_compliance/domain/foundation.py": "7624f2cae92ecb59a85fdd4f0ec0d64fd4b2be312442e68c0b15286e952fcd3e",
+      "src/crossborder_compliance/domain/knowledge.py": "7e216eb309a753919613cb409a452b3c14f7dbfe37913bf7214848a3fcb51f9f",
+      "src/crossborder_compliance/domain/llm_gateway.py": "d4dc4af8755b7fa29de6c3c1ecfa7d4b4bad961bca083bfea03ceb020f684736",
+      "src/crossborder_compliance/domain/localized_metadata.py": "97438e55d6d894846b729c67e2aea4340ceb35c363c1767a7676eaa6014254de",
+      "src/crossborder_compliance/domain/metadata.py": "d93b6cc6ee8609f78efd4fa92adfa26d93da0bcd03e8a1c883dab5f1cc92b775",
+      "src/crossborder_compliance/domain/regulation_applicability.py": "a3a0a58c84a6e6688c1c6ad41d039c99e49f8ebf7541ee2ed54d087ef6504694",
+      "src/crossborder_compliance/domain/retrieval.py": "ad63c2d7da84e5bee5eb248bb6dff38f820154bf94fce51c822261f3ec6f2e67",
+      "src/crossborder_compliance/domain/rule_ast.py": "42dd359bab6a06a1adac49703dbcec11113bd1e94e64f932e1761090bb2b00e4",
+      "src/crossborder_compliance/domain/rules.py": "65fc68b09c0ff298aff31af1c959be4add2c21e3edf9479f111fd516e2b809d3",
+      "src/crossborder_compliance/domain/security.py": "de51ac56e3183baa1906b11d92fc7f56c3d573cc7562c3b99a50555050d3f2f6",
+      "src/crossborder_compliance/infrastructure/classification_evidence.py": "873a855e6592190da0fc029bbce965b988af46c9ecd38ccd91b1e6072f3e7c5b",
+      "src/crossborder_compliance/infrastructure/compliance_profile_worker.py": "c6dcfe8283d344e7ceb36aaa401b3ea77d86ea6686db01c54afbc96bceae3f9d",
+      "src/crossborder_compliance/infrastructure/document_input_composition.py": "75ea486b0b5ed0777059c9af0e982774d778a6d709f233a1c8a8578c88b95bdf",
+      "src/crossborder_compliance/infrastructure/document_parsers.py": "eb0d4d90d22193394dbb705b02a449d77d6318585090cf2b0e471a703b3f1863",
+      "src/crossborder_compliance/infrastructure/document_storage.py": "383878e5d086ca5a09e65f58b4b65e902a55f36875b581356f65cd825306d459",
+      "src/crossborder_compliance/infrastructure/intake_composition.py": "6c820cd884b66c771f17f03c48ffd7a245107f4e8c907caf6f489ba3fe44ebaf",
+      "src/crossborder_compliance/infrastructure/knowledge_download.py": "5af7ab7dd5857341d51f9b243f61bf7901941d2d953451e6bddb1ba6ee194d5a",
+      "src/crossborder_compliance/infrastructure/knowledge_publication_worker.py": "088d9b59b8c38faf4a3c54a631f1d1665300c7308e09faa5f84196def912856f",
+      "src/crossborder_compliance/infrastructure/knowledge_worker.py": "1380d7229a58388cd96a205d7156a72a59f1e41f67c4bdcf64ca53fb42152174",
+      "src/crossborder_compliance/infrastructure/llm_gateway_configuration.py": "c59a50fcc258495c0779f2fa0053129f1b015b24324f12d659f4cfa413588c35",
+      "src/crossborder_compliance/infrastructure/llm_gateway_http.py": "070b50d42bb31a6030a2d93d5c761440c77d21fc23c1e90285448db24aadd396",
+      "src/crossborder_compliance/infrastructure/persistence/applicability_models.py": "792c5f0a9e0d38b3f96fa23601df551b27d60179de47992e0e410377d87dbd81",
+      "src/crossborder_compliance/infrastructure/persistence/classification_governance.py": "7328caed355458072e57f0f1d91f11d50bc1c9dc2f678392411fc51a20db4843",
+      "src/crossborder_compliance/infrastructure/persistence/classification_repository.py": "c89202d9b7dd603c0a71aaf55033c9527b1f872633f89dd87eeae0e8c20255fb",
+      "src/crossborder_compliance/infrastructure/persistence/compliance_profile_governance.py": "c0e44ebeab1e9b5ffb5b7b5582f8d676ff967c940ead5c02faf1c3eb45cfcd23",
+      "src/crossborder_compliance/infrastructure/persistence/config_admin_repositories.py": "7c89de5ca77beab6709bcfeba68b01e770bf00fde49c54f4a5cb77f495bb057c",
+      "src/crossborder_compliance/infrastructure/persistence/context_models.py": "2940284d8255c00b6bf37c1a9590ef90f901bcef8d9c1399d099873b06b0e94a",
+      "src/crossborder_compliance/infrastructure/persistence/context_repositories.py": "bb540d1a7d3983b43d7a607aa453f193237ec58d37f25f2f9e8ecc71751c6f0f",
+      "src/crossborder_compliance/infrastructure/persistence/context_temporal.py": "d3d7d1cc4044762cbd3c3592f52f8c0a64c05b74c00a5a0f8ecc8b43a4bbc1e3",
+      "src/crossborder_compliance/infrastructure/persistence/country_compliance_repository.py": "bc4201d983a01fd17d367058f6d0a181d3c8f180c0dffb8164f8587c00b6952f",
+      "src/crossborder_compliance/infrastructure/persistence/db.py": "ce5131350eacf12d87d525ef26334fdc019d3c8f857df34a85b8117db3509845",
+      "src/crossborder_compliance/infrastructure/persistence/decision_models.py": "1bfe1edea0860c7a4547d8e2593525401e0f6067099da826849e8d30d431c439",
+      "src/crossborder_compliance/infrastructure/persistence/decision_repository.py": "c6e44e9977d4dd7b555f6d1eb9eaa6fe62189da117e3c152727d928877cfcf55",
+      "src/crossborder_compliance/infrastructure/persistence/document_models.py": "5e92448adb65bbb1a89e0ffbfc92fdf4af486ced66c326c58e80b30567429f8d",
+      "src/crossborder_compliance/infrastructure/persistence/document_repositories.py": "c787f326ce9c46aae7d9ad708d9fa22950d521aaf1b690d1029a1a6f484ec010",
+      "src/crossborder_compliance/infrastructure/persistence/document_snapshot_inputs.py": "2cd2f8a467cd6b3d66241680f3812c9642b543659056701cfdb448064a6f6611",
+      "src/crossborder_compliance/infrastructure/persistence/formal_result_governance.py": "c455c653bbb66419f76670ad8f11335adac1ff6389e433d8dd0d900bacfcd505",
+      "src/crossborder_compliance/infrastructure/persistence/formal_result_models.py": "4c7c552bca929b80990ede11e81d52c61cc6821f35e693496fb95de1a8d36a43",
+      "src/crossborder_compliance/infrastructure/persistence/formal_result_repository.py": "52d67998a1453212e5859424b4d2182db464aae5dd3095b1a1ef3b8cdb753771",
+      "src/crossborder_compliance/infrastructure/persistence/knowledge_models.py": "68991b2da4136bbd4b675d7edadfa20713a703e7332feb561082ca76f468ad25",
+      "src/crossborder_compliance/infrastructure/persistence/knowledge_repositories.py": "ba5133c1799984f768a1d37ff1d8e7e863766583eac7e3a565c1288d98c80a5e",
+      "src/crossborder_compliance/infrastructure/persistence/knowledge_runtime_repository.py": "9013f069262aea80af24d41958d909ee64c5fd8d85e96f9602ab98a9dd526c8d",
+      "src/crossborder_compliance/infrastructure/persistence/mappers.py": "580ecfd04cc83ab589bd2c925ed50d5583b519da299e419c3e4aeb4cdb181e89",
+      "src/crossborder_compliance/infrastructure/persistence/metadata_models.py": "d955fe56e981906276702fa400b3995faf879c5687437b354f6bf214875d29e5",
+      "src/crossborder_compliance/infrastructure/persistence/metadata_repositories.py": "0c1d88d7ce61b096896eac710011d77fccc9b65f6a3ef3e39c8ed4a83ea2c8d6",
+      "src/crossborder_compliance/infrastructure/persistence/migration_lineage.py": "e8b89cbcca59ea70b681444a8f3745621081d1f7de1340076c2b0db999d83770",
+      "src/crossborder_compliance/infrastructure/persistence/models.py": "4b4e93b5fe43ab1f66a1d6296c676cb77224dd19f50714238a776781c5dc44ad",
+      "src/crossborder_compliance/infrastructure/persistence/postgres_repositories.py": "73612daa854ccfdd6feb1772a8c2fd6351180f80975f5ecc520cad827161cb9c",
+      "src/crossborder_compliance/infrastructure/persistence/project_document_inputs.py": "35787d9d41d3a53889028cbea3cb2f122508d62db3606af8a6edb62fe55bac54",
+      "src/crossborder_compliance/infrastructure/persistence/project_intake.py": "6a2ec2ae29b57196eb9e309df53507eeb8eac1a8cba12914c9a58199055d3b30",
+      "src/crossborder_compliance/infrastructure/persistence/repositories.py": "906b7df3084510fb91896f1b3ebe4d320189cde71aea70b5d31e3981424a7699",
+      "src/crossborder_compliance/infrastructure/persistence/retrieval_models.py": "759c045b67351ec121a76f0ef3e431443abf74755163eda4ffc32e4eb4d34171",
+      "src/crossborder_compliance/infrastructure/persistence/retrieval_navigation.py": "f1800c3f7eb511b642ed1012c42474b269295199465405ea8a67352a9ac0aa6b",
+      "src/crossborder_compliance/infrastructure/persistence/retrieval_repositories.py": "267ad9f7b86c2f3f7154c9227e9bd67a296670c0fe5ee08f4969933e270beaf7",
+      "src/crossborder_compliance/infrastructure/persistence/rule_admin_repository.py": "e8b046f54a8917988383b25edc1ada8751d5a8f312381cd91fa77bd0422553c9",
+      "src/crossborder_compliance/infrastructure/persistence/rule_governance.py": "f969d14e711758113f39e53fd37a77632d15be17cd3033ebff5891d5734fe76d",
+      "src/crossborder_compliance/infrastructure/persistence/runtime_operations.py": "2ab6ee469f83d83061982a4a13dde1c5cfe491ecad8b1b745ab617da632a5b57",
+      "src/crossborder_compliance/infrastructure/persistence/special_admin_repositories.py": "e3c4a27bb629a30ebfac2cfa945ea4332468838bca8cc4e1f95583dfaedbae09",
+      "src/crossborder_compliance/infrastructure/persistence/structured_intake.py": "fa5660f9e4e248382bfdc453eb06ea2d1ab84775c6031bb1e2773580dc785acc",
+      "src/crossborder_compliance/infrastructure/persistence/workflow_authorization.py": "2d82b3e45b4ed1bf737522805940b4f59b4acc3477d83e55adeeadf09d39974b",
+      "src/crossborder_compliance/infrastructure/persistence/workflow_delivery_guard.py": "00c927447f9ad0b83ccbf90faf0a17f631359c73fb364cb897eb83473d12fcb5",
+      "src/crossborder_compliance/infrastructure/persistence/workflow_read_projection.py": "2ca838d8c15eb73f8cbfccbc2bd84fceeb0c8046721fe0abcec4e8fefe7bf5e3",
+      "src/crossborder_compliance/infrastructure/registry.py": "7e6f028e25dd3999ac5c7fced710a5c9b937275c2ca9a4c04ed6a38e8596802b",
+      "src/crossborder_compliance/infrastructure/registry_catalog.py": "52c43f48ae15b8fe5178cb611d240645b2fca678641c2f7668b353c585c7a21e",
+      "src/crossborder_compliance/infrastructure/retrieval_external.py": "477821b8ccda828c1055be045652ce9df3b7a6f0e4da6df3e55d8ce702a05609",
+      "src/crossborder_compliance/infrastructure/retrieval_search.py": "dd5ad929a23cfb7d27c02640a09f30c6e2b0af5fe080fcf0f66c49188bde395f",
+      "src/crossborder_compliance/infrastructure/retrieval_test_adapters.py": "241a1942784985e8592a0ef686c605db1c7a38b26dde33c8eecf12cf4f6a1f8a",
+      "src/crossborder_compliance/infrastructure/workflow_formal_composition.py": "b157c6baffff550dcd9db4ecde5d01324eeb08edf2c65a205727be31c0daed11",
+      "src/crossborder_compliance/interfaces/api/admin_schemas.py": "e27bac09aedafbf5b5cb51df024e5f112d7a9b645a98b57eab18a84ecf369d66",
+      "src/crossborder_compliance/interfaces/api/context_schemas.py": "ef8fa18bc6bd77eb4f4464deee1129ea8ece3b09f541cddc025a8e5625475422",
+      "src/crossborder_compliance/interfaces/api/dependencies.py": "27195086c0ac76eb64298a3fc0999b2caf8eb078b0b9a8c9b493b71c97b68b7a",
+      "src/crossborder_compliance/interfaces/api/document_schemas.py": "5a9cc3614a7c3d7363b18ec6828ad8a3a9b5c454eebd742e817d38469b523741",
+      "src/crossborder_compliance/interfaces/api/knowledge_schemas.py": "fd1909ca1f773944dd12bc42128d107b26d8fe06e659ff21c0945a6f9a1cf6e7",
+      "src/crossborder_compliance/interfaces/api/main.py": "f51400344c8a0010f51360e586e643eb013ee9e50ad69ec99ca1bde7899d3fbb",
+      "src/crossborder_compliance/interfaces/api/metadata_presenter.py": "d7e408cf4d7379ec1351c3c7840153888049cf7ca27017a7c8c230d66c64df5e",
+      "src/crossborder_compliance/interfaces/api/retrieval_schemas.py": "8474cdec259dfb13fc905132b664c07c95f77dc6cad12bba19922469d372fa53",
+      "src/crossborder_compliance/interfaces/api/routes/admin_metadata.py": "e23b84c51b5f9993e0f3f176ba7facf20cc5c69c1015d1bce2d7a5e449bc0cc3",
+      "src/crossborder_compliance/interfaces/api/routes/classification.py": "5cca7101b33c7fd0dd66d15c1ff6c630e82fbe44ffe85e749a72aa111a77a996",
+      "src/crossborder_compliance/interfaces/api/routes/context_resolution.py": "dd05d768b71155bf6f5457588649e38974d47112d69130e8c2dfdb6125fdfee6",
+      "src/crossborder_compliance/interfaces/api/routes/country_compliance.py": "92cac9ce78dffadf2b7eb03dc37e39ca75e6d16618fa522db8bc3a29ab01f918",
+      "src/crossborder_compliance/interfaces/api/routes/decisions.py": "d45a26e188a92a2a054406caf017f0f2858ba72e2f2acb4d8103197a4aa3c73d",
+      "src/crossborder_compliance/interfaces/api/routes/documents.py": "d97467c29de145c6d3a149df1e5c4491e06c5e3a52780dbb426902b22495833d",
+      "src/crossborder_compliance/interfaces/api/routes/health.py": "79d07ec098f3436ef4ad6cd609576ea896d06219b3609134123a88ffbc6e07e7",
+      "src/crossborder_compliance/interfaces/api/routes/intake.py": "d8326139dcbd80a2a0783aacdf10439cc4625f1263a792408291fa62d6a10651",
+      "src/crossborder_compliance/interfaces/api/routes/intake_documents.py": "5b8343c2a89d199b84d775e27fe44f3df1e5a7e01b8c72c7deea791a31f16cc8",
+      "src/crossborder_compliance/interfaces/api/routes/knowledge.py": "2857b5d51ac01021f22a40afc3d275fae03909a08fb9aef908f0252d41009824",
+      "src/crossborder_compliance/interfaces/api/routes/metadata.py": "c8bf8f2d0014c3cc862e4039bcf0999c32ae8c94fdfe66ca4960d4bee22ae770",
+      "src/crossborder_compliance/interfaces/api/routes/retrieval.py": "929c21b78411720d644ddf2c8904a549a87107c62c12be0bd418ddd37979d460",
+      "src/crossborder_compliance/interfaces/api/routes/workflow.py": "46910250abdf8916d4b3ab74d0b97ec2e83a6fff4367cb0a98a09db394107c9b",
+      "src/crossborder_compliance/interfaces/api/schemas.py": "11fdf8925cc4945c0b441d12947fc8a8aa8f83fdb7665a34394c7c0bd9ff4458",
+      "src/crossborder_compliance/interfaces/api/workflow_app.py": "0ad912b69e55f259c8a237fd0a4b8c31e15708c369744f8c1021ef7bf28c4d2b",
+      "src/crossborder_compliance/observability/logging.py": "833ca9fc6d5047f2f62d66c2fd3e46a2c778a7cae8d1143e88c2147229c52a45",
+      "src/crossborder_compliance/observability/tracing.py": "548d1e3b453b0f47c3c2faad6d30c888b19be3e0f0634b20c1f054feb288a19c",
+      "src/crossborder_compliance/workflows/canonical.py": "58329aced70b5a2237a7f7cf00b477b1a8ada8f89f72924096eff020b380c106",
+      "src/crossborder_compliance/workflows/events.py": "e2f63df7b8b7dc20dbff0d3cb26a7479604584de44c6f4ee2a27d0097e9997ef",
+      "src/crossborder_compliance/workflows/langgraph_adapter.py": "1ac177fe1486493dc08147d00c9cc9f9678052d4bfe77b04b7ff95583841c198",
+      "src/crossborder_compliance/workflows/phase1a-runtime-smoke.yml": "2e22140e2d3dc0332a1fdf1c4b455d115f4f8dbed0ed05f5eb89eda61e1e1a99",
+      "src/crossborder_compliance/workflows/ports.py": "18e4658468b8e07264aaeb3bf407fbb56fb062e3d7b50eca3bdabef293f1add0",
+      "src/crossborder_compliance/workflows/runtime_context.py": "3a0b39085ae61602b4f6a5ddf2f56e50b18fcd2b64717530db128c0c74958132",
+      "src/crossborder_compliance/workflows/state.py": "6ae96d3d70e8be98101c8dc8c8968b1ebeb5fb6e8076a0de1aeae4c47754331c"
+    }
+  },
+  "retained_capability_gaps": [
+    "MULTI_SUBJECT_WORKFLOW_NOT_CONFIGURED",
+    "HISTORICAL_FORMAL_RESULT_AUTHORITY_NOT_CONFIGURED"
+  ],
+  "exclusions": [
+    "M2D implementation",
+    "Stage2 generation",
+    "production auth/provider redesign",
+    "new legal engines",
+    "second workflow/runtime/checkpointer"
+  ],
+  "blockers": []
+}
