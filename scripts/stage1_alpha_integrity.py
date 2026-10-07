@@ -71,7 +71,7 @@ def verify():
     new_files = {str(p.relative_to(ROOT)) for p in (ROOT / "alembic/versions").glob("*.py")} - set(git("ls-tree", "-r", "--name-only", DOMAIN_BASE, "--", "alembic/versions").decode().splitlines())
     checks["no_integration_migration"] = (not migration_changes and not new_files) if not j_paths else j_authorized and migration_changes | new_files <= {"alembic/env.py", "alembic/versions/0010_phase1j_formal_decisions.py"} and all((ROOT / p).read_bytes() == git("show", j_source + ":" + p) for p in migration_changes | new_files)
     if intake_paths:
-        checks["no_integration_migration"] = intake_authorized and migration_changes | new_files <= {"alembic/env.py", "alembic/versions/0010_phase1j_formal_decisions.py", "alembic/versions/0011_m2a_structured_intake.py"} and all((ROOT/p).read_bytes() == git("show", (intake_source if p in intake_paths else j_source) + ":" + p) for p in migration_changes | new_files)
+        checks["no_integration_migration"] = intake_authorized and migration_changes | new_files <= ({"alembic/env.py", "alembic/versions/0010_phase1j_formal_decisions.py"} | {p for p in intake_paths if p.startswith("alembic/versions/")}) and all((ROOT/p).read_bytes() == git("show", (intake_source if p in intake_paths else j_source) + ":" + p) for p in migration_changes | new_files)
     checks["one_shared_http_transport"] = "fetch(" not in (ROOT / "frontend/src/features/admin/client.ts").read_text()
     return {"status": "PASS" if all(checks.values()) else "FAIL", "checks": checks}
 

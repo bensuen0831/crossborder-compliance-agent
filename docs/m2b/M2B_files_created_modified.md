@@ -1,30 +1,72 @@
-# M2-B WIP file boundary
+# M2B ownership delta
 
-Implementation is BLOCKED; this inventory is not closure evidence.
+Baseline da2d420; original WIP d78c310 retained. Frozen migrations0001–0011, existing0012, Domain legal engines, canonical graph/runtime/checkpointer, ARCHITECTURE_RULES, package/lock and prior owner evidence remain unchanged.
 
-- alembic/versions/0012_m2b_document_inputs.py
-- docs/m2b/M2B_contract_blocker.md
-- docs/m2b/M2B_design.md
-- docs/m2b/integration_handoff.md
-- evidence/m2b/SHA256SUMS.json
-- evidence/m2b/b1_spec_review.json
-- evidence/m2b/focused-upload.log
-- evidence/m2b/frozen_contract_identity.json
-- evidence/m2b/implementation_checkpoint.json
-- evidence/m2b/snapshot-contract-probe.log
-- evidence/m2b/snapshot_contract_probe.json
-- src/crossborder_compliance/application/document_services.py
-- src/crossborder_compliance/application/document_upload.py
-- src/crossborder_compliance/infrastructure/document_input_composition.py
-- src/crossborder_compliance/infrastructure/document_storage.py
-- src/crossborder_compliance/infrastructure/persistence/document_models.py
-- src/crossborder_compliance/infrastructure/persistence/document_repositories.py
-- src/crossborder_compliance/infrastructure/persistence/project_document_inputs.py
-- src/crossborder_compliance/infrastructure/persistence/project_intake.py
-- src/crossborder_compliance/interfaces/api/routes/intake_documents.py
-- src/crossborder_compliance/interfaces/api/workflow_app.py
-- tests/test_m2b_document_inputs.py
-- tests/test_m2b_file_policy.py
-- tests/test_m2b_snapshot_contract_probe.py
+```text
+.github/workflows/m2b-documents.yml
+alembic/versions/0012_m2b_document_inputs.py
+alembic/versions/0013_m2b_context_temporal_contract.py
+frontend/e2e/m2b.spec.ts
+frontend/scripts/m2a/export_contracts.py
+frontend/scripts/m2a/uat.py
+frontend/src/api/client.ts
+frontend/src/api/m2a-generated.ts
+frontend/src/api/m2a-schemas.json
+frontend/src/features/intake/DocumentInputs.tsx
+frontend/src/features/intake/IntakeFeature.tsx
+frontend/src/features/intake/ProductionIntake.tsx
+frontend/src/features/intake/documentApi.ts
+frontend/src/features/intake/m2b.test.tsx
+frontend/src/features/intake/persistence.ts
+frontend/src/locales/en-US.json
+frontend/src/locales/zh-CN.json
+frontend/src/locales/zh-HK.json
+scripts/m2a_architecture_check.py
+scripts/m2a_ownership.py
+scripts/m2b_architecture_check.py
+scripts/m2b_ownership.py
+scripts/phase1e_schema_check.py
+scripts/phase1j_ownership.py
+scripts/phase1l_b_ownership.py
+scripts/stage1_alpha_integrity.py
+smoke/run_gate.sh
+src/crossborder_compliance/application/context_ports.py
+src/crossborder_compliance/application/context_services.py
+src/crossborder_compliance/application/document_services.py
+src/crossborder_compliance/application/document_upload.py
+src/crossborder_compliance/application/workflow_formal.py
+src/crossborder_compliance/infrastructure/document_input_composition.py
+src/crossborder_compliance/infrastructure/document_storage.py
+src/crossborder_compliance/infrastructure/intake_composition.py
+src/crossborder_compliance/infrastructure/persistence/classification_repository.py
+src/crossborder_compliance/infrastructure/persistence/context_models.py
+src/crossborder_compliance/infrastructure/persistence/context_repositories.py
+src/crossborder_compliance/infrastructure/persistence/context_temporal.py
+src/crossborder_compliance/infrastructure/persistence/country_compliance_repository.py
+src/crossborder_compliance/infrastructure/persistence/document_models.py
+src/crossborder_compliance/infrastructure/persistence/document_repositories.py
+src/crossborder_compliance/infrastructure/persistence/document_snapshot_inputs.py
+src/crossborder_compliance/infrastructure/persistence/knowledge_repositories.py
+src/crossborder_compliance/infrastructure/persistence/project_document_inputs.py
+src/crossborder_compliance/infrastructure/persistence/project_intake.py
+src/crossborder_compliance/infrastructure/persistence/structured_intake.py
+src/crossborder_compliance/infrastructure/workflow_formal_composition.py
+src/crossborder_compliance/interfaces/api/routes/intake_documents.py
+src/crossborder_compliance/interfaces/api/workflow_app.py
+tests/m2b_legacy_seed.py
+tests/m2b_parse_worker.py
+tests/test_m2a_migrations.py
+tests/test_m2b_architecture.py
+tests/test_m2b_document_inputs.py
+tests/test_m2b_file_policy.py
+tests/test_m2b_integration.py
+tests/test_m2b_migrations.py
+tests/test_m2b_ownership.py
+tests/test_m2b_snapshot_contract_probe.py
+tests/test_m2b_temporal_postgres.py
+tests/test_phase1f_postgres.py
+tests/test_phase1h_postgres.py
+tests/test_phase1i_postgres.py
+```
 
-No frontend files or frozen migrations 0001–0011 changed. E/F/H/I formal context and legal-owner adapters remain byte-identical; no canonical graph/runtime/checkpointer change. Migration0012 and all new interfaces remain WIP pending owning-contract correction and full closure.
+Delivery docs/evidence are confined to docs/m2b and evidence/m2b. Final closure is pending.

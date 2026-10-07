@@ -29,7 +29,7 @@ def inputs(repo, project_id, intake_version_id, snapshot_id):
             version is None
             or snapshot is None
             or version.project_id != str(project_id)
-            or version.status != "CONFIRMED"
+            or version.status not in {"CONFIRMED", "SUPERSEDED"}
             or snapshot.project_version_id != version.project_version_id
         ):
             raise LookupError("exact confirmed intake snapshot required")

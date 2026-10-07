@@ -1,8 +1,4 @@
-"""Empirical contract probe; PASS means the reported blocker was reproduced.
-
-This is not a successful M2-B closure test. It intentionally asserts the
-existing fail-closed response instead of weakening H's snapshot validation.
-"""
+"""Real binary/PG proof that the former frozen temporal blocker is corrected."""
 # ruff: noqa: F401,F811 -- shared real PostgreSQL fixture graph
 import io
 import json
@@ -24,12 +20,12 @@ from crossborder_compliance.infrastructure.persistence.classification_repository
 pytestmark = pytest.mark.runtime_smoke
 
 
-def document_bytes(value):
+def document_bytes(value, header="Field"):
     from docx import Document
 
     document = Document()
     table = document.add_table(rows=2, cols=2)
-    table.cell(0, 0).text = "Field"
+    table.cell(0, 0).text = header
     table.cell(0, 1).text = "Type"
     table.cell(1, 0).text = value
     table.cell(1, 1).text = "number"
@@ -38,7 +34,7 @@ def document_bytes(value):
     return output.getvalue()
 
 
-def test_reused_data_item_cannot_satisfy_new_snapshot_inventory_pin(foundation_j, tmp_path):
+def test_stable_item_has_exact_immutable_snapshot_state_and_provenance(foundation_j, tmp_path):
     from test_m2a_intake import create
 
     f = foundation_j
@@ -47,7 +43,8 @@ def test_reused_data_item_cannot_satisfy_new_snapshot_inventory_pin(foundation_j
     project_id = initial["project_id"]
     base_url = f"/api/v1/projects/{project_id}/intake"
     media = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    first_upload = upload(client, initial, document_bytes("first-value"), name="fields.docx", media=media)
+    first_bytes = document_bytes("first-value")
+    first_upload = upload(client, initial, first_bytes, name="fields.docx", media=media)
     assert first_upload.status_code == 201, first_upload.text
     first_view = first_upload.json()
     first_document = first_view["items"][0]
@@ -75,6 +72,12 @@ def test_reused_data_item_cannot_satisfy_new_snapshot_inventory_pin(foundation_j
         )))
     # H accepts the original snapshot; this is not a missing permission/config.
     classifier.prepare(UUID(project_id), UUID(first_snapshot), UUID(item_id), UUID(f["scheme_version"]))
+    from crossborder_compliance.application.context_services import DataItemNormalizationService
+    from crossborder_compliance.infrastructure.persistence.context_repositories import PostgresContextResolutionRepository
+    from crossborder_compliance.infrastructure.persistence import document_models as d
+    repeated = PostgresContextResolutionRepository(f["sf"], scoped_context,
+        parse_run_ids=(UUID(parsed.json()["items"][0]["parse_run_id"]),))
+    assert item_id in {str(value) for value in DataItemNormalizationService(repeated).normalize(UUID(project_id), version=1).values()}
 
     superseded = client.post(base_url + "/supersede", json={"expected_version": 2, "idempotency_key": str(uuid4())})
     assert superseded.status_code == 200, superseded.text
@@ -82,7 +85,7 @@ def test_reused_data_item_cannot_satisfy_new_snapshot_inventory_pin(foundation_j
         "expected_version": 3,
         "idempotency_key": str(uuid4()),
         "replace_document_id": first_document["document_id"],
-    }, files={"file": ("fields.docx", document_bytes("later-value"), media)})
+    }, files={"file": ("fields.docx", document_bytes("later-value", header="FIELD"), media)})
     assert replaced.status_code == 201, replaced.text
     second_document = replaced.json()["items"][0]
     assert second_document["document_id"] == first_document["document_id"]
@@ -101,7 +104,9 @@ def test_reused_data_item_cannot_satisfy_new_snapshot_inventory_pin(foundation_j
             e.AnalysisSnapshotContextPinEntity.analysis_snapshot_id.in_([first_snapshot, second_snapshot]),
         )).all()
         inventory = {pin.analysis_snapshot_id: pin.data_inventory_version for pin in pins}
-        detail = session.get(e.DataItemResolutionDetailEntity, item_id)
+        from crossborder_compliance.infrastructure.persistence.context_temporal import exact_item_detail
+        detail = exact_item_detail(session, f["tenant"], item_id, 1)
+        second_detail = exact_item_detail(session, f["tenant"], item_id, 2)
         all_items = session.scalars(select(b.DataItemEntity).where(b.DataItemEntity.project_id == project_id)).all()
         current_traces = set(session.scalars(select(e.DataItemSourceTraceLinkEntity.source_trace_ref_id).where(
             e.DataItemSourceTraceLinkEntity.data_item_id == item_id,
@@ -111,12 +116,54 @@ def test_reused_data_item_cannot_satisfy_new_snapshot_inventory_pin(foundation_j
         assert len(all_items) == 2  # Field + Type headers, no duplicated authoritative item.
         assert original_traces < current_traces
 
-    with pytest.raises(LookupError, match="classification resource not found"):
-        classifier.prepare(UUID(project_id), UUID(second_snapshot), UUID(item_id), UUID(f["scheme_version"]))
-    # Old snapshot validation still succeeds, but the shared provenance set grew.
+    assert detail.display_name == "Field" and second_detail.display_name == "FIELD"
+    with pytest.raises(ValueError, match="IMMUTABLE_INVENTORY"):
+        DataItemNormalizationService(PostgresContextResolutionRepository(f["sf"], scoped_context,
+            parse_run_ids=(UUID(second_parse.json()["items"][0]["parse_run_id"]),))).normalize(UUID(project_id), version=1)
+    classifier.prepare(UUID(project_id), UUID(second_snapshot), UUID(item_id), UUID(f["scheme_version"]))
+    from crossborder_compliance.infrastructure.persistence.context_temporal import item_trace_ids
+    with f["sf"]() as session:
+        v1_traces = set(item_trace_ids(session, f["tenant"], item_id, 1, first_snapshot))
+        v2_traces = set(item_trace_ids(session, f["tenant"], item_id, 2, second_snapshot))
+        assert v1_traces == original_traces
+        assert v2_traces and v1_traces.isdisjoint(v2_traces)
+    # Old snapshot validation and provenance remain unchanged.
     classifier.prepare(UUID(project_id), UUID(first_snapshot), UUID(item_id), UUID(f["scheme_version"]))
+    from crossborder_compliance.infrastructure.persistence.knowledge_repositories import PostgresKnowledgeRepository
+    knowledge = PostgresKnowledgeRepository(f["sf"], scoped_context)
+    assert knowledge.formal_context(project_id, "DATA_ITEM", item_id, first_snapshot)["context_version"] == 1
+    assert knowledge.formal_context(project_id, "DATA_ITEM", item_id, second_snapshot)["context_version"] == 2
+    assert client.post(base_url + "/supersede", json={"expected_version": 4, "idempotency_key": str(uuid4())}).status_code == 200
+    removed = client.post(base_url + f"/documents/{second_document['document_version_id']}/unlink", json={"expected_version": 5, "idempotency_key": str(uuid4())})
+    assert removed.status_code == 200 and not removed.json()["items"]
+    absent = client.post(base_url + "/confirm", json={"expected_version": 6})
+    assert absent.status_code == 200, absent.text
+    absent_snapshot = absent.json()["analysis_snapshot_id"]
+    with f["sf"]() as session:
+        with pytest.raises(LookupError): exact_item_detail(session, f["tenant"], item_id, 3)
+        with pytest.raises(LookupError): exact_item_detail(session, f["tenant"], item_id, 999)
+        assert set(item_trace_ids(session, f["tenant"], item_id, 1, first_snapshot)) == original_traces
+    with pytest.raises(LookupError): classifier.prepare(UUID(project_id), UUID(absent_snapshot), UUID(item_id), UUID(f["scheme_version"]))
+    with pytest.raises(LookupError): knowledge.formal_context(project_id, "DATA_ITEM", item_id, absent_snapshot)
+    assert client.post(base_url + "/supersede", json={"expected_version": 6, "idempotency_key": str(uuid4())}).status_code == 200
+    returning_record = client.get(base_url).json()
+    returning = upload(client, returning_record, first_bytes, name="fields.docx", media=media)
+    assert returning.status_code == 201, returning.text
+    resumed_doc = returning.json()["items"][0]
+    parsed = client.post(base_url + f"/documents/{resumed_doc['document_version_id']}/parse", json={"expected_version": 8, "idempotency_key": str(uuid4())})
+    assert parsed.status_code == 200, parsed.text
+    restored = client.post(base_url + "/confirm", json={"expected_version": 8})
+    assert restored.status_code == 200, restored.text
+    restored_snapshot = restored.json()["analysis_snapshot_id"]
+    with f["sf"]() as session:
+        restored_detail = exact_item_detail(session, f["tenant"], item_id, 4)
+        assert restored_detail.data_item_id == item_id
+        assert restored_detail.display_name == detail.display_name
+        assert set(item_trace_ids(session, f["tenant"], item_id, 1, first_snapshot)) == original_traces
+    classifier.prepare(UUID(project_id), UUID(restored_snapshot), UUID(item_id), UUID(f["scheme_version"]))
+    assert knowledge.formal_context(project_id, "DATA_ITEM", item_id, restored_snapshot)["context_version"] == 4
     evidence = {
-        "status": "BLOCKER_REPRODUCED_NOT_CLOSURE_PASS",
+        "status": "TEMPORAL_COUNTEREXAMPLE_CORRECTED_NOT_FULL_CLOSURE",
         "database": "real PostgreSQL",
         "project_id": project_id,
         "data_item_id": item_id,
@@ -128,12 +175,12 @@ def test_reused_data_item_cannot_satisfy_new_snapshot_inventory_pin(foundation_j
         "second_inventory_version": inventory[second_snapshot],
         "retained_detail_version": detail.version,
         "first_snapshot_prepare": "ACCEPTED",
-        "second_snapshot_prepare": "LookupError: classification resource not found",
+        "second_snapshot_prepare": "ACCEPTED",
         "original_trace_ids": sorted(original_traces),
         "current_trace_ids": sorted(current_traces),
-        "provenance_links_versioned": False,
+        "provenance_links_versioned": True,
         "formal_data_items_duplicated": False,
     }
-    target = Path("artifacts/m2b/snapshot_contract_probe.json")
+    target = Path("artifacts/m2b/temporal_contract_result.json")
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(evidence, indent=2) + "\n")

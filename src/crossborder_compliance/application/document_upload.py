@@ -105,6 +105,16 @@ class DocumentInputsView(BaseModel):
     items: list[DocumentInputView]
 
 
+class DocumentUploadPolicyView(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    project_id: UUID
+    status: Literal["AVAILABLE", "CAPABILITY_NOT_CONFIGURED"]
+    policy_version: str | None = None
+    max_size_bytes: int | None = None
+    allowed_types: tuple[FileTypePolicy, ...] = ()
+    scan_required: bool | None = None
+
+
 class ProjectDocumentPort(Protocol):
     def list_inputs(self, project_id: UUID, version: int | None = None) -> DocumentInputsView: ...
     def upload(self, project_id: UUID, request: DraftDocumentRequest, *, filename: str, media_type: str, content: bytes, replace_document_id: UUID | None = None): ...

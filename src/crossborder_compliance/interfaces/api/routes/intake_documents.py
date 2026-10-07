@@ -5,7 +5,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
 from sqlalchemy.exc import DBAPIError, IntegrityError
 
-from crossborder_compliance.application.document_upload import DocumentCapabilityError, DocumentInputsView, DraftDocumentRequest
+from crossborder_compliance.application.document_upload import DocumentCapabilityError, DocumentInputsView, DocumentUploadPolicyView, DraftDocumentRequest
 from crossborder_compliance.domain.security import RepositoryContext
 from crossborder_compliance.infrastructure.document_input_composition import document_input_service
 from crossborder_compliance.infrastructure.persistence.project_intake import IntakeConflict
@@ -39,9 +39,29 @@ def list_inputs(project_id:UUID,request:Request,context:Context,version:int|None
     return invoke(service(request,context).list_inputs,project_id,version)
 
 
+@router.get("/documents/policy",response_model=DocumentUploadPolicyView)
+def upload_policy(project_id:UUID,request:Request,context:Context):
+    app_service=service(request,context)
+    invoke(app_service.list_inputs,project_id)
+    repo=app_service.repository
+    policy=repo.file_policy
+    available=policy is not None and repo.storage is not None and (not policy.scan_required or repo.scanner is not None)
+    return DocumentUploadPolicyView(project_id=project_id,
+        status="AVAILABLE" if available else "CAPABILITY_NOT_CONFIGURED",
+        policy_version=policy.version if policy else None, max_size_bytes=policy.max_size_bytes if policy else None,
+        allowed_types=policy.allowed_types if policy else (), scan_required=policy.scan_required if policy else None)
+
+
 @router.post("/documents",response_model=DocumentInputsView,status_code=201)
 async def upload(project_id:UUID,request:Request,context:Context,file:UploadFile=File(...),expected_version:int=Form(...,ge=1),idempotency_key:str=Form(...,min_length=1,max_length=128),replace_document_id:UUID|None=Form(None)):
     app_service=service(request,context)
+    invoke(app_service.list_inputs,project_id)
+    if app_service.repository.file_policy is None or app_service.repository.storage is None:
+        raise HTTPException(503,"CAPABILITY_NOT_CONFIGURED: document upload")
+    form=await request.form()
+    allowed={"file","expected_version","idempotency_key","replace_document_id"}
+    if set(form)-allowed or any(len(form.getlist(key))!=1 for key in form):
+        raise HTTPException(422,"DOCUMENT_CLIENT_AUTHORITY_FIELD_FORBIDDEN")
     maximum=app_service.repository.file_policy.max_size_bytes
     content=await file.read(maximum+1)
     if len(content)>maximum: raise HTTPException(413,"DOCUMENT_SIZE_POLICY_VIOLATION")

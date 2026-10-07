@@ -1,0 +1,3 @@
+# M2B snapshot result
+
+Confirmation validates parse/quality readiness, pins exact DocumentVersions/ParseRuns, filters E input candidates to those pins and pins the exact context/inventory/flow versions. Stable canonical DataItem identity is distinct from immutable exact-version detail membership and provenance. F/H/I consume exact versions; evidence requires inventory membership AND snapshot parse universe. Removed/reintroduced items preserve identity; old snapshot workflow authorization uses its pinned context run and reconfirms current permissions. Later sources cannot be added to a sealed snapshot.

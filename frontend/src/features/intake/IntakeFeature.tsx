@@ -9,9 +9,10 @@ import { AnalysisPanel } from '../analysis/AnalysisPanel';
 import { m1Api } from './api';
 import { emptyDraft, optionId, optionLabel, type Draft, type GovernedOption, type WorkflowView } from './contracts';
 import { restoreDraft, type IntakePersistence } from './persistence';
+import { DocumentInputs } from './DocumentInputs';
 import './intake.css';
 
-export function IntakeFeature({ session, context: existingContext, persistence }: { session: Session; context?: AuthorizedContext; persistence?: IntakePersistence }) {
+export function IntakeFeature({ session, context: existingContext, persistence, initialStep = 0, onStepChange }: { session: Session; context?: AuthorizedContext; persistence?: IntakePersistence; initialStep?: number; onStepChange?: (step: number) => void }) {
   const context: AuthorizedContext | undefined = persistence ? (persistence.record.analysis_snapshot_id && persistence.record.retrieval_policy_id ? { project_id: persistence.record.project_id, analysis_snapshot_id: persistence.record.analysis_snapshot_id, policy_id: persistence.record.retrieval_policy_id, display_name: persistence.record.intake.project_name } : undefined) : existingContext;
   const projectId = persistence?.record.project_id ?? context?.project_id;
   const [dirty, setDirty] = useState(false);
@@ -19,7 +20,8 @@ export function IntakeFeature({ session, context: existingContext, persistence }
   const locale = currentLocale();
   const { token } = theme.useToken();
   const themeStyle = { '--text-primary': token.colorText, '--text-secondary': token.colorTextSecondary, '--surface-panel': token.colorBgContainer, '--border-color': token.colorBorder, '--accent': token.colorPrimary } as CSSProperties;
-  const [step, setStep] = useState(0);
+  const [step, setLocalStep] = useState(initialStep);
+  function setStep(value: number | ((previous: number) => number)) { const next = typeof value === 'function' ? value(step) : value; setLocalStep(next); onStepChange?.(next); }
   const [draft, setDraft] = useState(() => persistence ? restoreDraft(persistence.record) : emptyDraft());
   const [confirmed, setConfirmed] = useState(persistence?.record.status === 'CONFIRMED');
   const [workflow, setWorkflow] = useState<WorkflowView>();
@@ -67,10 +69,11 @@ export function IntakeFeature({ session, context: existingContext, persistence }
           {!parties.data?.length && <p>{t('ui.m1.noParties')}</p>}
         </>}
         {step === 2 && <><label>{t('ui.m1.field.description')}<textarea required maxLength={4000} value={draft.description} onChange={event => update('description', event.target.value)}/></label>
+          {persistence ? <DocumentInputs persistence={persistence} identity={session.identity_key} dirty={dirty}/> : <>
           <label>{t('ui.m1.field.documents')}<textarea value={draft.documents} maxLength={2000} onChange={event => update('documents', event.target.value)}/></label>
           {!context ? <p>{t('ui.m1.documentGap')}</p> : documents.isPending ? <LoadingState/> : documents.error ? <ErrorState error={documents.error}/> : <details><summary>{t('ui.m1.documentsSummary')}</summary><pre className="provenance">{JSON.stringify(documents.data, null, 2)}</pre></details>}
-          <Alert type="warning" title={t('ui.m1.documentGap')}/><Button disabled>{t('ui.m1.upload')}</Button><p>{t('ui.m1.untrusted')}</p></>}
-        {step === 3 && <><dl className="m1-summary">{summary}</dl>{!valid && <Alert type="warning" title={t('ui.m1.missingInputs')}/>}
+          <Alert type="warning" title={t('ui.m1.documentGap')}/><Button disabled>{t('ui.m1.upload')}</Button><p>{t('ui.m1.untrusted')}</p></>}</>}
+        {step === 3 && <><dl className="m1-summary">{summary}</dl>{persistence && <DocumentInputs persistence={persistence} identity={session.identity_key} dirty={dirty}/>} {!valid && <Alert type="warning" title={t('ui.m1.missingInputs')}/>}
           <label className="m1-confirm"><input type="checkbox" checked={confirmed} disabled={!valid} onChange={event => setConfirmed(event.target.checked)}/>{t('ui.m1.confirmFacts')}</label>
           {confirmed && <Alert type="info" title={t('ui.m1.factsOnly')}/>}<Button disabled={!confirmed || !valid || !!workflow || (!!persistence && dirty)} loading={execute.isPending} onClick={() => execute.mutate()}>{t(persistence ? 'ui.m2a.confirmStart' : 'ui.m1.execute')}</Button><p>{t('ui.m1.workflowPrepared')}</p></>}
         <div className="m1-actions">{persistence && <Button disabled={!dirty || persistence.record.status !== 'DRAFT'} loading={save.isPending} onClick={() => save.mutate()}>{t('ui.m2a.save')}</Button>}{step > 0 && <Button onClick={() => setStep(value => value - 1)}>{t('ui.m1.back')}</Button>}{step < 3 && <Button htmlType="submit" disabled={step === 0 && (!draft.scenario || !draft.product)}>{t('ui.m1.next')}</Button>}</div>

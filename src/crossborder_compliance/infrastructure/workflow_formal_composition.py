@@ -72,7 +72,7 @@ def formal_workflow_runtime(
     country_repo = PostgresCountryComplianceRepository(sessions, context)
     stages = FormalWorkflowStages(
         plan,
-        contexts=PostgresContextResolutionRepository(sessions, context),
+        contexts=PostgresContextResolutionRepository(sessions, context, context_resolution_run_id=plan.context_resolution_run_id),
         knowledge_scope=KnowledgeScopeResolver(retrieval_repo, context),
         retrieval=KnowledgeRetrievalService(
             retrieval_repo,

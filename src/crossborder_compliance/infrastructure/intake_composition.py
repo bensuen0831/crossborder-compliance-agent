@@ -65,7 +65,9 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id):
     )
 
     validate_references(sessions, context, intake, snapshot_id)
-    repo = PostgresContextResolutionRepository(sessions, context)
+    from crossborder_compliance.infrastructure.persistence.document_snapshot_inputs import pin_intake_document_inputs
+    parse_run_ids = pin_intake_document_inputs(sessions, context, project_id, snapshot_id)
+    repo = PostgresContextResolutionRepository(sessions, context, parse_run_ids=parse_run_ids)
     locations = {
         kind: values
         for kind, values in (
@@ -100,6 +102,21 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id):
         ),
     )
     context_run = UUID(result["context_resolution_run_id"])
+    effective = [row for row in repo.get_product_context(project_id)
+                 if row["version"] == result["version"] and not row["review_required"]]
+    product_refs = set(ref for row in effective for ref in row["effective_scope"])
+    # An explicitly confirmed single effective product is unambiguous project
+    # input scope; reuse E's existing binding contract. Multi-product input
+    # requires a governed assignment, never a global-product fallback.
+    if len(product_refs) == 1:
+        product_ref = UUID(next(iter(product_refs)))
+        definition = repo.metadata_definition(product_ref)
+        if definition and definition["kind"] in {"PRODUCT", "PRODUCT_DOMAIN"}:
+            for item in repo.get_data_items(project_id, version=result["version"]):
+                repo.bind_data_item_product(data_item_id=UUID(item["data_item_id"]),
+                    product_domain_definition_id=product_ref if definition["kind"] == "PRODUCT_DOMAIN" else None,
+                    product_definition_id=product_ref if definition["kind"] == "PRODUCT" else None,
+                    relationship_type="PRIMARY", confidence=1.0, source_trace_ids=(), version=result["version"])
     repo.pin_snapshot_context(
         analysis_snapshot_id=snapshot_id,
         project_id=project_id,
@@ -164,22 +181,32 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id):
                     bindings.append(dict(jurisdiction_id=jurisdiction, config_id=pin.object_id))
         if not bindings:
             raise ValueError("M2A_APPLICABILITY_CONFIGURATION_GAP")
+        inventory = repo.get_data_items(project_id, version=result["version"])
+        item_ids = tuple(UUID(row["data_item_id"]) for row in inventory)
+        # The existing canonical plan is one subject per run. Never silently
+        # run scenario-only or a subset when multiple formal items are present.
+        mode = "DATA_AWARE" if item_ids else "SCENARIO_LEVEL"
+        subject_type = "DATA_ITEM" if item_ids else "SCENARIO"
+        subject_id = item_ids[0] if item_ids else UUID(intake.business_scenario)
         plan = FormalWorkflowPlan(
             tenant_id=context.tenant_id,
             project_id=project_id,
             analysis_snapshot_id=snapshot_id,
             request_context_ref=uuid5(snapshot_id, "request-context"),
             context_resolution_run_id=context_run,
-            mode="SCENARIO_LEVEL",
-            subject_type="SCENARIO",
-            subject_id=UUID(intake.business_scenario),
+            mode=mode,
+            subject_type=subject_type,
+            subject_id=subject_id,
+            classification_data_item_ids=item_ids,
+            scheme_version_id=scheme_version_id if item_ids else None,
+            input_capability_gap="MULTI_SUBJECT_WORKFLOW_NOT_CONFIGURED" if len(item_ids) > 1 else None,
             applicability=bindings,
             retrieval_query=dict(
                 project_id=str(project_id),
                 analysis_snapshot_id=str(snapshot_id),
                 policy_id=policy_id,
-                subject_type="PROJECT",
-                subject_id=str(project_id),
+                subject_type=subject_type if item_ids else "PROJECT",
+                subject_id=str(subject_id if item_ids else project_id),
                 query_text=intake.business_purpose[:512],
                 idempotency_key="stage-owned",
             ),
@@ -210,8 +237,16 @@ def intake_service(sessions, context):
 
 def intake_workflow_host(sessions, context, project_id, snapshot_id):
     context = project_context(sessions, context, project_id)
-    view = PostgresProjectRepository(sessions, context).read_intake(project_id)
-    if view.status != "CONFIRMED" or view.analysis_snapshot_id != snapshot_id:
+    with sessions() as session:
+        pinned = session.scalar(select(b.AnalysisSnapshotEntity).where(
+            b.AnalysisSnapshotEntity.tenant_id == str(context.tenant_id),
+            b.AnalysisSnapshotEntity.analysis_snapshot_id == str(snapshot_id)))
+        version = session.get(b.ProjectVersionEntity, pinned.project_version_id) if pinned else None
+        if version is None or version.tenant_id != str(context.tenant_id) or version.project_id != str(project_id):
+            raise LookupError("confirmed intake snapshot not found")
+        number = version.version_no
+    view = PostgresProjectRepository(sessions, context).read_intake(project_id, number)
+    if view.status not in {"CONFIRMED", "SUPERSEDED"} or view.analysis_snapshot_id != snapshot_id:
         raise LookupError("confirmed intake snapshot not found")
     from crossborder_compliance.infrastructure.persistence.structured_intake import authorize_pins
 

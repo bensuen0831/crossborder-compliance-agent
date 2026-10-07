@@ -100,6 +100,9 @@ python scripts/m2a_architecture_check.py | tee "$EVIDENCE_DIR/m2a_architecture_c
 python scripts/phase1k_a_boundary_check.py | tee "$EVIDENCE_DIR/phase1k_a_boundary.json"
 python scripts/stage1_alpha_integrity.py | tee "$EVIDENCE_DIR/stage1_integrity.json"
 
+echo "=== Additive M2-B boundaries ==="
+python scripts/m2b_architecture_check.py | tee "$EVIDENCE_DIR/m2b_architecture_check.json"
+
 echo "=== Gate complete ==="
 echo "Phase 1A Mandatory Runtime Gate = PASS"
 echo "Phase 1B PostgreSQL Regression Gate = PASS"

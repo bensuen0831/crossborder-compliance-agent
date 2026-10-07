@@ -23,7 +23,7 @@ def check(root):
         "intake_draft_not_formal_input": 'ifrow.status!="DRAFT":' in persistence
         and "CONFIRMED_INTAKE_IMMUTABLE" in persistence,
         "confirmed_intake_required_for_snapshot": 'row.status="CONFIRMED"' in persistence
-        and 'version.status!="CONFIRMED"' in structured,
+        and ('version.status!="CONFIRMED"' in structured or 'version.statusnotin{"CONFIRMED","SUPERSEDED"}' in structured),
         "snapshot_pins_intake_version": "project_version_id=row.project_version_id" in persistence
         and "source_version=str(version.version_no)" in structured,
         "no_parallel_project_source_of_truth": "PostgresProjectRepository(sessions,context)"

@@ -211,7 +211,7 @@ def fixture():
 
 
 def context(f, selected, detected):
-    return ContextResolutionService(PostgresContextResolutionRepository(f["sf"], f["ctx"])).run(
+    result = ContextResolutionService(PostgresContextResolutionRepository(f["sf"], f["ctx"])).run(
         UUID(f["project"]),
         selected_product_scope=tuple(UUID(x) for x in selected),
         detected_product_scope=tuple(UUID(x) for x in detected),
@@ -228,6 +228,22 @@ def context(f, selected, detected):
             },
         ),
     )
+
+    # Initialize the explicit E pin before F performs any snapshot read. Each
+    # subsequent fixture input gets a new snapshot, never overwrites an old pin.
+    repo = PostgresContextResolutionRepository(f["sf"], f["ctx"])
+    with f["sf"]() as session, session.begin():
+        existing = session.scalar(select(c.AnalysisSnapshotContextPinEntity).where(
+            c.AnalysisSnapshotContextPinEntity.analysis_snapshot_id == f["snapshot"]))
+        if existing is not None:
+            previous = session.get(b.AnalysisSnapshotEntity, f["snapshot"])
+            f["snapshot"] = uid()
+            session.add(b.AnalysisSnapshotEntity(analysis_snapshot_id=f["snapshot"], tenant_id=f["tenant"],
+                project_version_id=previous.project_version_id, snapshot_version=str(result["version"]),
+                analysis_as_of_date=previous.analysis_as_of_date, provenance_json={"fixture": True}))
+    repo.pin_snapshot_context(analysis_snapshot_id=UUID(f["snapshot"]), project_id=UUID(f["project"]),
+        context_resolution_run_id=UUID(result["context_resolution_run_id"]))
+    return result
 
 
 def binding(f, scope="PRODUCT_SPECIFIC", dimensions=None, permissions=None, **extra):
@@ -306,6 +322,8 @@ def publish(f, bindings=None, doc=None, **extra):
 
 
 def scope(f, **kw):
+    if kw.get("subject_type") in {"DATA_ITEM", "DATA_FLOW"} and "snapshot_id" not in kw:
+        kw["snapshot_id"] = f["snapshot"]
     return KnowledgeScopeResolver(f["repo"], f["ctx"]).resolve(f["project"], **kw)
 
 
@@ -441,14 +459,13 @@ def item(f, product, version):
             )
         )
         if product:
-            s.add(
-                b.DataItemProductLinkEntity(
-                    data_item_product_link_id=uid(),
-                    tenant_id=f["tenant"],
-                    data_item_id=ident,
-                    product_ref=product,
-                )
-            )
+            link_id = uid()
+            s.add(b.DataItemProductLinkEntity(data_item_product_link_id=link_id,
+                tenant_id=f["tenant"], data_item_id=ident, product_ref=product))
+            s.flush()
+            s.add(c.DataItemProductLinkDetailEntity(data_item_product_link_id=link_id,
+                tenant_id=f["tenant"], data_inventory_version=version, product_definition_id=product,
+                relationship_type="PRIMARY", confidence=1.0, source_trace_ids_json=[]))
     return ident
 
 
@@ -501,11 +518,11 @@ def test_case_b_multi_product_minimal_item_flow(fixture):
                 version=run["version"],
             )
         )
-        s.add(
-            b.DataItemFlowLinkEntity(
-                link_id=uid(), tenant_id=f["tenant"], data_item_id=ia, flow_edge_id=flow
-            )
-        )
+        link_id = uid()
+        s.add(b.DataItemFlowLinkEntity(link_id=link_id, tenant_id=f["tenant"], data_item_id=ia, flow_edge_id=flow))
+        s.flush()
+        s.add(c.DataItemFlowLinkDetailEntity(link_id=link_id, tenant_id=f["tenant"],
+            data_inventory_version=run["version"], relationship_type="TRANSFER", confidence=1.0))
     assert scope(f, subject_type="DATA_FLOW", subject_id=flow).filter_spec.version_filter == (
         a["knowledge_version_id"],
     )
@@ -606,18 +623,19 @@ def test_supersede_diff_and_immutable_snapshot(fixture):
     f = fixture
     v = publish(f)
     index = f["repo"].build_index(v["knowledge_version_id"])
-    frozen = scope(f, snapshot_id=f["snapshot"])
+    old_snapshot = f["snapshot"]
+    frozen = scope(f, snapshot_id=old_snapshot)
     publish(f, doc=v["document_id"])
     assert f["repo"].get_version(v["knowledge_version_id"])["lifecycle"] == "SUPERSEDED"
     context(f, [f["b"]], [f["b"]])
-    resumed = scope(f, snapshot_id=f["snapshot"])
+    resumed = scope(f, snapshot_id=old_snapshot)
     assert resumed.filter_spec == frozen.filter_spec and resumed.allowed_product_ids == (f["a"],)
     assert not scope(f).filter_spec.version_filter
     assert count(f, k.KnowledgeVersionDiffEntity) == 1
     with f["sf"]() as s:
         pins = s.scalars(
             select(m.AnalysisSnapshotRegistryPinEntity).where(
-                m.AnalysisSnapshotRegistryPinEntity.analysis_snapshot_id == f["snapshot"]
+                m.AnalysisSnapshotRegistryPinEntity.analysis_snapshot_id == old_snapshot
             )
         ).all()
         assert {"KNOWLEDGE_VERSION", "KNOWLEDGE_BINDING", "KNOWLEDGE_INDEX_VERSION"} <= {

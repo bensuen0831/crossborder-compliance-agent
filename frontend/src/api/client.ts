@@ -59,7 +59,7 @@ export async function request<T>(path: string, options: RequestInit = {}, schema
   let response: Response;
   try {
     response = await transport(path, { ...options, credentials: 'same-origin', headers: {
-      Accept: 'application/json', ...(options.body ? { 'Content-Type': 'application/json' } : {}),
+      Accept: 'application/json', ...(options.body && !(options.body instanceof FormData) ? { 'Content-Type': 'application/json' } : {}),
       ...options.headers,
     } });
   } catch (error) {
@@ -96,3 +96,21 @@ export const api = {
   },
   logout: () => request<{ status: string }>(demoEnabled ? '/m0-demo/logout' : '/api/v1/logout', { method: 'POST' }),
 };
+
+// Real multipart progress; share credentials, errors and runtime validators.
+export function uploadForm<T>(path: string, form: FormData, schema: string, progress: (value: number) => void): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', path); xhr.withCredentials = true;
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.upload.onprogress = event => { if (event.lengthComputable) progress(Math.round(event.loaded / event.total * 100)); };
+    xhr.onerror = () => reject(new ApiError(0, 'NETWORK_UNAVAILABLE'));
+    xhr.onabort = () => reject(new ApiError(0, 'NETWORK_UNAVAILABLE'));
+    xhr.onload = () => {
+      if (xhr.status < 200 || xhr.status >= 300) { reject(new ApiError(xhr.status, `HTTP_${xhr.status}`)); return; }
+      try { resolve(validateContract<T>(schema, JSON.parse(xhr.responseText))); }
+      catch { reject(new ApiError(502, 'API_CONTRACT_MISMATCH')); }
+    };
+    xhr.send(form);
+  });
+}

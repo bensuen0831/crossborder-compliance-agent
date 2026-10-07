@@ -47,7 +47,7 @@ from crossborder_compliance.infrastructure.persistence.models import (
     DataItemGroupMemberEntity, DataItemProductLinkEntity, DocumentEntity,
     DocumentParseRunEntity, DocumentVersionEntity, JurisdictionEntity,
     LegalEntityEntity, ProjectEntity, ProjectPartyEntity, ReviewTaskEntity,
-    WorkflowRunEntity,
+    WorkflowRunEntity, SourceTraceRefEntity,
 )
 from crossborder_compliance.infrastructure.persistence.postgres_repositories import (
     OptimisticConcurrencyError,
@@ -65,9 +65,11 @@ class PostgresContextResolutionRepository:
     Phase 1E tables only hold resolution/version/provenance/detail context.
     """
 
-    def __init__(self, session_factory: sessionmaker, context: RepositoryContext):
+    def __init__(self, session_factory: sessionmaker, context: RepositoryContext, *, parse_run_ids: tuple[UUID, ...] | None = None, context_resolution_run_id: UUID | None = None):
         self._sessions = session_factory
         self._context = context
+        self.parse_run_ids = parse_run_ids
+        self.context_resolution_run_id = context_resolution_run_id
 
     @property
     def tenant_id(self) -> str:
@@ -113,7 +115,7 @@ class PostgresContextResolutionRepository:
             }
 
     def _project_parse_runs(self, project_id: UUID):
-        return (
+        query = (
             select(DocumentParseRunEntity.document_parse_run_id)
             .join(DocumentVersionEntity, DocumentVersionEntity.document_version_id == DocumentParseRunEntity.document_version_id)
             .join(DocumentEntity, DocumentEntity.document_id == DocumentVersionEntity.document_id)
@@ -123,6 +125,10 @@ class PostgresContextResolutionRepository:
                 DocumentEntity.project_id == str(project_id),
             )
         )
+
+        if self.parse_run_ids is not None:
+            query = query.where(DocumentParseRunEntity.document_parse_run_id.in_([str(x) for x in self.parse_run_ids]))
+        return query
 
     def _trace_ids(self, session, link_model, fk_col, object_id: str) -> list[str]:
         return list(session.scalars(select(link_model.source_trace_ref_id).where(
@@ -247,17 +253,24 @@ class PostgresContextResolutionRepository:
 
     def save_candidate_resolution(self, resolution: CandidateResolution) -> None:
         with self._sessions() as s, s.begin():
-            s.add(CandidateResolutionEntity(
-                resolution_id=str(resolution.resolution_id), tenant_id=self.tenant_id,
-                candidate_type=resolution.candidate_type, candidate_id=str(resolution.candidate_id),
-                formal_object_type=resolution.formal_object_type,
+            state = dict(formal_object_type=resolution.formal_object_type,
                 formal_object_id=str(resolution.formal_object_id) if resolution.formal_object_id else None,
                 action=resolution.action.value, confidence=resolution.confidence,
                 resolution_reason_code=resolution.resolution_reason_code,
                 source_trace_ids_json=[str(x) for x in resolution.source_trace_ids],
-                reviewer_required=resolution.reviewer_required, resolved_at=resolution.resolved_at,
-                resolved_by_type=resolution.resolved_by_type, version=resolution.version,
-            ))
+                reviewer_required=resolution.reviewer_required, resolved_by_type=resolution.resolved_by_type)
+            existing = s.scalar(select(CandidateResolutionEntity).where(
+                CandidateResolutionEntity.tenant_id == self.tenant_id,
+                CandidateResolutionEntity.candidate_type == resolution.candidate_type,
+                CandidateResolutionEntity.candidate_id == str(resolution.candidate_id),
+                CandidateResolutionEntity.version == resolution.version))
+            if existing is not None:
+                if any(getattr(existing, key) != value for key, value in state.items()):
+                    raise ValueError("IMMUTABLE_CANDIDATE_RESOLUTION_REWRITE")
+                return
+            s.add(CandidateResolutionEntity(resolution_id=str(resolution.resolution_id), tenant_id=self.tenant_id,
+                candidate_type=resolution.candidate_type, candidate_id=str(resolution.candidate_id),
+                resolved_at=resolution.resolved_at, version=resolution.version, **state))
 
     def save_conflict(self, conflict: ContextConflict) -> None:
         with self._sessions() as s, s.begin():
@@ -498,57 +511,72 @@ class PostgresContextResolutionRepository:
 
     def create_formal_data_item(self, *, project_id: UUID, canonical_name: str, description: str | None, source_document_version_id: UUID | None, source_trace_id: UUID, detail: DataItemResolutionDetail) -> UUID:
         with self._sessions() as s, s.begin():
-            existing = s.scalar(select(DataItemEntity).where(
+            project = s.scalar(select(ProjectEntity).where(ProjectEntity.tenant_id == self.tenant_id, ProjectEntity.project_id == str(project_id)).with_for_update())
+            if project is None:
+                raise LookupError("formal inventory project unavailable")
+            trace = self._get(s, SourceTraceRefEntity, SourceTraceRefEntity.source_trace_ref_id, source_trace_id)
+            source_version = self._get(s, DocumentVersionEntity, DocumentVersionEntity.document_version_id, UUID(trace.document_version_id)) if trace else None
+            source_document = self._get(s, DocumentEntity, DocumentEntity.document_id, UUID(source_version.document_id)) if source_version else None
+            if source_document is None or source_document.project_id != str(project_id) or (source_document_version_id is not None and source_version.document_version_id != str(source_document_version_id)):
+                raise LookupError("formal inventory source outside tenant/project")
+            item = s.scalar(select(DataItemEntity).where(
                 DataItemEntity.tenant_id == self.tenant_id,
-                DataItemEntity.project_id == str(project_id),
-                DataItemEntity.name == canonical_name,
+                DataItemEntity.project_id == str(project_id), DataItemEntity.name == canonical_name,
             ))
-            if existing is not None:
-                return UUID(existing.data_item_id)
-            item_id = detail.data_item_id
-            s.add(DataItemEntity(
-                data_item_id=str(item_id), project_id=str(project_id), tenant_id=self.tenant_id,
-                name=canonical_name, canonical_type_ref=detail.value_type,
-                description=description,
-                source_document_version_id=str(source_document_version_id) if source_document_version_id else None,
-                source_trace_ref_id=str(source_trace_id),
-            ))
-            s.flush()
-            s.add(DataItemResolutionDetailEntity(
-                data_item_id=str(item_id), tenant_id=self.tenant_id,
-                display_name=detail.display_name, value_type=detail.value_type,
-                format=detail.format, unit=detail.unit,
-                frequency_quantity_json=detail.frequency_quantity_metadata,
-                system_ids_json=[str(x) for x in detail.system_ids],
-                device_ids_json=[str(x) for x in detail.device_ids],
-                confidence=detail.confidence, validation_status=detail.validation_status.value,
-                review_required=detail.review_required, version=detail.version,
-            ))
-            return item_id
+            if item is None:
+                item = DataItemEntity(data_item_id=str(detail.data_item_id), project_id=str(project_id), tenant_id=self.tenant_id,
+                    name=canonical_name, canonical_type_ref=detail.value_type, description=description,
+                    source_document_version_id=str(source_document_version_id) if source_document_version_id else None,
+                    source_trace_ref_id=str(source_trace_id))
+                s.add(item)
+                s.flush()
+            state = dict(display_name=detail.display_name, value_type=detail.value_type, format=detail.format, unit=detail.unit,
+                frequency_quantity_json=detail.frequency_quantity_metadata, system_ids_json=[str(x) for x in detail.system_ids],
+                device_ids_json=[str(x) for x in detail.device_ids], confidence=detail.confidence,
+                validation_status=detail.validation_status.value, review_required=detail.review_required, version=detail.version)
+            existing = s.scalar(select(DataItemResolutionDetailEntity).where(
+                DataItemResolutionDetailEntity.tenant_id == self.tenant_id,
+                DataItemResolutionDetailEntity.data_item_id == item.data_item_id,
+                DataItemResolutionDetailEntity.version == detail.version))
+            if existing is None:
+                s.add(DataItemResolutionDetailEntity(data_item_id=item.data_item_id, tenant_id=self.tenant_id, **state))
+            elif any(getattr(existing, key) != value for key, value in state.items()):
+                raise ValueError("IMMUTABLE_INVENTORY_VERSION_REWRITE")
+            return UUID(item.data_item_id)
 
-    def attach_candidate_to_data_item(self, *, data_item_id: UUID, candidate_id: UUID, source_trace_ids: tuple[UUID, ...]) -> None:
+    def attach_candidate_to_data_item(self, *, data_item_id: UUID, candidate_id: UUID, source_trace_ids: tuple[UUID, ...], version: int) -> None:
+        from crossborder_compliance.infrastructure.persistence.context_temporal import exact_item_detail
         with self._sessions() as s, s.begin():
+            exact_item_detail(s, self.tenant_id, data_item_id, version)
+            candidate = self._get(s, CandidateDataItemEntity, CandidateDataItemEntity.candidate_data_item_id, candidate_id)
+            if candidate is None or candidate.parse_run_id not in s.scalars(self._project_parse_runs(UUID(self._get(s, DataItemEntity, DataItemEntity.data_item_id, data_item_id).project_id))).all():
+                raise LookupError("candidate outside formal input universe")
             existing = s.scalar(select(DataItemCandidateLinkEntity).where(
                 DataItemCandidateLinkEntity.tenant_id == self.tenant_id,
                 DataItemCandidateLinkEntity.data_item_id == str(data_item_id),
-                DataItemCandidateLinkEntity.candidate_data_item_id == str(candidate_id),
-            ))
+                DataItemCandidateLinkEntity.data_inventory_version == version,
+                DataItemCandidateLinkEntity.candidate_data_item_id == str(candidate_id)))
             if existing is None:
-                s.add(DataItemCandidateLinkEntity(
-                    data_item_candidate_link_id=str(uuid4()), data_item_id=str(data_item_id),
-                    candidate_data_item_id=str(candidate_id), tenant_id=self.tenant_id,
-                ))
+                item = self._get(s, DataItemEntity, DataItemEntity.data_item_id, data_item_id)
+                frozen = s.scalar(select(AnalysisSnapshotContextPinEntity.analysis_snapshot_context_pin_id).where(
+                    AnalysisSnapshotContextPinEntity.tenant_id == self.tenant_id,
+                    AnalysisSnapshotContextPinEntity.project_id == item.project_id,
+                    AnalysisSnapshotContextPinEntity.data_inventory_version == version))
+                if frozen is not None:
+                    raise ValueError("IMMUTABLE_INVENTORY_PROVENANCE_REWRITE")
+                s.add(DataItemCandidateLinkEntity(data_item_candidate_link_id=str(uuid4()), data_item_id=str(data_item_id),
+                    candidate_data_item_id=str(candidate_id), tenant_id=self.tenant_id, data_inventory_version=version))
             for trace_id in source_trace_ids:
-                trace_existing = s.scalar(select(DataItemSourceTraceLinkEntity).where(
+                if str(trace_id) not in self._trace_ids(s, CandidateDataItemSourceLinkEntity, CandidateDataItemSourceLinkEntity.candidate_data_item_id, str(candidate_id)):
+                    raise LookupError("trace outside candidate provenance")
+                existing = s.scalar(select(DataItemSourceTraceLinkEntity).where(
                     DataItemSourceTraceLinkEntity.tenant_id == self.tenant_id,
                     DataItemSourceTraceLinkEntity.data_item_id == str(data_item_id),
-                    DataItemSourceTraceLinkEntity.source_trace_ref_id == str(trace_id),
-                ))
-                if trace_existing is None:
-                    s.add(DataItemSourceTraceLinkEntity(
-                        data_item_source_trace_link_id=str(uuid4()), data_item_id=str(data_item_id),
-                        source_trace_ref_id=str(trace_id), tenant_id=self.tenant_id,
-                    ))
+                    DataItemSourceTraceLinkEntity.data_inventory_version == version,
+                    DataItemSourceTraceLinkEntity.source_trace_ref_id == str(trace_id)))
+                if existing is None:
+                    s.add(DataItemSourceTraceLinkEntity(data_item_source_trace_link_id=str(uuid4()), data_item_id=str(data_item_id),
+                        source_trace_ref_id=str(trace_id), tenant_id=self.tenant_id, data_inventory_version=version))
 
     def save_dedup_result(self, result: DataItemDeduplicationResult) -> None:
         with self._sessions() as s, s.begin():
@@ -591,11 +619,13 @@ class PostgresContextResolutionRepository:
                     ))
             return UUID(group.data_item_group_id)
 
-    def bind_data_item_product(self, *, data_item_id: UUID, product_domain_definition_id: UUID | None, product_definition_id: UUID | None, relationship_type: str, confidence: float, source_trace_ids: tuple[UUID, ...]) -> UUID:
+    def bind_data_item_product(self, *, data_item_id: UUID, product_domain_definition_id: UUID | None, product_definition_id: UUID | None, relationship_type: str, confidence: float, source_trace_ids: tuple[UUID, ...], version: int) -> UUID:
+        from crossborder_compliance.infrastructure.persistence.context_temporal import exact_item_detail
         product_ref = str(product_definition_id or product_domain_definition_id or "")
         if not product_ref:
             raise ValueError("product binding requires registry definition")
         with self._sessions() as s, s.begin():
+            exact_item_detail(s, self.tenant_id, data_item_id, version)
             row = s.scalar(select(DataItemProductLinkEntity).where(
                 DataItemProductLinkEntity.tenant_id == self.tenant_id,
                 DataItemProductLinkEntity.data_item_id == str(data_item_id),
@@ -608,14 +638,19 @@ class PostgresContextResolutionRepository:
                 )
                 s.add(row)
                 s.flush()
-                s.add(DataItemProductLinkDetailEntity(
-                    data_item_product_link_id=row.data_item_product_link_id,
-                    product_domain_definition_id=str(product_domain_definition_id) if product_domain_definition_id else None,
-                    product_definition_id=str(product_definition_id) if product_definition_id else None,
-                    relationship_type=relationship_type, confidence=confidence,
-                    evidence_id=None, source_trace_ids_json=[str(x) for x in source_trace_ids],
-                    tenant_id=self.tenant_id,
-                ))
+            state = dict(product_domain_definition_id=str(product_domain_definition_id) if product_domain_definition_id else None,
+                product_definition_id=str(product_definition_id) if product_definition_id else None,
+                relationship_type=relationship_type, confidence=confidence, evidence_id=None,
+                source_trace_ids_json=[str(x) for x in source_trace_ids])
+            prior = s.scalar(select(DataItemProductLinkDetailEntity).where(
+                DataItemProductLinkDetailEntity.tenant_id == self.tenant_id,
+                DataItemProductLinkDetailEntity.data_item_product_link_id == row.data_item_product_link_id,
+                DataItemProductLinkDetailEntity.data_inventory_version == version))
+            if prior is None:
+                s.add(DataItemProductLinkDetailEntity(data_item_product_link_id=row.data_item_product_link_id,
+                    tenant_id=self.tenant_id, data_inventory_version=version, **state))
+            elif any(getattr(prior, key) != value for key, value in state.items()):
+                raise ValueError("IMMUTABLE_PRODUCT_LINK_VERSION_REWRITE")
             return UUID(row.data_item_product_link_id)
 
     def jurisdiction_exists(self, jurisdiction_id: UUID) -> bool:
@@ -738,6 +773,7 @@ class PostgresContextResolutionRepository:
                 link_id=row.link_id, relationship_type=relationship_type,
                 source_trace_ids_json=[str(x) for x in source_trace_ids],
                 confidence=confidence, tenant_id=self.tenant_id,
+                data_inventory_version=s.get(DataFlowEdgeDetailEntity, str(flow_edge_id)).version,
             ))
             return UUID(row.link_id)
 
@@ -923,22 +959,26 @@ class PostgresContextResolutionRepository:
                 "review_required": resolution.review_required, "version": resolution.version,
             } for resolution, candidate in rows]
 
-    def get_data_items(self, project_id: UUID) -> list[dict[str, object]]:
+    def get_data_items(self, project_id: UUID, *, version: int | None = None) -> list[dict[str, object]]:
         with self._sessions() as s:
             rows = s.execute(
                 select(DataItemEntity, DataItemResolutionDetailEntity)
                 .join(DataItemResolutionDetailEntity, DataItemResolutionDetailEntity.data_item_id == DataItemEntity.data_item_id)
-                .where(DataItemEntity.tenant_id == self.tenant_id, DataItemEntity.project_id == str(project_id))
+                .where(DataItemEntity.tenant_id == self.tenant_id, DataItemEntity.project_id == str(project_id),
+                    DataItemResolutionDetailEntity.tenant_id == self.tenant_id,
+                    *([DataItemResolutionDetailEntity.version == version] if version is not None else []))
             ).all()
             out = []
             for item, detail in rows:
                 candidate_ids = list(s.scalars(select(DataItemCandidateLinkEntity.candidate_data_item_id).where(
                     DataItemCandidateLinkEntity.tenant_id == self.tenant_id,
                     DataItemCandidateLinkEntity.data_item_id == item.data_item_id,
+                    DataItemCandidateLinkEntity.data_inventory_version == detail.version,
                 )))
                 trace_ids = list(s.scalars(select(DataItemSourceTraceLinkEntity.source_trace_ref_id).where(
                     DataItemSourceTraceLinkEntity.tenant_id == self.tenant_id,
                     DataItemSourceTraceLinkEntity.data_item_id == item.data_item_id,
+                    DataItemSourceTraceLinkEntity.data_inventory_version == detail.version,
                 )))
                 out.append({
                     "data_item_id": item.data_item_id, "canonical_name": item.name,
@@ -1104,6 +1144,8 @@ class PostgresContextResolutionRepository:
                 ContextResolutionRunEntity.tenant_id == self.tenant_id,
                 ContextResolutionRunEntity.project_id == str(project_id),
                 ContextResolutionRunEntity.status == "COMPLETED",
+                *([ContextResolutionRunEntity.context_resolution_run_id == str(self.context_resolution_run_id)]
+                  if self.context_resolution_run_id is not None else []),
             ).order_by(ContextResolutionRunEntity.version.desc()))
             if run is None:
                 return None
@@ -1205,7 +1247,20 @@ class PostgresContextResolutionRepository:
             "edges":[x for x in flows["edges"] if int(x["version"])==version],
             "data_item_links":[x for x in flows["data_item_links"] if x["flow_edge_id"] in latest_edge_ids],
         }
-        stats=self.aggregate_statistics(project_id)
+        with self._sessions() as s:
+            project_runs = self._project_parse_runs(project_id)
+            candidate_ids = set()
+            for model, identity in ((BusinessFactCandidateEntity, BusinessFactCandidateEntity.fact_id), (CandidateDataItemEntity, CandidateDataItemEntity.candidate_data_item_id), (CandidateDataFlowEdgeEntity, CandidateDataFlowEdgeEntity.candidate_edge_id)):
+                candidate_ids.update(s.scalars(select(identity).where(
+                    model.tenant_id == self.tenant_id, model.parse_run_id.in_(project_runs),
+                )).all())
+            unresolved_candidates = tuple(s.scalars(select(CandidateResolutionEntity.resolution_reason_code).where(
+                CandidateResolutionEntity.tenant_id == self.tenant_id,
+                CandidateResolutionEntity.version == run.data_inventory_version,
+                CandidateResolutionEntity.candidate_id.in_(candidate_ids),
+                CandidateResolutionEntity.action == "REVIEW_REQUIRED",
+            )).all())
+        stats=run.statistics_json
         return ContextResolutionResult(
             context_resolution_run_id=UUID(run.context_resolution_run_id),
             project_id=project_id,
@@ -1215,10 +1270,10 @@ class PostgresContextResolutionRepository:
             system_contexts=system_contexts,
             device_contexts=device_contexts,
             party_contexts=party_contexts,
-            data_inventory_summary={"items":self.get_data_items(project_id),"groups":self.get_data_groups(project_id)},
+            data_inventory_summary={"items":self.get_data_items(project_id, version=run.data_inventory_version),"groups":self.get_data_groups(project_id)},
             data_flow_summary=latest_flows,
             jurisdiction_contexts=jurisdiction_contexts,
-            unresolved_items=tuple(x.reason_code for x in conflicts if x.resolution_status!="RESOLVED"),
+            unresolved_items=tuple(dict.fromkeys([x.reason_code for x in conflicts if x.resolution_status!="RESOLVED"] + list(unresolved_candidates))),
             conflicts=conflicts,review_task_ids=review_ids,
             statistics=ContextStatistics(**stats),
             confidence=run.confidence,version=version,

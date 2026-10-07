@@ -43,6 +43,7 @@ class FormalWorkflowPlan(ReferenceModel):
     applicability: tuple[ApplicabilityBinding, ...] = Field(min_length=1, max_length=128)
     retrieval_query: KnowledgeRetrievalQuery
     requirement_review: bool = False
+    input_capability_gap: Literal["MULTI_SUBJECT_WORKFLOW_NOT_CONFIGURED"] | None = None
 
     @model_validator(mode="after")
     def scoped_plan(self):
@@ -69,7 +70,12 @@ class FormalWorkflowPlan(ReferenceModel):
             not self.classification_data_item_ids or not self.scheme_version_id
         ):
             raise ValueError("data mode requires explicit classification references")
-        if self.subject_type == "DATA_ITEM" and self.classification_data_item_ids != (
+        if self.input_capability_gap is not None and (
+            self.mode != "DATA_AWARE" or len(self.classification_data_item_ids) < 2
+            or self.subject_id not in self.classification_data_item_ids
+        ):
+            raise ValueError("invalid multi-subject capability boundary")
+        if self.subject_type == "DATA_ITEM" and self.input_capability_gap is None and self.classification_data_item_ids != (
             self.subject_id,
         ):
             raise ValueError("classification subject mismatch")
@@ -238,6 +244,8 @@ class FormalWorkflowStages:
     def execute(self, request):
         self._check(request)
         step, p = request.step, self.plan
+        if p.input_capability_gap is not None:
+            return self._result(request, StageOutcomeCode.CAPABILITY_NOT_CONFIGURED, reasons=(p.input_capability_gap,))
         if step in {
             SemanticStep.REQUIREMENT,
             SemanticStep.FORMAL_CONTEXT,

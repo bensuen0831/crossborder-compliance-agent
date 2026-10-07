@@ -109,6 +109,8 @@ class ProjectDocumentOperations:
                 historical=s.get(b.ProjectVersionEntity,key.response_ref)
                 return self._input_view(s,project_id,historical)
             self._draft(row,request.expected_version)
+            if self.file_policy is None or self.storage is None:
+                raise DocumentCapabilityError("CAPABILITY_NOT_CONFIGURED: document upload")
             safe,media=self.file_policy.validate_content(filename,media_type,content)
             if self.file_policy.scan_required and self.scanner is None:
                 raise DocumentCapabilityError("CAPABILITY_NOT_CONFIGURED: malware scanner required")
@@ -129,7 +131,12 @@ class ProjectDocumentOperations:
                         raise LookupError("replacement document not attached")
                     result=ingestion.add_version(tenant_id=self._context.tenant_id,document_id=replace_document_id,filename=safe,mime_type=media,content=content)
                 else:
-                    result=ingestion.ingest(tenant_id=self._context.tenant_id,project_id=project_id,filename=safe,mime_type=media,content=content)
+                    named = s.scalar(select(b.DocumentEntity).where(b.DocumentEntity.tenant_id == self.tenant_id,
+                        b.DocumentEntity.project_id == str(project_id), b.DocumentEntity.name == safe))
+                    if named is not None:
+                        result=ingestion.add_version(tenant_id=self._context.tenant_id,document_id=UUID(named.document_id),filename=safe,mime_type=media,content=content)
+                    else:
+                        result=ingestion.ingest(tenant_id=self._context.tenant_id,project_id=project_id,filename=safe,mime_type=media,content=content)
                 version_id=str(result["document_version_id"])
                 audit=s.get(d.DocumentVersionIntelligenceEntity,version_id)
                 audit.upload_provenance_json=dict(actor_ref=self._context.permission.actor_id,origin="DOCUMENT_UPLOAD",policy_version=self.file_policy.version,policy_digest=self.file_policy.digest,
@@ -168,6 +175,8 @@ class ProjectDocumentOperations:
         with self._sessions() as s,s.begin():
             _,_,row=self._input_project(s,project_id,"parse",True)
             if str(version_id) not in links(s,self.tenant_id,row.project_version_id): raise LookupError("document input not attached")
+            if self.storage is None:
+                raise DocumentCapabilityError("CAPABILITY_NOT_CONFIGURED: document parse storage")
             child=lambda: joined_sessions(s.connection())
             repo=PostgresDocumentIntelligenceRepository(child,self._context)
             task=repo.create_parse_task(document_version_id=version_id,idempotency_key=f"document-input:{version_id}",parser_profile_id="native-v1")

@@ -50,7 +50,10 @@ def main():
         "scenario_context_registry_fk": "metadata_definitions" in scenario_fk,
         "scenario_resolution_registry_fk": "metadata_definitions" in scenario_resolution_fk,
         "product_conflict_explicit": {"conflict_id","selected_product_scope_json","detected_product_context_json","effective_product_scope_json"}<=cols("product_scope_resolutions"),
-        "data_item_detail_one_to_one": set(insp.get_pk_constraint("data_item_resolution_details").get("constrained_columns") or [])=={"data_item_id"},
+        "data_item_detail_exact_version_identity": (
+            set(insp.get_pk_constraint("data_item_resolution_details").get("constrained_columns") or []) == {"detail_version_id"}
+            and any(set(x["column_names"]) == {"tenant_id", "data_item_id", "version"} for x in insp.get_unique_constraints("data_item_resolution_details"))
+        ) if revision_at_or_after(revision, "0013_m2b_context_temporal_contract") else set(insp.get_pk_constraint("data_item_resolution_details").get("constrained_columns") or []) == {"data_item_id"},
         "formal_data_item_has_candidate_links": {"data_item_id","candidate_data_item_id"}<=cols("data_item_candidate_links"),
         "formal_data_item_has_source_trace_links": "source_trace_refs" in item_source_fk,
         "formal_counts_are_separate": {"statistics_json","data_inventory_version","data_flow_version"}<=cols("context_resolution_runs") and "data_item_groups" in tables,

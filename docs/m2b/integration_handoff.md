@@ -1,15 +1,5 @@
-# M2-B WIP handoff — BLOCKED
+# integration handoff
 
-Baseline `da2d420602d9c71991bcae4ffd3d33c9b3497d25` / annotated `v3.6-m2a-pass`; dedicated branch `milestone-m2b-document-binary-integration`. M2-A source branch remains frozen. B1 supplied-spec review PASS.
+Baseline da2d420602d9c71991bcae4ffd3d33c9b3497d25 / v3.6-m2a-pass. Continue branch milestone-m2b-document-binary-integration, Draft PR23; do not merge. Temporal blocker is resolved by the user-approved exact-version contract. Canonical D→E→H/I/J→L-B authority is reused. Current FormalWorkflowPlan supports a single authoritative subject: actual single-item input executes DATA_AWARE; multiple items without a formal single flow subject return CAPABILITY_NOT_CONFIGURED before decisions (MULTI_SUBJECT_WORKFLOW_NOT_CONFIGURED). No scenario-only bypass or invented batch graph. Parse quality REVIEW_REQUIRED is rejected at confirmation until existing owning review resolves it; no new review UI. Optional scanner/provider/deployment onboarding is a capability gap, never fake PASS. Remaining closure: full gate, browser regression, exact-head CI; no M2C entry decision before PASS.
 
-Preserved WIP: authorized multipart binary upload; canonical Document/DocumentVersion persistence; immutable draft-version attachment links; generic configured content policy; existing object-storage port with local adapter; honest scanner capability handling; existing durable parse tasks/native parser; genuine SourceTrace and candidates; restore/idempotent parse; controlled supersede/unlink/replace API.
-
-Focused PostgreSQL/storage/security tests: 11 PASS. Snapshot-contract diagnostic: 1 PASS **reproducing a blocker**, not acceptance. See [contract blocker](M2B_contract_blocker.md) and [measured checkpoint](../../evidence/m2b/implementation_checkpoint.json).
-
-WIP linear migration `0012_m2b_document_inputs` follows `0011_m2a_intake`; fresh focused PostgreSQL upgrade succeeded. Frozen 0001–0011 unchanged. Migration dual-path/equivalence/downgrade/re-upgrade closure is pending. Do not claim migration or M2-B PASS.
-
-Pending: owning E/F/H/I version-contract decision, exact document/parse universe and readiness confirmation, snapshot-scoped context reads, historical workflow authorization, governed document fact binding where necessary, existing Step3 H5 integration/client generation, all remaining focused acceptance tests, ownership/architecture checks, full backend/frontend/browser/migration closure and exact-head CI certification.
-
-No frontend modification; no new legal engine, graph/runtime/checkpointer, competing Project/Document/Fact/Snapshot store or fake provenance. Production malware/queue provisioning is not claimed. No M2-C entry decision, no merge and no later-phase work.
-
-Task checkpoint: `artifacts/m2b/phase_progress_checkpoint.md`; original blocked checkpoint/inventory are retained. Frozen-source identity and measured logs are under `evidence/m2b/`.
+Canonical DocumentVersion retains tenant-wide content-hash uniqueness. Same bytes may be reused within their owning project; cross-project same-hash upload returns409 without leaking identity. Shared binary reuse across projects would require an explicit owning contract decision; this task does not weaken it. Browser fixtures are genuine project-specific documents, including their actual project identity.

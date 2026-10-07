@@ -1,3 +1,5 @@
+> Historical d78c310 blocker, resolved by the user-approved temporal correction. Preserved for traceability; current acceptance evidence is in temporal_contract_result and migration tests.
+
 # M2-B frozen snapshot / inventory contract blocker
 
 `HIGH_REASONING_ESCALATION_REQUIRED — M2-B = BLOCKED`
