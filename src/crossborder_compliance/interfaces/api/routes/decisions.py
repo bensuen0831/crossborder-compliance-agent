@@ -11,6 +11,10 @@ from crossborder_compliance.application.decision_services import (
 from crossborder_compliance.domain.decision_contracts import StageKind
 from crossborder_compliance.domain.localized_metadata import PresentationLocale, resolve_display
 from crossborder_compliance.domain.rules import Contract
+from crossborder_compliance.application.formal_result_services import (
+    CrossBorderAssessmentService, RegulatoryDocumentRequirementService, FormalAuthorityRequest,
+)
+from crossborder_compliance.domain.formal_result_contracts import AuthorityKind, AUTHORITY_ENVELOPES
 from crossborder_compliance.interfaces.api.routes.country_compliance import (
     Context,
     repository,
@@ -18,6 +22,26 @@ from crossborder_compliance.interfaces.api.routes.country_compliance import (
 )
 
 router = APIRouter(prefix="/api/v1", tags=["formal-decisions"])
+
+AuthorityResponse = AUTHORITY_ENVELOPES['CROSS_BORDER'] | AUTHORITY_ENVELOPES['DOCUMENT_REQUIREMENT']
+
+
+@router.post('/projects/{project_id}/formal-authority-results',response_model=AuthorityResponse)
+def execute_authority(project_id: UUID, request: FormalAuthorityRequest, context: Context):
+    try:
+        if project_id!=request.project_id:raise LookupError('formal authority project mismatch')
+        cls=CrossBorderAssessmentService if request.stage_kind=='CROSS_BORDER' else RegulatoryDocumentRequirementService
+        return cls(repository(context)).execute(request)
+    except Exception as exc:
+        translate(exc)
+
+
+@router.get('/formal-authority-results/{stage}/{result_id}',response_model=AuthorityResponse)
+def read_authority(stage: AuthorityKind, result_id: UUID, context: Context):
+    try:
+        return repository(context).read_formal_result(stage,result_id)
+    except Exception as exc:
+        translate(exc)
 
 
 class DecisionPinRequest(Contract):

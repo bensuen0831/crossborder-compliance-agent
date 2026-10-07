@@ -18,7 +18,11 @@ from crossborder_compliance.infrastructure.persistence import context_models as 
 pytestmark = pytest.mark.runtime_smoke
 ROOT = Path(__file__).resolve().parents[1]
 BASE = 'da2d420602d9c71991bcae4ffd3d33c9b3497d25'
-HEAD = '0013_m2b_context_temporal_contract'
+from alembic.config import Config
+from alembic.script import ScriptDirectory
+from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after
+HEAD = ScriptDirectory.from_config(Config(str(ROOT/'alembic.ini'))).get_current_head()
+assert revision_at_or_after(HEAD,'0013_m2b_context_temporal_contract')
 
 
 def complete_catalog(url):

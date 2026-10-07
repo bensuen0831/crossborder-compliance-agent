@@ -69,7 +69,9 @@ def overlay(root):
             document_valid, document_paths, document_source = document_overlay(root)
         else:
             document_valid, document_paths, document_source = True, {}, None
-        valid = document_valid and (
+        from scripts.m2c_ownership import overlay as authority_overlay, MIGRATION as authority_migration
+        authority_valid, authority_paths, authority_source = authority_overlay(root) if (root / 'evidence/m2c/c0_approved_owner_overlay.json').exists() else (True, {}, None)
+        valid = document_valid and authority_valid and (
             data["base_sha"] == BASE
             and ancestor(BASE, source)
             and ancestor(source, "HEAD")
@@ -78,7 +80,7 @@ def overlay(root):
         )
         valid = valid and all(
             hashlib.sha256(git("show", source + ":" + p)).hexdigest() == h
-            and ((root / p).read_bytes() == git("show", source + ":" + p) or p in document_paths)
+            and ((root / p).read_bytes() == git("show", source + ":" + p) or p in document_paths or p in authority_paths)
             for p, h in data["paths"].items()
         )
         old = set(
@@ -89,7 +91,7 @@ def overlay(root):
         now = {str(p.relative_to(root)) for p in (root / "alembic/versions").glob("*.py")}
         valid = (
             valid
-            and now == old | {MIGRATION} | (document_migrations if document_paths else set())
+            and now == old | {MIGRATION} | (document_migrations if document_paths else set()) | ({authority_migration} if authority_paths else set())
             and all((root / p).read_bytes() == git("show", BASE + ":" + p) for p in old)
         )
         protected = ["ARCHITECTURE_RULES.md", "frontend/package.json", "frontend/package-lock.json"]
@@ -109,7 +111,7 @@ def overlay(root):
         valid = valid and all(
             (root / p).read_bytes() == git("show", BASE + ":" + p)
             for p in protected
-            if p not in SHARED
+            if p not in SHARED and p not in authority_paths
         )
         delta = set(git("diff", "--name-only", BASE, source).decode().splitlines())
 
@@ -145,7 +147,7 @@ def overlay(root):
             )
 
         valid = valid and all(allowed(p) for p in delta)
-        return valid, {**data["paths"], **document_paths}, document_source or source
+        return valid, {**data["paths"], **document_paths, **authority_paths}, authority_source or document_source or source
     except (KeyError, OSError, ValueError, subprocess.CalledProcessError):
         return False, {}, None
 
@@ -163,7 +165,7 @@ def owned_delta(root):
     # Delivery evidence is subsequent to tested source; cannot approve code.
     paths.update(
         str(p.relative_to(root))
-        for prefix in ("docs/m2a", "evidence/m2a", "docs/m2b", "evidence/m2b")
+        for prefix in ("docs/m2a", "evidence/m2a", "docs/m2b", "evidence/m2b", "docs/m2c", "evidence/m2c")
         for p in (Path(root) / prefix).rglob("*")
         if p.is_file()
     )

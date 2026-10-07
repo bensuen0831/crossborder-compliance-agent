@@ -147,7 +147,7 @@ class DecisionRequestKeyEntity(TenantAuditMixin, Base):
             "tenant_id", "project_id", "stage_kind", "idempotency_key", name="uq_j_request_key"
         ),
         CheckConstraint(
-            "stage_kind IN ('OBLIGATION','CANDIDATE_PATH','RISK','RECOMMENDATION','FINAL_PATH')",
+            "stage_kind IN ('OBLIGATION','CANDIDATE_PATH','RISK','RECOMMENDATION','FINAL_PATH','CROSS_BORDER','DOCUMENT_REQUIREMENT')",
             name="ck_j_request_kind",
         ),
     )

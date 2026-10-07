@@ -44,7 +44,30 @@ from crossborder_compliance.infrastructure.persistence.retrieval_repositories im
 
 
 class PostgresCountryComplianceRepository:
+    def initialize_formal_results(self, project_id, snapshot_id):
+        from crossborder_compliance.infrastructure.persistence.formal_result_repository import initialize
+        return initialize(self, project_id, snapshot_id)
+
+    def prepare_formal_result(self, request):
+        from crossborder_compliance.infrastructure.persistence.formal_result_repository import prepare
+        return prepare(self, request)
+
+    def save_formal_result(self, request, result):
+        from crossborder_compliance.infrastructure.persistence.formal_result_repository import save
+        return save(self, request, result)
+
+    def read_formal_result(self, kind, ident):
+        from crossborder_compliance.infrastructure.persistence.formal_result_repository import read
+        return read(self, kind, ident)
+
     def initialize_decisions(self, project_id, snapshot_id):
+        # Historical J snapshots keep their original sealed dependency universe.
+        # New snapshots capture C0 before J; C0 never retrofits a historical pin.
+        with self.sessions() as session:
+            from crossborder_compliance.infrastructure.persistence.decision_repository import pins
+            sealed = any(p.pin_type == 'PHASE1J_INITIALIZATION' for p in pins(self, session, snapshot_id))
+        if not sealed:
+            self.initialize_formal_results(project_id, snapshot_id)
         from crossborder_compliance.infrastructure.persistence.decision_repository import initialize
         return initialize(self, project_id, snapshot_id)
 
