@@ -39,6 +39,8 @@ PATHS = frozenset(
         "src/crossborder_compliance/interfaces/api/routes/workflow.py",
         "src/crossborder_compliance/workflows/canonical.py",
         "tests/m2c_policy_fixtures.py",
+        "tests/conftest.py",
+        "tests/test_m1_workflow_api.py",
         "tests/test_m2a_structured_intake.py",
         "tests/test_m2b_integration.py",
         "tests/test_m2c_architecture.py",

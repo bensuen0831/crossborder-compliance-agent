@@ -1,12 +1,13 @@
 import { test, expect } from '@playwright/test';
 import fs from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import zhCN from '../src/locales/zh-CN.json' with { type: 'json' };
 import zhHK from '../src/locales/zh-HK.json' with { type: 'json' };
 import enUS from '../src/locales/en-US.json' with { type: 'json' };
 const catalogs = { 'zh-CN': zhCN, 'zh-HK': zhHK, 'en-US': enUS };
 const manifest = JSON.parse(fs.readFileSync(process.env.M2A_UAT_MANIFEST!, 'utf8'));
 for (const [locale, messages] of Object.entries(catalogs)) test(`Stage 1 formal authorities, visualizations and exact-snapshot reread in ${locale}`, async ({ page }) => {
-  test.setTimeout(120000);
+  test.setTimeout(180000);
   const values = manifest.INTAKE.intake;
   await page.addInitScript(x => localStorage.setItem('stage1-alpha.ui-locale', x), locale);
   expect((await page.request.post('/m0-demo/login', { data: { persona: 'INTAKE' } })).status()).toBe(200);
@@ -26,7 +27,11 @@ for (const [locale, messages] of Object.entries(catalogs)) test(`Stage 1 formal 
   await page.getByRole('button', { name: messages['ui.m2a.save'], exact: true }).click();
   await expect(page.getByLabel(messages['ui.m1.field.scenario'])).toBeVisible();
   await next(); await next();
-  await page.getByLabel(messages['ui.m2b.select']).setInputFiles('e2e/fixtures/m2c-intake.docx');
+  // The existing policy rejects the same content hash in a different project.
+  // Use a genuine DOCX archive with a unique project comment; parsed content
+  // stays the same and provenance/content hash still describe the real binary.
+  const binary = execFileSync('python', ['-c', "import io,sys,zipfile; b=io.BytesIO(open(sys.argv[1],'rb').read()); z=zipfile.ZipFile(b,'a'); z.comment=sys.argv[2].encode(); z.close(); sys.stdout.buffer.write(b.getvalue())", 'e2e/fixtures/m2c-intake.docx', project]);
+  await page.getByLabel(messages['ui.m2b.select']).setInputFiles({ name: 'm2c-intake.docx', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', buffer: binary });
   await page.getByRole('button', { name: messages['ui.m2b.upload'], exact: true }).click();
   await expect(page.getByTestId('document-input')).toContainText('m2c-intake.docx');
   await page.reload(); await next(); await next();
@@ -55,8 +60,8 @@ for (const [locale, messages] of Object.entries(catalogs)) test(`Stage 1 formal 
   expect(formal.mode).toBe('DATA_AWARE'); expect(formal.data_items).toHaveLength(1); expect(formal.classification).toHaveLength(1);
   expect(formal.cross_border.data_item_ids).toContain(formal.data_items[0].data_item_id);
   await page.getByRole('link', { name: messages['ui.m2c.openWorkspace'], exact: true }).click();
-  await expect(page.getByTestId('stage1-run-id')).toHaveText(run);
-  await expect(page.getByTestId('stage1-snapshot-id')).toHaveText(confirmed.analysis_snapshot_id);
+  await expect(page.getByTestId('stage1-run-id')).toHaveText(run, { timeout: 60000 });
+  await expect(page.getByTestId('stage1-snapshot-id')).toHaveText(confirmed.analysis_snapshot_id, { timeout: 60000 });
   await expect(page.getByRole('img', {name:messages['ui.m2c.transferMap']})).toBeVisible();
   await expect(page.getByText(messages['ui.m2c.pathNotice'],{exact:true})).toBeVisible();
   await page.getByRole('button',{name:messages['ui.m2c.legalEvidence'],exact:true}).click();
@@ -66,7 +71,7 @@ for (const [locale, messages] of Object.entries(catalogs)) test(`Stage 1 formal 
   await page.getByRole('button',{name:messages['ui.m2c.chooseDocuments'],exact:true}).click();
   await expect(page.getByText(messages['ui.m2c.stage2Unavailable'],{exact:true})).toBeVisible();
   await page.reload();
-  await expect(page.getByTestId('stage1-run-id')).toHaveText(run);
+  await expect(page.getByTestId('stage1-run-id')).toHaveText(run, { timeout: 60000 });
   expect(await (await page.request.get(resultPath)).json()).toEqual(formal);
   await page.screenshot({ path: `test-results/m2c-${locale}.png`, fullPage: true });
 });

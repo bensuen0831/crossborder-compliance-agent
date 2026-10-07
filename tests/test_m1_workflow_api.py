@@ -6,8 +6,8 @@ from uuid import UUID, uuid4
 import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from test_phase1j_postgres import fixture, foundation_i, foundation_j
-from test_phase1l_b_postgres import manifest
+from test_phase1j_postgres import fixture, foundation_i
+from test_phase1l_b_postgres import foundation_j, manifest
 
 from crossborder_compliance.domain.security import RepositoryContext
 from crossborder_compliance.interfaces.api.dependencies import get_repository_context
