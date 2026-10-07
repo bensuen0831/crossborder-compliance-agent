@@ -87,8 +87,17 @@ def delivery(request, context, project_id, snapshot_id, operation, expected_run=
         scope(sf, context, project_id, snapshot_id, "read")
     provider = getattr(request.app.state, "formal_workflow_host", None)
     if provider is None:
-        raise HTTPException(409, "WORKFLOW_HOST_PLAN_REQUIRED")
-    run_id, prepared = provider(context, project_id, snapshot_id)
+        from crossborder_compliance.infrastructure.intake_composition import intake_workflow_host
+        try:
+            run_id, prepared = intake_workflow_host(sf, context, project_id, snapshot_id)
+        except (LookupError, PermissionError) as exc:
+            raise HTTPException(409, "WORKFLOW_HOST_PLAN_REQUIRED") from exc
+    else:
+        try:
+            run_id, prepared = provider(context, project_id, snapshot_id)
+        except LookupError:
+            from crossborder_compliance.infrastructure.intake_composition import intake_workflow_host
+            run_id, prepared = intake_workflow_host(sf, context, project_id, snapshot_id)
     run_id, plan = UUID(str(run_id)), FormalWorkflowPlan.model_validate(prepared)
     if (plan.tenant_id, plan.project_id, plan.analysis_snapshot_id) != (
         context.tenant_id,
@@ -163,11 +172,19 @@ def translate(exc):
     raise exc
 
 
+def authorized_intake_context(request, context, project_id):
+    if f"project:{project_id}:comply" in context.permission.scopes:
+        return context
+    from crossborder_compliance.infrastructure.intake_composition import project_context
+    return project_context(sessions(request), context, project_id)
+
+
 @router.post("/projects/{project_id}/snapshots/{snapshot_id}/workflow", response_model=WorkflowView)
 def start(
     project_id: UUID, snapshot_id: UUID, body: WorkflowStart, request: Request, context: Context
 ):
     try:
+        context = authorized_intake_context(request, context, project_id)
         sf, runtime, factory, run_id = delivery(
             request, context, project_id, snapshot_id, "execute"
         )
@@ -186,6 +203,7 @@ def read(run_id: UUID, request: Request, context: Context):
     try:
         sf = sessions(request)
         project_id, snapshot_id = WorkflowReadProjection(sf, context).run_scope(run_id)
+        context = authorized_intake_context(request, context, project_id)
         sf, runtime, _, _ = delivery(request, context, project_id, snapshot_id, "read", run_id)
         return view(sf, runtime, context, run_id, project_id, snapshot_id)
     except Exception as exc:

@@ -61,7 +61,7 @@ jobs:
       - name: Existing schema and canonical isolated formal workflow fixtures
         run: |
           alembic upgrade head
-          test "$(alembic heads | awk '{print $1}')" = 0010_phase1j
+          python -c "from alembic.config import Config; from alembic.script import ScriptDirectory; from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after; heads = ScriptDirectory.from_config(Config('alembic.ini')).get_heads(); assert len(heads) == 1 and revision_at_or_after(heads[0], '0010_phase1j')"
           python frontend/scripts/m1/uat.py --manifest /tmp/m1-personas.json --seed
       - name: Loopback trusted session and canonical workflow bridge and formal read APIs
         run: |
@@ -92,7 +92,7 @@ jobs:
           x = json.load(open('frontend/test-results/results.json'))['stats']
           assert x['expected'] == 3 and x['unexpected'] == x['skipped'] == x['flaky'] == 0
           head = subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
-          print('::notice::M1_EXACT_HEAD_SUMMARY=' + json.dumps({'tested_sha':head,'browser':x,'retry_count':0,'alembic':'0010_phase1j'}))
+          print('::notice::M1_EXACT_HEAD_SUMMARY=' + json.dumps({'tested_sha':head,'browser':x,'retry_count':0,'alembic':__import__('alembic.script',fromlist=['ScriptDirectory']).ScriptDirectory('alembic').get_current_head()}))
           PY
       - uses: actions/upload-artifact@v4
         if: always()

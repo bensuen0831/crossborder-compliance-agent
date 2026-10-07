@@ -1,0 +1,38 @@
+{
+  "baseline": "83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1",
+  "alembic": "0010_phase1j",
+  "blocker": "CONFIRMED_INTAKE_TO_FORMAL_BUSINESS_FACT_AND_TYPED_MISSING_INPUT_ROUTING",
+  "document_only_columns": [
+    {
+      "table_name": "source_trace_refs",
+      "column_name": "document_version_id",
+      "is_nullable": "NO"
+    },
+    {
+      "table_name": "business_fact_candidates",
+      "column_name": "parse_run_id",
+      "is_nullable": "NO"
+    }
+  ],
+  "counterexample": {
+    "project_id": "1cc0a2d5-16c0-42f9-b9e7-ef5d423e814b",
+    "run_id": "b7803226-1efa-5fa7-9ad3-c33c6b981854",
+    "status": "FAILED",
+    "formal_business_fact_count": 0,
+    "workflow_current_step": "applicability"
+  },
+  "intake_focused": "4 PASS before confirmed START counterexample; rollback test separately PASS",
+  "frontend_focused": {
+    "passed": 23,
+    "typecheck": "PASS"
+  },
+  "architecture": {
+    "passed": 151,
+    "total": 151
+  },
+  "full_closure": "NOT_RUN",
+  "ci": "NOT_TRIGGERED",
+  "migration": "NONE",
+  "M2A": "BLOCKED",
+  "escalation": "HIGH_REASONING_ESCALATION_REQUIRED"
+}

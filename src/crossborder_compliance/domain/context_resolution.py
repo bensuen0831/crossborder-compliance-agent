@@ -6,6 +6,8 @@ from enum import StrEnum
 from typing import Any
 from uuid import UUID
 
+from crossborder_compliance.domain.contracts import ProvenanceDTO
+
 
 class ResolutionAction(StrEnum):
     PENDING = "PENDING"
@@ -53,6 +55,7 @@ class BusinessFact:
     conflict_status: str
     review_required: bool
     version: int
+    structured_provenance: tuple[ProvenanceDTO, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)

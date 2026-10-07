@@ -28,6 +28,9 @@ def verify():
     from scripts.phase1l_b_ownership import overlay as workflow_overlay
     workflow_authorized, workflow_paths, workflow_source = workflow_overlay(ROOT)
     checks["reviewed_l_b_owner_overlay"] = workflow_authorized
+    from scripts.m2a_ownership import overlay as intake_overlay
+    intake_authorized, intake_paths, intake_source = intake_overlay(ROOT)
+    checks["reviewed_m2a_owner_overlay"] = intake_authorized
     for owner, sha in {"H": BASE, **SOURCES}.items():
         checks[f"{owner}_ancestry_preserved"] = subprocess.run(
             ["git", "merge-base", "--is-ancestor", sha, "HEAD"], cwd=ROOT,
@@ -36,7 +39,7 @@ def verify():
         track_base = git("merge-base", BASE, SOURCES[owner]).decode().strip()
         paths = git("diff", "--name-only", track_base, SOURCES[owner], "--", "src").decode().splitlines()
         checks[f"{owner}_backend_identical_to_tested_source"] = all(
-            (ROOT / path).read_bytes() == git("show", f"{workflow_source if workflow_authorized and path in workflow_paths else j_source if j_authorized and path in j_paths else SOURCES[owner]}:{path}")
+            (ROOT / path).read_bytes() == git("show", f"{intake_source if intake_authorized and path in intake_paths else workflow_source if workflow_authorized and path in workflow_paths else j_source if j_authorized and path in j_paths else SOURCES[owner]}:{path}")
             for path in paths
             if subprocess.run(["git", "cat-file", "-e", f"{SOURCES[owner]}:{path}"], cwd=ROOT,
                               stderr=subprocess.DEVNULL).returncode == 0
@@ -67,6 +70,8 @@ def verify():
     migration_changes = set(git("diff", "--name-only", DOMAIN_BASE, "--", "alembic").decode().splitlines())
     new_files = {str(p.relative_to(ROOT)) for p in (ROOT / "alembic/versions").glob("*.py")} - set(git("ls-tree", "-r", "--name-only", DOMAIN_BASE, "--", "alembic/versions").decode().splitlines())
     checks["no_integration_migration"] = (not migration_changes and not new_files) if not j_paths else j_authorized and migration_changes | new_files <= {"alembic/env.py", "alembic/versions/0010_phase1j_formal_decisions.py"} and all((ROOT / p).read_bytes() == git("show", j_source + ":" + p) for p in migration_changes | new_files)
+    if intake_paths:
+        checks["no_integration_migration"] = intake_authorized and migration_changes | new_files <= {"alembic/env.py", "alembic/versions/0010_phase1j_formal_decisions.py", "alembic/versions/0011_m2a_structured_intake.py"} and all((ROOT/p).read_bytes() == git("show", (intake_source if p in intake_paths else j_source) + ":" + p) for p in migration_changes | new_files)
     checks["one_shared_http_transport"] = "fetch(" not in (ROOT / "frontend/src/features/admin/client.ts").read_text()
     return {"status": "PASS" if all(checks.values()) else "FAIL", "checks": checks}
 

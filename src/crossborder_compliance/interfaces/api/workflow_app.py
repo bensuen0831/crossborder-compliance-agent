@@ -8,3 +8,7 @@ from crossborder_compliance.interfaces.api.main import app
 from crossborder_compliance.interfaces.api.routes.workflow import router
 
 app.include_router(router)
+
+from crossborder_compliance.interfaces.api.routes.intake import router as intake_router
+
+app.include_router(intake_router)

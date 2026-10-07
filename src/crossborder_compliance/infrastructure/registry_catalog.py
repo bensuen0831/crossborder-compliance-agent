@@ -25,6 +25,7 @@ class TenantRegistryProvider:
         "scenarios": "SCENARIO",
         "products": "PRODUCT",
         "data-types": "DATA_TYPE",
+        "data-categories": "DATA_CATEGORY",
         "data-flow-types": "DATA_FLOW_TYPE",
         "skills": "SKILL",
         "country-profiles": "COUNTRY_PROFILE",

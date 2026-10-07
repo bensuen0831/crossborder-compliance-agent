@@ -1,0 +1,183 @@
+{
+  "baseline_sha": "83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1",
+  "preserved_wip_sha": "325b4a6c0ca3a6f4f0d58552634bcc7dcadca24b",
+  "backend_gate_tested_sha": "8d37e5b69274fb34d52bdb29d5dc49a23e7e314a",
+  "approved_code_source": "cd6911ef12bbf60670136352a803117ce319f53c",
+  "backend": {
+    "passed": 653,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "m2a_tests": {
+    "passed": 33,
+    "failed": 0
+  },
+  "architecture": {
+    "existing": {
+      "passed": 151,
+      "total": 151
+    },
+    "m2a": {
+      "pass": true,
+      "passed": 13,
+      "total": 13,
+      "checks": {
+        "intake_draft_not_formal_input": true,
+        "confirmed_intake_required_for_snapshot": true,
+        "snapshot_pins_intake_version": true,
+        "no_parallel_project_source_of_truth": true,
+        "no_parallel_intake_source_of_truth": true,
+        "frontend_does_not_authorize": true,
+        "frontend_does_not_create_formal_decision": true,
+        "intake_metadata_is_registry_driven": true,
+        "cross_tenant_intake_forbidden": true,
+        "workflow_start_requires_authorized_snapshot": true,
+        "browser_cannot_inject_policy_or_decision": true,
+        "manual_fact_uses_canonical_provenance_without_fake_document": true,
+        "missing_formal_facts_controlled_stop": true
+      }
+    }
+  },
+  "runtime": {
+    "passed": 25,
+    "total": 25
+  },
+  "migration": {
+    "baseline": "83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1",
+    "baseline_revision": "0010_phase1j",
+    "head": "0011_m2a_intake",
+    "fresh": true,
+    "exact_0010_upgrade": true,
+    "schema_equivalence": true,
+    "empty_downgrade_reupgrade": true,
+    "authoritative_data_transactional_refusal": true
+  },
+  "frontend": {
+    "passed": 92,
+    "failed": 0,
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "build": "PASS",
+    "i18n": {
+      "locales": [
+        "zh-CN",
+        "zh-HK",
+        "en-US"
+      ],
+      "keys_per_locale": 360,
+      "missing_keys": 0
+    }
+  },
+  "browser": {
+    "m2a": {
+      "startTime": "2026-10-06T09:06:25.247Z",
+      "duration": 54557.377,
+      "expected": 3,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0,
+      "retries": 0
+    },
+    "m1": {
+      "startTime": "2026-10-06T09:08:47.391Z",
+      "duration": 80804.86899999999,
+      "expected": 3,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0,
+      "retries": 0
+    },
+    "m0": {
+      "startTime": "2026-10-06T09:12:27.379Z",
+      "duration": 165128.862,
+      "expected": 36,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0,
+      "retries": 0
+    }
+  },
+  "phase1k_a_boundary": {
+    "phase": "1K-A boundary",
+    "passed": 20,
+    "total": 20,
+    "pass": true,
+    "checks": {
+      "approved_frozen_implementation_unchanged": true,
+      "approved_migrations_unchanged_no_integration_migration": true,
+      "domain_application_provider_sdk_orm_free": true,
+      "no_parallel_registry": true,
+      "existing_model_registry_reused": true,
+      "existing_governed_policy_source_reused": true,
+      "existing_prompt_registry_reused": true,
+      "existing_snapshot_pins_reused": true,
+      "canonical_capabilities_reused": true,
+      "all_seven_service_operations": true,
+      "request_is_reference_only": true,
+      "policy_precedes_router_and_call": true,
+      "tenant_project_policy_intersection": true,
+      "model_policy_restricts_fallback_pool": true,
+      "redaction_proof_validated_before_external": true,
+      "irreversible_mapping_boundary": true,
+      "secret_values_only_in_transport": true,
+      "safe_audit_shape": true,
+      "partial_stream_cannot_fallback": true,
+      "http_redirects_and_remote_schema_refs_denied": true
+    }
+  },
+  "stage1_integrity": {
+    "status": "PASS",
+    "checks": {
+      "reviewed_j_owner_overlay": true,
+      "reviewed_l_b_owner_overlay": true,
+      "reviewed_m2a_owner_overlay": true,
+      "H_ancestry_preserved": true,
+      "B_ancestry_preserved": true,
+      "C_ancestry_preserved": true,
+      "D_ancestry_preserved": true,
+      "B_backend_identical_to_tested_source": true,
+      "C_backend_identical_to_tested_source": true,
+      "D_backend_identical_to_tested_source": true,
+      "delivery_evidence_preserved": true,
+      "one_production_package_lock_build": true,
+      "one_react_bootstrap": true,
+      "canonical_dependencies_unchanged": true,
+      "no_integration_migration": true,
+      "one_shared_http_transport": true
+    }
+  },
+  "remote_ci": {
+    "state": "PENDING",
+    "must_match_final_pr_head": true
+  },
+  "overall": "LOCAL_GATES_PASS_REMOTE_CI_PENDING",
+  "exclusions": [
+    "M2-B",
+    "M2-C",
+    "M2-D",
+    "Phase1K-B",
+    "production auth/host redesign",
+    "Stage2",
+    "merge"
+  ],
+  "source_checks": {
+    "canonical_workflow_unchanged": true,
+    "frozen_0001_0010_unchanged": true,
+    "rules_unchanged": true,
+    "frontend_dependency_tree_unchanged": true
+  }
+}

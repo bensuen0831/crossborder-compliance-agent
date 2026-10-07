@@ -386,6 +386,25 @@ class FormalWorkflowStages:
                 request, StageOutcomeCode.SUCCESS, tuple(refs), ("FORMAL_CLASSIFICATION",)
             )
         if step == SemanticStep.APPLICABILITY:
+            if p.mode == "SCENARIO_LEVEL":
+                context = self._context()
+                if context is None or not context.business_fact_summary.get("facts"):
+                    return self._result(
+                        request, StageOutcomeCode.INSUFFICIENT_INPUT,
+                        reasons=("FORMAL_BUSINESS_FACT_REQUIRED",),
+                    )
+                if context.conflicts:
+                    return self._result(
+                        request, StageOutcomeCode.CONFLICTED,
+                        reasons=("BUSINESS_FACT_CONFLICT",),
+                    )
+                facts = context.business_fact_summary["facts"]
+                if any(f.get("review_required") or f.get("validation_status") != "VALIDATED"
+                       for f in facts):
+                    return self._result(
+                        request, StageOutcomeCode.REVIEW_REQUIRED,
+                        reasons=("FORMAL_BUSINESS_FACT_REVIEW_REQUIRED",),
+                    )
             retrieval_id = request.result_refs[SemanticStep.RETRIEVAL]
             classes = request.result_ref_sets.get(SemanticStep.CLASSIFICATION, ())
             hits = tuple(h for ident in classes for h in self.country.classify(ident).rule_hit_ids)
@@ -398,6 +417,15 @@ class FormalWorkflowStages:
                             request,
                             StageOutcomeCode.CAPABILITY_NOT_CONFIGURED,
                             reasons=("SCENARIO_FACT_SERVICE_NOT_CONFIGURED",),
+                        )
+                    profile = self.country.resolve_profile(
+                        project_id=p.project_id, snapshot_id=p.analysis_snapshot_id,
+                        jurisdiction_id=binding.jurisdiction_id,
+                    )
+                    if profile.scenario_configuration.missing_inputs:
+                        return self._result(
+                            request, StageOutcomeCode.INSUFFICIENT_INPUT,
+                            reasons=("FORMAL_BUSINESS_FACT_REQUIRED",),
                         )
                     scoped_hits = tuple(
                         h.rule_hit_id

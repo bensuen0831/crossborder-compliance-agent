@@ -19,9 +19,9 @@ export const m1Api = {
     return value;
   },
   metadata: (resource: string, locale: Locale, signal?: AbortSignal) => request<{ items: GovernedOption[] }>(`/api/v1/metadata/${encodeURIComponent(resource)}?locale=${locale}`, { signal }, 'Metadata'),
-  items: (context: AuthorizedContext, signal?: AbortSignal) => request<ContextItem[]>(`/api/v1/projects/${context.project_id}/data-items`, { signal }),
+  items: (context: Pick<AuthorizedContext, 'project_id'>, signal?: AbortSignal) => request<ContextItem[]>(`/api/v1/projects/${context.project_id}/data-items`, { signal }),
   documents: (context: AuthorizedContext, signal?: AbortSignal) => request<Record<string, unknown>>(`/api/v1/projects/${context.project_id}/document-analysis-summary`, { signal }),
-  parties: (context: AuthorizedContext, signal?: AbortSignal) => request<Party[]>(`/api/v1/projects/${context.project_id}/parties`, { signal }),
+  parties: (context: Pick<AuthorizedContext, 'project_id'>, signal?: AbortSignal) => request<Party[]>(`/api/v1/projects/${context.project_id}/parties`, { signal }),
   context: (context: AuthorizedContext, signal?: AbortSignal) => request<Record<string, unknown>>(`/api/v1/projects/${context.project_id}/context-resolution`, { signal }),
   flows: (context: AuthorizedContext, signal?: AbortSignal) => request<Record<string, unknown>>(`/api/v1/projects/${context.project_id}/data-flows`, { signal }),
   results: async (context: AuthorizedContext, refs: { classification: string; applicability: string; retrieval: string }, signal?: AbortSignal) => {

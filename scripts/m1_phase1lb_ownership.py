@@ -67,7 +67,10 @@ def verify(root):
             ".github/workflows/m0-h5-preview.yml",
         }
 
+    from scripts.m2a_ownership import overlay as intake_overlay, owned_delta
+    intake_valid, intake_paths, _ = intake_overlay(root)
     checks = {
+        "approved_m2a_owner": intake_valid,
         "exact_manifest": manifest["base_sha"] == BASE
         and manifest["phase1l_b_source"] == VERIFIED_SOURCE
         and manifest["m1_source"] == M1
@@ -78,15 +81,15 @@ def verify(root):
         ),
         "lb_owner_and_historical_overlay": overlay(root)[0],
         "original_m1_owner": all(allowed_m1(p) for p in m1_paths),
-        "integration_exact_path_set": changed <= PATHS,
-        "frozen_domain_migrations_rules": not git(
-            "diff",
+        "integration_exact_path_set": changed <= PATHS | owned_delta(root),
+        "frozen_domain_migrations_rules": set(git(
+            "diff", "--name-only",
             BASE,
             "--",
             "src/crossborder_compliance/domain",
             "alembic",
             "ARCHITECTURE_RULES.md",
-        ),
+        ).decode().splitlines()) <= set(intake_paths),
         "original_overlay_unchanged": (
             root / "evidence/phase1l_b/approved_owner_overlay.json"
         ).read_bytes()

@@ -153,6 +153,11 @@ class PostgresContextResolutionRepository:
                 })
             return out
 
+    def structured_fact_inputs(self, project_id: UUID, intake_version_id: UUID,
+                               snapshot_id: UUID) -> list[dict[str, object]]:
+        from crossborder_compliance.infrastructure.persistence.structured_intake import inputs
+        return inputs(self, project_id, intake_version_id, snapshot_id)
+
     def list_candidate_items(self, project_id: UUID) -> list[dict[str, object]]:
         runs = self._project_parse_runs(project_id)
         with self._sessions() as s:
@@ -226,6 +231,8 @@ class PostgresContextResolutionRepository:
                 resolution_method=fact.resolution_method, confidence=fact.confidence,
                 validation_status=fact.validation_status.value, conflict_status=fact.conflict_status,
                 review_required=fact.review_required, version=fact.version,
+                structured_provenance_json=[p.model_dump(mode="json")
+                                            for p in fact.structured_provenance],
             ))
             s.flush()
             for candidate_id in candidate_ids:
@@ -822,6 +829,7 @@ class PostgresContextResolutionRepository:
                 "resolution_method": r.resolution_method, "confidence": r.confidence,
                 "validation_status": r.validation_status, "conflict_status": r.conflict_status,
                 "review_required": r.review_required, "version": r.version,
+                "structured_provenance": r.structured_provenance_json,
             } for r in rows]
 
     def get_product_context(self, project_id: UUID) -> list[dict[str, object]]:

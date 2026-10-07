@@ -1,0 +1,111 @@
+{
+  "tested_head": "21c7bc4a9ef10b00d0aad9515bc6a46c89158def",
+  "decision": "M2-A CODE AND EMPIRICAL CLOSURE = PASS",
+  "ci": [
+    {
+      "id": 37443647050,
+      "name": "M1 Intake Analysis Alpha",
+      "head_sha": "21c7bc4a9ef10b00d0aad9515bc6a46c89158def",
+      "conclusion": "success",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37443647050"
+    },
+    {
+      "id": 37443646981,
+      "name": "M0 Knowledge & Evidence Preview",
+      "head_sha": "21c7bc4a9ef10b00d0aad9515bc6a46c89158def",
+      "conclusion": "success",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37443646981"
+    },
+    {
+      "id": 37443647156,
+      "name": "M2A Production Intake",
+      "head_sha": "21c7bc4a9ef10b00d0aad9515bc6a46c89158def",
+      "conclusion": "success",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37443647156"
+    },
+    {
+      "id": 37443646984,
+      "name": "phase1a-runtime-smoke",
+      "head_sha": "21c7bc4a9ef10b00d0aad9515bc6a46c89158def",
+      "conclusion": "success",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37443646984"
+    }
+  ],
+  "backend": {
+    "passed": 653,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "architecture": {
+    "existing": 151,
+    "m2a": 13
+  },
+  "runtime": {
+    "passed": 25,
+    "total": 25
+  },
+  "migration": {
+    "baseline": "83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1",
+    "baseline_revision": "0010_phase1j",
+    "head": "0011_m2a_intake",
+    "fresh": true,
+    "exact_0010_upgrade": true,
+    "schema_equivalence": true,
+    "empty_downgrade_reupgrade": true,
+    "authoritative_data_transactional_refusal": true
+  },
+  "browser": {
+    "m2a": {
+      "stats": {
+        "startTime": "2026-10-06T09:36:25.121Z",
+        "duration": 98038.921,
+        "expected": 3,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "retry_count": 0,
+      "artifact_id": 11402248046
+    },
+    "m1": {
+      "stats": {
+        "startTime": "2026-10-06T09:35:31.561Z",
+        "duration": 108708.222,
+        "expected": 3,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "retry_count": 0,
+      "artifact_id": 11402966145
+    },
+    "m0": {
+      "stats": {
+        "startTime": "2026-10-06T09:34:26.264Z",
+        "duration": 198012.138,
+        "expected": 36,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "retry_count": 0,
+      "artifact_id": 11402242934
+    }
+  },
+  "runtime_artifact_id": 11402294571,
+  "delivery_policy": "Subsequent delivery-only head must independently receive exact-head CI success; no code changes permitted by this certificate."
+}

@@ -202,11 +202,13 @@ def test_phase1j_fresh_exact_0009_schema_equivalence_and_downgrade(tmp_path):
                         )
                     )
             before = catalog(url)
+            with engine.connect() as conn:
+                head_before_refusal = conn.scalar(text("SELECT version_num FROM alembic_version"))
             down = migrate(ROOT, url, "downgrade", "0009_phase1i")
             assert down.returncode != 0 and "archive/export" in down.stderr
             with engine.connect() as conn:
                 assert (
-                    conn.scalar(text("SELECT version_num FROM alembic_version")) == "0010_phase1j"
+                    conn.scalar(text("SELECT version_num FROM alembic_version")) == head_before_refusal
                 )
             assert catalog(url) == before
             evidence[state.lower() + "_transactional_refusal"] = True

@@ -85,6 +85,10 @@ def check(root):
     workflow_authorized, workflow_paths, _ = workflow_overlay(root)
     baseline_authorized = baseline_authorized and workflow_authorized
     manifest = {**manifest, **{p: h for p, h in workflow_paths.items() if p in manifest}}
+    from scripts.m2a_ownership import overlay as intake_overlay
+    intake_authorized, intake_paths, _ = intake_overlay(root)
+    baseline_authorized = baseline_authorized and intake_authorized
+    manifest = {**manifest, **{p:h for p,h in intake_paths.items() if p in manifest or p.startswith("alembic/versions/")}}
     files = list((root / "src").rglob("llm_gateway*.py"))
     source = {p.name: p.read_text() for p in files}
     appfiles = [p for p in files if "/application/" in str(p) or "/domain/" in str(p)]

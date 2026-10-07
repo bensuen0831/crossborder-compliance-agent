@@ -1,0 +1,868 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/projects": {
+      "post": {
+        "tags": [
+          "project-intake"
+        ],
+        "summary": "Create",
+        "operationId": "create_api_v1_projects_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProjectFromIntake"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntakeView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{project_id}/intake": {
+      "get": {
+        "tags": [
+          "project-intake"
+        ],
+        "summary": "Read",
+        "operationId": "read_api_v1_projects__project_id__intake_get",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Version"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntakeView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "project-intake"
+        ],
+        "summary": "Update",
+        "operationId": "update_api_v1_projects__project_id__intake_put",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIntakeDraft"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntakeView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{project_id}/intake/confirm": {
+      "post": {
+        "tags": [
+          "project-intake"
+        ],
+        "summary": "Confirm",
+        "operationId": "confirm_api_v1_projects__project_id__intake_confirm_post",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmProjectIntake"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntakeView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ConfirmProjectIntake": {
+        "properties": {
+          "expected_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Version"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_version"
+        ],
+        "title": "ConfirmProjectIntake"
+      },
+      "CreateProjectFromIntake": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          },
+          "facts": {
+            "$ref": "#/components/schemas/IntakeFacts"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "idempotency_key",
+          "facts"
+        ],
+        "title": "CreateProjectFromIntake"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "IntakeFacts": {
+        "properties": {
+          "industry": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Industry"
+          },
+          "business_scenario": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Business Scenario"
+          },
+          "scenario_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scenario Description"
+          },
+          "selected_product_domains": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Selected Product Domains"
+          },
+          "selected_products": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Selected Products"
+          },
+          "source_locations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Source Locations"
+          },
+          "destination_locations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Destination Locations"
+          },
+          "processing_locations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Processing Locations"
+          },
+          "storage_locations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Storage Locations"
+          },
+          "data_flow_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Flow Description"
+          },
+          "data_categories": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Data Categories"
+          },
+          "data_volume": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Volume"
+          },
+          "business_purpose": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Business Purpose"
+          },
+          "organizations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Organizations"
+          },
+          "third_parties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Third Parties"
+          },
+          "uploaded_documents": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Uploaded Documents"
+          },
+          "requested_outputs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Requested Outputs"
+          },
+          "analysis_as_of_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Analysis As Of Date"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "analysis_as_of_date"
+        ],
+        "title": "IntakeFacts"
+      },
+      "IntakeView": {
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Project Id"
+          },
+          "project_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Project Version Id"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Version"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "DRAFT",
+              "CONFIRMED",
+              "SUPERSEDED"
+            ],
+            "title": "Status"
+          },
+          "intake": {
+            "$ref": "#/components/schemas/ProjectIntakeContext"
+          },
+          "analysis_snapshot_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Analysis Snapshot Id"
+          },
+          "workflow_run_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Workflow Run Id"
+          },
+          "retrieval_policy_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retrieval Policy Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "project_id",
+          "project_version_id",
+          "version",
+          "status",
+          "intake"
+        ],
+        "title": "IntakeView"
+      },
+      "ProjectIntakeContext": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version",
+            "default": "1.0"
+          },
+          "record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Record Version",
+            "default": 1
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/ProvenanceDTO"
+          },
+          "project_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Project Id"
+          },
+          "project_name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Project Name"
+          },
+          "industry": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Industry"
+          },
+          "business_scenario": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Business Scenario"
+          },
+          "scenario_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scenario Description"
+          },
+          "selected_product_domains": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Selected Product Domains"
+          },
+          "selected_products": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Selected Products"
+          },
+          "source_locations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Source Locations"
+          },
+          "destination_locations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Destination Locations"
+          },
+          "processing_locations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Processing Locations"
+          },
+          "storage_locations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Storage Locations"
+          },
+          "data_flow_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Flow Description"
+          },
+          "data_categories": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Data Categories"
+          },
+          "data_volume": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Volume"
+          },
+          "business_purpose": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Business Purpose"
+          },
+          "organizations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Organizations"
+          },
+          "third_parties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Third Parties"
+          },
+          "uploaded_documents": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Uploaded Documents"
+          },
+          "requested_outputs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Requested Outputs"
+          },
+          "analysis_as_of_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Analysis As Of Date"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "provenance",
+          "project_id",
+          "project_name",
+          "analysis_as_of_date"
+        ],
+        "title": "ProjectIntakeContext"
+      },
+      "ProvenanceDTO": {
+        "properties": {
+          "source_type": {
+            "type": "string",
+            "title": "Source Type"
+          },
+          "source_ref": {
+            "type": "string",
+            "title": "Source Ref"
+          },
+          "source_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Version"
+          },
+          "source_locator": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Locator"
+          },
+          "actor_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor Ref"
+          },
+          "request_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Request Id"
+          },
+          "correlation_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Correlation Id"
+          },
+          "generated_by": {
+            "type": "string",
+            "title": "Generated By"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Generated At"
+          },
+          "evidence_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Evidence Ids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "source_type",
+          "source_ref",
+          "generated_by"
+        ],
+        "title": "ProvenanceDTO"
+      },
+      "UpdateIntakeDraft": {
+        "properties": {
+          "expected_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Version"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          },
+          "facts": {
+            "$ref": "#/components/schemas/IntakeFacts"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_version",
+          "idempotency_key",
+          "facts"
+        ],
+        "title": "UpdateIntakeDraft"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

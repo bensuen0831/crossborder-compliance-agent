@@ -12,7 +12,7 @@ import zhHK from 'antd/locale/zh_HK';
 import { currentLocale, supportedLocales, type Locale } from './i18n';
 import { formatNumber } from './features/knowledge/formatting';
 import { enterpriseTheme } from './theme';
-import { IntakeFeature } from './features/intake/IntakeFeature';
+import { ProductionIntake } from './features/intake/ProductionIntake';
 import { AdminRoute } from './routes/AdminRoute';
 import { ContextSelector } from './components/ContextSelector';
 import { EvidenceCard, EvidenceTable, SourceCitationDrawer } from './components/Evidence';
@@ -100,7 +100,7 @@ function Workspace({ session }: { session: Session }) {
                       ]} />}
                   </Card> : <Alert type="info" title={t('ui.retrievalStatus', { status: retrieval.data?.status ?? t('notAvailable') })} />}
             </>} />
-            <Route path="/intake" element={context ? <IntakeFeature key={`${session.identity_key}:${context.project_id}:${context.analysis_snapshot_id}`} session={session} context={context}/> : <EmptyState title={t('chooseContext')}/>}/>
+            <Route path="/intake" element={<ProductionIntake key={session.identity_key} session={session} context={context}/> }/>
             <Route path="/runtime" element={<RuntimeStatus session={session} versions={[...new Set(items.flatMap((item) => item.knowledge_version_id ? [item.knowledge_version_id] : []))]} />} />
             <Route path="/admin/*" element={<AdminRoute session={session} context={context}/>} />
             <Route path="*" element={<Navigate replace to="/knowledge" />} />
