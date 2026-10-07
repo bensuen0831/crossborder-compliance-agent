@@ -11,7 +11,7 @@ import zhCN from 'antd/locale/zh_CN';
 import zhHK from 'antd/locale/zh_HK';
 import { currentLocale, supportedLocales, type Locale } from './i18n';
 import { formatNumber } from './features/knowledge/formatting';
-import { enterpriseTheme } from './theme';
+import { enterpriseTheme, resultWorkspaceTheme } from './theme';
 import { Stage1Workspace } from './features/results/Stage1Workspace';
 import { ProductionIntake } from './features/intake/ProductionIntake';
 import { AdminRoute } from './routes/AdminRoute';
@@ -85,7 +85,7 @@ function Workspace({ session }: { session: Session }) {
       <SideNavigation adminAvailable={!!session.admin_context}/>
       <div className="sidebar-foot"><Tag>{t('ui.release')}</Tag><Typography.Paragraph type="secondary">{t('noLegalResult')}</Typography.Paragraph></div>
     </Layout.Sider>
-    <Layout>
+    <ConfigProvider theme={results ? resultWorkspaceTheme : undefined}><Layout className={results ? 'result-layout' : undefined}>
       <div className="workspace-topbar"><Space><Avatar size="small">{session.display_name.slice(0, 1)}</Avatar><Typography.Text>{session.display_name}</Typography.Text><Tag>{session.tenant_label}</Tag>
         {session.organization_label && <Tag>{session.organization_label}</Tag>}{session.department_label && <Tag>{session.department_label}</Tag>}</Space><StatusHealthIndicator /></div>
       <Layout.Content className="workspace-content"><PageHeader runtime={runtime} admin={admin} intake={intake} results={results}/>
@@ -118,7 +118,7 @@ function Workspace({ session }: { session: Session }) {
             <Card title={t('sufficiency')}><Typography.Paragraph type="secondary">{t('startHint')}</Typography.Paragraph></Card>}
         </aside>}</div>
       </Layout.Content>
-    </Layout>
+    </Layout></ConfigProvider>
     <SourceCitationDrawer item={selected} close={() => setSelectedId(undefined)} />
   </Layout>;
 }

@@ -26,7 +26,8 @@ export function Stage1View({ result: r, identity }: { result: Stage1Result; iden
   const [finished, setFinished] = useState(false);
   const metadata = useQuery({ queryKey: ['result-jurisdictions', identity, i18n.language], queryFn: ({ signal }) => m1Api.metadata('jurisdictions', currentLocale(), signal), retry: false });
   const label = (id: string) => { const item = metadata.data?.items.find(v => v.jurisdiction_id === id || v.definition_id === id); return item ? optionLabel(item) : id; };
-  const code = (value?: string | null) => value ? <Tag color={colors[value]}>{t(`ui.m2c.codes.${value}`, { defaultValue: value })}</Tag> : <span>{t('ui.m2c.unassessed')}</span>;
+  const codeLabel = (value: string) => i18n.exists(`ui.m2c.codes.${value}`) ? t(`ui.m2c.codes.${value}`) : value;
+  const code = (value?: string | null) => value ? <Tag color={colors[value]}>{codeLabel(value)}</Tag> : <span>{t('ui.m2c.unassessed')}</span>;
   const cross = r.cross_border?.items[0];
   const risks = r.risk?.items ?? [];
   const final = r.final_path?.items[0];
@@ -57,7 +58,7 @@ export function Stage1View({ result: r, identity }: { result: Stage1Result; iden
             {links.map((link, index) => <g key={link.id}><rect x="10" y={index * 90 + 20} width="280" height="48" rx="8" fill="#eff6ff"/><text x="25" y={index * 90 + 50}>{link.source}</text><line x1="295" y1={index * 90 + 44} x2="495" y2={index * 90 + 44} stroke="#2563eb" strokeWidth="2" markerEnd="url(#transfer-arrow)"/><rect x="510" y={index * 90 + 20} width="280" height="48" rx="8" fill="#eff6ff"/><text x="525" y={index * 90 + 50}>{link.target}</text></g>)}
             {!links.length && <text x="20" y="55">{t('ui.m2c.noFlow')}</text>}
           </svg>
-          {cross && <><Space wrap><span>{t('ui.m2c.source')}: {cross.source_jurisdiction_ids.map(label).join(' · ')}</span><span>→</span><span>{t('ui.m2c.destination')}: {cross.destination_jurisdiction_ids.map(label).join(' · ')}</span></Space><p>{code(cross.status)}</p><Space wrap>{cross.reason_codes.map(reason => <Tag key={reason}>{t(`ui.m2c.codes.${reason}`, { defaultValue: reason })}</Tag>)}</Space></>}
+          {cross && <><Space wrap><span>{t('ui.m2c.source')}: {cross.source_jurisdiction_ids.map(label).join(' · ')}</span><span>→</span><span>{t('ui.m2c.destination')}: {cross.destination_jurisdiction_ids.map(label).join(' · ')}</span></Space><p>{code(cross.status)}</p><Space wrap>{cross.reason_codes.map(reason => <Tag key={reason}>{codeLabel(reason)}</Tag>)}</Space></>}
         </Card>
         <Card title={t('ui.m2c.risk')}><p>{t('ui.m2c.riskNotice')}</p>{risks.length ? risks.map(risk => <div key={risk.risk_assessment_id}><Space>{code(risk.risk_level)}<span>{risk.score ?? t('notAvailable')}</span></Space>{risk.dimensions.map(d => <div key={d.code}><span>{d.code} · {d.score ?? t('notAvailable')}</span>{d.score !== null && <Progress percent={Number(d.score)} showInfo={false} status="active"/>}</div>)}</div>) : <p>{t('ui.m2c.unassessed')}</p>}</Card>
         <Card title={t('ui.m2c.path')}><p>{t('ui.m2c.pathNotice')}</p>{final ? <>{code(final.status)}<Steps direction="vertical" size="small" items={final.actions.map(action => ({ key: action.entry_id, title: action.action_code, description: <span>{t('ui.m2c.actionPending')} · {action.conditions.map(c => c.code).join(' · ')}</span>, status: 'wait' }))}/>{final.required_conditions.map(c => <Tag key={c.entry_id}>{c.code} · {c.evaluation}</Tag>)}</> : <p>{t('ui.m2c.unassessed')}</p>}</Card>

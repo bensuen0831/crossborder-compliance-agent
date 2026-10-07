@@ -28,6 +28,17 @@ describe('Stage 1 authority presentation', () => {
     expect(screen.getByText(i18n.t('ui.m2c.stage2Unavailable'))).toBeVisible();
     expect(writes).toHaveLength(0); expect(JSON.stringify(value)).toBe(original);
   });
+  for (const locale of supportedLocales) it(`preserves an untranslated governed reason code in ${locale}`, async () => {
+    await i18n.changeLanguage(locale);
+    const value = validateContract<Stage1Result>('Stage1ComplianceResult', structuredClone(fixture));
+    value.cross_border!.items[0].reason_codes = ['POLICY_EXTENSION_REASON'];
+    const original = JSON.stringify(value);
+    const errors = vi.spyOn(console, 'error');
+    setup(value);
+    expect(screen.getByText('POLICY_EXTENSION_REASON')).toBeVisible();
+    expect(errors.mock.calls.filter(([code]) => code === 'I18N_MISSING_KEY')).toHaveLength(0);
+    expect(JSON.stringify(value)).toBe(original);
+  });
   it('keeps required legal documents when no template is available', async () => {
     setup(); expect(screen.getAllByText(i18n.t('ui.m2c.codes.REQUIRED')).length).toBeGreaterThan(0);
     expect(screen.getAllByText(i18n.t('ui.m2c.unavailable')).length).toBeGreaterThan(0);

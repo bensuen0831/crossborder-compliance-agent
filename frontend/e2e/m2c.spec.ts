@@ -8,6 +8,8 @@ const catalogs = { 'zh-CN': zhCN, 'zh-HK': zhHK, 'en-US': enUS };
 const manifest = JSON.parse(fs.readFileSync(process.env.M2A_UAT_MANIFEST!, 'utf8'));
 for (const [locale, messages] of Object.entries(catalogs)) test(`Stage 1 formal authorities, visualizations and exact-snapshot reread in ${locale}`, async ({ page }) => {
   test.setTimeout(180000);
+  const missingKeys: string[] = [];
+  page.on('console', message => { if (message.text().includes('I18N_MISSING_KEY')) missingKeys.push(message.text()); });
   const values = manifest.INTAKE.intake;
   await page.addInitScript(x => localStorage.setItem('stage1-alpha.ui-locale', x), locale);
   expect((await page.request.post('/m0-demo/login', { data: { persona: 'INTAKE' } })).status()).toBe(200);
@@ -63,6 +65,9 @@ for (const [locale, messages] of Object.entries(catalogs)) test(`Stage 1 formal 
   await expect(page.getByTestId('stage1-run-id')).toHaveText(run, { timeout: 60000 });
   await expect(page.getByTestId('stage1-snapshot-id')).toHaveText(confirmed.analysis_snapshot_id, { timeout: 60000 });
   await expect(page.getByRole('img', {name:messages['ui.m2c.transferMap']})).toBeVisible();
+  expect(await page.locator('.result-layout').evaluate(el => getComputedStyle(el).backgroundColor)).toBe('rgb(243, 245, 249)');
+  expect(await page.locator('.sidebar').evaluate(el => getComputedStyle(el).backgroundColor)).toBe('rgb(11, 16, 32)');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize()!.width);
   await expect(page.getByText(messages['ui.m2c.pathNotice'],{exact:true})).toBeVisible();
   await page.getByRole('button',{name:messages['ui.m2c.legalEvidence'],exact:true}).click();
   await expect(page.getByRole('dialog')).toBeVisible();
@@ -73,5 +78,6 @@ for (const [locale, messages] of Object.entries(catalogs)) test(`Stage 1 formal 
   await page.reload();
   await expect(page.getByTestId('stage1-run-id')).toHaveText(run, { timeout: 60000 });
   expect(await (await page.request.get(resultPath)).json()).toEqual(formal);
+  expect(missingKeys).toEqual([]);
   await page.screenshot({ path: `test-results/m2c-${locale}.png`, fullPage: true });
 });

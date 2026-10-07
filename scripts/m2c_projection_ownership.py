@@ -28,6 +28,7 @@ PATHS = frozenset(
         "frontend/src/locales/zh-CN.json",
         "frontend/src/locales/zh-HK.json",
         "frontend/src/styles.css",
+        "frontend/src/theme.ts",
         "scripts/m2c_ownership.py",
         "scripts/m2c_projection_architecture.py",
         "scripts/m2c_projection_ownership.py",
