@@ -1,0 +1,88 @@
+{
+  "decision": "HIGH_REASONING_ESCALATION_REQUIRED — M2-B = BLOCKED",
+  "baseline_sha": "da2d420602d9c71991bcae4ffd3d33c9b3497d25",
+  "branch": "milestone-m2b-document-binary-integration",
+  "part_a": "M2-A MAIN INTEGRATION = PASS",
+  "b1": "M2-B B1 SPEC REVIEW = PASS",
+  "focused_tests": {
+    "command": "pytest -q tests/test_m2b_file_policy.py tests/test_m2b_document_inputs.py",
+    "passed": 11,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 0,
+    "seconds": 13.84,
+    "database": "real PostgreSQL",
+    "log": "evidence/m2b/focused-upload.log"
+  },
+  "contract_probe": {
+    "command": "pytest -q tests/test_m2b_snapshot_contract_probe.py",
+    "passed": 1,
+    "seconds": 3.62,
+    "meaning": "blocker reproduced; not acceptance or closure PASS",
+    "log": "evidence/m2b/snapshot-contract-probe.log"
+  },
+  "failed_requirement": "superseding document/intake snapshot cannot consume existing formal DataItem at exact inventory version; shared unversioned provenance grows",
+  "observed": {
+    "status": "BLOCKER_REPRODUCED_NOT_CLOSURE_PASS",
+    "database": "real PostgreSQL",
+    "project_id": "c5585a2e-8a07-4b7f-b0f8-a3638e96eb13",
+    "data_item_id": "5f8ed485-c057-49c0-b334-509b401a2cda",
+    "first_snapshot_id": "d5c7886d-abc7-5306-a61f-c325d6394522",
+    "second_snapshot_id": "3cac9902-b919-54e3-a001-d1ac5b1dfa45",
+    "first_document_version_id": "99279417-08f2-4e32-8a2c-c48168fd6099",
+    "second_document_version_id": "e5accd84-57c3-4ab9-b595-f5f976e26069",
+    "first_inventory_version": 1,
+    "second_inventory_version": 2,
+    "retained_detail_version": 1,
+    "first_snapshot_prepare": "ACCEPTED",
+    "second_snapshot_prepare": "LookupError: classification resource not found",
+    "original_trace_ids": [
+      "9d1fe3dc-31b2-4f21-8b61-97a11fe01043"
+    ],
+    "current_trace_ids": [
+      "18d7e04d-b958-4980-a404-b6644c32d1f0",
+      "9d1fe3dc-31b2-4f21-8b61-97a11fe01043"
+    ],
+    "provenance_links_versioned": false,
+    "formal_data_items_duplicated": false
+  },
+  "migration": {
+    "wip_head": "0012_m2b_document_inputs",
+    "down_revision": "0011_m2a_intake",
+    "fresh_focused_upgrade": "PASS",
+    "dual_path": "NOT_RUN",
+    "schema_equivalence": "NOT_RUN",
+    "downgrade_policy": "NOT_RUN",
+    "frozen_0001_to_0011": "UNCHANGED"
+  },
+  "closure": {
+    "full_backend": "NOT_RUN",
+    "architecture": "NOT_RUN",
+    "runtime": "NOT_RUN",
+    "frontend": "NOT_RUN; UNCHANGED",
+    "browser": "NOT_RUN",
+    "exact_head_ci": "NOT_CERTIFIED",
+    "M2C_entry_decision": "NOT_CREATED"
+  },
+  "source_identity_proof": "evidence/m2b/frozen_contract_identity.json",
+  "changed_files_at_probe": [
+    " M src/crossborder_compliance/application/document_services.py",
+    " M src/crossborder_compliance/infrastructure/document_storage.py",
+    " M src/crossborder_compliance/infrastructure/persistence/document_models.py",
+    " M src/crossborder_compliance/infrastructure/persistence/document_repositories.py",
+    " M src/crossborder_compliance/infrastructure/persistence/project_intake.py",
+    " M src/crossborder_compliance/interfaces/api/workflow_app.py",
+    "?? alembic/versions/0012_m2b_document_inputs.py",
+    "?? docs/m2b/",
+    "?? evidence/m2b/",
+    "?? src/crossborder_compliance/application/document_upload.py",
+    "?? src/crossborder_compliance/infrastructure/document_input_composition.py",
+    "?? src/crossborder_compliance/infrastructure/persistence/project_document_inputs.py",
+    "?? src/crossborder_compliance/interfaces/api/routes/intake_documents.py",
+    "?? tests/test_m2b_document_inputs.py",
+    "?? tests/test_m2b_file_policy.py",
+    "?? tests/test_m2b_snapshot_contract_probe.py"
+  ],
+  "next_exact_action": "Obtain explicit owning-contract decision for version-addressable existing DataItem context and snapshot-scoped provenance across E/F/H/I. Do not bypass validation or continue UI/closure before resolution."
+}

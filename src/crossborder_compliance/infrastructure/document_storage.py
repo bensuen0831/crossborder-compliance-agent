@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from urllib.parse import urlparse
 import boto3
+import hashlib
+import os
+from pathlib import Path
 
 
 class S3ObjectStorageAdapter:
@@ -24,3 +27,48 @@ class S3ObjectStorageAdapter:
         key=parsed.path.lstrip("/")
         if not key or ".." in key.split("/"): raise ValueError("unsafe storage_ref")
         return self.client.get_object(Bucket=self.bucket,Key=key)["Body"].read()
+
+
+class FileObjectStorageAdapter:
+    """Configured durable local/restricted storage behind ObjectStoragePort.
+
+    Refs are opaque object keys, never browser paths. Content-addressed writes
+    are exclusive and verified; symlink/path escapes fail closed.
+    """
+    def __init__(self, root: str):
+        self.root = Path(root).resolve()
+        self.root.mkdir(parents=True, exist_ok=True)
+
+    def _path(self, key):
+        if not key or key.startswith("/") or ".." in key.split("/"):
+            raise ValueError("unsafe object reference")
+        target = self.root / key
+        if not target.resolve().is_relative_to(self.root):
+            raise ValueError("storage ownership escape")
+        return target
+
+    def put(self, *, object_key, content, content_type):
+        target=self._path(object_key)
+        target.parent.mkdir(parents=True,exist_ok=True)
+        # Atomic publish avoids an interrupted write becoming a valid object.
+        import tempfile
+        fd, temporary = tempfile.mkstemp(dir=target.parent, prefix=".upload-")
+        try:
+            with os.fdopen(fd,"wb") as f:
+                f.write(content); f.flush(); os.fsync(f.fileno())
+            try:
+                os.link(temporary, target)
+            except FileExistsError:
+                if hashlib.sha256(self.get("object://local/"+object_key)).digest()!=hashlib.sha256(content).digest():
+                    raise ValueError("immutable binary collision")
+        finally:
+            os.unlink(temporary)
+        return "object://local/"+object_key
+
+    def get(self, storage_ref):
+        parsed=urlparse(storage_ref)
+        if parsed.scheme!="object" or parsed.netloc!="local" or parsed.query or parsed.fragment:
+            raise ValueError("storage reference outside configured adapter")
+        target=self._path(parsed.path.lstrip("/"))
+        fd=os.open(target,os.O_RDONLY|os.O_NOFOLLOW)
+        with os.fdopen(fd,"rb") as f: return f.read()

@@ -239,6 +239,8 @@ class ProjectIntakeOperations:
             )
             s.add(row)
             s.flush()
+            from crossborder_compliance.infrastructure.persistence.project_document_inputs import copy_links
+            copy_links(s,self.tenant_id,old,row)
             project.active_version_id = row.project_version_id
             project.record_version += 1
             key.response_ref = row.project_version_id

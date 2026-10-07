@@ -6,6 +6,7 @@ from uuid import UUID, uuid4
 
 from sqlalchemy import distinct, func, select
 from sqlalchemy.orm import sessionmaker
+from crossborder_compliance.infrastructure.persistence.project_document_inputs import ProjectDocumentOperations
 
 from crossborder_compliance.domain.document_intelligence import (
     BusinessFactCandidate, CandidateDataFlowEdge, CandidateDataFlowNode, CandidateDataItem,
@@ -34,7 +35,7 @@ def _now() -> datetime:
     return datetime.now(timezone.utc)
 
 
-class PostgresDocumentIntelligenceRepository:
+class PostgresDocumentIntelligenceRepository(ProjectDocumentOperations):
     """Tenant-scoped persistence. Phase 1B identity rows + Phase 1D 1:1 detail rows form one contract."""
 
     def __init__(self, session_factory: sessionmaker, context: RepositoryContext):
