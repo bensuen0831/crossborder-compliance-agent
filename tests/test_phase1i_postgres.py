@@ -923,14 +923,17 @@ def test_actual_flow_consumes_linked_h_classification_and_exact_flow_evidence(fo
                 version=f["classification"].result.context_version,
             )
         )
+        link_id = str(uuid4())
         s.add(
             b.DataItemFlowLinkEntity(
-                link_id=str(uuid4()),
+                link_id=link_id,
                 tenant_id=f["tenant"],
                 data_item_id=f["item"],
                 flow_edge_id=flow,
             )
         )
+        s.flush()
+        s.add(c.DataItemFlowLinkDetailEntity(link_id=link_id, tenant_id=f["tenant"], relationship_type="TRANSPORTS", confidence=1, data_inventory_version=f["classification"].result.context_version, source_trace_ids_json=[]))
     repo, p = f["compliance_repo"].retrieval, f["policy"]
     response = service(f, repo).retrieve(query(f, p, subject_type="DATA_FLOW", subject_id=flow))
     f["request"] = f["request"].model_copy(

@@ -6,6 +6,7 @@ export type IntakeView = components['schemas']['IntakeView'];
 export type IntakeFacts = components['schemas']['IntakeFacts'];
 export interface IntakePersistence {
   record: IntakeView;
+  refresh?: () => Promise<void>;
   save: (draft: Draft) => Promise<void>;
   confirm: () => Promise<IntakeView>;
 }
@@ -26,5 +27,5 @@ export function restoreDraft(record: IntakeView): Draft {
 export function draftFacts(record: IntakeView, draft: Draft): IntakeFacts {
   // Only canonical writable facts are submitted; policy/tenant/result/run refs
   // remain server-owned. Unsupported flow/data facts are not fabricated.
-  return { industry: record.intake.industry, business_scenario: draft.scenario || null, selected_products: draft.product ? [draft.product] : [], selected_product_domains: record.intake.selected_product_domains, source_locations: draft.source, destination_locations: draft.destination, processing_locations: draft.processing, storage_locations: draft.storage, data_categories: draft.categories, business_purpose: draft.purpose, scenario_description: draft.description, data_flow_description: draft.flowDescription, data_volume: draft.dataVolume, organizations: draft.organizations, third_parties: draft.thirdParties, uploaded_documents: draft.documents.split('\n').map(x => x.trim()).filter(Boolean), requested_outputs: record.intake.requested_outputs, analysis_as_of_date: record.intake.analysis_as_of_date };
+  return { industry: record.intake.industry, business_scenario: draft.scenario || null, selected_products: draft.product ? [draft.product] : [], selected_product_domains: record.intake.selected_product_domains, source_locations: draft.source, destination_locations: draft.destination, processing_locations: draft.processing, storage_locations: draft.storage, data_categories: draft.categories, business_purpose: draft.purpose, scenario_description: draft.description, data_flow_description: draft.flowDescription, data_volume: draft.dataVolume, organizations: draft.organizations, third_parties: draft.thirdParties, uploaded_documents: record.intake.uploaded_documents, requested_outputs: record.intake.requested_outputs, analysis_as_of_date: record.intake.analysis_as_of_date };
 }

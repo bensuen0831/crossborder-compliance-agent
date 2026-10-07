@@ -29,7 +29,7 @@ from crossborder_compliance.infrastructure.persistence.document_repositories imp
     PostgresDocumentIntelligenceRepository
 )
 from crossborder_compliance.infrastructure.persistence.models import (
-    AnalysisSnapshotEntity, ProjectEntity, TenantEntity
+    AnalysisSnapshotEntity, ProjectEntity, ProjectVersionEntity, TenantEntity
 )
 
 
@@ -194,9 +194,11 @@ def test_phase1d_multiformat_pipeline_provenance_summary_tenant_and_snapshot_pin
     assert summary.candidate_data_flow_count>=1
 
     # Snapshot pins exact parse run and cannot silently switch on reparse.
-    snapshot=uuid4()
+    snapshot=uuid4(); project_version=uuid4()
     with sf() as s,s.begin():
-        s.add(AnalysisSnapshotEntity(analysis_snapshot_id=str(snapshot),tenant_id=str(ta),project_version_id=str(uuid4()),snapshot_version="1.0",analysis_as_of_date=__import__("datetime").date.today(),provenance_json={"phase":"1d"}))
+        s.add(ProjectVersionEntity(project_version_id=str(project_version), tenant_id=str(ta), project_id=str(pa), version_no=1))
+        s.flush()
+        s.add(AnalysisSnapshotEntity(analysis_snapshot_id=str(snapshot),tenant_id=str(ta),project_version_id=str(project_version),snapshot_version="1.0",analysis_as_of_date=__import__("datetime").date.today(),provenance_json={"phase":"1d"}))
     docv=UUID(str(versions[0]["document_version_id"])); oldrun=UUID(str(runs[0]["parse_run_id"]))
     ra.pin_parse_run(analysis_snapshot_id=snapshot,document_version_id=docv,parse_run_id=oldrun)
     task2=parse.request_parse(document_version_id=docv,idempotency_key="reparse-2"); newrun=parse.process_task(UUID(str(task2["task_id"])))

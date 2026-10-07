@@ -7,6 +7,8 @@ from uuid import UUID, uuid4
 
 from sqlalchemy import func, select, text
 
+from crossborder_compliance.infrastructure.persistence.context_temporal import exact_item_detail, item_products, flow_item_ids
+
 from crossborder_compliance.domain.knowledge import (
     DIMENSIONS,
     PRODUCT_DIMENSIONS,
@@ -874,7 +876,9 @@ class PostgresKnowledgeRepository:
             )
             if not runs:
                 raise ValueError("PHASE1E_FORMAL_CONTEXT_REQUIRED")
-            run = max(runs, key=lambda r: r.version)
+            if subject_type in {"DATA_ITEM", "DATA_FLOW"} and not snapshot_id:
+                raise ValueError("FORMAL_SUBJECT_SNAPSHOT_REQUIRED")
+            run = max(runs, key=lambda r: r.version) if not snapshot_id else None
             when = date.today()
             if snapshot_id:
                 snapshot = self.get(s, b.AnalysisSnapshotEntity, snapshot_id)
@@ -891,9 +895,7 @@ class PostgresKnowledgeRepository:
                         s, c.ContextResolutionRunEntity, pins[0].context_resolution_run_id
                     )
                 else:
-                    pv = self.get(s, b.ProjectVersionEntity, snapshot.project_version_id)
-                    if pv.project_id != project_id:
-                        raise LookupError("snapshot project mismatch")
+                    raise ValueError("PHASE1E_SNAPSHOT_CONTEXT_PIN_REQUIRED")
             dims = {d: set() for d in DIMENSIONS}
             reasons = []
             systems = set()
@@ -970,12 +972,7 @@ class PostgresKnowledgeRepository:
                     if not details:
                         continue
                     products.update(bounded_products(
-                        link.product_ref
-                        for link in self.rows(
-                            s,
-                            b.DataItemProductLinkEntity,
-                            b.DataItemProductLinkEntity.data_item_id == item.data_item_id,
-                        )
+                        item_products(s, self.tenant_id, item.data_item_id, run.data_inventory_version, snapshot_id)
                     ))
             if subject_type in {"DATA_ITEM", "DATA_FLOW"}:
                 item_ids = [subject_id]
@@ -988,20 +985,14 @@ class PostgresKnowledgeRepository:
                         or detail.validation_status != "VALIDATED"
                     ):
                         raise ValueError("FORMAL_FLOW_VERSION_UNAVAILABLE")
-                    item_ids = [
-                        link.data_item_id
-                        for link in self.rows(
-                            s,
-                            b.DataItemFlowLinkEntity,
-                            b.DataItemFlowLinkEntity.flow_edge_id == subject_id,
-                        )
-                    ]
+                    item_ids = flow_item_ids(s, self.tenant_id, subject_id, run.data_inventory_version)
                     known_locations = set()
                     for node_id in (flow.source_node_id, flow.target_node_id):
                         details = self.rows(
                             s,
                             c.DataFlowNodeDetailEntity,
                             c.DataFlowNodeDetailEntity.flow_node_id == node_id,
+                            c.DataFlowNodeDetailEntity.version == run.data_flow_version,
                         )
                         if details:
                             node = details[0]
@@ -1016,7 +1007,7 @@ class PostgresKnowledgeRepository:
                 products = set()
                 for item_id in item_ids:
                     item = self.get(s, b.DataItemEntity, item_id)
-                    detail = self.get(s, c.DataItemResolutionDetailEntity, item_id)
+                    detail = exact_item_detail(s, self.tenant_id, item_id, run.data_inventory_version)
                     if (
                         item.project_id != project_id
                         or detail.version != run.data_inventory_version
@@ -1025,12 +1016,7 @@ class PostgresKnowledgeRepository:
                     ):
                         raise ValueError("FORMAL_ITEM_VERSION_UNAVAILABLE")
                     products.update(
-                        link.product_ref
-                        for link in self.rows(
-                            s,
-                            b.DataItemProductLinkEntity,
-                            b.DataItemProductLinkEntity.data_item_id == item_id,
-                        )
+                        item_products(s, self.tenant_id, item_id, run.data_inventory_version, snapshot_id)
                     )
                     systems.update(detail.system_ids_json)
                     for device_id in detail.device_ids_json:

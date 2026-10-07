@@ -493,14 +493,17 @@ def test_same_key_different_authorized_subject_fingerprint_refused(foundation_j)
                 version=f["classification"].result.context_version,
             )
         )
+        link_id = str(uuid4())
         s.add(
             b.DataItemFlowLinkEntity(
-                link_id=str(uuid4()),
+                link_id=link_id,
                 tenant_id=f["tenant"],
                 data_item_id=f["item"],
                 flow_edge_id=flow,
             )
         )
+        s.flush()
+        s.add(c.DataItemFlowLinkDetailEntity(link_id=link_id, tenant_id=f["tenant"], relationship_type="TRANSPORTS", confidence=1, data_inventory_version=f["classification"].result.context_version, source_trace_ids_json=[]))
     response = service(f, f["compliance_repo"].retrieval).retrieve(
         query(f, f["policy"], subject_type="DATA_FLOW", subject_id=flow)
     )

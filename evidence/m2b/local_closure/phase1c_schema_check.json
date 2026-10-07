@@ -1,0 +1,30 @@
+{
+  "alembic_revision": "0013_m2b_context_temporal_contract",
+  "assertions": {
+    "all_phase1c_tables_exist": true,
+    "api_workflow_idempotency_still_separate": true,
+    "classification_results_still_formal_source": true,
+    "classification_version_fk_to_phase1b_scheme": true,
+    "domain_metadata_excludes_langgraph_checkpoints": true,
+    "knowledge_version_fk_verified": true,
+    "metadata_canonical_binding_unique": true,
+    "metadata_definition_kind_code_unique": true,
+    "metadata_version_fk_to_definition": true,
+    "model_deployment_fk_graph_verified": true,
+    "model_provider_version_fk_verified": true,
+    "model_secret_ref_only": true,
+    "phase1c_schema_present_under_current_head": true,
+    "prompt_version_fk_verified": true,
+    "registry_outbox_idempotency_unique": true,
+    "rule_version_fk_verified": true,
+    "snapshot_pin_fk_to_analysis_snapshot": true,
+    "snapshot_pin_immutable_unique": true,
+    "template_version_fk_verified": true,
+    "workflow_stage_view_still_not_persisted": true
+  },
+  "checkpoint_owned_by_domain": [],
+  "forbidden_secret_columns": [],
+  "missing_tables": [],
+  "pass": true,
+  "table_count": 179
+}

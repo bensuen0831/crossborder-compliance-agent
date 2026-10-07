@@ -6,6 +6,8 @@ from uuid import UUID, uuid4
 
 from sqlalchemy import select
 
+from crossborder_compliance.infrastructure.persistence.context_temporal import exact_item_detail, item_trace_ids
+
 from crossborder_compliance.domain.classification import (
     ClassificationOutcome,
     ClassificationResult,
@@ -256,12 +258,7 @@ class PostgresFormalClassificationRepository:
             values, refs, confidence, review = {}, {}, 1.0, False
             if data_item_id is not None:
                 item = self.scoped(s, b.DataItemEntity, b.DataItemEntity.data_item_id, data_item_id)
-                detail = self.scoped(
-                    s,
-                    c.DataItemResolutionDetailEntity,
-                    c.DataItemResolutionDetailEntity.data_item_id,
-                    data_item_id,
-                )
+                detail = exact_item_detail(s, self.tenant, data_item_id, pin.data_inventory_version)
                 if (
                     item.project_id != str(project_id)
                     or detail.version != pin.data_inventory_version
@@ -270,7 +267,7 @@ class PostgresFormalClassificationRepository:
                 if detail.validation_status != "VALIDATED":
                     raise ValueError("classification requires validated formal DataItem")
                 confidence, review = detail.confidence, detail.review_required
-                values.update({"data_name": item.name, "canonical_type": item.canonical_type_ref})
+                values.update({"data_name": item.name, "canonical_type": detail.value_type})
                 refs.update({key: (UUID(item.data_item_id),) for key in values})
             facts = s.scalars(
                 select(c.BusinessFactEntity).where(
@@ -289,7 +286,7 @@ class PostgresFormalClassificationRepository:
                 confidence = min(confidence, fact.confidence)
                 review |= fact.review_required
             # Evidence is linked to this exact DataItem's existing authorized trace chain.
-            evidence = self.document_evidence(s, project_id, data_item_id)
+            evidence = self.document_evidence(s, project_id, data_item_id, snapshot_id, pin.data_inventory_version)
             scenarios = s.scalars(
                 select(m.MetadataDefinitionEntity.code)
                 .join(
@@ -519,7 +516,13 @@ class PostgresFormalClassificationRepository:
             self.authorize(row.project_id, "read")
             result = dict(row.formal_provenance_json)
             project, snapshot, item = row.project_id, row.analysis_snapshot_id, row.subject_id
-            visible = {ref.evidence_id for ref in self.document_evidence(s, project, item)}
+            pin = s.scalar(select(c.AnalysisSnapshotContextPinEntity).where(
+                c.AnalysisSnapshotContextPinEntity.tenant_id == self.tenant,
+                c.AnalysisSnapshotContextPinEntity.analysis_snapshot_id == snapshot,
+                c.AnalysisSnapshotContextPinEntity.project_id == project))
+            if pin is None:
+                raise LookupError("classification snapshot context unavailable")
+            visible = {ref.evidence_id for ref in self.document_evidence(s, project, item, snapshot, pin.data_inventory_version)}
         ids, _, _ = ExistingClassificationEvidence(self.sessions, self.context).references(
             project, snapshot, item
         )
@@ -528,15 +531,10 @@ class PostgresFormalClassificationRepository:
             raise LookupError("classification resource not found")
         return result
 
-    def document_evidence(self, session, project_id, item_id):
+    def document_evidence(self, session, project_id, item_id, snapshot_id, inventory_version):
         if item_id is None:
             return []
-        trace_ids = session.scalars(
-            select(c.DataItemSourceTraceLinkEntity.source_trace_ref_id).where(
-                c.DataItemSourceTraceLinkEntity.tenant_id == self.tenant,
-                c.DataItemSourceTraceLinkEntity.data_item_id == str(item_id),
-            )
-        ).all()
+        trace_ids = item_trace_ids(session, self.tenant, item_id, inventory_version, snapshot_id)
         return session.scalars(
             select(b.EvidenceReferenceEntity)
             .join(

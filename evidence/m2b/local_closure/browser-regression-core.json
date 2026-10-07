@@ -1,0 +1,444 @@
+{
+  "config": {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/milestone-m2b-document-binary-integration/frontend/node_modules/.bin/playwright",
+      "test",
+      "m2a.spec.ts",
+      "m1.spec.ts"
+    ],
+    "configFile": "/workspace/milestone-m2b-document-binary-integration/frontend/playwright.config.ts",
+    "rootDir": "/workspace/milestone-m2b-document-binary-integration/frontend/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/workspace/milestone-m2b-document-binary-integration/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/workspace/milestone-m2b-document-binary-integration/frontend/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "m1.spec.ts",
+      "file": "m1.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "zh-CN",
+          "file": "m1.spec.ts",
+          "line": 43,
+          "column": 62,
+          "specs": [
+            {
+              "title": "four-step intake, canonical results, official citation and locale state invariance",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 476,
+                      "error": {
+                        "message": "Error: M1_UAT_MANIFEST must point to seeded real-backend fixtures\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeDefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mundefined\u001b[39m",
+                        "stack": "Error: M1_UAT_MANIFEST must point to seeded real-backend fixtures\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeDefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mundefined\u001b[39m\n    at /workspace/milestone-m2b-document-binary-integration/frontend/e2e/m1.spec.ts:47:84",
+                        "location": {
+                          "file": "/workspace/milestone-m2b-document-binary-integration/frontend/e2e/m1.spec.ts",
+                          "column": 84,
+                          "line": 47
+                        },
+                        "snippet": "  45 |   test('four-step intake, canonical results, official citation and locale state invariance', async ({ page }) => {\n  46 |     test.setTimeout(120000);\n> 47 |     expect(manifest, 'M1_UAT_MANIFEST must point to seeded real-backend fixtures').toBeDefined();\n     |                                                                                    ^\n  48 |     const a = manifest!.A; const writes: string[] = [];\n  49 |     page.on('request', request => { if (request.method() !== 'GET' && new URL(request.url()).pathname.startsWith('/api/v1/')) writes.push(request.url()); });\n  50 |     await page.goto('/'); await login(page, 'A', locale);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/workspace/milestone-m2b-document-binary-integration/frontend/e2e/m1.spec.ts",
+                            "column": 84,
+                            "line": 47
+                          },
+                          "message": "Error: M1_UAT_MANIFEST must point to seeded real-backend fixtures\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeDefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mundefined\u001b[39m\n\n  45 |   test('four-step intake, canonical results, official citation and locale state invariance', async ({ page }) => {\n  46 |     test.setTimeout(120000);\n> 47 |     expect(manifest, 'M1_UAT_MANIFEST must point to seeded real-backend fixtures').toBeDefined();\n     |                                                                                    ^\n  48 |     const a = manifest!.A; const writes: string[] = [];\n  49 |     page.on('request', request => { if (request.method() !== 'GET' && new URL(request.url()).pathname.startsWith('/api/v1/')) writes.push(request.url()); });\n  50 |     await page.goto('/'); await login(page, 'A', locale);\n    at /workspace/milestone-m2b-document-binary-integration/frontend/e2e/m1.spec.ts:47:84"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-07T05:07:43.176Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/workspace/milestone-m2b-document-binary-integration/frontend/test-results/m1-zh-CN-four-step-intake--a450b-and-locale-state-invariance/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/workspace/milestone-m2b-document-binary-integration/frontend/test-results/m1-zh-CN-four-step-intake--a450b-and-locale-state-invariance/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/workspace/milestone-m2b-document-binary-integration/frontend/test-results/m1-zh-CN-four-step-intake--a450b-and-locale-state-invariance/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/workspace/milestone-m2b-document-binary-integration/frontend/e2e/m1.spec.ts",
+                        "column": 84,
+                        "line": 47
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "1c39409c6e78644cb110-5d52ab9355b85be61567",
+              "file": "m1.spec.ts",
+              "line": 45,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "zh-HK",
+          "file": "m1.spec.ts",
+          "line": 43,
+          "column": 62,
+          "specs": [
+            {
+              "title": "four-step intake, canonical results, official citation and locale state invariance",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 454,
+                      "error": {
+                        "message": "Error: M1_UAT_MANIFEST must point to seeded real-backend fixtures\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeDefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mundefined\u001b[39m",
+                        "stack": "Error: M1_UAT_MANIFEST must point to seeded real-backend fixtures\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeDefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mundefined\u001b[39m\n    at /workspace/milestone-m2b-document-binary-integration/frontend/e2e/m1.spec.ts:47:84",
+                        "location": {
+                          "file": "/workspace/milestone-m2b-document-binary-integration/frontend/e2e/m1.spec.ts",
+                          "column": 84,
+                          "line": 47
+                        },
+                        "snippet": "  45 |   test('four-step intake, canonical results, official citation and locale state invariance', async ({ page }) => {\n  46 |     test.setTimeout(120000);\n> 47 |     expect(manifest, 'M1_UAT_MANIFEST must point to seeded real-backend fixtures').toBeDefined();\n     |                                                                                    ^\n  48 |     const a = manifest!.A; const writes: string[] = [];\n  49 |     page.on('request', request => { if (request.method() !== 'GET' && new URL(request.url()).pathname.startsWith('/api/v1/')) writes.push(request.url()); });\n  50 |     await page.goto('/'); await login(page, 'A', locale);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/workspace/milestone-m2b-document-binary-integration/frontend/e2e/m1.spec.ts",
+                            "column": 84,
+                            "line": 47
+                          },
+                          "message": "Error: M1_UAT_MANIFEST must point to seeded real-backend fixtures\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeDefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mundefined\u001b[39m\n\n  45 |   test('four-step intake, canonical results, official citation and locale state invariance', async ({ page }) => {\n  46 |     test.setTimeout(120000);\n> 47 |     expect(manifest, 'M1_UAT_MANIFEST must point to seeded real-backend fixtures').toBeDefined();\n     |                                                                                    ^\n  48 |     const a = manifest!.A; const writes: string[] = [];\n  49 |     page.on('request', request => { if (request.method() !== 'GET' && new URL(request.url()).pathname.startsWith('/api/v1/')) writes.push(request.url()); });\n  50 |     await page.goto('/'); await login(page, 'A', locale);\n    at /workspace/milestone-m2b-document-binary-integration/frontend/e2e/m1.spec.ts:47:84"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-07T05:07:45.182Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/workspace/milestone-m2b-document-binary-integration/frontend/test-results/m1-zh-HK-four-step-intake--6d02f-and-locale-state-invariance/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/workspace/milestone-m2b-document-binary-integration/frontend/test-results/m1-zh-HK-four-step-intake--6d02f-and-locale-state-invariance/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/workspace/milestone-m2b-document-binary-integration/frontend/test-results/m1-zh-HK-four-step-intake--6d02f-and-locale-state-invariance/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/workspace/milestone-m2b-document-binary-integration/frontend/e2e/m1.spec.ts",
+                        "column": 84,
+                        "line": 47
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "1c39409c6e78644cb110-8d621be59a54cc8466b0",
+              "file": "m1.spec.ts",
+              "line": 45,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "en-US",
+          "file": "m1.spec.ts",
+          "line": 43,
+          "column": 62,
+          "specs": [
+            {
+              "title": "four-step intake, canonical results, official citation and locale state invariance",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 447,
+                      "error": {
+                        "message": "Error: M1_UAT_MANIFEST must point to seeded real-backend fixtures\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeDefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mundefined\u001b[39m",
+                        "stack": "Error: M1_UAT_MANIFEST must point to seeded real-backend fixtures\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeDefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mundefined\u001b[39m\n    at /workspace/milestone-m2b-document-binary-integration/frontend/e2e/m1.spec.ts:47:84",
+                        "location": {
+                          "file": "/workspace/milestone-m2b-document-binary-integration/frontend/e2e/m1.spec.ts",
+                          "column": 84,
+                          "line": 47
+                        },
+                        "snippet": "  45 |   test('four-step intake, canonical results, official citation and locale state invariance', async ({ page }) => {\n  46 |     test.setTimeout(120000);\n> 47 |     expect(manifest, 'M1_UAT_MANIFEST must point to seeded real-backend fixtures').toBeDefined();\n     |                                                                                    ^\n  48 |     const a = manifest!.A; const writes: string[] = [];\n  49 |     page.on('request', request => { if (request.method() !== 'GET' && new URL(request.url()).pathname.startsWith('/api/v1/')) writes.push(request.url()); });\n  50 |     await page.goto('/'); await login(page, 'A', locale);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/workspace/milestone-m2b-document-binary-integration/frontend/e2e/m1.spec.ts",
+                            "column": 84,
+                            "line": 47
+                          },
+                          "message": "Error: M1_UAT_MANIFEST must point to seeded real-backend fixtures\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeDefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mundefined\u001b[39m\n\n  45 |   test('four-step intake, canonical results, official citation and locale state invariance', async ({ page }) => {\n  46 |     test.setTimeout(120000);\n> 47 |     expect(manifest, 'M1_UAT_MANIFEST must point to seeded real-backend fixtures').toBeDefined();\n     |                                                                                    ^\n  48 |     const a = manifest!.A; const writes: string[] = [];\n  49 |     page.on('request', request => { if (request.method() !== 'GET' && new URL(request.url()).pathname.startsWith('/api/v1/')) writes.push(request.url()); });\n  50 |     await page.goto('/'); await login(page, 'A', locale);\n    at /workspace/milestone-m2b-document-binary-integration/frontend/e2e/m1.spec.ts:47:84"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-07T05:07:47.142Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/workspace/milestone-m2b-document-binary-integration/frontend/test-results/m1-en-US-four-step-intake--c6023-and-locale-state-invariance/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/workspace/milestone-m2b-document-binary-integration/frontend/test-results/m1-en-US-four-step-intake--c6023-and-locale-state-invariance/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/workspace/milestone-m2b-document-binary-integration/frontend/test-results/m1-en-US-four-step-intake--c6023-and-locale-state-invariance/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/workspace/milestone-m2b-document-binary-integration/frontend/e2e/m1.spec.ts",
+                        "column": 84,
+                        "line": 47
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "1c39409c6e78644cb110-c8522f4a112e9e4e7414",
+              "file": "m1.spec.ts",
+              "line": 45,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "m2a.spec.ts",
+      "file": "m2a.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "new persisted project, refresh, exact snapshot and canonical START/READ in zh-CN",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 25317,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-07T05:07:48.970Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "49d86bb918eea637eb67-bd327ae3a42099b94360",
+          "file": "m2a.spec.ts",
+          "line": 12,
+          "column": 57
+        },
+        {
+          "title": "new persisted project, refresh, exact snapshot and canonical START/READ in zh-HK",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 24461,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-07T05:08:15.048Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "49d86bb918eea637eb67-80085a333d7a0bdc2f01",
+          "file": "m2a.spec.ts",
+          "line": 12,
+          "column": 57
+        },
+        {
+          "title": "new persisted project, refresh, exact snapshot and canonical START/READ in en-US",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 23721,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-07T05:08:39.545Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "49d86bb918eea637eb67-40bf095b91b29ad59c73",
+          "file": "m2a.spec.ts",
+          "line": 12,
+          "column": 57
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-07T05:07:42.345Z",
+    "duration": 81100.73700000001,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}

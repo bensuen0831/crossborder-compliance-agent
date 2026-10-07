@@ -1,0 +1,44 @@
+
+> @crossborder/m0-preview@0.1.0 build
+> npm run check:i18n && npm run typecheck && vite build
+
+
+> @crossborder/m0-preview@0.1.0 check:i18n
+> node scripts/check-i18n.mjs
+
+{"status":"PASS","locales":["zh-CN","zh-HK","en-US"],"keys_per_locale":386,"checked_files":37,"hard_coded_ui_strings":0,"missing_keys":0}
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+
+> @crossborder/m0-preview@0.1.0 typecheck
+> tsc --noEmit
+
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 3475 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                         0.62 kB │ gzip:   0.35 kB
+dist/assets/index-C6_GIUSz.css         12.12 kB │ gzip:   3.41 kB
+dist/assets/contracts-CilQLgCS.js     149.70 kB │ gzip:  45.05 kB
+dist/assets/index-DJy9kXcS.js         321.24 kB │ gzip:  91.88 kB
+dist/assets/enterprise-9C6YYrtS.js  1,087.38 kB │ gzip: 347.79 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 7.90s
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

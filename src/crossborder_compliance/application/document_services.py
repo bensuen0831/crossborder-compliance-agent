@@ -57,11 +57,12 @@ def normalize_filename(filename: str) -> str:
 
 
 class DocumentIngestionService:
-    def __init__(self, repository: DocumentIntelligenceRepositoryPort, storage: ObjectStoragePort, malware_scan: MalwareScanPort, *, max_size_bytes: int = 50 * 1024 * 1024):
+    def __init__(self, repository: DocumentIntelligenceRepositoryPort, storage: ObjectStoragePort, malware_scan: MalwareScanPort | None, *, max_size_bytes: int = 50 * 1024 * 1024, scan_required: bool = True):
         self.repository = repository
         self.storage = storage
         self.malware_scan = malware_scan
         self.max_size_bytes = max_size_bytes
+        self.scan_required = scan_required
 
     def _validate(self, filename: str, mime_type: str, content: bytes) -> str:
         safe = normalize_filename(filename)
@@ -75,7 +76,9 @@ class DocumentIngestionService:
             raise DocumentValidationError("extension/MIME mismatch")
         if not content or len(content) > self.max_size_bytes:
             raise DocumentValidationError("invalid file size")
-        if not self.malware_scan.scan(content=content, filename=safe):
+        if self.malware_scan is None and self.scan_required:
+            raise DocumentValidationError("CAPABILITY_NOT_CONFIGURED: malware scanner required")
+        if self.malware_scan is not None and not self.malware_scan.scan(content=content, filename=safe):
             raise DocumentValidationError("malware scan failed")
         return safe
 

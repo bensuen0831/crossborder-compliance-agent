@@ -64,7 +64,12 @@ def overlay(root):
                 == 0
             )
 
-        valid = (
+        from scripts.m2b_ownership import overlay as document_overlay, MIGRATIONS as document_migrations
+        if (root / "evidence/m2b/approved_owner_overlay.json").exists():
+            document_valid, document_paths, document_source = document_overlay(root)
+        else:
+            document_valid, document_paths, document_source = True, {}, None
+        valid = document_valid and (
             data["base_sha"] == BASE
             and ancestor(BASE, source)
             and ancestor(source, "HEAD")
@@ -73,7 +78,7 @@ def overlay(root):
         )
         valid = valid and all(
             hashlib.sha256(git("show", source + ":" + p)).hexdigest() == h
-            and (root / p).read_bytes() == git("show", source + ":" + p)
+            and ((root / p).read_bytes() == git("show", source + ":" + p) or p in document_paths)
             for p, h in data["paths"].items()
         )
         old = set(
@@ -84,7 +89,7 @@ def overlay(root):
         now = {str(p.relative_to(root)) for p in (root / "alembic/versions").glob("*.py")}
         valid = (
             valid
-            and now == old | {MIGRATION}
+            and now == old | {MIGRATION} | (document_migrations if document_paths else set())
             and all((root / p).read_bytes() == git("show", BASE + ":" + p) for p in old)
         )
         protected = ["ARCHITECTURE_RULES.md", "frontend/package.json", "frontend/package-lock.json"]
@@ -140,7 +145,7 @@ def overlay(root):
             )
 
         valid = valid and all(allowed(p) for p in delta)
-        return valid, data["paths"], source
+        return valid, {**data["paths"], **document_paths}, document_source or source
     except (KeyError, OSError, ValueError, subprocess.CalledProcessError):
         return False, {}, None
 
@@ -158,7 +163,7 @@ def owned_delta(root):
     # Delivery evidence is subsequent to tested source; cannot approve code.
     paths.update(
         str(p.relative_to(root))
-        for prefix in ("docs/m2a", "evidence/m2a")
+        for prefix in ("docs/m2a", "evidence/m2a", "docs/m2b", "evidence/m2b")
         for p in (Path(root) / prefix).rglob("*")
         if p.is_file()
     )

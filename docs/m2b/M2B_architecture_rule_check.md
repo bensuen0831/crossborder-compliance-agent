@@ -1,0 +1,3 @@
+# M2B architecture rule check
+
+Permanent ARCHITECTURE_RULES1–155 stay byte-identical; existing executable architecture gate151 plus M2A13 remain mandatory. Additive M2B27 checks cover temporal identity/membership/provenance/exact readers/input universe and document/storage/workflow/frontend authority. Finite committed owner overlay preserves previous evidence and tested ancestry; it does not grant blanket future ownership. Local final checks PASS:151/151 existing +13/13 M2-A +27/27 M2-B; Phase1K-A20/20 and Stage1 integrity PASS. Full mandatory closure also executes these checks. Frozen0001–0011, WIP0012, legal Domain, canonical workflows and permanent rules are byte-identical. Exact final PR-head CI remains required.

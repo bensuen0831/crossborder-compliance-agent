@@ -15,6 +15,16 @@ class DocumentVersionIntelligenceEntity(TenantAuditMixin, Base):
     filename: Mapped[str] = mapped_column(String(255), nullable=False)
     size_bytes: Mapped[int] = mapped_column(Integer, nullable=False)
     language: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    upload_provenance_json: Mapped[dict] = mapped_column(JSON, nullable=False, default=dict, server_default="{}")
+
+
+class ProjectVersionDocumentLinkEntity(TenantAuditMixin, Base):
+    """Exact immutable input relationship; DocumentVersion remains canonical."""
+    __tablename__ = "project_version_document_links"
+    __table_args__ = (UniqueConstraint("tenant_id", "project_version_id", "document_version_id", name="uq_project_version_document_link"),)
+    link_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    project_version_id: Mapped[str] = mapped_column(ForeignKey("project_versions.project_version_id", ondelete="RESTRICT"), nullable=False)
+    document_version_id: Mapped[str] = mapped_column(ForeignKey("document_versions.document_version_id", ondelete="RESTRICT"), nullable=False)
 
 
 class DocumentParseRunDetailEntity(TenantAuditMixin, Base):

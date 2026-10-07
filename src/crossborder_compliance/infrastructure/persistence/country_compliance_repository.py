@@ -4,6 +4,8 @@ from uuid import UUID, uuid4
 
 from sqlalchemy import select
 
+from crossborder_compliance.infrastructure.persistence.context_temporal import exact_item_detail, flow_item_ids
+
 from crossborder_compliance.application.country_compliance_services import (
     ApplicabilityRequest,
     CountryProfileResolution,
@@ -604,7 +606,7 @@ class PostgresCountryComplianceRepository:
                 raise LookupError("regulation source no longer authorized")
             if request.subject_type == "DATA_ITEM":
                 item = self.get(s, b.DataItemEntity, request.subject_id)
-                detail = self.get(s, c.DataItemResolutionDetailEntity, request.subject_id)
+                detail = exact_item_detail(s, self.tenant, request.subject_id, pin.data_inventory_version)
                 if (
                     item.project_id != str(request.project_id)
                     or detail.version != pin.data_inventory_version
@@ -623,18 +625,10 @@ class PostgresCountryComplianceRepository:
                     or detail.validation_status != "VALIDATED"
                 ):
                     raise LookupError("formal data flow unavailable")
-                items = tuple(
-                    UUID(v)
-                    for v in s.scalars(
-                        select(b.DataItemFlowLinkEntity.data_item_id).where(
-                            b.DataItemFlowLinkEntity.tenant_id == self.tenant,
-                            b.DataItemFlowLinkEntity.flow_edge_id == str(request.subject_id),
-                        )
-                    )
-                )
+                items = tuple(UUID(v) for v in flow_item_ids(s, self.tenant, request.subject_id, pin.data_inventory_version))
                 for ident in items:
                     linked_item = self.get(s, b.DataItemEntity, ident)
-                    linked_detail = self.get(s, c.DataItemResolutionDetailEntity, ident)
+                    linked_detail = exact_item_detail(s, self.tenant, ident, pin.data_inventory_version)
                     if (
                         linked_item.project_id != str(request.project_id)
                         or linked_detail.version != pin.data_inventory_version

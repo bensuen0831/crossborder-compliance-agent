@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from uuid import uuid4
 
 from sqlalchemy import (
     Boolean, CheckConstraint, DateTime, Float, ForeignKey, Index, Integer, JSON,
@@ -270,7 +271,9 @@ class PartyResolutionEntity(TenantAuditMixin, Base):
 
 class DataItemResolutionDetailEntity(TenantAuditMixin, Base):
     __tablename__ = "data_item_resolution_details"
-    data_item_id: Mapped[str] = mapped_column(ForeignKey("data_items.data_item_id", ondelete="CASCADE"), primary_key=True)
+    __table_args__ = (UniqueConstraint("tenant_id", "data_item_id", "version", name="uq_data_item_detail_version"),)
+    detail_version_id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid4()))
+    data_item_id: Mapped[str] = mapped_column(ForeignKey("data_items.data_item_id", ondelete="CASCADE"), nullable=False)
     display_name: Mapped[str] = mapped_column(String(255), nullable=False)
     value_type: Mapped[str | None] = mapped_column(String(120), nullable=True)
     format: Mapped[str | None] = mapped_column(String(160), nullable=True)
@@ -287,21 +290,25 @@ class DataItemResolutionDetailEntity(TenantAuditMixin, Base):
 class DataItemCandidateLinkEntity(TenantAuditMixin, Base):
     __tablename__ = "data_item_candidate_links"
     __table_args__ = (
-        UniqueConstraint("tenant_id", "data_item_id", "candidate_data_item_id", name="uq_data_item_candidate_link"),
+        UniqueConstraint("tenant_id", "data_item_id", "data_inventory_version", "candidate_data_item_id", name="uq_data_item_candidate_link"),
     )
     data_item_candidate_link_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     data_item_id: Mapped[str] = mapped_column(ForeignKey("data_items.data_item_id", ondelete="CASCADE"), nullable=False)
     candidate_data_item_id: Mapped[str] = mapped_column(ForeignKey("candidate_data_items.candidate_data_item_id", ondelete="CASCADE"), nullable=False)
 
+    data_inventory_version: Mapped[int | None] = mapped_column(Integer, nullable=True)
+
 
 class DataItemSourceTraceLinkEntity(TenantAuditMixin, Base):
     __tablename__ = "data_item_source_trace_links"
     __table_args__ = (
-        UniqueConstraint("tenant_id", "data_item_id", "source_trace_ref_id", name="uq_data_item_source_trace_link"),
+        UniqueConstraint("tenant_id", "data_item_id", "data_inventory_version", "source_trace_ref_id", name="uq_data_item_source_trace_link"),
     )
     data_item_source_trace_link_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     data_item_id: Mapped[str] = mapped_column(ForeignKey("data_items.data_item_id", ondelete="CASCADE"), nullable=False)
     source_trace_ref_id: Mapped[str] = mapped_column(ForeignKey("source_trace_refs.source_trace_ref_id", ondelete="RESTRICT"), nullable=False)
+
+    data_inventory_version: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
 
 class DataItemDeduplicationResultEntity(TenantAuditMixin, Base):
@@ -323,7 +330,10 @@ class DataItemDeduplicationResultEntity(TenantAuditMixin, Base):
 
 class DataItemProductLinkDetailEntity(TenantAuditMixin, Base):
     __tablename__ = "data_item_product_link_details"
-    data_item_product_link_id: Mapped[str] = mapped_column(ForeignKey("data_item_product_links.data_item_product_link_id", ondelete="CASCADE"), primary_key=True)
+    __table_args__ = (UniqueConstraint("tenant_id", "data_item_product_link_id", "data_inventory_version", name="uq_data_item_product_detail_version"),)
+    detail_version_id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid4()))
+    data_item_product_link_id: Mapped[str] = mapped_column(ForeignKey("data_item_product_links.data_item_product_link_id", ondelete="CASCADE"), nullable=False)
+    data_inventory_version: Mapped[int | None] = mapped_column(Integer, nullable=True)
     product_domain_definition_id: Mapped[str | None] = mapped_column(ForeignKey("metadata_definitions.definition_id", ondelete="RESTRICT"), nullable=True)
     product_definition_id: Mapped[str | None] = mapped_column(ForeignKey("metadata_definitions.definition_id", ondelete="RESTRICT"), nullable=True)
     relationship_type: Mapped[str] = mapped_column(String(40), nullable=False)
@@ -397,6 +407,7 @@ class DataFlowEdgeDetailEntity(TenantAuditMixin, Base):
 
 class DataItemFlowLinkDetailEntity(TenantAuditMixin, Base):
     __tablename__ = "data_item_flow_link_details"
+    data_inventory_version: Mapped[int | None] = mapped_column(Integer, nullable=True)
     link_id: Mapped[str] = mapped_column(ForeignKey("data_item_flow_links.link_id", ondelete="CASCADE"), primary_key=True)
     relationship_type: Mapped[str] = mapped_column(String(80), nullable=False)
     source_trace_ids_json: Mapped[list] = mapped_column(JSON, nullable=False, default=list)

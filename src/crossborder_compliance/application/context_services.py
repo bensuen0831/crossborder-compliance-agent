@@ -465,7 +465,7 @@ class DataItemNormalizationService:
                 row_trace_ids = tuple(UUID(x) for x in row.get("source_trace_ids", []))
                 self.repository.attach_candidate_to_data_item(
                     data_item_id=item_id, candidate_id=candidate_id,
-                    source_trace_ids=row_trace_ids,
+                    source_trace_ids=row_trace_ids, version=version,
                 )
                 self.repository.save_candidate_resolution(CandidateResolution(
                     uuid4(), "DATA_ITEM", candidate_id, "DATA_ITEM", item_id,
@@ -833,7 +833,7 @@ class ContextResolutionService:
                     data_item_id=item_id,
                     product_domain_definition_id=definition_id if definition["kind"] == "PRODUCT_DOMAIN" else None,
                     product_definition_id=definition_id if definition["kind"] == "PRODUCT" else None,
-                    relationship_type="PRIMARY", confidence=1.0, source_trace_ids=(),
+                    relationship_type="PRIMARY", confidence=1.0, source_trace_ids=(), version=version,
                 )
 
         for spec in jurisdictions:

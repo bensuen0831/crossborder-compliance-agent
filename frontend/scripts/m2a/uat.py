@@ -41,7 +41,12 @@ def main():
         )
         f = foundation_j.__wrapped__(f, SimpleNamespace(param={}))
         binding(f)
+        if os.environ.get("M2B_LOCAL_UAT") == "1":
+            binding(f, code="GENERIC_FIELD", field="business_purpose", value_type="string")
         _, _, ctx, values = setup(f)
+        if os.environ.get("M2B_LOCAL_UAT") == "1":
+            from crossborder_compliance.domain.security import RepositoryContext
+            ctx = RepositoryContext.user(ctx.tenant_id, "author", ctx.permission.scopes | {"document:read", "document:upload", "document:parse", "document:unlink"})
         people["INTAKE"] = dict(
             tenant_id=f["tenant"],
             actor_id="author",
@@ -66,6 +71,13 @@ def main():
     app.include_router(country_compliance_router)
     app.include_router(router)
     app.include_router(intake_router)
+    from crossborder_compliance.interfaces.api.routes.intake_documents import router as document_router
+    app.include_router(document_router)
+    if os.environ.get("M2B_LOCAL_UAT") == "1":
+        from crossborder_compliance.application.document_upload import DocumentFilePolicy
+        from crossborder_compliance.infrastructure.document_storage import FileObjectStorageAdapter
+        app.state.document_file_policy = DocumentFilePolicy.model_validate(json.loads(Path(os.environ["M2B_FILE_POLICY"]).read_text()))
+        app.state.document_object_storage = FileObjectStorageAdapter(os.environ["M2B_BINARY_ROOT"])
     people = json.loads(args.manifest.read_text())
 
     def prepared_host(context, project, snapshot):

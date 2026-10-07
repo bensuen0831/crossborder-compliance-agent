@@ -101,26 +101,25 @@ def foundation():
         code=str(ids["jurisdiction"]),
         name="Scheme jurisdiction",
     )
-    insert(
-        b.DocumentEntity,
-        document_id=ids["document"],
-        project_id=ids["project"],
-        name="Authorized source",
-        document_type="UPLOADED",
-    )
-    insert(
-        b.DocumentVersionEntity,
-        document_version_id=ids["document_version"],
-        document_id=ids["document"],
-        version_no=1,
-        storage_ref="fixture://source",
-        content_hash="a" * 64,
-    )
-    insert(
-        b.SourceTraceRefEntity,
-        source_trace_ref_id=ids["trace"],
-        document_version_id=ids["document_version"],
-    )
+    # Genuine document/parse/trace fixture, also pinned to this exact snapshot.
+    from test_phase1e_postgres import MemoryStorage, CleanScan, Queue
+    from crossborder_compliance.application.document_services import DocumentIngestionService, DocumentParseService
+    from crossborder_compliance.infrastructure.document_parsers import default_native_parsers
+    from crossborder_compliance.infrastructure.persistence.document_repositories import PostgresDocumentIntelligenceRepository
+    document_repo = PostgresDocumentIntelligenceRepository(sf, RepositoryContext.user(ids["tenant"], "fixture"))
+    storage = MemoryStorage()
+    uploaded = DocumentIngestionService(document_repo, storage, CleanScan()).ingest(
+        tenant_id=ids["tenant"], project_id=ids["project"], filename="authorized-source.txt",
+        mime_type="text/plain", content=b"Trusted fixture source\n")
+    ids["document"] = UUID(str(uploaded["document_id"]))
+    ids["document_version"] = UUID(str(uploaded["document_version_id"]))
+    parser = DocumentParseService(document_repo, storage, default_native_parsers(), Queue())
+    task = parser.request_parse(document_version_id=ids["document_version"], idempotency_key="fixture", parser_profile_id="native-v1")
+    parsed = parser.process_task(UUID(str(task["task_id"])))
+    ids["parse_run"] = UUID(str(parsed["parse_run_id"]))
+    with sf() as session:
+        ids["trace"] = UUID(session.scalar(select(b.SourceTraceRefEntity.source_trace_ref_id).where(
+            b.SourceTraceRefEntity.document_version_id == str(ids["document_version"]))))
     insert(
         b.DataItemEntity,
         data_item_id=ids["item"],
@@ -142,6 +141,7 @@ def foundation():
         data_item_source_trace_link_id=uuid4(),
         data_item_id=ids["item"],
         source_trace_ref_id=ids["trace"],
+        data_inventory_version=1,
     )
     insert(
         c.BusinessFactEntity,
@@ -193,6 +193,7 @@ def foundation():
         analysis_as_of_date=date(2026, 1, 1),
         provenance_json={},
     )
+    document_repo.pin_parse_run(analysis_snapshot_id=ids["snapshot"], document_version_id=ids["document_version"], parse_run_id=ids["parse_run"])
     insert(
         c.AnalysisSnapshotContextPinEntity,
         analysis_snapshot_context_pin_id=uuid4(),

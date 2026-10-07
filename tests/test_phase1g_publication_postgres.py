@@ -78,6 +78,16 @@ def snapshot(f):
                 provenance_json={"test": "new analysis"},
             )
         )
+    from crossborder_compliance.infrastructure.persistence import context_models as c
+    from crossborder_compliance.infrastructure.persistence.context_repositories import PostgresContextResolutionRepository
+    with f["sf"]() as s:
+        original_pin = s.scalar(select(c.AnalysisSnapshotContextPinEntity).where(
+            c.AnalysisSnapshotContextPinEntity.analysis_snapshot_id == f["snapshot"],
+            c.AnalysisSnapshotContextPinEntity.tenant_id == f["tenant"],
+        ))
+        run_id = UUID(original_pin.context_resolution_run_id)
+    PostgresContextResolutionRepository(f["sf"], f["ctx"]).pin_snapshot_context(
+        analysis_snapshot_id=UUID(ident), project_id=UUID(f["project"]), context_resolution_run_id=run_id)
     return ident
 
 

@@ -56,10 +56,107 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/projects/{project_id}/intake/documents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Inputs */
+        get: operations["list_inputs_api_v1_projects__project_id__intake_documents_get"];
+        put?: never;
+        /** Upload */
+        post: operations["upload_api_v1_projects__project_id__intake_documents_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/projects/{project_id}/intake/documents/policy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Upload Policy */
+        get: operations["upload_policy_api_v1_projects__project_id__intake_documents_policy_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/projects/{project_id}/intake/documents/{version_id}/parse": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Parse */
+        post: operations["parse_api_v1_projects__project_id__intake_documents__version_id__parse_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/projects/{project_id}/intake/documents/{version_id}/unlink": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Unlink */
+        post: operations["unlink_api_v1_projects__project_id__intake_documents__version_id__unlink_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/projects/{project_id}/intake/supersede": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Supersede */
+        post: operations["supersede_api_v1_projects__project_id__intake_supersede_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** Body_upload_api_v1_projects__project_id__intake_documents_post */
+        Body_upload_api_v1_projects__project_id__intake_documents_post: {
+            /** File */
+            file: string;
+            /** Expected Version */
+            expected_version: number;
+            /** Idempotency Key */
+            idempotency_key: string;
+            /** Replace Document Id */
+            replace_document_id?: string | null;
+        };
         /** ConfirmProjectIntake */
         ConfirmProjectIntake: {
             /** Expected Version */
@@ -72,6 +169,109 @@ export interface components {
             /** Idempotency Key */
             idempotency_key: string;
             facts: components["schemas"]["IntakeFacts"];
+        };
+        /** DocumentInputView */
+        DocumentInputView: {
+            /**
+             * Document Id
+             * Format: uuid
+             */
+            document_id: string;
+            /**
+             * Document Version Id
+             * Format: uuid
+             */
+            document_version_id: string;
+            /** Document Version */
+            document_version: number;
+            /** Filename */
+            filename: string;
+            /** Size Bytes */
+            size_bytes: number;
+            /** Media Type */
+            media_type: string;
+            /** Content Hash */
+            content_hash: string;
+            /**
+             * Parse Status
+             * @enum {string}
+             */
+            parse_status: "STORED" | "ACCEPTED" | "RUNNING" | "COMPLETED" | "FAILED";
+            /** Quality Status */
+            quality_status?: ("PASS" | "WARNING" | "REVIEW_REQUIRED" | "FAILED") | null;
+            /** Parse Run Id */
+            parse_run_id?: string | null;
+            /** Error Code */
+            error_code?: string | null;
+            /** Counts */
+            counts?: {
+                [key: string]: number;
+            };
+        };
+        /** DocumentInputsView */
+        DocumentInputsView: {
+            /**
+             * Project Id
+             * Format: uuid
+             */
+            project_id: string;
+            /**
+             * Project Version Id
+             * Format: uuid
+             */
+            project_version_id: string;
+            /** Intake Version */
+            intake_version: number;
+            /**
+             * Intake Status
+             * @enum {string}
+             */
+            intake_status: "DRAFT" | "CONFIRMED" | "SUPERSEDED";
+            /** Items */
+            items: components["schemas"]["DocumentInputView"][];
+        };
+        /** DocumentUploadPolicyView */
+        DocumentUploadPolicyView: {
+            /**
+             * Project Id
+             * Format: uuid
+             */
+            project_id: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "AVAILABLE" | "CAPABILITY_NOT_CONFIGURED";
+            /** Policy Version */
+            policy_version?: string | null;
+            /** Max Size Bytes */
+            max_size_bytes?: number | null;
+            /**
+             * Allowed Types
+             * @default []
+             */
+            allowed_types: components["schemas"]["FileTypePolicy"][];
+            /** Scan Required */
+            scan_required?: boolean | null;
+        };
+        /** DraftDocumentRequest */
+        DraftDocumentRequest: {
+            /** Expected Version */
+            expected_version: number;
+            /** Idempotency Key */
+            idempotency_key: string;
+        };
+        /** FileTypePolicy */
+        FileTypePolicy: {
+            /** Extension */
+            extension: string;
+            /** Media Type */
+            media_type: string;
+            /**
+             * Signature
+             * @enum {string}
+             */
+            signature: "pdf" | "docx" | "xlsx" | "pptx" | "text" | "png" | "jpeg";
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -393,6 +593,212 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntakeView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_inputs_api_v1_projects__project_id__intake_documents_get: {
+        parameters: {
+            query?: {
+                version?: number | null;
+            };
+            header?: never;
+            path: {
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DocumentInputsView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    upload_api_v1_projects__project_id__intake_documents_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_upload_api_v1_projects__project_id__intake_documents_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DocumentInputsView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    upload_policy_api_v1_projects__project_id__intake_documents_policy_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DocumentUploadPolicyView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    parse_api_v1_projects__project_id__intake_documents__version_id__parse_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                project_id: string;
+                version_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DraftDocumentRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DocumentInputsView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    unlink_api_v1_projects__project_id__intake_documents__version_id__unlink_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                project_id: string;
+                version_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DraftDocumentRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DocumentInputsView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    supersede_api_v1_projects__project_id__intake_supersede_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DraftDocumentRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DocumentInputsView"];
                 };
             };
             /** @description Validation Error */

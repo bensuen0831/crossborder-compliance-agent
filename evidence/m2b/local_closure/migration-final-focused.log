@@ -1,0 +1,12 @@
+..                                                                       [100%]
+=============================== warnings summary ===============================
+../.onboarding/phase1i-venv/lib/python3.12/site-packages/alembic/config.py:604
+  /workspace/.onboarding/phase1i-venv/lib/python3.12/site-packages/alembic/config.py:604: DeprecationWarning: No path_separator found in configuration; falling back to legacy splitting on spaces, commas, and colons for prepend_sys_path.  Consider adding path_separator=os to Alembic config.
+    util.warn_deprecated(
+
+tests/test_m2b_migrations.py::test_fresh_exact_0011_equivalence_empty_down_up_and_retention
+  /workspace/milestone-m2b-document-binary-integration/tests/test_phase1h_migrations.py:45: SAWarning: Did not recognize type 'vector' of column 'embedding_vector'
+    for c in inspector.get_columns(table)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2 passed, 2 warnings in 41.96s

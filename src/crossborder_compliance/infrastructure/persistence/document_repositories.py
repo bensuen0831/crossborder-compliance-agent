@@ -6,6 +6,7 @@ from uuid import UUID, uuid4
 
 from sqlalchemy import distinct, func, select
 from sqlalchemy.orm import sessionmaker
+from crossborder_compliance.infrastructure.persistence.project_document_inputs import ProjectDocumentOperations
 
 from crossborder_compliance.domain.document_intelligence import (
     BusinessFactCandidate, CandidateDataFlowEdge, CandidateDataFlowNode, CandidateDataItem,
@@ -34,7 +35,7 @@ def _now() -> datetime:
     return datetime.now(timezone.utc)
 
 
-class PostgresDocumentIntelligenceRepository:
+class PostgresDocumentIntelligenceRepository(ProjectDocumentOperations):
     """Tenant-scoped persistence. Phase 1B identity rows + Phase 1D 1:1 detail rows form one contract."""
 
     def __init__(self, session_factory: sessionmaker, context: RepositoryContext):
@@ -335,8 +336,12 @@ class PostgresDocumentIntelligenceRepository:
         with self._sessions() as s,s.begin():
             snap=self._get(s,AnalysisSnapshotEntity,AnalysisSnapshotEntity.analysis_snapshot_id,analysis_snapshot_id)
             run=self._get(s,DocumentParseRunEntity,DocumentParseRunEntity.document_parse_run_id,parse_run_id)
-            if snap is None or run is None or run.document_version_id!=str(document_version_id):
-                raise LookupError("snapshot/parse run not found in tenant scope")
+            version = self._get(s, DocumentVersionEntity, DocumentVersionEntity.document_version_id, document_version_id)
+            document = self._get(s, DocumentEntity, DocumentEntity.document_id, UUID(version.document_id)) if version else None
+            from crossborder_compliance.infrastructure.persistence.models import ProjectVersionEntity
+            project_version = s.get(ProjectVersionEntity, snap.project_version_id) if snap else None
+            if snap is None or run is None or run.document_version_id!=str(document_version_id) or document is None or project_version is None or project_version.tenant_id != self.tenant_id or document.project_id != project_version.project_id:
+                raise LookupError("snapshot/parse run not found in tenant/project scope")
             existing=s.scalar(select(AnalysisSnapshotParseRunPinEntity).where(
                 AnalysisSnapshotParseRunPinEntity.tenant_id==self.tenant_id,
                 AnalysisSnapshotParseRunPinEntity.analysis_snapshot_id==str(analysis_snapshot_id),
@@ -344,6 +349,8 @@ class PostgresDocumentIntelligenceRepository:
             if existing:
                 if existing.parse_run_id!=str(parse_run_id):raise ValueError("analysis snapshot parse-run pin is immutable")
                 return
+            if snap.provenance_json.get("document_input_universe_pinned"):
+                raise ValueError("analysis snapshot document universe is immutable")
             s.add(AnalysisSnapshotParseRunPinEntity(pin_id=str(uuid4()),analysis_snapshot_id=str(analysis_snapshot_id),
                 document_version_id=str(document_version_id),parse_run_id=str(parse_run_id),tenant_id=self.tenant_id))
 

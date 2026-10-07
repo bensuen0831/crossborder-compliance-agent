@@ -1,0 +1,65 @@
+{
+  "decision": "M2-B B1 SPEC REVIEW = PASS",
+  "baseline_sha": "da2d420602d9c71991bcae4ffd3d33c9b3497d25",
+  "current_sha": "da2d420602d9c71991bcae4ffd3d33c9b3497d25",
+  "branch": "milestone-m2b-document-binary-integration",
+  "worktree": "/workspace/milestone-m2b-document-binary-integration",
+  "tag": "v3.6-m2a-pass",
+  "alembic_head": "0011_m2a_intake",
+  "part_a": "M2-A MAIN INTEGRATION = PASS",
+  "blocking_requirement": "B1: fully read Master Specification V3.6 and Phase 0 Design V3.6 before coding",
+  "missing_authority_documents": [],
+  "searched": [
+    "verified repository tree",
+    "/workspace/library-files",
+    "/workspace/shared",
+    "uploaded text attachment references"
+  ],
+  "historical_same_gap_record": "phase1k_a_start_gate.md:7",
+  "clarification": "User supplied the existing authoritative external text copies; no repository spec duplication.",
+  "existing_authorities": {
+    "document": "documents / document_versions + document_version_intelligence",
+    "parse": "document_parse_runs + document_parse_run_details / document_parse_tasks",
+    "trace": "source_trace_refs + source_trace_details",
+    "storage": "ObjectStoragePort / S3ObjectStorageAdapter",
+    "scan": "MalwareScanPort (no production implementation found)",
+    "queue": "TaskQueuePort (no production implementation found)",
+    "facts": "BusinessFactCandidate -> existing ContextResolutionService -> business_facts",
+    "conflict": "existing context_conflicts / ReviewTask",
+    "snapshot": "analysis_snapshots / analysis_snapshot_parse_run_pins",
+    "intake": "ProjectIntakeContext.uploaded_documents / project_versions.intake_json",
+    "workflow": "existing canonical Phase1L-B graph/runtime/checkpointer"
+  },
+  "implementation_gaps_to_validate_after_authority_available": [
+    "authorized request-scoped upload composition and bounded configured content policy",
+    "durable upload/finalize/parse idempotency and restart ownership",
+    "exact intake document-version/parse-run universe filtering and immutable snapshot pins",
+    "confirmed intake supersede/version lifecycle",
+    "production scan/queue configuration with honest capability state"
+  ],
+  "changed_executable_files": [],
+  "migrations_created": [],
+  "tests_run_for_m2b": [],
+  "draft_pr": null,
+  "next_exact_action": "Implement authorized durable upload/attachment lifecycle on existing document storage/task/context boundaries.",
+  "spec_sources": [
+    {
+      "name": "Master",
+      "session_copy_file_id": "file_0000000058608206b6ff719490008411",
+      "canonical_library_reference": "file_000000009b3081f592a7df8b34d646c0",
+      "sha256": "96a8236b0b0300ed0e1e6e9cff727b48e3c0164a2048f47f76ea6adc4f1198aa",
+      "bytes": 22200,
+      "fully_read": true
+    },
+    {
+      "name": "Phase0",
+      "session_copy_file_id": "file_0000000065ac82098f889081b11949d8",
+      "canonical_library_reference": "file_00000000dc2881f5a6377b7df78f47b0",
+      "sha256": "46877a981d63406aefb2e93ec155abee0a6f96092bf7e47dd315efd42287da50",
+      "bytes": 52003,
+      "fully_read": true
+    }
+  ],
+  "reviewed_contracts": "ARCHITECTURE_RULES1\u2013155, Phase1D domain/ports/models/services/storage/tests/evidence; Phase1E design/ports/normalization/models/pins/evidence; M2A design/handoff/entry/exact-main closure; H5 intake/API/generated contracts",
+  "conflicts": []
+}

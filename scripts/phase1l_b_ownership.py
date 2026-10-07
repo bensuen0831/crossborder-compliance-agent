@@ -84,7 +84,7 @@ def overlay(root):
         intake_valid, intake_paths, _ = intake_overlay(root)
         valid = (
             valid and intake_valid
-            and old | ({intake_migration} if intake_paths else set()) == now
+            and old | ({p for p in intake_paths if p.startswith("alembic/versions/")} if intake_paths else set()) == now
             and all((root / p).read_bytes() == git("show", BASE + ":" + p) for p in old)
         )
         valid = valid and (root / "ARCHITECTURE_RULES.md").read_bytes() == git(

@@ -22,7 +22,11 @@ from crossborder_compliance.infrastructure.persistence import models as b
 pytestmark = pytest.mark.runtime_smoke
 BASE = "83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1"
 ROOT = Path(__file__).resolve().parents[1]
-HEAD = "0011_m2a_intake"
+from alembic.config import Config
+from alembic.script import ScriptDirectory
+from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after
+HEAD = ScriptDirectory.from_config(Config(str(ROOT / "alembic.ini"))).get_current_head()
+assert revision_at_or_after(HEAD, "0011_m2a_intake")
 
 
 def catalog(url):
