@@ -85,6 +85,11 @@ class PreparedAuthorityInput(Contract):
                     "context_version",
                     "subject_type",
                     "subject_id",
+                    "analysis_as_of_date",
+                    "jurisdiction_ids",
+                    "data_item_ids",
+                    "data_flow_ids",
+                    "scenario_definition_ids",
                 )
             ):
                 raise ValueError("authority upstream scope mismatch")
@@ -92,6 +97,8 @@ class PreparedAuthorityInput(Contract):
             raise ValueError("authority policy not pinned")
         if len({f.code for f in self.facts}) != len(self.facts):
             raise ValueError("ambiguous authority fact")
+        if any(not set(f.evidence_ids) <= set(self.support.evidence_ids) for f in self.facts):
+            raise ValueError("authority fact evidence outside formal support")
         return self
 
     def policy(self, kind):

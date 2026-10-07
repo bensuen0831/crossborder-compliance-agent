@@ -159,3 +159,20 @@ def test_client_cannot_inject_legal_result_policy_or_tenant():
             FormalAuthorityRequest(**base, **{field: str(uuid4())})
     with pytest.raises(ValidationError):
         FormalAuthorityRequest(**base, final_path_result_id=uuid4())
+
+
+@pytest.mark.parametrize("field", ["data_item_ids", "data_flow_ids", "jurisdiction_ids"])
+def test_authority_closes_exact_subject_universe(field):
+    x = prepared()
+    upstream = x.obligation.model_copy(update={field: (uuid4(),)})
+    with pytest.raises(ValidationError, match="authority upstream scope mismatch"):
+        PreparedAuthorityInput.model_validate(
+            {**x.model_dump(mode="python"), "obligation": upstream}
+        )
+
+
+def test_authority_fact_evidence_is_closed_to_owning_legal_support():
+    x = prepared()
+    facts = (x.facts[0].model_copy(update={"evidence_ids": (uuid4(),)}),)
+    with pytest.raises(ValidationError, match="outside formal support"):
+        PreparedAuthorityInput.model_validate({**x.model_dump(mode="python"), "facts": facts})
