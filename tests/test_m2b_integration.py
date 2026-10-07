@@ -179,3 +179,15 @@ def test_same_binary_wrong_project_is_explicit_conflict_without_identity_leak(fo
     assert upload(c,a).status_code==201
     response=upload(c,b_project)
     assert response.status_code==409 and a['project_id'] not in response.text,response.text
+
+
+def test_existing_conflict_takes_priority_over_multi_subject_capability_gap(foundation_j,tmp_path):
+    from docx import Document
+    doc=Document(); doc.add_paragraph('Purpose: Conflicting documented purpose')
+    table=doc.add_table(rows=2,cols=2)
+    table.cell(0,0).text='Field';table.cell(1,0).text='email';table.cell(0,1).text='Type';table.cell(1,1).text='string'
+    binary=io.BytesIO();doc.save(binary)
+    _,c,_,record,_,_=prepared(foundation_j,tmp_path,binary.getvalue(),'conflicting-real.docx','application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    confirmed=confirm(c,record); view=start(c,confirmed)
+    assert view['status']=='REVIEW_REQUIRED' and view['review_id'],view
+    assert not view['result_refs'].get('applicability')

@@ -108,4 +108,3 @@ def test_i_preserves_old_pin_and_reads_exact_new_pin(foundation_j, monkeypatch):
     assert country.prepare(new_request).context_version == 2
     assert f["compliance_repo"].prepare(old_request).context_version == 1
     assert observed == [(2, "Changed confirmed input"), (1, "Generic item")]
-

@@ -245,6 +245,13 @@ class FormalWorkflowStages:
         self._check(request)
         step, p = request.step, self.plan
         if p.input_capability_gap is not None:
+            context = self._context()
+            if context is None:
+                return self._result(request, StageOutcomeCode.INSUFFICIENT_INPUT, reasons=("FORMAL_CONTEXT_REQUIRED",))
+            if context.conflicts:
+                return self._result(request, StageOutcomeCode.CONFLICTED, (context.context_resolution_run_id,), ("FORMAL_CONTEXT_REFERENCE",))
+            if context.unresolved_items:
+                return self._result(request, StageOutcomeCode.REVIEW_REQUIRED, (context.context_resolution_run_id,), ("FORMAL_CONTEXT_REFERENCE",))
             return self._result(request, StageOutcomeCode.CAPABILITY_NOT_CONFIGURED, reasons=(p.input_capability_gap,))
         if step in {
             SemanticStep.REQUIREMENT,

@@ -34,6 +34,7 @@ jobs:
       VITE_M0_DEMO: 'true'
       VITE_SESSION_PATH: /m0-demo/session
       M2A_UAT_MANIFEST: /tmp/m1-personas.json
+      M1_UAT_MANIFEST: /tmp/m1-personas.json
     steps:
       - uses: actions/checkout@v4
         with:
