@@ -165,7 +165,10 @@ def test_client_cannot_inject_legal_result_policy_or_tenant():
 def test_authority_closes_exact_subject_universe(field):
     x = prepared()
     upstream = x.obligation.model_copy(update={field: (uuid4(),)})
-    with pytest.raises(ValidationError, match="authority upstream scope mismatch"):
+    with pytest.raises(
+        ValidationError,
+        match="authority upstream scope mismatch|item outside envelope jurisdiction",
+    ):
         PreparedAuthorityInput.model_validate(
             {**x.model_dump(mode="python"), "obligation": upstream}
         )

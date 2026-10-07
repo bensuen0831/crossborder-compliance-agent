@@ -454,6 +454,11 @@ def prepare(repo, request):
         if {ref.result_id for ref in cross.upstream_refs if ref.kind == "OBLIGATION"} != expected:
             raise ValueError("document cross-border obligation closure mismatch")
     if original:
+        # Scenario references belong to the validated applicability input universe
+        # even for a DATA_ITEM/DATA_FLOW subject; reuse that owning contract.
+        identity = identity.model_copy(
+            update={"scenario_definition_ids": original.identity.scenario_definition_ids}
+        )
         for policy in policies:
             obpins = [p for p in original.pins if p.kind == "OBLIGATION_POLICY"]
             if len(obpins) != 1 or obpins[0].object_id != policy.config.obligation_policy_id:
