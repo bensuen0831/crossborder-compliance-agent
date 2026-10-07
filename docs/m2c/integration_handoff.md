@@ -12,4 +12,6 @@ The existing H5 `/intake` opens `/results/{run_id}` for a reloadable authorized 
 
 Retained gaps: the existing multi-subject workflow capability boundary remains explicit; unassessed subjects are not assigned another subject's decision. No Stage2 generation, M2-D review UI/resume redesign, production auth/provider redesign or country-specific code is included.
 
-Closure and exact-head CI remain pending; M2-C PASS and M2-D ENTRY ALLOWED must not be issued until measured final gates succeed.
+Local closure is complete:727 backend,221 architecture,25 runtime,108 frontend,three-locale C1/B/A/M1 Browser plus36 M0,zero retries. See `M2C_test_result.md` and the machine-readable local record for exact measured source identities.
+
+Final acceptance requires all six workflows to succeed at the exact Draft PR#24 head. The final CI/runner checkout records and entry decision are stored separately on `evidence/m2c-closure-validation`;this prevents evidence-only commits from advancing the verified PR source. No M2-C PASS or M2-D ENTRY ALLOWED may be issued before those measured gates succeed.
