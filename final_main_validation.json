@@ -1,0 +1,174 @@
+{
+  "decision": "M2-A MAIN INTEGRATION = PASS",
+  "tested_sha": "da2d420602d9c71991bcae4ffd3d33c9b3497d25",
+  "runner_checkout_sha": "da2d420602d9c71991bcae4ffd3d33c9b3497d25",
+  "baseline_sha": "83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1",
+  "pr_head_sha": "7105c40e7e9ccbf943ceb1a810c29ca58fb09108",
+  "pr": 22,
+  "merge_method": "merge",
+  "alembic_head": "0011_m2a_intake",
+  "ci": [
+    {
+      "id": 37557203610,
+      "name": "phase1a-runtime-smoke",
+      "head_sha": "da2d420602d9c71991bcae4ffd3d33c9b3497d25",
+      "conclusion": "success",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37557203610",
+      "artifact_id": 11455569435,
+      "artifact_sha256": "280503bc1364437ba2900054cef7e379e97ee9e723cd812ed7629f541537db9a",
+      "logs_sha256": "ddf0ce36b6241024b6ba7462816d6250c5b8a9664d0c73ab8565dc6155b2143c",
+      "jobs": [
+        {
+          "name": "contract-tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "mandatory-runtime-smoke",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 37557205479,
+      "name": "M2A Production Intake",
+      "head_sha": "da2d420602d9c71991bcae4ffd3d33c9b3497d25",
+      "conclusion": "success",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37557205479",
+      "artifact_id": 11455167646,
+      "artifact_sha256": "9b61fa83ac5ef42f254b809512104ea16854cffad1d4f755095c88bab81f9c6a",
+      "logs_sha256": "b75debc0e0964f81e3d9609b3f8f41852ed70c012955fdca7f5fbbe05d037b2e",
+      "jobs": [
+        {
+          "name": "frontend-real-backend-uat",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 37557208612,
+      "name": "M1 Intake Analysis Alpha",
+      "head_sha": "da2d420602d9c71991bcae4ffd3d33c9b3497d25",
+      "conclusion": "success",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37557208612",
+      "artifact_id": 11454819494,
+      "artifact_sha256": "4ffdc8e696e901b1f73dbc44d70f461a5bf52091df8ce9a7944d67c429cf060f",
+      "logs_sha256": "6cb67a41d51b0515b9f4a2baf4bc9f0a4ea042b97e682ca3d579517ce601cc9b",
+      "jobs": [
+        {
+          "name": "frontend-real-backend-uat",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 37557211634,
+      "name": "M0 Knowledge & Evidence Preview",
+      "head_sha": "da2d420602d9c71991bcae4ffd3d33c9b3497d25",
+      "conclusion": "success",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37557211634",
+      "artifact_id": 11455303816,
+      "artifact_sha256": "29d167e567e7dcbd134301412d352153b8facdf52ec005eca116a62f2dabf79e",
+      "logs_sha256": "52b16829643d252746354cc4108fa6d9911a190abe84b5a2908aa48370db990a",
+      "jobs": [
+        {
+          "name": "real-backend-uat",
+          "conclusion": "success"
+        },
+        {
+          "name": "frontend",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "browser": {
+    "m2a": {
+      "stats": {
+        "startTime": "2026-10-07T01:31:40.079Z",
+        "duration": 97090.738,
+        "expected": 3,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "retry_count": 0,
+      "result_count": 3
+    },
+    "m1": {
+      "stats": {
+        "startTime": "2026-10-07T01:31:43.188Z",
+        "duration": 139909.333,
+        "expected": 3,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "retry_count": 0,
+      "result_count": 3
+    },
+    "m0": {
+      "stats": {
+        "startTime": "2026-10-07T01:29:50.950Z",
+        "duration": 201074.206,
+        "expected": 36,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "retry_count": 0,
+      "result_count": 36
+    }
+  },
+  "backend": {
+    "passed": 653,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "new_m2a_tests": 33,
+  "architecture": {
+    "existing": 151,
+    "m2a": 13
+  },
+  "runtime": {
+    "passed": 25,
+    "total": 25
+  },
+  "migration": {
+    "baseline": "83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1",
+    "baseline_revision": "0010_phase1j",
+    "head": "0011_m2a_intake",
+    "fresh": true,
+    "exact_0010_upgrade": true,
+    "schema_equivalence": true,
+    "empty_downgrade_reupgrade": true,
+    "authoritative_data_transactional_refusal": true
+  },
+  "frontend": {
+    "passed": 92,
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "build": "PASS",
+    "i18n": "PASS"
+  },
+  "tag": {
+    "name": "v3.6-m2a-pass",
+    "object_sha": "77c3dd5a89f4c866703be3f05a26144033fc54cd",
+    "peeled_target_sha": "da2d420602d9c71991bcae4ffd3d33c9b3497d25"
+  },
+  "evidence_branch": "integration/m2a-main-closure-evidence",
+  "blockers": []
+}
