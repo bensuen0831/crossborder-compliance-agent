@@ -130,7 +130,7 @@ def test_compile_order_small_state_and_unconfigured_production():
     f, g, w, s, _, _, a = build(StageExecutionResult(status="SUCCESS"), all_steps=True)
     result = g.invoke(s, f.config(w))
     assert result["completed_steps"] == [x.value for x in PIPELINE]
-    assert len(result["completed_steps"]) == 16 and result["route"] == "COMPLETED"
+    assert len(result["completed_steps"]) == len(PIPELINE) and result["route"] == "COMPLETED"
     with pytest.raises(ValidationError):
         StateEnvelope.model_validate(dict(s, secret="forbidden"))
     with pytest.raises(ValidationError):

@@ -14,7 +14,7 @@ from test_m2a_intake import setup
 from test_m2a_structured_intake import binding
 from test_phase1f_postgres import fixture
 from test_phase1i_postgres import foundation_i
-from test_phase1j_postgres import foundation_j
+from test_phase1l_b_postgres import foundation_j
 
 from frontend.scripts.m1.uat import seed
 

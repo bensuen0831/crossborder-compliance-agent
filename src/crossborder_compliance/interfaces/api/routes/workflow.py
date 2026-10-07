@@ -10,6 +10,10 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel, ConfigDict, Field
 
+from crossborder_compliance.application.stage1_result import (
+    Stage1ComplianceResult,
+    Stage1ResultService,
+)
 from crossborder_compliance.application.workflow_formal import FormalWorkflowPlan
 from crossborder_compliance.application.workflow_skeleton import WorkflowDeliveryRetryableFailure
 from crossborder_compliance.config import get_settings
@@ -88,6 +92,7 @@ def delivery(request, context, project_id, snapshot_id, operation, expected_run=
     provider = getattr(request.app.state, "formal_workflow_host", None)
     if provider is None:
         from crossborder_compliance.infrastructure.intake_composition import intake_workflow_host
+
         try:
             run_id, prepared = intake_workflow_host(sf, context, project_id, snapshot_id)
         except (LookupError, PermissionError) as exc:
@@ -96,7 +101,10 @@ def delivery(request, context, project_id, snapshot_id, operation, expected_run=
         try:
             run_id, prepared = provider(context, project_id, snapshot_id)
         except LookupError:
-            from crossborder_compliance.infrastructure.intake_composition import intake_workflow_host
+            from crossborder_compliance.infrastructure.intake_composition import (
+                intake_workflow_host,
+            )
+
             run_id, prepared = intake_workflow_host(sf, context, project_id, snapshot_id)
     run_id, plan = UUID(str(run_id)), FormalWorkflowPlan.model_validate(prepared)
     if (plan.tenant_id, plan.project_id, plan.analysis_snapshot_id) != (
@@ -176,6 +184,7 @@ def authorized_intake_context(request, context, project_id):
     if f"project:{project_id}:comply" in context.permission.scopes:
         return context
     from crossborder_compliance.infrastructure.intake_composition import project_context
+
     return project_context(sessions(request), context, project_id)
 
 
@@ -206,5 +215,50 @@ def read(run_id: UUID, request: Request, context: Context):
         context = authorized_intake_context(request, context, project_id)
         sf, runtime, _, _ = delivery(request, context, project_id, snapshot_id, "read", run_id)
         return view(sf, runtime, context, run_id, project_id, snapshot_id)
+    except Exception as exc:
+        translate(exc)
+
+
+@router.get("/workflows/{run_id}/stage1-result", response_model=Stage1ComplianceResult)
+def stage1_result(run_id: UUID, request: Request, context: Context):
+    from crossborder_compliance.application.decision_services import FormalDecisionService
+    from crossborder_compliance.application.formal_result_services import (
+        CrossBorderAssessmentService,
+        RegulatoryDocumentRequirementService,
+    )
+    from crossborder_compliance.application.workflow_skeleton import SemanticStep
+    from crossborder_compliance.workflows.canonical import LEGACY_GRAPH_VERSION, PIPELINE
+
+    try:
+        sf = sessions(request)
+        project_id, snapshot_id = WorkflowReadProjection(sf, context).run_scope(run_id)
+        context = authorized_intake_context(request, context, project_id)
+        sf, runtime, factory, _ = delivery(
+            request, context, project_id, snapshot_id, "read", run_id
+        )
+        state = runtime.inspect_checkpoint_state(run_id)["values"]
+        if not state:
+            raise HTTPException(409, "WORKFLOW_NOT_STARTED")
+        country = PostgresCountryComplianceRepository(sf, context)
+        projection = WorkflowReadProjection(sf, context)
+        service = Stage1ResultService(
+            projection=projection,
+            decisions=FormalDecisionService(country),
+            cross_border=CrossBorderAssessmentService(country),
+            documents=RegulatoryDocumentRequirementService(country),
+            classification=PostgresFormalClassificationRepository(sf, context),
+            country=country,
+            retrieval=PostgresRetrievalRepository(sf, context),
+        )
+        plan = factory.authorization.plan
+        legacy = state["identity"]["graph_definition_version"] == LEGACY_GRAPH_VERSION
+        return service.read(
+            plan=plan,
+            run_id=run_id,
+            state=state,
+            status=runtime.get_status(run_id),
+            review_id=state.get("review_ref") or projection.pending_review(run_id),
+            steps=tuple(s.value for s in PIPELINE if not legacy or s != SemanticStep.CROSS_BORDER),
+        )
     except Exception as exc:
         translate(exc)

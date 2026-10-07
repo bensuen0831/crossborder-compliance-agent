@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path[:0] = [str(ROOT), str(ROOT / 'tests')]
 from test_phase1f_postgres import fixture
 from test_phase1i_postgres import foundation_i
-from test_phase1j_postgres import foundation_j
+from test_phase1l_b_postgres import foundation_j
 from test_phase1l_b_postgres import manifest as workflow_manifest
 
 def seed(label, partial=False, review=False, conflict=False):

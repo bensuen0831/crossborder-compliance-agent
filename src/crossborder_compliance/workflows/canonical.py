@@ -21,8 +21,10 @@ from crossborder_compliance.application.workflow_skeleton import (
 from crossborder_compliance.domain.contracts import WorkflowEventType
 from crossborder_compliance.workflows.events import canonical_event
 
-GRAPH_VERSION = "phase1l-a-canonical-v1"
-STATE_VERSION = "phase1l-a-references-v1"
+LEGACY_GRAPH_VERSION = "phase1l-a-canonical-v1"
+LEGACY_STATE_VERSION = "phase1l-a-references-v1"
+GRAPH_VERSION = "phase1l-a-canonical-v2"
+STATE_VERSION = "phase1l-a-references-v2"
 PIPELINE = tuple(SemanticStep)
 
 
@@ -43,17 +45,17 @@ class ComplianceWorkflowState(TypedDict):
 class StateEnvelope(ReferenceModel):
     identity: ExecutionIdentity
     current_step: SemanticStep = SemanticStep.REQUIREMENT
-    result_refs: dict[SemanticStep, UUID] = Field(default_factory=dict, max_length=16)
+    result_refs: dict[SemanticStep, UUID] = Field(default_factory=dict, max_length=17)
     result_ref_sets: dict[SemanticStep, tuple[UUID, ...]] = Field(
-        default_factory=dict, max_length=16
+        default_factory=dict, max_length=17
     )
-    completed_steps: tuple[SemanticStep, ...] = Field(default=(), max_length=16)
+    completed_steps: tuple[SemanticStep, ...] = Field(default=(), max_length=17)
     fallback_ref: UUID | None = None
     review_ref: UUID | None = None
     route: str = Field(default="NEXT", pattern=r"^(NEXT|REVIEW|WARNING|FAILED|COMPLETED)$")
     reason_codes: tuple[str, ...] = Field(default=(), max_length=16)
     step_count: int = Field(default=0, ge=0, le=200)
-    visits: dict[SemanticStep, int] = Field(default_factory=dict, max_length=16)
+    visits: dict[SemanticStep, int] = Field(default_factory=dict, max_length=17)
 
     @model_validator(mode="after")
     def bounded_codes_and_routes(self):
@@ -86,10 +88,10 @@ class CanonicalGraphFactory:
         identity = self.authorization.authorize(workflow_run_id, operation)
         if identity.workflow_run_id != workflow_run_id:
             raise PermissionError("workflow not found")
-        if (identity.graph_definition_version, identity.state_schema_version) != (
-            GRAPH_VERSION,
-            STATE_VERSION,
-        ):
+        if (identity.graph_definition_version, identity.state_schema_version) not in {
+            (GRAPH_VERSION, STATE_VERSION),
+            (LEGACY_GRAPH_VERSION, LEGACY_STATE_VERSION),
+        }:
             raise ValueError("WORKFLOW_VERSION_MISMATCH")
         return identity
 
@@ -348,11 +350,26 @@ class CanonicalGraphFactory:
         graph.add_edge(START, PIPELINE[0].value)
         for index, step in enumerate(PIPELINE):
             next_step = PIPELINE[index + 1].value if index + 1 < len(PIPELINE) else "finish"
+
+            def route(state, current=step):
+                if (
+                    current == SemanticStep.OBLIGATION
+                    and state["route"] == "NEXT"
+                    and state["identity"]["graph_definition_version"] == LEGACY_GRAPH_VERSION
+                ):
+                    return "LEGACY_NEXT"
+                return state["route"]
+
             graph.add_conditional_edges(
                 step.value,
-                lambda s: s["route"],
+                route,
                 {
                     "NEXT": next_step,
+                    **(
+                        {"LEGACY_NEXT": SemanticStep.CANDIDATE_PATH.value}
+                        if step == SemanticStep.OBLIGATION
+                        else {}
+                    ),
                     "REVIEW": "human_review",
                     "WARNING": "finish",
                     "FAILED": "finish",

@@ -63,7 +63,10 @@ def overlay(root):
                 == 0
             )
 
-        valid = (
+        from scripts.m2c_projection_ownership import overlay as projection_overlay
+
+        projection_valid, projection_paths, projection_source = projection_overlay(root)
+        valid = projection_valid and (
             data["base_sha"] == BASE
             and source != BASE
             and ancestor(BASE, source)
@@ -72,7 +75,7 @@ def overlay(root):
         )
         valid = valid and all(
             hashlib.sha256(git("show", source + ":" + p)).hexdigest() == h
-            and (root / p).read_bytes() == git("show", source + ":" + p)
+            and ((root / p).read_bytes() == git("show", source + ":" + p) or p in projection_paths)
             for p, h in data["paths"].items()
         )
         frozen = (
@@ -111,12 +114,14 @@ def overlay(root):
             .splitlines()
         )
         valid = valid and all(
-            (root / p).read_bytes() == git("show", BASE + ":" + p) for p in frozen
+            (root / p).read_bytes() == git("show", BASE + ":" + p)
+            for p in frozen
+            if p not in projection_paths
         )
         delta = set(git("diff", "--name-only", BASE, source).decode().splitlines())
         valid = valid and all(
             p in PATHS or p.startswith(("docs/m2c/", "evidence/m2c/")) for p in delta
         )
-        return valid, data["paths"], source
+        return valid, {**data["paths"], **projection_paths}, projection_source or source
     except (OSError, ValueError, KeyError, subprocess.CalledProcessError):
         return False, {}, None

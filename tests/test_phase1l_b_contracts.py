@@ -173,6 +173,9 @@ def test_nodes_delegate_to_actual_formal_service_and_cannot_fabricate_final(case
     a = Authority()
     ops = ReviewOperations()
     plan = plan_for(inputs, a)
+    # Retain the exact original v1 owning-engine regression. v2 C0 wiring is
+    # exercised through real published policies and PostgreSQL in M2-C tests.
+    a.identity = a.identity.model_copy(update={"graph_definition_version": "phase1l-a-canonical-v1", "state_schema_version": "phase1l-a-references-v1"})
     stages = FormalWorkflowStages(
         plan,
         contexts=None,

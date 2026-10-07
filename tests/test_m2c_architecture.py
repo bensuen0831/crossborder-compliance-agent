@@ -12,6 +12,8 @@ def test_c0_additive_architecture_boundaries():
 
 def test_c0_owner_is_finite_committed_and_preserves_frozen_engines():
     valid, paths, source = overlay(Path(__file__).resolve().parents[1])
-    assert valid and source != BASE and paths.keys() == PATHS
+    from scripts.m2c_projection_ownership import PATHS as C1_PATHS
+
+    assert valid and source != BASE and paths.keys() == PATHS | C1_PATHS
     assert "src/crossborder_compliance/domain/decision_engine.py" not in paths
-    assert not any(p.startswith("frontend/") for p in paths)
+    assert not any(p.startswith("frontend/") for p in PATHS)

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import type { AuthorizedContext, Session } from '../../api/contracts';
 import { currentLocale } from '../../i18n';
 import { ErrorState, LoadingState } from '../../components/States';
+import { Stage1Workspace } from '../results/Stage1Workspace';
 import { AnalysisPanel } from '../analysis/AnalysisPanel';
 import { m1Api } from './api';
 import { emptyDraft, optionId, optionLabel, type Draft, type GovernedOption, type WorkflowView } from './contracts';
@@ -86,8 +87,10 @@ export function IntakeFeature({ session, context: existingContext, persistence, 
       <dl><dt>{t('ui.m1.workflowRun')}</dt><dd data-testid="workflow-run-id">{workflow.workflow_run_id}</dd><dt>{t('snapshot')}</dt><dd data-testid="workflow-snapshot-id">{workflow.analysis_snapshot_id}</dd></dl>
       {workflow.reason_codes.length > 0 && <p>{workflow.reason_codes.join(' · ')}</p>}
       {workflow.review_id && <p>{t('ui.m1.pendingReview')} · {workflow.review_id}</p>}
+      <a href={`/results/${workflow.workflow_run_id}`}>{t('ui.m2c.openWorkspace')}</a>
       <Button loading={refresh.isPending} onClick={() => refresh.mutate()}>{t('ui.m1.workflowRefresh')}</Button>
     </Card>}
+    {workflow && <Stage1Workspace runId={workflow.workflow_run_id} identity={session.identity_key}/> }
     {context && <AnalysisPanel context={context} identity={session.identity_key} workflow={workflow}/>}
   </section>;
 }
