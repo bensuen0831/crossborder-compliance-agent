@@ -1,9 +1,12 @@
 {
   "base_sha": "da2d420602d9c71991bcae4ffd3d33c9b3497d25",
-  "source_sha": "3d622ee8b18054833dfb18632946377cd9968311",
+  "source_sha": "a337a89823107a02c7c2581b6e64de7630f49722",
   "authorization": "User M2-B temporal contract correction and production document integration",
   "paths": {
-    ".github/workflows/m2b-documents.yml": "c9eabd47d6c8a3e1f3fb53ed5c7d4cb7f6d1e6d9278a394125f570c8f7f185b0",
+    ".github/workflows/m1-alpha.yml": "6e18b810df997b40e4fd2e078b88d0b0b09b01003bac6e2d92d92a53c00159e4",
+    ".github/workflows/m2a-intake.yml": "9a8864ee01b1f9d89caa24795dc3e51f065174bdaaaac93b50aeeb18b1cf9bef",
+    ".github/workflows/m2b-documents.yml": "e75b992e18819defd969c404f6b7f509c49f68552981109388ac8004665cd35c",
+    ".github/workflows/phase1a-runtime-smoke.yml": "f7040b8e685b3717d3331f621a666abe4957ff31a2ef52c8d57c823d68004e8d",
     "alembic/versions/0012_m2b_document_inputs.py": "f732e59b44c6fb54a4880f5ca777140560614a675315f9ec8f94212409b4cb8f",
     "alembic/versions/0013_m2b_context_temporal_contract.py": "79133fdda7aeda64a1c10e164abe1fbde73534dfecb3f7397a0b8f642ad33561",
     "frontend/e2e/m2b.spec.ts": "9dd4020195855a2829e9bd3d8be14e1d369132e9fe1630b12cdcebbea91be68d",
@@ -16,7 +19,7 @@
     "frontend/src/features/intake/IntakeFeature.tsx": "d978322383909e20dae017582b154f8f6d7887a375c3f2b80c7797c5000291f0",
     "frontend/src/features/intake/ProductionIntake.tsx": "0a593e34a453aa253360ef921b6b758fafe836f4ca2cee3051c6ac10e4f58d66",
     "frontend/src/features/intake/documentApi.ts": "c6888cd0d03cb8283ee1c827cb1c2beb22dd35c10b494f1ea04758f6187bd415",
-    "frontend/src/features/intake/m2b.test.tsx": "5adf2e0f233943cf3b25623ffd7e51e36cf6aaff9e9f3b02465f80a0c16a4716",
+    "frontend/src/features/intake/m2b.test.tsx": "6eb4c5cb7de0d332c98500adba5c555b06ea07a8cc31e6ad896bd62cd3dc51d9",
     "frontend/src/features/intake/persistence.ts": "8e382f75ba4002b88c0aa358461d0a01f6366bdb83c213e3d1f17d824a2ab327",
     "frontend/src/locales/en-US.json": "0888677faed55d4cdf1733cc0457225f18c073658571eb4600968f107c6aa93a",
     "frontend/src/locales/zh-CN.json": "1ff561a17d8cd0a535fce64156bbb5e4b826299e5f42af1d4c87fce948b8ee1b",
@@ -24,7 +27,7 @@
     "scripts/m2a_architecture_check.py": "dfccf74697f806e0f2649d46b9e74cb4910e427ce754197b156f2d9d942aec77",
     "scripts/m2a_ownership.py": "35f362d6d047927087105f4d69facc0dae6724b51f23003589f0e0c8ee0f9a65",
     "scripts/m2b_architecture_check.py": "6c7fcfed39a8eced07c0ce91bd295c27c2d6b3b16054b931cc810e83177fd53a",
-    "scripts/m2b_ownership.py": "6a6d29fd869f3f6458aee592aaab479cbceadc8565ddb4baac99995e050ee880",
+    "scripts/m2b_ownership.py": "5b9f3a65eb668fd5222e5791550884807cdc629ecb3ac791e3d49e5493b2d3b4",
     "scripts/phase1e_schema_check.py": "49965ed22ae010f6c5cdc5e2e667a0aaaf799e511befa5a683a2061373566228",
     "scripts/phase1j_ownership.py": "35672f8b1dcee196f3008f07ccdc8de7968c99aa956a0e7fdd1db3f83831f692",
     "scripts/phase1l_b_ownership.py": "9a0f9dadd6746b0c8251b12907cc576519b4885091323dcae663a6428bb287af",
@@ -64,8 +67,12 @@
     "tests/test_m2b_ownership.py": "d062df321655e98da236d08771fe450729c95f6c2646319deba609feeaf1a1c6",
     "tests/test_m2b_snapshot_contract_probe.py": "527ba262f0f2276d97c57a6fd92a3e9f3c8c1aed65a863b948fcde438f8cd16d",
     "tests/test_m2b_temporal_postgres.py": "14228ea9d1cb7260ccad2574f71dd4418f13d510d7ee59124e3138b24675dda2",
+    "tests/test_phase1d_postgres.py": "405017258e426efdc61c6420f2da4f67a19dfec55d1e73993b2f31d19709808e",
     "tests/test_phase1f_postgres.py": "8ff67b6ab0699790ab9fb87529fb54a2a0bc778125d6cffe9e5dffdd79a09e60",
+    "tests/test_phase1f_snapshot_scope.py": "e2c870cb1e3a895923615e34156af156b1a66d8e71d1badad57c10b34a7851f9",
+    "tests/test_phase1g_publication_postgres.py": "2362789445c3722217d5b0cca4c63b8eaba9fa6283d2a5cae7ab35898b34275e",
     "tests/test_phase1h_postgres.py": "6f7c4b862e8b44022d6097575576e6ba993a6cfe47be7d91c48d4125dee5cb67",
-    "tests/test_phase1i_postgres.py": "0c5d3b07ddeb3e6d4ce1ea37114c722cf5f6a85af2bce91261a40f4062b884a1"
+    "tests/test_phase1i_postgres.py": "0c5d3b07ddeb3e6d4ce1ea37114c722cf5f6a85af2bce91261a40f4062b884a1",
+    "tests/test_phase1j_postgres.py": "08da023f00f9a652ba7b2849b81e0da0104fbd3230b78c8e8609b81a240bf965"
   }
 }
