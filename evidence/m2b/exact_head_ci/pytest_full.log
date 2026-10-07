@@ -1,0 +1,30 @@
+........................................................................ [ 10%]
+........................................................................ [ 20%]
+........................................................................ [ 31%]
+........................................................................ [ 41%]
+........................................................................ [ 52%]
+........................................................................ [ 62%]
+........................................................................ [ 73%]
+........................................................................ [ 83%]
+........................................................................ [ 94%]
+.......................................                                  [100%]
+=============================== warnings summary ===============================
+../../../../../opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/alembic/config.py:604
+  /opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/alembic/config.py:604: DeprecationWarning: No path_separator found in configuration; falling back to legacy splitting on spaces, commas, and colons for prepend_sys_path.  Consider adding path_separator=os to Alembic config.
+    util.warn_deprecated(
+
+tests/test_m2a_migrations.py::test_m2a_fresh_exact_0010_equivalence_downgrade_and_refusal
+tests/test_m2b_migrations.py::test_fresh_exact_0011_equivalence_empty_down_up_and_retention
+tests/test_phase1h_migrations.py::test_fresh_and_frozen_0007_paths_equivalent_and_downgrade
+tests/test_phase1i_migrations.py::test_phase1i_fresh_verified_0008_equivalence_and_downgrade
+tests/test_phase1j_migrations.py::test_phase1j_fresh_exact_0009_schema_equivalence_and_downgrade
+  /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/tests/test_phase1h_migrations.py:45: SAWarning: Did not recognize type 'vector' of column 'embedding_vector'
+    for c in inspector.get_columns(table)
+
+tests/test_phase1c_admin_api.py::test_model_admin_response_never_returns_secret_and_unsafe_url_rejected
+  /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/src/crossborder_compliance/interfaces/api/routes/admin_metadata.py:187: StarletteDeprecationWarning: 'HTTP_422_UNPROCESSABLE_ENTITY' is deprecated. Use 'HTTP_422_UNPROCESSABLE_CONTENT' instead.
+    _translate_error(exc)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/artifacts/phase1a-runtime/pytest_full.xml -
+687 passed, 7 warnings in 876.15s (0:14:36)

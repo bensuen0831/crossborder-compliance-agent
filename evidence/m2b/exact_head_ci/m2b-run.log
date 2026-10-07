@@ -1,0 +1,1561 @@
+﻿2026-10-07T06:04:36.0128155Z Current runner version: '2.337.0'
+2026-10-07T06:04:36.0201643Z ##[group]Runner Image Provisioner
+2026-10-07T06:04:36.0203000Z Hosted Compute Agent
+2026-10-07T06:04:36.0203854Z Version: 20260901.588
+2026-10-07T06:04:36.0204787Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-07T06:04:36.0205744Z Build Date: 2026-09-01T19:56:44Z
+2026-10-07T06:04:36.0206679Z Worker ID: {c3c26320-a222-4f0e-af28-1fcc419c6506}
+2026-10-07T06:04:36.0207754Z Azure Region: centralus
+2026-10-07T06:04:36.0208506Z ##[endgroup]
+2026-10-07T06:04:36.0231283Z ##[group]Operating System
+2026-10-07T06:04:36.0232230Z Ubuntu
+2026-10-07T06:04:36.0232970Z 24.04.5
+2026-10-07T06:04:36.0233750Z LTS
+2026-10-07T06:04:36.0234442Z ##[endgroup]
+2026-10-07T06:04:36.0235246Z ##[group]Runner Image
+2026-10-07T06:04:36.0236073Z Image: ubuntu-24.04
+2026-10-07T06:04:36.0236822Z Version: 20260927.320.1
+2026-10-07T06:04:36.0238622Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-07T06:04:36.0241085Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260927.320
+2026-10-07T06:04:36.0242400Z ##[endgroup]
+2026-10-07T06:04:36.0243995Z ##[group]GITHUB_TOKEN Permissions
+2026-10-07T06:04:36.0247117Z Contents: read
+2026-10-07T06:04:36.0247982Z Metadata: read
+2026-10-07T06:04:36.0248809Z ##[endgroup]
+2026-10-07T06:04:36.0262908Z Secret source: Actions
+2026-10-07T06:04:36.0264414Z Cache mode: write
+2026-10-07T06:04:36.0265820Z Prepare workflow directory
+2026-10-07T06:04:36.0986672Z Prepare all required actions
+2026-10-07T06:04:36.1060383Z Getting action download info
+2026-10-07T06:04:36.4641354Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-07T06:04:36.5980698Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-10-07T06:04:36.7670637Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-07T06:04:36.9541408Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-07T06:04:37.3191405Z Complete job name: frontend-real-backend-uat
+2026-10-07T06:04:37.3701043Z ##[group]Checking docker version
+2026-10-07T06:04:37.3713978Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2026-10-07T06:04:37.4553871Z '1.48'
+2026-10-07T06:04:37.4570043Z Docker daemon API version: '1.48'
+2026-10-07T06:04:37.4571337Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2026-10-07T06:04:37.4766479Z '1.48'
+2026-10-07T06:04:37.4770224Z Docker client API version: '1.48'
+2026-10-07T06:04:37.4776131Z ##[endgroup]
+2026-10-07T06:04:37.4779241Z ##[group]Clean up resources from previous jobs
+2026-10-07T06:04:37.4784805Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=2f5f1e"
+2026-10-07T06:04:37.4947753Z ##[command]/usr/bin/docker network prune --force --filter "label=2f5f1e"
+2026-10-07T06:04:37.5094085Z ##[endgroup]
+2026-10-07T06:04:37.5094784Z ##[group]Create local container network
+2026-10-07T06:04:37.5104721Z ##[command]/usr/bin/docker network create --label 2f5f1e github_network_aa76b2b22115434d8f2679f6e11ad60d
+2026-10-07T06:04:37.7063726Z bcfce50525b15f358c3ddeec85e654785a8d835130591c8ca6d6524cc4b656f2
+2026-10-07T06:04:37.7076608Z ##[endgroup]
+2026-10-07T06:04:37.7104124Z ##[group]Starting postgres service container
+2026-10-07T06:04:37.7125656Z ##[command]/usr/bin/docker pull pgvector/pgvector:pg16
+2026-10-07T06:04:38.2886069Z pg16: Pulling from pgvector/pgvector
+2026-10-07T06:04:38.4661859Z 774043ccc8cc: Pulling fs layer
+2026-10-07T06:04:38.4668619Z f2455d5db1ca: Pulling fs layer
+2026-10-07T06:04:38.4670921Z 8445317dd84f: Pulling fs layer
+2026-10-07T06:04:38.4672666Z 2dd9b1a67dcf: Pulling fs layer
+2026-10-07T06:04:38.4674416Z e0d7eb465374: Pulling fs layer
+2026-10-07T06:04:38.4676217Z 1a60cdc4b8b6: Pulling fs layer
+2026-10-07T06:04:38.4677948Z 00ea30b13a58: Pulling fs layer
+2026-10-07T06:04:38.4680010Z 708679827647: Pulling fs layer
+2026-10-07T06:04:38.4681658Z 3e13d544cd35: Pulling fs layer
+2026-10-07T06:04:38.4682938Z 639aa37fe549: Pulling fs layer
+2026-10-07T06:04:38.4684263Z b3e09271b721: Pulling fs layer
+2026-10-07T06:04:38.4685498Z aae3fa55f377: Pulling fs layer
+2026-10-07T06:04:38.4686736Z 50a212ffc5a1: Pulling fs layer
+2026-10-07T06:04:38.4687939Z e9cc823db10f: Pulling fs layer
+2026-10-07T06:04:38.4689493Z 003442b28249: Pulling fs layer
+2026-10-07T06:04:38.4691353Z 2ede25b7c579: Pulling fs layer
+2026-10-07T06:04:38.4693075Z 2dd9b1a67dcf: Waiting
+2026-10-07T06:04:38.4694687Z e0d7eb465374: Waiting
+2026-10-07T06:04:38.4696285Z 1a60cdc4b8b6: Waiting
+2026-10-07T06:04:38.4698027Z 00ea30b13a58: Waiting
+2026-10-07T06:04:38.4699759Z 708679827647: Waiting
+2026-10-07T06:04:38.4701413Z 3e13d544cd35: Waiting
+2026-10-07T06:04:38.4703068Z 639aa37fe549: Waiting
+2026-10-07T06:04:38.4704684Z b3e09271b721: Waiting
+2026-10-07T06:04:38.4706229Z aae3fa55f377: Waiting
+2026-10-07T06:04:38.4707825Z 50a212ffc5a1: Waiting
+2026-10-07T06:04:38.4709649Z e9cc823db10f: Waiting
+2026-10-07T06:04:38.4711217Z 003442b28249: Waiting
+2026-10-07T06:04:38.4712832Z 2ede25b7c579: Waiting
+2026-10-07T06:04:38.6482490Z f2455d5db1ca: Verifying Checksum
+2026-10-07T06:04:38.6488327Z f2455d5db1ca: Download complete
+2026-10-07T06:04:38.7390324Z 8445317dd84f: Verifying Checksum
+2026-10-07T06:04:38.7395600Z 8445317dd84f: Download complete
+2026-10-07T06:04:38.8139850Z 774043ccc8cc: Verifying Checksum
+2026-10-07T06:04:38.8142766Z 774043ccc8cc: Download complete
+2026-10-07T06:04:38.8530690Z 2dd9b1a67dcf: Verifying Checksum
+2026-10-07T06:04:38.8533410Z 2dd9b1a67dcf: Download complete
+2026-10-07T06:04:38.9822608Z 00ea30b13a58: Verifying Checksum
+2026-10-07T06:04:38.9922477Z 00ea30b13a58: Download complete
+2026-10-07T06:04:39.0184254Z 1a60cdc4b8b6: Verifying Checksum
+2026-10-07T06:04:39.0195368Z 1a60cdc4b8b6: Download complete
+2026-10-07T06:04:39.0206363Z e0d7eb465374: Verifying Checksum
+2026-10-07T06:04:39.0212102Z e0d7eb465374: Download complete
+2026-10-07T06:04:39.1002566Z 708679827647: Verifying Checksum
+2026-10-07T06:04:39.1012853Z 708679827647: Download complete
+2026-10-07T06:04:39.1811572Z 639aa37fe549: Verifying Checksum
+2026-10-07T06:04:39.1821127Z 639aa37fe549: Download complete
+2026-10-07T06:04:39.2454733Z b3e09271b721: Verifying Checksum
+2026-10-07T06:04:39.2456738Z b3e09271b721: Download complete
+2026-10-07T06:04:39.3407069Z aae3fa55f377: Verifying Checksum
+2026-10-07T06:04:39.3416331Z aae3fa55f377: Download complete
+2026-10-07T06:04:39.4066481Z 50a212ffc5a1: Verifying Checksum
+2026-10-07T06:04:39.4069411Z 50a212ffc5a1: Download complete
+2026-10-07T06:04:39.4750752Z e9cc823db10f: Verifying Checksum
+2026-10-07T06:04:39.4769156Z e9cc823db10f: Download complete
+2026-10-07T06:04:39.5691487Z 003442b28249: Verifying Checksum
+2026-10-07T06:04:39.5711267Z 003442b28249: Download complete
+2026-10-07T06:04:39.8564679Z 3e13d544cd35: Verifying Checksum
+2026-10-07T06:04:39.8572581Z 3e13d544cd35: Download complete
+2026-10-07T06:04:39.8820152Z 2ede25b7c579: Verifying Checksum
+2026-10-07T06:04:39.8827345Z 2ede25b7c579: Download complete
+2026-10-07T06:04:40.9196531Z 774043ccc8cc: Pull complete
+2026-10-07T06:04:49.2838367Z f2455d5db1ca: Pull complete
+2026-10-07T06:04:49.5944403Z 8445317dd84f: Pull complete
+2026-10-07T06:04:49.7030126Z 2dd9b1a67dcf: Pull complete
+2026-10-07T06:04:50.3169237Z e0d7eb465374: Pull complete
+2026-10-07T06:04:50.4611618Z 1a60cdc4b8b6: Pull complete
+2026-10-07T06:04:50.4920929Z 00ea30b13a58: Pull complete
+2026-10-07T06:04:50.5086798Z 708679827647: Pull complete
+2026-10-07T06:04:56.8978848Z 3e13d544cd35: Pull complete
+2026-10-07T06:04:56.9313338Z 639aa37fe549: Pull complete
+2026-10-07T06:04:56.9537910Z b3e09271b721: Pull complete
+2026-10-07T06:04:56.9715804Z aae3fa55f377: Pull complete
+2026-10-07T06:04:56.9888150Z 50a212ffc5a1: Pull complete
+2026-10-07T06:04:57.0025336Z e9cc823db10f: Pull complete
+2026-10-07T06:04:57.0578667Z 003442b28249: Pull complete
+2026-10-07T06:04:57.2862951Z 2ede25b7c579: Pull complete
+2026-10-07T06:04:57.2914451Z Digest: sha256:7b822b0aac60967beb1ea5e576b8602c94c300a157d187f385ae3e0da199b90a
+2026-10-07T06:04:57.2954830Z Status: Downloaded newer image for pgvector/pgvector:pg16
+2026-10-07T06:04:57.2970582Z docker.io/pgvector/pgvector:pg16
+2026-10-07T06:04:57.3037586Z ##[command]/usr/bin/docker create --name ad0dbf749c0c4704b7121a890b29f6a6_pgvectorpgvectorpg16_0ab507 --label 2f5f1e --network github_network_aa76b2b22115434d8f2679f6e11ad60d --network-alias postgres -p 5432:5432 --health-cmd="pg_isready -U compliance -d m1_uat" --health-interval=5s --health-timeout=5s --health-retries=20 -e "POSTGRES_DB=m1_uat" -e "POSTGRES_USER=compliance" -e "POSTGRES_PASSWORD=compliance" -e GITHUB_ACTIONS=true -e CI=true pgvector/pgvector:pg16
+2026-10-07T06:04:57.3406157Z bef48129b853ac637e660b1ab9296fe17ec7a78455860cfc0256a7e235bb09e5
+2026-10-07T06:04:57.3424216Z ##[command]/usr/bin/docker start bef48129b853ac637e660b1ab9296fe17ec7a78455860cfc0256a7e235bb09e5
+2026-10-07T06:04:57.5657167Z bef48129b853ac637e660b1ab9296fe17ec7a78455860cfc0256a7e235bb09e5
+2026-10-07T06:04:57.5691238Z ##[command]/usr/bin/docker ps --all --filter id=bef48129b853ac637e660b1ab9296fe17ec7a78455860cfc0256a7e235bb09e5 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2026-10-07T06:04:57.5881350Z bef48129b853ac637e660b1ab9296fe17ec7a78455860cfc0256a7e235bb09e5 Up Less than a second (health: starting)
+2026-10-07T06:04:57.5893890Z ##[command]/usr/bin/docker port bef48129b853ac637e660b1ab9296fe17ec7a78455860cfc0256a7e235bb09e5
+2026-10-07T06:04:57.6097996Z 5432/tcp -> 0.0.0.0:5432
+2026-10-07T06:04:57.6099782Z 5432/tcp -> [::]:5432
+2026-10-07T06:04:57.6146832Z ##[endgroup]
+2026-10-07T06:04:57.6149390Z ##[group]Starting redis service container
+2026-10-07T06:04:57.6152238Z ##[command]/usr/bin/docker pull redis:7-alpine
+2026-10-07T06:04:58.3212984Z 7-alpine: Pulling from library/redis
+2026-10-07T06:04:58.7813164Z 16333ee0c00f: Pulling fs layer
+2026-10-07T06:04:58.7813862Z 83234986c742: Pulling fs layer
+2026-10-07T06:04:58.7820911Z 7eb50503c2b0: Pulling fs layer
+2026-10-07T06:04:58.7841676Z 1522f9c6f453: Pulling fs layer
+2026-10-07T06:04:58.7843036Z 9928009b15c8: Pulling fs layer
+2026-10-07T06:04:58.7860011Z 4f4fb700ef54: Pulling fs layer
+2026-10-07T06:04:58.7869452Z 4eb14bae0e1d: Pulling fs layer
+2026-10-07T06:04:58.7889735Z 1522f9c6f453: Waiting
+2026-10-07T06:04:58.7893099Z 4f4fb700ef54: Waiting
+2026-10-07T06:04:58.7909880Z 4eb14bae0e1d: Waiting
+2026-10-07T06:04:58.7916453Z 9928009b15c8: Waiting
+2026-10-07T06:04:58.9163167Z 83234986c742: Download complete
+2026-10-07T06:04:58.9325058Z 7eb50503c2b0: Verifying Checksum
+2026-10-07T06:04:58.9325963Z 7eb50503c2b0: Download complete
+2026-10-07T06:04:59.0182501Z 16333ee0c00f: Verifying Checksum
+2026-10-07T06:04:59.0183552Z 16333ee0c00f: Download complete
+2026-10-07T06:04:59.0650353Z 9928009b15c8: Verifying Checksum
+2026-10-07T06:04:59.0674379Z 9928009b15c8: Download complete
+2026-10-07T06:04:59.1432938Z 4f4fb700ef54: Verifying Checksum
+2026-10-07T06:04:59.1440066Z 4f4fb700ef54: Download complete
+2026-10-07T06:04:59.1669343Z 1522f9c6f453: Verifying Checksum
+2026-10-07T06:04:59.1670303Z 1522f9c6f453: Download complete
+2026-10-07T06:04:59.2096643Z 4eb14bae0e1d: Verifying Checksum
+2026-10-07T06:04:59.2097410Z 4eb14bae0e1d: Download complete
+2026-10-07T06:04:59.2490119Z 16333ee0c00f: Pull complete
+2026-10-07T06:04:59.5436729Z 83234986c742: Pull complete
+2026-10-07T06:04:59.6926687Z 7eb50503c2b0: Pull complete
+2026-10-07T06:05:00.2032758Z 1522f9c6f453: Pull complete
+2026-10-07T06:05:00.2154983Z 9928009b15c8: Pull complete
+2026-10-07T06:05:00.2260784Z 4f4fb700ef54: Pull complete
+2026-10-07T06:05:00.2396768Z 4eb14bae0e1d: Pull complete
+2026-10-07T06:05:00.2442920Z Digest: sha256:858f009f9709ce576febc734aa78b8f6d624b82571f9ddb6bda4377c833b3499
+2026-10-07T06:05:00.2459686Z Status: Downloaded newer image for redis:7-alpine
+2026-10-07T06:05:00.2472928Z docker.io/library/redis:7-alpine
+2026-10-07T06:05:00.2486610Z ##[command]/usr/bin/docker create --name c7860cc963a5474d920eba44a5551e3c_redis7alpine_121a97 --label 2f5f1e --network github_network_aa76b2b22115434d8f2679f6e11ad60d --network-alias redis -p 6379:6379 --health-cmd="redis-cli ping" --health-interval=5s --health-timeout=3s --health-retries=20 -e GITHUB_ACTIONS=true -e CI=true redis:7-alpine
+2026-10-07T06:05:00.2917509Z 1cd0e0d6277388db1b9478baf4f9b8d94de8aa8904e055829e17489660ee42c5
+2026-10-07T06:05:00.2928324Z ##[command]/usr/bin/docker start 1cd0e0d6277388db1b9478baf4f9b8d94de8aa8904e055829e17489660ee42c5
+2026-10-07T06:05:00.4541306Z 1cd0e0d6277388db1b9478baf4f9b8d94de8aa8904e055829e17489660ee42c5
+2026-10-07T06:05:00.4560484Z ##[command]/usr/bin/docker ps --all --filter id=1cd0e0d6277388db1b9478baf4f9b8d94de8aa8904e055829e17489660ee42c5 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2026-10-07T06:05:00.4774601Z 1cd0e0d6277388db1b9478baf4f9b8d94de8aa8904e055829e17489660ee42c5 Up Less than a second (health: starting)
+2026-10-07T06:05:00.4778109Z ##[command]/usr/bin/docker port 1cd0e0d6277388db1b9478baf4f9b8d94de8aa8904e055829e17489660ee42c5
+2026-10-07T06:05:00.4922424Z 6379/tcp -> 0.0.0.0:6379
+2026-10-07T06:05:00.4923212Z 6379/tcp -> [::]:6379
+2026-10-07T06:05:00.4934226Z ##[endgroup]
+2026-10-07T06:05:00.4945268Z ##[group]Waiting for all services to be ready
+2026-10-07T06:05:00.4960189Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" bef48129b853ac637e660b1ab9296fe17ec7a78455860cfc0256a7e235bb09e5
+2026-10-07T06:05:00.5094272Z starting
+2026-10-07T06:05:00.5111895Z postgres service is starting, waiting 2 seconds before checking again.
+2026-10-07T06:05:02.5112802Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" bef48129b853ac637e660b1ab9296fe17ec7a78455860cfc0256a7e235bb09e5
+2026-10-07T06:05:02.5260169Z starting
+2026-10-07T06:05:02.5262078Z postgres service is starting, waiting 4 seconds before checking again.
+2026-10-07T06:05:06.5572591Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" bef48129b853ac637e660b1ab9296fe17ec7a78455860cfc0256a7e235bb09e5
+2026-10-07T06:05:06.5710011Z healthy
+2026-10-07T06:05:06.5723266Z postgres service is healthy.
+2026-10-07T06:05:06.5724498Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 1cd0e0d6277388db1b9478baf4f9b8d94de8aa8904e055829e17489660ee42c5
+2026-10-07T06:05:06.5855940Z healthy
+2026-10-07T06:05:06.5864255Z redis service is healthy.
+2026-10-07T06:05:06.5865009Z ##[endgroup]
+2026-10-07T06:05:06.6180116Z ##[group]Run actions/checkout@v4
+2026-10-07T06:05:06.6180717Z with:
+2026-10-07T06:05:06.6181081Z   fetch-depth: 0
+2026-10-07T06:05:06.6181423Z   ref: 7fc94ba367884774026044bae444e6c7397b63fc
+2026-10-07T06:05:06.6181865Z   repository: bensuen0831/crossborder-compliance-agent
+2026-10-07T06:05:06.6184486Z   token: ***
+2026-10-07T06:05:06.6184810Z   ssh-strict: true
+2026-10-07T06:05:06.6185126Z   ssh-user: git
+2026-10-07T06:05:06.6185428Z   persist-credentials: true
+2026-10-07T06:05:06.6185758Z   clean: true
+2026-10-07T06:05:06.6186128Z   sparse-checkout-cone-mode: true
+2026-10-07T06:05:06.6186483Z   fetch-tags: false
+2026-10-07T06:05:06.6186795Z   show-progress: true
+2026-10-07T06:05:06.6187117Z   lfs: false
+2026-10-07T06:05:06.6187435Z   submodules: false
+2026-10-07T06:05:06.6187771Z   set-safe-directory: true
+2026-10-07T06:05:06.6188155Z   allow-unsafe-pr-checkout: false
+2026-10-07T06:05:06.6188617Z env:
+2026-10-07T06:05:06.6188918Z   APP_ENV: LOCAL_SERVER
+2026-10-07T06:05:06.6189909Z   DATABASE_URL: ***127.0.0.1:5432/m1_uat
+2026-10-07T06:05:06.6190517Z   LANGGRAPH_DATABASE_URI: ***127.0.0.1:5432/m1_uat?sslmode=disable
+2026-10-07T06:05:06.6190968Z   REDIS_URL: redis://127.0.0.1:6379/0
+2026-10-07T06:05:06.6191390Z   M0_LOCAL_UAT: 1
+2026-10-07T06:05:06.6191719Z   M2B_LOCAL_UAT: 1
+2026-10-07T06:05:06.6192069Z   M2B_FILE_POLICY: /tmp/m2b-file-policy.json
+2026-10-07T06:05:06.6192462Z   M2B_BINARY_ROOT: /tmp/m2b-objects
+2026-10-07T06:05:06.6192936Z   VITE_M0_DEMO: true
+2026-10-07T06:05:06.6193325Z   VITE_SESSION_PATH: /m0-demo/session
+2026-10-07T06:05:06.6193897Z   M2A_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:05:06.6194284Z   M1_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:05:06.6194683Z ##[endgroup]
+2026-10-07T06:05:06.7315344Z Syncing repository: bensuen0831/crossborder-compliance-agent
+2026-10-07T06:05:06.7317487Z ##[group]Getting Git version info
+2026-10-07T06:05:06.7318414Z Working directory is '/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent'
+2026-10-07T06:05:06.7319959Z [command]/usr/bin/git version
+2026-10-07T06:05:06.7434403Z git version 2.55.0
+2026-10-07T06:05:06.7469360Z ##[endgroup]
+2026-10-07T06:05:06.7534737Z Temporarily overriding HOME='/home/runner/work/_temp/9f644c31-8a46-458d-b69c-a209692a01bc' before making global git config changes
+2026-10-07T06:05:06.7538556Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-07T06:05:06.7541453Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent
+2026-10-07T06:05:06.7591884Z Deleting the contents of '/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent'
+2026-10-07T06:05:06.7593606Z ##[group]Initializing the repository
+2026-10-07T06:05:06.7610703Z [command]/usr/bin/git init /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent
+2026-10-07T06:05:06.7772986Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-07T06:05:06.7810297Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-07T06:05:06.7825737Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-07T06:05:06.7850428Z hint: call:
+2026-10-07T06:05:06.7953980Z hint:
+2026-10-07T06:05:06.7956717Z hint: 	git config --global init.defaultBranch <name>
+2026-10-07T06:05:06.8007309Z hint:
+2026-10-07T06:05:06.8010792Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-07T06:05:06.8012211Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-07T06:05:06.8015634Z hint:
+2026-10-07T06:05:06.8016415Z hint: 	git branch -m <name>
+2026-10-07T06:05:06.8017015Z hint:
+2026-10-07T06:05:06.8022486Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-07T06:05:06.8027116Z Initialized empty Git repository in /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/.git/
+2026-10-07T06:05:06.8032010Z [command]/usr/bin/git remote add origin https://github.com/bensuen0831/crossborder-compliance-agent
+2026-10-07T06:05:06.8035399Z ##[endgroup]
+2026-10-07T06:05:06.8037392Z ##[group]Disabling automatic garbage collection
+2026-10-07T06:05:06.8038435Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-07T06:05:06.8044236Z ##[endgroup]
+2026-10-07T06:05:06.8045412Z ##[group]Setting up auth
+2026-10-07T06:05:06.8047030Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-07T06:05:06.8051684Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-07T06:05:06.8460434Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-07T06:05:06.8462623Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-07T06:05:06.8733681Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-07T06:05:06.8768145Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-07T06:05:06.8975238Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-07T06:05:06.9028594Z ##[endgroup]
+2026-10-07T06:05:06.9029939Z ##[group]Fetching the repository
+2026-10-07T06:05:06.9032344Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-10-07T06:05:08.7088723Z From https://github.com/bensuen0831/crossborder-compliance-agent
+2026-10-07T06:05:08.7092410Z  * [new branch]      admin-control-plane-foundation -> origin/admin-control-plane-foundation
+2026-10-07T06:05:08.7103750Z  * [new branch]      ci/phase1h-main-validation-base -> origin/ci/phase1h-main-validation-base
+2026-10-07T06:05:08.7105587Z  * [new branch]      github/workflows/phase1a-runtime-smoke.yml -> origin/github/workflows/phase1a-runtime-smoke.yml
+2026-10-07T06:05:08.7107101Z  * [new branch]      integration/m1-phase1lb-closure-evidence -> origin/integration/m1-phase1lb-closure-evidence
+2026-10-07T06:05:08.7108399Z  * [new branch]      integration/m2a-main-closure-evidence -> origin/integration/m2a-main-closure-evidence
+2026-10-07T06:05:08.7109696Z  * [new branch]      integration/round2-closure-evidence -> origin/integration/round2-closure-evidence
+2026-10-07T06:05:08.7110942Z  * [new branch]      integration/stage1-alpha -> origin/integration/stage1-alpha
+2026-10-07T06:05:08.7111808Z  * [new branch]      main                    -> origin/main
+2026-10-07T06:05:08.7112709Z  * [new branch]      milestone-m0-h5-preview -> origin/milestone-m0-h5-preview
+2026-10-07T06:05:08.7114247Z  * [new branch]      milestone-m1-intake-analysis-alpha -> origin/milestone-m1-intake-analysis-alpha
+2026-10-07T06:05:08.7117574Z  * [new branch]      milestone-m2a-production-intake -> origin/milestone-m2a-production-intake
+2026-10-07T06:05:08.7118944Z  * [new branch]      milestone-m2b-document-binary-integration -> origin/milestone-m2b-document-binary-integration
+2026-10-07T06:05:08.7120609Z  * [new branch]      phase1a2-empirical-gate -> origin/phase1a2-empirical-gate
+2026-10-07T06:05:08.7121525Z  * [new branch]      phase1a2-empirical-run  -> origin/phase1a2-empirical-run
+2026-10-07T06:05:08.7122649Z  * [new branch]      phase1a2-empirical-trigger-2 -> origin/phase1a2-empirical-trigger-2
+2026-10-07T06:05:08.7123706Z  * [new branch]      phase1b-domain-foundation -> origin/phase1b-domain-foundation
+2026-10-07T06:05:08.7124941Z  * [new branch]      phase1c-metadata-registry -> origin/phase1c-metadata-registry
+2026-10-07T06:05:08.7126095Z  * [new branch]      phase1d-document-intelligence -> origin/phase1d-document-intelligence
+2026-10-07T06:05:08.7127497Z  * [new branch]      phase1e-context-resolution -> origin/phase1e-context-resolution
+2026-10-07T06:05:08.7128913Z  * [new branch]      phase1f-knowledge-scope -> origin/phase1f-knowledge-scope
+2026-10-07T06:05:08.7146446Z  * [new branch]      phase1g-retrieval-rag   -> origin/phase1g-retrieval-rag
+2026-10-07T06:05:08.7147649Z  * [new branch]      phase1h-rule-classification -> origin/phase1h-rule-classification
+2026-10-07T06:05:08.7149193Z  * [new branch]      phase1i-applicability-country-scenario -> origin/phase1i-applicability-country-scenario
+2026-10-07T06:05:08.7150448Z  * [new branch]      phase1j-closure-evidence -> origin/phase1j-closure-evidence
+2026-10-07T06:05:08.7152241Z  * [new branch]      phase1j-obligation-risk-path -> origin/phase1j-obligation-risk-path
+2026-10-07T06:05:08.7153381Z  * [new branch]      phase1k-llm-gateway-foundation -> origin/phase1k-llm-gateway-foundation
+2026-10-07T06:05:08.7154611Z  * [new branch]      phase1l-a-workflow-skeleton -> origin/phase1l-a-workflow-skeleton
+2026-10-07T06:05:08.7155842Z  * [new branch]      phase1l-b-full-workflow-wiring -> origin/phase1l-b-full-workflow-wiring
+2026-10-07T06:05:08.7156931Z  * [new tag]         v3.6-m1-phase1lb-pass   -> v3.6-m1-phase1lb-pass
+2026-10-07T06:05:08.7181179Z  * [new tag]         v3.6-m2a-pass           -> v3.6-m2a-pass
+2026-10-07T06:05:08.7186883Z  * [new tag]         v3.6-phase1e-pass       -> v3.6-phase1e-pass
+2026-10-07T06:05:08.7203126Z  * [new tag]         v3.6-phase1f-pass       -> v3.6-phase1f-pass
+2026-10-07T06:05:08.7204107Z  * [new tag]         v3.6-phase1g-pass       -> v3.6-phase1g-pass
+2026-10-07T06:05:08.7206971Z  * [new tag]         v3.6-phase1h-pass       -> v3.6-phase1h-pass
+2026-10-07T06:05:08.7207772Z  * [new tag]         v3.6-phase1i-pass       -> v3.6-phase1i-pass
+2026-10-07T06:05:08.7209367Z  * [new tag]         v3.6-phase1j-pass       -> v3.6-phase1j-pass
+2026-10-07T06:05:08.7210926Z  * [new tag]         v3.6-round2-integration-pass -> v3.6-round2-integration-pass
+2026-10-07T06:05:08.7216164Z [command]/usr/bin/git rev-parse --verify --quiet 7fc94ba367884774026044bae444e6c7397b63fc^{object}
+2026-10-07T06:05:08.7217168Z 7fc94ba367884774026044bae444e6c7397b63fc
+2026-10-07T06:05:08.7218953Z ##[endgroup]
+2026-10-07T06:05:08.7220220Z ##[group]Determining the checkout info
+2026-10-07T06:05:08.7221156Z ##[endgroup]
+2026-10-07T06:05:08.7221751Z [command]/usr/bin/git sparse-checkout disable
+2026-10-07T06:05:08.7240227Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-07T06:05:08.7268775Z ##[group]Checking out the ref
+2026-10-07T06:05:08.7273374Z [command]/usr/bin/git checkout --progress --force 7fc94ba367884774026044bae444e6c7397b63fc
+2026-10-07T06:05:08.8012853Z Note: switching to '7fc94ba367884774026044bae444e6c7397b63fc'.
+2026-10-07T06:05:08.8013700Z 
+2026-10-07T06:05:08.8014344Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-07T06:05:08.8015299Z changes and commit them, and you can discard any commits you make in this
+2026-10-07T06:05:08.8016336Z state without impacting any branches by switching back to a branch.
+2026-10-07T06:05:08.8016901Z 
+2026-10-07T06:05:08.8017398Z If you want to create a new branch to retain commits you create, you may
+2026-10-07T06:05:08.8020471Z do so (now or later) by using -c with the switch command. Example:
+2026-10-07T06:05:08.8029859Z 
+2026-10-07T06:05:08.8030446Z   git switch -c <new-branch-name>
+2026-10-07T06:05:08.8030935Z 
+2026-10-07T06:05:08.8031310Z Or undo this operation with:
+2026-10-07T06:05:08.8031676Z 
+2026-10-07T06:05:08.8032122Z   git switch -
+2026-10-07T06:05:08.8032515Z 
+2026-10-07T06:05:08.8032987Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-07T06:05:08.8033625Z 
+2026-10-07T06:05:08.8034851Z HEAD is now at 7fc94ba docs(m2b): record measured full closure and preserve exact source evidence
+2026-10-07T06:05:08.8045082Z ##[endgroup]
+2026-10-07T06:05:08.8108325Z [command]/usr/bin/git log -1 --format=%H
+2026-10-07T06:05:08.8132869Z 7fc94ba367884774026044bae444e6c7397b63fc
+2026-10-07T06:05:08.8403245Z ##[group]Run actions/setup-python@v5
+2026-10-07T06:05:08.8403610Z with:
+2026-10-07T06:05:08.8403918Z   python-version: 3.12
+2026-10-07T06:05:08.8404306Z   check-latest: false
+2026-10-07T06:05:08.8406764Z   token: ***
+2026-10-07T06:05:08.8407086Z   update-environment: true
+2026-10-07T06:05:08.8407413Z   allow-prereleases: false
+2026-10-07T06:05:08.8407738Z   freethreaded: false
+2026-10-07T06:05:08.8408063Z env:
+2026-10-07T06:05:08.8408397Z   APP_ENV: LOCAL_SERVER
+2026-10-07T06:05:08.8409156Z   DATABASE_URL: ***127.0.0.1:5432/m1_uat
+2026-10-07T06:05:08.8409818Z   LANGGRAPH_DATABASE_URI: ***127.0.0.1:5432/m1_uat?sslmode=disable
+2026-10-07T06:05:08.8410279Z   REDIS_URL: redis://127.0.0.1:6379/0
+2026-10-07T06:05:08.8410687Z   M0_LOCAL_UAT: 1
+2026-10-07T06:05:08.8410963Z   M2B_LOCAL_UAT: 1
+2026-10-07T06:05:08.8411347Z   M2B_FILE_POLICY: /tmp/m2b-file-policy.json
+2026-10-07T06:05:08.8411753Z   M2B_BINARY_ROOT: /tmp/m2b-objects
+2026-10-07T06:05:08.8412091Z   VITE_M0_DEMO: true
+2026-10-07T06:05:08.8412544Z   VITE_SESSION_PATH: /m0-demo/session
+2026-10-07T06:05:08.8412911Z   M2A_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:05:08.8413292Z   M1_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:05:08.8413656Z ##[endgroup]
+2026-10-07T06:05:08.9820461Z ##[group]Installed versions
+2026-10-07T06:05:08.9892160Z (node:2712) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-07T06:05:08.9893241Z Successfully set up CPython (3.12.14)
+2026-10-07T06:05:08.9894154Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-07T06:05:08.9895480Z ##[endgroup]
+2026-10-07T06:05:09.0151794Z ##[group]Run actions/setup-node@v4
+2026-10-07T06:05:09.0152333Z with:
+2026-10-07T06:05:09.0152751Z   node-version: 24
+2026-10-07T06:05:09.0153184Z   cache: npm
+2026-10-07T06:05:09.0153679Z   cache-dependency-path: frontend/package-lock.json
+2026-10-07T06:05:09.0154286Z   always-auth: false
+2026-10-07T06:05:09.0154752Z   check-latest: false
+2026-10-07T06:05:09.0159287Z   token: ***
+2026-10-07T06:05:09.0159688Z env:
+2026-10-07T06:05:09.0160091Z   APP_ENV: LOCAL_SERVER
+2026-10-07T06:05:09.0160875Z   DATABASE_URL: ***127.0.0.1:5432/m1_uat
+2026-10-07T06:05:09.0161838Z   LANGGRAPH_DATABASE_URI: ***127.0.0.1:5432/m1_uat?sslmode=disable
+2026-10-07T06:05:09.0162474Z   REDIS_URL: redis://127.0.0.1:6379/0
+2026-10-07T06:05:09.0162990Z   M0_LOCAL_UAT: 1
+2026-10-07T06:05:09.0163398Z   M2B_LOCAL_UAT: 1
+2026-10-07T06:05:09.0163889Z   M2B_FILE_POLICY: /tmp/m2b-file-policy.json
+2026-10-07T06:05:09.0164411Z   M2B_BINARY_ROOT: /tmp/m2b-objects
+2026-10-07T06:05:09.0164894Z   VITE_M0_DEMO: true
+2026-10-07T06:05:09.0165459Z   VITE_SESSION_PATH: /m0-demo/session
+2026-10-07T06:05:09.0165962Z   M2A_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:05:09.0166530Z   M1_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:05:09.0167103Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:09.0167810Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-10-07T06:05:09.0168566Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:09.0169329Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:09.0170112Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:09.0170801Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-10-07T06:05:09.0171372Z ##[endgroup]
+2026-10-07T06:05:09.1749886Z Found in cache @ /opt/hostedtoolcache/node/24.21.0/x64
+2026-10-07T06:05:09.1754459Z (node:2720) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-07T06:05:09.1755887Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-07T06:05:09.1758175Z ##[group]Environment details
+2026-10-07T06:05:09.7460968Z node: v24.21.0
+2026-10-07T06:05:09.7467217Z npm: 11.19.0
+2026-10-07T06:05:09.7468393Z yarn: 1.22.22
+2026-10-07T06:05:09.7469877Z ##[endgroup]
+2026-10-07T06:05:09.7479219Z [command]/opt/hostedtoolcache/node/24.21.0/x64/bin/npm config get cache
+2026-10-07T06:05:09.8594525Z /home/runner/.npm
+2026-10-07T06:05:10.0161694Z Cache hit for: node-cache-Linux-x64-npm-ea948756a7c9bdd1b627745b615fd2bc1d81e7dd0f4478d83372b40c6da96ebf
+2026-10-07T06:05:10.0317369Z (node:2720) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-07T06:05:10.8695021Z Received 51030529 of 51030529 (100.0%), 67.8 MBs/sec
+2026-10-07T06:05:10.8700805Z Cache Size: ~49 MB (51030529 B)
+2026-10-07T06:05:10.8731259Z [command]/usr/bin/tar -xf /home/runner/work/_temp/d1617b78-2f89-4efd-9632-46b1861f5c04/cache.tzst -P -C /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent --use-compress-program unzstd
+2026-10-07T06:05:10.9680353Z Cache restored successfully
+2026-10-07T06:05:10.9705054Z Cache restored from key: node-cache-Linux-x64-npm-ea948756a7c9bdd1b627745b615fd2bc1d81e7dd0f4478d83372b40c6da96ebf
+2026-10-07T06:05:10.9908057Z ##[group]Run python -m pip install -e '.[dev]'
+2026-10-07T06:05:10.9908612Z python -m pip install -e '.[dev]'
+2026-10-07T06:05:11.0079675Z shell: /usr/bin/bash -e {0}
+2026-10-07T06:05:11.0080197Z env:
+2026-10-07T06:05:11.0080534Z   APP_ENV: LOCAL_SERVER
+2026-10-07T06:05:11.0081580Z   DATABASE_URL: ***127.0.0.1:5432/m1_uat
+2026-10-07T06:05:11.0082181Z   LANGGRAPH_DATABASE_URI: ***127.0.0.1:5432/m1_uat?sslmode=disable
+2026-10-07T06:05:11.0082632Z   REDIS_URL: redis://127.0.0.1:6379/0
+2026-10-07T06:05:11.0083234Z   M0_LOCAL_UAT: 1
+2026-10-07T06:05:11.0083540Z   M2B_LOCAL_UAT: 1
+2026-10-07T06:05:11.0083939Z   M2B_FILE_POLICY: /tmp/m2b-file-policy.json
+2026-10-07T06:05:11.0084323Z   M2B_BINARY_ROOT: /tmp/m2b-objects
+2026-10-07T06:05:11.0084656Z   VITE_M0_DEMO: true
+2026-10-07T06:05:11.0085034Z   VITE_SESSION_PATH: /m0-demo/session
+2026-10-07T06:05:11.0085440Z   M2A_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:05:11.0085854Z   M1_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:05:11.0086408Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:11.0086985Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-10-07T06:05:11.0087507Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:11.0088017Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:11.0088477Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:11.0088931Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-10-07T06:05:11.0089795Z ##[endgroup]
+2026-10-07T06:05:11.9120935Z Obtaining file:///home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent
+2026-10-07T06:05:11.9135258Z   Installing build dependencies: started
+2026-10-07T06:05:12.9185772Z   Installing build dependencies: finished with status 'done'
+2026-10-07T06:05:12.9193130Z   Checking if build backend supports build_editable: started
+2026-10-07T06:05:13.3521381Z   Checking if build backend supports build_editable: finished with status 'done'
+2026-10-07T06:05:13.3530863Z   Getting requirements to build editable: started
+2026-10-07T06:05:13.6671147Z   Getting requirements to build editable: finished with status 'done'
+2026-10-07T06:05:13.6675385Z   Preparing editable metadata (pyproject.toml): started
+2026-10-07T06:05:13.8553171Z   Preparing editable metadata (pyproject.toml): finished with status 'done'
+2026-10-07T06:05:13.9781083Z Collecting fastapi<1,>=0.128 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:14.0446063Z   Downloading fastapi-0.142.2-py3-none-any.whl.metadata (27 kB)
+2026-10-07T06:05:14.0867340Z Collecting uvicorn<1,>=0.35 (from uvicorn[standard]<1,>=0.35->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:14.0967170Z   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+2026-10-07T06:05:14.2206047Z Collecting pydantic<3,>=2.12 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:14.2307395Z   Downloading pydantic-2.13.5-py3-none-any.whl.metadata (110 kB)
+2026-10-07T06:05:14.2668659Z Collecting pydantic-settings<3,>=2.10 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:14.2768885Z   Downloading pydantic_settings-2.15.0-py3-none-any.whl.metadata (3.9 kB)
+2026-10-07T06:05:14.2993048Z Collecting httpx<1,>=0.28 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:14.3095208Z   Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-10-07T06:05:14.3365325Z Collecting jsonschema<5,>=4.25 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:14.3465969Z   Downloading jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+2026-10-07T06:05:14.6406944Z Collecting sqlalchemy<3,>=2.0 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:14.6510080Z   Downloading sqlalchemy-2.1.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.7 kB)
+2026-10-07T06:05:14.6804800Z Collecting alembic<2,>=1.16 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:14.6905856Z   Downloading alembic-1.20.0-py3-none-any.whl.metadata (7.3 kB)
+2026-10-07T06:05:14.7143825Z Collecting psycopg<4,>=3.2 (from psycopg[binary]<4,>=3.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:14.7244575Z   Downloading psycopg-3.3.6-py3-none-any.whl.metadata (4.4 kB)
+2026-10-07T06:05:14.7703857Z Collecting langgraph<1.3,>=1.2 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:14.7806778Z   Downloading langgraph-1.2.14-py3-none-any.whl.metadata (4.9 kB)
+2026-10-07T06:05:14.8020188Z Collecting langgraph-checkpoint-postgres<3.2,>=3.1 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:14.8119131Z   Downloading langgraph_checkpoint_postgres-3.1.2-py3-none-any.whl.metadata (6.8 kB)
+2026-10-07T06:05:14.8418113Z Collecting redis<7,>=6 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:14.8520350Z   Downloading redis-6.4.0-py3-none-any.whl.metadata (10 kB)
+2026-10-07T06:05:15.0705017Z Collecting boto3<2,>=1.40 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:15.0808557Z   Downloading boto3-1.43.108-py3-none-any.whl.metadata (6.6 kB)
+2026-10-07T06:05:15.1052837Z Collecting opentelemetry-api<2,>=1.36 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:15.1154052Z   Downloading opentelemetry_api-1.45.1-py3-none-any.whl.metadata (1.4 kB)
+2026-10-07T06:05:15.1386351Z Collecting opentelemetry-sdk<2,>=1.36 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:15.1488282Z   Downloading opentelemetry_sdk-1.45.1-py3-none-any.whl.metadata (1.6 kB)
+2026-10-07T06:05:15.1718446Z Collecting opentelemetry-instrumentation-fastapi<1,>=0.57b0 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:15.1819241Z   Downloading opentelemetry_instrumentation_fastapi-0.66b1-py3-none-any.whl.metadata (2.2 kB)
+2026-10-07T06:05:15.2074974Z Collecting pypdf<7,>=6 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:15.2177281Z   Downloading pypdf-6.19.0-py3-none-any.whl.metadata (7.5 kB)
+2026-10-07T06:05:15.2389337Z Collecting python-docx<2,>=1.2 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:15.2488926Z   Downloading python_docx-1.2.0-py3-none-any.whl.metadata (2.0 kB)
+2026-10-07T06:05:15.2699570Z Collecting openpyxl<4,>=3.1 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:15.2800168Z   Downloading openpyxl-3.1.5-py2.py3-none-any.whl.metadata (2.5 kB)
+2026-10-07T06:05:15.2982450Z Collecting python-pptx<2,>=1.0 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:15.3081835Z   Downloading python_pptx-1.0.2-py3-none-any.whl.metadata (2.5 kB)
+2026-10-07T06:05:15.4610586Z Collecting pillow<12,>=11 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:15.4713139Z   Downloading pillow-11.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.0 kB)
+2026-10-07T06:05:15.4937014Z Collecting python-multipart<1,>=0.0.20 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:15.5035415Z   Downloading python_multipart-0.0.32-py3-none-any.whl.metadata (2.1 kB)
+2026-10-07T06:05:15.5351371Z Collecting pytest<9,>=8.4 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:15.5454749Z   Downloading pytest-8.4.2-py3-none-any.whl.metadata (7.7 kB)
+2026-10-07T06:05:15.8774910Z Collecting ruff<1,>=0.12 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:15.8877920Z   Downloading ruff-0.16.10-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (20 kB)
+2026-10-07T06:05:15.9886385Z Collecting mypy<2,>=1.17 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:15.9988085Z   Downloading mypy-1.20.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-10-07T06:05:16.0966833Z Collecting reportlab<5,>=4.4 (from crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.1070761Z   Downloading reportlab-4.5.1-py3-none-any.whl.metadata (1.7 kB)
+2026-10-07T06:05:16.1291516Z Collecting Mako (from alembic<2,>=1.16->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.1392086Z   Downloading mako-1.4.3-py3-none-any.whl.metadata (2.9 kB)
+2026-10-07T06:05:16.1605545Z Collecting typing-extensions>=4.12 (from alembic<2,>=1.16->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.1707994Z   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+2026-10-07T06:05:16.3689752Z Collecting botocore<1.44.0,>=1.43.108 (from boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.3789465Z   Downloading botocore-1.43.108-py3-none-any.whl.metadata (5.6 kB)
+2026-10-07T06:05:16.3980634Z Collecting jmespath<2.0.0,>=0.7.1 (from boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.4080534Z   Downloading jmespath-1.1.0-py3-none-any.whl.metadata (7.6 kB)
+2026-10-07T06:05:16.4296736Z Collecting s3transfer<0.20.0,>=0.19.0 (from boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.4397721Z   Downloading s3transfer-0.19.2-py3-none-any.whl.metadata (1.7 kB)
+2026-10-07T06:05:16.4599768Z Collecting python-dateutil<3.0.0,>=2.1 (from botocore<1.44.0,>=1.43.108->boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.4701711Z   Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+2026-10-07T06:05:16.4997876Z Collecting urllib3!=2.2.0,<3,>=1.25.4 (from botocore<1.44.0,>=1.43.108->boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.5098417Z   Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+2026-10-07T06:05:16.5775395Z Collecting starlette>=0.46.0 (from fastapi<1,>=0.128->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.5876475Z   Downloading starlette-1.7.0-py3-none-any.whl.metadata (6.6 kB)
+2026-10-07T06:05:16.6087215Z Collecting typing-inspection>=0.4.2 (from fastapi<1,>=0.128->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.6187152Z   Downloading typing_inspection-0.4.4-py3-none-any.whl.metadata (2.6 kB)
+2026-10-07T06:05:16.6356057Z Collecting annotated-doc>=0.0.2 (from fastapi<1,>=0.128->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.6454441Z   Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+2026-10-07T06:05:16.6708832Z Collecting anyio (from httpx<1,>=0.28->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.6811356Z   Downloading anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)
+2026-10-07T06:05:16.7043577Z Collecting certifi (from httpx<1,>=0.28->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.7143705Z   Downloading certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+2026-10-07T06:05:16.7351567Z Collecting httpcore==1.* (from httpx<1,>=0.28->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.7452267Z   Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-10-07T06:05:16.7663679Z Collecting idna (from httpx<1,>=0.28->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.7761336Z   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+2026-10-07T06:05:16.7943715Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1,>=0.28->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.8049388Z   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-10-07T06:05:16.8254449Z Collecting attrs>=22.2.0 (from jsonschema<5,>=4.25->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.8353647Z   Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+2026-10-07T06:05:16.8538492Z Collecting jsonschema-specifications>=2023.03.6 (from jsonschema<5,>=4.25->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.8637913Z   Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+2026-10-07T06:05:16.8881629Z Collecting referencing>=0.28.4 (from jsonschema<5,>=4.25->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:16.8981593Z   Downloading referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+2026-10-07T06:05:17.1237782Z Collecting rpds-py>=0.25.0 (from jsonschema<5,>=4.25->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:17.1339887Z   Downloading rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+2026-10-07T06:05:17.1733765Z Collecting langchain-core<2,>=1.4.7 (from langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:17.1835706Z   Downloading langchain_core-1.6.7-py3-none-any.whl.metadata (4.8 kB)
+2026-10-07T06:05:17.2051858Z Collecting langgraph-checkpoint<5.0.0,>=4.1.0 (from langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:17.2155785Z   Downloading langgraph_checkpoint-4.2.0-py3-none-any.whl.metadata (6.7 kB)
+2026-10-07T06:05:17.2353481Z Collecting langgraph-prebuilt<1.2.0,>=1.1.0 (from langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:17.2453507Z   Downloading langgraph_prebuilt-1.1.0-py3-none-any.whl.metadata (5.2 kB)
+2026-10-07T06:05:17.2704738Z Collecting langgraph-sdk<0.5.0,>=0.4.6 (from langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:17.2803413Z   Downloading langgraph_sdk-0.4.6-py3-none-any.whl.metadata (5.1 kB)
+2026-10-07T06:05:17.3962598Z Collecting xxhash>=3.5.0 (from langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:17.4066680Z   Downloading xxhash-4.0.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (17 kB)
+2026-10-07T06:05:17.4287871Z Collecting jsonpatch<2.0.0,>=1.33.0 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:17.4388397Z   Downloading jsonpatch-1.33-py2.py3-none-any.whl.metadata (3.0 kB)
+2026-10-07T06:05:17.4565768Z Collecting langchain-protocol>=0.0.17 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:17.4666242Z   Downloading langchain_protocol-0.0.19-py3-none-any.whl.metadata (2.4 kB)
+2026-10-07T06:05:17.5251669Z Collecting langsmith<1.0.0,>=0.3.45 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:17.5349979Z   Downloading langsmith-0.14.4-py3-none-any.whl.metadata (22 kB)
+2026-10-07T06:05:17.5486967Z Collecting packaging>=23.2.0 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:17.5500240Z   Using cached packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+2026-10-07T06:05:17.5853002Z Collecting pyyaml<7.0.0,>=5.3.0 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:17.5955385Z   Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-10-07T06:05:17.6617839Z Collecting tenacity!=8.4.0,<10.0.0,>=8.1.0 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:17.6719814Z   Downloading tenacity-9.1.4-py3-none-any.whl.metadata (1.2 kB)
+2026-10-07T06:05:17.7741617Z Collecting uuid-utils<1.0,>=0.12.0 (from langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:17.7854216Z   Downloading uuid_utils-0.17.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.4 kB)
+2026-10-07T06:05:17.8131213Z Collecting jsonpointer>=1.9 (from jsonpatch<2.0.0,>=1.33.0->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:17.8241722Z   Downloading jsonpointer-3.1.1-py3-none-any.whl.metadata (2.4 kB)
+2026-10-07T06:05:17.8794064Z Collecting ormsgpack>=1.12.0 (from langgraph-checkpoint<5.0.0,>=4.1.0->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:17.8894812Z   Downloading ormsgpack-1.12.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.2 kB)
+2026-10-07T06:05:18.0914752Z Collecting orjson>=3.11.5 (from langgraph-checkpoint-postgres<3.2,>=3.1->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.1017119Z   Downloading orjson-3.12.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (41 kB)
+2026-10-07T06:05:18.1237929Z Collecting psycopg-pool>=3.2.0 (from langgraph-checkpoint-postgres<3.2,>=3.1->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.1339613Z   Downloading psycopg_pool-3.3.3-py3-none-any.whl.metadata (2.8 kB)
+2026-10-07T06:05:18.2414211Z Collecting websockets<17,>=14 (from langgraph-sdk<0.5.0,>=0.4.6->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.2520957Z   Downloading websockets-16.1.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.8 kB)
+2026-10-07T06:05:18.2723203Z Collecting distro>=1.7.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.2823251Z   Downloading distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-10-07T06:05:18.3014251Z Collecting httpx2<3,>=2 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.3115162Z   Downloading httpx2-2.13.1-py3-none-any.whl.metadata (9.8 kB)
+2026-10-07T06:05:18.3347888Z Collecting requests-toolbelt>=1.0.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.3445720Z   Downloading requests_toolbelt-1.0.0-py2.py3-none-any.whl.metadata (14 kB)
+2026-10-07T06:05:18.3723037Z Collecting requests>=2.0.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.3824226Z   Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+2026-10-07T06:05:18.3998473Z Collecting sniffio>=1.1 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.4095613Z   Downloading sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-10-07T06:05:18.4712239Z Collecting zstandard>=0.23.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.4812889Z   Downloading zstandard-0.25.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.3 kB)
+2026-10-07T06:05:18.5021412Z Collecting httpcore2==2.13.1 (from httpx2<3,>=2->langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.5113778Z   Downloading httpcore2-2.13.1-py3-none-any.whl.metadata (26 kB)
+2026-10-07T06:05:18.5314819Z Collecting truststore>=0.10 (from httpx2<3,>=2->langsmith<1.0.0,>=0.3.45->langchain-core<2,>=1.4.7->langgraph<1.3,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.5413947Z   Downloading truststore-0.10.4-py3-none-any.whl.metadata (4.4 kB)
+2026-10-07T06:05:18.5637638Z Collecting mypy_extensions>=1.0.0 (from mypy<2,>=1.17->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.5736142Z   Downloading mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)
+2026-10-07T06:05:18.5930042Z Collecting pathspec>=1.0.0 (from mypy<2,>=1.17->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.6020013Z   Downloading pathspec-1.1.1-py3-none-any.whl.metadata (14 kB)
+2026-10-07T06:05:18.7666364Z Collecting librt>=0.8.0 (from mypy<2,>=1.17->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.7771070Z   Downloading librt-0.16.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (1.3 kB)
+2026-10-07T06:05:18.7947745Z Collecting et-xmlfile (from openpyxl<4,>=3.1->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.8052097Z   Downloading et_xmlfile-2.0.0-py3-none-any.whl.metadata (2.7 kB)
+2026-10-07T06:05:18.8300558Z Collecting opentelemetry-instrumentation-asgi==0.66b1 (from opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.8399492Z   Downloading opentelemetry_instrumentation_asgi-0.66b1-py3-none-any.whl.metadata (2.0 kB)
+2026-10-07T06:05:18.8621146Z Collecting opentelemetry-instrumentation==0.66b1 (from opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.8727207Z   Downloading opentelemetry_instrumentation-0.66b1-py3-none-any.whl.metadata (7.2 kB)
+2026-10-07T06:05:18.8950563Z Collecting opentelemetry-semantic-conventions==0.66b1 (from opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.9040334Z   Downloading opentelemetry_semantic_conventions-0.66b1-py3-none-any.whl.metadata (2.4 kB)
+2026-10-07T06:05:18.9261539Z Collecting opentelemetry-util-http==0.66b1 (from opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:18.9367578Z   Downloading opentelemetry_util_http-0.66b1-py3-none-any.whl.metadata (2.6 kB)
+2026-10-07T06:05:19.2185171Z Collecting wrapt<3.0.0,>=1.0.0 (from opentelemetry-instrumentation==0.66b1->opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:19.2283649Z   Downloading wrapt-2.5.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (7.6 kB)
+2026-10-07T06:05:19.2534979Z Collecting asgiref~=3.0 (from opentelemetry-instrumentation-asgi==0.66b1->opentelemetry-instrumentation-fastapi<1,>=0.57b0->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:19.2637716Z   Downloading asgiref-3.12.1-py3-none-any.whl.metadata (9.4 kB)
+2026-10-07T06:05:19.4031538Z Collecting psycopg-binary==3.3.6 (from psycopg[binary]<4,>=3.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:19.4137180Z   Downloading psycopg_binary-3.3.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.7 kB)
+2026-10-07T06:05:19.4333321Z Collecting annotated-types>=0.6.0 (from pydantic<3,>=2.12->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:19.4433991Z   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+2026-10-07T06:05:20.0415465Z Collecting pydantic-core==2.46.5 (from pydantic<3,>=2.12->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:20.0515824Z   Downloading pydantic_core-2.46.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.6 kB)
+2026-10-07T06:05:20.0788375Z Collecting python-dotenv>=0.21.0 (from pydantic-settings<3,>=2.10->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:20.0886903Z   Downloading python_dotenv-1.2.4-py3-none-any.whl.metadata (29 kB)
+2026-10-07T06:05:20.1107650Z Collecting iniconfig>=1 (from pytest<9,>=8.4->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:20.1205653Z   Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+2026-10-07T06:05:20.1398797Z Collecting pluggy<2,>=1.5 (from pytest<9,>=8.4->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:20.1497448Z   Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+2026-10-07T06:05:20.1726984Z Collecting pygments>=2.7.2 (from pytest<9,>=8.4->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:20.1826621Z   Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+2026-10-07T06:05:20.2035385Z Collecting six>=1.5 (from python-dateutil<3.0.0,>=2.1->botocore<1.44.0,>=1.43.108->boto3<2,>=1.40->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:20.2133448Z   Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+2026-10-07T06:05:20.4742666Z Collecting lxml>=3.1.0 (from python-docx<2,>=1.2->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:20.4845437Z   Downloading lxml-6.1.3-cp312-cp312-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl.metadata (3.3 kB)
+2026-10-07T06:05:20.5200725Z Collecting XlsxWriter>=0.5.7 (from python-pptx<2,>=1.0->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:20.5306777Z   Downloading xlsxwriter-3.2.9-py3-none-any.whl.metadata (2.7 kB)
+2026-10-07T06:05:20.6668954Z Collecting charset-normalizer (from reportlab<5,>=4.4->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:20.6773396Z   Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+2026-10-07T06:05:20.7240165Z Collecting click>=7.0 (from uvicorn<1,>=0.35->uvicorn[standard]<1,>=0.35->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:20.7330407Z   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+2026-10-07T06:05:20.7681040Z Collecting httptools>=0.8.0 (from uvicorn[standard]<1,>=0.35->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:20.7778007Z   Downloading httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+2026-10-07T06:05:20.8201032Z Collecting uvloop>=0.15.1 (from uvicorn[standard]<1,>=0.35->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:20.8301859Z   Downloading uvloop-0.23.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.1 kB)
+2026-10-07T06:05:20.8986810Z Collecting watchfiles>=0.20 (from uvicorn[standard]<1,>=0.35->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:20.9087894Z   Downloading watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+2026-10-07T06:05:21.0135770Z Collecting MarkupSafe>=2.0 (from Mako->alembic<2,>=1.16->crossborder-compliance-agent==0.1.0)
+2026-10-07T06:05:21.0238713Z   Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+2026-10-07T06:05:21.0403835Z Downloading alembic-1.20.0-py3-none-any.whl (268 kB)
+2026-10-07T06:05:21.0716833Z Downloading boto3-1.43.108-py3-none-any.whl (140 kB)
+2026-10-07T06:05:21.0851040Z Downloading botocore-1.43.108-py3-none-any.whl (16.0 MB)
+2026-10-07T06:05:21.3545268Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.0/16.0 MB 60.9 MB/s  0:00:00
+2026-10-07T06:05:21.3650316Z Downloading fastapi-0.142.2-py3-none-any.whl (144 kB)
+2026-10-07T06:05:21.3775643Z Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-10-07T06:05:21.3904869Z Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-10-07T06:05:21.4027184Z Downloading jmespath-1.1.0-py3-none-any.whl (20 kB)
+2026-10-07T06:05:21.4146977Z Downloading jsonschema-4.26.0-py3-none-any.whl (90 kB)
+2026-10-07T06:05:21.4269261Z Downloading langgraph-1.2.14-py3-none-any.whl (255 kB)
+2026-10-07T06:05:21.4409568Z Downloading langchain_core-1.6.7-py3-none-any.whl (572 kB)
+2026-10-07T06:05:21.4484854Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 572.8/572.8 kB 60.3 MB/s  0:00:00
+2026-10-07T06:05:21.4585862Z Downloading jsonpatch-1.33-py2.py3-none-any.whl (12 kB)
+2026-10-07T06:05:21.4706234Z Downloading langgraph_checkpoint-4.2.0-py3-none-any.whl (56 kB)
+2026-10-07T06:05:21.4828026Z Downloading langgraph_checkpoint_postgres-3.1.2-py3-none-any.whl (52 kB)
+2026-10-07T06:05:21.4970507Z Downloading langgraph_prebuilt-1.1.0-py3-none-any.whl (41 kB)
+2026-10-07T06:05:21.5088648Z Downloading langgraph_sdk-0.4.6-py3-none-any.whl (162 kB)
+2026-10-07T06:05:21.5213454Z Downloading langsmith-0.14.4-py3-none-any.whl (813 kB)
+2026-10-07T06:05:21.5325790Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 813.1/813.1 kB 62.1 MB/s  0:00:00
+2026-10-07T06:05:21.5428465Z Downloading httpx2-2.13.1-py3-none-any.whl (95 kB)
+2026-10-07T06:05:21.5552801Z Downloading httpcore2-2.13.1-py3-none-any.whl (83 kB)
+2026-10-07T06:05:21.5682219Z Downloading mypy-1.20.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (14.7 MB)
+2026-10-07T06:05:21.7606913Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.7/14.7 MB 77.3 MB/s  0:00:00
+2026-10-07T06:05:21.7714109Z Downloading openpyxl-3.1.5-py2.py3-none-any.whl (250 kB)
+2026-10-07T06:05:21.7854072Z Downloading opentelemetry_api-1.45.1-py3-none-any.whl (60 kB)
+2026-10-07T06:05:21.7981028Z Downloading opentelemetry_instrumentation_fastapi-0.66b1-py3-none-any.whl (14 kB)
+2026-10-07T06:05:21.8102781Z Downloading opentelemetry_instrumentation-0.66b1-py3-none-any.whl (36 kB)
+2026-10-07T06:05:21.8227034Z Downloading opentelemetry_instrumentation_asgi-0.66b1-py3-none-any.whl (15 kB)
+2026-10-07T06:05:21.8352831Z Downloading opentelemetry_semantic_conventions-0.66b1-py3-none-any.whl (206 kB)
+2026-10-07T06:05:21.8494705Z Downloading opentelemetry_util_http-0.66b1-py3-none-any.whl (8.4 kB)
+2026-10-07T06:05:21.8616065Z Downloading asgiref-3.12.1-py3-none-any.whl (25 kB)
+2026-10-07T06:05:21.8739878Z Downloading opentelemetry_sdk-1.45.1-py3-none-any.whl (140 kB)
+2026-10-07T06:05:21.8875163Z Downloading pillow-11.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.6 MB)
+2026-10-07T06:05:21.9734120Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.6/6.6 MB 76.5 MB/s  0:00:00
+2026-10-07T06:05:21.9841254Z Downloading psycopg-3.3.6-py3-none-any.whl (215 kB)
+2026-10-07T06:05:22.0007375Z Downloading psycopg_binary-3.3.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.2 MB)
+2026-10-07T06:05:22.0673021Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.2/5.2 MB 77.9 MB/s  0:00:00
+2026-10-07T06:05:22.0781605Z Downloading pydantic-2.13.5-py3-none-any.whl (472 kB)
+2026-10-07T06:05:22.0962859Z Downloading pydantic_core-2.46.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-10-07T06:05:22.1232751Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 71.5 MB/s  0:00:00
+2026-10-07T06:05:22.1334755Z Downloading pydantic_settings-2.15.0-py3-none-any.whl (69 kB)
+2026-10-07T06:05:22.1460165Z Downloading pypdf-6.19.0-py3-none-any.whl (395 kB)
+2026-10-07T06:05:22.1610410Z Downloading pytest-8.4.2-py3-none-any.whl (365 kB)
+2026-10-07T06:05:22.1768376Z Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+2026-10-07T06:05:22.1889127Z Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+2026-10-07T06:05:22.2029937Z Downloading python_docx-1.2.0-py3-none-any.whl (252 kB)
+2026-10-07T06:05:22.2169859Z Downloading python_multipart-0.0.32-py3-none-any.whl (30 kB)
+2026-10-07T06:05:22.2290575Z Downloading python_pptx-1.0.2-py3-none-any.whl (472 kB)
+2026-10-07T06:05:22.2455241Z Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (807 kB)
+2026-10-07T06:05:22.2583447Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 807.9/807.9 kB 51.2 MB/s  0:00:00
+2026-10-07T06:05:22.2684779Z Downloading redis-6.4.0-py3-none-any.whl (279 kB)
+2026-10-07T06:05:22.2832374Z Downloading reportlab-4.5.1-py3-none-any.whl (2.0 MB)
+2026-10-07T06:05:22.3086001Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 74.6 MB/s  0:00:00
+2026-10-07T06:05:22.3197101Z Downloading ruff-0.16.10-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (10.4 MB)
+2026-10-07T06:05:22.4513528Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.4/10.4 MB 78.9 MB/s  0:00:00
+2026-10-07T06:05:22.4610637Z Downloading s3transfer-0.19.2-py3-none-any.whl (90 kB)
+2026-10-07T06:05:22.4738471Z Downloading sqlalchemy-2.1.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.7 MB)
+2026-10-07T06:05:22.5352475Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.7/4.7 MB 78.0 MB/s  0:00:00
+2026-10-07T06:05:22.5454129Z Downloading tenacity-9.1.4-py3-none-any.whl (28 kB)
+2026-10-07T06:05:22.5580255Z Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+2026-10-07T06:05:22.5697696Z Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+2026-10-07T06:05:22.5834447Z Downloading uuid_utils-0.17.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (323 kB)
+2026-10-07T06:05:22.5977265Z Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+2026-10-07T06:05:22.6109129Z Downloading websockets-16.1.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (187 kB)
+2026-10-07T06:05:22.6232603Z Downloading wrapt-2.5.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (250 kB)
+2026-10-07T06:05:22.6368647Z Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+2026-10-07T06:05:22.6484387Z Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+2026-10-07T06:05:22.6602957Z Downloading anyio-4.15.1-py3-none-any.whl (132 kB)
+2026-10-07T06:05:22.6724693Z Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+2026-10-07T06:05:22.6845991Z Downloading click-8.5.0-py3-none-any.whl (125 kB)
+2026-10-07T06:05:22.6968316Z Downloading distro-1.9.0-py3-none-any.whl (20 kB)
+2026-10-07T06:05:22.7087026Z Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+2026-10-07T06:05:22.7211032Z Downloading httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (523 kB)
+2026-10-07T06:05:22.7370863Z Downloading idna-3.20-py3-none-any.whl (69 kB)
+2026-10-07T06:05:22.7490472Z Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+2026-10-07T06:05:22.7624112Z Downloading jsonpointer-3.1.1-py3-none-any.whl (7.7 kB)
+2026-10-07T06:05:22.7747654Z Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+2026-10-07T06:05:22.7865826Z Downloading langchain_protocol-0.0.19-py3-none-any.whl (7.3 kB)
+2026-10-07T06:05:22.7981109Z Downloading librt-0.16.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (531 kB)
+2026-10-07T06:05:22.8065196Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 532.0/532.0 kB 44.8 MB/s  0:00:00
+2026-10-07T06:05:22.8177483Z Downloading lxml-6.1.3-cp312-cp312-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (5.2 MB)
+2026-10-07T06:05:22.8837524Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.2/5.2 MB 83.2 MB/s  0:00:00
+2026-10-07T06:05:22.8940912Z Downloading mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+2026-10-07T06:05:22.9067892Z Downloading orjson-3.12.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (131 kB)
+2026-10-07T06:05:22.9210847Z Downloading ormsgpack-1.12.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (212 kB)
+2026-10-07T06:05:22.9263287Z Using cached packaging-26.3-py3-none-any.whl (129 kB)
+2026-10-07T06:05:22.9364072Z Downloading pathspec-1.1.1-py3-none-any.whl (57 kB)
+2026-10-07T06:05:22.9488844Z Downloading psycopg_pool-3.3.3-py3-none-any.whl (40 kB)
+2026-10-07T06:05:22.9620276Z Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+2026-10-07T06:05:22.9852238Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 47.7 MB/s  0:00:00
+2026-10-07T06:05:22.9955032Z Downloading python_dotenv-1.2.4-py3-none-any.whl (23 kB)
+2026-10-07T06:05:23.0076885Z Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+2026-10-07T06:05:23.0198849Z Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+2026-10-07T06:05:23.2962200Z Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (257 kB)
+2026-10-07T06:05:23.3093444Z Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+2026-10-07T06:05:23.3232228Z Downloading requests_toolbelt-1.0.0-py2.py3-none-any.whl (54 kB)
+2026-10-07T06:05:23.3355397Z Downloading rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (371 kB)
+2026-10-07T06:05:23.3516383Z Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+2026-10-07T06:05:23.3628336Z Downloading sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-10-07T06:05:23.3747181Z Downloading starlette-1.7.0-py3-none-any.whl (78 kB)
+2026-10-07T06:05:23.3868432Z Downloading truststore-0.10.4-py3-none-any.whl (18 kB)
+2026-10-07T06:05:23.3986713Z Downloading typing_inspection-0.4.4-py3-none-any.whl (14 kB)
+2026-10-07T06:05:23.4112515Z Downloading uvloop-0.23.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.5 MB)
+2026-10-07T06:05:23.4702895Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 76.7 MB/s  0:00:00
+2026-10-07T06:05:23.4797515Z Downloading watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (458 kB)
+2026-10-07T06:05:23.4958439Z Downloading xlsxwriter-3.2.9-py3-none-any.whl (175 kB)
+2026-10-07T06:05:23.5094149Z Downloading xxhash-4.0.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (261 kB)
+2026-10-07T06:05:23.5240241Z Downloading zstandard-0.25.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.5 MB)
+2026-10-07T06:05:23.5979586Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 77.1 MB/s  0:00:00
+2026-10-07T06:05:23.6079199Z Downloading et_xmlfile-2.0.0-py3-none-any.whl (18 kB)
+2026-10-07T06:05:23.6202019Z Downloading mako-1.4.3-py3-none-any.whl (80 kB)
+2026-10-07T06:05:23.6323992Z Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+2026-10-07T06:05:23.9157534Z Building wheels for collected packages: crossborder-compliance-agent
+2026-10-07T06:05:23.9162134Z   Building editable for crossborder-compliance-agent (pyproject.toml): started
+2026-10-07T06:05:24.1311165Z   Building editable for crossborder-compliance-agent (pyproject.toml): finished with status 'done'
+2026-10-07T06:05:24.1313652Z   Created wheel for crossborder-compliance-agent: filename=crossborder_compliance_agent-0.1.0-0.editable-py3-none-any.whl size=1844 sha256=0422e6feb0ee8933d625e46d2dab3e94215ee0c6a801475e64e624b09ff8f002
+2026-10-07T06:05:24.1316122Z   Stored in directory: /tmp/pip-ephem-wheel-cache-3lkcdnxw/wheels/12/f8/80/c6bd1cfdab3eeb06f1db320d3098645179f367c6a34f53dcf0
+2026-10-07T06:05:24.1329624Z Successfully built crossborder-compliance-agent
+2026-10-07T06:05:24.2838902Z Installing collected packages: zstandard, xxhash, XlsxWriter, wrapt, websockets, uvloop, uuid-utils, urllib3, typing-extensions, truststore, tenacity, sniffio, six, ruff, rpds-py, redis, pyyaml, python-multipart, python-dotenv, pypdf, pygments, psycopg-binary, pluggy, pillow, pathspec, packaging, ormsgpack, orjson, opentelemetry-util-http, mypy_extensions, MarkupSafe, lxml, librt, jsonpointer, jmespath, iniconfig, idna, httptools, h11, et-xmlfile, distro, click, charset-normalizer, certifi, attrs, asgiref, annotated-types, annotated-doc, uvicorn, typing-inspection, sqlalchemy, requests, reportlab, referencing, python-pptx, python-docx, python-dateutil, pytest, pydantic-core, psycopg-pool, psycopg, opentelemetry-api, openpyxl, mypy, Mako, langchain-protocol, jsonpatch, httpcore2, httpcore, anyio, watchfiles, starlette, requests-toolbelt, pydantic, opentelemetry-semantic-conventions, jsonschema-specifications, httpx2, httpx, botocore, alembic, s3transfer, pydantic-settings, opentelemetry-sdk, opentelemetry-instrumentation, langsmith, jsonschema, fastapi, opentelemetry-instrumentation-asgi, langchain-core, boto3, opentelemetry-instrumentation-fastapi, langgraph-sdk, langgraph-checkpoint, langgraph-prebuilt, langgraph-checkpoint-postgres, langgraph, crossborder-compliance-agent
+2026-10-07T06:05:34.7133814Z 
+2026-10-07T06:05:34.7205704Z Successfully installed Mako-1.4.3 MarkupSafe-3.0.4 XlsxWriter-3.2.9 alembic-1.20.0 annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.15.1 asgiref-3.12.1 attrs-26.1.0 boto3-1.43.108 botocore-1.43.108 certifi-2026.7.22 charset-normalizer-3.5.2 click-8.5.0 crossborder-compliance-agent-0.1.0 distro-1.9.0 et-xmlfile-2.0.0 fastapi-0.142.2 h11-0.16.0 httpcore-1.0.9 httpcore2-2.13.1 httptools-0.8.0 httpx-0.28.1 httpx2-2.13.1 idna-3.20 iniconfig-2.3.1 jmespath-1.1.0 jsonpatch-1.33 jsonpointer-3.1.1 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 langchain-core-1.6.7 langchain-protocol-0.0.19 langgraph-1.2.14 langgraph-checkpoint-4.2.0 langgraph-checkpoint-postgres-3.1.2 langgraph-prebuilt-1.1.0 langgraph-sdk-0.4.6 langsmith-0.14.4 librt-0.16.0 lxml-6.1.3 mypy-1.20.2 mypy_extensions-1.1.0 openpyxl-3.1.5 opentelemetry-api-1.45.1 opentelemetry-instrumentation-0.66b1 opentelemetry-instrumentation-asgi-0.66b1 opentelemetry-instrumentation-fastapi-0.66b1 opentelemetry-sdk-1.45.1 opentelemetry-semantic-conventions-0.66b1 opentelemetry-util-http-0.66b1 orjson-3.12.0 ormsgpack-1.12.2 packaging-26.3 pathspec-1.1.1 pillow-11.3.0 pluggy-1.6.0 psycopg-3.3.6 psycopg-binary-3.3.6 psycopg-pool-3.3.3 pydantic-2.13.5 pydantic-core-2.46.5 pydantic-settings-2.15.0 pygments-2.21.0 pypdf-6.19.0 pytest-8.4.2 python-dateutil-2.9.0.post0 python-docx-1.2.0 python-dotenv-1.2.4 python-multipart-0.0.32 python-pptx-1.0.2 pyyaml-6.0.3 redis-6.4.0 referencing-0.37.0 reportlab-4.5.1 requests-2.34.2 requests-toolbelt-1.0.0 rpds-py-2026.9.1 ruff-0.16.10 s3transfer-0.19.2 six-1.17.0 sniffio-1.3.1 sqlalchemy-2.1.3 starlette-1.7.0 tenacity-9.1.4 truststore-0.10.4 typing-extensions-4.16.0 typing-inspection-0.4.4 urllib3-2.8.0 uuid-utils-0.17.1 uvicorn-0.54.0 uvloop-0.23.0 watchfiles-1.3.0 websockets-16.1.1 wrapt-2.5.0 xxhash-4.0.1 zstandard-0.25.0
+2026-10-07T06:05:35.0162132Z ##[group]Run python frontend/scripts/m1/boundary_check.py
+2026-10-07T06:05:35.0162637Z python frontend/scripts/m1/boundary_check.py
+2026-10-07T06:05:35.0203738Z shell: /usr/bin/bash -e {0}
+2026-10-07T06:05:35.0204168Z env:
+2026-10-07T06:05:35.0204494Z   APP_ENV: LOCAL_SERVER
+2026-10-07T06:05:35.0205298Z   DATABASE_URL: ***127.0.0.1:5432/m1_uat
+2026-10-07T06:05:35.0205933Z   LANGGRAPH_DATABASE_URI: ***127.0.0.1:5432/m1_uat?sslmode=disable
+2026-10-07T06:05:35.0206442Z   REDIS_URL: redis://127.0.0.1:6379/0
+2026-10-07T06:05:35.0206790Z   M0_LOCAL_UAT: 1
+2026-10-07T06:05:35.0207093Z   M2B_LOCAL_UAT: 1
+2026-10-07T06:05:35.0207468Z   M2B_FILE_POLICY: /tmp/m2b-file-policy.json
+2026-10-07T06:05:35.0207891Z   M2B_BINARY_ROOT: /tmp/m2b-objects
+2026-10-07T06:05:35.0208244Z   VITE_M0_DEMO: true
+2026-10-07T06:05:35.0208591Z   VITE_SESSION_PATH: /m0-demo/session
+2026-10-07T06:05:35.0208952Z   M2A_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:05:35.0210008Z   M1_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:05:35.0210465Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:35.0210971Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-10-07T06:05:35.0211491Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:35.0212011Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:35.0212476Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:35.0212950Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-10-07T06:05:35.0213392Z ##[endgroup]
+2026-10-07T06:05:35.0703218Z {
+2026-10-07T06:05:35.0704034Z   "status": "PASS",
+2026-10-07T06:05:35.0706027Z   "base": "f1353372a1d8894535dc71765e3cd62597619fd5",
+2026-10-07T06:05:35.0706834Z   "source": "5b1aaf5df05de458a65ead497536b323ecb16ce9",
+2026-10-07T06:05:35.0707408Z   "checks": {
+2026-10-07T06:05:35.0707900Z     "phase1j_base_ancestry": true,
+2026-10-07T06:05:35.0708429Z     "frontend_only_boundary": true,
+2026-10-07T06:05:35.0709438Z     "no_backend_domain_migration_architecture_change": true,
+2026-10-07T06:05:35.0710137Z     "package_and_lock_unchanged": true,
+2026-10-07T06:05:35.0710658Z     "one_package_lock": true,
+2026-10-07T06:05:35.0711223Z     "one_react_router": true,
+2026-10-07T06:05:35.0711739Z     "one_i18next_theme": true,
+2026-10-07T06:05:35.0712286Z     "one_transport": true
+2026-10-07T06:05:35.0712783Z   }
+2026-10-07T06:05:35.0713209Z }
+2026-10-07T06:05:35.0792833Z ##[group]Run python scripts/m1_phase1lb_ownership.py
+2026-10-07T06:05:35.0793398Z python scripts/m1_phase1lb_ownership.py
+2026-10-07T06:05:35.0835165Z shell: /usr/bin/bash -e {0}
+2026-10-07T06:05:35.0835544Z env:
+2026-10-07T06:05:35.0835890Z   APP_ENV: LOCAL_SERVER
+2026-10-07T06:05:35.0836675Z   DATABASE_URL: ***127.0.0.1:5432/m1_uat
+2026-10-07T06:05:35.0837324Z   LANGGRAPH_DATABASE_URI: ***127.0.0.1:5432/m1_uat?sslmode=disable
+2026-10-07T06:05:35.0837806Z   REDIS_URL: redis://127.0.0.1:6379/0
+2026-10-07T06:05:35.0838195Z   M0_LOCAL_UAT: 1
+2026-10-07T06:05:35.0838577Z   M2B_LOCAL_UAT: 1
+2026-10-07T06:05:35.0838920Z   M2B_FILE_POLICY: /tmp/m2b-file-policy.json
+2026-10-07T06:05:35.0839660Z   M2B_BINARY_ROOT: /tmp/m2b-objects
+2026-10-07T06:05:35.0840030Z   VITE_M0_DEMO: true
+2026-10-07T06:05:35.0840377Z   VITE_SESSION_PATH: /m0-demo/session
+2026-10-07T06:05:35.0840814Z   M2A_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:05:35.0841274Z   M1_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:05:35.0841729Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:35.0842233Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-10-07T06:05:35.0842823Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:35.0843291Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:35.0843739Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:35.0844239Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-10-07T06:05:35.0844814Z ##[endgroup]
+2026-10-07T06:05:36.7547062Z {
+2026-10-07T06:05:36.7548164Z   "pass": true,
+2026-10-07T06:05:36.7549880Z   "checks": {
+2026-10-07T06:05:36.7550489Z     "approved_m2a_owner": true,
+2026-10-07T06:05:36.7551171Z     "exact_manifest": true,
+2026-10-07T06:05:36.7551824Z     "both_tested_sources_and_sync_ancestry": true,
+2026-10-07T06:05:36.7552552Z     "lb_owner_and_historical_overlay": true,
+2026-10-07T06:05:36.7553305Z     "original_m1_owner": true,
+2026-10-07T06:05:36.7553908Z     "integration_exact_path_set": true,
+2026-10-07T06:05:36.7554605Z     "frozen_domain_migrations_rules": true,
+2026-10-07T06:05:36.7555254Z     "original_overlay_unchanged": true
+2026-10-07T06:05:36.7555854Z   }
+2026-10-07T06:05:36.7556362Z }
+2026-10-07T06:05:36.7881769Z ##[group]Run npm ci --prefix frontend --no-audit --no-fund
+2026-10-07T06:05:36.7882643Z npm ci --prefix frontend --no-audit --no-fund
+2026-10-07T06:05:36.7883388Z python frontend/scripts/m2a/export_contracts.py
+2026-10-07T06:05:36.7884517Z frontend/node_modules/.bin/openapi-typescript frontend/src/api/m2a-schemas.json -o frontend/src/api/m2a-generated.ts
+2026-10-07T06:05:36.7885828Z git diff --exit-code -- frontend/src/api/m2a-schemas.json frontend/src/api/m2a-generated.ts
+2026-10-07T06:05:36.7886680Z npm run typecheck --prefix frontend
+2026-10-07T06:05:36.7887247Z npm run lint --prefix frontend
+2026-10-07T06:05:36.7887941Z npm test --prefix frontend -- --maxWorkers=1
+2026-10-07T06:05:36.7888540Z npm run check:i18n --prefix frontend
+2026-10-07T06:05:36.7889447Z npm run build --prefix frontend
+2026-10-07T06:05:36.7949360Z shell: /usr/bin/bash -e {0}
+2026-10-07T06:05:36.7949890Z env:
+2026-10-07T06:05:36.7950525Z   APP_ENV: LOCAL_SERVER
+2026-10-07T06:05:36.7951608Z   DATABASE_URL: ***127.0.0.1:5432/m1_uat
+2026-10-07T06:05:36.7952635Z   LANGGRAPH_DATABASE_URI: ***127.0.0.1:5432/m1_uat?sslmode=disable
+2026-10-07T06:05:36.7953314Z   REDIS_URL: redis://127.0.0.1:6379/0
+2026-10-07T06:05:36.7953941Z   M0_LOCAL_UAT: 1
+2026-10-07T06:05:36.7954361Z   M2B_LOCAL_UAT: 1
+2026-10-07T06:05:36.7954816Z   M2B_FILE_POLICY: /tmp/m2b-file-policy.json
+2026-10-07T06:05:36.7955448Z   M2B_BINARY_ROOT: /tmp/m2b-objects
+2026-10-07T06:05:36.7955947Z   VITE_M0_DEMO: true
+2026-10-07T06:05:36.7956390Z   VITE_SESSION_PATH: /m0-demo/session
+2026-10-07T06:05:36.7956882Z   M2A_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:05:36.7957306Z   M1_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:05:36.7957932Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:36.7958457Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-10-07T06:05:36.7959216Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:36.7959867Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:36.7960399Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:05:36.7960889Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-10-07T06:05:36.7961326Z ##[endgroup]
+2026-10-07T06:05:43.0396729Z npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+2026-10-07T06:05:46.0259967Z 
+2026-10-07T06:05:46.0261671Z npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+2026-10-07T06:05:46.0262795Z added 373 packages in 9s
+2026-10-07T06:05:46.0280353Z npm warn install-scripts   esbuild@0.28.2 (postinstall: node install.js)
+2026-10-07T06:05:46.0281512Z npm warn install-scripts
+2026-10-07T06:05:46.0300216Z npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+2026-10-07T06:05:49.8084290Z ✨ openapi-typescript 7.13.0
+2026-10-07T06:05:49.8947169Z 🚀 frontend/src/api/m2a-schemas.json → frontend/src/api/m2a-generated.ts [88.7ms]
+2026-10-07T06:05:50.0371199Z 
+2026-10-07T06:05:50.0372386Z > @crossborder/m0-preview@0.1.0 typecheck
+2026-10-07T06:05:50.0374013Z > tsc --noEmit
+2026-10-07T06:05:50.0374477Z 
+2026-10-07T06:05:55.7314039Z 
+2026-10-07T06:05:55.7315270Z > @crossborder/m0-preview@0.1.0 lint
+2026-10-07T06:05:55.7316348Z > eslint . --max-warnings 0
+2026-10-07T06:05:55.7317000Z 
+2026-10-07T06:06:01.7822553Z 
+2026-10-07T06:06:01.7823635Z > @crossborder/m0-preview@0.1.0 test
+2026-10-07T06:06:01.7824471Z > vitest run --maxWorkers=1
+2026-10-07T06:06:01.7825066Z 
+2026-10-07T06:06:02.0919781Z 
+2026-10-07T06:06:02.0941748Z  RUN  v4.1.11 /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend
+2026-10-07T06:06:02.0952249Z 
+2026-10-07T06:06:05.7220254Z  ✓ src/features/admin/admin.test.tsx (25 tests) 2463ms
+2026-10-07T06:06:05.7241010Z      ✓ creates, edits, reviews, approves and publishes using fresh revisions  323ms
+2026-10-07T06:06:23.0685815Z  ✓ src/features/intake/m1.test.tsx (13 tests) 14997ms
+2026-10-07T06:06:23.0687308Z      ✓ four-step structured intake in zh-CN confirms facts without backend writes  2268ms
+2026-10-07T06:06:23.0691005Z      ✓ four-step structured intake in zh-HK confirms facts without backend writes  1520ms
+2026-10-07T06:06:23.0692729Z      ✓ four-step structured intake in en-US confirms facts without backend writes  1369ms
+2026-10-07T06:06:23.0694170Z      ✓ renders canonical APPLICABLE without inferring it  1637ms
+2026-10-07T06:06:23.0695516Z      ✓ renders canonical NOT_APPLICABLE without inferring it  1371ms
+2026-10-07T06:06:23.0696949Z      ✓ renders canonical CONDITIONALLY_APPLICABLE without inferring it  1445ms
+2026-10-07T06:06:23.0698404Z      ✓ renders canonical INSUFFICIENT_EVIDENCE without inferring it  1427ms
+2026-10-07T06:06:23.0699852Z      ✓ renders canonical CONFLICTED without inferring it  1318ms
+2026-10-07T06:06:23.0700927Z      ✓ renders canonical REVIEW_REQUIRED without inferring it  1321ms
+2026-10-07T06:06:23.0701963Z      ✓ incomplete intake cannot confirm facts  1190ms
+2026-10-07T06:06:26.2897175Z stderr | src/locales/multilingual.test.tsx > zh-CN > covers M0 Knowledge, official Evidence, Sufficiency, Runtime and Admin
+2026-10-07T06:06:26.2899295Z `NaN` is an invalid value for the `height` css style property.
+2026-10-07T06:06:26.2932555Z 
+2026-10-07T06:06:42.8407786Z  ✓ src/locales/multilingual.test.tsx (10 tests) 17652ms
+2026-10-07T06:06:42.8409663Z      ✓ covers M0 Knowledge, official Evidence, Sufficiency, Runtime and Admin  6001ms
+2026-10-07T06:06:42.8428399Z      ✓ keeps lifecycle/action request codes and optimistic revision language-neutral  634ms
+2026-10-07T06:06:42.8429743Z      ✓ covers M0 Knowledge, official Evidence, Sufficiency, Runtime and Admin  4941ms
+2026-10-07T06:06:42.8430857Z      ✓ keeps lifecycle/action request codes and optimistic revision language-neutral  576ms
+2026-10-07T06:06:42.8431933Z      ✓ covers M0 Knowledge, official Evidence, Sufficiency, Runtime and Admin  4912ms
+2026-10-07T06:06:42.8432996Z      ✓ keeps lifecycle/action request codes and optimistic revision language-neutral  578ms
+2026-10-07T06:07:03.8152729Z  ✓ src/features/intake/workflow.test.tsx (10 tests) 18936ms
+2026-10-07T06:07:03.8154846Z      ✓ starts only canonical workflow and retains identities in zh-CN  2241ms
+2026-10-07T06:07:03.8156206Z      ✓ starts only canonical workflow and retains identities in zh-HK  2383ms
+2026-10-07T06:07:03.8182084Z      ✓ starts only canonical workflow and retains identities in en-US  2352ms
+2026-10-07T06:07:03.8186197Z      ✓ presents server RUNNING without synthesizing approval  1922ms
+2026-10-07T06:07:03.8187316Z      ✓ presents server COMPLETED without synthesizing approval  2002ms
+2026-10-07T06:07:03.8188788Z      ✓ presents server REVIEW_REQUIRED without synthesizing approval  2145ms
+2026-10-07T06:07:03.8190123Z      ✓ presents server WARNING without synthesizing approval  2076ms
+2026-10-07T06:07:03.8191143Z      ✓ presents server FAILED without synthesizing approval  1938ms
+2026-10-07T06:07:03.8192196Z      ✓ preserves transport error without fabricating a run  1872ms
+2026-10-07T06:07:08.0925925Z  ✓ src/features/intake/m2a.test.tsx (6 tests) 2188ms
+2026-10-07T06:07:08.0941542Z      ✓ new session creates and restores a server draft in zh-CN  1216ms
+2026-10-07T06:07:08.0948258Z      ✓ new session creates and restores a server draft in zh-HK  469ms
+2026-10-07T06:07:08.0952566Z      ✓ new session creates and restores a server draft in en-US  441ms
+2026-10-07T06:07:11.5951451Z  ✓ src/components/critical.test.tsx (12 tests) 1460ms
+2026-10-07T06:07:11.5961064Z      ✓ renders backend reason codes, missing topics and typed fallback without legal decisions  436ms
+2026-10-07T06:07:12.4895448Z  ✓ src/api/client.test.ts (9 tests) 169ms
+2026-10-07T06:07:14.9250789Z  ✓ src/features/intake/m2b.test.tsx (5 tests) 910ms
+2026-10-07T06:07:14.9323219Z      ✓ typed document status and source refs in zh-CN  537ms
+2026-10-07T06:07:17.3079267Z  ✓ src/test/i18n-policy.test.ts (6 tests) 1680ms
+2026-10-07T06:07:22.9244124Z stderr | src/test/session-presentation.test.tsx > preserves the selected analysis context during background trusted-session refresh
+2026-10-07T06:07:22.9270585Z `NaN` is an invalid value for the `height` css style property.
+2026-10-07T06:07:22.9271324Z 
+2026-10-07T06:07:25.3101551Z  ✓ src/test/session-presentation.test.tsx (1 test) 5823ms
+2026-10-07T06:07:25.3121045Z    ✓ preserves the selected analysis context during background trusted-session refresh  5821ms
+2026-10-07T06:07:25.3156711Z 
+2026-10-07T06:07:25.3180403Z  Test Files  10 passed (10)
+2026-10-07T06:07:25.3184066Z       Tests  97 passed (97)
+2026-10-07T06:07:25.3194433Z    Start at  06:06:02
+2026-10-07T06:07:25.3195501Z    Duration  83.21s (transform 559ms, setup 1.19s, import 10.10s, tests 66.28s, environment 4.26s)
+2026-10-07T06:07:25.3196143Z 
+2026-10-07T06:07:25.4509822Z 
+2026-10-07T06:07:25.4513315Z > @crossborder/m0-preview@0.1.0 check:i18n
+2026-10-07T06:07:25.4514116Z > node scripts/check-i18n.mjs
+2026-10-07T06:07:25.4514589Z 
+2026-10-07T06:07:25.8940633Z {"status":"PASS","locales":["zh-CN","zh-HK","en-US"],"keys_per_locale":386,"checked_files":37,"hard_coded_ui_strings":0,"missing_keys":0}
+2026-10-07T06:07:25.9985789Z 
+2026-10-07T06:07:25.9987057Z > @crossborder/m0-preview@0.1.0 build
+2026-10-07T06:07:25.9988176Z > npm run check:i18n && npm run typecheck && vite build
+2026-10-07T06:07:25.9988721Z 
+2026-10-07T06:07:26.0957616Z 
+2026-10-07T06:07:26.0958604Z > @crossborder/m0-preview@0.1.0 check:i18n
+2026-10-07T06:07:26.0959741Z > node scripts/check-i18n.mjs
+2026-10-07T06:07:26.0960185Z 
+2026-10-07T06:07:26.5334859Z {"status":"PASS","locales":["zh-CN","zh-HK","en-US"],"keys_per_locale":386,"checked_files":37,"hard_coded_ui_strings":0,"missing_keys":0}
+2026-10-07T06:07:26.6379904Z 
+2026-10-07T06:07:26.6380907Z > @crossborder/m0-preview@0.1.0 typecheck
+2026-10-07T06:07:26.6381701Z > tsc --noEmit
+2026-10-07T06:07:26.6382005Z 
+2026-10-07T06:07:32.3769258Z vite v7.3.6 building client environment for production...
+2026-10-07T06:07:32.4676475Z transforming...
+2026-10-07T06:07:39.6806623Z ✓ 3475 modules transformed.
+2026-10-07T06:07:40.2587465Z rendering chunks...
+2026-10-07T06:07:40.5361334Z computing gzip size...
+2026-10-07T06:07:40.5981312Z 
+2026-10-07T06:07:40.5982022Z (!) Some chunks are larger than 500 kB after minification. Consider:
+2026-10-07T06:07:40.5982816Z - Using dynamic import() to code-split the application
+2026-10-07T06:07:40.5984117Z - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+2026-10-07T06:07:40.5985730Z dist/index.html                         0.62 kB │ gzip:   0.36 kB
+2026-10-07T06:07:40.5987047Z - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+2026-10-07T06:07:40.5988367Z dist/assets/index-C6_GIUSz.css         12.12 kB │ gzip:   3.41 kB
+2026-10-07T06:07:40.5990075Z dist/assets/contracts-CilQLgCS.js     149.70 kB │ gzip:  45.05 kB
+2026-10-07T06:07:40.5991543Z dist/assets/index-DPWkQYgw.js         321.56 kB │ gzip:  91.93 kB
+2026-10-07T06:07:40.5992986Z dist/assets/enterprise-9C6YYrtS.js  1,087.38 kB │ gzip: 347.79 kB
+2026-10-07T06:07:40.5993927Z ✓ built in 8.18s
+2026-10-07T06:07:40.6844316Z ##[group]Run alembic upgrade head
+2026-10-07T06:07:40.6844654Z alembic upgrade head
+2026-10-07T06:07:40.6845883Z python -c "from alembic.config import Config; from alembic.script import ScriptDirectory; from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after; heads = ScriptDirectory.from_config(Config('alembic.ini')).get_heads(); assert len(heads) == 1 and revision_at_or_after(heads[0], '0010_phase1j')"
+2026-10-07T06:07:40.6847145Z python - <<'PY'
+2026-10-07T06:07:40.6847392Z import json
+2026-10-07T06:07:40.6848655Z json.dump({'version':'ci-explicit-no-scan-v1','max_size_bytes':1048576,'scan_required':False,'allowed_types':[{'extension':'.txt','media_type':'text/plain','signature':'text'},{'extension':'.docx','media_type':'application/vnd.openxmlformats-officedocument.wordprocessingml.document','signature':'docx'}]},open('/tmp/m2b-file-policy.json','w'))
+2026-10-07T06:07:40.6850222Z PY
+2026-10-07T06:07:40.6850599Z python frontend/scripts/m2a/uat.py --manifest /tmp/m1-personas.json --seed
+2026-10-07T06:07:40.6892063Z shell: /usr/bin/bash -e {0}
+2026-10-07T06:07:40.6892363Z env:
+2026-10-07T06:07:40.6892576Z   APP_ENV: LOCAL_SERVER
+2026-10-07T06:07:40.6893140Z   DATABASE_URL: ***127.0.0.1:5432/m1_uat
+2026-10-07T06:07:40.6893645Z   LANGGRAPH_DATABASE_URI: ***127.0.0.1:5432/m1_uat?sslmode=disable
+2026-10-07T06:07:40.6894009Z   REDIS_URL: redis://127.0.0.1:6379/0
+2026-10-07T06:07:40.6894278Z   M0_LOCAL_UAT: 1
+2026-10-07T06:07:40.6894502Z   M2B_LOCAL_UAT: 1
+2026-10-07T06:07:40.6894752Z   M2B_FILE_POLICY: /tmp/m2b-file-policy.json
+2026-10-07T06:07:40.6895057Z   M2B_BINARY_ROOT: /tmp/m2b-objects
+2026-10-07T06:07:40.6895455Z   VITE_M0_DEMO: true
+2026-10-07T06:07:40.6895703Z   VITE_SESSION_PATH: /m0-demo/session
+2026-10-07T06:07:40.6895988Z   M2A_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:07:40.6896274Z   M1_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:07:40.6896619Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:07:40.6897037Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-10-07T06:07:40.6897450Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:07:40.6897827Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:07:40.6898194Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:07:40.6898581Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-10-07T06:07:40.6898905Z ##[endgroup]
+2026-10-07T06:07:41.7770522Z INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+2026-10-07T06:07:41.7780895Z INFO  [alembic.runtime.migration] Will assume transactional DDL.
+2026-10-07T06:07:41.8658054Z INFO  [alembic.runtime.migration] Running upgrade  -> 0001_phase1a, Phase 1A runtime-owned domain tables only.
+2026-10-07T06:07:41.9137722Z INFO  [alembic.runtime.migration] Running upgrade 0001_phase1a -> 0002_phase1b, Phase 1B domain foundation and PostgreSQL persistence.
+2026-10-07T06:07:42.1515836Z INFO  [alembic.runtime.migration] Running upgrade 0002_phase1b -> 0003_phase1c, Phase 1C metadata / registry / admin foundation.
+2026-10-07T06:07:42.4078248Z INFO  [alembic.runtime.migration] Running upgrade 0003_phase1c -> 0004_phase1d, Phase 1D document intelligence foundation.
+2026-10-07T06:07:42.4927791Z INFO  [alembic.runtime.migration] Running upgrade 0004_phase1d -> 0005_phase1e, Phase 1E context resolution and formal data inventory/data flow foundation.
+2026-10-07T06:07:42.6412070Z INFO  [alembic.runtime.migration] Running upgrade 0005_phase1e -> 0006_phase1f, Phase 1F canonical knowledge extensions and derived indexes (frozen DDL).
+2026-10-07T06:07:42.7177389Z INFO  [alembic.runtime.migration] Running upgrade 0006_phase1f -> 0007_phase1g, Phase 1G derived retrieval/evidence governance (frozen DDL).
+2026-10-07T06:07:42.8217494Z INFO  [alembic.runtime.migration] Running upgrade 0007_phase1g -> 0008_phase1h, Safe rule contract and formal provenance, extending canonical tables only.
+2026-10-07T06:07:42.8609446Z INFO  [alembic.runtime.migration] Running upgrade 0008_phase1h -> 0009_phase1i, Canonical applicability result and governed configuration/pin protection only.
+2026-10-07T06:07:42.8743184Z INFO  [alembic.runtime.migration] Running upgrade 0009_phase1i -> 0010_phase1j, Frozen explicit J envelope DDL; compatible with historical0002 live metadata.
+2026-10-07T06:07:42.9285847Z INFO  [alembic.runtime.migration] Running upgrade 0010_phase1j -> 0011_m2a_intake, Canonical structured BusinessFact provenance; document path is unchanged.
+2026-10-07T06:07:42.9340361Z INFO  [alembic.runtime.migration] Running upgrade 0011_m2a_intake -> 0012_m2b_document_inputs, Exact intake/document-version relationship and upload audit, no parallel SoT.
+2026-10-07T06:07:42.9467966Z INFO  [alembic.runtime.migration] Running upgrade 0012_m2b_document_inputs -> 0013_m2b_context_temporal_contract, Stable canonical inventory identity, immutable exact-version state/provenance.
+2026-10-07T06:07:53.6539420Z Seeded real PG M1 regressions and authorized M2A session with zero preset contexts
+2026-10-07T06:07:54.4173443Z ##[group]Run python frontend/scripts/m2a/uat.py --manifest /tmp/m1-personas.json > /tmp/m1-backend.log 2>&1 &
+2026-10-07T06:07:54.4174574Z python frontend/scripts/m2a/uat.py --manifest /tmp/m1-personas.json > /tmp/m1-backend.log 2>&1 &
+2026-10-07T06:07:54.4175300Z for attempt in $(seq 1 30); do
+2026-10-07T06:07:54.4175973Z   if curl --fail --silent http://127.0.0.1:8010/health/live > /dev/null; then exit 0; fi
+2026-10-07T06:07:54.4176625Z   sleep 1
+2026-10-07T06:07:54.4176967Z done
+2026-10-07T06:07:54.4177307Z cat /tmp/m1-backend.log
+2026-10-07T06:07:54.4177891Z exit 1
+2026-10-07T06:07:54.4223395Z shell: /usr/bin/bash -e {0}
+2026-10-07T06:07:54.4223695Z env:
+2026-10-07T06:07:54.4223911Z   APP_ENV: LOCAL_SERVER
+2026-10-07T06:07:54.4224528Z   DATABASE_URL: ***127.0.0.1:5432/m1_uat
+2026-10-07T06:07:54.4225083Z   LANGGRAPH_DATABASE_URI: ***127.0.0.1:5432/m1_uat?sslmode=disable
+2026-10-07T06:07:54.4226105Z   REDIS_URL: redis://127.0.0.1:6379/0
+2026-10-07T06:07:54.4226385Z   M0_LOCAL_UAT: 1
+2026-10-07T06:07:54.4226602Z   M2B_LOCAL_UAT: 1
+2026-10-07T06:07:54.4226859Z   M2B_FILE_POLICY: /tmp/m2b-file-policy.json
+2026-10-07T06:07:54.4227182Z   M2B_BINARY_ROOT: /tmp/m2b-objects
+2026-10-07T06:07:54.4227438Z   VITE_M0_DEMO: true
+2026-10-07T06:07:54.4227665Z   VITE_SESSION_PATH: /m0-demo/session
+2026-10-07T06:07:54.4227962Z   M2A_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:07:54.4228263Z   M1_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:07:54.4228604Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:07:54.4229234Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-10-07T06:07:54.4229675Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:07:54.4230067Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:07:54.4230453Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:07:54.4230846Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-10-07T06:07:54.4231192Z ##[endgroup]
+2026-10-07T06:07:57.4883458Z ##[group]Run cd frontend
+2026-10-07T06:07:57.4883905Z cd frontend
+2026-10-07T06:07:57.4884314Z npx playwright install --with-deps chromium
+2026-10-07T06:07:57.4884859Z npm run dev > /tmp/m1-frontend.log 2>&1 &
+2026-10-07T06:07:57.4885317Z for attempt in $(seq 1 30); do
+2026-10-07T06:07:57.4885932Z   if curl --fail --silent http://127.0.0.1:5173 > /dev/null; then exit 0; fi
+2026-10-07T06:07:57.4886533Z   sleep 1
+2026-10-07T06:07:57.4886877Z done
+2026-10-07T06:07:57.4887203Z cat /tmp/m1-frontend.log
+2026-10-07T06:07:57.4888210Z exit 1
+2026-10-07T06:07:57.4944026Z shell: /usr/bin/bash -e {0}
+2026-10-07T06:07:57.4944419Z env:
+2026-10-07T06:07:57.4944738Z   APP_ENV: LOCAL_SERVER
+2026-10-07T06:07:57.4945545Z   DATABASE_URL: ***127.0.0.1:5432/m1_uat
+2026-10-07T06:07:57.4946341Z   LANGGRAPH_DATABASE_URI: ***127.0.0.1:5432/m1_uat?sslmode=disable
+2026-10-07T06:07:57.4946986Z   REDIS_URL: redis://127.0.0.1:6379/0
+2026-10-07T06:07:57.4947415Z   M0_LOCAL_UAT: 1
+2026-10-07T06:07:57.4947788Z   M2B_LOCAL_UAT: 1
+2026-10-07T06:07:57.4948254Z   M2B_FILE_POLICY: /tmp/m2b-file-policy.json
+2026-10-07T06:07:57.4948769Z   M2B_BINARY_ROOT: /tmp/m2b-objects
+2026-10-07T06:07:57.4949567Z   VITE_M0_DEMO: true
+2026-10-07T06:07:57.4949992Z   VITE_SESSION_PATH: /m0-demo/session
+2026-10-07T06:07:57.4950474Z   M2A_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:07:57.4950781Z   M1_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:07:57.4951158Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:07:57.4951592Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-10-07T06:07:57.4952009Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:07:57.4952395Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:07:57.4952764Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:07:57.4953147Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-10-07T06:07:57.4953474Z ##[endgroup]
+2026-10-07T06:07:58.2621462Z Installing dependencies...
+2026-10-07T06:07:58.2704302Z Switching to root user to install dependencies...
+2026-10-07T06:07:58.4087346Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-07T06:07:58.4690932Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-10-07T06:07:58.4742597Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-10-07T06:07:58.4757021Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-10-07T06:07:58.4759861Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-10-07T06:07:58.4881258Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2026-10-07T06:07:58.6451657Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1375 kB]
+2026-10-07T06:07:58.6840394Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [306 kB]
+2026-10-07T06:07:58.6888053Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [181 kB]
+2026-10-07T06:07:58.6910707Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1701 kB]
+2026-10-07T06:07:58.7050442Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [341 kB]
+2026-10-07T06:07:58.7070343Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Components [388 kB]
+2026-10-07T06:07:58.7229556Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1730 kB]
+2026-10-07T06:07:58.7346628Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [396 kB]
+2026-10-07T06:07:58.7370414Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [13.3 kB]
+2026-10-07T06:07:58.7390284Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
+2026-10-07T06:07:58.7890941Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-backports/main amd64 Components [5752 B]
+2026-10-07T06:07:58.7913656Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe amd64 Components [12.6 kB]
+2026-10-07T06:07:58.7931043Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1073 kB]
+2026-10-07T06:07:58.8065025Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [223 kB]
+2026-10-07T06:07:58.8101956Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Components [46.4 kB]
+2026-10-07T06:07:58.8130165Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1218 kB]
+2026-10-07T06:07:58.8261962Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [245 kB]
+2026-10-07T06:07:58.8297265Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Components [76.3 kB]
+2026-10-07T06:07:58.8314650Z Get:25 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1566 kB]
+2026-10-07T06:07:58.8526594Z Get:26 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [361 kB]
+2026-10-07T06:07:58.8576498Z Get:28 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [463 kB]
+2026-10-07T06:07:58.8584345Z Get:27 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [11.6 kB]
+2026-10-07T06:07:58.8730785Z Get:29 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [519 kB]
+2026-10-07T06:07:58.8807233Z Get:30 https://packages.microsoft.com/ubuntu/24.04/prod noble/main armhf Packages [12.6 kB]
+2026-10-07T06:08:03.8390297Z Fetched 12.6 MB in 2s (7285 kB/s)
+2026-10-07T06:08:04.7705228Z Reading package lists...
+2026-10-07T06:08:04.8005073Z Reading package lists...
+2026-10-07T06:08:05.0075682Z Building dependency tree...
+2026-10-07T06:08:05.0082968Z Reading state information...
+2026-10-07T06:08:05.1906174Z libasound2t64 is already the newest version (1.2.11-1ubuntu0.3).
+2026-10-07T06:08:05.1907385Z libasound2t64 set to manually installed.
+2026-10-07T06:08:05.1908305Z libatk-bridge2.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-07T06:08:05.1909533Z libatk-bridge2.0-0t64 set to manually installed.
+2026-10-07T06:08:05.1910477Z libatk1.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-07T06:08:05.1911309Z libatk1.0-0t64 set to manually installed.
+2026-10-07T06:08:05.1912133Z libatspi2.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-07T06:08:05.1913510Z libatspi2.0-0t64 set to manually installed.
+2026-10-07T06:08:05.1916182Z libcairo2 is already the newest version (1.18.0-3build1).
+2026-10-07T06:08:05.1917152Z libcairo2 set to manually installed.
+2026-10-07T06:08:05.1918109Z libcups2t64 is already the newest version (2.4.7-1.2ubuntu7.14).
+2026-10-07T06:08:05.1919207Z libcups2t64 set to manually installed.
+2026-10-07T06:08:05.1920229Z libdbus-1-3 is already the newest version (1.14.10-4ubuntu4.1).
+2026-10-07T06:08:05.1921141Z libdbus-1-3 set to manually installed.
+2026-10-07T06:08:05.1922114Z libdrm2 is already the newest version (2.4.125-1ubuntu0.1~24.04.2).
+2026-10-07T06:08:05.1923024Z libdrm2 set to manually installed.
+2026-10-07T06:08:05.1923907Z libglib2.0-0t64 is already the newest version (2.80.0-6ubuntu3.9).
+2026-10-07T06:08:05.1924536Z libglib2.0-0t64 set to manually installed.
+2026-10-07T06:08:05.1925135Z libnspr4 is already the newest version (2:4.35-1.1build1).
+2026-10-07T06:08:05.1925668Z libnspr4 set to manually installed.
+2026-10-07T06:08:05.1926171Z libnss3 is already the newest version (2:3.98-1ubuntu0.2).
+2026-10-07T06:08:05.1926703Z libnss3 set to manually installed.
+2026-10-07T06:08:05.1927181Z libpango-1.0-0 is already the newest version (1.52.1+ds-1build1).
+2026-10-07T06:08:05.1927664Z libpango-1.0-0 set to manually installed.
+2026-10-07T06:08:05.1928112Z libx11-6 is already the newest version (2:1.8.7-1build1).
+2026-10-07T06:08:05.1929149Z libx11-6 set to manually installed.
+2026-10-07T06:08:05.1929812Z libxcb1 is already the newest version (1.15-1ubuntu2).
+2026-10-07T06:08:05.1930235Z libxcb1 set to manually installed.
+2026-10-07T06:08:05.1930705Z libxcomposite1 is already the newest version (1:0.4.5-1build3).
+2026-10-07T06:08:05.1931159Z libxcomposite1 set to manually installed.
+2026-10-07T06:08:05.1931605Z libxdamage1 is already the newest version (1:1.1.6-1build1).
+2026-10-07T06:08:05.1932037Z libxdamage1 set to manually installed.
+2026-10-07T06:08:05.1932637Z libxext6 is already the newest version (2:1.3.4-1build2).
+2026-10-07T06:08:05.1933095Z libxext6 set to manually installed.
+2026-10-07T06:08:05.1933527Z libxfixes3 is already the newest version (1:6.0.0-2build1).
+2026-10-07T06:08:05.1933952Z libxfixes3 set to manually installed.
+2026-10-07T06:08:05.1934395Z libxkbcommon0 is already the newest version (1.6.0-1build1).
+2026-10-07T06:08:05.1934957Z libxkbcommon0 set to manually installed.
+2026-10-07T06:08:05.1935519Z libxrandr2 is already the newest version (2:1.5.2-2build1).
+2026-10-07T06:08:05.1936076Z libxrandr2 set to manually installed.
+2026-10-07T06:08:05.1936675Z xvfb is already the newest version (2:21.1.12-1ubuntu1.8).
+2026-10-07T06:08:05.1937441Z fonts-noto-color-emoji is already the newest version (2.047-0ubuntu0.24.04.1).
+2026-10-07T06:08:05.1938229Z libfontconfig1 is already the newest version (2.15.0-1.1ubuntu2).
+2026-10-07T06:08:05.1938899Z libfontconfig1 set to manually installed.
+2026-10-07T06:08:05.1939790Z fonts-liberation is already the newest version (1:2.1.5-3).
+2026-10-07T06:08:05.1940434Z fonts-liberation set to manually installed.
+2026-10-07T06:08:05.1942095Z The following additional packages will be installed:
+2026-10-07T06:08:05.1942764Z   libgl1-mesa-dri libglx-mesa0 mesa-libgallium xfonts-encodings xfonts-utils
+2026-10-07T06:08:05.1943309Z Recommended packages:
+2026-10-07T06:08:05.1943765Z   fonts-ipafont-mincho fonts-tlwg-loma
+2026-10-07T06:08:05.2160423Z The following NEW packages will be installed:
+2026-10-07T06:08:05.2161484Z   fonts-freefont-ttf fonts-ipafont-gothic fonts-tlwg-loma-otf fonts-unifont
+2026-10-07T06:08:05.2167718Z   fonts-wqy-zenhei xfonts-cyrillic xfonts-encodings xfonts-scalable
+2026-10-07T06:08:05.2168757Z   xfonts-utils
+2026-10-07T06:08:05.2173888Z The following packages will be upgraded:
+2026-10-07T06:08:05.2180270Z   libfreetype6 libgbm1 libgl1-mesa-dri libglx-mesa0 mesa-libgallium
+2026-10-07T06:08:05.2350320Z 5 upgraded, 9 newly installed, 0 to remove and 24 not upgraded.
+2026-10-07T06:08:05.2351280Z Need to get 32.5 MB of archives.
+2026-10-07T06:08:05.2352652Z After this operation, 79.5 MB of additional disk space will be used.
+2026-10-07T06:08:05.2353636Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-07T06:08:05.3074860Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-ipafont-gothic all 00303-21ubuntu1 [3513 kB]
+2026-10-07T06:08:05.3666599Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 fonts-freefont-ttf all 20211204+svn4273-2 [5641 kB]
+2026-10-07T06:08:05.4380211Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-tlwg-loma-otf all 1:0.7.3-1 [107 kB]
+2026-10-07T06:08:05.4674937Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-unifont all 1:15.1.01-1build1 [2993 kB]
+2026-10-07T06:08:05.5147365Z Get:6 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-wqy-zenhei all 0.9.45-8 [7472 kB]
+2026-10-07T06:08:05.6126888Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libfreetype6 amd64 2.13.2+dfsg-1ubuntu0.2 [403 kB]
+2026-10-07T06:08:05.6434816Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libgl1-mesa-dri amd64 25.2.8-0ubuntu0.24.04.4 [38.0 kB]
+2026-10-07T06:08:05.6718236Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libglx-mesa0 amd64 25.2.8-0ubuntu0.24.04.4 [110 kB]
+2026-10-07T06:08:05.7024955Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libgbm1 amd64 25.2.8-0ubuntu0.24.04.4 [34.2 kB]
+2026-10-07T06:08:05.7309410Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 mesa-libgallium amd64 25.2.8-0ubuntu0.24.04.4 [10.8 MB]
+2026-10-07T06:08:05.8539890Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-encodings all 1:1.0.5-0ubuntu2 [578 kB]
+2026-10-07T06:08:05.8865013Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-utils amd64 1:7.7+6build3 [94.4 kB]
+2026-10-07T06:08:05.9150453Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 xfonts-cyrillic all 1:1.0.5+nmu1 [384 kB]
+2026-10-07T06:08:05.9462652Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-scalable all 1:1.0.3-1.3 [304 kB]
+2026-10-07T06:08:06.2753965Z Fetched 32.5 MB in 1s (44.9 MB/s)
+2026-10-07T06:08:06.3087032Z Selecting previously unselected package fonts-ipafont-gothic.
+2026-10-07T06:08:06.3340977Z (Reading database ... 
+2026-10-07T06:08:06.3350006Z (Reading database ... 5%
+2026-10-07T06:08:06.3356874Z (Reading database ... 10%
+2026-10-07T06:08:06.3359442Z (Reading database ... 15%
+2026-10-07T06:08:06.3360208Z (Reading database ... 20%
+2026-10-07T06:08:06.3361111Z (Reading database ... 25%
+2026-10-07T06:08:06.3366234Z (Reading database ... 30%
+2026-10-07T06:08:06.3366873Z (Reading database ... 35%
+2026-10-07T06:08:06.3367692Z (Reading database ... 40%
+2026-10-07T06:08:06.3372466Z (Reading database ... 45%
+2026-10-07T06:08:06.3373104Z (Reading database ... 50%
+2026-10-07T06:08:06.3392497Z (Reading database ... 55%
+2026-10-07T06:08:06.4620538Z (Reading database ... 60%
+2026-10-07T06:08:06.6695409Z (Reading database ... 65%
+2026-10-07T06:08:06.8605350Z (Reading database ... 70%
+2026-10-07T06:08:07.0533773Z (Reading database ... 75%
+2026-10-07T06:08:07.2098449Z (Reading database ... 80%
+2026-10-07T06:08:07.4152055Z (Reading database ... 85%
+2026-10-07T06:08:07.6106638Z (Reading database ... 90%
+2026-10-07T06:08:07.7766840Z (Reading database ... 95%
+2026-10-07T06:08:07.7780980Z (Reading database ... 100%
+2026-10-07T06:08:07.7790736Z (Reading database ... 202296 files and directories currently installed.)
+2026-10-07T06:08:07.7815664Z Preparing to unpack .../00-fonts-ipafont-gothic_00303-21ubuntu1_all.deb ...
+2026-10-07T06:08:07.8012653Z Unpacking fonts-ipafont-gothic (00303-21ubuntu1) ...
+2026-10-07T06:08:08.1668724Z Selecting previously unselected package fonts-freefont-ttf.
+2026-10-07T06:08:08.1794288Z Preparing to unpack .../01-fonts-freefont-ttf_20211204+svn4273-2_all.deb ...
+2026-10-07T06:08:08.1806211Z Unpacking fonts-freefont-ttf (20211204+svn4273-2) ...
+2026-10-07T06:08:08.3530805Z Selecting previously unselected package fonts-tlwg-loma-otf.
+2026-10-07T06:08:08.3658142Z Preparing to unpack .../02-fonts-tlwg-loma-otf_1%3a0.7.3-1_all.deb ...
+2026-10-07T06:08:08.3675690Z Unpacking fonts-tlwg-loma-otf (1:0.7.3-1) ...
+2026-10-07T06:08:08.3876079Z Selecting previously unselected package fonts-unifont.
+2026-10-07T06:08:08.4044013Z Preparing to unpack .../03-fonts-unifont_1%3a15.1.01-1build1_all.deb ...
+2026-10-07T06:08:08.4058124Z Unpacking fonts-unifont (1:15.1.01-1build1) ...
+2026-10-07T06:08:08.7880617Z Selecting previously unselected package fonts-wqy-zenhei.
+2026-10-07T06:08:08.8007002Z Preparing to unpack .../04-fonts-wqy-zenhei_0.9.45-8_all.deb ...
+2026-10-07T06:08:08.8102030Z Unpacking fonts-wqy-zenhei (0.9.45-8) ...
+2026-10-07T06:08:09.5091540Z Preparing to unpack .../05-libfreetype6_2.13.2+dfsg-1ubuntu0.2_amd64.deb ...
+2026-10-07T06:08:09.5128792Z Unpacking libfreetype6:amd64 (2.13.2+dfsg-1ubuntu0.2) over (2.13.2+dfsg-1ubuntu0.1) ...
+2026-10-07T06:08:09.5580226Z Preparing to unpack .../06-libgl1-mesa-dri_25.2.8-0ubuntu0.24.04.4_amd64.deb ...
+2026-10-07T06:08:09.5718482Z Unpacking libgl1-mesa-dri:amd64 (25.2.8-0ubuntu0.24.04.4) over (25.2.8-0ubuntu0.24.04.2) ...
+2026-10-07T06:08:09.6158329Z Preparing to unpack .../07-libglx-mesa0_25.2.8-0ubuntu0.24.04.4_amd64.deb ...
+2026-10-07T06:08:09.6185226Z Unpacking libglx-mesa0:amd64 (25.2.8-0ubuntu0.24.04.4) over (25.2.8-0ubuntu0.24.04.2) ...
+2026-10-07T06:08:09.6581947Z Preparing to unpack .../08-libgbm1_25.2.8-0ubuntu0.24.04.4_amd64.deb ...
+2026-10-07T06:08:09.6613650Z Unpacking libgbm1:amd64 (25.2.8-0ubuntu0.24.04.4) over (25.2.8-0ubuntu0.24.04.2) ...
+2026-10-07T06:08:09.6965855Z Preparing to unpack .../09-mesa-libgallium_25.2.8-0ubuntu0.24.04.4_amd64.deb ...
+2026-10-07T06:08:09.6991847Z Unpacking mesa-libgallium:amd64 (25.2.8-0ubuntu0.24.04.4) over (25.2.8-0ubuntu0.24.04.2) ...
+2026-10-07T06:08:10.3480747Z Selecting previously unselected package xfonts-encodings.
+2026-10-07T06:08:10.3576288Z Preparing to unpack .../10-xfonts-encodings_1%3a1.0.5-0ubuntu2_all.deb ...
+2026-10-07T06:08:10.3589890Z Unpacking xfonts-encodings (1:1.0.5-0ubuntu2) ...
+2026-10-07T06:08:10.3971221Z Selecting previously unselected package xfonts-utils.
+2026-10-07T06:08:10.4058407Z Preparing to unpack .../11-xfonts-utils_1%3a7.7+6build3_amd64.deb ...
+2026-10-07T06:08:10.4076398Z Unpacking xfonts-utils (1:7.7+6build3) ...
+2026-10-07T06:08:10.4480558Z Selecting previously unselected package xfonts-cyrillic.
+2026-10-07T06:08:10.4601002Z Preparing to unpack .../12-xfonts-cyrillic_1%3a1.0.5+nmu1_all.deb ...
+2026-10-07T06:08:10.4608177Z Unpacking xfonts-cyrillic (1:1.0.5+nmu1) ...
+2026-10-07T06:08:10.5000868Z Selecting previously unselected package xfonts-scalable.
+2026-10-07T06:08:10.5116091Z Preparing to unpack .../13-xfonts-scalable_1%3a1.0.3-1.3_all.deb ...
+2026-10-07T06:08:10.5124044Z Unpacking xfonts-scalable (1:1.0.3-1.3) ...
+2026-10-07T06:08:10.5804507Z Setting up mesa-libgallium:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+2026-10-07T06:08:10.5840500Z Setting up libgbm1:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+2026-10-07T06:08:10.5862665Z Setting up libgl1-mesa-dri:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+2026-10-07T06:08:10.5937428Z Setting up fonts-wqy-zenhei (0.9.45-8) ...
+2026-10-07T06:08:10.6053284Z Setting up fonts-freefont-ttf (20211204+svn4273-2) ...
+2026-10-07T06:08:10.7215716Z Setting up fonts-tlwg-loma-otf (1:0.7.3-1) ...
+2026-10-07T06:08:10.7236556Z Setting up libfreetype6:amd64 (2.13.2+dfsg-1ubuntu0.2) ...
+2026-10-07T06:08:10.7259408Z Setting up xfonts-encodings (1:1.0.5-0ubuntu2) ...
+2026-10-07T06:08:10.7280727Z Setting up fonts-ipafont-gothic (00303-21ubuntu1) ...
+2026-10-07T06:08:10.7344703Z update-alternatives: using /usr/share/fonts/opentype/ipafont-gothic/ipag.ttf to provide /usr/share/fonts/truetype/fonts-japanese-gothic.ttf (fonts-japanese-gothic.ttf) in auto mode
+2026-10-07T06:08:10.7362192Z Setting up fonts-unifont (1:15.1.01-1build1) ...
+2026-10-07T06:08:10.7384240Z Setting up libglx-mesa0:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+2026-10-07T06:08:10.7407297Z Setting up xfonts-utils (1:7.7+6build3) ...
+2026-10-07T06:08:10.7450743Z Setting up xfonts-cyrillic (1:1.0.5+nmu1) ...
+2026-10-07T06:08:10.7730177Z Setting up xfonts-scalable (1:1.0.3-1.3) ...
+2026-10-07T06:08:10.7973304Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+2026-10-07T06:08:10.8618811Z Processing triggers for man-db (2.12.0-4build2) ...
+2026-10-07T06:08:10.8644150Z Not building database; man-db/auto-update is not 'true'.
+2026-10-07T06:08:10.8660829Z Processing triggers for fontconfig (2.15.0-1.1ubuntu2) ...
+2026-10-07T06:08:12.0464107Z 
+2026-10-07T06:08:12.0464968Z Running kernel seems to be up-to-date.
+2026-10-07T06:08:12.0465354Z 
+2026-10-07T06:08:12.0465579Z Restarting services...
+2026-10-07T06:08:12.0534529Z  systemctl restart php8.3-fpm.service
+2026-10-07T06:08:12.1678193Z 
+2026-10-07T06:08:12.1679432Z No containers need to be restarted.
+2026-10-07T06:08:12.1679928Z 
+2026-10-07T06:08:12.1680350Z No user sessions are running outdated binaries.
+2026-10-07T06:08:12.1680805Z 
+2026-10-07T06:08:12.1681333Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-10-07T06:08:13.3478654Z Downloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243) from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip
+2026-10-07T06:08:13.8153815Z |                                                                                |   0% of 186.8 MiB
+2026-10-07T06:08:14.1354917Z |■■■■■■■■                                                                        |  10% of 186.8 MiB
+2026-10-07T06:08:14.2464924Z |■■■■■■■■■■■■■■■■                                                                |  20% of 186.8 MiB
+2026-10-07T06:08:14.3578235Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 186.8 MiB
+2026-10-07T06:08:14.4290688Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 186.8 MiB
+2026-10-07T06:08:14.5377120Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 186.8 MiB
+2026-10-07T06:08:14.6346264Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 186.8 MiB
+2026-10-07T06:08:14.7380482Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 186.8 MiB
+2026-10-07T06:08:14.8506928Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 186.8 MiB
+2026-10-07T06:08:14.9170342Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 186.8 MiB
+2026-10-07T06:08:15.0606874Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 186.8 MiB
+2026-10-07T06:08:19.0383422Z Chrome for Testing 153.0.8010.12 (playwright chromium v1243) downloaded to /home/runner/.cache/ms-playwright/chromium-1243
+2026-10-07T06:08:19.0398290Z Downloading FFmpeg (playwright ffmpeg v1011) from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-10-07T06:08:19.4633300Z |                                                                                |   0% of 2.3 MiB
+2026-10-07T06:08:19.4813729Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-10-07T06:08:19.4957735Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-10-07T06:08:19.5047143Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-10-07T06:08:19.5077184Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-10-07T06:08:19.5146854Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-10-07T06:08:19.5172191Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-10-07T06:08:19.5232532Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-10-07T06:08:19.5248221Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-10-07T06:08:19.5270049Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-10-07T06:08:19.5327779Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-10-07T06:08:19.6032146Z FFmpeg (playwright ffmpeg v1011) downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-10-07T06:08:19.6041341Z Downloading Chrome Headless Shell 153.0.8010.12 (playwright chromium-headless-shell v1243) from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-headless-shell-linux64.zip
+2026-10-07T06:08:20.0481471Z |                                                                                |   0% of 114.3 MiB
+2026-10-07T06:08:20.3496134Z |■■■■■■■■                                                                        |  10% of 114.3 MiB
+2026-10-07T06:08:20.4407441Z |■■■■■■■■■■■■■■■■                                                                |  20% of 114.3 MiB
+2026-10-07T06:08:20.4951395Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 114.3 MiB
+2026-10-07T06:08:20.5545429Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 114.3 MiB
+2026-10-07T06:08:20.6382602Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 114.3 MiB
+2026-10-07T06:08:20.6836078Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 114.3 MiB
+2026-10-07T06:08:20.7356062Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 114.3 MiB
+2026-10-07T06:08:20.8185085Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 114.3 MiB
+2026-10-07T06:08:20.8538375Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 114.3 MiB
+2026-10-07T06:08:20.9207090Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 114.3 MiB
+2026-10-07T06:08:23.7889483Z Chrome Headless Shell 153.0.8010.12 (playwright chromium-headless-shell v1243) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1243
+2026-10-07T06:08:24.9045598Z ##[group]Run npm run test:e2e --prefix frontend -- m2b.spec.ts m2a.spec.ts m1.spec.ts
+2026-10-07T06:08:24.9046441Z npm run test:e2e --prefix frontend -- m2b.spec.ts m2a.spec.ts m1.spec.ts
+2026-10-07T06:08:24.9047226Z cp frontend/test-results/results.json /tmp/m2b-core-browser.json
+2026-10-07T06:08:24.9202455Z shell: /usr/bin/bash -e {0}
+2026-10-07T06:08:24.9202894Z env:
+2026-10-07T06:08:24.9203189Z   APP_ENV: LOCAL_SERVER
+2026-10-07T06:08:24.9204051Z   DATABASE_URL: ***127.0.0.1:5432/m1_uat
+2026-10-07T06:08:24.9204857Z   LANGGRAPH_DATABASE_URI: ***127.0.0.1:5432/m1_uat?sslmode=disable
+2026-10-07T06:08:24.9205436Z   REDIS_URL: redis://127.0.0.1:6379/0
+2026-10-07T06:08:24.9205865Z   M0_LOCAL_UAT: 1
+2026-10-07T06:08:24.9206196Z   M2B_LOCAL_UAT: 1
+2026-10-07T06:08:24.9206616Z   M2B_FILE_POLICY: /tmp/m2b-file-policy.json
+2026-10-07T06:08:24.9207095Z   M2B_BINARY_ROOT: /tmp/m2b-objects
+2026-10-07T06:08:24.9207505Z   VITE_M0_DEMO: true
+2026-10-07T06:08:24.9207945Z   VITE_SESSION_PATH: /m0-demo/session
+2026-10-07T06:08:24.9208393Z   M2A_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:08:24.9208848Z   M1_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:08:24.9209562Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:08:24.9210262Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-10-07T06:08:24.9210922Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:08:24.9211525Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:08:24.9212127Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:08:24.9212752Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-10-07T06:08:24.9213280Z ##[endgroup]
+2026-10-07T06:08:25.1590089Z 
+2026-10-07T06:08:25.1590957Z > @crossborder/m0-preview@0.1.0 test:e2e
+2026-10-07T06:08:25.1591757Z > playwright test m2b.spec.ts m2a.spec.ts m1.spec.ts
+2026-10-07T06:08:25.1592201Z 
+2026-10-07T06:08:27.1029927Z 
+2026-10-07T06:08:27.1031022Z Running 9 tests using 1 worker
+2026-10-07T06:08:27.1069569Z 
+2026-10-07T06:09:40.0750719Z   ✓  1 e2e/m1.spec.ts:45:3 › zh-CN › four-step intake, canonical results, official citation and locale state invariance (1.2m)
+2026-10-07T06:10:13.0464074Z   ✓  2 e2e/m1.spec.ts:45:3 › zh-HK › four-step intake, canonical results, official citation and locale state invariance (33.0s)
+2026-10-07T06:10:44.5213137Z   ✓  3 e2e/m1.spec.ts:45:3 › en-US › four-step intake, canonical results, official citation and locale state invariance (31.5s)
+2026-10-07T06:11:11.6874285Z   ✓  4 e2e/m2a.spec.ts:12:57 › new persisted project, refresh, exact snapshot and canonical START/READ in zh-CN (27.1s)
+2026-10-07T06:11:38.8051857Z   ✓  5 e2e/m2a.spec.ts:12:57 › new persisted project, refresh, exact snapshot and canonical START/READ in zh-HK (27.1s)
+2026-10-07T06:12:06.8391629Z   ✓  6 e2e/m2a.spec.ts:12:57 › new persisted project, refresh, exact snapshot and canonical START/READ in en-US (28.0s)
+2026-10-07T06:12:34.4443257Z   ✓  7 e2e/m2b.spec.ts:8:60 › real binary, pinned documents and canonical workflow in zh-CN (27.6s)
+2026-10-07T06:13:01.8007328Z   ✓  8 e2e/m2b.spec.ts:8:60 › real binary, pinned documents and canonical workflow in zh-HK (27.3s)
+2026-10-07T06:13:30.6292023Z   ✓  9 e2e/m2b.spec.ts:8:60 › real binary, pinned documents and canonical workflow in en-US (28.8s)
+2026-10-07T06:13:31.0326433Z 
+2026-10-07T06:13:31.0331228Z   9 passed (5.1m)
+2026-10-07T06:13:31.0417627Z ##[notice]  9 passed (5.1m)
+2026-10-07T06:13:31.0644233Z ##[group]Run python - <<'PY'
+2026-10-07T06:13:31.0644575Z python - <<'PY'
+2026-10-07T06:13:31.0644832Z import json, subprocess
+2026-10-07T06:13:31.0645185Z x = json.load(open('/tmp/m2b-core-browser.json'))['stats']
+2026-10-07T06:13:31.0645822Z assert x['expected'] == 9 and x['unexpected'] == x['skipped'] == x['flaky'] == 0
+2026-10-07T06:13:31.0646449Z head = subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+2026-10-07T06:13:31.0647723Z print('::notice::M2B_EXACT_HEAD_SUMMARY=' + json.dumps({'tested_sha':head,'runner_checkout_sha':head,'browser':x,'m0_required_workflow':'M0 H5 Preview at same SHA','retry_count':0,'alembic':__import__('alembic.script',fromlist=['ScriptDirectory']).ScriptDirectory('alembic').get_current_head()}))
+2026-10-07T06:13:31.0648781Z PY
+2026-10-07T06:13:31.0743806Z shell: /usr/bin/bash -e {0}
+2026-10-07T06:13:31.0744106Z env:
+2026-10-07T06:13:31.0744399Z   APP_ENV: LOCAL_SERVER
+2026-10-07T06:13:31.0745000Z   DATABASE_URL: ***127.0.0.1:5432/m1_uat
+2026-10-07T06:13:31.0745537Z   LANGGRAPH_DATABASE_URI: ***127.0.0.1:5432/m1_uat?sslmode=disable
+2026-10-07T06:13:31.0745909Z   REDIS_URL: redis://127.0.0.1:6379/0
+2026-10-07T06:13:31.0746184Z   M0_LOCAL_UAT: 1
+2026-10-07T06:13:31.0746415Z   M2B_LOCAL_UAT: 1
+2026-10-07T06:13:31.0746665Z   M2B_FILE_POLICY: /tmp/m2b-file-policy.json
+2026-10-07T06:13:31.0746966Z   M2B_BINARY_ROOT: /tmp/m2b-objects
+2026-10-07T06:13:31.0747228Z   VITE_M0_DEMO: true
+2026-10-07T06:13:31.0747471Z   VITE_SESSION_PATH: /m0-demo/session
+2026-10-07T06:13:31.0747756Z   M2A_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:13:31.0748048Z   M1_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:13:31.0748389Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:13:31.0748821Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-10-07T06:13:31.0749423Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:13:31.0749827Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:13:31.0750219Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:13:31.0750622Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-10-07T06:13:31.0750960Z ##[endgroup]
+2026-10-07T06:13:31.7619655Z ##[notice]M2B_EXACT_HEAD_SUMMARY={"tested_sha": "7fc94ba367884774026044bae444e6c7397b63fc", "runner_checkout_sha": "7fc94ba367884774026044bae444e6c7397b63fc", "browser": {"startTime": "2026-10-07T06:08:26.672Z", "duration": 304360.336, "expected": 9, "skipped": 0, "unexpected": 0, "flaky": 0}, "m0_required_workflow": "M0 H5 Preview at same SHA", "retry_count": 0, "alembic": "0013_m2b_context_temporal_contract"}
+2026-10-07T06:13:31.8599726Z ##[group]Run actions/upload-artifact@v4
+2026-10-07T06:13:31.8600045Z with:
+2026-10-07T06:13:31.8600274Z   name: m2b-uat-37579548733
+2026-10-07T06:13:31.8600747Z   path: frontend/test-results/
+/tmp/m2b-core-browser.json
+/tmp/m1-backend.log
+/tmp/m1-frontend.log
+
+2026-10-07T06:13:31.8601244Z   if-no-files-found: error
+2026-10-07T06:13:31.8601503Z   compression-level: 6
+2026-10-07T06:13:31.8601742Z   overwrite: false
+2026-10-07T06:13:31.8601970Z   include-hidden-files: false
+2026-10-07T06:13:31.8602216Z env:
+2026-10-07T06:13:31.8602422Z   APP_ENV: LOCAL_SERVER
+2026-10-07T06:13:31.8602981Z   DATABASE_URL: ***127.0.0.1:5432/m1_uat
+2026-10-07T06:13:31.8603480Z   LANGGRAPH_DATABASE_URI: ***127.0.0.1:5432/m1_uat?sslmode=disable
+2026-10-07T06:13:31.8603846Z   REDIS_URL: redis://127.0.0.1:6379/0
+2026-10-07T06:13:31.8604117Z   M0_LOCAL_UAT: 1
+2026-10-07T06:13:31.8604333Z   M2B_LOCAL_UAT: 1
+2026-10-07T06:13:31.8604578Z   M2B_FILE_POLICY: /tmp/m2b-file-policy.json
+2026-10-07T06:13:31.8604936Z   M2B_BINARY_ROOT: /tmp/m2b-objects
+2026-10-07T06:13:31.8605199Z   VITE_M0_DEMO: true
+2026-10-07T06:13:31.8605435Z   VITE_SESSION_PATH: /m0-demo/session
+2026-10-07T06:13:31.8605725Z   M2A_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:13:31.8606026Z   M1_UAT_MANIFEST: /tmp/m1-personas.json
+2026-10-07T06:13:31.8606364Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:13:31.8606799Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-10-07T06:13:31.8607251Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:13:31.8607775Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:13:31.8608178Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-10-07T06:13:31.8608593Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-10-07T06:13:31.8608947Z ##[endgroup]
+2026-10-07T06:13:32.0762761Z (node:9993) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-07T06:13:32.0780456Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-07T06:13:32.1093276Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-10-07T06:13:32.1095770Z The least common ancestor is /. This will be the root directory of the artifact
+2026-10-07T06:13:32.1096674Z With the provided path, there will be 16 files uploaded
+2026-10-07T06:13:32.1097620Z Artifact name is valid!
+2026-10-07T06:13:32.1098160Z Root directory input is valid!
+2026-10-07T06:13:32.3605581Z Beginning upload of artifact content to blob storage
+2026-10-07T06:13:32.6379521Z (node:9993) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-07T06:13:33.1677032Z Uploaded bytes 5922164
+2026-10-07T06:13:33.2101095Z Finished uploading artifact content to blob storage!
+2026-10-07T06:13:33.2102548Z SHA256 digest of uploaded artifact zip is 406467d5ee4fd7202b8a9991d3d1952aa27f93ca1ad28cba715b416cec8f721e
+2026-10-07T06:13:33.2103451Z Finalizing artifact upload
+2026-10-07T06:13:33.4749506Z Artifact m2b-uat-37579548733.zip successfully finalized. Artifact ID 11464307041
+2026-10-07T06:13:33.4750824Z Artifact m2b-uat-37579548733 has been successfully uploaded! Final size is 5922164 bytes. Artifact ID is 11464307041
+2026-10-07T06:13:33.4758028Z Artifact download URL: https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37579548733/artifacts/11464307041
+2026-10-07T06:13:33.4940344Z Post job cleanup.
+2026-10-07T06:13:33.6607508Z (node:10005) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-07T06:13:33.6608905Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-07T06:13:33.6611607Z Cache hit occurred on the primary key node-cache-Linux-x64-npm-ea948756a7c9bdd1b627745b615fd2bc1d81e7dd0f4478d83372b40c6da96ebf, not saving cache.
+2026-10-07T06:13:33.6723791Z Post job cleanup.
+2026-10-07T06:13:33.8500744Z (node:10013) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-07T06:13:33.8540540Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-07T06:13:33.8884632Z Post job cleanup.
+2026-10-07T06:13:34.0043447Z [command]/usr/bin/git version
+2026-10-07T06:13:34.0111973Z git version 2.55.0
+2026-10-07T06:13:34.0183107Z Temporarily overriding HOME='/home/runner/work/_temp/5453d073-7d93-4be5-a484-718e06e8c370' before making global git config changes
+2026-10-07T06:13:34.0184536Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-07T06:13:34.0186005Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent
+2026-10-07T06:13:34.0260332Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-07T06:13:34.0363820Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-07T06:13:34.0733067Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-07T06:13:34.0800231Z http.https://github.com/.extraheader
+2026-10-07T06:13:34.0851467Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-07T06:13:34.0912855Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-07T06:13:34.1446008Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-07T06:13:34.1530891Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-07T06:13:34.2300234Z Print service container logs: ad0dbf749c0c4704b7121a890b29f6a6_pgvectorpgvectorpg16_0ab507
+2026-10-07T06:13:34.2304385Z ##[command]/usr/bin/docker logs --details bef48129b853ac637e660b1ab9296fe17ec7a78455860cfc0256a7e235bb09e5
+2026-10-07T06:13:34.2457027Z  initdb: warning: enabling "trust" authentication for local connections
+2026-10-07T06:13:34.2457569Z  The files belonging to this database system will be owned by user "postgres".
+2026-10-07T06:13:34.2458292Z  initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+2026-10-07T06:13:34.2459597Z  2026-10-07 06:04:59.547 UTC [1] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+2026-10-07T06:13:34.2460578Z  2026-10-07 06:04:59.547 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2026-10-07T06:13:34.2461127Z  2026-10-07 06:04:59.548 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2026-10-07T06:13:34.2461628Z  2026-10-07 06:04:59.552 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-10-07T06:13:34.2462173Z  2026-10-07 06:04:59.560 UTC [63] LOG:  database system was shut down at 2026-10-07 06:04:59 UTC
+2026-10-07T06:13:34.2462648Z  2026-10-07 06:04:59.571 UTC [1] LOG:  database system is ready to accept connections
+2026-10-07T06:13:34.2463089Z  2026-10-07 06:09:59.657 UTC [61] LOG:  checkpoint starting: time
+2026-10-07T06:13:34.2464070Z  2026-10-07 06:12:28.738 UTC [61] LOG:  checkpoint complete: wrote 1487 buffers (9.1%); 0 WAL file(s) added, 0 removed, 1 recycled; write=149.024 s, sync=0.053 s, total=149.082 s; sync files=1067, longest=0.006 s, average=0.001 s; distance=9702 kB, estimate=9702 kB; lsn=0/24DE558, redo lsn=0/228BC18
+2026-10-07T06:13:34.2466696Z  This user must also own the server process.
+2026-10-07T06:13:34.2467260Z  
+2026-10-07T06:13:34.2476739Z  The database cluster will be initialized with locale "en_US.utf8".
+2026-10-07T06:13:34.2477449Z  The default database encoding has accordingly been set to "UTF8".
+2026-10-07T06:13:34.2478226Z  The default text search configuration will be set to "english".
+2026-10-07T06:13:34.2478736Z  
+2026-10-07T06:13:34.2479186Z  Data page checksums are disabled.
+2026-10-07T06:13:34.2479578Z  
+2026-10-07T06:13:34.2480028Z  fixing permissions on existing directory /var/lib/postgresql/data ... ok
+2026-10-07T06:13:34.2480638Z  creating subdirectories ... ok
+2026-10-07T06:13:34.2481120Z  selecting dynamic shared memory implementation ... posix
+2026-10-07T06:13:34.2481656Z  selecting default max_connections ... 100
+2026-10-07T06:13:34.2482075Z  selecting default shared_buffers ... 128MB
+2026-10-07T06:13:34.2482377Z  selecting default time zone ... Etc/UTC
+2026-10-07T06:13:34.2482712Z  creating configuration files ... ok
+2026-10-07T06:13:34.2483017Z  running bootstrap script ... ok
+2026-10-07T06:13:34.2483339Z  performing post-bootstrap initialization ... ok
+2026-10-07T06:13:34.2483667Z  syncing data to disk ... ok
+2026-10-07T06:13:34.2483917Z  
+2026-10-07T06:13:34.2484104Z  
+2026-10-07T06:13:34.2484349Z  Success. You can now start the database server using:
+2026-10-07T06:13:34.2484677Z  
+2026-10-07T06:13:34.2484940Z      pg_ctl -D /var/lib/postgresql/data -l logfile start
+2026-10-07T06:13:34.2485255Z  
+2026-10-07T06:13:34.2485925Z  waiting for server to start....2026-10-07 06:04:58.822 UTC [47] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+2026-10-07T06:13:34.2487045Z  2026-10-07 06:04:58.823 UTC [47] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-10-07T06:13:34.2487620Z  2026-10-07 06:04:58.825 UTC [50] LOG:  database system was shut down at 2026-10-07 06:04:58 UTC
+2026-10-07T06:13:34.2488147Z  2026-10-07 06:04:58.832 UTC [47] LOG:  database system is ready to accept connections
+2026-10-07T06:13:34.2488529Z   done
+2026-10-07T06:13:34.2488796Z  server started
+2026-10-07T06:13:34.2489372Z  CREATE DATABASE
+2026-10-07T06:13:34.2489659Z  
+2026-10-07T06:13:34.2489858Z  
+2026-10-07T06:13:34.2490181Z  /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+2026-10-07T06:13:34.2490576Z  
+2026-10-07T06:13:34.2490836Z  2026-10-07 06:04:59.051 UTC [47] LOG:  received fast shutdown request
+2026-10-07T06:13:34.2491382Z  waiting for server to shut down....2026-10-07 06:04:59.052 UTC [47] LOG:  aborting any active transactions
+2026-10-07T06:13:34.2492052Z  2026-10-07 06:04:59.058 UTC [47] LOG:  background worker "logical replication launcher" (PID 53) exited with exit code 1
+2026-10-07T06:13:34.2492577Z  2026-10-07 06:04:59.067 UTC [48] LOG:  shutting down
+2026-10-07T06:13:34.2493113Z  2026-10-07 06:04:59.068 UTC [48] LOG:  checkpoint starting: shutdown immediate
+2026-10-07T06:13:34.2494239Z  2026-10-07 06:04:59.248 UTC [48] LOG:  checkpoint complete: wrote 922 buffers (5.6%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.123 s, sync=0.055 s, total=0.181 s; sync files=301, longest=0.052 s, average=0.001 s; distance=4255 kB, estimate=4255 kB; lsn=0/1912110, redo lsn=0/1912110
+2026-10-07T06:13:34.2495320Z  2026-10-07 06:04:59.260 UTC [47] LOG:  database system is shut down
+2026-10-07T06:13:34.2495653Z   done
+2026-10-07T06:13:34.2495855Z  server stopped
+2026-10-07T06:13:34.2496075Z  
+2026-10-07T06:13:34.2496324Z  PostgreSQL init process complete; ready for start up.
+2026-10-07T06:13:34.2496638Z  
+2026-10-07T06:13:34.2502666Z Stop and remove container: ad0dbf749c0c4704b7121a890b29f6a6_pgvectorpgvectorpg16_0ab507
+2026-10-07T06:13:34.2507373Z ##[command]/usr/bin/docker rm --force bef48129b853ac637e660b1ab9296fe17ec7a78455860cfc0256a7e235bb09e5
+2026-10-07T06:13:34.4866038Z bef48129b853ac637e660b1ab9296fe17ec7a78455860cfc0256a7e235bb09e5
+2026-10-07T06:13:34.4882836Z Print service container logs: c7860cc963a5474d920eba44a5551e3c_redis7alpine_121a97
+2026-10-07T06:13:34.4884196Z ##[command]/usr/bin/docker logs --details 1cd0e0d6277388db1b9478baf4f9b8d94de8aa8904e055829e17489660ee42c5
+2026-10-07T06:13:34.5027980Z  1:C 07 Oct 2026 06:05:00.465 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+2026-10-07T06:13:34.5030396Z  1:C 07 Oct 2026 06:05:00.465 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+2026-10-07T06:13:34.5030968Z  1:C 07 Oct 2026 06:05:00.465 * Redis version=7.4.11, bits=64, commit=00000000, modified=0, pid=1, just started
+2026-10-07T06:13:34.5031753Z  1:C 07 Oct 2026 06:05:00.465 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+2026-10-07T06:13:34.5032421Z  1:M 07 Oct 2026 06:05:00.465 * monotonic clock: POSIX clock_gettime
+2026-10-07T06:13:34.5032843Z  1:M 07 Oct 2026 06:05:00.466 * Running mode=standalone, port=6379.
+2026-10-07T06:13:34.5033201Z  1:M 07 Oct 2026 06:05:00.467 * Server initialized
+2026-10-07T06:13:34.5033552Z  1:M 07 Oct 2026 06:05:00.467 * Ready to accept connections tcp
+2026-10-07T06:13:34.5041913Z Stop and remove container: c7860cc963a5474d920eba44a5551e3c_redis7alpine_121a97
+2026-10-07T06:13:34.5042693Z ##[command]/usr/bin/docker rm --force 1cd0e0d6277388db1b9478baf4f9b8d94de8aa8904e055829e17489660ee42c5
+2026-10-07T06:13:34.6423865Z 1cd0e0d6277388db1b9478baf4f9b8d94de8aa8904e055829e17489660ee42c5
+2026-10-07T06:13:34.6442380Z Remove container network: github_network_aa76b2b22115434d8f2679f6e11ad60d
+2026-10-07T06:13:34.6446284Z ##[command]/usr/bin/docker network rm github_network_aa76b2b22115434d8f2679f6e11ad60d
+2026-10-07T06:13:34.7106594Z github_network_aa76b2b22115434d8f2679f6e11ad60d
+2026-10-07T06:13:34.7182217Z Cleaning up orphan processes
+2026-10-07T06:13:34.7418588Z Terminate orphan process: pid (5464) (python)
+2026-10-07T06:13:34.7478252Z Terminate orphan process: pid (6423) (npm run dev)
+2026-10-07T06:13:34.7521003Z Terminate orphan process: pid (6437) (sh)
+2026-10-07T06:13:34.7561876Z Terminate orphan process: pid (6438) (MainThread)
+2026-10-07T06:13:34.7604055Z Terminate orphan process: pid (6446) (esbuild)
+2026-10-07T06:13:34.7668640Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+2026-10-07T06:04:32.8290000Z Requested labels: ubuntu-latest
+2026-10-07T06:04:32.8290000Z Job defined at: bensuen0831/crossborder-compliance-agent/.github/workflows/m2b-documents.yml@refs/pull/23/merge
+2026-10-07T06:04:32.8290000Z Waiting for a runner to pick up this job...
+2026-10-07T06:04:32.8220000Z Evaluating frontend-real-backend-uat.if
+2026-10-07T06:04:32.8220000Z Evaluating: success()
+2026-10-07T06:04:32.8220000Z Result: true
+2026-10-07T06:04:33.2270000Z Job is about to start running on the hosted runner: GitHub Actions 1000000342
+2026-10-07T06:04:33.2280000Z Job is waiting for a hosted runner to come online.

@@ -1,0 +1,27 @@
+{
+  "pass": true,
+  "passed": 20,
+  "total": 20,
+  "checks": {
+    "phase1h_lineage": true,
+    "no_duplicate_rule_or_classification_store": true,
+    "canonical_rule_contract": true,
+    "canonical_rule_governance": true,
+    "canonical_rulehit_provenance": true,
+    "canonical_classification_provenance": true,
+    "classification_project_pin": true,
+    "classification_snapshot_pin": true,
+    "rule_effective_dates_constraint": true,
+    "scheme_effective_dates_constraint": true,
+    "active_rule_requires_validated_review": true,
+    "formal_result_requires_scope": true,
+    "rule_runtime_index": true,
+    "formal_result_snapshot_index": true,
+    "formal_result_retry_unique": true,
+    "immutable_rule_payload": true,
+    "immutable_rule_tests": true,
+    "immutable_scheme_content": true,
+    "immutable_formal_result": true,
+    "immutable_rulehit": true
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "pass": true,
+  "passed": 24,
+  "total": 24,
+  "checks": {
+    "phase1i_lineage": true,
+    "canonical_result": true,
+    "canonical_project": true,
+    "canonical_snapshot": true,
+    "canonical_jurisdiction": true,
+    "canonical_regulation_version": true,
+    "canonical_profile_versions": true,
+    "canonical_evidence_run": true,
+    "exact_subject_identity": true,
+    "trusted_owner_actor": true,
+    "formal_result_payload": true,
+    "reference_only_request": true,
+    "retry_fingerprint": true,
+    "snapshot_index": true,
+    "tenant_index": true,
+    "retry_unique": true,
+    "subject_constraint": true,
+    "six_status_constraint": true,
+    "immutable_results": true,
+    "immutable_profiles": true,
+    "immutable_profile_identity": true,
+    "immutable_snapshot_pins": true,
+    "no_duplicate_regulation_store": true,
+    "required_scope_columns_nonnullable": true
+  }
+}

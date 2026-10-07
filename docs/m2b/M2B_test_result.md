@@ -19,4 +19,6 @@ Machine-readable evidence and hashes: `evidence/m2b/local_closure_result.json`, 
 
 First full gate measured683 PASS/4 fixture failures. Required project/version/context/flow references were added without weakening assertions or legal logic. All four focused corrections passed, followed by the required full closure retry above.
 
-Exact final PR-head CI remains required. This local result does not declare M2-B PASS or issue M2-C entry. Final exact-head evidence will be published on `integration/m2b-pr-closure-evidence` after all required workflows succeed, preserving the tested source branch.
+Final exact-head CI: all five required workflows SUCCESS. M2-B = PASS and M2-C ENTRY = ALLOWED. Final evidence is archived on `integration/m2b-pr-closure-evidence`, preserving the tested source branch; no M2-C implementation or merge occurs.
+
+Final exact-head certification: [M2B_final_validation.md](M2B_final_validation.md). Tested PR HEAD `7fc94ba367884774026044bae444e6c7397b63fc`; all five required workflows SUCCESS. M2-B = PASS; no merge or next-phase implementation.
