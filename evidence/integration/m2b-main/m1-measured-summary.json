@@ -1,0 +1,35 @@
+{
+  "run_id": 37604812083,
+  "event": "workflow_dispatch",
+  "tested_main_sha": "42571c7148456f41adb64d2528c169a357214a25",
+  "runner_checkout_sha": "42571c7148456f41adb64d2528c169a357214a25",
+  "conclusion": "success",
+  "browser": {
+    "stats": {
+      "startTime": "2026-10-07T10:07:17.833Z",
+      "duration": 134536.168,
+      "expected": 3,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "files": {
+      "m1.spec.ts": 3
+    },
+    "retry_count": 0
+  },
+  "frontend_passed": 97,
+  "checkout_notice": {
+    "tested_sha": "42571c7148456f41adb64d2528c169a357214a25",
+    "browser": {
+      "startTime": "2026-10-07T10:07:17.833Z",
+      "duration": 134536.168,
+      "expected": 3,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "retry_count": 0,
+    "alembic": "0013_m2b_context_temporal_contract"
+  }
+}
