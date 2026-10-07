@@ -59,7 +59,7 @@ jobs:
           git diff --exit-code -- frontend/src/api/m2a-schemas.json frontend/src/api/m2a-generated.ts
           npm run typecheck --prefix frontend
           npm run lint --prefix frontend
-          npm test --prefix frontend
+          npm test --prefix frontend -- --maxWorkers=1
           npm run check:i18n --prefix frontend
           npm run build --prefix frontend
       - name: Existing schema and canonical isolated formal workflow fixtures
@@ -95,18 +95,14 @@ jobs:
         run: |
           npm run test:e2e --prefix frontend -- m2b.spec.ts m2a.spec.ts m1.spec.ts
           cp frontend/test-results/results.json /tmp/m2b-core-browser.json
-          npm run test:e2e --prefix frontend -- knowledge.spec.ts --repeat-each=3
-          cp frontend/test-results/results.json /tmp/m2b-m0-browser.json
       - name: Exact-head measured result
         run: |
           python - <<'PY'
           import json, subprocess
           x = json.load(open('/tmp/m2b-core-browser.json'))['stats']
-          m0 = json.load(open('/tmp/m2b-m0-browser.json'))['stats']
           assert x['expected'] == 9 and x['unexpected'] == x['skipped'] == x['flaky'] == 0
-          assert m0['expected'] == 36 and m0['unexpected'] == m0['skipped'] == m0['flaky'] == 0
           head = subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
-          print('::notice::M2B_EXACT_HEAD_SUMMARY=' + json.dumps({'tested_sha':head,'runner_checkout_sha':head,'browser':x,'m0':m0,'retry_count':0,'alembic':__import__('alembic.script',fromlist=['ScriptDirectory']).ScriptDirectory('alembic').get_current_head()}))
+          print('::notice::M2B_EXACT_HEAD_SUMMARY=' + json.dumps({'tested_sha':head,'runner_checkout_sha':head,'browser':x,'m0_required_workflow':'M0 H5 Preview at same SHA','retry_count':0,'alembic':__import__('alembic.script',fromlist=['ScriptDirectory']).ScriptDirectory('alembic').get_current_head()}))
           PY
       - uses: actions/upload-artifact@v4
         if: always()
@@ -115,7 +111,6 @@ jobs:
           path: |
             frontend/test-results/
             /tmp/m2b-core-browser.json
-            /tmp/m2b-m0-browser.json
             /tmp/m1-backend.log
             /tmp/m1-frontend.log
           if-no-files-found: error

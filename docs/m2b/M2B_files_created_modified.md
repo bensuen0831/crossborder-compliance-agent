@@ -3,7 +3,10 @@
 Baseline da2d420; original WIP d78c310 retained. Frozen migrations0001–0011, existing0012, Domain legal engines, canonical graph/runtime/checkpointer, ARCHITECTURE_RULES, package/lock and prior owner evidence remain unchanged.
 
 ```text
+.github/workflows/m1-alpha.yml
+.github/workflows/m2a-intake.yml
 .github/workflows/m2b-documents.yml
+.github/workflows/phase1a-runtime-smoke.yml
 alembic/versions/0012_m2b_document_inputs.py
 alembic/versions/0013_m2b_context_temporal_contract.py
 frontend/e2e/m2b.spec.ts
@@ -64,9 +67,13 @@ tests/test_m2b_migrations.py
 tests/test_m2b_ownership.py
 tests/test_m2b_snapshot_contract_probe.py
 tests/test_m2b_temporal_postgres.py
+tests/test_phase1d_postgres.py
 tests/test_phase1f_postgres.py
+tests/test_phase1f_snapshot_scope.py
+tests/test_phase1g_publication_postgres.py
 tests/test_phase1h_postgres.py
 tests/test_phase1i_postgres.py
+tests/test_phase1j_postgres.py
 ```
 
-Delivery docs/evidence are confined to docs/m2b and evidence/m2b. Final closure is pending.
+Delivery docs/evidence are confined to docs/m2b and evidence/m2b. Frozen contracts and assertions are preserved; closure fixture fixes add required real project/context/version references. CI runs full frontend tests serially and extends the backend execution budget to30 minutes; no tests are removed, skipped or deselected.

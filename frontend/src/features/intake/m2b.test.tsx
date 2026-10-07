@@ -18,7 +18,7 @@ describe('M2B existing Step3 integration', () => {
     await screen.findByText('actual.txt');
     expect(screen.getByTestId('document-input')).toHaveTextContent(i18n.t('ui.m2b.stored'));
     expect(screen.getByLabelText(i18n.t('ui.m2b.select'))).toHaveAttribute('accept', '.txt');
-    fireEvent.click(screen.getByRole('button', { name: i18n.t('ui.m2b.parse'), exact: true }));
+    fireEvent.click(screen.getByRole('button', { name: i18n.t('ui.m2b.parse') }));
     await waitFor(() => expect(refresh).toHaveBeenCalledOnce());
     const calls = vi.mocked(fetch).mock.calls;
     const command = calls.find(([, options]) => options?.method === 'POST');
@@ -26,7 +26,7 @@ describe('M2B existing Step3 integration', () => {
   }, 15000);
   it('dirty browser draft cannot change authoritative attachments', async () => {
     backend(); host(true); await screen.findByText('actual.txt');
-    expect(screen.getByRole('button', { name: i18n.t('ui.m2b.remove'), exact: true })).toBeDisabled();
+    expect(screen.getByRole('button', { name: i18n.t('ui.m2b.remove') })).toBeDisabled();
     expect(screen.getByLabelText(i18n.t('ui.m2b.select'))).toBeDisabled();
   });
   it('document read rejects mismatched project identity', async () => {

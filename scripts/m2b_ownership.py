@@ -8,7 +8,10 @@ BASE = 'da2d420602d9c71991bcae4ffd3d33c9b3497d25'
 MIGRATIONS = frozenset({'alembic/versions/0012_m2b_document_inputs.py','alembic/versions/0013_m2b_context_temporal_contract.py'})
 # Exact implementation ownership, never an arbitrary prefix authorization.
 SHARED = frozenset({
+    '.github/workflows/m1-alpha.yml',
+    '.github/workflows/m2a-intake.yml',
     '.github/workflows/m2b-documents.yml',
+    '.github/workflows/phase1a-runtime-smoke.yml',
     'alembic/versions/0012_m2b_document_inputs.py',
     'alembic/versions/0013_m2b_context_temporal_contract.py',
     'frontend/e2e/m2b.spec.ts',
@@ -69,9 +72,13 @@ SHARED = frozenset({
     'tests/test_m2b_ownership.py',
     'tests/test_m2b_snapshot_contract_probe.py',
     'tests/test_m2b_temporal_postgres.py',
+    'tests/test_phase1d_postgres.py',
     'tests/test_phase1f_postgres.py',
+    'tests/test_phase1f_snapshot_scope.py',
+    'tests/test_phase1g_publication_postgres.py',
     'tests/test_phase1h_postgres.py',
     'tests/test_phase1i_postgres.py',
+    'tests/test_phase1j_postgres.py',
 })
 
 

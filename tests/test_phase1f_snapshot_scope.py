@@ -92,5 +92,7 @@ def test_snapshot_new_subject_uses_frozen_product_hierarchy(fixture):
     resumed = scope(f, subject_type="DATA_ITEM", subject_id=ib, snapshot_id=f["snapshot"])
     assert resumed.filter_spec.version_filter == (shared["knowledge_version_id"],)
     assert resumed.allowed_product_family_ids == (f["family"],)
-    fresh = scope(f, subject_type="DATA_ITEM", subject_id=ib)
+    from test_phase1g_publication_postgres import snapshot
+    fresh_snapshot = snapshot(f)
+    fresh = scope(f, subject_type="DATA_ITEM", subject_id=ib, snapshot_id=fresh_snapshot)
     assert not fresh.filter_spec.version_filter

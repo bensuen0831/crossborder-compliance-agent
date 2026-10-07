@@ -55,7 +55,7 @@ jobs:
           git diff --exit-code -- frontend/src/api/m2a-schemas.json frontend/src/api/m2a-generated.ts
           npm run typecheck --prefix frontend
           npm run lint --prefix frontend
-          npm test --prefix frontend
+          npm test --prefix frontend -- --maxWorkers=1
           npm run check:i18n --prefix frontend
           npm run build --prefix frontend
       - name: Existing schema and canonical isolated formal workflow fixtures
