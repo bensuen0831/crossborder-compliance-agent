@@ -1,5 +1,6 @@
 {
   "base_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+  "source_sha": "25e0ed818964161496815df2acb5eba0a24eea12",
   "paths": {
     ".github/workflows/m2d-human-review.yml": "37a732fc95c187df054a2ee9d4a4d06e87d17a251a5de41b01f8a3ee8dbba358",
     "alembic/env.py": "a9e21b42c00dae08970e0d8eb2b260e69bee513230c805ea0bed33e273f0e853",
@@ -19,11 +20,12 @@
     "frontend/src/locales/en-US.json": "f54c8e8465ce9776be8e2d1ca821a93d6ba45d4334e7ed0b06bb79ba956acf8a",
     "frontend/src/locales/zh-CN.json": "f800103b3a9b6e29444c7325c936ad9f917422d73518c4005e3ba52936dd7494",
     "frontend/src/locales/zh-HK.json": "5b9dcd9dc0273235c6c6279240725fc9f37f2535c73f9c63ff91c04a4f199f08",
+    "frontend/vite.config.ts": "a82ff22abacbf4e71b2af662e6024bff591510e700af957840f9ca7dc5c17642",
     "scripts/m2a_ownership.py": "026d7bcb03b4ec5eacec18e6e86a65dda65b71ef7ee2c34b6fbc7d77b13b5a5f",
     "scripts/m2b_ownership.py": "0279a3ffbac05ca53a7691cfe6be43c4646b294b9169c2f60b5cf95de989c408",
     "scripts/m2c_projection_ownership.py": "6f1606cb5a74e8087837522ea9548e76b81b79de5598b852f29a4602e3266d91",
     "scripts/m2d_architecture_check.py": "3605554d57a590517d43c1fb703a35134fe3f61ffc7a318df6fad5a2af8450cc",
-    "scripts/m2d_ownership.py": "ffde16da5c5e292e6c150a92a47b6084a2367cbc35f2f22da31a90bc7e5c58c1",
+    "scripts/m2d_ownership.py": "4509fa00431a6fcf707a8452d3c6f234912ee5476b4dac3a45eb71488cf2dae1",
     "src/crossborder_compliance/application/context_ports.py": "a204ce9e7ada1a97406a0ba604068430fb4b84490d6bb5eb553c2975c85a396f",
     "src/crossborder_compliance/application/context_services.py": "bba443a9873ed5c4c18c9ee65660bc3fe7a2cae0b88797dd4d30e72e39e8ebe0",
     "src/crossborder_compliance/application/review_services.py": "07f82311406cbf21ee70fb7ab6c3e890526fac58f43105532262be6b5123de35",
@@ -51,7 +53,5 @@
     "tests/test_m2d_migrations.py": "545b8c7ae41481f513472d9d79de91d7da2e0022c5365e9b2c2034484bb8ddae",
     "tests/test_m2d_review_contracts.py": "a5acd306adbfbfddcd4dc2473a9ce892053e2596fc183eb542654f529d1c91a3",
     "tests/test_m2d_review_postgres.py": "455580942f46d7385c33a954f8d3ad8c0992e2ed0e620fe6811378248e7cb972"
-  },
-  "scope": "M2-D approved owning correction and canonical review integration",
-  "source_sha": "f92859a151579d3e05fe27cee0a02741fc9c5121"
+  }
 }
