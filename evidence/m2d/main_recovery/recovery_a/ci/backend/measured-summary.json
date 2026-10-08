@@ -1,0 +1,1029 @@
+{
+  "run_id": 37781308907,
+  "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37781308907",
+  "workflow": "phase1a-runtime-smoke",
+  "event": "workflow_dispatch",
+  "conclusion": "success",
+  "tested_main_sha": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+  "runner_checkout_sha": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+  "checkout_jobs": {
+    "mandatory-runtime-smoke": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+    "contract-tests": "efda0955342de8d1ea36aa0f754d63c9b421fec8"
+  },
+  "identity": {
+    "run_id": "37781308907",
+    "run_attempt": "1",
+    "repository": "bensuen0831/crossborder-compliance-agent",
+    "workflow": "phase1a-runtime-smoke",
+    "job": "mandatory-runtime-smoke",
+    "sha": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+    "tested_pr_head_sha": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+    "runner_checkout_sha": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+    "ref": "refs/heads/main",
+    "runner_os": "Linux",
+    "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37781308907"
+  },
+  "pytest": {
+    "passed": 763,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "m2c_test_cases": [
+    {
+      "classname": "tests.test_m2c_architecture",
+      "name": "test_c0_additive_architecture_boundaries",
+      "time": "0.018"
+    },
+    {
+      "classname": "tests.test_m2c_architecture",
+      "name": "test_c0_owner_is_finite_committed_and_preserves_frozen_engines",
+      "time": "3.058"
+    },
+    {
+      "classname": "tests.test_m2c_authority_contracts",
+      "name": "test_final_path_status_never_supplies_legal_transfer_authority[CONDITIONAL_PROPOSAL]",
+      "time": "0.017"
+    },
+    {
+      "classname": "tests.test_m2c_authority_contracts",
+      "name": "test_final_path_status_never_supplies_legal_transfer_authority[NO_VIABLE_PATH]",
+      "time": "0.015"
+    },
+    {
+      "classname": "tests.test_m2c_authority_contracts",
+      "name": "test_final_path_status_never_supplies_legal_transfer_authority[PROPOSED]",
+      "time": "0.016"
+    },
+    {
+      "classname": "tests.test_m2c_authority_contracts",
+      "name": "test_no_viable_path_does_not_establish_prohibition_when_evidence_missing",
+      "time": "0.013"
+    },
+    {
+      "classname": "tests.test_m2c_authority_contracts",
+      "name": "test_missing_non_transfer_predicate_input_cannot_assert_permission",
+      "time": "0.013"
+    },
+    {
+      "classname": "tests.test_m2c_authority_contracts",
+      "name": "test_template_is_not_a_legal_trigger_and_locales_are_governed",
+      "time": "0.001"
+    },
+    {
+      "classname": "tests.test_m2c_authority_contracts",
+      "name": "test_client_cannot_inject_legal_result_policy_or_tenant",
+      "time": "0.001"
+    },
+    {
+      "classname": "tests.test_m2c_authority_contracts",
+      "name": "test_authority_closes_exact_subject_universe[data_item_ids]",
+      "time": "0.013"
+    },
+    {
+      "classname": "tests.test_m2c_authority_contracts",
+      "name": "test_authority_closes_exact_subject_universe[data_flow_ids]",
+      "time": "0.012"
+    },
+    {
+      "classname": "tests.test_m2c_authority_contracts",
+      "name": "test_authority_closes_exact_subject_universe[jurisdiction_ids]",
+      "time": "0.012"
+    },
+    {
+      "classname": "tests.test_m2c_authority_contracts",
+      "name": "test_authority_fact_evidence_is_closed_to_owning_legal_support",
+      "time": "0.012"
+    },
+    {
+      "classname": "tests.test_m2c_authority_postgres",
+      "name": "test_governed_cross_border_precedence[authority0-TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED-LEGAL_PROHIBITION]",
+      "time": "18.418"
+    },
+    {
+      "classname": "tests.test_m2c_authority_postgres",
+      "name": "test_governed_cross_border_precedence[authority1-TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED-LOCALIZATION_REQUIRED]",
+      "time": "17.543"
+    },
+    {
+      "classname": "tests.test_m2c_authority_postgres",
+      "name": "test_governed_cross_border_precedence[authority2-DIRECT_TRANSFER_ALLOWED-TRANSFER_PREREQUISITES_SATISFIED]",
+      "time": "17.610"
+    },
+    {
+      "classname": "tests.test_m2c_authority_postgres",
+      "name": "test_governed_cross_border_precedence[authority3-CONDITIONAL_TRANSFER_ALLOWED-APPROVAL_PENDING]",
+      "time": "18.513"
+    },
+    {
+      "classname": "tests.test_m2c_authority_postgres",
+      "name": "test_governed_cross_border_precedence[authority4-REVIEW_REQUIRED-EVIDENCE_INSUFFICIENT]",
+      "time": "17.721"
+    },
+    {
+      "classname": "tests.test_m2c_authority_postgres",
+      "name": "test_missing_formal_evidence_is_review_not_certainty",
+      "time": "1.771"
+    },
+    {
+      "classname": "tests.test_m2c_authority_postgres",
+      "name": "test_pinned_context_conflicts_require_review[authority0-FACT_CONFLICT]",
+      "time": "1.680"
+    },
+    {
+      "classname": "tests.test_m2c_authority_postgres",
+      "name": "test_pinned_context_conflicts_require_review[authority1-PRODUCT_CONTEXT_CONFLICT]",
+      "time": "1.679"
+    },
+    {
+      "classname": "tests.test_m2c_authority_postgres",
+      "name": "test_restart_aliases_and_snapshot_exact_reads",
+      "time": "38.395"
+    },
+    {
+      "classname": "tests.test_m2c_authority_postgres",
+      "name": "test_authorization_and_immutable_result",
+      "time": "17.365"
+    },
+    {
+      "classname": "tests.test_m2c_authority_postgres",
+      "name": "test_conditional_local_alternative_is_not_transfer_permission[authority0]",
+      "time": "17.639"
+    },
+    {
+      "classname": "tests.test_m2c_authority_postgres",
+      "name": "test_template_availability_is_independent_and_history_is_pinned[authority0]",
+      "time": "22.098"
+    },
+    {
+      "classname": "tests.test_m2c_authority_postgres",
+      "name": "test_s1_results_survive_s2_binary_policy_template_and_legal_knowledge[authority0]",
+      "time": "21.285"
+    },
+    {
+      "classname": "tests.test_m2c_authority_postgres",
+      "name": "test_authority_api_is_typed_authorized_and_reference_only",
+      "time": "27.454"
+    },
+    {
+      "classname": "tests.test_m2c_migrations",
+      "name": "test_fresh_exact_0013_equivalence_empty_down_up_retention",
+      "time": "27.518"
+    },
+    {
+      "classname": "tests.test_m2c_projection_architecture",
+      "name": "test_c1_additive_projection_ownership",
+      "time": "0.005"
+    },
+    {
+      "classname": "tests.test_m2c_workflow_contracts",
+      "name": "test_legacy_version_retains_original_sixteen_step_order",
+      "time": "0.070"
+    },
+    {
+      "classname": "tests.test_m2c_workflow_contracts",
+      "name": "test_unknown_or_mixed_version_pairs_fail_closed[unknown-unknown]",
+      "time": "0.052"
+    },
+    {
+      "classname": "tests.test_m2c_workflow_contracts",
+      "name": "test_unknown_or_mixed_version_pairs_fail_closed[phase1l-a-canonical-v1-phase1l-a-references-v2]",
+      "time": "0.052"
+    },
+    {
+      "classname": "tests.test_m2c_workflow_contracts",
+      "name": "test_unknown_or_mixed_version_pairs_fail_closed[phase1l-a-canonical-v2-phase1l-a-references-v1]",
+      "time": "0.051"
+    },
+    {
+      "classname": "tests.test_m2c_workflow_postgres",
+      "name": "test_canonical_v2_executes_owners_and_preserves_refs_on_locale_replay[foundation_i0]",
+      "time": "32.607"
+    },
+    {
+      "classname": "tests.test_m2c_workflow_postgres",
+      "name": "test_canonical_v2_executes_owners_and_preserves_refs_on_locale_replay[foundation_i1]",
+      "time": "20.995"
+    },
+    {
+      "classname": "tests.test_m2c_workflow_postgres",
+      "name": "test_authorized_stage1_projection_exact_snapshot_and_tenant[foundation_i0]",
+      "time": "69.570"
+    },
+    {
+      "classname": "tests.test_m2c_workflow_postgres",
+      "name": "test_authorized_stage1_projection_exact_snapshot_and_tenant[foundation_i1]",
+      "time": "42.317"
+    },
+    {
+      "classname": "tests.test_m2c_workflow_postgres",
+      "name": "test_crossborder_review_is_durable_and_does_not_produce_later_decisions[authority0]",
+      "time": "5.377"
+    },
+    {
+      "classname": "tests.test_m2c_workflow_postgres",
+      "name": "test_historical_v1_actual_postgres_read_has_explicit_authority_gap",
+      "time": "23.713"
+    },
+    {
+      "classname": "tests.test_m2c_workflow_postgres",
+      "name": "test_stage1_projection_ignores_future_inventory_and_documents",
+      "time": "49.395"
+    }
+  ],
+  "m2d_test_cases": [
+    {
+      "classname": "tests.test_m2d_api_postgres",
+      "name": "test_http_approve_and_recover_no_client_authority[foundation_i0]",
+      "time": "18.720"
+    },
+    {
+      "classname": "tests.test_m2d_api_postgres",
+      "name": "test_http_request_changes_then_typed_intake_successor[foundation_i0]",
+      "time": "19.422"
+    },
+    {
+      "classname": "tests.test_m2d_architecture",
+      "name": "test_m2d_approved_finite_owner_preserves_baseline_authorities",
+      "time": "1.171"
+    },
+    {
+      "classname": "tests.test_m2d_architecture",
+      "name": "test_m2d_additive_review_architecture",
+      "time": "1.514"
+    },
+    {
+      "classname": "tests.test_m2d_correction_postgres",
+      "name": "test_fact_choice_creates_successor_keeps_source_and_exact_parse_universe[foundation_i0]",
+      "time": "20.361"
+    },
+    {
+      "classname": "tests.test_m2d_correction_postgres",
+      "name": "test_outside_target_and_wrong_payload_do_not_create_successor[foundation_i0]",
+      "time": "2.426"
+    },
+    {
+      "classname": "tests.test_m2d_correction_postgres",
+      "name": "test_product_choice_uses_product_owner_and_preserves_detection[selected]",
+      "time": "3.386"
+    },
+    {
+      "classname": "tests.test_m2d_correction_postgres",
+      "name": "test_product_choice_uses_product_owner_and_preserves_detection[detected]",
+      "time": "3.284"
+    },
+    {
+      "classname": "tests.test_m2d_correction_postgres",
+      "name": "test_successor_delivery_failure_after_commit_can_recover_without_old_resume[foundation_i0]",
+      "time": "20.953"
+    },
+    {
+      "classname": "tests.test_m2d_formal_review_postgres",
+      "name": "test_formal_crossborder_review_refuses_approval_and_retains_support[authority0]",
+      "time": "5.346"
+    },
+    {
+      "classname": "tests.test_m2d_migrations",
+      "name": "test_fresh_exact_0014_equivalence_empty_down_up_retention",
+      "time": "27.698"
+    },
+    {
+      "classname": "tests.test_m2d_review_contracts",
+      "name": "test_browser_cannot_inject_review_authority[decided_by]",
+      "time": "0.001"
+    },
+    {
+      "classname": "tests.test_m2d_review_contracts",
+      "name": "test_browser_cannot_inject_review_authority[tenant_id]",
+      "time": "0.001"
+    },
+    {
+      "classname": "tests.test_m2d_review_contracts",
+      "name": "test_browser_cannot_inject_review_authority[langgraph_thread_id]",
+      "time": "0.000"
+    },
+    {
+      "classname": "tests.test_m2d_review_contracts",
+      "name": "test_browser_cannot_inject_review_authority[policy]",
+      "time": "0.001"
+    },
+    {
+      "classname": "tests.test_m2d_review_contracts",
+      "name": "test_browser_cannot_inject_review_authority[start_at]",
+      "time": "0.000"
+    },
+    {
+      "classname": "tests.test_m2d_review_contracts",
+      "name": "test_browser_cannot_inject_review_authority[final_path]",
+      "time": "0.000"
+    },
+    {
+      "classname": "tests.test_m2d_review_contracts",
+      "name": "test_approval_cannot_clear_formal_reason[FACT_CONFLICT]",
+      "time": "0.001"
+    },
+    {
+      "classname": "tests.test_m2d_review_contracts",
+      "name": "test_approval_cannot_clear_formal_reason[BUSINESS_FACT_CONFLICT]",
+      "time": "0.000"
+    },
+    {
+      "classname": "tests.test_m2d_review_contracts",
+      "name": "test_approval_cannot_clear_formal_reason[PRODUCT_CONTEXT_CONFLICT]",
+      "time": "0.000"
+    },
+    {
+      "classname": "tests.test_m2d_review_contracts",
+      "name": "test_approval_cannot_clear_formal_reason[JURISDICTION_UNRESOLVED]",
+      "time": "0.000"
+    },
+    {
+      "classname": "tests.test_m2d_review_contracts",
+      "name": "test_approval_cannot_clear_formal_reason[INSUFFICIENT_EVIDENCE]",
+      "time": "0.000"
+    },
+    {
+      "classname": "tests.test_m2d_review_contracts",
+      "name": "test_approval_cannot_clear_formal_reason[EVIDENCE_INSUFFICIENT]",
+      "time": "0.000"
+    },
+    {
+      "classname": "tests.test_m2d_review_contracts",
+      "name": "test_approval_cannot_clear_formal_reason[CAPABILITY_NOT_CONFIGURED]",
+      "time": "0.000"
+    },
+    {
+      "classname": "tests.test_m2d_review_contracts",
+      "name": "test_approval_cannot_clear_formal_reason[UNDETERMINED]",
+      "time": "0.000"
+    },
+    {
+      "classname": "tests.test_m2d_review_contracts",
+      "name": "test_only_explicit_immutable_requirement_confirmation_can_approve",
+      "time": "0.000"
+    },
+    {
+      "classname": "tests.test_m2d_review_contracts",
+      "name": "test_correction_is_typed_not_free_text_or_arbitrary_json_path",
+      "time": "0.000"
+    },
+    {
+      "classname": "tests.test_m2d_review_postgres",
+      "name": "test_request_changes_history_no_resume_and_duplicate_cas",
+      "time": "2.191"
+    },
+    {
+      "classname": "tests.test_m2d_review_postgres",
+      "name": "test_reject_is_review_boundary_not_failed_and_history_immutable",
+      "time": "2.129"
+    },
+    {
+      "classname": "tests.test_m2d_review_postgres",
+      "name": "test_approval_reexecutes_owner_duplicate_identity_and_history",
+      "time": "30.344"
+    },
+    {
+      "classname": "tests.test_m2d_review_postgres",
+      "name": "test_current_tenant_project_role_and_list_filters",
+      "time": "2.098"
+    },
+    {
+      "classname": "tests.test_m2d_review_postgres",
+      "name": "test_concurrent_reviewers_one_cas_winner",
+      "time": "2.005"
+    },
+    {
+      "classname": "tests.test_m2d_review_postgres",
+      "name": "test_delivery_failure_recovery_uses_persisted_approval",
+      "time": "29.420"
+    },
+    {
+      "classname": "tests.test_m2d_review_postgres",
+      "name": "test_approval_process_restart_keeps_canonical_history_and_checkpoint",
+      "time": "35.635"
+    },
+    {
+      "classname": "tests.test_m2d_review_postgres",
+      "name": "test_required_role_current_on_read_write_and_direct_resume",
+      "time": "3.349"
+    },
+    {
+      "classname": "tests.test_m2d_review_postgres",
+      "name": "test_direct_worker_approval_records_canonical_snapshot_audit",
+      "time": "28.700"
+    }
+  ],
+  "canonical_formal_restart_cases": [
+    {
+      "classname": "tests.test_phase1l_b_postgres",
+      "name": "test_full_chain_process_restart_review_and_duplicate_resume[foundation_i0]",
+      "time": "45.899"
+    },
+    {
+      "classname": "tests.test_phase1l_b_postgres",
+      "name": "test_full_chain_process_restart_review_and_duplicate_resume[foundation_i1]",
+      "time": "35.122"
+    },
+    {
+      "classname": "tests.test_phase1l_b_postgres",
+      "name": "test_process_crash_after_formal_save_before_checkpoint_recovers_without_duplicate",
+      "time": "35.547"
+    }
+  ],
+  "architecture": {
+    "architecture_rule_check.json": {
+      "passed": 151,
+      "total": 151
+    },
+    "m2a_architecture_check.json": {
+      "passed": 13,
+      "total": 13
+    },
+    "m2b_architecture_check.json": {
+      "passed": 27,
+      "total": 27
+    }
+  },
+  "runtime": {
+    "passed": 25,
+    "total": 25
+  },
+  "schema_checks": {
+    "phase1d_schema_check.json": {
+      "binary_columns": [],
+      "checks": {
+        "candidate_fact_item_flow_sources_present": true,
+        "canonical_structure_not_plain_text_blob_only": true,
+        "document_version_intelligence_one_to_one": true,
+        "document_versions_metadata_fields": true,
+        "original_binary_not_stored_in_domain_db": true,
+        "parse_run_detail_one_to_one": true,
+        "parse_run_version_unique": true,
+        "parse_run_versioned_fields": true,
+        "parse_task_idempotency_unique": true,
+        "phase1d_schema_present_under_current_head": true,
+        "required_tables_present": true,
+        "snapshot_parse_run_pin_present": true,
+        "source_trace_detail_one_to_one": true,
+        "source_trace_exact_locator_fields": true,
+        "spreadsheet_provenance_storage": true
+      },
+      "document_tables": [
+        "analysis_snapshot_parse_run_pins",
+        "business_fact_candidates",
+        "business_fact_resolutions",
+        "business_fact_source_links",
+        "candidate_compliance_path_results",
+        "candidate_data_flow_edge_source_links",
+        "candidate_data_flow_edges",
+        "candidate_data_flow_node_source_links",
+        "candidate_data_flow_nodes",
+        "candidate_data_item_source_links",
+        "candidate_data_items",
+        "candidate_resolutions",
+        "canonical_document_nodes",
+        "cross_document_link_sources",
+        "cross_document_links",
+        "document_parse_quality_results",
+        "document_parse_run_details",
+        "document_parse_runs",
+        "document_parse_tasks",
+        "document_translation_records",
+        "document_version_intelligence",
+        "document_versions",
+        "documents"
+      ],
+      "pass": true,
+      "passed": 15,
+      "revision": "0015_m2d_review_governance",
+      "total": 15
+    },
+    "phase1f_schema_check.json": {
+      "pass": true,
+      "passed": 29,
+      "total": 29,
+      "revision": "0015_m2d_review_governance",
+      "checks": {
+        "phase1f_schema_present_under_current_head": true,
+        "required_canonical_tables": true,
+        "existing_collection_source_reused": true,
+        "existing_bindings_extended": true,
+        "document_source_fk": true,
+        "version_document_collection_fk": true,
+        "version_sequence_unique": true,
+        "version_lifecycle_constraint": true,
+        "version_effective_dates_constraint": true,
+        "one_active_document_version": true,
+        "canonical_legal_node_reused": true,
+        "structure_hierarchy_fk": true,
+        "structure_locator_unique": true,
+        "structure_citation_fk": true,
+        "structure_provenance": true,
+        "chunk_version_fk": true,
+        "chunk_structure_fk": true,
+        "chunk_hash_strategy_tokens": true,
+        "fts_is_derived": true,
+        "vector_is_derived": true,
+        "embedding_registry_fk": true,
+        "embedding_idempotency_unique": true,
+        "index_version_contract": true,
+        "ingestion_idempotency_outbox": true,
+        "quality_seven_checks_contract": true,
+        "translation_review_constraint": true,
+        "durable_review_reused": true,
+        "snapshot_scope_unique_fk": true,
+        "tenant_audit_every_new_table": true
+      }
+    },
+    "phase1b_schema_check.json": {
+      "alembic_revision": "0015_m2d_review_governance",
+      "assertions": {
+        "all_required_phase1b_tables_exist": true,
+        "api_and_execution_idempotency_separate": true,
+        "conversation_fk_verified": true,
+        "domain_metadata_excludes_langgraph_checkpoint_tables": true,
+        "important_data_item_index_verified": true,
+        "important_project_index_verified": true,
+        "legal_basis_evidence_m2m_table_present": true,
+        "legal_basis_rule_hit_fk_verified": true,
+        "legal_basis_rule_hit_m2m_table_present": true,
+        "legal_basis_rule_hit_unique_verified": true,
+        "no_parallel_classification_source_table": true,
+        "phase1b_schema_present_under_current_head": true,
+        "project_version_fk_verified": true,
+        "project_version_unique_verified": true,
+        "regulatory_structure_node_present": true,
+        "workflow_stage_view_not_persisted": true
+      },
+      "domain_checkpoint_tables": [],
+      "forbidden_present": [],
+      "pass": true,
+      "required_missing": [],
+      "table_count": 182
+    },
+    "phase1e_schema_check.json": {
+      "checks": {
+        "business_fact_resolution_preserves_candidate": true,
+        "candidate_resolution_persists_candidate_formal_boundary": true,
+        "canonical_coordinates_are_optional_context_fields": true,
+        "data_flow_is_structured": true,
+        "data_item_detail_exact_version_identity": true,
+        "data_item_flow_link_is_structured": true,
+        "existing_review_task_reused": true,
+        "formal_counts_are_separate": true,
+        "formal_data_item_has_candidate_links": true,
+        "formal_data_item_has_source_trace_links": true,
+        "jurisdiction_is_context_not_regulation": true,
+        "no_parallel_data_flow_source_of_truth": true,
+        "no_parallel_data_item_source_of_truth": true,
+        "phase1b_formal_tables_remain_present": true,
+        "phase1e_required_tables_present": true,
+        "phase1e_schema_present_under_current_head": true,
+        "product_conflict_explicit": true,
+        "product_context_candidate_registry_fk": true,
+        "product_context_registry_fk": true,
+        "scenario_context_registry_fk": true,
+        "scenario_resolution_registry_fk": true,
+        "snapshot_context_pin_versioned": true
+      },
+      "forbidden_present": [],
+      "missing_tables": [],
+      "pass": true,
+      "passed": 22,
+      "revision": "0015_m2d_review_governance",
+      "total": 22
+    },
+    "phase1c_schema_check.json": {
+      "alembic_revision": "0015_m2d_review_governance",
+      "assertions": {
+        "all_phase1c_tables_exist": true,
+        "api_workflow_idempotency_still_separate": true,
+        "classification_results_still_formal_source": true,
+        "classification_version_fk_to_phase1b_scheme": true,
+        "domain_metadata_excludes_langgraph_checkpoints": true,
+        "knowledge_version_fk_verified": true,
+        "metadata_canonical_binding_unique": true,
+        "metadata_definition_kind_code_unique": true,
+        "metadata_version_fk_to_definition": true,
+        "model_deployment_fk_graph_verified": true,
+        "model_provider_version_fk_verified": true,
+        "model_secret_ref_only": true,
+        "phase1c_schema_present_under_current_head": true,
+        "prompt_version_fk_verified": true,
+        "registry_outbox_idempotency_unique": true,
+        "rule_version_fk_verified": true,
+        "snapshot_pin_fk_to_analysis_snapshot": true,
+        "snapshot_pin_immutable_unique": true,
+        "template_version_fk_verified": true,
+        "workflow_stage_view_still_not_persisted": true
+      },
+      "checkpoint_owned_by_domain": [],
+      "forbidden_secret_columns": [],
+      "missing_tables": [],
+      "pass": true,
+      "table_count": 182
+    },
+    "phase1i_schema_check.json": {
+      "pass": true,
+      "passed": 24,
+      "total": 24,
+      "checks": {
+        "phase1i_lineage": true,
+        "canonical_result": true,
+        "canonical_project": true,
+        "canonical_snapshot": true,
+        "canonical_jurisdiction": true,
+        "canonical_regulation_version": true,
+        "canonical_profile_versions": true,
+        "canonical_evidence_run": true,
+        "exact_subject_identity": true,
+        "trusted_owner_actor": true,
+        "formal_result_payload": true,
+        "reference_only_request": true,
+        "retry_fingerprint": true,
+        "snapshot_index": true,
+        "tenant_index": true,
+        "retry_unique": true,
+        "subject_constraint": true,
+        "six_status_constraint": true,
+        "immutable_results": true,
+        "immutable_profiles": true,
+        "immutable_profile_identity": true,
+        "immutable_snapshot_pins": true,
+        "no_duplicate_regulation_store": true,
+        "required_scope_columns_nonnullable": true
+      }
+    },
+    "phase1j_schema_check.json": {
+      "pass": true,
+      "passed": 36,
+      "total": 36,
+      "checks": {
+        "phase1j_lineage": true,
+        "OBLIGATION_required_scope": true,
+        "OBLIGATION_canonical_refs": true,
+        "OBLIGATION_scoped_parents": true,
+        "OBLIGATION_retry_scope_uniqueness": true,
+        "OBLIGATION_typed_version_subject": true,
+        "OBLIGATION_immutable_scoped_insertion": true,
+        "CANDIDATE_PATH_required_scope": true,
+        "CANDIDATE_PATH_canonical_refs": true,
+        "CANDIDATE_PATH_scoped_parents": true,
+        "CANDIDATE_PATH_retry_scope_uniqueness": true,
+        "CANDIDATE_PATH_typed_version_subject": true,
+        "CANDIDATE_PATH_immutable_scoped_insertion": true,
+        "RISK_required_scope": true,
+        "RISK_canonical_refs": true,
+        "RISK_scoped_parents": true,
+        "RISK_retry_scope_uniqueness": true,
+        "RISK_typed_version_subject": true,
+        "RISK_immutable_scoped_insertion": true,
+        "RECOMMENDATION_required_scope": true,
+        "RECOMMENDATION_canonical_refs": true,
+        "RECOMMENDATION_scoped_parents": true,
+        "RECOMMENDATION_retry_scope_uniqueness": true,
+        "RECOMMENDATION_typed_version_subject": true,
+        "RECOMMENDATION_immutable_scoped_insertion": true,
+        "FINAL_PATH_required_scope": true,
+        "FINAL_PATH_canonical_refs": true,
+        "FINAL_PATH_scoped_parents": true,
+        "FINAL_PATH_retry_scope_uniqueness": true,
+        "FINAL_PATH_typed_version_subject": true,
+        "FINAL_PATH_immutable_scoped_insertion": true,
+        "referential_link_only": true,
+        "alias_is_not_result_store": true,
+        "immutable_scoped_aliases": true,
+        "existing_governance_immutable": true,
+        "no_duplicate_authorities": true
+      }
+    },
+    "phase1h_schema_check.json": {
+      "pass": true,
+      "passed": 20,
+      "total": 20,
+      "checks": {
+        "phase1h_lineage": true,
+        "no_duplicate_rule_or_classification_store": true,
+        "canonical_rule_contract": true,
+        "canonical_rule_governance": true,
+        "canonical_rulehit_provenance": true,
+        "canonical_classification_provenance": true,
+        "classification_project_pin": true,
+        "classification_snapshot_pin": true,
+        "rule_effective_dates_constraint": true,
+        "scheme_effective_dates_constraint": true,
+        "active_rule_requires_validated_review": true,
+        "formal_result_requires_scope": true,
+        "rule_runtime_index": true,
+        "formal_result_snapshot_index": true,
+        "formal_result_retry_unique": true,
+        "immutable_rule_payload": true,
+        "immutable_rule_tests": true,
+        "immutable_scheme_content": true,
+        "immutable_formal_result": true,
+        "immutable_rulehit": true
+      }
+    },
+    "phase1g_schema_check.json": {
+      "passed": 58,
+      "total": 58,
+      "revision": "0015_m2d_review_governance",
+      "checks": {
+        "phase1g_schema_under_supported_head": true,
+        "required_derived_tables": true,
+        "no_parallel_canonical_knowledge": true,
+        "run_snapshot_project_policy_fk": true,
+        "run_idempotency_unique": true,
+        "run_status_constraint": true,
+        "one_pack_per_run": true,
+        "pack_derived_constraint": true,
+        "items_exact_source_chain": true,
+        "items_canonical_and_external_fk": true,
+        "sufficiency_policy_pack_fk": true,
+        "sufficiency_status_constraint": true,
+        "one_sufficiency_per_pack": true,
+        "external_validation_candidate_fk": true,
+        "external_validation_status_constraint": true,
+        "external_never_active": true,
+        "external_snapshot_source_policy_unique": true,
+        "external_snapshot_policy_source_fk": true,
+        "wiki_canonical_sources_fk": true,
+        "wiki_canonical_citations_fk": true,
+        "wiki_durable_review_reuse": true,
+        "wiki_publish_unique": true,
+        "wiki_draft_review_legal_boundary": true,
+        "wiki_one_active_version": true,
+        "graph_node_review_and_derived": true,
+        "graph_edge_review_and_derived": true,
+        "graph_source_chain_fk": true,
+        "graph_edge_node_registry_fk": true,
+        "runtime_publication_version_outbox_fk": true,
+        "runtime_ready_index_registry_cache_barrier": true,
+        "runtime_publication_status_constraint": true,
+        "runtime_publication_one_event": true,
+        "runtime_pins_index_embedding_policy_fk": true,
+        "evidence_pack_items_tenant_audit": true,
+        "evidence_packs_tenant_audit": true,
+        "external_evidence_candidates_tenant_audit": true,
+        "external_evidence_validation_results_tenant_audit": true,
+        "knowledge_graph_edges_tenant_audit": true,
+        "knowledge_graph_nodes_tenant_audit": true,
+        "knowledge_runtime_publications_tenant_audit": true,
+        "knowledge_sufficiency_policies_tenant_audit": true,
+        "knowledge_sufficiency_results_tenant_audit": true,
+        "retrieval_policies_tenant_audit": true,
+        "retrieval_runs_tenant_audit": true,
+        "runtime_verified_external_evidence_tenant_audit": true,
+        "trusted_source_policies_tenant_audit": true,
+        "wiki_citations_tenant_audit": true,
+        "wiki_pages_tenant_audit": true,
+        "wiki_publish_records_tenant_audit": true,
+        "wiki_reviews_tenant_audit": true,
+        "wiki_source_bindings_tenant_audit": true,
+        "wiki_versions_tenant_audit": true,
+        "retrieval_policy_version_unique": true,
+        "retrieval_one_active_policy": true,
+        "sufficiency_policy_version_unique": true,
+        "sufficiency_one_active_policy": true,
+        "trusted_source_policy_version_unique": true,
+        "trusted_source_one_active_policy": true
+      },
+      "pass": true
+    }
+  },
+  "phase1k_a_boundary.json": {
+    "phase": "1K-A boundary",
+    "passed": 20,
+    "total": 20,
+    "pass": true,
+    "checks": {
+      "approved_frozen_implementation_unchanged": true,
+      "approved_migrations_unchanged_no_integration_migration": true,
+      "domain_application_provider_sdk_orm_free": true,
+      "no_parallel_registry": true,
+      "existing_model_registry_reused": true,
+      "existing_governed_policy_source_reused": true,
+      "existing_prompt_registry_reused": true,
+      "existing_snapshot_pins_reused": true,
+      "canonical_capabilities_reused": true,
+      "all_seven_service_operations": true,
+      "request_is_reference_only": true,
+      "policy_precedes_router_and_call": true,
+      "tenant_project_policy_intersection": true,
+      "model_policy_restricts_fallback_pool": true,
+      "redaction_proof_validated_before_external": true,
+      "irreversible_mapping_boundary": true,
+      "secret_values_only_in_transport": true,
+      "safe_audit_shape": true,
+      "partial_stream_cannot_fallback": true,
+      "http_redirects_and_remote_schema_refs_denied": true
+    }
+  },
+  "stage1_integrity.json": {
+    "status": "PASS",
+    "checks": {
+      "reviewed_j_owner_overlay": true,
+      "reviewed_l_b_owner_overlay": true,
+      "reviewed_m2a_owner_overlay": true,
+      "H_ancestry_preserved": true,
+      "B_ancestry_preserved": true,
+      "C_ancestry_preserved": true,
+      "D_ancestry_preserved": true,
+      "B_backend_identical_to_tested_source": true,
+      "C_backend_identical_to_tested_source": true,
+      "D_backend_identical_to_tested_source": true,
+      "delivery_evidence_preserved": true,
+      "one_production_package_lock_build": true,
+      "one_react_bootstrap": true,
+      "canonical_dependencies_unchanged": true,
+      "no_integration_migration": true,
+      "one_shared_http_transport": true
+    }
+  },
+  "m2a_ownership.json": {
+    "pass": true,
+    "baseline": "83d79c7854b9eca44e85bd15f6ebb0fc9eb9b0a1",
+    "source": "006aed623763f687c7567eac7eaaea68a70a58d1",
+    "shared_paths": [
+      ".github/workflows/m1-alpha.yml",
+      ".github/workflows/m2a-intake.yml",
+      ".github/workflows/m2b-documents.yml",
+      ".github/workflows/m2c-stage1-results.yml",
+      ".github/workflows/m2d-human-review.yml",
+      ".github/workflows/phase1a-runtime-smoke.yml",
+      "alembic/env.py",
+      "alembic/versions/0011_m2a_structured_intake.py",
+      "alembic/versions/0012_m2b_document_inputs.py",
+      "alembic/versions/0013_m2b_context_temporal_contract.py",
+      "alembic/versions/0014_m2c_formal_result_authority.py",
+      "alembic/versions/0015_m2d_review_governance.py",
+      "frontend/e2e/fixtures/m2c-intake.docx",
+      "frontend/e2e/m2b.spec.ts",
+      "frontend/e2e/m2c.spec.ts",
+      "frontend/e2e/m2d.spec.ts",
+      "frontend/scripts/m1/export_contracts.py",
+      "frontend/scripts/m1/uat.py",
+      "frontend/scripts/m2a/export_contracts.py",
+      "frontend/scripts/m2a/uat.py",
+      "frontend/scripts/m2c/export_contracts.py",
+      "frontend/scripts/m2d/export_contracts.py",
+      "frontend/scripts/m2d/uat.py",
+      "frontend/src/App.tsx",
+      "frontend/src/api/client.ts",
+      "frontend/src/api/m2a-generated.ts",
+      "frontend/src/api/m2a-schemas.json",
+      "frontend/src/api/m2c-generated.ts",
+      "frontend/src/api/m2c-schemas.json",
+      "frontend/src/api/m2d-generated.ts",
+      "frontend/src/api/m2d-schemas.json",
+      "frontend/src/features/intake/DocumentInputs.tsx",
+      "frontend/src/features/intake/IntakeFeature.tsx",
+      "frontend/src/features/intake/ProductionIntake.tsx",
+      "frontend/src/features/intake/api.ts",
+      "frontend/src/features/intake/contracts.ts",
+      "frontend/src/features/intake/documentApi.ts",
+      "frontend/src/features/intake/m2b.test.tsx",
+      "frontend/src/features/intake/persistence.ts",
+      "frontend/src/features/results/Stage1Workspace.tsx",
+      "frontend/src/features/results/api.ts",
+      "frontend/src/features/results/pg-fixture.json",
+      "frontend/src/features/results/results.test.tsx",
+      "frontend/src/features/reviews/ReviewCenter.tsx",
+      "frontend/src/features/reviews/api.ts",
+      "frontend/src/features/reviews/reviews.test.tsx",
+      "frontend/src/locales/en-US.json",
+      "frontend/src/locales/zh-CN.json",
+      "frontend/src/locales/zh-HK.json",
+      "frontend/src/styles.css",
+      "frontend/src/theme.ts",
+      "frontend/vite.config.ts",
+      "scripts/m1_phase1lb_ownership.py",
+      "scripts/m2a_architecture_check.py",
+      "scripts/m2a_ownership.py",
+      "scripts/m2b_architecture_check.py",
+      "scripts/m2b_ownership.py",
+      "scripts/m2c_architecture_check.py",
+      "scripts/m2c_ownership.py",
+      "scripts/m2c_projection_architecture.py",
+      "scripts/m2c_projection_ownership.py",
+      "scripts/m2d_architecture_check.py",
+      "scripts/m2d_ownership.py",
+      "scripts/phase1e_schema_check.py",
+      "scripts/phase1j_ownership.py",
+      "scripts/phase1k_a_boundary_check.py",
+      "scripts/phase1l_b_ownership.py",
+      "scripts/stage1_alpha_integrity.py",
+      "smoke/run_gate.sh",
+      "src/crossborder_compliance/application/context_ports.py",
+      "src/crossborder_compliance/application/context_services.py",
+      "src/crossborder_compliance/application/country_compliance_services.py",
+      "src/crossborder_compliance/application/document_services.py",
+      "src/crossborder_compliance/application/document_upload.py",
+      "src/crossborder_compliance/application/formal_result_services.py",
+      "src/crossborder_compliance/application/ports.py",
+      "src/crossborder_compliance/application/review_services.py",
+      "src/crossborder_compliance/application/stage1_result.py",
+      "src/crossborder_compliance/application/workflow_formal.py",
+      "src/crossborder_compliance/application/workflow_skeleton.py",
+      "src/crossborder_compliance/domain/context_resolution.py",
+      "src/crossborder_compliance/domain/formal_result_contracts.py",
+      "src/crossborder_compliance/domain/formal_result_engine.py",
+      "src/crossborder_compliance/domain/formal_result_policies.py",
+      "src/crossborder_compliance/domain/review_governance.py",
+      "src/crossborder_compliance/infrastructure/document_input_composition.py",
+      "src/crossborder_compliance/infrastructure/document_storage.py",
+      "src/crossborder_compliance/infrastructure/intake_composition.py",
+      "src/crossborder_compliance/infrastructure/persistence/classification_repository.py",
+      "src/crossborder_compliance/infrastructure/persistence/compliance_profile_governance.py",
+      "src/crossborder_compliance/infrastructure/persistence/context_models.py",
+      "src/crossborder_compliance/infrastructure/persistence/context_repositories.py",
+      "src/crossborder_compliance/infrastructure/persistence/context_temporal.py",
+      "src/crossborder_compliance/infrastructure/persistence/country_compliance_repository.py",
+      "src/crossborder_compliance/infrastructure/persistence/decision_models.py",
+      "src/crossborder_compliance/infrastructure/persistence/document_models.py",
+      "src/crossborder_compliance/infrastructure/persistence/document_repositories.py",
+      "src/crossborder_compliance/infrastructure/persistence/document_snapshot_inputs.py",
+      "src/crossborder_compliance/infrastructure/persistence/formal_result_governance.py",
+      "src/crossborder_compliance/infrastructure/persistence/formal_result_models.py",
+      "src/crossborder_compliance/infrastructure/persistence/formal_result_repository.py",
+      "src/crossborder_compliance/infrastructure/persistence/knowledge_repositories.py",
+      "src/crossborder_compliance/infrastructure/persistence/metadata_repositories.py",
+      "src/crossborder_compliance/infrastructure/persistence/models.py",
+      "src/crossborder_compliance/infrastructure/persistence/postgres_repositories.py",
+      "src/crossborder_compliance/infrastructure/persistence/project_document_inputs.py",
+      "src/crossborder_compliance/infrastructure/persistence/project_intake.py",
+      "src/crossborder_compliance/infrastructure/persistence/repositories.py",
+      "src/crossborder_compliance/infrastructure/persistence/review_governance.py",
+      "src/crossborder_compliance/infrastructure/persistence/review_models.py",
+      "src/crossborder_compliance/infrastructure/persistence/structured_intake.py",
+      "src/crossborder_compliance/infrastructure/persistence/workflow_read_projection.py",
+      "src/crossborder_compliance/infrastructure/registry_catalog.py",
+      "src/crossborder_compliance/infrastructure/workflow_formal_composition.py",
+      "src/crossborder_compliance/interfaces/api/routes/admin_metadata.py",
+      "src/crossborder_compliance/interfaces/api/routes/decisions.py",
+      "src/crossborder_compliance/interfaces/api/routes/intake.py",
+      "src/crossborder_compliance/interfaces/api/routes/intake_documents.py",
+      "src/crossborder_compliance/interfaces/api/routes/metadata.py",
+      "src/crossborder_compliance/interfaces/api/routes/reviews.py",
+      "src/crossborder_compliance/interfaces/api/routes/workflow.py",
+      "src/crossborder_compliance/interfaces/api/workflow_app.py",
+      "src/crossborder_compliance/workflows/canonical.py",
+      "tests/conftest.py",
+      "tests/m2b_legacy_seed.py",
+      "tests/m2b_parse_worker.py",
+      "tests/m2c_policy_fixtures.py",
+      "tests/test_m1_workflow_api.py",
+      "tests/test_m2a_migrations.py",
+      "tests/test_m2a_structured_intake.py",
+      "tests/test_m2b_architecture.py",
+      "tests/test_m2b_document_inputs.py",
+      "tests/test_m2b_file_policy.py",
+      "tests/test_m2b_integration.py",
+      "tests/test_m2b_migrations.py",
+      "tests/test_m2b_ownership.py",
+      "tests/test_m2b_snapshot_contract_probe.py",
+      "tests/test_m2b_temporal_postgres.py",
+      "tests/test_m2c_architecture.py",
+      "tests/test_m2c_authority_contracts.py",
+      "tests/test_m2c_authority_postgres.py",
+      "tests/test_m2c_migrations.py",
+      "tests/test_m2c_projection_architecture.py",
+      "tests/test_m2c_workflow_contracts.py",
+      "tests/test_m2c_workflow_postgres.py",
+      "tests/test_m2d_api_postgres.py",
+      "tests/test_m2d_architecture.py",
+      "tests/test_m2d_correction_postgres.py",
+      "tests/test_m2d_formal_review_postgres.py",
+      "tests/test_m2d_migrations.py",
+      "tests/test_m2d_review_contracts.py",
+      "tests/test_m2d_review_postgres.py",
+      "tests/test_phase1d_postgres.py",
+      "tests/test_phase1f_postgres.py",
+      "tests/test_phase1f_snapshot_scope.py",
+      "tests/test_phase1g_publication_postgres.py",
+      "tests/test_phase1h_postgres.py",
+      "tests/test_phase1i_postgres.py",
+      "tests/test_phase1j_migrations.py",
+      "tests/test_phase1j_postgres.py",
+      "tests/test_phase1l_a_skeleton.py",
+      "tests/test_phase1l_b_contracts.py",
+      "tests/test_phase1l_b_postgres.py"
+    ]
+  },
+  "static_subset_disclosure": [
+    "contract-tests\tlog\t2026-10-08T13:06:14.5934735Z 445 passed, 7 skipped, 311 deselected, 2 warnings in 133.61s (0:02:13)"
+  ]
+}

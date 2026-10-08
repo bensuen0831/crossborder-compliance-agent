@@ -1,0 +1,483 @@
+{
+  "config": {
+    "argv": [
+      "/opt/hostedtoolcache/node/24.21.0/x64/bin/node",
+      "/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/node_modules/.bin/playwright",
+      "test",
+      "m2b.spec.ts",
+      "m2a.spec.ts",
+      "m1.spec.ts"
+    ],
+    "configFile": "/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/playwright.config.ts",
+    "rootDir": "/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "ci": {
+        "commitHref": "https://github.com/bensuen0831/crossborder-compliance-agent/commit/efda0955342de8d1ea36aa0f754d63c9b421fec8",
+        "commitHash": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+        "buildHref": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37781338233"
+      },
+      "gitCommit": {
+        "shortHash": "efda095",
+        "hash": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+        "subject": "Merge pull request #25 from bensuen0831/milestone-m2d-human-review-resume",
+        "body": "Merge pull request #25 from bensuen0831/milestone-m2d-human-review-resume\n\nM2-D: governed Human Review Center and successor-safe correction",
+        "author": {
+          "name": "bensuen0831",
+          "email": "bensuen0831@gmail.com",
+          "time": 1791464525000
+        },
+        "committer": {
+          "name": "GitHub",
+          "email": "noreply@github.com",
+          "time": 1791464525000
+        },
+        "branch": "HEAD"
+      },
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/bensuen0831/crossborder-compliance-agent/commit/efda0955342de8d1ea36aa0f754d63c9b421fec8",
+            "commitHash": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+            "buildHref": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37781338233"
+          },
+          "gitCommit": {
+            "shortHash": "efda095",
+            "hash": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+            "subject": "Merge pull request #25 from bensuen0831/milestone-m2d-human-review-resume",
+            "body": "Merge pull request #25 from bensuen0831/milestone-m2d-human-review-resume\n\nM2-D: governed Human Review Center and successor-safe correction",
+            "author": {
+              "name": "bensuen0831",
+              "email": "bensuen0831@gmail.com",
+              "time": 1791464525000
+            },
+            "committer": {
+              "name": "GitHub",
+              "email": "noreply@github.com",
+              "time": 1791464525000
+            },
+            "branch": "HEAD"
+          },
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "github",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "m1.spec.ts",
+      "file": "m1.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "zh-CN",
+          "file": "m1.spec.ts",
+          "line": 43,
+          "column": 62,
+          "specs": [
+            {
+              "title": "four-step intake, canonical results, official citation and locale state invariance",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 73930,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-08T13:06:42.339Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1c39409c6e78644cb110-5d52ab9355b85be61567",
+              "file": "m1.spec.ts",
+              "line": 45,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "zh-HK",
+          "file": "m1.spec.ts",
+          "line": 43,
+          "column": 62,
+          "specs": [
+            {
+              "title": "four-step intake, canonical results, official citation and locale state invariance",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 40630,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-08T13:07:56.563Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1c39409c6e78644cb110-8d621be59a54cc8466b0",
+              "file": "m1.spec.ts",
+              "line": 45,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "en-US",
+          "file": "m1.spec.ts",
+          "line": 43,
+          "column": 62,
+          "specs": [
+            {
+              "title": "four-step intake, canonical results, official citation and locale state invariance",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 38321,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-08T13:08:37.206Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1c39409c6e78644cb110-c8522f4a112e9e4e7414",
+              "file": "m1.spec.ts",
+              "line": 45,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "m2a.spec.ts",
+      "file": "m2a.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "new persisted project, refresh, exact snapshot and canonical START/READ in zh-CN",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 27918,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T13:09:15.553Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "49d86bb918eea637eb67-bd327ae3a42099b94360",
+          "file": "m2a.spec.ts",
+          "line": 12,
+          "column": 57
+        },
+        {
+          "title": "new persisted project, refresh, exact snapshot and canonical START/READ in zh-HK",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 35749,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T13:09:43.485Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "49d86bb918eea637eb67-80085a333d7a0bdc2f01",
+          "file": "m2a.spec.ts",
+          "line": 12,
+          "column": 57
+        },
+        {
+          "title": "new persisted project, refresh, exact snapshot and canonical START/READ in en-US",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 36032,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T13:10:19.254Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "49d86bb918eea637eb67-40bf095b91b29ad59c73",
+          "file": "m2a.spec.ts",
+          "line": 12,
+          "column": 57
+        }
+      ]
+    },
+    {
+      "title": "m2b.spec.ts",
+      "file": "m2b.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "real binary, pinned documents and canonical workflow in zh-CN",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 35733,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T13:10:55.355Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7122c592afc7dc3e6b39-cad3b438a01933b9368c",
+          "file": "m2b.spec.ts",
+          "line": 8,
+          "column": 60
+        },
+        {
+          "title": "real binary, pinned documents and canonical workflow in zh-HK",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 36357,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T13:11:31.135Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7122c592afc7dc3e6b39-5ad4e34c707ded00c4f7",
+          "file": "m2b.spec.ts",
+          "line": 8,
+          "column": 60
+        },
+        {
+          "title": "real binary, pinned documents and canonical workflow in en-US",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 35742,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T13:12:07.513Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7122c592afc7dc3e6b39-9a8080e66f228c9f738f",
+          "file": "m2b.spec.ts",
+          "line": 8,
+          "column": 60
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-08T13:06:41.429Z",
+    "duration": 362471.80199999997,
+    "expected": 9,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "sha": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+  "status": "PASS",
+  "runs": {
+    "backend": {
+      "id": 37781308907,
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "checkout_jobs": {
+        "mandatory-runtime-smoke": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+        "contract-tests": "efda0955342de8d1ea36aa0f754d63c9b421fec8"
+      }
+    },
+    "m2d": {
+      "id": 37787075090,
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "checkout_jobs": {
+        "frontend-real-backend-uat": "efda0955342de8d1ea36aa0f754d63c9b421fec8"
+      }
+    },
+    "m2c": {
+      "id": 37781328439,
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "checkout_jobs": {
+        "frontend-real-backend-uat": "efda0955342de8d1ea36aa0f754d63c9b421fec8"
+      }
+    },
+    "m2b": {
+      "id": 37781338233,
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "checkout_jobs": {
+        "frontend-real-backend-uat": "efda0955342de8d1ea36aa0f754d63c9b421fec8"
+      }
+    },
+    "m2a": {
+      "id": 37781347189,
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "checkout_jobs": {
+        "frontend-real-backend-uat": "efda0955342de8d1ea36aa0f754d63c9b421fec8"
+      }
+    },
+    "m1": {
+      "id": 37781357192,
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "checkout_jobs": {
+        "frontend-real-backend-uat": "efda0955342de8d1ea36aa0f754d63c9b421fec8"
+      }
+    },
+    "m0": {
+      "id": 37781368669,
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "checkout_jobs": {
+        "real-backend-uat": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+        "frontend": "efda0955342de8d1ea36aa0f754d63c9b421fec8"
+      }
+    }
+  },
+  "strategy": "RECOVERY_A",
+  "previous_timeout_run_id": 37781319845
+}
