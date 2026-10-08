@@ -142,7 +142,12 @@ class HTTPProviderAdapter:
                         follow_redirects=False,
                         timeout=seconds,
                     ) as client:
-                        with client.stream(method, url, **({"json": body} if body is not None else {}), headers=headers) as response:
+                        with client.stream(
+                            method,
+                            url,
+                            **({"json": body} if body is not None else {}),
+                            headers=headers,
+                        ) as response:
                             response.raise_for_status()
                             raw = bytearray()
                             for part in response.iter_bytes():
@@ -159,8 +164,11 @@ class HTTPProviderAdapter:
                         if isinstance(error, httpx.TimeoutException):
                             code = "TIMEOUT"
                         elif isinstance(error, httpx.HTTPStatusError):
-                            code = {401: "AUTHENTICATION_FAILED", 403: "AUTHENTICATION_FAILED",
-                                    404: "MODEL_ENDPOINT_INVALID"}.get(error.response.status_code, "ENDPOINT_UNREACHABLE")
+                            code = {
+                                401: "AUTHENTICATION_FAILED",
+                                403: "AUTHENTICATION_FAILED",
+                                404: "MODEL_ENDPOINT_INVALID",
+                            }.get(error.response.status_code, "ENDPOINT_UNREACHABLE")
                         elif isinstance(error.__cause__, ssl.SSLError):
                             code = "TLS_ERROR"
                         else:
@@ -255,17 +263,27 @@ class OpenAICompatibleProviderAdapter(HTTPProviderAdapter):
         if payload.operation == ModelOperation.CHAT_STREAM:
             body["stream"] = True
         if payload.operation == ModelOperation.STRUCTURED_OUTPUT:
-            body["response_format"] = {"type": "json_object"} if model.structured_output_format == "json_object" else {
-                "type": "json_schema",
-                "json_schema": {
-                    "name": "structured_result",
-                    "schema": payload.output_schema,
-                    "strict": True,
-                },
-            }
+            body["response_format"] = (
+                {"type": "json_object"}
+                if model.structured_output_format == "json_object"
+                else {
+                    "type": "json_schema",
+                    "json_schema": {
+                        "name": "structured_result",
+                        "schema": payload.output_schema,
+                        "strict": True,
+                    },
+                }
+            )
             if model.structured_output_format == "json_object":
-                body["messages"].insert(0, {"role": "system", "content":
-                    "Return a JSON object conforming to this schema: " + json.dumps(payload.output_schema)})
+                body["messages"].insert(
+                    0,
+                    {
+                        "role": "system",
+                        "content": "Return a JSON object conforming to this schema: "
+                        + json.dumps(payload.output_schema),
+                    },
+                )
         return "POST", "/chat/completions", body
 
     def _decode(self, payload, body):
@@ -274,21 +292,33 @@ class OpenAICompatibleProviderAdapter(HTTPProviderAdapter):
             if not isinstance(entries, list) or len(entries) > 4096:
                 raise GatewayDenied("MODEL_RESULT_INVALID")
             ids = tuple(entry["id"] for entry in entries)
-            if any(not isinstance(identity, str) or not 1 <= len(identity) <= 200 for identity in ids):
+            if any(
+                not isinstance(identity, str) or not 1 <= len(identity) <= 200 for identity in ids
+            ):
                 raise GatewayDenied("MODEL_RESULT_INVALID")
             return ProviderResult(healthy=True, discovered_models=tuple(dict.fromkeys(ids)))
+        usage = {
+            key: value
+            for key, value in body.get("usage", {}).items()
+            if key in {"prompt_tokens", "completion_tokens", "total_tokens"}
+            and isinstance(value, int)
+            and not isinstance(value, bool)
+            and value >= 0
+        }
         if payload.operation == ModelOperation.EMBEDDING:
             rows = sorted(body["data"], key=lambda x: x["index"])
             if [r["index"] for r in rows] != list(range(len(payload.texts))):
                 raise GatewayDenied("MODEL_RESULT_INVALID")
-            return ProviderResult(embeddings=tuple(tuple(r["embedding"]) for r in rows))
+            return ProviderResult(
+                embeddings=tuple(tuple(r["embedding"]) for r in rows), usage=usage
+            )
         choice = body["choices"][0]
         if choice["message"].get("tool_calls") or choice.get("finish_reason") != "stop":
             raise GatewayDenied("MODEL_RESULT_INVALID")
         text = choice["message"]["content"]
         if payload.operation == ModelOperation.STRUCTURED_OUTPUT:
-            return ProviderResult(structured=json.loads(text))
-        return ProviderResult(text=text)
+            return ProviderResult(structured=json.loads(text), usage=usage)
+        return ProviderResult(text=text, usage=usage)
 
     def _delta(self, body):
         choice = body["choices"][0]
