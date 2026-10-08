@@ -14,6 +14,7 @@ from crossborder_compliance.domain.retrieval import (
     EvidencePack,
     KnowledgeRetrievalPolicy,
     KnowledgeSufficiencyPolicy,
+    LexicalRetrievalResult,
     RAGContextPack,
     RetrievalStatistics,
     RetrievalTrace,
@@ -23,7 +24,16 @@ from crossborder_compliance.domain.retrieval import (
 
 class KnowledgeRetrievalService:
     def __init__(
-        self, repository, context, lexical, vector, *, embedding=None, reranker=None, external=None
+        self,
+        repository,
+        context,
+        lexical,
+        vector,
+        *,
+        embedding=None,
+        reranker=None,
+        external=None,
+        query_expansion=None,
     ):
         self.repository, self.context, self.lexical, self.vector = (
             repository,
@@ -32,6 +42,7 @@ class KnowledgeRetrievalService:
             vector,
         )
         self.embedding, self.reranker, self.external = embedding, reranker, external
+        self.query_expansion = query_expansion
 
     def retrieve(self, query):
         repo = self.repository
@@ -134,6 +145,64 @@ class KnowledgeRetrievalService:
                 },
             )
             suff = KnowledgeSufficiencyService().assess(pack, current, suffpolicy)
+            if self.query_expansion is not None and suff.status in (
+                "PARTIALLY_SUFFICIENT",
+                "INSUFFICIENT",
+            ):
+                phrases = self.query_expansion.plan(query.query_text, suff)
+                traces.append(
+                    RetrievalTrace(
+                        stage="QUERY_EXPANSION",
+                        reason_code="DERIVED_QUERY_NOT_LEGAL_EVIDENCE",
+                        details={"query_count": len(phrases), "bounded_rounds": 1},
+                    )
+                )
+                if phrases:
+                    expanded = tuple(
+                        candidate
+                        for phrase in phrases
+                        for candidate in self.lexical.retrieve(phrase, plan).candidates
+                    )
+                    merged = HybridMergeStrategy().merge(
+                        LexicalRetrievalResult(candidates=lexical.candidates + expanded),
+                        vector,
+                        policy,
+                    )
+                    candidates = merged.candidates
+                    if policy.rerank_enabled:
+                        candidates = (
+                            RerankService(self.reranker)
+                            .rerank(query.query_text, candidates, policy)
+                            .candidates
+                        )
+                    # Current revocation/access is revalidated, but the pinned allowed
+                    # scope is never widened by model text or additional search terms.
+                    current = KnowledgeScopeResolver(repo, self.context).resolve(
+                        query.project_id,
+                        subject_type=query.subject_type,
+                        subject_id=query.subject_id,
+                        snapshot_id=query.analysis_snapshot_id,
+                        languages=query.languages,
+                    )
+                    plan = repo.prepare_search(current, policy)
+                    validation = RetrievalScopeValidator(repo).validate(candidates, plan)
+                    allowed = set(validation.allowed_chunk_ids)
+                    selected = tuple(c for c in candidates if c.chunk_id in allowed)[: policy.top_k]
+                    items = repo.internal_evidence(run_id, plan, selected)
+                    pack = pack.model_copy(
+                        update={
+                            "items": items,
+                            "manifest": {
+                                **pack.manifest,
+                                "query_expansion": {
+                                    "authority": "DERIVED_CANDIDATE",
+                                    "query_count": len(phrases),
+                                    "rounds": 1,
+                                },
+                            },
+                        }
+                    )
+                    suff = KnowledgeSufficiencyService().assess(pack, current, suffpolicy)
             external_meta = {"attempted": False, "reason_codes": []}
             if policy.external_augmentation_enabled and suff.status in (
                 "PARTIALLY_SUFFICIENT",

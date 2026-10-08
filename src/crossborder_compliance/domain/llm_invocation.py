@@ -75,6 +75,7 @@ class LLMInvocationPolicy(Contract):
     max_models: int = Field(ge=2, le=16)
     candidate_min_confidence: float = Field(default=0.9, ge=0, le=1)
     candidate_fact_type_ids: tuple[UUID, ...] = Field(default=(), max_length=128)
+    query_expansion_limit: int = Field(default=3, ge=1, le=8)
 
 
 class InvocationFacts(Contract):
