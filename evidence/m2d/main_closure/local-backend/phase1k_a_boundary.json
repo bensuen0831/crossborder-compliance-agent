@@ -1,0 +1,28 @@
+{
+  "phase": "1K-A boundary",
+  "passed": 20,
+  "total": 20,
+  "pass": true,
+  "checks": {
+    "approved_frozen_implementation_unchanged": true,
+    "approved_migrations_unchanged_no_integration_migration": true,
+    "domain_application_provider_sdk_orm_free": true,
+    "no_parallel_registry": true,
+    "existing_model_registry_reused": true,
+    "existing_governed_policy_source_reused": true,
+    "existing_prompt_registry_reused": true,
+    "existing_snapshot_pins_reused": true,
+    "canonical_capabilities_reused": true,
+    "all_seven_service_operations": true,
+    "request_is_reference_only": true,
+    "policy_precedes_router_and_call": true,
+    "tenant_project_policy_intersection": true,
+    "model_policy_restricts_fallback_pool": true,
+    "redaction_proof_validated_before_external": true,
+    "irreversible_mapping_boundary": true,
+    "secret_values_only_in_transport": true,
+    "safe_audit_shape": true,
+    "partial_stream_cannot_fallback": true,
+    "http_redirects_and_remote_schema_refs_denied": true
+  }
+}
