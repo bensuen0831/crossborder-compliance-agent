@@ -227,3 +227,32 @@ def test_required_role_current_on_read_write_and_direct_resume(foundation_j):
     assert repo.list(order="CREATED_ASC").items[0].review_id == task.review_id
     with pytest.raises(ValueError):
         repo.list(order="unsafe")
+
+
+def test_direct_worker_approval_records_canonical_snapshot_audit(foundation_j):
+    from crossborder_compliance.domain.contracts import ReviewDecisionDTO
+
+    repo, task, runtime, _factory, _m = pending(foundation_j)
+    decision = ReviewDecisionDTO(
+        review_id=task.review_id,
+        decision="APPROVE",
+        decided_by="author",
+        provenance={
+            "source_type": "human_review",
+            "source_ref": str(task.review_id),
+            "generated_by": "author",
+        },
+    )
+    runtime.resume(task.workflow_run_id, decision.model_dump(mode="json"))
+    assert runtime.get_status(task.workflow_run_id) == "COMPLETED"
+    with foundation_j["sf"]() as session:
+        audit = session.scalar(
+            select(b.AuditEventEntity).where(
+                b.AuditEventEntity.workflow_run_id == str(task.workflow_run_id),
+                b.AuditEventEntity.event_type == "REVIEW_DECISION_RECORDED",
+            )
+        )
+        assert audit.analysis_snapshot_id == str(task.analysis_snapshot_id)
+        assert audit.tenant_id == str(repo._context.tenant_id)
+    runtime.resume(task.workflow_run_id, decision.model_dump(mode="json"))
+    assert len(repo.read(task.review_id).history) == 1

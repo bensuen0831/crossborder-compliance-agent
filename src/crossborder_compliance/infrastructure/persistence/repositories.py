@@ -75,8 +75,11 @@ class RuntimeRepository:
                 row.status={"APPROVE":"APPROVED","REJECT":"REJECTED","REQUEST_CHANGES":"PENDING"}[parsed.decision.value]
                 row.decision_json=parsed.model_dump(mode="json");row.record_version+=1
                 row.resolved_at=None if row.status=="PENDING" else utcnow()
+                run=s.get(WorkflowRunEntity,row.workflow_run_id)
+                if run is None or run.tenant_id!=row.tenant_id or run.thread_id!=row.thread_id:
+                    raise ValueError("REVIEW_NOT_FOUND")
                 s.add(AuditEventEntity(audit_event_id=self._audit_id(UUID(row.workflow_run_id),f"review-decision:{parsed.decision_id}"),
-                    tenant_id=row.tenant_id,workflow_run_id=row.workflow_run_id,event_type="REVIEW_DECISION_RECORDED",
+                    tenant_id=row.tenant_id,workflow_run_id=row.workflow_run_id,analysis_snapshot_id=run.analysis_snapshot_id,event_type="REVIEW_DECISION_RECORDED",
                     provenance_json={"review_id":str(review_id),"decision_id":str(parsed.decision_id),"actor_id":parsed.decided_by}))
 
     def record_event(self, tenant_id: UUID, event: WorkflowEventDTO) -> None:
