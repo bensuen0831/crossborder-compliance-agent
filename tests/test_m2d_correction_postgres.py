@@ -309,3 +309,45 @@ def test_product_choice_uses_product_owner_and_preserves_detection(
         client.get(f"/api/v1/workflows/{task.workflow_run_id}/stage1-result").json()
         == before_result
     )
+
+
+@pytest.mark.parametrize("foundation_i", [{"no_data": True}], indirect=True)
+def test_successor_delivery_failure_after_commit_can_recover_without_old_resume(foundation_j):
+    from crossborder_compliance.application.review_services import HumanReviewService
+
+    f = foundation_j
+    _app, client, context, repo, task, source = conflict(f)
+    chosen = next(c for c in task.choices if c.structured_provenance)
+    payload = ReviewCorrectionRequest(
+        expected_record_version=task.record_version,
+        idempotency_key=str(uuid4()),
+        correction=FactSelection(
+            correction_type="SELECT_BUSINESS_FACT",
+            target_object_type="CONTEXT_CONFLICT",
+            target_object_id=task.object_id,
+            selected_fact_id=chosen.object_id,
+        ),
+    )
+    original = client.get(f"/api/v1/workflows/{task.workflow_run_id}/stage1-result").json()
+
+    def unavailable(*_):
+        raise ConnectionError("delivery unavailable after canonical successor commit")
+
+    with pytest.raises(ConnectionError):
+        HumanReviewService(repo, successor_delivery=unavailable).correct(task.review_id, payload)
+    value = repo.read(task.review_id)
+    assert value.lineage and value.allowed_actions == ("CONTINUE_SUCCESSOR",)
+
+    def deliver(_view, lineage):
+        record = PostgresProjectRepository(f["sf"], context).read_intake(UUID(source["project_id"]))
+        result = start(client, record.model_dump(mode="json"))
+        assert (
+            result["workflow_run_id"] == str(lineage.successor_workflow_run_id)
+            and result["status"] == "COMPLETED"
+        )
+
+    service = HumanReviewService(repo, successor_delivery=deliver)
+    continued = service.continue_successor(task.review_id)
+    assert continued.lineage == value.lineage and continued.allowed_actions == ()
+    assert service.continue_successor(task.review_id) == continued
+    assert client.get(f"/api/v1/workflows/{task.workflow_run_id}/stage1-result").json() == original

@@ -13,6 +13,7 @@ import { currentLocale, supportedLocales, type Locale } from './i18n';
 import { formatNumber } from './features/knowledge/formatting';
 import { enterpriseTheme, resultWorkspaceTheme } from './theme';
 import { Stage1Workspace } from './features/results/Stage1Workspace';
+import { ReviewCenter } from './features/reviews/ReviewCenter';
 import { ProductionIntake } from './features/intake/ProductionIntake';
 import { AdminRoute } from './routes/AdminRoute';
 import { ContextSelector } from './components/ContextSelector';
@@ -23,10 +24,10 @@ import { RuntimeStatus, StatusHealthIndicator } from './components/RuntimeStatus
 import { EmptyState, ErrorState, FeatureGate, LoadingState, PermissionDenied } from './components/States';
 import { useRetrieval, useScope } from './features/knowledge/queries';
 
-function PageHeader({ runtime, admin = false, intake = false, results = false }: { runtime: boolean; admin?: boolean; intake?: boolean; results?: boolean }) {
+function PageHeader({ runtime, admin = false, intake = false, results = false, reviews = false }: { runtime: boolean; admin?: boolean; intake?: boolean; results?: boolean; reviews?: boolean }) {
   const { t } = useTranslation();
   return <header className="page-heading"><Typography.Text className="eyebrow">{t('ui.foundation')}</Typography.Text>
-    <Typography.Title level={1}>{t(results ? 'ui.m2c.workspace' : intake ? 'ui.m1.title' : admin ? 'admin' : runtime ? 'operational' : 'knowledge')}</Typography.Title>
+    <Typography.Title level={1}>{t(reviews ? 'ui.m2d.title' : results ? 'ui.m2c.workspace' : intake ? 'ui.m1.title' : admin ? 'admin' : runtime ? 'operational' : 'knowledge')}</Typography.Title>
     <Typography.Paragraph type="secondary">{t(admin ? 'adminSubtitle' : 'subtitle')}</Typography.Paragraph>
   </header>;
 }
@@ -41,6 +42,7 @@ function SideNavigation({ adminAvailable }: { adminAvailable: boolean }) {
   const location = useLocation();
   return <nav aria-label={t('ui.navigation')}>
     <Menu theme="dark" mode="inline" selectedKeys={[location.pathname]} items={[
+      { key: '/reviews', icon: <SafetyCertificateOutlined />, label: <Link to="/reviews">{t('ui.m2d.title')}</Link> },
       { key: '/knowledge', icon: <SearchOutlined />, label: <Link to="/knowledge">{t('knowledge')}</Link> },
       { key: '/intake', icon: <SafetyCertificateOutlined />, label: <Link to="/intake">{t('ui.m1.title')}</Link> },
       { key: '/runtime', icon: <ApiOutlined />, label: <Link to="/runtime">{t('operational')}</Link> },
@@ -79,20 +81,22 @@ function Workspace({ session }: { session: Session }) {
   const admin = location.pathname.startsWith('/admin');
   const intake = location.pathname === '/intake';
   const results = location.pathname.startsWith('/results/');
+  const reviews = location.pathname.startsWith('/reviews');
+  const formal = results || reviews;
   return <Layout className="workspace-layout">
     <Layout.Sider width={230} breakpoint="lg" collapsedWidth={0} className="sidebar">
       <div className="wordmark"><span className="brand-mark"><BookOutlined /></span><span>{t('ui.brand')}<small>{t('ui.brandSubtitle')}</small></span></div>
       <SideNavigation adminAvailable={!!session.admin_context}/>
       <div className="sidebar-foot"><Tag>{t('ui.release')}</Tag><Typography.Paragraph type="secondary">{t('noLegalResult')}</Typography.Paragraph></div>
     </Layout.Sider>
-    <ConfigProvider theme={results ? resultWorkspaceTheme : undefined}><Layout className={results ? 'result-layout' : undefined}>
+    <ConfigProvider theme={formal ? resultWorkspaceTheme : undefined}><Layout className={formal ? 'result-layout' : undefined}>
       <div className="workspace-topbar"><Space><Avatar size="small">{session.display_name.slice(0, 1)}</Avatar><Typography.Text>{session.display_name}</Typography.Text><Tag>{session.tenant_label}</Tag>
         {session.organization_label && <Tag>{session.organization_label}</Tag>}{session.department_label && <Tag>{session.department_label}</Tag>}</Space><StatusHealthIndicator /></div>
-      <Layout.Content className="workspace-content"><PageHeader runtime={runtime} admin={admin} intake={intake} results={results}/>
+      <Layout.Content className="workspace-content"><PageHeader runtime={runtime} admin={admin} intake={intake} results={results} reviews={reviews}/>
         {session.demo && <Alert className="demo-banner" type="info" showIcon title={t('demo')} description={t('demoNote')} />}
-        <div className={`workspace-grid ${admin || intake || results ? 'admin-workspace-grid' : ''}`}><section className="main-column">
-          {!results && <ContextSelector session={session} context={context} choose={choose} scope={scope.data} scopeError={scope.error} scopeLoading={scope.isFetching} />}
-          {!results && session.contexts.length === 0 && <EmptyState title={t('noContext')} />}
+        <div className={`workspace-grid ${admin || intake || formal ? 'admin-workspace-grid' : ''}`}><section className="main-column">
+          {!formal && <ContextSelector session={session} context={context} choose={choose} scope={scope.data} scopeError={scope.error} scopeLoading={scope.isFetching} />}
+          {!formal && session.contexts.length === 0 && <EmptyState title={t('noContext')} />}
           <Routes>
             <Route path="/knowledge" element={<>
               <QueryPanel disabled={!context || !scope.isSuccess || scope.isFetching} busy={retrieval.isFetching} submit={submit} />
@@ -107,13 +111,15 @@ function Workspace({ session }: { session: Session }) {
                       ]} />}
                   </Card> : <Alert type="info" title={t('ui.retrievalStatus', { status: retrieval.data?.status ?? t('notAvailable') })} />}
             </>} />
+            <Route path="/reviews" element={<ReviewCenter identity={session.identity_key}/>}/>
+            <Route path="/reviews/:reviewId" element={<ReviewCenter identity={session.identity_key}/>}/>
             <Route path="/results/:runId" element={<ResultRoute identity={session.identity_key}/>}/>
             <Route path="/intake" element={<ProductionIntake key={session.identity_key} session={session} context={context}/> }/>
             <Route path="/runtime" element={<RuntimeStatus session={session} versions={[...new Set(items.flatMap((item) => item.knowledge_version_id ? [item.knowledge_version_id] : []))]} />} />
             <Route path="/admin/*" element={<AdminRoute session={session} context={context}/>} />
             <Route path="*" element={<Navigate replace to="/knowledge" />} />
           </Routes>
-        </section>{!admin && !intake && !results && <aside className="insight-column" aria-label={t('sufficiency')}>
+        </section>{!admin && !intake && !formal && <aside className="insight-column" aria-label={t('sufficiency')}>
           {rag ? <><SufficiencyPanel result={rag.knowledge_sufficiency} />{rag.fallback_guidance_context && <FallbackPanel guidance={rag.fallback_guidance_context} />}</> :
             <Card title={t('sufficiency')}><Typography.Paragraph type="secondary">{t('startHint')}</Typography.Paragraph></Card>}
         </aside>}</div>

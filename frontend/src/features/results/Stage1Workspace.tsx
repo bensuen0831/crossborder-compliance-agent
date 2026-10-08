@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Alert, Button, Card, Drawer, Progress, Space, Statistic, Steps, Table, Tag, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -48,6 +49,7 @@ export function Stage1View({ result: r, identity }: { result: Stage1Result; iden
       {r.capability_gaps.map(gap => <Alert key={gap} type="warning" title={gap}/>)}
       {r.review_id && <Alert type="warning" title={t('ui.m2c.review')} description={r.review_id}/>}
     </Card>
+    {r.review_id && <Alert type="warning" title={t('ui.m2c.review')} description={<Link to={`/reviews/${r.review_id}`}>{t('ui.m2d.openReview')}</Link>}/>}
     <div className="stage1-kpis"><Card><Statistic title={t('ui.m2c.dataItems')} value={r.data_items.length}/></Card><Card><Statistic title={t('ui.m2c.documents')} value={r.documents.length}/></Card><Card><Statistic title={t('ui.m2c.evidence')} value={evidence.length}/></Card><Card><Statistic title={t('ui.m2c.requirements')} value={documents.filter(d => d.requirement_level === 'REQUIRED').length}/></Card></div>
     <div className="stage1-columns"><Card title={t('ui.m2c.workflow')}><Steps direction="vertical" size="small" items={r.steps.map(step => ({ key: step, title: t(`ui.m2c.steps.${step}`, { defaultValue: step }), status: r.completed_steps.includes(step) ? 'finish' : r.current_step === step ? 'process' : 'wait' }))}/></Card>
       <div className="stage1-main">

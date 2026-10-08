@@ -204,3 +204,26 @@ def test_approval_process_restart_keeps_canonical_history_and_checkpoint(foundat
     assert fresh()["checkpoint_id"] == first["checkpoint_id"]
     assert runtime.inspect_checkpoint_state(task.workflow_run_id)["values"] == first["state"]
     assert len(repo.read(task.review_id).history) == 1
+
+
+def test_required_role_current_on_read_write_and_direct_resume(foundation_j):
+    f = foundation_j
+    repo, task, runtime, _factory, m = pending(f)
+    with f["sf"]() as session, session.begin():
+        row = session.get(b.ReviewTaskEntity, str(task.review_id))
+        row.required_role = "review:legal"
+    assert repo.read(task.review_id).allowed_actions == ()
+    with pytest.raises(LookupError):
+        repo.decide(task.review_id, command(task, "APPROVE"))
+    elevated = PostgresReviewRepository(
+        f["sf"],
+        RepositoryContext.user(UUID(f["tenant"]), "author", set(m["scopes"]) | {"review:legal"}),
+    )
+    decision, _ = elevated.decide(task.review_id, command(task, "APPROVE"))
+    assert repo.read(task.review_id).allowed_actions == ()
+    with pytest.raises(LookupError):
+        runtime.resume(task.workflow_run_id, decision)
+    assert runtime.get_status(task.workflow_run_id) == "REVIEW_REQUIRED"
+    assert repo.list(order="CREATED_ASC").items[0].review_id == task.review_id
+    with pytest.raises(ValueError):
+        repo.list(order="unsafe")

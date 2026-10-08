@@ -95,7 +95,7 @@ def overlay(root):
         valid=valid and all(hashlib.sha256(git('show',source+':'+p)).hexdigest()==h and ((root/p).read_bytes()==git('show',source+':'+p) or p in authority_paths) for p,h in data['paths'].items())
         old=set(git('ls-tree','-r','--name-only',BASE,'--','alembic/versions').decode().splitlines())
         now={str(p.relative_to(root)) for p in (root/'alembic/versions').glob('*.py')}
-        valid=valid and now==old|MIGRATIONS|({authority_migration} if authority_paths else set()) and all((root/p).read_bytes()==git('show',BASE+':'+p) for p in old)
+        valid=valid and now==old|MIGRATIONS|({authority_migration} if authority_paths else set()) | {p for p in authority_paths if p.startswith("alembic/versions/")} and all((root/p).read_bytes()==git('show',BASE+':'+p) for p in old)
         protected=['ARCHITECTURE_RULES.md','frontend/package.json','frontend/package-lock.json','pyproject.toml']
         protected+=git('ls-tree','-r','--name-only',BASE,'--','src/crossborder_compliance/domain','src/crossborder_compliance/workflows','evidence/m2a','evidence/phase1j','evidence/phase1l_b','evidence/integration/m1-phase1lb').decode().splitlines()
         valid=valid and all((root/p).read_bytes()==git('show',BASE+':'+p) for p in protected if p not in authority_paths)

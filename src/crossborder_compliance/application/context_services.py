@@ -83,7 +83,7 @@ class BusinessFactNormalizationService:
                                 "BUSINESS_FACT", None, ResolutionAction.REJECTED,
                                 float(row.get("confidence", 0)), "HUMAN_CONFLICT_SELECTION",
                                 tuple(UUID(x) for x in row.get("source_trace_ids", ())),
-                                False, str(selection["reviewer"]), "HUMAN_REVIEW", version))
+                                False, selection["resolved_at"], "HUMAN_REVIEW", version))
             conflicting_types.discard(chosen[0])
         results: list[BusinessFact] = []
         facts_by_type: dict[str, list[BusinessFact]] = {}

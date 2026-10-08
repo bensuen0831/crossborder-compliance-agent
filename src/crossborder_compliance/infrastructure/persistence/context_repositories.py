@@ -182,7 +182,7 @@ class PostgresContextResolutionRepository:
             if not conflict or not pin or conflict.project_id != str(project_id) or conflict.version != pin.context_resolution_version:
                 raise LookupError("governed correction source not found")
             value = {"correction_id": selection.correction_id, "review_id": selection.source_review_id,
-                "conflict_id": conflict.conflict_id, "reviewer": selection.submitted_by,
+                "conflict_id": conflict.conflict_id, "reviewer": selection.submitted_by, "resolved_at": selection.created_at,
                 "type": selection.correction_type, "source_trace_ids": conflict.source_trace_ids_json}
             if selection.correction_type == "SELECT_BUSINESS_FACT":
                 fact = self._get(s, BusinessFactEntity, BusinessFactEntity.fact_id, UUID(selection.selected_fact_id))

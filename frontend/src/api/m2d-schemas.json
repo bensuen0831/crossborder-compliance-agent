@@ -1,0 +1,1393 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/reviews": {
+      "get": {
+        "tags": [
+          "human-review"
+        ],
+        "summary": "List Reviews",
+        "operationId": "list_reviews_api_v1_reviews_get",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ReviewStatus"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "review_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Review Type"
+            }
+          },
+          {
+            "name": "owning_stage",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Owning Stage"
+            }
+          },
+          {
+            "name": "created_after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Created After"
+            }
+          },
+          {
+            "name": "created_before",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Created Before"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 25,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "CREATED_DESC",
+                "CREATED_ASC"
+              ],
+              "type": "string",
+              "default": "CREATED_DESC",
+              "title": "Order"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewPage"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reviews/{review_id}": {
+      "get": {
+        "tags": [
+          "human-review"
+        ],
+        "summary": "Read Review",
+        "operationId": "read_review_api_v1_reviews__review_id__get",
+        "parameters": [
+          {
+            "name": "review_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Review Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reviews/{review_id}/decisions": {
+      "post": {
+        "tags": [
+          "human-review"
+        ],
+        "summary": "Decide",
+        "operationId": "decide_api_v1_reviews__review_id__decisions_post",
+        "parameters": [
+          {
+            "name": "review_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Review Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewDecisionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reviews/{review_id}/corrections": {
+      "post": {
+        "tags": [
+          "human-review"
+        ],
+        "summary": "Correct",
+        "operationId": "correct_api_v1_reviews__review_id__corrections_post",
+        "parameters": [
+          {
+            "name": "review_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Review Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewCorrectionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewLineage"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reviews/{review_id}/resume": {
+      "post": {
+        "tags": [
+          "human-review"
+        ],
+        "summary": "Resume",
+        "operationId": "resume_api_v1_reviews__review_id__resume_post",
+        "parameters": [
+          {
+            "name": "review_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Review Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/ReviewResumeRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reviews/{review_id}/successor/start": {
+      "post": {
+        "tags": [
+          "human-review"
+        ],
+        "summary": "Continue Successor",
+        "operationId": "continue_successor_api_v1_reviews__review_id__successor_start_post",
+        "parameters": [
+          {
+            "name": "review_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Review Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/ReviewResumeRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "FactSelection": {
+        "properties": {
+          "correction_type": {
+            "type": "string",
+            "const": "SELECT_BUSINESS_FACT",
+            "title": "Correction Type"
+          },
+          "target_object_type": {
+            "type": "string",
+            "const": "CONTEXT_CONFLICT",
+            "title": "Target Object Type"
+          },
+          "target_object_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Target Object Id"
+          },
+          "selected_fact_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Selected Fact Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "correction_type",
+          "target_object_type",
+          "target_object_id",
+          "selected_fact_id"
+        ],
+        "title": "FactSelection"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "IntakeClarification": {
+        "properties": {
+          "correction_type": {
+            "type": "string",
+            "const": "CLARIFY_INTAKE",
+            "title": "Correction Type"
+          },
+          "target_object_type": {
+            "type": "string",
+            "const": "PROJECT_INTAKE",
+            "title": "Target Object Type"
+          },
+          "target_object_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Target Object Id"
+          },
+          "facts": {
+            "$ref": "#/components/schemas/IntakeFacts"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "correction_type",
+          "target_object_type",
+          "target_object_id",
+          "facts"
+        ],
+        "title": "IntakeClarification"
+      },
+      "IntakeFacts": {
+        "properties": {
+          "industry": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Industry"
+          },
+          "business_scenario": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Business Scenario"
+          },
+          "scenario_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scenario Description"
+          },
+          "selected_product_domains": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Selected Product Domains"
+          },
+          "selected_products": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Selected Products"
+          },
+          "source_locations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Source Locations"
+          },
+          "destination_locations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Destination Locations"
+          },
+          "processing_locations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Processing Locations"
+          },
+          "storage_locations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Storage Locations"
+          },
+          "data_flow_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Flow Description"
+          },
+          "data_categories": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Data Categories"
+          },
+          "data_volume": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Volume"
+          },
+          "business_purpose": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Business Purpose"
+          },
+          "organizations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Organizations"
+          },
+          "third_parties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Third Parties"
+          },
+          "uploaded_documents": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Uploaded Documents"
+          },
+          "requested_outputs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Requested Outputs"
+          },
+          "analysis_as_of_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Analysis As Of Date"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "analysis_as_of_date"
+        ],
+        "title": "IntakeFacts"
+      },
+      "ProductSelection": {
+        "properties": {
+          "correction_type": {
+            "type": "string",
+            "const": "SELECT_PRODUCT_SCOPE",
+            "title": "Correction Type"
+          },
+          "target_object_type": {
+            "type": "string",
+            "const": "CONTEXT_CONFLICT",
+            "title": "Target Object Type"
+          },
+          "target_object_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Target Object Id"
+          },
+          "selected_product_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "maxItems": 32,
+            "minItems": 1,
+            "title": "Selected Product Ids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "correction_type",
+          "target_object_type",
+          "target_object_id",
+          "selected_product_ids"
+        ],
+        "title": "ProductSelection"
+      },
+      "ProvenanceDTO": {
+        "properties": {
+          "source_type": {
+            "type": "string",
+            "title": "Source Type"
+          },
+          "source_ref": {
+            "type": "string",
+            "title": "Source Ref"
+          },
+          "source_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Version"
+          },
+          "source_locator": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Locator"
+          },
+          "actor_ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor Ref"
+          },
+          "request_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Request Id"
+          },
+          "correlation_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Correlation Id"
+          },
+          "generated_by": {
+            "type": "string",
+            "title": "Generated By"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Generated At"
+          },
+          "evidence_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Evidence Ids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "source_type",
+          "source_ref",
+          "generated_by"
+        ],
+        "title": "ProvenanceDTO"
+      },
+      "ReviewChoice": {
+        "properties": {
+          "object_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Object Id"
+          },
+          "object_type": {
+            "type": "string",
+            "title": "Object Type"
+          },
+          "display_value": {
+            "type": "string",
+            "title": "Display Value"
+          },
+          "source_trace_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Source Trace Ids",
+            "default": []
+          },
+          "source_document_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Source Document Ids",
+            "default": []
+          },
+          "structured_provenance": {
+            "items": {
+              "$ref": "#/components/schemas/ProvenanceDTO"
+            },
+            "type": "array",
+            "title": "Structured Provenance",
+            "default": []
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "object_id",
+          "object_type",
+          "display_value"
+        ],
+        "title": "ReviewChoice"
+      },
+      "ReviewCorrectionRequest": {
+        "properties": {
+          "expected_record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Record Version"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          },
+          "correction": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/FactSelection"
+              },
+              {
+                "$ref": "#/components/schemas/ProductSelection"
+              },
+              {
+                "$ref": "#/components/schemas/IntakeClarification"
+              }
+            ],
+            "title": "Correction",
+            "discriminator": {
+              "propertyName": "correction_type",
+              "mapping": {
+                "CLARIFY_INTAKE": "#/components/schemas/IntakeClarification",
+                "SELECT_BUSINESS_FACT": "#/components/schemas/FactSelection",
+                "SELECT_PRODUCT_SCOPE": "#/components/schemas/ProductSelection"
+              }
+            }
+          },
+          "comment": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 4096
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_record_version",
+          "idempotency_key",
+          "correction"
+        ],
+        "title": "ReviewCorrectionRequest"
+      },
+      "ReviewDecisionCode": {
+        "type": "string",
+        "enum": [
+          "APPROVE",
+          "REJECT",
+          "REQUEST_CHANGES"
+        ],
+        "title": "ReviewDecisionCode"
+      },
+      "ReviewDecisionRequest": {
+        "properties": {
+          "decision": {
+            "$ref": "#/components/schemas/ReviewDecisionCode"
+          },
+          "expected_record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Record Version"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          },
+          "comment": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 4096
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "decision",
+          "expected_record_version",
+          "idempotency_key"
+        ],
+        "title": "ReviewDecisionRequest"
+      },
+      "ReviewHistoryItem": {
+        "properties": {
+          "decision_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Decision Id"
+          },
+          "decision": {
+            "$ref": "#/components/schemas/ReviewDecisionCode"
+          },
+          "comment": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment"
+          },
+          "decided_by": {
+            "type": "string",
+            "title": "Decided By"
+          },
+          "decided_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Decided At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "decision_id",
+          "decision",
+          "comment",
+          "decided_by",
+          "decided_at"
+        ],
+        "title": "ReviewHistoryItem"
+      },
+      "ReviewLineage": {
+        "properties": {
+          "correction_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Correction Id"
+          },
+          "source_review_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Source Review Id"
+          },
+          "source_workflow_run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Source Workflow Run Id"
+          },
+          "source_snapshot_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Source Snapshot Id"
+          },
+          "successor_project_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Successor Project Version Id"
+          },
+          "successor_snapshot_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Successor Snapshot Id"
+          },
+          "successor_workflow_run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Successor Workflow Run Id"
+          },
+          "correction_type": {
+            "type": "string",
+            "title": "Correction Type"
+          },
+          "submitted_by": {
+            "type": "string",
+            "title": "Submitted By"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "comment": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment"
+          },
+          "rerun_from_stage": {
+            "type": "string",
+            "const": "requirement",
+            "title": "Rerun From Stage",
+            "default": "requirement"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "correction_id",
+          "source_review_id",
+          "source_workflow_run_id",
+          "source_snapshot_id",
+          "successor_project_version_id",
+          "successor_snapshot_id",
+          "successor_workflow_run_id",
+          "correction_type",
+          "submitted_by",
+          "created_at"
+        ],
+        "title": "ReviewLineage"
+      },
+      "ReviewPage": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewView"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "items",
+          "total",
+          "offset",
+          "limit"
+        ],
+        "title": "ReviewPage"
+      },
+      "ReviewResumeRequest": {
+        "properties": {},
+        "additionalProperties": false,
+        "type": "object",
+        "title": "ReviewResumeRequest",
+        "description": "Body-free or empty typed transport; server reconstructs resume authority."
+      },
+      "ReviewStatus": {
+        "type": "string",
+        "enum": [
+          "NOT_REQUIRED",
+          "PENDING",
+          "APPROVED",
+          "REJECTED",
+          "CANCELLED"
+        ],
+        "title": "ReviewStatus"
+      },
+      "ReviewView": {
+        "properties": {
+          "review_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Review Id"
+          },
+          "project_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Project Id"
+          },
+          "analysis_snapshot_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Analysis Snapshot Id"
+          },
+          "workflow_run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Workflow Run Id"
+          },
+          "review_type": {
+            "type": "string",
+            "title": "Review Type"
+          },
+          "reason_codes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reason Codes"
+          },
+          "reason_summary": {
+            "type": "string",
+            "title": "Reason Summary"
+          },
+          "object_type": {
+            "type": "string",
+            "title": "Object Type"
+          },
+          "object_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Object Id"
+          },
+          "owning_stage": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Owning Stage"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ReviewStatus"
+          },
+          "presentation_state": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "CHANGES_REQUESTED",
+              "APPROVED",
+              "REJECTED",
+              "CANCELLED",
+              "SUPERSEDED"
+            ],
+            "title": "Presentation State"
+          },
+          "allowed_actions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Allowed Actions"
+          },
+          "resolution_mode": {
+            "type": "string",
+            "enum": [
+              "SAME_SNAPSHOT",
+              "SUCCESSOR_SNAPSHOT",
+              "UNAVAILABLE"
+            ],
+            "title": "Resolution Mode"
+          },
+          "required_role": {
+            "type": "string",
+            "title": "Required Role"
+          },
+          "continuation_status": {
+            "type": "string",
+            "enum": [
+              "NOT_AVAILABLE",
+              "RESUME_PENDING",
+              "CONTINUED"
+            ],
+            "title": "Continuation Status",
+            "default": "NOT_AVAILABLE"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "record_version": {
+            "type": "integer",
+            "title": "Record Version"
+          },
+          "evidence_refs": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Evidence Refs",
+            "default": []
+          },
+          "legal_basis_refs": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Legal Basis Refs",
+            "default": []
+          },
+          "choices": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewChoice"
+            },
+            "type": "array",
+            "title": "Choices",
+            "default": []
+          },
+          "history": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewHistoryItem"
+            },
+            "type": "array",
+            "title": "History",
+            "default": []
+          },
+          "lineage": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReviewLineage"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "capability_gap": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Capability Gap"
+          },
+          "intake_facts": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/IntakeFacts"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "review_id",
+          "project_id",
+          "analysis_snapshot_id",
+          "workflow_run_id",
+          "review_type",
+          "reason_codes",
+          "reason_summary",
+          "object_type",
+          "object_id",
+          "owning_stage",
+          "status",
+          "presentation_state",
+          "allowed_actions",
+          "resolution_mode",
+          "required_role",
+          "created_at",
+          "updated_at",
+          "record_version"
+        ],
+        "title": "ReviewView"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

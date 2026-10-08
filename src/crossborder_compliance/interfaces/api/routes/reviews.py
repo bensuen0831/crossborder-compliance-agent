@@ -1,10 +1,10 @@
 """Typed authorized review transport; browser supplies neither actor nor thread."""
 
 from datetime import datetime
-from typing import Annotated
+from typing import Annotated, Literal
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request
+from fastapi import APIRouter, Body, Depends, HTTPException, Query, Request
 
 from crossborder_compliance.application.review_services import (
     HumanReviewService,
@@ -12,6 +12,7 @@ from crossborder_compliance.application.review_services import (
     ReviewDecisionRequest,
     ReviewLineage,
     ReviewPage,
+    ReviewResumeRequest,
     ReviewView,
 )
 from crossborder_compliance.application.workflow_skeleton import WorkflowDeliveryRetryableFailure
@@ -86,6 +87,7 @@ def list_reviews(
     created_before: datetime | None = None,
     offset: int = Query(0, ge=0),
     limit: int = Query(25, ge=1, le=100),
+    order: Literal["CREATED_DESC", "CREATED_ASC"] = "CREATED_DESC",
 ):
     try:
         return service(request, context).list(
@@ -97,6 +99,7 @@ def list_reviews(
             created_before=created_before,
             offset=offset,
             limit=limit,
+            order=order,
         )
     except Exception as exc:
         translate(exc)
@@ -127,11 +130,27 @@ def correct(review_id: UUID, body: ReviewCorrectionRequest, request: Request, co
 
 
 @router.post("/{review_id}/resume", response_model=ReviewView)
-def resume(review_id: UUID, request: Request, context: Context):
+def resume(
+    review_id: UUID,
+    request: Request,
+    context: Context,
+    body: ReviewResumeRequest | None = Body(default=None),
+):
     # No browser-supplied actor/thread/token/stage. Reuse the immutable decision.
-    if request.headers.get("content-length", "0") != "0":
-        raise HTTPException(422, "RESUME_BODY_FORBIDDEN")
     try:
         return service(request, context).resume(review_id)
+    except Exception as exc:
+        translate(exc)
+
+
+@router.post("/{review_id}/successor/start", response_model=ReviewView)
+def continue_successor(
+    review_id: UUID,
+    request: Request,
+    context: Context,
+    body: ReviewResumeRequest | None = Body(default=None),
+):
+    try:
+        return service(request, context).continue_successor(review_id)
     except Exception as exc:
         translate(exc)

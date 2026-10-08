@@ -14,6 +14,10 @@ class ReviewContract(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
 
+class ReviewResumeRequest(ReviewContract):
+    """Body-free or empty typed transport; server reconstructs resume authority."""
+
+
 class ReviewDecisionRequest(ReviewContract):
     decision: ReviewDecisionCode
     expected_record_version: int = Field(ge=1)
@@ -78,6 +82,9 @@ class ReviewLineage(ReviewContract):
     successor_snapshot_id: UUID
     successor_workflow_run_id: UUID
     correction_type: str
+    submitted_by: str
+    created_at: datetime
+    comment: str | None = None
     rerun_from_stage: Literal["requirement"] = "requirement"
 
 
@@ -124,6 +131,9 @@ class ReviewRepositoryPort(Protocol):
     def list(self, **filters) -> ReviewPage: ...
     def decide(self, review_id: UUID, request: ReviewDecisionRequest): ...
     def correct(self, review_id: UUID, request: ReviewCorrectionRequest) -> ReviewLineage: ...
+    def approved_decision(self, review_id: UUID): ...
+    def authorized_review(self, review_id: UUID) -> ReviewView: ...
+    def authorized_successor(self, review_id: UUID) -> ReviewView: ...
 
 
 class HumanReviewService:
@@ -151,6 +161,13 @@ class HumanReviewService:
         if self.delivery is None:
             raise ValueError("CAPABILITY_NOT_CONFIGURED")
         self.delivery(review).resume(review.workflow_run_id, decision)
+        return self.repository.read(review_id)
+
+    def continue_successor(self, review_id: UUID):
+        review = self.repository.authorized_successor(review_id)
+        if self.successor_delivery is None:
+            raise ValueError("CAPABILITY_NOT_CONFIGURED")
+        self.successor_delivery(review, review.lineage)
         return self.repository.read(review_id)
 
     def correct(self, review_id: UUID, request: ReviewCorrectionRequest):
@@ -188,7 +205,7 @@ class WorkflowReviewGovernance:
         )
 
     def authorize_resume(self, workflow_run_id, decision):
-        value = self.repository.read(UUID(str(decision["review_id"])))
+        value = self.repository.authorized_review(UUID(str(decision["review_id"])))
         if value.workflow_run_id != workflow_run_id or value.resolution_mode != "SAME_SNAPSHOT":
             raise ValueError("ACTION_NOT_ALLOWED")
         if decision["decision"] != "APPROVE":

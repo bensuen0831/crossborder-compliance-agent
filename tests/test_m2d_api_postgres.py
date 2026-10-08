@@ -138,3 +138,9 @@ def test_http_request_changes_then_typed_intake_successor(foundation_j):
     target = client.get(f"/api/v1/workflows/{lineage['successor_workflow_run_id']}")
     assert target.status_code == 200 and target.json()["status"] == "COMPLETED", target.text
     assert client.get(url).json()["presentation_state"] == "SUPERSEDED"
+    assert client.post(url + "/successor/start", json={"start_at": "final_path"}).status_code == 422
+    assert client.post(url + "/successor/start").status_code == 200
+    app.dependency_overrides[get_repository_context] = lambda: RepositoryContext.user(
+        context.tenant_id, "author", set(context.permission.scopes) - {"workflow:review"}
+    )
+    assert client.post(url + "/successor/start").status_code == 404

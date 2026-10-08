@@ -234,8 +234,8 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id, *, source_s
         )
 
 
-def intake_service(sessions, context):
-    return ProjectIntakeService(PostgresProjectRepository(sessions, context), prepare_snapshot)
+def intake_service(sessions, context, snapshot_preparer=None):
+    return ProjectIntakeService(PostgresProjectRepository(sessions, context), snapshot_preparer or prepare_snapshot)
 
 
 def intake_workflow_host(sessions, context, project_id, snapshot_id):

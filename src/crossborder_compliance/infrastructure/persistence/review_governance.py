@@ -279,12 +279,38 @@ class ReviewGovernanceOperations:
         )
         if task.status != "PENDING" or lineage:
             actions = ()
+        if (
+            lineage
+            and {"workflow:review", task.required_role, "workflow:execute"}
+            <= self._context.permission.scopes
+        ):
+            target_run = session.get(b.WorkflowRunEntity, lineage.successor_workflow_run_id)
+            if (
+                target_run
+                and target_run.tenant_id == self.tenant_id
+                and target_run.status == "RUNNING"
+            ):
+                actions = ("CONTINUE_SUCCESSOR",)
         continuation = "NOT_AVAILABLE"
         if task.status == "APPROVED" and mode == "SAME_SNAPSHOT":
-            continuation = "RESUME_PENDING" if run.status == "REVIEW_REQUIRED" else "CONTINUED"
+            other_pending = session.scalar(
+                select(b.ReviewTaskEntity.review_id).where(
+                    b.ReviewTaskEntity.workflow_run_id == run.workflow_run_id,
+                    b.ReviewTaskEntity.tenant_id == self.tenant_id,
+                    b.ReviewTaskEntity.review_id != task.review_id,
+                    b.ReviewTaskEntity.status == "PENDING",
+                )
+            )
+            continuation = (
+                "RESUME_PENDING"
+                if run.status in {"REVIEW_REQUIRED", "RUNNING"} and not other_pending
+                else "CONTINUED"
+                if run.status == "COMPLETED" or other_pending
+                else "NOT_AVAILABLE"
+            )
             if (
                 continuation == "RESUME_PENDING"
-                and task.required_role in self._context.permission.scopes
+                and {"workflow:review", task.required_role} <= self._context.permission.scopes
                 and (task.decision_json or {}).get("decided_by")
                 == self._context.permission.actor_id
             ):
@@ -332,6 +358,17 @@ class ReviewGovernanceOperations:
         with self._sessions() as session:
             return self._view(session, self._scope(session, review_id))
 
+    def authorized_review(self, review_id):
+        with self._sessions() as session:
+            return self._view(session, self._scope(session, review_id, write=True))
+
+    def authorized_successor(self, review_id):
+        with self._sessions() as session:
+            value = self._view(session, self._scope(session, review_id, write=True))
+            if value.lineage is None or "workflow:execute" not in self._context.permission.scopes:
+                raise ReviewConflict("ACTION_NOT_ALLOWED")
+            return value
+
     def approved_decision(self, review_id):
         with self._sessions() as session:
             values = self._scope(session, review_id, write=True)
@@ -363,10 +400,11 @@ class ReviewGovernanceOperations:
         created_before=None,
         offset=0,
         limit=25,
+        order="CREATED_DESC",
     ):
         if "workflow:read" not in self._context.permission.scopes:
             raise LookupError("REVIEW_NOT_FOUND")
-        if offset < 0 or not 1 <= limit <= 100:
+        if offset < 0 or not 1 <= limit <= 100 or order not in {"CREATED_DESC", "CREATED_ASC"}:
             raise ValueError("INVALID_REVIEW_PAGINATION")
         # Permission filtering happens in SQL, before counting/pagination.
         from sqlalchemy import or_
@@ -433,7 +471,12 @@ class ReviewGovernanceOperations:
         with self._sessions() as session:
             total = session.scalar(select(func.count()).select_from(query.subquery()))
             ids = session.scalars(
-                query.order_by(b.ReviewTaskEntity.created_at.desc(), b.ReviewTaskEntity.review_id)
+                query.order_by(
+                    b.ReviewTaskEntity.created_at.asc()
+                    if order == "CREATED_ASC"
+                    else b.ReviewTaskEntity.created_at.desc(),
+                    b.ReviewTaskEntity.review_id,
+                )
                 .offset(offset)
                 .limit(limit)
             ).all()
