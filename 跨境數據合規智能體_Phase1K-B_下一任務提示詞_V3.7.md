@@ -53,11 +53,15 @@ V3.7 規格文檔已先行提交至 GitHub branch：
 
 `phase1kb-multi-provider-llm-governance`
 
-V3.7 documentation baseline commit：
+該 branch 以 implementation baseline `efda0955342de8d1ea36aa0f754d63c9b421fec8` 為祖先。Pre-coding documentation lineage 已包含：
 
-`15c8cd69dba384050849b34ec015e1ea7afa9969`
+- `95f2e5d132b2d1b69e8cdaff371607c385de5340` — read-only D0 inventory；
+- `52a09676729c9821a8190623ede49c2bb5951278` — Master Specification V3.7；
+- `a44bcc606741a51d2610e366fb143baabcf79ab8` — Phase0 Architecture V3.7；
+- `15c8cd69dba384050849b34ec015e1ea7afa9969` — V3.7 design consistency / delta summary；
+- `3e8f2855de35c4e235c74cf2432a4a09102299ef` — executable Phase1K-B V3.7 task prompt。
 
-該 commit 必須是 implementation baseline `efda0955342de8d1ea36aa0f754d63c9b421fec8` 的純文檔後代；在 Coding 前必須驗證 `efda095..15c8cd6` 的差異只包含 V3.7 Master / Phase0 / 設計一致性文檔，不得包含產品源碼、Migration 或測試邏輯變更。
+在開始產品 Coding 前，必須驗證從 `efda095...` 到當前 pre-development head 的差異只包含上述規格 / 設計 / D0 inventory / task-prompt 文檔；不得包含產品源碼、Migration、Workflow、Frontend product source 或測試邏輯變更。若已有後續 Codex commit，則先將「第一個產品實作 commit」之前的 lineage 與上述 pre-development documentation lineage 分界並記錄，不得把 pre-development 文檔 commit 誤當 product implementation baseline。
 
 **本任務不要重新建立 branch。** 直接 checkout / continue：
 
@@ -994,7 +998,3 @@ Stage 2 = NOT STARTED
 9. Implement Admin model control plane UI
 10. Implement eligible model API
 11. Implement AUTO/SINGLE/MULTI_MODEL
-12. Implement Snapshot model pins
-13. Integrate LLM-assisted document candidate extraction
-14. Integrate insufficiency-triggered query expansion without legal-memory fallback
-15. PostgreSQL/security/idempotency tests
