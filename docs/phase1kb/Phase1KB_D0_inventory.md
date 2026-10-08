@@ -1,8 +1,8 @@
-# Phase1K-B D0 inventory — authority pending
+# Phase1K-B D0 inventory — PASS
 
 Baseline: `efda0955342de8d1ea36aa0f754d63c9b421fec8`; annotated `v3.6-m2d-pass` object `dff211af565475765b921b9fe515c65630f93d47`, peeled to the same main commit. Alembic graph has one head: `0015_m2d_review_governance`. Dedicated branch/worktree: `phase1kb-multi-provider-llm-governance` / `/workspace/phase1kb-multi-provider-llm-governance`.
 
-**Start Gate PASS. D0 is not approved for coding.** Both required V3.7 authority documents are absent from the verified tree and the available attachment directory. Their authoritative location has been requested. ARCHITECTURE_RULES.md was read; existing K-A contracts were inspected read-only. No implementation or migration has been changed.
+**Start Gate PASS. PHASE1K-B D0 INVENTORY = PASS.** On continuation the remote documentation lineage was fast-forwarded, preserving all commits, to `e2fe4820337ac07fac7ca45e16aff597f81242b6`. Master V3.7, Phase0 V3.7, delta summary, repository task prompt, ARCHITECTURE_RULES and the K-A design/delivery were read. The exact remote main/tag are unchanged. The pre-development diff contains only these specifications and this inventory; no product drift.
 
 | Question | Observed current contract |
 |---|---|
@@ -16,7 +16,7 @@ Baseline: `efda0955342de8d1ea36aa0f754d63c9b421fec8`; annotated `v3.6-m2d-pass` 
 | 8. OpenAI-compatible operations? | Chat, SSE chat stream, JSON-schema structured output, embeddings and health via GET `/models`. Generic REST additionally declares rerank/token count. GET `/models` currently returns a health boolean, not discovered model candidates. |
 | 9. DeepSeek/Qwen/GLM compatibility? | No vendor-specific compatibility certification or approved preset exists in current code. Compatibility must be verified per endpoint, operation and remote model; vendor names alone do not establish support. No paid-provider PASS is claimed. |
 | 10. K-A production gaps? | Trusted authorized input loading, protected production secret storage/resolution, durable audit sink, approved sensitive detection, provider DI, health/discovery orchestration, model selection, invocation triggers and document/retrieval enhancement wiring. Existing gateway policy/redaction/HTTP adapters remain reusable. |
-| 11. Need0016? | Not proven. Existing schema already supports provider/model multiplicity. Decide only after reading V3.7 and verifying immutable model-selection/configuration pins and existing governed-version extension options. No migration created. |
+| 11. Need0016? | Yes: `ModelDeploymentEntity` has no immutable model configuration payload, while `_model` reads mutable definition remote name/token limit and capability rows. Add `configuration_json` to the existing deployment version, backfill exact legacy configuration, and prevent published configuration updates. This preserves one registry and permits exact historical model semantics. Selection stays in canonical ProjectVersion intake and Snapshot provenance/pins; secrets stay outside metadata. No new provider/model table. |
 
 Immediate interfaces inspected:
 
@@ -26,4 +26,4 @@ Immediate interfaces inspected:
 - `infrastructure/persistence/metadata_models.py`, `metadata_repositories.py`, `special_admin_repositories.py`; `interfaces/api/routes/admin_metadata.py`.
 - `frontend/src/App.tsx`, `frontend/src/features/admin/resources.ts` and existing admin client.
 
-Next action: obtain and completely read Master Specification V3.7 and Phase0 V3.7, then finish D0/freeze against that authority. Do not substitute V3.6 or start implementation, Stage2, M2-E or paid-provider invocation.
+Next action: K-B1 typed invocation policy and focused tests, then K-B2 canonical provider/model/secret wiring. The repository V3.7 files each end at their checked-in 1000-line boundary; this inventory makes no claim about unavailable later sections. The user's complete continuation contract governs this task together with the checked-in authority. Stage2, M2-E and paid-provider acceptance remain unstarted.
