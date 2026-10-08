@@ -1,0 +1,261 @@
+{
+  "config": {
+    "argv": [
+      "/opt/hostedtoolcache/node/24.21.0/x64/bin/node",
+      "/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/node_modules/.bin/playwright",
+      "test",
+      "m1.spec.ts"
+    ],
+    "configFile": "/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/playwright.config.ts",
+    "rootDir": "/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "ci": {
+        "commitHref": "https://github.com/bensuen0831/crossborder-compliance-agent/commit/0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+        "commitHash": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+        "buildHref": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37720192348"
+      },
+      "gitCommit": {
+        "shortHash": "0dc005e",
+        "hash": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+        "subject": "Merge pull request #24 from bensuen0831/milestone-m2c-stage1-results",
+        "body": "Merge pull request #24 from bensuen0831/milestone-m2c-stage1-results\n\nM2-C: formal transfer/document authorities and Stage 1 result workspace",
+        "author": {
+          "name": "bensuen0831",
+          "email": "bensuen0831@gmail.com",
+          "time": 1791428063000
+        },
+        "committer": {
+          "name": "GitHub",
+          "email": "noreply@github.com",
+          "time": 1791428063000
+        },
+        "branch": "HEAD"
+      },
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/bensuen0831/crossborder-compliance-agent/commit/0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+            "commitHash": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+            "buildHref": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37720192348"
+          },
+          "gitCommit": {
+            "shortHash": "0dc005e",
+            "hash": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+            "subject": "Merge pull request #24 from bensuen0831/milestone-m2c-stage1-results",
+            "body": "Merge pull request #24 from bensuen0831/milestone-m2c-stage1-results\n\nM2-C: formal transfer/document authorities and Stage 1 result workspace",
+            "author": {
+              "name": "bensuen0831",
+              "email": "bensuen0831@gmail.com",
+              "time": 1791428063000
+            },
+            "committer": {
+              "name": "GitHub",
+              "email": "noreply@github.com",
+              "time": 1791428063000
+            },
+            "branch": "HEAD"
+          },
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "github",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "m1.spec.ts",
+      "file": "m1.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "zh-CN",
+          "file": "m1.spec.ts",
+          "line": 43,
+          "column": 62,
+          "specs": [
+            {
+              "title": "four-step intake, canonical results, official citation and locale state invariance",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 103487,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-08T02:59:22.064Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1c39409c6e78644cb110-5d52ab9355b85be61567",
+              "file": "m1.spec.ts",
+              "line": 45,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "zh-HK",
+          "file": "m1.spec.ts",
+          "line": 43,
+          "column": 62,
+          "specs": [
+            {
+              "title": "four-step intake, canonical results, official citation and locale state invariance",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 50509,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-08T03:01:06.037Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1c39409c6e78644cb110-8d621be59a54cc8466b0",
+              "file": "m1.spec.ts",
+              "line": 45,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "en-US",
+          "file": "m1.spec.ts",
+          "line": 43,
+          "column": 62,
+          "specs": [
+            {
+              "title": "four-step intake, canonical results, official citation and locale state invariance",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 49567,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-08T03:01:56.562Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1c39409c6e78644cb110-c8522f4a112e9e4e7414",
+              "file": "m1.spec.ts",
+              "line": 45,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-08T02:59:20.677Z",
+    "duration": 205712.584,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

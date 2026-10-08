@@ -1,0 +1,28 @@
+{
+  "baseline": "42571c7148456f41adb64d2528c169a357214a25",
+  "head": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+  "frozen_migration_paths": [
+    "alembic/versions/0001_phase1a_runtime_tables.py",
+    "alembic/versions/0002_phase1b_domain_foundation.py",
+    "alembic/versions/0003_phase1c_metadata_registry.py",
+    "alembic/versions/0004_phase1d_document_intelligence.py",
+    "alembic/versions/0005_phase1e_context_resolution.py",
+    "alembic/versions/0006_phase1f_knowledge_scope.py",
+    "alembic/versions/0007_phase1g_retrieval_evidence.py",
+    "alembic/versions/0008_phase1h_rule_classification.py",
+    "alembic/versions/0009_phase1i_applicability.py",
+    "alembic/versions/0010_phase1j_formal_decisions.py",
+    "alembic/versions/0011_m2a_structured_intake.py",
+    "alembic/versions/0012_m2b_document_inputs.py",
+    "alembic/versions/0013_m2b_context_temporal_contract.py"
+  ],
+  "migration_unchanged": true,
+  "lineage": {
+    "revision": "0014_m2c_formal_result_authority",
+    "down_revision": "0013_m2b_context_temporal_contract"
+  },
+  "source_workflows_success": 6,
+  "draft": true,
+  "mergeable": true,
+  "preserved_status": "?? Phase1H_integration_closure.md\n"
+}

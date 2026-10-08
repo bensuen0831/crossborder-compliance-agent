@@ -1,0 +1,308 @@
+{
+  "decision": "M2-C MAIN INTEGRATION = PASS",
+  "baseline_main": "42571c7148456f41adb64d2528c169a357214a25",
+  "final_main_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+  "source_pr": 24,
+  "source_pr_head": "2c3dc003c70829c02e24f4fc56402c306273baa0",
+  "merge_parents": [
+    "42571c7148456f41adb64d2528c169a357214a25",
+    "2c3dc003c70829c02e24f4fc56402c306273baa0"
+  ],
+  "tag": "v3.6-m2c-pass",
+  "tag_object_sha": "fa5c4223fbd230787526d7921cc088b5c7ced042",
+  "tag_target_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+  "migration_head": "0014_m2c_formal_result_authority",
+  "migration": {
+    "base_sha": "42571c7148456f41adb64d2528c169a357214a25",
+    "from_revision": "0013_m2b_context_temporal_contract",
+    "head": "0014_m2c_formal_result_authority",
+    "fresh": true,
+    "exact_0013_upgrade": true,
+    "schema_equivalence": true,
+    "empty_downgrade_reupgrade": true,
+    "retained_authority_transactional_refusal": true
+  },
+  "populated_authority_downgrade_refusal": {
+    "tested_main_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+    "command": "alembic downgrade 0013_m2b_context_temporal_contract",
+    "expected_refusal": true,
+    "actual_returncode": 1,
+    "reason": "C0 authoritative/configuration data retained; archive/export required",
+    "before": {
+      "alembic": "0014_m2c_formal_result_authority",
+      "tables": {
+        "cross_border_assessment_results": {
+          "rows": 3,
+          "content_sha256": "d02e84d37311cd6b7b71942f27418362bb366c461c1f7670c7f78fc411fb8bce"
+        },
+        "regulatory_document_requirement_results": {
+          "rows": 3,
+          "content_sha256": "ea8b9d99544f5ef7d80998f71c6400e874cabb2471bdb66e25bfdda98e78c919"
+        },
+        "analysis_snapshot_registry_pins": {
+          "rows": 352,
+          "content_sha256": "e375d56b6fd381d6a23c8420e0c9ed11afe5e036a26ed79bbbb03bd99bf70617"
+        }
+      }
+    },
+    "after_unchanged": true,
+    "pass": true
+  },
+  "frozen_migration_sha256": {
+    "alembic/versions/0001_phase1a_runtime_tables.py": "d8a3d4c060beaa95ee2daab5658a476854640c24b3100cee6ebd4c44d86d793a",
+    "alembic/versions/0002_phase1b_domain_foundation.py": "4fa947ad533c7faeaa5d8893917a7c1fcb9933436be9ec41180524eae4c3b9da",
+    "alembic/versions/0003_phase1c_metadata_registry.py": "fb8c17f96cfe83c6cbb9f5d1b71450f1e77ae1ee1a9d9df334f6fefff24d66b1",
+    "alembic/versions/0004_phase1d_document_intelligence.py": "9f1bf0b1ad8924d698a66d996571565fe5ffd22808f906d639d04549fa8d48ff",
+    "alembic/versions/0005_phase1e_context_resolution.py": "6f524b052b4e13df4d809f9ab85157999df43ed9f819d76f5aff9e52493993e3",
+    "alembic/versions/0006_phase1f_knowledge_scope.py": "5c4ffecc8cf1ff7787bb282eaed18699b918ad5e40c44e23f761fefd0eeb6085",
+    "alembic/versions/0007_phase1g_retrieval_evidence.py": "47117a332785bb63d7ef6ae3537bce321732e9d570f2afc005051888c8c5d4b4",
+    "alembic/versions/0008_phase1h_rule_classification.py": "04ac67c7ffe3445a1d89b633549690d0c59fa12ac978e90ca5514b5902484f77",
+    "alembic/versions/0009_phase1i_applicability.py": "e363840390a0cb673aef676d75c02c24ed8ea7002a9c1a03605db80bf30447e8",
+    "alembic/versions/0010_phase1j_formal_decisions.py": "cebbe1158f5b98ca0c2a7dd87726111f50e2fc24f1f83f828ac1243d24d0e57f",
+    "alembic/versions/0011_m2a_structured_intake.py": "573785cdee48f57d8ff7761b49d73e57cf110befd4a14d3e1fcae031e5a89cf0",
+    "alembic/versions/0012_m2b_document_inputs.py": "f732e59b44c6fb54a4880f5ca777140560614a675315f9ec8f94212409b4cb8f",
+    "alembic/versions/0013_m2b_context_temporal_contract.py": "79133fdda7aeda64a1c10e164abe1fbde73534dfecb3f7397a0b8f642ad33561"
+  },
+  "backend": {
+    "passed": 727,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "local_backend": {
+    "passed": 727,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "architecture": {
+    "passed": 221,
+    "parts": [
+      151,
+      13,
+      27,
+      15,
+      15
+    ],
+    "m2c_checks": {
+      "c0-architecture.json": {
+        "pass_": true,
+        "passed": 15,
+        "total": 15,
+        "checks": {
+          "crossborder_status_not_derived_from_final_path_status": true,
+          "conditional_proposal_not_equal_conditional_transfer": true,
+          "crossborder_has_formal_owner": true,
+          "crossborder_policy_is_versioned_and_pinned": true,
+          "crossborder_has_legal_basis_and_evidence": true,
+          "required_document_has_formal_owner": true,
+          "required_document_has_requirement_level": true,
+          "required_document_is_metadata_rule_driven": true,
+          "template_availability_does_not_change_legal_requirement": true,
+          "required_document_does_not_trigger_generation": true,
+          "stage2_requires_user_opt_in": true,
+          "frontend_has_no_crossborder_decision_logic": true,
+          "frontend_has_no_document_requirement_logic": true,
+          "historical_snapshot_preserves_crossborder_result": true,
+          "historical_snapshot_preserves_document_requirement": true
+        }
+      },
+      "c1-architecture.json": {
+        "pass_": true,
+        "passed": 15,
+        "total": 15,
+        "checks": {
+          "single_canonical_graph": true,
+          "formal_order": true,
+          "nodes_delegate_authority": true,
+          "legacy_version_closed": true,
+          "typed_aggregation_has_no_infrastructure": true,
+          "aggregation_reads_owning_results": true,
+          "exact_document_universe": true,
+          "exact_context_membership": true,
+          "result_scope_revalidated": true,
+          "historical_authority_gap_explicit": true,
+          "frontend_uses_authority_not_path_status": true,
+          "frontend_requires_no_decision_write": true,
+          "unassessed_subjects_fail_closed": true,
+          "template_does_not_change_requirement": true,
+          "stage2_unavailable_and_opt_in_only": true
+        }
+      }
+    }
+  },
+  "runtime": {
+    "passed": 25,
+    "total": 25
+  },
+  "frontend": {
+    "passed": 108,
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "build": "PASS",
+    "i18n": {
+      "status": "PASS",
+      "locales": [
+        "zh-CN",
+        "zh-HK",
+        "en-US"
+      ],
+      "keys_per_locale": 494,
+      "checked_files": 40,
+      "hard_coded_ui_strings": 0,
+      "missing_keys": 0
+    }
+  },
+  "browser": {
+    "m2c": 3,
+    "m2b": 3,
+    "m2a": 3,
+    "m1": 3,
+    "m0": 36,
+    "retries": 0,
+    "supplemental_completion_cta_source_trace": {
+      "passed": 3,
+      "retries": 0
+    }
+  },
+  "ci_runs": [
+    {
+      "workflow": "phase1a-runtime-smoke",
+      "run_id": 37720181111,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37720181111",
+      "event": "workflow_dispatch",
+      "conclusion": "success",
+      "tested_main_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+      "runner_checkout_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+      "checkout_jobs": {
+        "mandatory-runtime-smoke": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+        "contract-tests": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef"
+      }
+    },
+    {
+      "workflow": "M2C Formal Result Workspace",
+      "run_id": 37720184257,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37720184257",
+      "event": "workflow_dispatch",
+      "conclusion": "success",
+      "tested_main_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+      "runner_checkout_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+      "checkout_jobs": {
+        "frontend-real-backend-uat": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef"
+      }
+    },
+    {
+      "workflow": "M2B Production Document Integration",
+      "run_id": 37720186713,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37720186713",
+      "event": "workflow_dispatch",
+      "conclusion": "success",
+      "tested_main_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+      "runner_checkout_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+      "checkout_jobs": {
+        "frontend-real-backend-uat": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef"
+      }
+    },
+    {
+      "workflow": "M2A Production Intake",
+      "run_id": 37720189198,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37720189198",
+      "event": "workflow_dispatch",
+      "conclusion": "success",
+      "tested_main_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+      "runner_checkout_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+      "checkout_jobs": {
+        "frontend-real-backend-uat": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef"
+      }
+    },
+    {
+      "workflow": "M1 Intake Analysis Alpha",
+      "run_id": 37720192348,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37720192348",
+      "event": "workflow_dispatch",
+      "conclusion": "success",
+      "tested_main_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+      "runner_checkout_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+      "checkout_jobs": {
+        "frontend-real-backend-uat": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef"
+      }
+    },
+    {
+      "workflow": "M0 Knowledge & Evidence Preview",
+      "run_id": 37720194701,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37720194701",
+      "event": "workflow_dispatch",
+      "conclusion": "success",
+      "tested_main_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+      "runner_checkout_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+      "checkout_jobs": {
+        "real-backend-uat": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+        "frontend": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef"
+      }
+    }
+  ],
+  "tested_main_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+  "runner_checkout_shas": {
+    "backend": {
+      "mandatory-runtime-smoke": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+      "contract-tests": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef"
+    },
+    "m2c": {
+      "frontend-real-backend-uat": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef"
+    },
+    "m2b": {
+      "frontend-real-backend-uat": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef"
+    },
+    "m2a": {
+      "frontend-real-backend-uat": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef"
+    },
+    "m1": {
+      "frontend-real-backend-uat": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef"
+    },
+    "m0": {
+      "real-backend-uat": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+      "frontend": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef"
+    }
+  },
+  "static_subset_disclosure": [
+    "contract-tests\tContract/static test subset\t2026-10-08T02:56:27.4765291Z 427 passed, 7 skipped, 293 deselected, 2 warnings in 63.62s (0:01:03)"
+  ],
+  "blockers": [],
+  "retained_capability_gaps": [
+    "MULTI_SUBJECT_WORKFLOW_NOT_CONFIGURED",
+    "HISTORICAL_FORMAL_RESULT_AUTHORITY_NOT_CONFIGURED"
+  ],
+  "m2d_entry": "ALLOWED",
+  "m2d_started": false,
+  "stage2_started": false,
+  "source_tree_identical_to_tested_pr": true,
+  "remote_tag_verified": true,
+  "evidence_branch": "integration/m2c-main-closure-evidence",
+  "evidence_branch_merged": false
+}

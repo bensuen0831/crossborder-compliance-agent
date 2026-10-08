@@ -1,0 +1,26 @@
+{
+  "tested_main_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+  "command": "alembic downgrade 0013_m2b_context_temporal_contract",
+  "expected_refusal": true,
+  "actual_returncode": 1,
+  "reason": "C0 authoritative/configuration data retained; archive/export required",
+  "before": {
+    "alembic": "0014_m2c_formal_result_authority",
+    "tables": {
+      "cross_border_assessment_results": {
+        "rows": 3,
+        "content_sha256": "d02e84d37311cd6b7b71942f27418362bb366c461c1f7670c7f78fc411fb8bce"
+      },
+      "regulatory_document_requirement_results": {
+        "rows": 3,
+        "content_sha256": "ea8b9d99544f5ef7d80998f71c6400e874cabb2471bdb66e25bfdda98e78c919"
+      },
+      "analysis_snapshot_registry_pins": {
+        "rows": 352,
+        "content_sha256": "e375d56b6fd381d6a23c8420e0c9ed11afe5e036a26ed79bbbb03bd99bf70617"
+      }
+    }
+  },
+  "after_unchanged": true,
+  "pass": true
+}

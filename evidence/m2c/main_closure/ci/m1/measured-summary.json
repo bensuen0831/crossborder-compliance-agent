@@ -1,0 +1,57 @@
+{
+  "run_id": 37720192348,
+  "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37720192348",
+  "workflow": "M1 Intake Analysis Alpha",
+  "event": "workflow_dispatch",
+  "conclusion": "success",
+  "tested_main_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+  "runner_checkout_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+  "checkout_jobs": {
+    "frontend-real-backend-uat": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef"
+  },
+  "browser": {
+    "stats": {
+      "startTime": "2026-10-08T02:59:20.677Z",
+      "duration": 205712.584,
+      "expected": 3,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "files": {
+      "m1.spec.ts": 3
+    },
+    "titles": [
+      "m1.spec.ts / zh-CN / four-step intake, canonical results, official citation and locale state invariance",
+      "m1.spec.ts / zh-HK / four-step intake, canonical results, official citation and locale state invariance",
+      "m1.spec.ts / en-US / four-step intake, canonical results, official citation and locale state invariance"
+    ],
+    "retry_count": 0
+  },
+  "frontend_passed": 108,
+  "i18n": {
+    "status": "PASS",
+    "locales": [
+      "zh-CN",
+      "zh-HK",
+      "en-US"
+    ],
+    "keys_per_locale": 494,
+    "checked_files": 40,
+    "hard_coded_ui_strings": 0,
+    "missing_keys": 0
+  },
+  "checkout_notice": {
+    "tested_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+    "browser": {
+      "startTime": "2026-10-08T02:59:20.677Z",
+      "duration": 205712.584,
+      "expected": 3,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "retry_count": 0,
+    "alembic": "0014_m2c_formal_result_authority"
+  }
+}

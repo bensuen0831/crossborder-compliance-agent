@@ -1,0 +1,2 @@
+import { defineConfig } from '@playwright/test';
+export default defineConfig({testDir: '.', testMatch: 'main-completion.spec.ts', workers: 1, retries: 0, timeout: 180000, outputDir: '/workspace/m2c-main-control/browser-tests/results', reporter: [['list'], ['json', {outputFile: '/workspace/m2c-main-control/browser-tests/results.json'}]], use: {baseURL: 'http://127.0.0.1:5173', headless: true, viewport: {width: 1500,height:1000}, trace: 'retain-on-failure', screenshot:'only-on-failure', launchOptions:{executablePath:'/usr/bin/chromium',args:['--no-sandbox']}}});
