@@ -1,0 +1,46 @@
+{
+  "workflow": "M1 Intake Analysis Alpha",
+  "run_id": 37770169526,
+  "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37770169526",
+  "head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+  "conclusion": "success",
+  "runner_checkout_proof": [
+    {
+      "checkout_command_and_output": [
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:58.9219740Z [command]/usr/bin/git log -1 --format=%H",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:58.9251759Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend-real-backend-uat\tRun actions/setup-python@v5\t\ufeff2026-10-08T11:27:58.9529232Z ##[group]Run actions/setup-python@v5",
+        "frontend-real-backend-uat\tRun actions/setup-python@v5\t2026-10-08T11:27:58.9529558Z with:"
+      ],
+      "tested_pr_head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "job_id": 113287529658,
+      "name": "frontend-real-backend-uat",
+      "runner_checkout_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "proof_lines": [
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:56.8697399Z   ref: d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:58.8185505Z [command]/usr/bin/git rev-parse --verify --quiet d3f3db430e72fb54e2be4f2c946fa62c0276a08c^{object}",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:58.8186569Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:58.8231916Z [command]/usr/bin/git checkout --progress --force d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:58.9150370Z Note: switching to 'd3f3db430e72fb54e2be4f2c946fa62c0276a08c'.",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:58.9251759Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend-real-backend-uat\tExact-head measured result\t2026-10-08T11:35:48.2690071Z ##[notice]M1_EXACT_HEAD_SUMMARY={\"tested_sha\": \"d3f3db430e72fb54e2be4f2c946fa62c0276a08c\", \"browser\": {\"startTime\": \"2026-10-08T11:32:16.799Z\", \"duration\": 210744.532, \"expected\": 3, \"skipped\": 0, \"unexpected\": 0, \"flaky\": 0}, \"retry_count\": 0, \"alembic\": \"0015_m2d_review_governance\"}"
+      ],
+      "conclusion": "success"
+    }
+  ],
+  "log_sha256": "de77b56ffc894aa34d72684ec60e3cef9a523ee08bc6748633dab83982dd448f",
+  "artifacts": [
+    {
+      "id": 11548555435,
+      "name": "m1-uat-37770169526",
+      "archive_sha256": "76d044e29c88be98b2208f03046e956f8e328ca558fd6072285f1078b8ac1cde",
+      "size_bytes": 3255124,
+      "extracted": [
+        {
+          "path": "37770169526/measured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "sha256": "ca747025353c97564c94bbfec6318103a7143539206ca4e79d109d2ce6b0e544"
+        }
+      ]
+    }
+  ]
+}

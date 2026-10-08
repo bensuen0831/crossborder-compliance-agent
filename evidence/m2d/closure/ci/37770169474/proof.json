@@ -1,0 +1,125 @@
+{
+  "workflow": "phase1a-runtime-smoke",
+  "run_id": 37770169474,
+  "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37770169474",
+  "head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+  "conclusion": "success",
+  "runner_checkout_proof": [
+    {
+      "checkout_command_and_output": [
+        "mandatory-runtime-smoke\tRun actions/checkout@v4\t2026-10-08T11:27:56.4067903Z [command]/usr/bin/git log -1 --format=%H",
+        "mandatory-runtime-smoke\tRun actions/checkout@v4\t2026-10-08T11:27:56.4107654Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "mandatory-runtime-smoke\tRun actions/setup-python@v5\t\ufeff2026-10-08T11:27:56.4377294Z ##[group]Run actions/setup-python@v5",
+        "mandatory-runtime-smoke\tRun actions/setup-python@v5\t2026-10-08T11:27:56.4377628Z with:"
+      ],
+      "tested_pr_head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "job_id": 113287528584,
+      "name": "mandatory-runtime-smoke",
+      "runner_checkout_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "proof_lines": [
+        "mandatory-runtime-smoke\tRun actions/checkout@v4\t2026-10-08T11:27:55.2953057Z   ref: d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "mandatory-runtime-smoke\tRun actions/checkout@v4\t2026-10-08T11:27:56.2817256Z [command]/usr/bin/git rev-parse --verify --quiet d3f3db430e72fb54e2be4f2c946fa62c0276a08c^{object}",
+        "mandatory-runtime-smoke\tRun actions/checkout@v4\t2026-10-08T11:27:56.2818352Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "mandatory-runtime-smoke\tRun actions/checkout@v4\t2026-10-08T11:27:56.2911483Z [command]/usr/bin/git checkout --progress --force d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "mandatory-runtime-smoke\tRun actions/checkout@v4\t2026-10-08T11:27:56.3874619Z Note: switching to 'd3f3db430e72fb54e2be4f2c946fa62c0276a08c'.",
+        "mandatory-runtime-smoke\tRun actions/checkout@v4\t2026-10-08T11:27:56.4107654Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "mandatory-runtime-smoke\tRun mandatory PostgreSQL-backed LangGraph gate\t2026-10-08T12:03:01.1581422Z - **tested_pr_head_sha**: `d3f3db430e72fb54e2be4f2c946fa62c0276a08c`",
+        "mandatory-runtime-smoke\tRun mandatory PostgreSQL-backed LangGraph gate\t2026-10-08T12:03:01.1582701Z - **runner_checkout_sha**: `d3f3db430e72fb54e2be4f2c946fa62c0276a08c`",
+        "mandatory-runtime-smoke\tPublish measured Phase 1G empirical evidence\t2026-10-08T12:03:01.2292568Z ##[notice]PHASE1G_EMPIRICAL_SUMMARY={\"phase\":\"1G\",\"run_id\":\"37770169474\",\"attempt\":\"1\",\"tested_pr_head_sha\":\"d3f3db430e72fb54e2be4f2c946fa62c0276a08c\",\"runner_merge_sha\":\"d3f3db430e72fb54e2be4f2c946fa62c0276a08c\",\"alembic_head\":\"0015_m2d_review_governance\",\"pytest\":{\"passed\":763,\"skipped\":0,\"failed\":0,\"errors\":0,\"deselected\":0,\"phase_coverage\":{\"phase1b\":true,\"phase1c\":true,\"phase1d\":true,\"phase1e\":true,\"phase1f\":true,\"phase1g\":true,\"phase1h\":true,\"phase1i\":true,\"phase1j\":true},\"pass\":true},\"schema_gates\":{\"phase1b\":{\"pass\":true,\"passed\":16,\"total\":16},\"phase1c\":{\"pass\":true,\"passed\":20,\"total\":20},\"phase1d\":{\"pass\":true,\"passed\":15,\"total\":15},\"phase1e\":{\"pass\":true,\"passed\":22,\"total\":22},\"phase1f\":{\"pass\":true,\"passed\":29,\"total\":29},\"phase1g\":{\"pass\":true,\"passed\":58,\"total\":58}},\"architecture\":{\"pass\":true,\"passed\":151,\"total\":151},\"runtime\":{\"pass\":true,\"passed\":25,\"total\":25},\"full_gate_log\":{\"filename\":\"ci_complete.log\",\"bytes\":105702,\"sha256\":\"66d573d108005c8a034ef9187c7b1291c5f2398bfd1bac9998c01f3efb11f860\"},\"pass\":true}"
+      ],
+      "conclusion": "success"
+    },
+    {
+      "checkout_command_and_output": [
+        "contract-tests\tRun actions/checkout@v4\t2026-10-08T11:27:42.0556663Z [command]/usr/bin/git log -1 --format=%H",
+        "contract-tests\tRun actions/checkout@v4\t2026-10-08T11:27:42.0557444Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "contract-tests\tRun actions/setup-python@v5\t\ufeff2026-10-08T11:27:42.1090056Z ##[group]Run actions/setup-python@v5",
+        "contract-tests\tRun actions/setup-python@v5\t2026-10-08T11:27:42.1090336Z with:"
+      ],
+      "tested_pr_head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "job_id": 113287528855,
+      "name": "contract-tests",
+      "runner_checkout_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "proof_lines": [
+        "contract-tests\tRun actions/checkout@v4\t2026-10-08T11:27:39.0454223Z   ref: d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "contract-tests\tRun actions/checkout@v4\t2026-10-08T11:27:41.8230325Z [command]/usr/bin/git rev-parse --verify --quiet d3f3db430e72fb54e2be4f2c946fa62c0276a08c^{object}",
+        "contract-tests\tRun actions/checkout@v4\t2026-10-08T11:27:41.8231196Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "contract-tests\tRun actions/checkout@v4\t2026-10-08T11:27:41.9494179Z [command]/usr/bin/git checkout --progress --force d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "contract-tests\tRun actions/checkout@v4\t2026-10-08T11:27:42.0373859Z Note: switching to 'd3f3db430e72fb54e2be4f2c946fa62c0276a08c'.",
+        "contract-tests\tRun actions/checkout@v4\t2026-10-08T11:27:42.0557444Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c"
+      ],
+      "conclusion": "success"
+    }
+  ],
+  "log_sha256": "20cc8fa89d55ba316b4e582b7c2c302351665ad16d089ca8d5c79c1646a9584e",
+  "artifacts": [
+    {
+      "id": 11549925284,
+      "name": "phase1a-runtime-evidence-37770169474-1",
+      "archive_sha256": "b02cc3d59fa65c5818574d220dd5378976085d681254d6565a2e3c59bdcc21e5",
+      "size_bytes": 76875,
+      "extracted": [
+        {
+          "path": "37770169474/measured/architecture_rule_check.json",
+          "sha256": "40a8590a49ea7bde48ae2472c42fea1c6f0596596ac0f9bd5a7a2623eace104f"
+        },
+        {
+          "path": "37770169474/measured/architecture_rule_check_stdout.json",
+          "sha256": "40a8590a49ea7bde48ae2472c42fea1c6f0596596ac0f9bd5a7a2623eace104f"
+        },
+        {
+          "path": "37770169474/measured/ci_run_evidence.json",
+          "sha256": "6d2806bc7a0e3c7e18c20a45ad7448984b37100c4e252b2d15158e7483c750a9"
+        },
+        {
+          "path": "37770169474/measured/m2a_architecture_check.json",
+          "sha256": "84fdf8fe5eb1f9e083eaf2d455e9708ac134ee57208ea335679013b9a7f1a73d"
+        },
+        {
+          "path": "37770169474/measured/m2a_migration_dual_path.json",
+          "sha256": "c1f8a6c9c95e0f18609fd3d6e1985067f59f3a8d43a88412fb4f02cde4f0a2d8"
+        },
+        {
+          "path": "37770169474/measured/m2b_architecture_check.json",
+          "sha256": "44d4fa76102b3bf0e83add82220399e079c6b14af3adc256bdcc625d581898e1"
+        },
+        {
+          "path": "37770169474/measured/m2b_migration_dual_path.json",
+          "sha256": "37f5f2d477435dfac98bd2f807954b7f9f7474f4cb5dade1b8670ac5fcaf2142"
+        },
+        {
+          "path": "37770169474/measured/phase1h_migration_dual_path.json",
+          "sha256": "51db8454563df678a61a492876e85a2fa2a87bff0e7e0ede1344e3c4beea5ea2"
+        },
+        {
+          "path": "37770169474/measured/phase1i_migration_dual_path.json",
+          "sha256": "fc7569e417786eeffa22cefb3b1885cf4b474361cad35c54b7090d72bd41ce81"
+        },
+        {
+          "path": "37770169474/measured/phase1j_migration_dual_path.json",
+          "sha256": "aa45ad70cf74c2f7546e365c1343f78935d255c5845f311f36989987734f0f9d"
+        },
+        {
+          "path": "37770169474/measured/post_alembic_schema.json",
+          "sha256": "216e222d12e01ae2c86c9d2d7bad824c0235b071c0e215bdcacc8dd2a69ae57f"
+        },
+        {
+          "path": "37770169474/measured/post_runtime_schema.json",
+          "sha256": "e9e0c6ff1099c14eb09822563ef9a1bf6f170abadf2a5bf9baf64add8e21e01c"
+        },
+        {
+          "path": "37770169474/measured/pytest_full.xml",
+          "sha256": "2c65ab87e1ad40b7df2b08c116fb4936c70756c171c6c9b4420ada152290d9e8"
+        },
+        {
+          "path": "37770169474/measured/pytest_full_summary.json",
+          "sha256": "f805ec61d256dbb1490c48cb57fe47caaefc266c9f9a29e9a66e4a91f3028fbc"
+        },
+        {
+          "path": "37770169474/measured/runtime_verify.json",
+          "sha256": "7d26dfe0c9873530995590c7d9dc51b8d02615ac0a6477c7d8e422e3b75c499e"
+        }
+      ]
+    }
+  ]
+}

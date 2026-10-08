@@ -1,14 +1,16 @@
-# M2-D file ownership
+# M2-D source ownership inventory
 
-Explicit finite approved owner paths plus task delivery docs/evidence; frozen legal engines, migrations0001–0014, canonical LangGraph adapter and package contracts retain verified identity.
+Baseline `0dc005e583465a4604a5d40a369cb5fc2f0ccbef` → tested source `d3f3db430e72fb54e2be4f2c946fa62c0276a08c`. 67 paths. Source and finite owner certificate are preserved. Record-only evidence/doc changes in this branch are excluded from the source diff.
 
 - `.github/workflows/m2d-human-review.yml`
+- `.github/workflows/phase1a-runtime-smoke.yml`
 - `alembic/env.py`
 - `alembic/versions/0015_m2d_review_governance.py`
 - `docs/m2d/M2D_api_contract.md`
 - `docs/m2d/M2D_architecture_rule_check.md`
 - `docs/m2d/M2D_correction_contract.md`
 - `docs/m2d/M2D_design.md`
+- `docs/m2d/M2D_files_created_modified.md`
 - `docs/m2d/M2D_integration_handoff.md`
 - `docs/m2d/M2D_migration_result.md`
 - `docs/m2d/M2D_reexecution_contract.md`
@@ -18,6 +20,7 @@ Explicit finite approved owner paths plus task delivery docs/evidence; frozen le
 - `docs/m2d/M2D_security_result.md`
 - `docs/m2d/M2D_successor_snapshot_contract.md`
 - `docs/m2d/M2D_test_result.md`
+- `evidence/m2d/approved_owner_overlay.json`
 - `frontend/e2e/m2d.spec.ts`
 - `frontend/scripts/m2a/uat.py`
 - `frontend/scripts/m2d/export_contracts.py`
@@ -33,6 +36,7 @@ Explicit finite approved owner paths plus task delivery docs/evidence; frozen le
 - `frontend/src/locales/en-US.json`
 - `frontend/src/locales/zh-CN.json`
 - `frontend/src/locales/zh-HK.json`
+- `frontend/vite.config.ts`
 - `scripts/m2a_ownership.py`
 - `scripts/m2b_ownership.py`
 - `scripts/m2c_projection_ownership.py`

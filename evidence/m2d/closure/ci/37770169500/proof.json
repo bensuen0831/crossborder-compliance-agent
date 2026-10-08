@@ -1,0 +1,66 @@
+{
+  "workflow": "M0 Knowledge & Evidence Preview",
+  "run_id": 37770169500,
+  "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37770169500",
+  "head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+  "conclusion": "success",
+  "runner_checkout_proof": [
+    {
+      "checkout_command_and_output": [
+        "frontend\tRun actions/checkout@v4\t2026-10-08T11:27:41.4766128Z [command]/usr/bin/git log -1 --format=%H",
+        "frontend\tRun actions/checkout@v4\t2026-10-08T11:27:41.4808552Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend\tRun actions/setup-node@v4\t\ufeff2026-10-08T11:27:41.5192361Z ##[group]Run actions/setup-node@v4",
+        "frontend\tRun actions/setup-node@v4\t2026-10-08T11:27:41.5192774Z with:"
+      ],
+      "tested_pr_head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "job_id": 113287528915,
+      "name": "frontend",
+      "runner_checkout_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "proof_lines": [
+        "frontend\tRun actions/checkout@v4\t2026-10-08T11:27:39.3710717Z   ref: d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend\tRun actions/checkout@v4\t2026-10-08T11:27:41.3644928Z [command]/usr/bin/git rev-parse --verify --quiet d3f3db430e72fb54e2be4f2c946fa62c0276a08c^{object}",
+        "frontend\tRun actions/checkout@v4\t2026-10-08T11:27:41.3646376Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend\tRun actions/checkout@v4\t2026-10-08T11:27:41.3765294Z [command]/usr/bin/git checkout --progress --force d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend\tRun actions/checkout@v4\t2026-10-08T11:27:41.4709754Z Note: switching to 'd3f3db430e72fb54e2be4f2c946fa62c0276a08c'.",
+        "frontend\tRun actions/checkout@v4\t2026-10-08T11:27:41.4808552Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c"
+      ],
+      "conclusion": "success"
+    },
+    {
+      "checkout_command_and_output": [
+        "real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:56.9754701Z [command]/usr/bin/git log -1 --format=%H",
+        "real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:56.9778135Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "real-backend-uat\tRun actions/setup-python@v5\t\ufeff2026-10-08T11:27:57.0060399Z ##[group]Run actions/setup-python@v5",
+        "real-backend-uat\tRun actions/setup-python@v5\t2026-10-08T11:27:57.0060731Z with:"
+      ],
+      "tested_pr_head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "job_id": 113287529115,
+      "name": "real-backend-uat",
+      "runner_checkout_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "proof_lines": [
+        "real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:55.5754498Z   ref: d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:56.8677436Z [command]/usr/bin/git rev-parse --verify --quiet d3f3db430e72fb54e2be4f2c946fa62c0276a08c^{object}",
+        "real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:56.8678320Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:56.8686510Z [command]/usr/bin/git checkout --progress --force d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:56.9616896Z Note: switching to 'd3f3db430e72fb54e2be4f2c946fa62c0276a08c'.",
+        "real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:56.9778135Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c"
+      ],
+      "conclusion": "success"
+    }
+  ],
+  "log_sha256": "a595bfc63381cdf3cfcd6cca69ad9d509e318f41b294e06e6a053aa878504949",
+  "artifacts": [
+    {
+      "id": 11547881196,
+      "name": "m0-browser-uat-37770169500-1",
+      "archive_sha256": "f24bef418098867b238fbe57d801c4347f80135071f02969ca079848b6f3bdad",
+      "size_bytes": 2112485,
+      "extracted": [
+        {
+          "path": "37770169500/measured/results.json",
+          "sha256": "01e0fc7988054c8729e945ce4f02d007f805fb5de4aab178c56aa92e869970ae"
+        }
+      ]
+    }
+  ]
+}

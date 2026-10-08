@@ -1,0 +1,62 @@
+{
+  "workflow": "M2D Governed Human Review",
+  "run_id": 37770169397,
+  "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37770169397",
+  "head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+  "conclusion": "success",
+  "runner_checkout_proof": [
+    {
+      "checkout_command_and_output": [
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:11.5208008Z [command]/usr/bin/git log -1 --format=%H",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:11.5239716Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend-real-backend-uat\tRun actions/setup-python@v5\t\ufeff2026-10-08T11:28:11.5469238Z ##[group]Run actions/setup-python@v5",
+        "frontend-real-backend-uat\tRun actions/setup-python@v5\t2026-10-08T11:28:11.5469491Z with:"
+      ],
+      "tested_pr_head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "job_id": 113287528019,
+      "name": "frontend-real-backend-uat",
+      "runner_checkout_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "proof_lines": [
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:08.9017915Z   ref: d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:11.4288040Z [command]/usr/bin/git rev-parse --verify --quiet d3f3db430e72fb54e2be4f2c946fa62c0276a08c^{object}",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:11.4288986Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:11.4363851Z [command]/usr/bin/git checkout --progress --force d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:11.5149247Z Note: switching to 'd3f3db430e72fb54e2be4f2c946fa62c0276a08c'.",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:11.5239716Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend-real-backend-uat\tExact-head measured result\t2026-10-08T11:56:00.6589444Z ##[notice]M2D_EXACT_HEAD_SUMMARY={\"tested_sha\": \"d3f3db430e72fb54e2be4f2c946fa62c0276a08c\", \"runner_checkout_sha\": \"d3f3db430e72fb54e2be4f2c946fa62c0276a08c\", \"focused_backend_passed\": 36, \"frontend_passed\": 121, \"browser\": {\"startTime\": \"2026-10-08T11:36:27.918Z\", \"duration\": 1171981.169, \"expected\": 15, \"skipped\": 0, \"unexpected\": 0, \"flaky\": 0}, \"m0_required_workflow\": \"M0 H5 Preview at same SHA\", \"retry_count\": 0, \"alembic\": \"0015_m2d_review_governance\"}"
+      ],
+      "conclusion": "success"
+    }
+  ],
+  "log_sha256": "37f942d9536a114c8a221efa3b43c9e4c4c2f38f5fdaaae7571105ec704aa303",
+  "artifacts": [
+    {
+      "id": 11548850345,
+      "name": "m2d-uat-37770169397",
+      "archive_sha256": "2f2775b6b6c461827a3e5de43cf90286b0553e0dc4f41356c359e30b7277e245",
+      "size_bytes": 7631278,
+      "extracted": [
+        {
+          "path": "37770169397/measured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "sha256": "487e8bf93108b952b1a9b0689bd63befb5875a159cbc7c9b30809a1f52dceacd"
+        },
+        {
+          "path": "37770169397/measured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/artifacts/m2d/migration_dual_path.json",
+          "sha256": "df2862b3bcdf209fa54a3535176343a80f376132e112c40efb0b576ccafb6658"
+        },
+        {
+          "path": "37770169397/measured/tmp/m2d-focused.xml",
+          "sha256": "9ac27b32b7c2c8e2dae240fbc321d496d359ee3303e76d22c0bb1f686668c331"
+        },
+        {
+          "path": "37770169397/measured/tmp/m2d-frontend.json",
+          "sha256": "9f479e2dec8dcbe735fc9ee345cbdaaa1bd4ef1778f32d5e5619af8d5e367bec"
+        },
+        {
+          "path": "37770169397/measured/tmp/m2d-measured.json",
+          "sha256": "5a3fecfed07460ad36ef7da8cc37e7fe814161624c247fffe08cc5458e70edf2"
+        }
+      ]
+    }
+  ]
+}

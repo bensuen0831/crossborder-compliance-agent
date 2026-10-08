@@ -1,0 +1,46 @@
+{
+  "workflow": "M2B Production Document Integration",
+  "run_id": 37770169403,
+  "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37770169403",
+  "head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+  "conclusion": "success",
+  "runner_checkout_proof": [
+    {
+      "checkout_command_and_output": [
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:06.8763161Z [command]/usr/bin/git log -1 --format=%H",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:06.8785243Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend-real-backend-uat\tRun actions/setup-python@v5\t\ufeff2026-10-08T11:28:06.9003904Z ##[group]Run actions/setup-python@v5",
+        "frontend-real-backend-uat\tRun actions/setup-python@v5\t2026-10-08T11:28:06.9004093Z with:"
+      ],
+      "tested_pr_head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "job_id": 113287528795,
+      "name": "frontend-real-backend-uat",
+      "runner_checkout_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "proof_lines": [
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:05.2383455Z   ref: d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:06.7616237Z [command]/usr/bin/git rev-parse --verify --quiet d3f3db430e72fb54e2be4f2c946fa62c0276a08c^{object}",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:06.7616865Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:06.7795931Z [command]/usr/bin/git checkout --progress --force d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:06.8652466Z Note: switching to 'd3f3db430e72fb54e2be4f2c946fa62c0276a08c'.",
+        "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:06.8785243Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+        "frontend-real-backend-uat\tExact-head measured result\t2026-10-08T11:36:58.7381680Z ##[notice]M2B_EXACT_HEAD_SUMMARY={\"tested_sha\": \"d3f3db430e72fb54e2be4f2c946fa62c0276a08c\", \"runner_checkout_sha\": \"d3f3db430e72fb54e2be4f2c946fa62c0276a08c\", \"browser\": {\"startTime\": \"2026-10-08T11:31:02.565Z\", \"duration\": 355177.294, \"expected\": 9, \"skipped\": 0, \"unexpected\": 0, \"flaky\": 0}, \"m0_required_workflow\": \"M0 H5 Preview at same SHA\", \"retry_count\": 0, \"alembic\": \"0015_m2d_review_governance\"}"
+      ],
+      "conclusion": "success"
+    }
+  ],
+  "log_sha256": "695d38e8ca4e87586528fcf3231c49e639f780347021621b85d6bdcb7d37d627",
+  "artifacts": [
+    {
+      "id": 11547366837,
+      "name": "m2b-uat-37770169403",
+      "archive_sha256": "5e3deb26a1972c307873a005730bd846f1eb6c6c15c6fa8b10d4b801ce4a6686",
+      "size_bytes": 6090095,
+      "extracted": [
+        {
+          "path": "37770169403/measured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "sha256": "931b150fc61842e513e5ce469cc864f76cc5bdc78a7fe57b0238abd50ad80fe7"
+        }
+      ]
+    }
+  ]
+}

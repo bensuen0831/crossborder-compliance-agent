@@ -5,3 +5,5 @@
 Frozen0001–0014 retain byte identity. Upgrade accounts for historical0002 live Base.metadata without rewriting it. PostgreSQL tests compare complete catalogs for empty fresh→15 and exact verified-main14→15. Empty downgrade/re-upgrade is supported. Persisted governed task/decision/correction authority causes transactional refusal requiring archive/export; no silent deletion. UPDATE/DELETE on canonical review history/lineage is refused.
 
 Measured focused dual-path evidence: all5 migration policies PASS in artifacts/m2d/migration_dual_path.json. D6 reexecutes this test within the mandatory full suite; final exact-head evidence is retained separately.
+
+Final exact-head closure PASS at `d3f3db430e72fb54e2be4f2c946fa62c0276a08c`; see [measured closure](../../evidence/m2d/closure/final_validation.md). Source branch remains frozen and PR25 remains Draft/unmerged.

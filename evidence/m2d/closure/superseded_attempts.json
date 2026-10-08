@@ -1,0 +1,54 @@
+{
+  "superseded_attempts": [
+    {
+      "head": "3aa3ee1df426349c2614b97250a454a083889768",
+      "gate": "mandatory backend",
+      "passed": 760,
+      "failed": 2,
+      "resolution": "Canonical Snapshot FK for direct-worker decision audit; owning fix and regression test"
+    },
+    {
+      "head": "c271af15e3d250753f93b4feddc019710b0c8eda",
+      "gate": "A/B frontend unit CI",
+      "passed": 120,
+      "failed": 1,
+      "resolution": "Uniform bounded15s deadline; assertions/retry unchanged"
+    },
+    {
+      "head": "725f3c4d33b0548815b92842e90a6cf69e3cb498",
+      "gate": "mandatory CI",
+      "state": "cancelled by30-minute job maximum; full suite84%, no reported failure; six other groupsSUCCESS",
+      "resolution": "Bounded45-minute mandatory job retaining all tests/assertions"
+    }
+  ],
+  "retained_logs": [
+    {
+      "path": "artifacts/m2d/closure/runtime-ci-failed.log",
+      "sha256": "aba9a3369141238f635dae01835106653f4fb99c54be045ca161b0ac4b0923ec"
+    },
+    {
+      "path": "artifacts/m2d/final-closure/m2a-ci-failed.log",
+      "sha256": "7f0074d588a0184e2d693f42cae20761f1811cd86870a8ce1f54acb0e9cfb0e4"
+    },
+    {
+      "path": "artifacts/m2d/final-closure/m2b-ci-failed.log",
+      "sha256": "d021b660df8316d6059d55c047b2976ce052e0e08cc3ad2a7e4e18aa844187ba"
+    },
+    {
+      "path": "artifacts/m2d/final-closure/browser-core.log",
+      "sha256": "b04cf7437e1fc29e23425e3f52113a2d228090468e816cd374e1c459d7041e88"
+    }
+  ],
+  "final_head": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+  "previous_results_counted_as_final": false,
+  "local_prior_head_browser": {
+    "startTime": "2026-10-08T10:48:54.421Z",
+    "duration": 1030490.305,
+    "expected": 14,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0,
+    "head": "c271af15e3d250753f93b4feddc019710b0c8eda",
+    "note": "One timeout during the source/configuration change; retained, excluded from final source-head closure."
+  }
+}

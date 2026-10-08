@@ -5,3 +5,5 @@ Every list/read/decision/correction/recovery validates current tenant, project a
 Decision mutation is atomic with row-lock CAS, append-only ReviewDecision and AuditEvent. Actor-bound idempotency checks payload digest; changed replay fails closed. Correction uses repeatable-read, source-universe validation and existing owner transactions, with immutable relational lineage. No silent cross-source overwrite. Current permissions are revalidated after durable checkpoint load; snapshot and checkpoint never authorize.
 
 Tests cover spoof injection, stale/two-reviewer conflict, immutable history, read-only roles, direct runtime required-role enforcement, approval delivery failure, successor delivery recovery, duplicate/restart and S1 preservation. Production IAM/SSO/CSRF redesign remains out of scope.
+
+Final exact-head closure PASS at `d3f3db430e72fb54e2be4f2c946fa62c0276a08c`; see [measured closure](../../evidence/m2d/closure/final_validation.md). Source branch remains frozen and PR25 remains Draft/unmerged.

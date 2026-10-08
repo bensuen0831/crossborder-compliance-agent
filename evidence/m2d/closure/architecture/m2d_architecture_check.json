@@ -1,0 +1,29 @@
+{
+  "pass_": true,
+  "passed": 21,
+  "total": 21,
+  "checks": {
+    "review_task_reuses_canonical_authority": true,
+    "review_decision_is_append_only": true,
+    "frontend_cannot_set_decided_by": true,
+    "frontend_cannot_patch_formal_results": true,
+    "allowed_actions_are_backend_owned": true,
+    "approve_cannot_fabricate_missing_fact": true,
+    "approve_cannot_fabricate_evidence": true,
+    "request_changes_does_not_resume": true,
+    "correction_routes_to_owning_domain": true,
+    "input_correction_cannot_mutate_snapshot": true,
+    "successor_snapshot_required_for_input_change": true,
+    "same_snapshot_resume_requires_no_input_mutation": true,
+    "review_resume_reexecutes_owner": true,
+    "no_arbitrary_graph_jump": true,
+    "reexecution_boundary_is_backend_owned": true,
+    "historical_result_remains_immutable": true,
+    "review_lineage_is_auditable": true,
+    "single_workflow_runtime": true,
+    "single_checkpointer": true,
+    "single_review_authority": true,
+    "stage2_not_started": true
+  },
+  "ownership_paths": 52
+}

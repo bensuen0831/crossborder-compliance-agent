@@ -1,0 +1,1584 @@
+{
+  "decision": "M2-D = PASS",
+  "baseline_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+  "baseline_tag": "v3.6-m2c-pass",
+  "tested_pr_head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+  "runner_checkout_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+  "branch": "milestone-m2d-human-review-resume",
+  "pr": "https://github.com/bensuen0831/crossborder-compliance-agent/pull/25",
+  "pr_draft": true,
+  "merged": false,
+  "alembic_head": "0015_m2d_review_governance",
+  "backend": {
+    "passed": 763,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "m2d_focused": 36,
+  "architecture": {
+    "passed": 242,
+    "checks": {
+      "architecture_rule_check": {
+        "pass": true,
+        "passed": 151,
+        "total": 151,
+        "checks": [
+          {
+            "check": "domain_has_no_langgraph_import",
+            "pass": true,
+            "evidence": "clean"
+          },
+          {
+            "check": "domain_has_no_sqlalchemy_import",
+            "pass": true,
+            "evidence": "clean"
+          },
+          {
+            "check": "application_has_no_sqlalchemy_import",
+            "pass": true,
+            "evidence": "clean"
+          },
+          {
+            "check": "langgraph_runtime_isolated_to_adapter",
+            "pass": true,
+            "evidence": [
+              "src/crossborder_compliance/workflows/langgraph_adapter.py"
+            ]
+          },
+          {
+            "check": "no_eval_exec",
+            "pass": true,
+            "evidence": "clean"
+          },
+          {
+            "check": "human_review_node_not_agent",
+            "pass": true,
+            "evidence": "clean"
+          },
+          {
+            "check": "classification_results_is_only_formal_classification_source",
+            "pass": true,
+            "evidence": "classification_results present; data_classifications absent"
+          },
+          {
+            "check": "workflow_stage_view_not_persisted",
+            "pass": true,
+            "evidence": "no WorkflowStageView persistence model/table"
+          },
+          {
+            "check": "regulatory_structure_node_is_canonical_persistence",
+            "pass": true,
+            "evidence": "RegulatoryStructureNodeEntity present"
+          },
+          {
+            "check": "stage1_explicit_cross_border_results",
+            "pass": true,
+            "evidence": "Stage1ComplianceResultDTO.cross_border_results"
+          },
+          {
+            "check": "legal_basis_rulehit_many_to_many_contract",
+            "pass": true,
+            "evidence": "LegalBasisItemDTO.rule_hit_ids[]"
+          },
+          {
+            "check": "legal_basis_rulehit_many_to_many_persistence",
+            "pass": true,
+            "evidence": "association table legal_basis_rule_hit_links"
+          },
+          {
+            "check": "domain_migration_does_not_own_checkpointer_schema",
+            "pass": true,
+            "evidence": "no checkpoint internal DDL in Domain Alembic"
+          },
+          {
+            "check": "api_workflow_idempotency_separated",
+            "pass": true,
+            "evidence": "separate tables present"
+          },
+          {
+            "check": "workflow_state_has_no_runtime_services_or_secrets",
+            "pass": true,
+            "evidence": {
+              "forbidden": [
+                "db_session",
+                "repository",
+                "client",
+                "secret",
+                "api_key",
+                "provider",
+                "document_bytes",
+                "knowledge_chunks"
+              ]
+            }
+          },
+          {
+            "check": "durable_postgres_checkpointer_setup_present",
+            "pass": true,
+            "evidence": "PostgresSaver + official setup() path"
+          },
+          {
+            "check": "thread_id_backend_bound_to_workflow_run_id",
+            "pass": true,
+            "evidence": "workflow_run_id used as LangGraph thread_id"
+          },
+          {
+            "check": "conversation_thread_not_langgraph_thread_id",
+            "pass": true,
+            "evidence": "ConversationThreadEntity has no standalone LangGraph thread_id field"
+          },
+          {
+            "check": "interrupt_pre_side_effect_event_idempotent",
+            "pass": true,
+            "evidence": "deterministic event + idempotent review key"
+          },
+          {
+            "check": "raw_langgraph_event_not_external_contract",
+            "pass": true,
+            "evidence": "canonical event boundary present"
+          },
+          {
+            "check": "api_routes_do_not_return_or_import_orm_models",
+            "pass": true,
+            "evidence": "API layer uses Pydantic/Application DTOs only"
+          },
+          {
+            "check": "domain_repositories_are_automatically_tenant_scoped",
+            "pass": true,
+            "evidence": [
+              "PostgresProjectRepository",
+              "PostgresPartyRepository",
+              "PostgresDocumentRepository",
+              "PostgresDataInventoryRepository",
+              "PostgresJurisdictionRepository",
+              "PostgresClassificationRepository",
+              "PostgresEvidenceRepository",
+              "PostgresLegalBasisRepository",
+              "PostgresAnalysisSnapshotRepository",
+              "PostgresWorkflowRunRepository",
+              "PostgresReviewRepository",
+              "PostgresAnalysisStageRepository",
+              "PostgresConversationRepository"
+            ]
+          },
+          {
+            "check": "no_second_classification_repository",
+            "pass": true,
+            "evidence": "one ClassificationRepository adapter; no parallel DataClassificationRepository"
+          },
+          {
+            "check": "no_country_product_regulation_fixed_business_logic",
+            "pass": true,
+            "evidence": "no fixed country/product/regulatory-document business skills"
+          },
+          {
+            "check": "frontend_has_no_business_metadata_enum",
+            "pass": true,
+            "evidence": "no hard-coded frontend business option lists"
+          },
+          {
+            "check": "agent_skill_has_no_model_name_or_base_url",
+            "pass": true,
+            "evidence": "no provider/model/base-url binding in agent/skill/workflow code"
+          },
+          {
+            "check": "prompt_business_content_not_embedded_in_agent",
+            "pass": true,
+            "evidence": "no embedded business prompt in agent/skill code"
+          },
+          {
+            "check": "registry_not_source_of_truth",
+            "pass": true,
+            "evidence": "ProjectionRegistry explicitly identifies itself as non-authoritative projection"
+          },
+          {
+            "check": "admin_draft_not_runtime_visible",
+            "pass": true,
+            "evidence": "runtime loaders filter ACTIVE lifecycle versions only"
+          },
+          {
+            "check": "model_secret_not_persisted_in_metadata",
+            "pass": true,
+            "evidence": "model metadata stores secret_ref only; no credential-value columns"
+          },
+          {
+            "check": "snapshot_not_dynamic_registry_lookup_on_resume",
+            "pass": true,
+            "evidence": "resume adapter does not consult registry; snapshot pins are immutable"
+          },
+          {
+            "check": "registry_publish_uses_transactional_outbox",
+            "pass": true,
+            "evidence": "publish and RegistrySyncEvent are written inside the same DB transaction"
+          },
+          {
+            "check": "no_country_specific_registry_branch",
+            "pass": true,
+            "evidence": "registry resolution is metadata/binding driven"
+          },
+          {
+            "check": "graph_state_has_no_document_binary",
+            "pass": true,
+            "evidence": "LangGraph state contains references only; no document binary fields"
+          },
+          {
+            "check": "canonical_document_not_llm_narrative",
+            "pass": true,
+            "evidence": "canonical parser output is structured and parser-driven, not LLM narrative"
+          },
+          {
+            "check": "candidate_vision_has_no_legal_result",
+            "pass": true,
+            "evidence": "CandidateDiagramResult contains candidate nodes/edges only"
+          },
+          {
+            "check": "extracted_result_has_source_trace",
+            "pass": true,
+            "evidence": "candidate facts/items/flows carry SourceTraceRef and persistence rejects empty provenance"
+          },
+          {
+            "check": "spreadsheet_preserves_row_column_provenance",
+            "pass": true,
+            "evidence": "XLSX adapter preserves row/column/header/formula/merged-cell metadata"
+          },
+          {
+            "check": "formal_counts_not_llm",
+            "pass": true,
+            "evidence": "DocumentAnalysisSummary is programmatically aggregated from persistence"
+          },
+          {
+            "check": "parse_run_is_versioned",
+            "pass": true,
+            "evidence": "Phase 1B parse-run identity + Phase 1D one-to-one detail extension has explicit version and unique tenant/document/version constraint"
+          },
+          {
+            "check": "snapshot_can_pin_parse_run",
+            "pass": true,
+            "evidence": "AnalysisSnapshot has immutable parse-run pin persistence"
+          },
+          {
+            "check": "parser_provider_is_adapter_only",
+            "pass": true,
+            "evidence": "provider SDKs isolated to infrastructure/document_parsers.py"
+          },
+          {
+            "check": "phase1d_has_no_country_product_regulation_logic",
+            "pass": true,
+            "evidence": "Document Intelligence foundation contains no fixed country/product/regulation decisions"
+          },
+          {
+            "check": "candidate_not_formal_compliance_input",
+            "pass": true,
+            "evidence": "Candidate \u2192 Resolution \u2192 Formal object boundary is persisted; candidates are retained"
+          },
+          {
+            "check": "product_context_is_registry_driven",
+            "pass": true,
+            "evidence": "Product Context resolves ACTIVE metadata definitions and persists registry bindings"
+          },
+          {
+            "check": "no_product_search_all_scope",
+            "pass": true,
+            "evidence": "No selection uses document-detected scope or unresolved generic scope; never all products"
+          },
+          {
+            "check": "product_conflict_is_explicit",
+            "pass": true,
+            "evidence": "Explicit selection vs detected scope conflict is persisted as PRODUCT_CONTEXT_CONFLICT"
+          },
+          {
+            "check": "business_fact_conflict_is_explicit",
+            "pass": true,
+            "evidence": "Conflicting normalized values for one registry fact type create explicit reviewable conflict"
+          },
+          {
+            "check": "possible_duplicate_requires_review_conflict",
+            "pass": true,
+            "evidence": "Semantic POSSIBLE_SAME remains candidate-only and enters ContextConflict/review"
+          },
+          {
+            "check": "unresolved_party_requires_review_conflict",
+            "pass": true,
+            "evidence": "Unresolved PartyCandidate persists PartyResolution plus explicit reviewable conflict"
+          },
+          {
+            "check": "data_item_source_trace_required",
+            "pass": true,
+            "evidence": "Formal data_items retain all candidate and SourceTrace links"
+          },
+          {
+            "check": "formal_counts_are_separate",
+            "pass": true,
+            "evidence": "Raw occurrence, normalized DataItem and DataGroup counts are separate programmatic aggregates"
+          },
+          {
+            "check": "no_parallel_data_item_source_of_truth",
+            "pass": true,
+            "evidence": "Phase 1B data_items remains authoritative; Phase 1E adds detail/link tables only"
+          },
+          {
+            "check": "no_parallel_data_flow_source_of_truth",
+            "pass": true,
+            "evidence": "Phase 1B data_flow_nodes/data_flow_edges/data_item_flow_links remain authoritative"
+          },
+          {
+            "check": "data_flow_is_structured",
+            "pass": true,
+            "evidence": "Formal flow uses structured Node/Edge/DataItemFlowLink plus versioned detail"
+          },
+          {
+            "check": "jurisdiction_not_regulation_decision",
+            "pass": true,
+            "evidence": "Jurisdiction Context carries location context only; no regulation/cross-border legal decision"
+          },
+          {
+            "check": "semantic_resolution_candidate_only",
+            "pass": true,
+            "evidence": "Semantic similarity can create candidate/review evidence but does not directly merge formal DataItems"
+          },
+          {
+            "check": "context_snapshot_versioned",
+            "pass": true,
+            "evidence": "AnalysisSnapshot pins immutable versioned Context/DataInventory/DataFlow versions"
+          },
+          {
+            "check": "no_country_product_rule_logic",
+            "pass": true,
+            "evidence": "No country/product-code/regulation decision routing, risk, or compliance-path logic"
+          },
+          {
+            "check": "knowledge_platform_not_vector_db",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "scope_resolver_has_no_retrieval",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "hard_filter_precedes_similarity",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "unrelated_product_knowledge_excluded",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "unresolved_product_scope_fail_safe",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "knowledge_chunk_has_provenance",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "vector_index_is_derived",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "fts_index_is_derived",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "registry_not_knowledge_source",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "translation_review_boundary",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "knowledge_quality_before_active",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "snapshot_pins_knowledge_version",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "phase1f_uses_phase1e_context",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "no_country_specific_knowledge_branch",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "no_regulation_business_decision",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "controlled_downloader_boundary",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "knowledge_ingestion_no_graph_checkpoints",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "no_parallel_knowledge_source",
+            "pass": true,
+            "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+          },
+          {
+            "check": "retrieval_consumes_phase1f_scope",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "retrieval_hard_filters_before_similarity",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "retrieval_indexes_are_derived",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "hybrid_merge_deterministic_score_provenance",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "reranker_allowed_candidates_only",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "rerank_scope_revalidation",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "evidence_pack_complete_provenance",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "rag_context_not_legal_source",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "sufficiency_is_policy_driven",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "generic_knowledge_not_jurisdiction_sufficient",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "external_preserves_formal_scope",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "unverified_discovery_not_evidence",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "official_external_validation",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "runtime_external_not_active",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "external_snapshot_reproducible",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "fallback_guidance_nonempty",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "fallback_not_compliance_path",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "retrieval_policy_snapshot_pinned",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "no_country_product_regulation_retrieval_branch",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "retrieval_services_no_provider_sql_graph_sdk",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "wiki_reuses_durable_review",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "wiki_not_official_legal_evidence",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "graph_reviewed_derived_provenance",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "runtime_client_cannot_supply_scope",
+            "pass": true,
+            "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+          },
+          {
+            "check": "normal_publish_automatic_runtime_sync",
+            "pass": true,
+            "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+          },
+          {
+            "check": "publication_reuses_registry_outbox_service",
+            "pass": true,
+            "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+          },
+          {
+            "check": "runtime_ready_before_new_retrieval",
+            "pass": true,
+            "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+          },
+          {
+            "check": "publication_snapshot_stability",
+            "pass": true,
+            "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+          },
+          {
+            "check": "publication_duplicate_retry_safe",
+            "pass": true,
+            "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+          },
+          {
+            "check": "publication_failed_build_not_ready",
+            "pass": true,
+            "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+          },
+          {
+            "check": "runtime_materialization_no_agent_graph",
+            "pass": true,
+            "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+          },
+          {
+            "check": "rule_runtime_validated_typed_ast",
+            "pass": true,
+            "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+          },
+          {
+            "check": "rule_ast_no_unrestricted_calls",
+            "pass": true,
+            "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+          },
+          {
+            "check": "rule_domain_no_external_dependencies",
+            "pass": true,
+            "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+          },
+          {
+            "check": "formal_classification_versioned_provenance",
+            "pass": true,
+            "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+          },
+          {
+            "check": "no_data_typed_outcome",
+            "pass": true,
+            "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+          },
+          {
+            "check": "rule_publish_gate_uses_existing_transaction",
+            "pass": true,
+            "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+          },
+          {
+            "check": "rule_and_scheme_content_immutable",
+            "pass": true,
+            "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+          },
+          {
+            "check": "api_references_only_no_narrative",
+            "pass": true,
+            "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+          },
+          {
+            "check": "classification_reuses_scope_checked_evidence",
+            "pass": true,
+            "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+          },
+          {
+            "check": "classification_persisted_retry_unique",
+            "pass": true,
+            "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+          },
+          {
+            "check": "applicability_canonical_identity",
+            "pass": true,
+            "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+          },
+          {
+            "check": "profile_reuses_metadata_governance",
+            "pass": true,
+            "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+          },
+          {
+            "check": "profile_reuses_registry_outbox",
+            "pass": true,
+            "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+          },
+          {
+            "check": "scenario_fixed_pipeline_deterministic",
+            "pass": true,
+            "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+          },
+          {
+            "check": "scenario_conflicts_typed",
+            "pass": true,
+            "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+          },
+          {
+            "check": "generic_country_capabilities_only",
+            "pass": true,
+            "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+          },
+          {
+            "check": "generic_skills_pure",
+            "pass": true,
+            "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+          },
+          {
+            "check": "applicability_scope_revalidation",
+            "pass": true,
+            "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+          },
+          {
+            "check": "applicability_reference_only_api",
+            "pass": true,
+            "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+          },
+          {
+            "check": "profile_new_pin_ready_and_historical",
+            "pass": true,
+            "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+          },
+          {
+            "check": "applicability_conflicts_and_insufficiency",
+            "pass": true,
+            "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+          },
+          {
+            "check": "scenario_no_fake_classification",
+            "pass": true,
+            "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+          },
+          {
+            "check": "applicability_immutable_retry_canonical_links",
+            "pass": true,
+            "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+          },
+          {
+            "check": "applicability_has_no_country_branch_or_provider",
+            "pass": true,
+            "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+          },
+          {
+            "check": "phase1i_migration_frozen_explicit_dual_path",
+            "pass": true,
+            "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+          },
+          {
+            "check": "locale_metadata_single_versioned_authority",
+            "pass": true,
+            "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+          },
+          {
+            "check": "locale_no_business_translations_in_domain_application",
+            "pass": true,
+            "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+          },
+          {
+            "check": "j_approved_rules_append_only",
+            "pass": true,
+            "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+          },
+          {
+            "check": "j_v1_contracts_byte_preserved",
+            "pass": true,
+            "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+          },
+          {
+            "check": "j_dependency_order_authority",
+            "pass": true,
+            "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+          },
+          {
+            "check": "j_domain_application_pure",
+            "pass": true,
+            "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+          },
+          {
+            "check": "j_no_llm_authority",
+            "pass": true,
+            "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+          },
+          {
+            "check": "j_legal_stage_excludes_future_risk",
+            "pass": true,
+            "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+          },
+          {
+            "check": "j_decimal_risk_governed_examples",
+            "pass": true,
+            "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+          },
+          {
+            "check": "j_recommendation_no_tie_choice",
+            "pass": true,
+            "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+          },
+          {
+            "check": "j_final_preserves_unresolved",
+            "pass": true,
+            "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+          },
+          {
+            "check": "j_reference_only_request",
+            "pass": true,
+            "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+          },
+          {
+            "check": "j_existing_registry_policy_governance",
+            "pass": true,
+            "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+          },
+          {
+            "check": "j_five_immutable_result_authorities",
+            "pass": true,
+            "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+          },
+          {
+            "check": "j_canonical_provenance_refs",
+            "pass": true,
+            "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+          },
+          {
+            "check": "j_locale_neutral_canonical_decimal",
+            "pass": true,
+            "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+          },
+          {
+            "check": "j_security_idempotency_revalidation",
+            "pass": true,
+            "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+          },
+          {
+            "check": "j_migration_dual_path_test",
+            "pass": true,
+            "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+          }
+        ]
+      },
+      "m2d_architecture_check": {
+        "pass_": true,
+        "passed": 21,
+        "total": 21,
+        "checks": {
+          "review_task_reuses_canonical_authority": true,
+          "review_decision_is_append_only": true,
+          "frontend_cannot_set_decided_by": true,
+          "frontend_cannot_patch_formal_results": true,
+          "allowed_actions_are_backend_owned": true,
+          "approve_cannot_fabricate_missing_fact": true,
+          "approve_cannot_fabricate_evidence": true,
+          "request_changes_does_not_resume": true,
+          "correction_routes_to_owning_domain": true,
+          "input_correction_cannot_mutate_snapshot": true,
+          "successor_snapshot_required_for_input_change": true,
+          "same_snapshot_resume_requires_no_input_mutation": true,
+          "review_resume_reexecutes_owner": true,
+          "no_arbitrary_graph_jump": true,
+          "reexecution_boundary_is_backend_owned": true,
+          "historical_result_remains_immutable": true,
+          "review_lineage_is_auditable": true,
+          "single_workflow_runtime": true,
+          "single_checkpointer": true,
+          "single_review_authority": true,
+          "stage2_not_started": true
+        },
+        "ownership_paths": 52
+      },
+      "m2c_architecture_check": {
+        "pass_": true,
+        "passed": 15,
+        "total": 15,
+        "checks": {
+          "crossborder_status_not_derived_from_final_path_status": true,
+          "conditional_proposal_not_equal_conditional_transfer": true,
+          "crossborder_has_formal_owner": true,
+          "crossborder_policy_is_versioned_and_pinned": true,
+          "crossborder_has_legal_basis_and_evidence": true,
+          "required_document_has_formal_owner": true,
+          "required_document_has_requirement_level": true,
+          "required_document_is_metadata_rule_driven": true,
+          "template_availability_does_not_change_legal_requirement": true,
+          "required_document_does_not_trigger_generation": true,
+          "stage2_requires_user_opt_in": true,
+          "frontend_has_no_crossborder_decision_logic": true,
+          "frontend_has_no_document_requirement_logic": true,
+          "historical_snapshot_preserves_crossborder_result": true,
+          "historical_snapshot_preserves_document_requirement": true
+        }
+      },
+      "m2c_projection_architecture": {
+        "pass_": true,
+        "passed": 15,
+        "total": 15,
+        "checks": {
+          "single_canonical_graph": true,
+          "formal_order": true,
+          "nodes_delegate_authority": true,
+          "legacy_version_closed": true,
+          "typed_aggregation_has_no_infrastructure": true,
+          "aggregation_reads_owning_results": true,
+          "exact_document_universe": true,
+          "exact_context_membership": true,
+          "result_scope_revalidated": true,
+          "historical_authority_gap_explicit": true,
+          "frontend_uses_authority_not_path_status": true,
+          "frontend_requires_no_decision_write": true,
+          "unassessed_subjects_fail_closed": true,
+          "template_does_not_change_requirement": true,
+          "stage2_unavailable_and_opt_in_only": true
+        }
+      },
+      "m2a_architecture_check": {
+        "pass": true,
+        "passed": 13,
+        "total": 13,
+        "checks": {
+          "intake_draft_not_formal_input": true,
+          "confirmed_intake_required_for_snapshot": true,
+          "snapshot_pins_intake_version": true,
+          "no_parallel_project_source_of_truth": true,
+          "no_parallel_intake_source_of_truth": true,
+          "frontend_does_not_authorize": true,
+          "frontend_does_not_create_formal_decision": true,
+          "intake_metadata_is_registry_driven": true,
+          "cross_tenant_intake_forbidden": true,
+          "workflow_start_requires_authorized_snapshot": true,
+          "browser_cannot_inject_policy_or_decision": true,
+          "manual_fact_uses_canonical_provenance_without_fake_document": true,
+          "missing_formal_facts_controlled_stop": true
+        }
+      },
+      "m2b_architecture_check": {
+        "pass": true,
+        "passed": 27,
+        "total": 27,
+        "checks": {
+          "stable_canonical_data_item_identity": true,
+          "immutable_inventory_version_detail": true,
+          "inventory_version_scoped_membership": true,
+          "inventory_version_scoped_candidate_links": true,
+          "inventory_version_scoped_source_trace_links": true,
+          "snapshot_cannot_see_future_provenance": true,
+          "phase1f_reads_exact_inventory_version": true,
+          "phase1h_reads_exact_inventory_version": true,
+          "phase1i_reads_exact_inventory_version": true,
+          "snapshot_evidence_scoped_to_input_universe": true,
+          "no_latest_version_fallback": true,
+          "historical_snapshot_immutable": true,
+          "unknown_legacy_provenance_not_fabricated": true,
+          "version_scoped_product_and_flow_links": true,
+          "binary_not_in_workflow_state": true,
+          "document_source_of_truth_is_single": true,
+          "parse_run_source_of_truth_is_single": true,
+          "document_candidate_requires_genuine_source_trace": true,
+          "no_fake_parse_run": true,
+          "manual_and_document_provenance_distinct": true,
+          "snapshot_pins_exact_document_universe": true,
+          "confirmed_snapshot_is_not_mutated": true,
+          "binary_storage_is_infrastructure_boundary": true,
+          "frontend_does_not_authorize_upload": true,
+          "frontend_does_not_formalize_facts": true,
+          "document_parser_not_reimplemented": true,
+          "cross_source_conflict_uses_existing_authority": true
+        }
+      }
+    }
+  },
+  "runtime": {
+    "all_mandatory_assertions_pass": true,
+    "analysis_snapshot_id": "bf33ee12-2672-427f-93f6-c9ba6a61e660",
+    "assertions": {
+      "analysis_snapshot_and_checkpoint_are_separate_sources": true,
+      "analysis_snapshot_exists": true,
+      "analysis_snapshot_id_preserved_after_restart": true,
+      "api_layer_has_no_raw_langgraph_import": true,
+      "audit_provenance_retained": true,
+      "canonical_events_only": true,
+      "domain_metadata_does_not_own_checkpoint_tables": true,
+      "external_workflow_event_contract_has_no_raw_langgraph_fields": true,
+      "final_workflow_status_completed": true,
+      "formal_completion_audit_count_eq_one": true,
+      "graph_runtime_checkpointer_state_schema_versions_retained": true,
+      "no_raw_langgraph_payload_keys_persisted": true,
+      "postgres_checkpoint_row_gt_zero": true,
+      "process1_checkpoint_existed_before_process_exit": true,
+      "process2_loaded_checkpoint_context_before_resume": true,
+      "resume_retry_event_counts_unchanged": true,
+      "resume_retry_review_count_unchanged": true,
+      "resume_retry_safe": true,
+      "review_required_event_count_eq_one": true,
+      "review_task_count_eq_one": true,
+      "tenant_id_preserved_after_restart": true,
+      "workflow_completed_event_count_eq_one": true,
+      "workflow_resumed_event_count_eq_one": true,
+      "workflow_run_exists": true,
+      "workflow_run_id_equals_thread_id": true
+    },
+    "audit_event_count": 2,
+    "canonical_event_counts": {
+      "NODE_COMPLETED": 1,
+      "REVIEW_REQUIRED": 1,
+      "WORKFLOW_COMPLETED": 1,
+      "WORKFLOW_RESUMED": 1,
+      "WORKFLOW_STARTED": 1
+    },
+    "canonical_events": [
+      "WORKFLOW_STARTED",
+      "NODE_COMPLETED",
+      "REVIEW_REQUIRED",
+      "WORKFLOW_RESUMED",
+      "WORKFLOW_COMPLETED"
+    ],
+    "checkpoint_query_error": null,
+    "checkpoint_row_count": 5,
+    "checkpoint_tables": [
+      "checkpoint_blobs",
+      "checkpoint_migrations",
+      "checkpoint_writes",
+      "checkpoints"
+    ],
+    "completion_audit_count": 1,
+    "process1_checkpoint_next": [
+      "node_b"
+    ],
+    "process2_checkpoint_values_before_resume": {
+      "analysis_snapshot_id": "bf33ee12-2672-427f-93f6-c9ba6a61e660",
+      "completed": false,
+      "node_a_completed": true,
+      "phase": "A_DONE",
+      "tenant_id": "68d94d83-7c6e-4ca1-a8e2-1e3f256d25ee",
+      "workflow_run_id": "a1861eee-9adc-4030-9e5f-a9ef056365f0"
+    },
+    "raw_payload_key_hits": [],
+    "retained_versions": {
+      "checkpointer_version": "3.1.2",
+      "graph_definition_version": "phase1a-smoke-v1",
+      "langgraph_runtime_version": "1.2.14",
+      "state_schema_version": "phase1a-smoke-state-v1"
+    },
+    "review_task_count": 1,
+    "tenant_id": "68d94d83-7c6e-4ca1-a8e2-1e3f256d25ee",
+    "thread_id": "a1861eee-9adc-4030-9e5f-a9ef056365f0",
+    "workflow_run_id": "a1861eee-9adc-4030-9e5f-a9ef056365f0",
+    "workflow_status": "COMPLETED"
+  },
+  "frontend": {
+    "passed": 121,
+    "failed": 0,
+    "skipped": 0,
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "build": "PASS",
+    "i18n": "PASS"
+  },
+  "browser": {
+    "M2D": 3,
+    "M2C": 3,
+    "M2B": 3,
+    "M2A": 3,
+    "M1": 3,
+    "M0": 36,
+    "retries": 0
+  },
+  "migration": {
+    "base_sha": "0dc005e583465a4604a5d40a369cb5fc2f0ccbef",
+    "from_revision": "0014_m2c_formal_result_authority",
+    "head": "0015_m2d_review_governance",
+    "fresh": true,
+    "exact_0014_upgrade": true,
+    "schema_equivalence": true,
+    "empty_downgrade_reupgrade": true,
+    "retained_authority_transactional_refusal": true
+  },
+  "ci_workflows": [
+    {
+      "workflow": "phase1a-runtime-smoke",
+      "run_id": 37770169474,
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37770169474",
+      "head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "conclusion": "success",
+      "runner_checkout_proof": [
+        {
+          "checkout_command_and_output": [
+            "mandatory-runtime-smoke\tRun actions/checkout@v4\t2026-10-08T11:27:56.4067903Z [command]/usr/bin/git log -1 --format=%H",
+            "mandatory-runtime-smoke\tRun actions/checkout@v4\t2026-10-08T11:27:56.4107654Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "mandatory-runtime-smoke\tRun actions/setup-python@v5\t\ufeff2026-10-08T11:27:56.4377294Z ##[group]Run actions/setup-python@v5",
+            "mandatory-runtime-smoke\tRun actions/setup-python@v5\t2026-10-08T11:27:56.4377628Z with:"
+          ],
+          "tested_pr_head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "job_id": 113287528584,
+          "name": "mandatory-runtime-smoke",
+          "runner_checkout_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "proof_lines": [
+            "mandatory-runtime-smoke\tRun actions/checkout@v4\t2026-10-08T11:27:55.2953057Z   ref: d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "mandatory-runtime-smoke\tRun actions/checkout@v4\t2026-10-08T11:27:56.2817256Z [command]/usr/bin/git rev-parse --verify --quiet d3f3db430e72fb54e2be4f2c946fa62c0276a08c^{object}",
+            "mandatory-runtime-smoke\tRun actions/checkout@v4\t2026-10-08T11:27:56.2818352Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "mandatory-runtime-smoke\tRun actions/checkout@v4\t2026-10-08T11:27:56.2911483Z [command]/usr/bin/git checkout --progress --force d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "mandatory-runtime-smoke\tRun actions/checkout@v4\t2026-10-08T11:27:56.3874619Z Note: switching to 'd3f3db430e72fb54e2be4f2c946fa62c0276a08c'.",
+            "mandatory-runtime-smoke\tRun actions/checkout@v4\t2026-10-08T11:27:56.4107654Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "mandatory-runtime-smoke\tRun mandatory PostgreSQL-backed LangGraph gate\t2026-10-08T12:03:01.1581422Z - **tested_pr_head_sha**: `d3f3db430e72fb54e2be4f2c946fa62c0276a08c`",
+            "mandatory-runtime-smoke\tRun mandatory PostgreSQL-backed LangGraph gate\t2026-10-08T12:03:01.1582701Z - **runner_checkout_sha**: `d3f3db430e72fb54e2be4f2c946fa62c0276a08c`",
+            "mandatory-runtime-smoke\tPublish measured Phase 1G empirical evidence\t2026-10-08T12:03:01.2292568Z ##[notice]PHASE1G_EMPIRICAL_SUMMARY={\"phase\":\"1G\",\"run_id\":\"37770169474\",\"attempt\":\"1\",\"tested_pr_head_sha\":\"d3f3db430e72fb54e2be4f2c946fa62c0276a08c\",\"runner_merge_sha\":\"d3f3db430e72fb54e2be4f2c946fa62c0276a08c\",\"alembic_head\":\"0015_m2d_review_governance\",\"pytest\":{\"passed\":763,\"skipped\":0,\"failed\":0,\"errors\":0,\"deselected\":0,\"phase_coverage\":{\"phase1b\":true,\"phase1c\":true,\"phase1d\":true,\"phase1e\":true,\"phase1f\":true,\"phase1g\":true,\"phase1h\":true,\"phase1i\":true,\"phase1j\":true},\"pass\":true},\"schema_gates\":{\"phase1b\":{\"pass\":true,\"passed\":16,\"total\":16},\"phase1c\":{\"pass\":true,\"passed\":20,\"total\":20},\"phase1d\":{\"pass\":true,\"passed\":15,\"total\":15},\"phase1e\":{\"pass\":true,\"passed\":22,\"total\":22},\"phase1f\":{\"pass\":true,\"passed\":29,\"total\":29},\"phase1g\":{\"pass\":true,\"passed\":58,\"total\":58}},\"architecture\":{\"pass\":true,\"passed\":151,\"total\":151},\"runtime\":{\"pass\":true,\"passed\":25,\"total\":25},\"full_gate_log\":{\"filename\":\"ci_complete.log\",\"bytes\":105702,\"sha256\":\"66d573d108005c8a034ef9187c7b1291c5f2398bfd1bac9998c01f3efb11f860\"},\"pass\":true}"
+          ],
+          "conclusion": "success"
+        },
+        {
+          "checkout_command_and_output": [
+            "contract-tests\tRun actions/checkout@v4\t2026-10-08T11:27:42.0556663Z [command]/usr/bin/git log -1 --format=%H",
+            "contract-tests\tRun actions/checkout@v4\t2026-10-08T11:27:42.0557444Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "contract-tests\tRun actions/setup-python@v5\t\ufeff2026-10-08T11:27:42.1090056Z ##[group]Run actions/setup-python@v5",
+            "contract-tests\tRun actions/setup-python@v5\t2026-10-08T11:27:42.1090336Z with:"
+          ],
+          "tested_pr_head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "job_id": 113287528855,
+          "name": "contract-tests",
+          "runner_checkout_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "proof_lines": [
+            "contract-tests\tRun actions/checkout@v4\t2026-10-08T11:27:39.0454223Z   ref: d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "contract-tests\tRun actions/checkout@v4\t2026-10-08T11:27:41.8230325Z [command]/usr/bin/git rev-parse --verify --quiet d3f3db430e72fb54e2be4f2c946fa62c0276a08c^{object}",
+            "contract-tests\tRun actions/checkout@v4\t2026-10-08T11:27:41.8231196Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "contract-tests\tRun actions/checkout@v4\t2026-10-08T11:27:41.9494179Z [command]/usr/bin/git checkout --progress --force d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "contract-tests\tRun actions/checkout@v4\t2026-10-08T11:27:42.0373859Z Note: switching to 'd3f3db430e72fb54e2be4f2c946fa62c0276a08c'.",
+            "contract-tests\tRun actions/checkout@v4\t2026-10-08T11:27:42.0557444Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c"
+          ],
+          "conclusion": "success"
+        }
+      ],
+      "log_sha256": "20cc8fa89d55ba316b4e582b7c2c302351665ad16d089ca8d5c79c1646a9584e",
+      "artifacts": [
+        {
+          "id": 11549925284,
+          "name": "phase1a-runtime-evidence-37770169474-1",
+          "archive_sha256": "b02cc3d59fa65c5818574d220dd5378976085d681254d6565a2e3c59bdcc21e5",
+          "size_bytes": 76875,
+          "extracted": [
+            {
+              "path": "37770169474/measured/architecture_rule_check.json",
+              "sha256": "40a8590a49ea7bde48ae2472c42fea1c6f0596596ac0f9bd5a7a2623eace104f"
+            },
+            {
+              "path": "37770169474/measured/architecture_rule_check_stdout.json",
+              "sha256": "40a8590a49ea7bde48ae2472c42fea1c6f0596596ac0f9bd5a7a2623eace104f"
+            },
+            {
+              "path": "37770169474/measured/ci_run_evidence.json",
+              "sha256": "6d2806bc7a0e3c7e18c20a45ad7448984b37100c4e252b2d15158e7483c750a9"
+            },
+            {
+              "path": "37770169474/measured/m2a_architecture_check.json",
+              "sha256": "84fdf8fe5eb1f9e083eaf2d455e9708ac134ee57208ea335679013b9a7f1a73d"
+            },
+            {
+              "path": "37770169474/measured/m2a_migration_dual_path.json",
+              "sha256": "c1f8a6c9c95e0f18609fd3d6e1985067f59f3a8d43a88412fb4f02cde4f0a2d8"
+            },
+            {
+              "path": "37770169474/measured/m2b_architecture_check.json",
+              "sha256": "44d4fa76102b3bf0e83add82220399e079c6b14af3adc256bdcc625d581898e1"
+            },
+            {
+              "path": "37770169474/measured/m2b_migration_dual_path.json",
+              "sha256": "37f5f2d477435dfac98bd2f807954b7f9f7474f4cb5dade1b8670ac5fcaf2142"
+            },
+            {
+              "path": "37770169474/measured/phase1h_migration_dual_path.json",
+              "sha256": "51db8454563df678a61a492876e85a2fa2a87bff0e7e0ede1344e3c4beea5ea2"
+            },
+            {
+              "path": "37770169474/measured/phase1i_migration_dual_path.json",
+              "sha256": "fc7569e417786eeffa22cefb3b1885cf4b474361cad35c54b7090d72bd41ce81"
+            },
+            {
+              "path": "37770169474/measured/phase1j_migration_dual_path.json",
+              "sha256": "aa45ad70cf74c2f7546e365c1343f78935d255c5845f311f36989987734f0f9d"
+            },
+            {
+              "path": "37770169474/measured/post_alembic_schema.json",
+              "sha256": "216e222d12e01ae2c86c9d2d7bad824c0235b071c0e215bdcacc8dd2a69ae57f"
+            },
+            {
+              "path": "37770169474/measured/post_runtime_schema.json",
+              "sha256": "e9e0c6ff1099c14eb09822563ef9a1bf6f170abadf2a5bf9baf64add8e21e01c"
+            },
+            {
+              "path": "37770169474/measured/pytest_full.xml",
+              "sha256": "2c65ab87e1ad40b7df2b08c116fb4936c70756c171c6c9b4420ada152290d9e8"
+            },
+            {
+              "path": "37770169474/measured/pytest_full_summary.json",
+              "sha256": "f805ec61d256dbb1490c48cb57fe47caaefc266c9f9a29e9a66e4a91f3028fbc"
+            },
+            {
+              "path": "37770169474/measured/runtime_verify.json",
+              "sha256": "7d26dfe0c9873530995590c7d9dc51b8d02615ac0a6477c7d8e422e3b75c499e"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "workflow": "M2C Formal Result Workspace",
+      "run_id": 37770169437,
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37770169437",
+      "head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "conclusion": "success",
+      "runner_checkout_proof": [
+        {
+          "checkout_command_and_output": [
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:59.5341283Z [command]/usr/bin/git log -1 --format=%H",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:59.5369066Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/setup-python@v5\t\ufeff2026-10-08T11:27:59.5560912Z ##[group]Run actions/setup-python@v5",
+            "frontend-real-backend-uat\tRun actions/setup-python@v5\t2026-10-08T11:27:59.5561075Z with:"
+          ],
+          "tested_pr_head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "job_id": 113287530255,
+          "name": "frontend-real-backend-uat",
+          "runner_checkout_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "proof_lines": [
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:57.5688662Z   ref: d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:59.4547385Z [command]/usr/bin/git rev-parse --verify --quiet d3f3db430e72fb54e2be4f2c946fa62c0276a08c^{object}",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:59.4547795Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:59.4616591Z [command]/usr/bin/git checkout --progress --force d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:59.5286954Z Note: switching to 'd3f3db430e72fb54e2be4f2c946fa62c0276a08c'.",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:59.5369066Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tExact-head measured result\t2026-10-08T11:40:27.1658339Z ##[notice]M2C_EXACT_HEAD_SUMMARY={\"tested_sha\": \"d3f3db430e72fb54e2be4f2c946fa62c0276a08c\", \"runner_checkout_sha\": \"d3f3db430e72fb54e2be4f2c946fa62c0276a08c\", \"browser\": {\"startTime\": \"2026-10-08T11:30:52.067Z\", \"duration\": 574668.8049999999, \"expected\": 12, \"skipped\": 0, \"unexpected\": 0, \"flaky\": 0}, \"m0_required_workflow\": \"M0 H5 Preview at same SHA\", \"retry_count\": 0, \"alembic\": \"0015_m2d_review_governance\"}"
+          ],
+          "conclusion": "success"
+        }
+      ],
+      "log_sha256": "f23e79894c406aac5eaf4f616565e0f59adbe855803a21df8cef46b03ea93467",
+      "artifacts": [
+        {
+          "id": 11548436306,
+          "name": "m2c-uat-37770169437",
+          "archive_sha256": "9020395b4bfdaa7352aabd40c80ac4444e89c7a68b96cbe2024f265435920fcf",
+          "size_bytes": 7122419,
+          "extracted": [
+            {
+              "path": "37770169437/measured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+              "sha256": "91ffe704bc473e3a11a75a885e2db37555112f0b2e05a93ad211f999a632e806"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "workflow": "M2A Production Intake",
+      "run_id": 37770169399,
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37770169399",
+      "head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "conclusion": "success",
+      "runner_checkout_proof": [
+        {
+          "checkout_command_and_output": [
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:12.6359890Z [command]/usr/bin/git log -1 --format=%H",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:12.6387010Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/setup-python@v5\t\ufeff2026-10-08T11:28:12.6610117Z ##[group]Run actions/setup-python@v5",
+            "frontend-real-backend-uat\tRun actions/setup-python@v5\t2026-10-08T11:28:12.6610482Z with:"
+          ],
+          "tested_pr_head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "job_id": 113287528712,
+          "name": "frontend-real-backend-uat",
+          "runner_checkout_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "proof_lines": [
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:10.8759914Z   ref: d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:12.5384034Z [command]/usr/bin/git rev-parse --verify --quiet d3f3db430e72fb54e2be4f2c946fa62c0276a08c^{object}",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:12.5385277Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:12.5462535Z [command]/usr/bin/git checkout --progress --force d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:12.6280409Z Note: switching to 'd3f3db430e72fb54e2be4f2c946fa62c0276a08c'.",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:12.6387010Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tExact-head measured result\t2026-10-08T11:34:55.1694409Z ##[notice]M2A_EXACT_HEAD_SUMMARY={\"tested_sha\": \"d3f3db430e72fb54e2be4f2c946fa62c0276a08c\", \"browser\": {\"startTime\": \"2026-10-08T11:32:20.673Z\", \"duration\": 153233.152, \"expected\": 3, \"skipped\": 0, \"unexpected\": 0, \"flaky\": 0}, \"retry_count\": 0, \"alembic\": \"0015_m2d_review_governance\"}"
+          ],
+          "conclusion": "success"
+        }
+      ],
+      "log_sha256": "a3cc22c34306bd055975a7eb7c3fa0dc53ad9a4961f2652da8cda9e2a17a2caf",
+      "artifacts": [
+        {
+          "id": 11547656293,
+          "name": "m2a-uat-37770169399",
+          "archive_sha256": "f26786218ae336908405384c9a2582bafe27c18610219050ec228bb3967724f4",
+          "size_bytes": 1472607,
+          "extracted": [
+            {
+              "path": "37770169399/measured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+              "sha256": "adfa97147cba19de3876064663eb8c42898272d8585c88800218699b18487d4a"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "workflow": "M2B Production Document Integration",
+      "run_id": 37770169403,
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37770169403",
+      "head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "conclusion": "success",
+      "runner_checkout_proof": [
+        {
+          "checkout_command_and_output": [
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:06.8763161Z [command]/usr/bin/git log -1 --format=%H",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:06.8785243Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/setup-python@v5\t\ufeff2026-10-08T11:28:06.9003904Z ##[group]Run actions/setup-python@v5",
+            "frontend-real-backend-uat\tRun actions/setup-python@v5\t2026-10-08T11:28:06.9004093Z with:"
+          ],
+          "tested_pr_head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "job_id": 113287528795,
+          "name": "frontend-real-backend-uat",
+          "runner_checkout_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "proof_lines": [
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:05.2383455Z   ref: d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:06.7616237Z [command]/usr/bin/git rev-parse --verify --quiet d3f3db430e72fb54e2be4f2c946fa62c0276a08c^{object}",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:06.7616865Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:06.7795931Z [command]/usr/bin/git checkout --progress --force d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:06.8652466Z Note: switching to 'd3f3db430e72fb54e2be4f2c946fa62c0276a08c'.",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:06.8785243Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tExact-head measured result\t2026-10-08T11:36:58.7381680Z ##[notice]M2B_EXACT_HEAD_SUMMARY={\"tested_sha\": \"d3f3db430e72fb54e2be4f2c946fa62c0276a08c\", \"runner_checkout_sha\": \"d3f3db430e72fb54e2be4f2c946fa62c0276a08c\", \"browser\": {\"startTime\": \"2026-10-08T11:31:02.565Z\", \"duration\": 355177.294, \"expected\": 9, \"skipped\": 0, \"unexpected\": 0, \"flaky\": 0}, \"m0_required_workflow\": \"M0 H5 Preview at same SHA\", \"retry_count\": 0, \"alembic\": \"0015_m2d_review_governance\"}"
+          ],
+          "conclusion": "success"
+        }
+      ],
+      "log_sha256": "695d38e8ca4e87586528fcf3231c49e639f780347021621b85d6bdcb7d37d627",
+      "artifacts": [
+        {
+          "id": 11547366837,
+          "name": "m2b-uat-37770169403",
+          "archive_sha256": "5e3deb26a1972c307873a005730bd846f1eb6c6c15c6fa8b10d4b801ce4a6686",
+          "size_bytes": 6090095,
+          "extracted": [
+            {
+              "path": "37770169403/measured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+              "sha256": "931b150fc61842e513e5ce469cc864f76cc5bdc78a7fe57b0238abd50ad80fe7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "workflow": "M0 Knowledge & Evidence Preview",
+      "run_id": 37770169500,
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37770169500",
+      "head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "conclusion": "success",
+      "runner_checkout_proof": [
+        {
+          "checkout_command_and_output": [
+            "frontend\tRun actions/checkout@v4\t2026-10-08T11:27:41.4766128Z [command]/usr/bin/git log -1 --format=%H",
+            "frontend\tRun actions/checkout@v4\t2026-10-08T11:27:41.4808552Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend\tRun actions/setup-node@v4\t\ufeff2026-10-08T11:27:41.5192361Z ##[group]Run actions/setup-node@v4",
+            "frontend\tRun actions/setup-node@v4\t2026-10-08T11:27:41.5192774Z with:"
+          ],
+          "tested_pr_head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "job_id": 113287528915,
+          "name": "frontend",
+          "runner_checkout_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "proof_lines": [
+            "frontend\tRun actions/checkout@v4\t2026-10-08T11:27:39.3710717Z   ref: d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend\tRun actions/checkout@v4\t2026-10-08T11:27:41.3644928Z [command]/usr/bin/git rev-parse --verify --quiet d3f3db430e72fb54e2be4f2c946fa62c0276a08c^{object}",
+            "frontend\tRun actions/checkout@v4\t2026-10-08T11:27:41.3646376Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend\tRun actions/checkout@v4\t2026-10-08T11:27:41.3765294Z [command]/usr/bin/git checkout --progress --force d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend\tRun actions/checkout@v4\t2026-10-08T11:27:41.4709754Z Note: switching to 'd3f3db430e72fb54e2be4f2c946fa62c0276a08c'.",
+            "frontend\tRun actions/checkout@v4\t2026-10-08T11:27:41.4808552Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c"
+          ],
+          "conclusion": "success"
+        },
+        {
+          "checkout_command_and_output": [
+            "real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:56.9754701Z [command]/usr/bin/git log -1 --format=%H",
+            "real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:56.9778135Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "real-backend-uat\tRun actions/setup-python@v5\t\ufeff2026-10-08T11:27:57.0060399Z ##[group]Run actions/setup-python@v5",
+            "real-backend-uat\tRun actions/setup-python@v5\t2026-10-08T11:27:57.0060731Z with:"
+          ],
+          "tested_pr_head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "job_id": 113287529115,
+          "name": "real-backend-uat",
+          "runner_checkout_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "proof_lines": [
+            "real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:55.5754498Z   ref: d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:56.8677436Z [command]/usr/bin/git rev-parse --verify --quiet d3f3db430e72fb54e2be4f2c946fa62c0276a08c^{object}",
+            "real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:56.8678320Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:56.8686510Z [command]/usr/bin/git checkout --progress --force d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:56.9616896Z Note: switching to 'd3f3db430e72fb54e2be4f2c946fa62c0276a08c'.",
+            "real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:56.9778135Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c"
+          ],
+          "conclusion": "success"
+        }
+      ],
+      "log_sha256": "a595bfc63381cdf3cfcd6cca69ad9d509e318f41b294e06e6a053aa878504949",
+      "artifacts": [
+        {
+          "id": 11547881196,
+          "name": "m0-browser-uat-37770169500-1",
+          "archive_sha256": "f24bef418098867b238fbe57d801c4347f80135071f02969ca079848b6f3bdad",
+          "size_bytes": 2112485,
+          "extracted": [
+            {
+              "path": "37770169500/measured/results.json",
+              "sha256": "01e0fc7988054c8729e945ce4f02d007f805fb5de4aab178c56aa92e869970ae"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "workflow": "M1 Intake Analysis Alpha",
+      "run_id": 37770169526,
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37770169526",
+      "head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "conclusion": "success",
+      "runner_checkout_proof": [
+        {
+          "checkout_command_and_output": [
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:58.9219740Z [command]/usr/bin/git log -1 --format=%H",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:58.9251759Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/setup-python@v5\t\ufeff2026-10-08T11:27:58.9529232Z ##[group]Run actions/setup-python@v5",
+            "frontend-real-backend-uat\tRun actions/setup-python@v5\t2026-10-08T11:27:58.9529558Z with:"
+          ],
+          "tested_pr_head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "job_id": 113287529658,
+          "name": "frontend-real-backend-uat",
+          "runner_checkout_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "proof_lines": [
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:56.8697399Z   ref: d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:58.8185505Z [command]/usr/bin/git rev-parse --verify --quiet d3f3db430e72fb54e2be4f2c946fa62c0276a08c^{object}",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:58.8186569Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:58.8231916Z [command]/usr/bin/git checkout --progress --force d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:58.9150370Z Note: switching to 'd3f3db430e72fb54e2be4f2c946fa62c0276a08c'.",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:27:58.9251759Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tExact-head measured result\t2026-10-08T11:35:48.2690071Z ##[notice]M1_EXACT_HEAD_SUMMARY={\"tested_sha\": \"d3f3db430e72fb54e2be4f2c946fa62c0276a08c\", \"browser\": {\"startTime\": \"2026-10-08T11:32:16.799Z\", \"duration\": 210744.532, \"expected\": 3, \"skipped\": 0, \"unexpected\": 0, \"flaky\": 0}, \"retry_count\": 0, \"alembic\": \"0015_m2d_review_governance\"}"
+          ],
+          "conclusion": "success"
+        }
+      ],
+      "log_sha256": "de77b56ffc894aa34d72684ec60e3cef9a523ee08bc6748633dab83982dd448f",
+      "artifacts": [
+        {
+          "id": 11548555435,
+          "name": "m1-uat-37770169526",
+          "archive_sha256": "76d044e29c88be98b2208f03046e956f8e328ca558fd6072285f1078b8ac1cde",
+          "size_bytes": 3255124,
+          "extracted": [
+            {
+              "path": "37770169526/measured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+              "sha256": "ca747025353c97564c94bbfec6318103a7143539206ca4e79d109d2ce6b0e544"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "workflow": "M2D Governed Human Review",
+      "run_id": 37770169397,
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37770169397",
+      "head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+      "conclusion": "success",
+      "runner_checkout_proof": [
+        {
+          "checkout_command_and_output": [
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:11.5208008Z [command]/usr/bin/git log -1 --format=%H",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:11.5239716Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/setup-python@v5\t\ufeff2026-10-08T11:28:11.5469238Z ##[group]Run actions/setup-python@v5",
+            "frontend-real-backend-uat\tRun actions/setup-python@v5\t2026-10-08T11:28:11.5469491Z with:"
+          ],
+          "tested_pr_head_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "job_id": 113287528019,
+          "name": "frontend-real-backend-uat",
+          "runner_checkout_sha": "d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+          "proof_lines": [
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:08.9017915Z   ref: d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:11.4288040Z [command]/usr/bin/git rev-parse --verify --quiet d3f3db430e72fb54e2be4f2c946fa62c0276a08c^{object}",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:11.4288986Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:11.4363851Z [command]/usr/bin/git checkout --progress --force d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:11.5149247Z Note: switching to 'd3f3db430e72fb54e2be4f2c946fa62c0276a08c'.",
+            "frontend-real-backend-uat\tRun actions/checkout@v4\t2026-10-08T11:28:11.5239716Z d3f3db430e72fb54e2be4f2c946fa62c0276a08c",
+            "frontend-real-backend-uat\tExact-head measured result\t2026-10-08T11:56:00.6589444Z ##[notice]M2D_EXACT_HEAD_SUMMARY={\"tested_sha\": \"d3f3db430e72fb54e2be4f2c946fa62c0276a08c\", \"runner_checkout_sha\": \"d3f3db430e72fb54e2be4f2c946fa62c0276a08c\", \"focused_backend_passed\": 36, \"frontend_passed\": 121, \"browser\": {\"startTime\": \"2026-10-08T11:36:27.918Z\", \"duration\": 1171981.169, \"expected\": 15, \"skipped\": 0, \"unexpected\": 0, \"flaky\": 0}, \"m0_required_workflow\": \"M0 H5 Preview at same SHA\", \"retry_count\": 0, \"alembic\": \"0015_m2d_review_governance\"}"
+          ],
+          "conclusion": "success"
+        }
+      ],
+      "log_sha256": "37f942d9536a114c8a221efa3b43c9e4c4c2f38f5fdaaae7571105ec704aa303",
+      "artifacts": [
+        {
+          "id": 11548850345,
+          "name": "m2d-uat-37770169397",
+          "archive_sha256": "2f2775b6b6c461827a3e5de43cf90286b0553e0dc4f41356c359e30b7277e245",
+          "size_bytes": 7631278,
+          "extracted": [
+            {
+              "path": "37770169397/measured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+              "sha256": "487e8bf93108b952b1a9b0689bd63befb5875a159cbc7c9b30809a1f52dceacd"
+            },
+            {
+              "path": "37770169397/measured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/artifacts/m2d/migration_dual_path.json",
+              "sha256": "df2862b3bcdf209fa54a3535176343a80f376132e112c40efb0b576ccafb6658"
+            },
+            {
+              "path": "37770169397/measured/tmp/m2d-focused.xml",
+              "sha256": "9ac27b32b7c2c8e2dae240fbc321d496d359ee3303e76d22c0bb1f686668c331"
+            },
+            {
+              "path": "37770169397/measured/tmp/m2d-frontend.json",
+              "sha256": "9f479e2dec8dcbe735fc9ee345cbdaaa1bd4ef1778f32d5e5619af8d5e367bec"
+            },
+            {
+              "path": "37770169397/measured/tmp/m2d-measured.json",
+              "sha256": "5a3fecfed07460ad36ef7da8cc37e7fe814161624c247fffe08cc5458e70edf2"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "changed_files": [
+    ".github/workflows/m2d-human-review.yml",
+    ".github/workflows/phase1a-runtime-smoke.yml",
+    "alembic/env.py",
+    "alembic/versions/0015_m2d_review_governance.py",
+    "docs/m2d/M2D_api_contract.md",
+    "docs/m2d/M2D_architecture_rule_check.md",
+    "docs/m2d/M2D_correction_contract.md",
+    "docs/m2d/M2D_design.md",
+    "docs/m2d/M2D_files_created_modified.md",
+    "docs/m2d/M2D_integration_handoff.md",
+    "docs/m2d/M2D_migration_result.md",
+    "docs/m2d/M2D_reexecution_contract.md",
+    "docs/m2d/M2D_review_center_result.md",
+    "docs/m2d/M2D_review_contract.md",
+    "docs/m2d/M2D_review_resolution_matrix.md",
+    "docs/m2d/M2D_security_result.md",
+    "docs/m2d/M2D_successor_snapshot_contract.md",
+    "docs/m2d/M2D_test_result.md",
+    "evidence/m2d/approved_owner_overlay.json",
+    "frontend/e2e/m2d.spec.ts",
+    "frontend/scripts/m2a/uat.py",
+    "frontend/scripts/m2d/export_contracts.py",
+    "frontend/scripts/m2d/uat.py",
+    "frontend/src/App.tsx",
+    "frontend/src/api/client.ts",
+    "frontend/src/api/m2d-generated.ts",
+    "frontend/src/api/m2d-schemas.json",
+    "frontend/src/features/results/Stage1Workspace.tsx",
+    "frontend/src/features/reviews/ReviewCenter.tsx",
+    "frontend/src/features/reviews/api.ts",
+    "frontend/src/features/reviews/reviews.test.tsx",
+    "frontend/src/locales/en-US.json",
+    "frontend/src/locales/zh-CN.json",
+    "frontend/src/locales/zh-HK.json",
+    "frontend/vite.config.ts",
+    "scripts/m2a_ownership.py",
+    "scripts/m2b_ownership.py",
+    "scripts/m2c_projection_ownership.py",
+    "scripts/m2d_architecture_check.py",
+    "scripts/m2d_ownership.py",
+    "src/crossborder_compliance/application/context_ports.py",
+    "src/crossborder_compliance/application/context_services.py",
+    "src/crossborder_compliance/application/review_services.py",
+    "src/crossborder_compliance/domain/review_governance.py",
+    "src/crossborder_compliance/infrastructure/intake_composition.py",
+    "src/crossborder_compliance/infrastructure/persistence/context_repositories.py",
+    "src/crossborder_compliance/infrastructure/persistence/document_snapshot_inputs.py",
+    "src/crossborder_compliance/infrastructure/persistence/models.py",
+    "src/crossborder_compliance/infrastructure/persistence/postgres_repositories.py",
+    "src/crossborder_compliance/infrastructure/persistence/project_intake.py",
+    "src/crossborder_compliance/infrastructure/persistence/repositories.py",
+    "src/crossborder_compliance/infrastructure/persistence/review_governance.py",
+    "src/crossborder_compliance/infrastructure/persistence/review_models.py",
+    "src/crossborder_compliance/infrastructure/workflow_formal_composition.py",
+    "src/crossborder_compliance/interfaces/api/routes/intake.py",
+    "src/crossborder_compliance/interfaces/api/routes/reviews.py",
+    "src/crossborder_compliance/interfaces/api/workflow_app.py",
+    "src/crossborder_compliance/workflows/canonical.py",
+    "tests/test_m2c_architecture.py",
+    "tests/test_m2c_migrations.py",
+    "tests/test_m2d_api_postgres.py",
+    "tests/test_m2d_architecture.py",
+    "tests/test_m2d_correction_postgres.py",
+    "tests/test_m2d_formal_review_postgres.py",
+    "tests/test_m2d_migrations.py",
+    "tests/test_m2d_review_contracts.py",
+    "tests/test_m2d_review_postgres.py"
+  ],
+  "required_groups": 7,
+  "runner_checkout_proofs": 9,
+  "blockers": [],
+  "stage2": "NOT STARTED",
+  "post_m2d_entry": "ALLOWED",
+  "scope_gaps": [
+    "Unsupported correction targets remain typed/read-only",
+    "Historical authority retrofit and multi-subject out of scope",
+    "No partial rerun optimizer, Stage2, provider or auth redesign"
+  ],
+  "measured_sources": [
+    "ci/37770169474/measured/pytest_full_summary.json",
+    "ci/37770169474/measured/runtime_verify.json",
+    "ci/37770169474/measured/ci_run_evidence.json",
+    "ci/37770169397/measured/tmp/m2d-measured.json",
+    "ci/37770169397/measured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/artifacts/m2d/migration_dual_path.json"
+  ]
+}
