@@ -24,6 +24,7 @@ jobs:
         options: --health-cmd="redis-cli ping" --health-interval=5s --health-timeout=3s --health-retries=20
     env:
       APP_ENV: LOCAL_SERVER
+      PYTHONPATH: ${{ github.workspace }}/src:${{ github.workspace }}
       DATABASE_URL: postgresql+psycopg://compliance:compliance@127.0.0.1:5432/m1_uat
       LANGGRAPH_DATABASE_URI: postgresql://compliance:compliance@127.0.0.1:5432/m1_uat?sslmode=disable
       REDIS_URL: redis://127.0.0.1:6379/0
