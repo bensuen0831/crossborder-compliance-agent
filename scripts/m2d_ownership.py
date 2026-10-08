@@ -61,6 +61,7 @@ PATHS = frozenset(
         "frontend/e2e/m2d.spec.ts",
         "frontend/vite.config.ts",
         ".github/workflows/m2d-human-review.yml",
+        ".github/workflows/phase1a-runtime-smoke.yml",
     }
 )
 
