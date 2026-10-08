@@ -18,6 +18,7 @@ class SemanticStep(StrEnum):
     CLASSIFICATION = "classification"
     APPLICABILITY = "applicability"
     OBLIGATION = "obligation"
+    CROSS_BORDER = "cross_border"
     CANDIDATE_PATH = "candidate_path"
     RISK = "risk"
     RECOMMENDATION = "recommendation"
@@ -61,9 +62,9 @@ class ExecutionIdentity(ReferenceModel):
 class StageExecutionRequest(ReferenceModel):
     identity: ExecutionIdentity
     step: SemanticStep
-    result_refs: dict[SemanticStep, UUID] = Field(default_factory=dict, max_length=16)
+    result_refs: dict[SemanticStep, UUID] = Field(default_factory=dict, max_length=17)
     result_ref_sets: dict[SemanticStep, tuple[UUID, ...]] = Field(
-        default_factory=dict, max_length=16
+        default_factory=dict, max_length=17
     )
     fallback_ref: UUID | None = None
     review_ref: UUID | None = None

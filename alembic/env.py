@@ -12,6 +12,8 @@ from crossborder_compliance.infrastructure.persistence import context_models as 
 from crossborder_compliance.infrastructure.persistence import applicability_models as _applicability_models  # noqa: F401
 from crossborder_compliance.infrastructure.persistence import decision_models as _decision_models  # noqa: F401
 
+from crossborder_compliance.infrastructure.persistence import formal_result_models as _formal_result_models  # noqa: F401
+
 config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)

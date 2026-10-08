@@ -1,0 +1,121 @@
+name: M2C Formal Result Workspace
+on:
+  pull_request:
+    paths: ['tests/test_m2c*', 'tests/m2c*', 'scripts/m2c*', 'docs/m2c/**', 'evidence/m2c/**', '.github/workflows/m2c-stage1-results.yml', 'tests/test_m2b*', 'tests/m2b*', 'scripts/m2b*', 'docs/m2b/**', 'evidence/m2b/**', '.github/workflows/m2b-documents.yml', 'src/**', 'alembic/**', 'tests/test_m2a*', 'scripts/m2a*', 'evidence/m2a/**', 'docs/m2a/**', '.github/workflows/m2a-intake.yml', 'src/crossborder_compliance/infrastructure/persistence/workflow_read_projection.py', 'src/crossborder_compliance/interfaces/api/routes/workflow.py', 'src/crossborder_compliance/interfaces/api/workflow_app.py', 'scripts/m1_phase1lb_ownership.py', 'scripts/phase1l_b_ownership.py', 'tests/test_m1*', 'evidence/integration/m1-phase1lb/**', 'frontend/**', 'docs/m1/**', 'artifacts/m1/**', '.github/workflows/m1-alpha.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  frontend-real-backend-uat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_DB: m1_uat
+          POSTGRES_USER: compliance
+          POSTGRES_PASSWORD: compliance
+        ports: ['5432:5432']
+        options: --health-cmd="pg_isready -U compliance -d m1_uat" --health-interval=5s --health-timeout=5s --health-retries=20
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+        options: --health-cmd="redis-cli ping" --health-interval=5s --health-timeout=3s --health-retries=20
+    env:
+      APP_ENV: LOCAL_SERVER
+      DATABASE_URL: postgresql+psycopg://compliance:compliance@127.0.0.1:5432/m1_uat
+      LANGGRAPH_DATABASE_URI: postgresql://compliance:compliance@127.0.0.1:5432/m1_uat?sslmode=disable
+      REDIS_URL: redis://127.0.0.1:6379/0
+      M0_LOCAL_UAT: '1'
+      M2B_LOCAL_UAT: '1'
+      M2B_FILE_POLICY: /tmp/m2b-file-policy.json
+      M2B_BINARY_ROOT: /tmp/m2b-objects
+      VITE_M0_DEMO: 'true'
+      VITE_SESSION_PATH: /m0-demo/session
+      M2A_UAT_MANIFEST: /tmp/m1-personas.json
+      M1_UAT_MANIFEST: /tmp/m1-personas.json
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: python -m pip install -e '.[dev]'
+      - run: python frontend/scripts/m1/boundary_check.py
+      - run: python scripts/m1_phase1lb_ownership.py
+      - run: python scripts/m2c_architecture_check.py
+      - run: python scripts/m2c_projection_architecture.py
+      - name: Reproduce canonical frontend and M1 model contracts
+        run: |
+          npm ci --prefix frontend --no-audit --no-fund
+          python frontend/scripts/m2c/export_contracts.py
+          frontend/node_modules/.bin/openapi-typescript frontend/src/api/m2c-schemas.json -o frontend/src/api/m2c-generated.ts
+          git diff --exit-code -- frontend/src/api/m2c-schemas.json frontend/src/api/m2c-generated.ts
+          python frontend/scripts/m2a/export_contracts.py
+          frontend/node_modules/.bin/openapi-typescript frontend/src/api/m2a-schemas.json -o frontend/src/api/m2a-generated.ts
+          git diff --exit-code -- frontend/src/api/m2a-schemas.json frontend/src/api/m2a-generated.ts
+          npm run typecheck --prefix frontend
+          npm run lint --prefix frontend
+          npm test --prefix frontend -- --maxWorkers=1
+          npm run check:i18n --prefix frontend
+          npm run build --prefix frontend
+      - name: Existing schema and canonical isolated formal workflow fixtures
+        run: |
+          alembic upgrade head
+          python -c "from alembic.config import Config; from alembic.script import ScriptDirectory; from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after; heads = ScriptDirectory.from_config(Config('alembic.ini')).get_heads(); assert len(heads) == 1 and revision_at_or_after(heads[0], '0010_phase1j')"
+          python - <<'PY'
+          import json
+          json.dump({'version':'ci-explicit-no-scan-v1','max_size_bytes':1048576,'scan_required':False,'allowed_types':[{'extension':'.txt','media_type':'text/plain','signature':'text'},{'extension':'.docx','media_type':'application/vnd.openxmlformats-officedocument.wordprocessingml.document','signature':'docx'}]},open('/tmp/m2b-file-policy.json','w'))
+          PY
+          python frontend/scripts/m2a/uat.py --manifest /tmp/m1-personas.json --seed
+      - name: Loopback trusted session and canonical workflow bridge and formal read APIs
+        run: |
+          python frontend/scripts/m2a/uat.py --manifest /tmp/m1-personas.json > /tmp/m1-backend.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8010/health/live > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/m1-backend.log
+          exit 1
+      - name: Canonical frontend and Chromium
+        run: |
+          cd frontend
+          npx playwright install --with-deps chromium
+          npm run dev > /tmp/m1-frontend.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:5173 > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/m1-frontend.log
+          exit 1
+      - name: Three-locale real-backend UAT, zero retries
+        run: |
+          npm run test:e2e --prefix frontend -- m2c.spec.ts m2b.spec.ts m2a.spec.ts m1.spec.ts
+          cp frontend/test-results/results.json /tmp/m2b-core-browser.json
+      - name: Exact-head measured result
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          x = json.load(open('/tmp/m2b-core-browser.json'))['stats']
+          assert x['expected'] == 12 and x['unexpected'] == x['skipped'] == x['flaky'] == 0
+          head = subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          print('::notice::M2C_EXACT_HEAD_SUMMARY=' + json.dumps({'tested_sha':head,'runner_checkout_sha':head,'browser':x,'m0_required_workflow':'M0 H5 Preview at same SHA','retry_count':0,'alembic':__import__('alembic.script',fromlist=['ScriptDirectory']).ScriptDirectory('alembic').get_current_head()}))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m2c-uat-${{ github.run_id }}
+          path: |
+            frontend/test-results/
+            /tmp/m2b-core-browser.json
+            /tmp/m1-backend.log
+            /tmp/m1-frontend.log
+          if-no-files-found: error

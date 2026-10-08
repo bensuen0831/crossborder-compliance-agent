@@ -10,7 +10,9 @@ from crossborder_compliance.infrastructure.persistence import metadata_models as
 from crossborder_compliance.infrastructure.persistence import models as b
 from crossborder_compliance.infrastructure.persistence import retrieval_models as g
 
-OWNED_CONFIG_KINDS = PHASE1I_CONFIG_KINDS | PHASE1J_POLICY_KINDS
+from crossborder_compliance.domain.formal_result_policies import FORMAL_RESULT_POLICY_KINDS
+
+OWNED_CONFIG_KINDS = PHASE1I_CONFIG_KINDS | PHASE1J_POLICY_KINDS | FORMAL_RESULT_POLICY_KINDS
 
 
 def validate_decision_policy(session, definition, payload):
@@ -91,6 +93,9 @@ def metadata_ref(session, ident, tenant, kind):
 
 def validate_payload(session, definition, payload):
     validate_localized_payload(payload)
+    if definition.kind in FORMAL_RESULT_POLICY_KINDS:
+        from crossborder_compliance.infrastructure.persistence.formal_result_governance import validate_formal_policy
+        return validate_formal_policy(session, definition, payload)
     if definition.kind in PHASE1J_POLICY_KINDS:
         return validate_decision_policy(session, definition, payload)
     if definition.kind not in PHASE1I_CONFIG_KINDS:

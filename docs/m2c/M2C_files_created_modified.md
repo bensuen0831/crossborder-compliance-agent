@@ -1,0 +1,87 @@
+# M2-C changed ownership
+
+Exact baseline: `42571c7148456f41adb64d2528c169a357214a25`. C0 has28 finite owning paths; C1 has43 authenticated paths chained to the C0 PASS checkpoint. Permanent rules and migrations0001–0013 remain byte-identical.
+
+The complete implementation/evidence file set before this final delivery commit:
+
+- `.github/workflows/m2c-stage1-results.yml`
+- `alembic/env.py`
+- `alembic/versions/0014_m2c_formal_result_authority.py`
+- `docs/m2c/M2C0_design.md`
+- `docs/m2c/M2C0_gate_result.md`
+- `docs/m2c/M2C1_design.md`
+- `docs/m2c/M2C_api_contract.md`
+- `docs/m2c/integration_handoff.md`
+- `evidence/m2c/C0_gate_result.json`
+- `evidence/m2c/c0-focused.xml`
+- `evidence/m2c/c0-regressions.xml`
+- `evidence/m2c/c0_approved_owner_overlay.json`
+- `evidence/m2c/c1_approved_owner_overlay.json`
+- `frontend/e2e/fixtures/m2c-intake.docx`
+- `frontend/e2e/m2c.spec.ts`
+- `frontend/scripts/m1/export_contracts.py`
+- `frontend/scripts/m1/uat.py`
+- `frontend/scripts/m2a/uat.py`
+- `frontend/scripts/m2c/export_contracts.py`
+- `frontend/src/App.tsx`
+- `frontend/src/api/client.ts`
+- `frontend/src/api/m2c-generated.ts`
+- `frontend/src/api/m2c-schemas.json`
+- `frontend/src/features/intake/IntakeFeature.tsx`
+- `frontend/src/features/results/Stage1Workspace.tsx`
+- `frontend/src/features/results/api.ts`
+- `frontend/src/features/results/pg-fixture.json`
+- `frontend/src/features/results/results.test.tsx`
+- `frontend/src/locales/en-US.json`
+- `frontend/src/locales/zh-CN.json`
+- `frontend/src/locales/zh-HK.json`
+- `frontend/src/styles.css`
+- `frontend/src/theme.ts`
+- `scripts/m2a_ownership.py`
+- `scripts/m2b_ownership.py`
+- `scripts/m2c_architecture_check.py`
+- `scripts/m2c_ownership.py`
+- `scripts/m2c_projection_architecture.py`
+- `scripts/m2c_projection_ownership.py`
+- `src/crossborder_compliance/application/country_compliance_services.py`
+- `src/crossborder_compliance/application/formal_result_services.py`
+- `src/crossborder_compliance/application/stage1_result.py`
+- `src/crossborder_compliance/application/workflow_formal.py`
+- `src/crossborder_compliance/application/workflow_skeleton.py`
+- `src/crossborder_compliance/domain/formal_result_contracts.py`
+- `src/crossborder_compliance/domain/formal_result_engine.py`
+- `src/crossborder_compliance/domain/formal_result_policies.py`
+- `src/crossborder_compliance/infrastructure/persistence/compliance_profile_governance.py`
+- `src/crossborder_compliance/infrastructure/persistence/country_compliance_repository.py`
+- `src/crossborder_compliance/infrastructure/persistence/decision_models.py`
+- `src/crossborder_compliance/infrastructure/persistence/formal_result_governance.py`
+- `src/crossborder_compliance/infrastructure/persistence/formal_result_models.py`
+- `src/crossborder_compliance/infrastructure/persistence/formal_result_repository.py`
+- `src/crossborder_compliance/infrastructure/persistence/metadata_repositories.py`
+- `src/crossborder_compliance/infrastructure/persistence/workflow_read_projection.py`
+- `src/crossborder_compliance/infrastructure/registry_catalog.py`
+- `src/crossborder_compliance/infrastructure/workflow_formal_composition.py`
+- `src/crossborder_compliance/interfaces/api/routes/admin_metadata.py`
+- `src/crossborder_compliance/interfaces/api/routes/decisions.py`
+- `src/crossborder_compliance/interfaces/api/routes/metadata.py`
+- `src/crossborder_compliance/interfaces/api/routes/workflow.py`
+- `src/crossborder_compliance/workflows/canonical.py`
+- `tests/conftest.py`
+- `tests/m2c_policy_fixtures.py`
+- `tests/test_m1_workflow_api.py`
+- `tests/test_m2a_structured_intake.py`
+- `tests/test_m2b_integration.py`
+- `tests/test_m2b_migrations.py`
+- `tests/test_m2c_architecture.py`
+- `tests/test_m2c_authority_contracts.py`
+- `tests/test_m2c_authority_postgres.py`
+- `tests/test_m2c_migrations.py`
+- `tests/test_m2c_projection_architecture.py`
+- `tests/test_m2c_workflow_contracts.py`
+- `tests/test_m2c_workflow_postgres.py`
+- `tests/test_phase1j_postgres.py`
+- `tests/test_phase1l_a_skeleton.py`
+- `tests/test_phase1l_b_contracts.py`
+- `tests/test_phase1l_b_postgres.py`
+
+Final delivery adds the local validation record, full measured JUnit/runtime evidence and these closure documents. No Stage2/M2D implementation is included.

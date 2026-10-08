@@ -3,6 +3,7 @@ import addFormats from 'ajv-formats';
 import openapi from './openapi.json';
 import m1Schemas from './m1-schemas.json';
 import m2aSchemas from './m2a-schemas.json';
+import m2cSchemas from './m2c-schemas.json';
 import type { AuthorizedContext, Health, Metadata, Readiness, RetrievalRequest, RetrievalResponse, Scope, Session } from './contracts';
 
 export class ApiError extends Error {
@@ -45,7 +46,7 @@ const presentationSchemas: Record<string, object> = {
 export function validateContract<T>(name: string, body: unknown): T {
   let validate = validators.get(name);
   if (!validate) {
-    validate = ajv.compile(presentationSchemas[name] ?? { $ref: `#/components/schemas/${name}`, components: { schemas: { ...openapi.components.schemas, ...m1Schemas.components.schemas, ...m2aSchemas.components.schemas } } });
+    validate = ajv.compile(presentationSchemas[name] ?? { $ref: `#/components/schemas/${name}`, components: { schemas: { ...openapi.components.schemas, ...m1Schemas.components.schemas, ...m2aSchemas.components.schemas, ...m2cSchemas.components.schemas } } });
     validators.set(name, validate);
   }
   if (!validate(body)) throw new ApiError(502, 'API_CONTRACT_MISMATCH');

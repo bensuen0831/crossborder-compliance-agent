@@ -3,6 +3,10 @@
 from crossborder_compliance.application.classification_services import ClassificationService
 from crossborder_compliance.application.country_compliance_services import CountryComplianceSkill
 from crossborder_compliance.application.decision_services import FormalDecisionService
+from crossborder_compliance.application.formal_result_services import (
+    CrossBorderAssessmentService,
+    RegulatoryDocumentRequirementService,
+)
 from crossborder_compliance.application.knowledge_services import KnowledgeScopeResolver
 from crossborder_compliance.application.retrieval_services import KnowledgeRetrievalService
 from crossborder_compliance.application.workflow_formal import (
@@ -72,7 +76,9 @@ def formal_workflow_runtime(
     country_repo = PostgresCountryComplianceRepository(sessions, context)
     stages = FormalWorkflowStages(
         plan,
-        contexts=PostgresContextResolutionRepository(sessions, context, context_resolution_run_id=plan.context_resolution_run_id),
+        contexts=PostgresContextResolutionRepository(
+            sessions, context, context_resolution_run_id=plan.context_resolution_run_id
+        ),
         knowledge_scope=KnowledgeScopeResolver(retrieval_repo, context),
         retrieval=KnowledgeRetrievalService(
             retrieval_repo,
@@ -88,6 +94,8 @@ def formal_workflow_runtime(
         country=CountryComplianceSkill(country_repo),
         decisions=FormalDecisionService(country_repo),
         scenario_rules=country_repo,
+        cross_border=CrossBorderAssessmentService(country_repo),
+        document_requirements=RegulatoryDocumentRequirementService(country_repo),
     )
     auth = SqlWorkflowAuthorization(
         sessions, context, request_context_ref=plan.request_context_ref, mode=plan.mode

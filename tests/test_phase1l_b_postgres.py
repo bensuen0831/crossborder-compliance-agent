@@ -12,7 +12,8 @@ from uuid import UUID, uuid4
 import pytest
 from phase1l_b_worker import build
 from sqlalchemy import func, select, update
-from test_phase1j_postgres import fixture, foundation_i, foundation_j
+from test_phase1j_postgres import fixture, foundation_i
+from test_phase1j_postgres import foundation_j as original_foundation_j
 
 from crossborder_compliance.application.workflow_formal import FormalWorkflowPlan
 from crossborder_compliance.config import get_settings
@@ -25,6 +26,16 @@ from crossborder_compliance.workflows.canonical import GRAPH_VERSION, PIPELINE, 
 from crossborder_compliance.workflows.langgraph_adapter import installed_version
 
 pytestmark = pytest.mark.runtime_smoke
+
+
+@pytest.fixture
+def foundation_j(foundation_i, request):
+    from types import SimpleNamespace
+
+    from m2c_policy_fixtures import configure_authorities
+    params = dict(getattr(request, 'param', {}))
+    params['before_j_initialization'] = configure_authorities
+    return original_foundation_j.__wrapped__(foundation_i, SimpleNamespace(param=params))
 
 
 def manifest(f, *, review=False):
@@ -112,7 +123,12 @@ def test_real_full_formal_chain_both_modes_and_locale_replay(foundation_j):
     assert final.items[0].status == "CONDITIONAL_PROPOSAL"
     assert final.items[0].selected_candidate_path_id is not None
     assert all(not a.performed for a in final.items[0].actions)
-    assert state["result_refs"]["documents"] == state["result_refs"]["report"] == str(final_id)
+    assert state["result_refs"]["documents"] == state["result_refs"]["report"]
+    assert state["result_refs"]["documents"] != str(final_id)
+    docs = f["jrepo"].read_formal_result(
+        "DOCUMENT_REQUIREMENT", UUID(state["result_refs"]["documents"])
+    )
+    assert docs.items[0].requirement_level == "REQUIRED"
     if m["plan"]["mode"] == "SCENARIO_LEVEL":
         assert "classification" not in state["result_refs"]
     for locale in ["zh-HK", "en-US"]:
@@ -191,7 +207,7 @@ def test_full_chain_process_restart_review_and_duplicate_resume(foundation_j, tm
         ).model_dump(mode="json")
     m["locale"] = "en-US"
     second = run("resume")
-    assert second["status"] == "COMPLETED", second
+    assert second["status"] == "COMPLETED", json.dumps(second, sort_keys=True)
     assert run("resume")["checkpoint_id"] == second["checkpoint_id"]
     assert run("start")["checkpoint_id"] == second["checkpoint_id"]
     with f["sf"]() as s:

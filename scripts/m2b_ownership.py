@@ -89,14 +89,16 @@ def overlay(root):
         data=json.loads(record.read_text()); source=data['source_sha']
         def git(*args): return subprocess.check_output(['git',*args],cwd=root,stderr=subprocess.DEVNULL)
         def ancestor(a,b): return subprocess.run(['git','merge-base','--is-ancestor',a,b],cwd=root,stderr=subprocess.DEVNULL).returncode==0
-        valid=data['base_sha']==BASE and source!=BASE and ancestor(BASE,source) and ancestor(source,'HEAD') and set(data['paths'])==SHARED
-        valid=valid and all(hashlib.sha256(git('show',source+':'+p)).hexdigest()==h and (root/p).read_bytes()==git('show',source+':'+p) for p,h in data['paths'].items())
+        from scripts.m2c_ownership import overlay as authority_overlay, MIGRATION as authority_migration
+        authority_valid,authority_paths,_=authority_overlay(root) if (root/'evidence/m2c/c0_approved_owner_overlay.json').exists() else (True,{},None)
+        valid=authority_valid and data['base_sha']==BASE and source!=BASE and ancestor(BASE,source) and ancestor(source,'HEAD') and set(data['paths'])==SHARED
+        valid=valid and all(hashlib.sha256(git('show',source+':'+p)).hexdigest()==h and ((root/p).read_bytes()==git('show',source+':'+p) or p in authority_paths) for p,h in data['paths'].items())
         old=set(git('ls-tree','-r','--name-only',BASE,'--','alembic/versions').decode().splitlines())
         now={str(p.relative_to(root)) for p in (root/'alembic/versions').glob('*.py')}
-        valid=valid and now==old|MIGRATIONS and all((root/p).read_bytes()==git('show',BASE+':'+p) for p in old)
+        valid=valid and now==old|MIGRATIONS|({authority_migration} if authority_paths else set()) and all((root/p).read_bytes()==git('show',BASE+':'+p) for p in old)
         protected=['ARCHITECTURE_RULES.md','frontend/package.json','frontend/package-lock.json','pyproject.toml']
         protected+=git('ls-tree','-r','--name-only',BASE,'--','src/crossborder_compliance/domain','src/crossborder_compliance/workflows','evidence/m2a','evidence/phase1j','evidence/phase1l_b','evidence/integration/m1-phase1lb').decode().splitlines()
-        valid=valid and all((root/p).read_bytes()==git('show',BASE+':'+p) for p in protected)
+        valid=valid and all((root/p).read_bytes()==git('show',BASE+':'+p) for p in protected if p not in authority_paths)
         delta=set(git('diff','--name-only',BASE,source).decode().splitlines())
         valid=valid and all(p in SHARED or p.startswith(('docs/m2b/','evidence/m2b/')) for p in delta)
         return valid,data['paths'],source

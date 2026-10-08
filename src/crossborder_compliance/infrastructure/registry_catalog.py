@@ -37,6 +37,8 @@ class TenantRegistryProvider:
         "compliance-path-policies": "COMPLIANCE_PATH_POLICY",
         "risk-policies": "RISK_POLICY",
         "recommendation-policies": "RECOMMENDATION_POLICY",
+        "cross-border-assessment-policies": "CROSS_BORDER_ASSESSMENT_POLICY",
+        "document-requirement-policies": "DOCUMENT_REQUIREMENT_POLICY",
     }
 
     def __init__(self, session_factory):

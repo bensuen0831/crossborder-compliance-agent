@@ -17,3 +17,16 @@ export const enterpriseTheme: ThemeConfig = {
   },
   components: { Layout: { siderBg: midnight.canvas, headerBg: midnight.canvas }, Card: { headerFontSize: 16 } },
 };
+
+// The result workspace uses the same governed host theme and component system.
+// The canonical navy navigation stays outside this presentation-only variant.
+export const resultWorkspaceTheme: ThemeConfig = {
+  ...enterpriseTheme,
+  algorithm: theme.defaultAlgorithm,
+  token: {
+    ...enterpriseTheme.token,
+    colorPrimary: '#2563eb', colorSuccess: '#16885b',
+    colorBgLayout: '#f3f5f9', colorBgContainer: '#ffffff', colorBgElevated: '#ffffff',
+    colorBorder: '#dce3ed', colorText: '#172b4d', colorTextSecondary: '#53637a',
+  },
+};

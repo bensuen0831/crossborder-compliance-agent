@@ -37,6 +37,7 @@ pytestmark = pytest.mark.runtime_smoke
 @pytest.fixture
 def foundation_j(foundation_i, request):
     f = foundation_i
+    params = getattr(request, "param", {})
     app = applicability(f)
     scopes = set(f["ctx"].permission.scopes) | {"decision:execute", "decision:read"}
     f["jctx"] = RepositoryContext.user(UUID(f["tenant"]), "author", scopes)
@@ -55,6 +56,7 @@ def foundation_j(foundation_i, request):
                     "applicability_config_id": f["config"]["definition_id"],
                     "required_rule_ids": f["config_payload"]["required_rule_ids"],
                     "legal_basis_ids": [f["basis"]],
+                    **params.get("obligation_entry", {}),
                 }
             ],
         },
@@ -73,6 +75,7 @@ def foundation_j(foundation_i, request):
                     "actions": [
                         {"entry_id": str(uuid4()), "code": "PERFORM_REQUIREMENT", "sequence": 1}
                     ],
+                    **params.get("path_template", {}),
                 }
             ],
         },
@@ -113,6 +116,8 @@ def foundation_j(foundation_i, request):
         publish_config(
             f, "RISK_POLICY", risk_policy(jurisdiction_ids=[f["juri"]]).model_dump(mode="json")
         )
+    if params.get("before_j_initialization"):
+        params["before_j_initialization"](f)
     f["jrepo"].initialize_decisions(UUID(f["project"]), UUID(f["snapshot"]))
     return f
 

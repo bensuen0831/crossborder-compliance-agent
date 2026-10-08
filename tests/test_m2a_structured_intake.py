@@ -11,7 +11,8 @@ from sqlalchemy.exc import DBAPIError
 from test_m2a_intake import create, setup
 from test_phase1e_postgres import CleanScan, MemoryStorage, Queue
 from test_phase1i_postgres import config_service, publish_config
-from test_phase1j_postgres import fixture, foundation_i, foundation_j
+from test_phase1j_postgres import fixture, foundation_i
+from test_phase1l_b_postgres import foundation_j
 
 from crossborder_compliance.application.document_services import (
     DocumentIngestionService,

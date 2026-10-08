@@ -15,6 +15,7 @@ from crossborder_compliance.application.decision_services import (
     DecisionRequest,
     UpstreamIdentifier,
 )
+from crossborder_compliance.application.formal_result_services import FormalAuthorityRequest
 from crossborder_compliance.application.workflow_skeleton import (
     ReferenceModel,
     SemanticStep,
@@ -71,12 +72,15 @@ class FormalWorkflowPlan(ReferenceModel):
         ):
             raise ValueError("data mode requires explicit classification references")
         if self.input_capability_gap is not None and (
-            self.mode != "DATA_AWARE" or len(self.classification_data_item_ids) < 2
+            self.mode != "DATA_AWARE"
+            or len(self.classification_data_item_ids) < 2
             or self.subject_id not in self.classification_data_item_ids
         ):
             raise ValueError("invalid multi-subject capability boundary")
-        if self.subject_type == "DATA_ITEM" and self.input_capability_gap is None and self.classification_data_item_ids != (
-            self.subject_id,
+        if (
+            self.subject_type == "DATA_ITEM"
+            and self.input_capability_gap is None
+            and self.classification_data_item_ids != (self.subject_id,)
         ):
             raise ValueError("classification subject mismatch")
         if len(set(self.classification_data_item_ids)) != len(self.classification_data_item_ids):
@@ -132,6 +136,10 @@ def formal_outcome(result, ordinary):
         "RECOMMENDED",
         "PROPOSED",
         "CONDITIONAL_PROPOSAL",
+        "DIRECT_TRANSFER_ALLOWED",
+        "CONDITIONAL_TRANSFER_ALLOWED",
+        "TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED",
+        "REQUIREMENTS_IDENTIFIED",
     }:
         return StageOutcomeCode.SUCCESS
     return StageOutcomeCode.NON_RETRYABLE_FAILURE
@@ -152,12 +160,15 @@ class FormalWorkflowStages:
         country,
         decisions,
         scenario_rules=None,
+        cross_border=None,
+        document_requirements=None,
     ):
         self.plan = plan
         self.contexts, self.knowledge_scope = contexts, knowledge_scope
         self.retrieval, self.evidence = retrieval, evidence
         self.classification, self.country, self.decisions = classification, country, decisions
         self.scenario_rules = scenario_rules
+        self.cross_border, self.document_requirements = cross_border, document_requirements
 
     def bindings(self):
         return {step: _BoundStage(self, step) for step in SemanticStep}
@@ -173,6 +184,8 @@ class FormalWorkflowStages:
         ):
             raise PermissionError("workflow plan not found")
         required = list(SemanticStep)[: list(SemanticStep).index(request.step)]
+        if request.identity.graph_definition_version == "phase1l-a-canonical-v1":
+            required = [s for s in required if s != SemanticStep.CROSS_BORDER]
         # Scenario classification has no result by design, not an invented UUID.
         if p.mode == "SCENARIO_LEVEL":
             required = [s for s in required if s != SemanticStep.CLASSIFICATION]
@@ -247,12 +260,30 @@ class FormalWorkflowStages:
         if p.input_capability_gap is not None:
             context = self._context()
             if context is None:
-                return self._result(request, StageOutcomeCode.INSUFFICIENT_INPUT, reasons=("FORMAL_CONTEXT_REQUIRED",))
+                return self._result(
+                    request,
+                    StageOutcomeCode.INSUFFICIENT_INPUT,
+                    reasons=("FORMAL_CONTEXT_REQUIRED",),
+                )
             if context.conflicts:
-                return self._result(request, StageOutcomeCode.CONFLICTED, (context.context_resolution_run_id,), ("FORMAL_CONTEXT_REFERENCE",))
+                return self._result(
+                    request,
+                    StageOutcomeCode.CONFLICTED,
+                    (context.context_resolution_run_id,),
+                    ("FORMAL_CONTEXT_REFERENCE",),
+                )
             if context.unresolved_items:
-                return self._result(request, StageOutcomeCode.REVIEW_REQUIRED, (context.context_resolution_run_id,), ("FORMAL_CONTEXT_REFERENCE",))
-            return self._result(request, StageOutcomeCode.CAPABILITY_NOT_CONFIGURED, reasons=(p.input_capability_gap,))
+                return self._result(
+                    request,
+                    StageOutcomeCode.REVIEW_REQUIRED,
+                    (context.context_resolution_run_id,),
+                    ("FORMAL_CONTEXT_REFERENCE",),
+                )
+            return self._result(
+                request,
+                StageOutcomeCode.CAPABILITY_NOT_CONFIGURED,
+                reasons=(p.input_capability_gap,),
+            )
         if step in {
             SemanticStep.REQUIREMENT,
             SemanticStep.FORMAL_CONTEXT,
@@ -405,19 +436,24 @@ class FormalWorkflowStages:
                 context = self._context()
                 if context is None or not context.business_fact_summary.get("facts"):
                     return self._result(
-                        request, StageOutcomeCode.INSUFFICIENT_INPUT,
+                        request,
+                        StageOutcomeCode.INSUFFICIENT_INPUT,
                         reasons=("FORMAL_BUSINESS_FACT_REQUIRED",),
                     )
                 if context.conflicts:
                     return self._result(
-                        request, StageOutcomeCode.CONFLICTED,
+                        request,
+                        StageOutcomeCode.CONFLICTED,
                         reasons=("BUSINESS_FACT_CONFLICT",),
                     )
                 facts = context.business_fact_summary["facts"]
-                if any(f.get("review_required") or f.get("validation_status") != "VALIDATED"
-                       for f in facts):
+                if any(
+                    f.get("review_required") or f.get("validation_status") != "VALIDATED"
+                    for f in facts
+                ):
                     return self._result(
-                        request, StageOutcomeCode.REVIEW_REQUIRED,
+                        request,
+                        StageOutcomeCode.REVIEW_REQUIRED,
                         reasons=("FORMAL_BUSINESS_FACT_REVIEW_REQUIRED",),
                     )
             retrieval_id = request.result_refs[SemanticStep.RETRIEVAL]
@@ -434,12 +470,14 @@ class FormalWorkflowStages:
                             reasons=("SCENARIO_FACT_SERVICE_NOT_CONFIGURED",),
                         )
                     profile = self.country.resolve_profile(
-                        project_id=p.project_id, snapshot_id=p.analysis_snapshot_id,
+                        project_id=p.project_id,
+                        snapshot_id=p.analysis_snapshot_id,
                         jurisdiction_id=binding.jurisdiction_id,
                     )
                     if profile.scenario_configuration.missing_inputs:
                         return self._result(
-                            request, StageOutcomeCode.INSUFFICIENT_INPUT,
+                            request,
+                            StageOutcomeCode.INSUFFICIENT_INPUT,
                             reasons=("FORMAL_BUSINESS_FACT_REQUIRED",),
                         )
                     scoped_hits = tuple(
@@ -485,6 +523,49 @@ class FormalWorkflowStages:
                 else StageOutcomeCode.SUCCESS,
             )
             return self._result(request, status, tuple(refs), tuple(dict.fromkeys(reasons)))
+        if step == SemanticStep.CROSS_BORDER or (
+            step == SemanticStep.DOCUMENTS
+            and request.identity.graph_definition_version != "phase1l-a-canonical-v1"
+        ):
+            service = (
+                self.cross_border
+                if step == SemanticStep.CROSS_BORDER
+                else self.document_requirements
+            )
+            if service is None:
+                return self._result(
+                    request,
+                    StageOutcomeCode.CAPABILITY_NOT_CONFIGURED,
+                    reasons=("FORMAL_RESULT_AUTHORITY_NOT_CONFIGURED",),
+                )
+            value = service.execute(
+                FormalAuthorityRequest(
+                    project_id=p.project_id,
+                    analysis_snapshot_id=p.analysis_snapshot_id,
+                    subject_type=p.subject_type,
+                    subject_id=p.subject_id,
+                    stage_kind="CROSS_BORDER"
+                    if step == SemanticStep.CROSS_BORDER
+                    else "DOCUMENT_REQUIREMENT",
+                    obligation_result_id=request.result_refs[SemanticStep.OBLIGATION],
+                    cross_border_result_id=request.result_refs.get(SemanticStep.CROSS_BORDER)
+                    if step == SemanticStep.DOCUMENTS
+                    else None,
+                    final_path_result_id=request.result_refs.get(SemanticStep.FINAL_PATH)
+                    if step == SemanticStep.DOCUMENTS
+                    else None,
+                    idempotency_key=request.idempotency_key,
+                )
+            )
+            # C0 review authority precedes ordinary evidence-warning routing.
+            outcome = (
+                StageOutcomeCode.CONFLICTED
+                if value.conflict_state == "CONFLICTED"
+                else StageOutcomeCode.REVIEW_REQUIRED
+                if value.review_required
+                else formal_outcome(value, value.ordinary_status)
+            )
+            return self._result(request, outcome, (value.result_id,), value.reason_codes)
         if step in {
             SemanticStep.OBLIGATION,
             SemanticStep.CANDIDATE_PATH,
@@ -527,6 +608,32 @@ class FormalWorkflowStages:
                 StageOutcomeCode.NOT_APPLICABLE,
                 (final_id,),
                 ("DOCUMENTS_BOUNDARY_ONLY", "CAPABILITY_NOT_CONFIGURED"),
+            )
+        if request.identity.graph_definition_version != "phase1l-a-canonical-v1":
+            for service, upstream in (
+                (self.cross_border, SemanticStep.CROSS_BORDER),
+                (self.document_requirements, SemanticStep.DOCUMENTS),
+            ):
+                value = service.read(request.result_refs[upstream])
+                if (value.project_id, value.analysis_snapshot_id) != (
+                    p.project_id,
+                    p.analysis_snapshot_id,
+                ):
+                    raise PermissionError("formal projection scope mismatch")
+                outcome = (
+                    StageOutcomeCode.CONFLICTED
+                    if value.conflict_state == "CONFLICTED"
+                    else StageOutcomeCode.REVIEW_REQUIRED
+                    if value.review_required
+                    else formal_outcome(value, value.ordinary_status)
+                )
+                if outcome not in {StageOutcomeCode.SUCCESS, StageOutcomeCode.NOT_APPLICABLE}:
+                    return self._result(request, outcome, (value.result_id,), value.reason_codes)
+            return self._result(
+                request,
+                StageOutcomeCode.SUCCESS,
+                (request.result_refs[SemanticStep.DOCUMENTS],),
+                ("STAGE1_FORMAL_RESULT_PROJECTION_READY", "STAGE2_USER_OPT_IN_REQUIRED"),
             )
         return self._result(
             request, StageOutcomeCode.SUCCESS, (final_id,), ("REPORT_PROJECTION_REFERENCE_ONLY",)

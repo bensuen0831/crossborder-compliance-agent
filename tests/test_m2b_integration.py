@@ -7,7 +7,8 @@ from sqlalchemy import select
 from test_m2b_document_inputs import host, upload
 from test_m2a_intake import create
 from test_m2a_structured_intake import binding, confirm, start
-from test_phase1j_postgres import fixture, foundation_i, foundation_j
+from test_phase1j_postgres import fixture, foundation_i
+from test_phase1l_b_postgres import foundation_j
 from crossborder_compliance.domain.security import RepositoryContext
 from crossborder_compliance.interfaces.api.dependencies import get_repository_context
 from crossborder_compliance.infrastructure.persistence import models as b, document_models as d, decision_models as j

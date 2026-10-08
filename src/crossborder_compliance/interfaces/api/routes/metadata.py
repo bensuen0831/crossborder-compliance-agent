@@ -92,5 +92,5 @@ def _generic_runtime_endpoint(resource):
     return endpoint
 
 
-for _resource in ("data-categories", "skills", "country-profiles", "scenario-adjustments", "country-capabilities", "applicability-configs", "rule-packs", "obligation-policies", "compliance-path-policies", "risk-policies", "recommendation-policies"):
+for _resource in ("data-categories", "skills", "country-profiles", "scenario-adjustments", "country-capabilities", "applicability-configs", "rule-packs", "obligation-policies", "compliance-path-policies", "risk-policies", "recommendation-policies", "cross-border-assessment-policies", "document-requirement-policies"):
     router.add_api_route("/" + _resource, _generic_runtime_endpoint(_resource), methods=["GET"])
