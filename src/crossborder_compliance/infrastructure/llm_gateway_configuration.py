@@ -45,8 +45,9 @@ class ProviderConnection:
 
 
 class PostgresLLMConfiguration:
-    def __init__(self, sessions, context):
+    def __init__(self, sessions, context, *, draft_catalog=False):
         self.sessions, self.context = sessions, context
+        self.draft_catalog = draft_catalog
         self.pins = PostgresSnapshotRegistryPinRepository(sessions, context)
         self.model_registry = ModelRegistry(PostgresModelRegistryRepository(sessions, context))
         self.policy_registry = GenericMetadataRegistry(
@@ -75,6 +76,8 @@ class PostgresLLMConfiguration:
                 and project.organization_id != self.context.user_context.organization_id
             ):
                 raise GatewayDenied("RESOURCE_NOT_FOUND")
+        if self.draft_catalog:
+            return
         with self.sessions() as s:
             snapshot = s.scalar(
                 select(b.AnalysisSnapshotEntity)
@@ -96,11 +99,15 @@ class PostgresLLMConfiguration:
                 raise GatewayDenied("RESOURCE_NOT_FOUND")
 
     def _saved(self, request, kind):
+        if self.draft_catalog:
+            return []
         return [
             p for p in self.pins.list_pins(request.analysis_snapshot_id) if p["pin_type"] == kind
         ]
 
     def _pin(self, request, kind, key, object_id, version_id, version):
+        if self.draft_catalog:
+            return
         self.pins.add_pin(
             analysis_snapshot_id=request.analysis_snapshot_id,
             pin_type=kind,
@@ -111,6 +118,12 @@ class PostgresLLMConfiguration:
         )
 
     def _as_of(self, request):
+        if self.draft_catalog:
+            return (
+                PostgresProjectRepository(self.sessions, self.context)
+                .read_intake(request.project_id)
+                .intake.analysis_as_of_date
+            )
         with self.sessions() as s:
             row = s.scalar(
                 select(b.AnalysisSnapshotEntity).where(
@@ -288,18 +301,25 @@ class PostgresLLMConfiguration:
                 deployment_class=version.deployment_type,
                 trust_level=version.trust_level,
                 data_boundary=version.data_boundary,
-                capabilities=tuple(frozen.get("capabilities", [c.capability for c in capabilities])),
+                capabilities=tuple(
+                    frozen.get("capabilities", [c.capability for c in capabilities])
+                ),
                 operations=tuple(frozen.get("operations", config.get("operations", ()))),
                 health_status="HEALTHY" if healthy else "UNKNOWN",
-                max_output_tokens=frozen.get("max_output_tokens", definition.max_output_tokens or 1),
-                embedding_dimension=frozen.get("embedding_dimension", next(
-                    (
-                        c.metadata_json.get("embedding_dimension")
-                        for c in capabilities
-                        if c.capability == "EMBEDDING"
+                max_output_tokens=frozen.get(
+                    "max_output_tokens", definition.max_output_tokens or 1
+                ),
+                embedding_dimension=frozen.get(
+                    "embedding_dimension",
+                    next(
+                        (
+                            c.metadata_json.get("embedding_dimension")
+                            for c in capabilities
+                            if c.capability == "EMBEDDING"
+                        ),
+                        None,
                     ),
-                    None,
-                )),
+                ),
                 priority=int(frozen.get("priority", config.get("routing_priority", 100))),
                 structured_output_format=frozen.get("structured_output_format", "json_schema"),
                 analysis_as_of_date=when,
@@ -346,7 +366,25 @@ class PostgresLLMConfiguration:
                     )
                 )
             )
-        return tuple(self._model(identity, when)[0] for identity in ids)
+        result = []
+        for identity in ids:
+            try:
+                result.append(self._model(identity, when)[0])
+            except GatewayDenied:
+                continue
+        return tuple(result)
+
+    def model_display_name(self, model):
+        with self.sessions() as s:
+            row = s.scalar(
+                select(m.ModelDeploymentEntity).where(
+                    m.ModelDeploymentEntity.tenant_id == self.tenant,
+                    m.ModelDeploymentEntity.model_deployment_id == str(model.deployment_id),
+                )
+            )
+            if row is None:
+                raise GatewayDenied("RESOURCE_NOT_FOUND")
+            return row.configuration_json.get("display_name", str(model.model_id))
 
     def pin_models(self, request, models):
         for model in models:
