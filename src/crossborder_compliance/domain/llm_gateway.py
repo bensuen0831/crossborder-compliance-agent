@@ -1,6 +1,6 @@
 """Provider-neutral foundation contracts. No legal decisions or credential values."""
 
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from enum import StrEnum
 from typing import Literal
 from uuid import UUID, uuid4
@@ -115,6 +115,8 @@ class ModelCandidate(Contract):
     max_output_tokens: int = Field(ge=1)
     embedding_dimension: int | None = Field(default=None, ge=1, le=16000)
     priority: int = 100
+    structured_output_format: Literal["json_schema", "json_object"] = "json_schema"
+    analysis_as_of_date: date | None = None
 
 
 class PolicyDecision(Contract):
@@ -174,6 +176,7 @@ class ProviderResult(Contract):
     ranked_indices: tuple[int, ...] = ()
     token_count: int | None = Field(default=None, ge=0)
     healthy: bool | None = None
+    discovered_models: tuple[str, ...] = ()
 
 
 class LLMResult(Contract):
@@ -218,5 +221,6 @@ class GatewayDenied(PermissionError):
 class ProviderFailure(RuntimeError):
     """Sanitized retryable transport failure; raw provider exceptions never escape."""
 
-    def __init__(self):
+    def __init__(self, code="ENDPOINT_UNREACHABLE"):
+        self.code = code
         super().__init__("MODEL_PROVIDER_UNAVAILABLE")

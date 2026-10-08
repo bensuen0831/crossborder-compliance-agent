@@ -269,6 +269,7 @@ class PostgresLLMConfiguration:
                 .limit(1)
             )
             config = dict(version.endpoint_config_json or {})
+            frozen = dict(deployment.configuration_json or {})
             ttl = float(config.get("health_ttl_seconds", 300))
             healthy = (
                 health
@@ -287,22 +288,24 @@ class PostgresLLMConfiguration:
                 deployment_class=version.deployment_type,
                 trust_level=version.trust_level,
                 data_boundary=version.data_boundary,
-                capabilities=tuple(c.capability for c in capabilities),
-                operations=tuple(config.get("operations", ())),
+                capabilities=tuple(frozen.get("capabilities", [c.capability for c in capabilities])),
+                operations=tuple(frozen.get("operations", config.get("operations", ()))),
                 health_status="HEALTHY" if healthy else "UNKNOWN",
-                max_output_tokens=definition.max_output_tokens or 1,
-                embedding_dimension=next(
+                max_output_tokens=frozen.get("max_output_tokens", definition.max_output_tokens or 1),
+                embedding_dimension=frozen.get("embedding_dimension", next(
                     (
                         c.metadata_json.get("embedding_dimension")
                         for c in capabilities
                         if c.capability == "EMBEDDING"
                     ),
                     None,
-                ),
-                priority=int(config.get("routing_priority", 100)),
+                )),
+                priority=int(frozen.get("priority", config.get("routing_priority", 100))),
+                structured_output_format=frozen.get("structured_output_format", "json_schema"),
+                analysis_as_of_date=when,
             )
             connection = ProviderConnection(
-                model_name=definition.model_id,
+                model_name=frozen.get("remote_model_name", definition.model_id),
                 endpoint=config,
                 secret_ref=version.secret_ref,
                 auth_type=version.auth_type,
@@ -423,7 +426,9 @@ class PostgresLLMConfiguration:
             raise GatewayDenied("MODEL_CONFIGURATION_CHANGED")
 
     def connection(self, model):
-        current, connection = self._model(model.deployment_id, datetime.now(UTC).date())
+        current, connection = self._model(
+            model.deployment_id, model.analysis_as_of_date or datetime.now(UTC).date()
+        )
         if current != model:
             raise GatewayDenied("MODEL_CONFIGURATION_CHANGED")
         return connection

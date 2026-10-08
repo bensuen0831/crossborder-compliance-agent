@@ -224,6 +224,7 @@ class ModelDeploymentEntity(TenantAuditMixin, EffectiveMixin, Base):
     deployment_ref: Mapped[str] = mapped_column(String(240), nullable=False)
     lifecycle_status: Mapped[str] = mapped_column(String(40), nullable=False, default="DRAFT")
     enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    configuration_json: Mapped[dict] = mapped_column(JSON, nullable=False, default=dict, server_default="{}")
 
 
 class ModelCapabilityEntity(TenantAuditMixin, Base):
