@@ -59,6 +59,7 @@ PATHS = frozenset(
         "frontend/scripts/m2d/uat.py",
         "frontend/scripts/m2a/uat.py",
         "frontend/e2e/m2d.spec.ts",
+        "frontend/vite.config.ts",
         ".github/workflows/m2d-human-review.yml",
     }
 )

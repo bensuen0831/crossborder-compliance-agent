@@ -12,6 +12,8 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom', setupFiles: ['./src/test/setup.ts'],
+    // Enterprise component assertions retain a bounded deadline on shared CI CPUs.
+    testTimeout: 15_000,
     include: ['src/**/*.test.{ts,tsx}'], css: true,
   },
   build: {
