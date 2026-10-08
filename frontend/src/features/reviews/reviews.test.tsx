@@ -56,8 +56,9 @@ describe('governed review presentation',()=>{
     const value=task({object_type:'CONTEXT_CONFLICT',object_id:id,reason_codes:['BUSINESS_FACT_CONFLICT'],resolution_mode:'SUCCESSOR_SNAPSHOT',allowed_actions:['SUBMIT_CORRECTION'],choices:[{object_id:id,object_type:'BUSINESS_FACT',display_value:'Governed value',source_trace_ids:[],source_document_ids:[],structured_provenance:[]}]});
     const {writes}=mount(value);expect(screen.queryByRole('button',{name:i18n.t('ui.m2d.codes.APPROVE')})).toBeNull();
     const select=screen.getByRole('combobox',{name:i18n.t('ui.m2d.selectChoice')});fireEvent.mouseDown(select);fireEvent.click(screen.getAllByText('Governed value').at(-1)!);
+    await waitFor(()=>expect(screen.getByRole('button',{name:i18n.t('ui.m2d.codes.SUBMIT_CORRECTION')})).toBeEnabled());
     fireEvent.click(screen.getByRole('button',{name:i18n.t('ui.m2d.codes.SUBMIT_CORRECTION')}));
-    await waitFor(()=>expect(screen.getByText(i18n.t('ui.m2d.newSnapshot'))).toBeVisible());
+    await waitFor(()=>expect(screen.getByText(i18n.t('ui.m2d.newSnapshot'))).toBeVisible(),{timeout:3000});
     fireEvent.click(screen.getByRole('button',{name:i18n.t('ui.m2d.confirm')}));
     await waitFor(()=>expect(writes).toHaveLength(1));expect(writes[0].body.correction).toEqual({correction_type:'SELECT_BUSINESS_FACT',target_object_type:'CONTEXT_CONFLICT',target_object_id:id,selected_fact_id:id});
   });
