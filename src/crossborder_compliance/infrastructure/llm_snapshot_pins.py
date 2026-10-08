@@ -177,6 +177,18 @@ def freeze_llm_configuration(sessions, context, intake, snapshot_id, *, source_s
     try:
         config.authorize(request)
         row, policy = _policy(config, intake.analysis_as_of_date)
+        fact_types = []
+        with sessions() as session:
+            for definition_id in policy.candidate_fact_type_ids:
+                definition = session.get(m.MetadataDefinitionEntity, str(definition_id))
+                version = session.get(m.MetadataVersionEntity, definition.active_version_id) if definition and definition.active_version_id else None
+                if (definition is None or version is None or definition.tenant_id != config.tenant
+                        or definition.kind != "BUSINESS_FACT_TYPE" or definition.status != "ACTIVE"
+                        or version.lifecycle_status != "ACTIVE" or not version.published_at
+                        or not version.approved_by or not config._effective(version, intake.analysis_as_of_date)
+                        or not set(version.payload_json.get("permission_scopes", ())) <= context.permission.scopes):
+                    raise GatewayDenied("CANDIDATE_FACT_TYPE_NOT_GOVERNED")
+                fact_types.append((definition, version))
         if len(preference.selected_model_ids) > policy.max_models:
             raise GatewayDenied("MODEL_SELECTION_LIMIT_EXCEEDED")
         prompts = _prompts(
@@ -205,6 +217,9 @@ def freeze_llm_configuration(sessions, context, intake, snapshot_id, *, source_s
                 model for model in eligible if model.model_id in preference.selected_model_ids
             )
         config.pin_models(request, eligible)
+        for definition, version in fact_types:
+            config._pin(request, "LLM_FACT_TYPE", definition.code, definition.definition_id,
+                        version.version_id, version.version_no)
         for purpose, prompt in prompts:
             config._pin(
                 request,

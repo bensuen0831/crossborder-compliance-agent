@@ -62,10 +62,13 @@ def selected(control, request):
         "owner",
         set(owner.permission.scopes) | {f"project:{intake.project_id}:read", "resource:read"},
     )
-    models, providers, calls = [], [], []
+    models, providers, calls, outputs = [], [], [], []
     with ExitStack() as stack:
         for names in (("A1", "A2"), ("B1", "B2")):
-            url, observed = stack.enter_context(local_provider(names))
+            box = [None]
+            outputs.append(box)
+            url, observed = stack.enter_context(local_provider(names, structured_response=
+                lambda payload, box=box: box[0](payload) if callable(box[0]) else box[0]))
             calls.append(observed)
             provider = publish(
                 sf,
@@ -212,6 +215,8 @@ def selected(control, request):
             models=models,
             service=GovernedLLMInvocationService(gateway, PostgresLLMInvocationGovernance(config)),
             chosen=chosen,
+            outputs=outputs,
+            store=store,
             facts=InvocationFacts(
                 trigger="DOCUMENT_SEMANTIC_EXTRACTION_REQUIRED",
                 purpose="DOCUMENT_CANDIDATE_EXTRACTION",

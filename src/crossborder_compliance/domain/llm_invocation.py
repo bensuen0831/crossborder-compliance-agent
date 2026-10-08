@@ -73,6 +73,8 @@ class LLMInvocationPolicy(Contract):
     version_id: UUID
     allowed_triggers: dict[LLMUsageMode, tuple[InvocationTrigger, ...]]
     max_models: int = Field(ge=2, le=16)
+    candidate_min_confidence: float = Field(default=0.9, ge=0, le=1)
+    candidate_fact_type_ids: tuple[UUID, ...] = Field(default=(), max_length=128)
 
 
 class InvocationFacts(Contract):
