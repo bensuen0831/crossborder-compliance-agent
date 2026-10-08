@@ -15,3 +15,6 @@ app.include_router(intake_router)
 
 from crossborder_compliance.interfaces.api.routes.intake_documents import router as intake_documents_router
 app.include_router(intake_documents_router)
+
+from crossborder_compliance.interfaces.api.routes.reviews import router as reviews_router
+app.include_router(reviews_router)
