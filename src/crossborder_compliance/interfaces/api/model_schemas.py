@@ -7,6 +7,7 @@ from uuid import UUID
 from pydantic import BaseModel, ConfigDict, Field
 
 from crossborder_compliance.domain.llm_gateway import ModelOperation
+from crossborder_compliance.domain.llm_invocation import InvocationPurpose
 from crossborder_compliance.domain.metadata import GovernanceStatus, ModelCapabilityCode
 from crossborder_compliance.domain.model_control import ControlCommand
 
@@ -93,3 +94,13 @@ class ModelTestRequest(ControlCommand):
 class EnabledView(AllowlistedModelView):
     enabled: bool
     record_version: int = Field(ge=1)
+
+
+class PromptInvocationBindingRequest(ControlCommand):
+    purpose: InvocationPurpose
+
+
+class PromptInvocationBindingView(AllowlistedModelView):
+    binding_id: UUID
+    prompt_version_id: UUID
+    purpose: InvocationPurpose

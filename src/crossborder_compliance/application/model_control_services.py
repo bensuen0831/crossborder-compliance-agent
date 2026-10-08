@@ -31,6 +31,10 @@ class ModelControlService:
         self.policy.require(self.context, "metadata:admin")
         return self.repository.list_models(provider_id)
 
+    def bind_invocation_prompt(self, version_id, purpose):
+        self.policy.require(self.context, "metadata:publish")
+        return self.repository.bind_invocation_prompt(version_id, purpose)
+
     def save_model(self, provider_id, request):
         self.policy.require(self.context, "metadata:admin")
         return self.repository.save_model(provider_id, request)

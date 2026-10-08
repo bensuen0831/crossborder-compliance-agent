@@ -69,7 +69,9 @@ app.include_router(knowledge_router)
 app.include_router(retrieval_router)
 
 from crossborder_compliance.interfaces.api.routes.model_providers import router as model_providers_router
+from crossborder_compliance.interfaces.api.routes.model_providers import bindings_router
 from crossborder_compliance.interfaces.api.routes.llm_models import router as llm_models_router
 
 app.include_router(model_providers_router)
+app.include_router(bindings_router)
 app.include_router(llm_models_router)

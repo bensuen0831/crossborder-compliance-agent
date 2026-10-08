@@ -57,6 +57,21 @@ def upgrade():
     op.execute("DROP TRIGGER IF EXISTS phase1kb_provider_immutable ON model_provider_versions")
     op.execute("""CREATE TRIGGER phase1kb_provider_immutable BEFORE UPDATE ON model_provider_versions
         FOR EACH ROW EXECUTE FUNCTION phase1kb_provider_configuration_immutable()""")
+    op.execute("""CREATE OR REPLACE FUNCTION phase1kb_policy_configuration_immutable()
+        RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN
+        IF OLD.lifecycle_status NOT IN ('DRAFT','PENDING_REVIEW') AND EXISTS(
+          SELECT 1 FROM metadata_definitions d WHERE d.definition_id=OLD.definition_id
+          AND d.tenant_id=OLD.tenant_id AND d.kind IN ('LLM_INVOCATION_POLICY','MODEL_USAGE_POLICY'))
+          AND (NEW.payload_json::jsonb IS DISTINCT FROM OLD.payload_json::jsonb
+          OR NEW.definition_id IS DISTINCT FROM OLD.definition_id
+          OR NEW.version_no IS DISTINCT FROM OLD.version_no
+          OR NEW.effective_from IS DISTINCT FROM OLD.effective_from
+          OR NEW.effective_to IS DISTINCT FROM OLD.effective_to) THEN
+          RAISE EXCEPTION 'immutable LLM policy configuration'; END IF;
+        RETURN NEW; END $$""")
+    op.execute("DROP TRIGGER IF EXISTS phase1kb_policy_immutable ON metadata_versions")
+    op.execute("""CREATE TRIGGER phase1kb_policy_immutable BEFORE UPDATE ON metadata_versions
+        FOR EACH ROW EXECUTE FUNCTION phase1kb_policy_configuration_immutable()""")
 
 
 def downgrade():
@@ -68,4 +83,6 @@ def downgrade():
     op.execute("DROP FUNCTION phase1kb_model_configuration_immutable()")
     op.execute("DROP TRIGGER IF EXISTS phase1kb_provider_immutable ON model_provider_versions")
     op.execute("DROP FUNCTION phase1kb_provider_configuration_immutable()")
+    op.execute("DROP TRIGGER IF EXISTS phase1kb_policy_immutable ON metadata_versions")
+    op.execute("DROP FUNCTION phase1kb_policy_configuration_immutable()")
     op.drop_column("model_deployments", "configuration_json")

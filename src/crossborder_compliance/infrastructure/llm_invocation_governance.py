@@ -22,22 +22,14 @@ class PostgresLLMInvocationGovernance:
             raise GatewayDenied("LLM_CAPABILITY_NOT_CONFIGURED")
         with config.sessions() as s:
             intake = s.scalar(
-                select(b.ProjectVersionEntity)
-                .join(
-                    b.AnalysisSnapshotEntity,
-                    b.AnalysisSnapshotEntity.project_version_id
-                    == b.ProjectVersionEntity.project_version_id,
-                )
-                .where(
-                    b.AnalysisSnapshotEntity.analysis_snapshot_id
-                    == str(request.analysis_snapshot_id),
-                    b.AnalysisSnapshotEntity.tenant_id == config.tenant,
+                select(b.ProjectVersionEntity).where(
+                    b.ProjectVersionEntity.project_version_id == selection[0]["version_id"],
                     b.ProjectVersionEntity.tenant_id == config.tenant,
                     b.ProjectVersionEntity.project_id == str(request.project_id),
                     b.ProjectVersionEntity.status.in_(("CONFIRMED", "SUPERSEDED")),
                 )
             )
-            if intake is None or selection[0]["version_id"] != intake.project_version_id:
+            if intake is None or selection[0]["object_id"] != str(request.project_id):
                 raise GatewayDenied("RESOURCE_NOT_FOUND")
             pin = policies[0]
             row = s.scalar(

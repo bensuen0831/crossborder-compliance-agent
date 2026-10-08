@@ -52,7 +52,7 @@ def project_context(sessions, context, project_id):
         permission=replace(
             context.permission,
             scopes=context.permission.scopes
-            | {f"project:{project_id}:comply", f"project:{project_id}:classify"},
+            | {f"project:{project_id}:comply", f"project:{project_id}:classify", f"project:{project_id}:read"},
         ),
     )
 
@@ -65,6 +65,8 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id, *, source_s
     )
 
     validate_references(sessions, context, intake, snapshot_id)
+    from crossborder_compliance.infrastructure.llm_snapshot_pins import freeze_llm_configuration
+    freeze_llm_configuration(sessions, context, intake, snapshot_id, source_snapshot_id=source_snapshot_id)
     from crossborder_compliance.infrastructure.persistence.document_snapshot_inputs import pin_intake_document_inputs
     parse_run_ids = pin_intake_document_inputs(sessions, context, project_id, snapshot_id, source_snapshot_id=source_snapshot_id)
     repo = PostgresContextResolutionRepository(sessions, context, parse_run_ids=parse_run_ids)

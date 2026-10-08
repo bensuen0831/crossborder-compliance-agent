@@ -159,6 +159,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/prompts/versions/{version_id}/llm-invocation-binding": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Bind Invocation Prompt */
+        post: operations["bind_invocation_prompt_api_v1_admin_prompts_versions__version_id__llm_invocation_binding_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/projects/{project_id}/eligible-models": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Eligible Models */
+        get: operations["eligible_models_api_v1_projects__project_id__eligible_models_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -175,6 +209,51 @@ export interface components {
             target_status: components["schemas"]["GovernanceStatus"];
             /** Expected Record Version */
             expected_record_version: number;
+        };
+        /** EligibleModel */
+        EligibleModel: {
+            /**
+             * Model Id
+             * Format: uuid
+             */
+            model_id: string;
+            /**
+             * Deployment Id
+             * Format: uuid
+             */
+            deployment_id: string;
+            /**
+             * Provider Id
+             * Format: uuid
+             */
+            provider_id: string;
+            /**
+             * Provider Version Id
+             * Format: uuid
+             */
+            provider_version_id: string;
+            /** Display Name */
+            display_name: string;
+            /** Capabilities */
+            capabilities: string[];
+            /** Operations */
+            operations: components["schemas"]["ModelOperation"][];
+            /** Health Status */
+            health_status: string;
+        };
+        /** EligibleModelCatalog */
+        EligibleModelCatalog: {
+            /**
+             * Project Id
+             * Format: uuid
+             */
+            project_id: string;
+            /** Eligible Models */
+            eligible_models: components["schemas"]["EligibleModel"][];
+            /** Status */
+            status: string;
+            /** Reason Code */
+            reason_code?: string | null;
         };
         /** EnabledView */
         EnabledView: {
@@ -193,6 +272,11 @@ export interface components {
             /** Detail */
             detail?: components["schemas"]["ValidationError"][];
         };
+        /**
+         * InvocationPurpose
+         * @enum {string}
+         */
+        InvocationPurpose: "DOCUMENT_CANDIDATE_EXTRACTION" | "QUERY_EXPANSION" | "DERIVED_EXPLANATION";
         /**
          * ModelCapabilityCode
          * @enum {string}
@@ -309,6 +393,24 @@ export interface components {
             model_record_version: number;
             /** Health Status */
             health_status: string;
+        };
+        /** PromptInvocationBindingRequest */
+        PromptInvocationBindingRequest: {
+            purpose: components["schemas"]["InvocationPurpose"];
+        };
+        /** PromptInvocationBindingView */
+        PromptInvocationBindingView: {
+            /**
+             * Binding Id
+             * Format: uuid
+             */
+            binding_id: string;
+            /**
+             * Prompt Version Id
+             * Format: uuid
+             */
+            prompt_version_id: string;
+            purpose: components["schemas"]["InvocationPurpose"];
         };
         /** ProviderDraft */
         ProviderDraft: {
@@ -806,6 +908,72 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ProviderTestResult"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    bind_invocation_prompt_api_v1_admin_prompts_versions__version_id__llm_invocation_binding_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                version_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PromptInvocationBindingRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PromptInvocationBindingView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    eligible_models_api_v1_projects__project_id__eligible_models_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EligibleModelCatalog"];
                 };
             };
             /** @description Validation Error */

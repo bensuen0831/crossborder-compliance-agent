@@ -4,6 +4,7 @@ from enum import StrEnum
 from typing import Any, Literal
 from uuid import UUID, uuid4
 from pydantic import BaseModel, ConfigDict, Field, HttpUrl, model_validator
+from crossborder_compliance.domain.llm_invocation import AIModelPreference
 
 class ChannelType(StrEnum): WEB="WEB"; VSCODE="VSCODE"; THIRD_PARTY_API="THIRD_PARTY_API"
 class AnalysisStatus(StrEnum): QUEUED="QUEUED"; RUNNING="RUNNING"; REVIEW_REQUIRED="REVIEW_REQUIRED"; COMPLETED="COMPLETED"; PARTIAL_COMPLETED="PARTIAL_COMPLETED"; FAILED="FAILED"; CANCELLED="CANCELLED"
@@ -58,6 +59,7 @@ class ProjectIntakeContext(ContractDTO):
     data_flow_description: str|None=None; data_categories: list[str]=Field(default_factory=list); data_volume: str|None=None
     business_purpose: str|None=None; organizations: list[str]=Field(default_factory=list); third_parties: list[str]=Field(default_factory=list)
     uploaded_documents: list[str]=Field(default_factory=list); requested_outputs: list[str]=Field(default_factory=list); analysis_as_of_date: date
+    ai_model_preference: AIModelPreference = Field(default_factory=AIModelPreference)
 
 class ChannelContext(ContractDTO):
     channel_type: ChannelType; channel_instance_id: str|None=None; client_id: str|None=None; user_id: str|None=None

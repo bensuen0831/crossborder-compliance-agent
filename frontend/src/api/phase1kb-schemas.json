@@ -509,6 +509,102 @@
           }
         }
       }
+    },
+    "/api/v1/admin/prompts/versions/{version_id}/llm-invocation-binding": {
+      "post": {
+        "tags": [
+          "model-control"
+        ],
+        "summary": "Bind Invocation Prompt",
+        "operationId": "bind_invocation_prompt_api_v1_admin_prompts_versions__version_id__llm_invocation_binding_post",
+        "parameters": [
+          {
+            "name": "version_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Version Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PromptInvocationBindingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromptInvocationBindingView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{project_id}/eligible-models": {
+      "get": {
+        "tags": [
+          "eligible-models"
+        ],
+        "summary": "Eligible Models",
+        "operationId": "eligible_models_api_v1_projects__project_id__eligible_models_get",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EligibleModelCatalog"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -551,6 +647,104 @@
           "expected_record_version"
         ],
         "title": "ControlTransition"
+      },
+      "EligibleModel": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Model Id"
+          },
+          "deployment_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Deployment Id"
+          },
+          "provider_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Provider Id"
+          },
+          "provider_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Provider Version Id"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "capabilities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Capabilities"
+          },
+          "operations": {
+            "items": {
+              "$ref": "#/components/schemas/ModelOperation"
+            },
+            "type": "array",
+            "title": "Operations"
+          },
+          "health_status": {
+            "type": "string",
+            "title": "Health Status"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model_id",
+          "deployment_id",
+          "provider_id",
+          "provider_version_id",
+          "display_name",
+          "capabilities",
+          "operations",
+          "health_status"
+        ],
+        "title": "EligibleModel"
+      },
+      "EligibleModelCatalog": {
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Project Id"
+          },
+          "eligible_models": {
+            "items": {
+              "$ref": "#/components/schemas/EligibleModel"
+            },
+            "type": "array",
+            "title": "Eligible Models"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "reason_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason Code"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "project_id",
+          "eligible_models",
+          "status"
+        ],
+        "title": "EligibleModelCatalog"
       },
       "EnabledView": {
         "properties": {
@@ -597,6 +791,15 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "InvocationPurpose": {
+        "type": "string",
+        "enum": [
+          "DOCUMENT_CANDIDATE_EXTRACTION",
+          "QUERY_EXPANSION",
+          "DERIVED_EXPLANATION"
+        ],
+        "title": "InvocationPurpose"
       },
       "ModelCapabilityCode": {
         "type": "string",
@@ -895,6 +1098,44 @@
           "health_status"
         ],
         "title": "ModelView"
+      },
+      "PromptInvocationBindingRequest": {
+        "properties": {
+          "purpose": {
+            "$ref": "#/components/schemas/InvocationPurpose"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "purpose"
+        ],
+        "title": "PromptInvocationBindingRequest"
+      },
+      "PromptInvocationBindingView": {
+        "properties": {
+          "binding_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Binding Id"
+          },
+          "prompt_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Prompt Version Id"
+          },
+          "purpose": {
+            "$ref": "#/components/schemas/InvocationPurpose"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "binding_id",
+          "prompt_version_id",
+          "purpose"
+        ],
+        "title": "PromptInvocationBindingView"
       },
       "ProviderDraft": {
         "properties": {

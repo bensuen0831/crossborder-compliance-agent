@@ -10,6 +10,7 @@ from crossborder_compliance.application.llm_model_catalog import (
     ModelCatalogQuery,
 )
 from crossborder_compliance.domain.security import RepositoryContext
+from crossborder_compliance.infrastructure.intake_composition import project_context
 from crossborder_compliance.infrastructure.llm_model_catalog_composition import model_catalog
 from crossborder_compliance.interfaces.api.dependencies import get_repository_context
 from crossborder_compliance.interfaces.api.routes.workflow import sessions
@@ -24,6 +25,14 @@ def eligible_models(
     context: Annotated[RepositoryContext, Depends(get_repository_context)],
 ):
     try:
+        context = project_context(sessions(request), context, project_id)
+        if not context.permission.system and "llm:invoke" not in context.permission.scopes:
+            return EligibleModelCatalog(
+                project_id=project_id,
+                eligible_models=(),
+                status="CAPABILITY_NOT_CONFIGURED",
+                reason_code="LLM_PERMISSION_NOT_CONFIGURED",
+            )
         return model_catalog(sessions(request), context).read(
             ModelCatalogQuery(project_id=project_id)
         )

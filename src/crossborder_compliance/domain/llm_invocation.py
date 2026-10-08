@@ -47,7 +47,7 @@ class InvocationPurpose(StrEnum):
 class AIModelPreference(Contract):
     usage_mode: LLMUsageMode = LLMUsageMode.STANDARD
     selection_mode: ModelSelectionMode = ModelSelectionMode.AUTO
-    selected_model_ids: tuple[UUID, ...] = ()
+    selected_model_ids: tuple[UUID, ...] = Field(default=(), max_length=16)
 
     @model_validator(mode="after")
     def cardinality(self):

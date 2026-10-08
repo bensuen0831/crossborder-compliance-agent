@@ -45,9 +45,10 @@ class ProviderConnection:
 
 
 class PostgresLLMConfiguration:
-    def __init__(self, sessions, context, *, draft_catalog=False):
+    def __init__(self, sessions, context, *, draft_catalog=False, frozen_snapshot=False):
         self.sessions, self.context = sessions, context
         self.draft_catalog = draft_catalog
+        self.frozen_snapshot = frozen_snapshot
         self.pins = PostgresSnapshotRegistryPinRepository(sessions, context)
         self.model_registry = ModelRegistry(PostgresModelRegistryRepository(sessions, context))
         self.policy_registry = GenericMetadataRegistry(
@@ -108,6 +109,17 @@ class PostgresLLMConfiguration:
     def _pin(self, request, kind, key, object_id, version_id, version):
         if self.draft_catalog:
             return
+        if self.frozen_snapshot:
+            existing = next(
+                (pin for pin in self._saved(request, kind) if pin["logical_key"] == key), None
+            )
+            if existing is None or (
+                existing["object_id"],
+                existing["version_id"],
+                existing["version_no"],
+            ) != (str(object_id), str(version_id), version):
+                raise GatewayDenied("LLM_SNAPSHOT_PIN_REQUIRED")
+            return
         self.pins.add_pin(
             analysis_snapshot_id=request.analysis_snapshot_id,
             pin_type=kind,
@@ -145,6 +157,8 @@ class PostgresLLMConfiguration:
     def policies(self, request):
         self.authorize(request)
         saved = self._saved(request, "LLM_USAGE_POLICY")
+        if self.frozen_snapshot and len(saved) != 2:
+            raise GatewayDenied("MODEL_POLICY_REQUIRED")
         self.policy_registry.refresh()
         active = self.policy_registry.list()
         policies = []
@@ -343,6 +357,8 @@ class PostgresLLMConfiguration:
             if p["logical_key"].startswith(request.operation.value + ":")
         ]
         when = self._as_of(request)
+        if self.frozen_snapshot and not saved:
+            raise GatewayDenied("LLM_SNAPSHOT_PIN_REQUIRED")
         if saved:
             result = []
             for pin in saved:
@@ -436,6 +452,8 @@ class PostgresLLMConfiguration:
                     raise GatewayDenied("RESOURCE_NOT_FOUND")
                 self._prompt_capabilities(request, version.capability_requirement_json)
                 return version.template_text
+        if self.frozen_snapshot:
+            raise GatewayDenied("LLM_PROMPT_PIN_REQUIRED")
         self.prompt_registry.refresh()
         row = self.prompt_registry.get(request.prompt_id)
         if row is None:

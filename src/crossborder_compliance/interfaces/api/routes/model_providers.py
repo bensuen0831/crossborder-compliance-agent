@@ -25,6 +25,8 @@ from crossborder_compliance.interfaces.api.model_schemas import (
     ModelListView,
     ModelTestRequest,
     ModelView,
+    PromptInvocationBindingRequest,
+    PromptInvocationBindingView,
     ProviderListView,
     ProviderTestResult,
     ProviderVersionView,
@@ -50,6 +52,18 @@ router = APIRouter(
     prefix="/api/v1/admin/model-providers", tags=["model-control"], route_class=WriteOnlySecretRoute
 )
 Context = Annotated[RepositoryContext, Depends(get_repository_context)]
+bindings_router = APIRouter(
+    prefix="/api/v1/admin/prompts", tags=["model-control"], route_class=WriteOnlySecretRoute
+)
+
+
+@bindings_router.post(
+    "/versions/{version_id}/llm-invocation-binding", response_model=PromptInvocationBindingView
+)
+def bind_invocation_prompt(
+    version_id: UUID, body: PromptInvocationBindingRequest, request: Request, context: Context
+):
+    return call(request, context, "bind_invocation_prompt", version_id, body.purpose)
 
 
 def call(request, context, operation, *args, inspection=False):

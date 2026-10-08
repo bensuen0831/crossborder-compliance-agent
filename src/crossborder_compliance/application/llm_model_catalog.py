@@ -10,14 +10,19 @@ from crossborder_compliance.application.llm_gateway_policy import (
 )
 from crossborder_compliance.domain.knowledge import Contract
 from crossborder_compliance.domain.llm_gateway import GatewayDenied, ModelOperation
+from crossborder_compliance.domain.metadata import ModelCapabilityCode
 
 
 class ModelCatalogQuery(Contract):
     project_id: UUID
     operation: ModelOperation = ModelOperation.STRUCTURED_OUTPUT
-    required_capabilities: tuple = ()
+    required_capabilities: tuple[ModelCapabilityCode, ...] = ()
     max_output_tokens: int = Field(default=512, ge=1, le=65536)
     selected_model_id: UUID | None = None
+
+
+class SnapshotModelConfigurationQuery(ModelCatalogQuery):
+    analysis_snapshot_id: UUID
 
 
 class EligibleModel(Contract):

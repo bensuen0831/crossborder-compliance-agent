@@ -45,6 +45,15 @@ class PostgresModelControlRepository:
                 self._expected(row, expected)
             return row
 
+    def bind_invocation_prompt(self, version_id, purpose):
+        from crossborder_compliance.infrastructure.persistence.config_admin_repositories import (
+            PostgresGovernedArtifactAdminRepository,
+        )
+
+        return PostgresGovernedArtifactAdminRepository(
+            self.sessions, self.context, "prompts"
+        ).bind_llm_invocation(version_id, purpose)
+
     def probe_connection(self, provider_version_id):
         self.policy.require(self.context, "metadata:admin")
         with self.sessions() as s:

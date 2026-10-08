@@ -146,6 +146,18 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AIModelPreference */
+        AIModelPreference: {
+            /** @default STANDARD */
+            usage_mode: components["schemas"]["LLMUsageMode"];
+            /** @default AUTO */
+            selection_mode: components["schemas"]["ModelSelectionMode"];
+            /**
+             * Selected Model Ids
+             * @default []
+             */
+            selected_model_ids: string[];
+        };
         /** Body_upload_api_v1_projects__project_id__intake_documents_post */
         Body_upload_api_v1_projects__project_id__intake_documents_post: {
             /** File */
@@ -319,6 +331,7 @@ export interface components {
              * Format: date
              */
             analysis_as_of_date: string;
+            ai_model_preference?: components["schemas"]["AIModelPreference"];
         };
         /** IntakeView */
         IntakeView: {
@@ -347,6 +360,16 @@ export interface components {
             /** Retrieval Policy Id */
             retrieval_policy_id?: string | null;
         };
+        /**
+         * LLMUsageMode
+         * @enum {string}
+         */
+        LLMUsageMode: "MINIMAL" | "STANDARD" | "ENHANCED";
+        /**
+         * ModelSelectionMode
+         * @enum {string}
+         */
+        ModelSelectionMode: "AUTO" | "SINGLE" | "MULTI_MODEL";
         /** ProjectIntakeContext */
         ProjectIntakeContext: {
             /**
@@ -413,6 +436,7 @@ export interface components {
              * Format: date
              */
             analysis_as_of_date: string;
+            ai_model_preference?: components["schemas"]["AIModelPreference"];
         };
         /** ProvenanceDTO */
         ProvenanceDTO: {
