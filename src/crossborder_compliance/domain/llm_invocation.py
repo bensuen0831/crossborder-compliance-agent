@@ -9,6 +9,10 @@ from pydantic import Field, model_validator
 from crossborder_compliance.domain.knowledge import Contract
 from crossborder_compliance.domain.llm_gateway import LLMResult
 
+LLM_METADATA_KINDS = frozenset(
+    {"LLM_INVOCATION_POLICY", "MODEL_USAGE_POLICY", "LLM_PROVIDER_PRESET"}
+)
+
 
 class LLMUsageMode(StrEnum):
     MINIMAL = "MINIMAL"

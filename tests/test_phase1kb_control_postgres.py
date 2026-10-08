@@ -134,6 +134,21 @@ def test_secret_rotation_append_version_preserves_old_reference(control):
         assert store.resolve(newer.secret_ref) == "second-key"
 
 
+def test_editing_unpublished_provider_retains_write_only_secret(control):
+    sf, tenant, repo, store, service = control
+    first = service.save_provider(provider_request(credential="draft-only-key"))
+    provider = repo.require_provider(UUID(first["provider_id"]))
+    second = service.save_provider(
+        provider_request(
+            provider_id=provider.provider_id, expected_record_version=provider.record_version
+        )
+    )
+    assert second["secret_configured"]
+    with sf() as s:
+        row = s.get(m.ModelProviderVersionEntity, second["provider_version_id"])
+        assert store.resolve(row.secret_ref) == "draft-only-key"
+
+
 def test_current_authorization_and_cross_tenant_fail_closed(control):
     sf, tenant, repo, store, service = control
     provider = service.save_provider(provider_request())

@@ -22,6 +22,9 @@ class TenantRegistryProvider:
     """
 
     _GENERIC_KIND = {
+        "llm-invocation-policies": "LLM_INVOCATION_POLICY",
+        "model-usage-policies": "MODEL_USAGE_POLICY",
+        "llm-provider-presets": "LLM_PROVIDER_PRESET",
         "scenarios": "SCENARIO",
         "products": "PRODUCT",
         "data-types": "DATA_TYPE",

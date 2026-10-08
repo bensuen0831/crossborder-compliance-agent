@@ -9,7 +9,10 @@ export const resources: readonly Resource[] = [
   { key: 'knowledge-versions', label: "ui.knowledgeOperations", group: "ui.knowledgeGroup", family: 'knowledge', fields: [] },
   { key: 'templates', label: "ui.templates", group: "ui.configurationGroup", family: 'metadata', fields: [{ name: 'content_ref', label: "ui.contentRef", type: 'text' }, { name: 'field_schema', label: "ui.fieldSchema", type: 'json' }] },
   { key: 'prompts', label: "ui.prompts", group: "ui.configurationGroup", family: 'metadata', fields: [{ name: 'template_text', label: "ui.promptTemplate", type: 'text' }, { name: 'capability_requirement', label: "ui.capabilityRequirements", type: 'json' }] },
-  { key: 'models', label: "ui.models", group: "ui.configurationGroup", family: 'metadata', fields: [payload] },
+  { key: 'models', label: "ui.phase1kb.providers", group: "ui.configurationGroup", family: 'metadata', fields: [payload] },
+  { key: 'llm-provider-presets', label: "ui.phase1kb.presets", group: "ui.configurationGroup", family: 'metadata', registry: 'llm-provider-presets', fields: [payload] },
+  { key: 'llm-invocation-policies', label: "ui.phase1kb.invocationPolicy", group: "ui.configurationGroup", family: 'metadata', registry: 'llm-invocation-policies', fields: [payload] },
+  { key: 'model-usage-policies', label: "ui.phase1kb.usagePolicy", group: "ui.configurationGroup", family: 'metadata', registry: 'model-usage-policies', fields: [payload] },
   { key: 'rules', label: "ui.rules", group: "ui.configurationGroup", family: 'metadata', fields: [] },
   ...[
     ['product-domains', "ui.productDomains"], ['regulations', "ui.regulations"],

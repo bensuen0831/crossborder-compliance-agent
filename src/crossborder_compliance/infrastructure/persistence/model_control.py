@@ -145,7 +145,15 @@ class PostgresModelControlRepository:
                 prior = (
                     s.get(m.ModelProviderVersionEntity, row.active_version_id)
                     if row.active_version_id
-                    else None
+                    else s.scalar(
+                        select(m.ModelProviderVersionEntity)
+                        .where(
+                            m.ModelProviderVersionEntity.provider_id == row.provider_id,
+                            m.ModelProviderVersionEntity.tenant_id == self.tenant,
+                        )
+                        .order_by(m.ModelProviderVersionEntity.version_no.desc())
+                        .limit(1)
+                    )
                 )
                 if secret_ref is None and prior:
                     secret_ref = prior.secret_ref

@@ -36,6 +36,9 @@ from crossborder_compliance.interfaces.api.dependencies import get_repository_co
 router = APIRouter(prefix="/api/v1/admin", tags=["admin-metadata"])
 
 _GENERIC_KINDS = {
+    "llm-invocation-policies": "LLM_INVOCATION_POLICY",
+    "model-usage-policies": "MODEL_USAGE_POLICY",
+    "llm-provider-presets": "LLM_PROVIDER_PRESET",
     "scenarios": "SCENARIO",
     "products": "PRODUCT",
     "skills": "SKILL",
@@ -58,6 +61,9 @@ _GOVERNED_ARTIFACTS = {
     "knowledge-collections",
 }
 _ALL_RESOURCES = (
+    "llm-invocation-policies",
+    "model-usage-policies",
+    "llm-provider-presets",
     "jurisdictions",
     "scenarios",
     "products",
