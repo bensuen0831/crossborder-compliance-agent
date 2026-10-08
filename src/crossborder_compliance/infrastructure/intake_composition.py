@@ -57,7 +57,7 @@ def project_context(sessions, context, project_id):
     )
 
 
-def prepare_snapshot(sessions, context, intake, snapshot_id, run_id):
+def prepare_snapshot(sessions, context, intake, snapshot_id, run_id, *, source_snapshot_id=None, detected_product_scope=(), product_source_trace_ids=(), requirement_confirmation=False):
     project_id = intake.project_id
     context = project_context(sessions, context, project_id)
     from crossborder_compliance.infrastructure.persistence.structured_intake import (
@@ -66,7 +66,7 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id):
 
     validate_references(sessions, context, intake, snapshot_id)
     from crossborder_compliance.infrastructure.persistence.document_snapshot_inputs import pin_intake_document_inputs
-    parse_run_ids = pin_intake_document_inputs(sessions, context, project_id, snapshot_id)
+    parse_run_ids = pin_intake_document_inputs(sessions, context, project_id, snapshot_id, source_snapshot_id=source_snapshot_id)
     repo = PostgresContextResolutionRepository(sessions, context, parse_run_ids=parse_run_ids)
     locations = {
         kind: values
@@ -84,6 +84,8 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id):
     result = ContextResolutionService(repo).run(
         project_id,
         confirmed_intake_version_id=intake_version_id,
+        detected_product_scope=detected_product_scope,
+        product_source_trace_ids=product_source_trace_ids,
         structured_snapshot_id=snapshot_id,
         selected_product_scope=tuple(
             UUID(x) for x in intake.selected_product_domains + intake.selected_products
@@ -190,6 +192,7 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id):
         subject_id = item_ids[0] if item_ids else UUID(intake.business_scenario)
         plan = FormalWorkflowPlan(
             tenant_id=context.tenant_id,
+            requirement_review=requirement_confirmation,
             project_id=project_id,
             analysis_snapshot_id=snapshot_id,
             request_context_ref=uuid5(snapshot_id, "request-context"),
@@ -231,8 +234,8 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id):
         )
 
 
-def intake_service(sessions, context):
-    return ProjectIntakeService(PostgresProjectRepository(sessions, context), prepare_snapshot)
+def intake_service(sessions, context, snapshot_preparer=None):
+    return ProjectIntakeService(PostgresProjectRepository(sessions, context), snapshot_preparer or prepare_snapshot)
 
 
 def intake_workflow_host(sessions, context, project_id, snapshot_id):

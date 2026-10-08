@@ -91,7 +91,7 @@ def overlay(root):
         now = {str(p.relative_to(root)) for p in (root / "alembic/versions").glob("*.py")}
         valid = (
             valid
-            and now == old | {MIGRATION} | (document_migrations if document_paths else set()) | ({authority_migration} if authority_paths else set())
+            and now == old | {MIGRATION} | (document_migrations if document_paths else set()) | ({authority_migration} if authority_paths else set()) | {p for p in authority_paths if p.startswith("alembic/versions/")}
             and all((root / p).read_bytes() == git("show", BASE + ":" + p) for p in old)
         )
         protected = ["ARCHITECTURE_RULES.md", "frontend/package.json", "frontend/package-lock.json"]
@@ -165,7 +165,7 @@ def owned_delta(root):
     # Delivery evidence is subsequent to tested source; cannot approve code.
     paths.update(
         str(p.relative_to(root))
-        for prefix in ("docs/m2a", "evidence/m2a", "docs/m2b", "evidence/m2b", "docs/m2c", "evidence/m2c")
+        for prefix in ("docs/m2a", "evidence/m2a", "docs/m2b", "evidence/m2b", "docs/m2c", "evidence/m2c", "docs/m2d", "evidence/m2d")
         for p in (Path(root) / prefix).rglob("*")
         if p.is_file()
     )

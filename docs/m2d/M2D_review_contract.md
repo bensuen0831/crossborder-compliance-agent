@@ -1,0 +1,18 @@
+# D0 canonical review contract
+
+Baseline `0dc005e583465a4604a5d40a369cb5fc2f0ccbef`, annotated `v3.6-m2c-pass`, Alembic0014. D0 inventories canonical sources; no new ReviewTask, BusinessFact, Snapshot or runtime authority is permitted.
+
+1. ReviewTask persistence has review/run/thread/tenant IDs, type/object/reason, status, idempotency key, decision summary, record_version, creation/update/resolution timestamps. DTO additionally declares evidence_ids and required_role; these are not presently persisted.
+2. ReviewDecisionEntity is the canonical history schema; runtime currently never inserts into it. D2 must append immutable decisions and keep decision_json only as a compatibility summary.
+3. RuntimeRepository.resolve_review currently treats REQUEST_CHANGES as REJECTED. D2 must leave PENDING/unresolved; reject must not resume or become runtime FAILED.
+4. Existing types are WORKFLOW_STAGE_REVIEW, CONTEXT_RESOLUTION_REVIEW and PHASE1A_SMOKE_REVIEW. Smoke authority remains isolated and unchanged. Legacy graph remains capability-limited/read-only in the new product boundary.
+5. Only the explicit requirement-confirmation application boundary accepts same-snapshot human approval: it re-executes the owner with a persisted approved review ref. H/I/J/C0 results remain immutable and no approval clears their flags.
+6. Fact/product/jurisdiction conflict, insufficient evidence, unknown facts, unconfigured capability and formal legal result review cannot be bypassed with APPROVE.
+7. Fact, product, party, inventory, flow, jurisdiction, intake or document changes require new owning input versions and a successor snapshot; comments are never input commands.
+8. Successor construction must reuse ProjectVersion, DocumentVersion/ParseRun pins, E context resolution, H/F/I/J/C0 pin owners and canonical START. Preserve analysis_as_of_date. Re-run the whole formal workflow, never graph-jump or copy results. The existing document supersede command preserves exact document links, but normal confirmation selects current parse/config versions; D3 requires an explicit source-pin-aware owner extension before it can be used for review.
+9. No review-to-successor lineage model exists. Add typed relational lineage references, not a generic result JSON store.
+10. Migration0015 is needed for persisted structured review refs/role/mode, append-only idempotent decision audit and successor lineage. Frozen0001–0014 unchanged; existing authorities are extended.
+11. Runtime.resume accepts ReviewDecisionDTO, internally derives thread_id from run, revalidates current authorization, durable-interrupt resumes, resolves review and re-executes the owning stage. Its reject path currently routes FAILED; new API must never send rejection/request-changes into resume.
+12. No dependency-aware partial re-execution contract exists. D3/D4 select complete canonical re-execution for input changes; same-snapshot approval re-executes the interrupted owner.
+
+D0 design decision: use a new typed, forward-only context-owner selection command. It may choose only an immutable value/candidate in the source pinned conflict; it must append new formal context versions and preserve all source choices/provenance. Never call the mutable legacy resolve_conflict command on pinned S1. Successor input version and lineage are atomic; use existing confirmation/pin owners with an explicit source document/parse universe, preserved analysis date and governed config pins. No result is copied. This additive owner contract, migration0015 and complete rerun are within the approved M2-D scope. Unknown/unsupported targets remain capability unavailable rather than generic JSON writes. D0 CONTRACT REVIEW = PASS (design gate only; empirical D3/D4 gates remain mandatory).

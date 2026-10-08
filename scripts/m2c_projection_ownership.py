@@ -77,7 +77,9 @@ def overlay(root):
                 == 0
             )
 
-        valid = (
+        from scripts.m2d_ownership import overlay as review_overlay
+        review_valid, review_paths, review_source = review_overlay(root)
+        valid = review_valid and (
             data["base_sha"] == BASE
             and source != BASE
             and ancestor(BASE, source)
@@ -86,7 +88,7 @@ def overlay(root):
         )
         valid = valid and all(
             hashlib.sha256(git("show", source + ":" + p)).hexdigest() == h
-            and (root / p).read_bytes() == git("show", source + ":" + p)
+            and ((root / p).read_bytes() == git("show", source + ":" + p) or p in review_paths)
             for p, h in data["paths"].items()
         )
         frozen = (
@@ -116,12 +118,12 @@ def overlay(root):
             "evidence/m2c/c0_approved_owner_overlay.json",
         ]
         valid = valid and all(
-            (root / p).read_bytes() == git("show", BASE + ":" + p) for p in frozen
+            (root / p).read_bytes() == git("show", BASE + ":" + p) for p in frozen if p not in review_paths
         )
         delta = set(git("diff", "--name-only", BASE, source).decode().splitlines())
         valid = valid and all(
             p in PATHS or p.startswith(("docs/m2c/", "evidence/m2c/")) for p in delta
         )
-        return valid, data["paths"], source
+        return valid, {**data["paths"], **review_paths}, review_source or source
     except (OSError, KeyError, ValueError, subprocess.CalledProcessError):
         return False, {}, None

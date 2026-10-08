@@ -61,13 +61,18 @@ def main():
         print("Seeded real PG M1 regressions and authorized M2A session with zero preset contexts")
         return
     import uvicorn
+    uvicorn.run(create_host(args.manifest), host="127.0.0.1", port=args.port, access_log=False)
 
+
+def create_host(manifest_path):
+    if os.environ.get("M0_LOCAL_UAT") != "1":
+        raise RuntimeError("Explicit M0_LOCAL_UAT=1 required")
     from crossborder_compliance.interfaces.api.main import country_compliance_router
     from crossborder_compliance.interfaces.api.routes.intake import router as intake_router
     from crossborder_compliance.interfaces.api.routes.workflow import router
     from scripts.m0_preview.server import create_demo_app
 
-    app = create_demo_app(args.manifest)
+    app = create_demo_app(manifest_path)
     app.include_router(country_compliance_router)
     app.include_router(router)
     app.include_router(intake_router)
@@ -78,7 +83,7 @@ def main():
         from crossborder_compliance.infrastructure.document_storage import FileObjectStorageAdapter
         app.state.document_file_policy = DocumentFilePolicy.model_validate(json.loads(Path(os.environ["M2B_FILE_POLICY"]).read_text()))
         app.state.document_object_storage = FileObjectStorageAdapter(os.environ["M2B_BINARY_ROOT"])
-    people = json.loads(args.manifest.read_text())
+    people = json.loads(manifest_path.read_text())
 
     def prepared_host(context, project, snapshot):
         for persona in people.values():
@@ -92,7 +97,8 @@ def main():
         raise LookupError("workflow not found")
 
     app.state.formal_workflow_host = prepared_host
-    uvicorn.run(app, host="127.0.0.1", port=args.port, access_log=False)
+    return app
+
 
 
 if __name__ == "__main__":

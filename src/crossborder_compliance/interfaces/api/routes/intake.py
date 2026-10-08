@@ -24,7 +24,7 @@ Context = Annotated[RepositoryContext, Depends(get_repository_context)]
 
 def invoke(request, context, operation, *args):
     try:
-        return getattr(intake_service(sessions(request), context), operation)(*args)
+        return getattr(intake_service(sessions(request), context, getattr(request.app.state, "intake_snapshot_preparer", None)), operation)(*args)
     except (LookupError, PermissionError) as exc:
         raise HTTPException(404, "intake resource not found") from exc
     except (IntakeConflict, IntegrityError) as exc:

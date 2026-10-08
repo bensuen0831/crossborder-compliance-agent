@@ -67,6 +67,24 @@ class BusinessFactNormalizationService:
             fact_type for fact_type, values in normalized_values_by_type.items()
             if len(values) > 1
         }
+        selection = None
+        if confirmed_intake_version_id is not None:
+            selection = self.repository.governed_input_selection(project_id, confirmed_intake_version_id)
+        if selection and selection["type"] == "SELECT_BUSINESS_FACT":
+            chosen = (str(selection["fact_type"]), _norm_key(selection["normalized_value"]))
+            if chosen not in groups:
+                raise ValueError("governed fact choice absent from exact successor input universe")
+            for key in tuple(groups):
+                if key[0] == chosen[0] and key != chosen:
+                    for row in groups.pop(key):
+                        if row.get("candidate_id") is not None:
+                            self.repository.save_candidate_resolution(CandidateResolution(
+                                uuid4(), "BUSINESS_FACT", UUID(str(row["candidate_id"])),
+                                "BUSINESS_FACT", None, ResolutionAction.REJECTED,
+                                float(row.get("confidence", 0)), "HUMAN_CONFLICT_SELECTION",
+                                tuple(UUID(x) for x in row.get("source_trace_ids", ())),
+                                False, selection["resolved_at"], "HUMAN_REVIEW", version))
+            conflicting_types.discard(chosen[0])
         results: list[BusinessFact] = []
         facts_by_type: dict[str, list[BusinessFact]] = {}
         for (fact_type, _), rows in groups.items():
@@ -84,7 +102,7 @@ class BusinessFactNormalizationService:
                 normalized_value=normalized_value,
                 original_values=tuple(row.get("original_value") for row in rows),
                 source_trace_ids=trace_ids, source_document_ids=document_ids,
-                resolution_method="DETERMINISTIC_NORMALIZATION",
+                resolution_method="HUMAN_CONFLICT_SELECTION" if selection and selection.get("fact_type") == fact_type else "DETERMINISTIC_NORMALIZATION",
                 confidence=confidence,
                 validation_status=(
                     ContextValidationStatus.REVIEW_REQUIRED if has_conflict
@@ -165,8 +183,12 @@ class ProductContextResolutionService:
     def resolve(
         self, project_id: UUID, *, selected_scope: tuple[UUID, ...],
         detected_scope: tuple[UUID, ...], source_trace_ids: tuple[UUID, ...] = (),
-        version: int,
+        version: int, governed_selection: dict[str, object] | None = None,
     ) -> ProductScopeResolution:
+        if governed_selection and governed_selection["type"] == "SELECT_PRODUCT_SCOPE":
+            selected_scope = governed_selection["selected_scope"]
+            detected_scope = governed_selection["detected_scope"]
+            source_trace_ids = tuple(UUID(x) for x in governed_selection["source_trace_ids"])
         selected = self._validate(tuple(dict.fromkeys(selected_scope)))
         detected = self._validate(tuple(dict.fromkeys(detected_scope)))
         selected_flat = tuple(dict.fromkeys(x for v in selected.values() for x in v))
@@ -186,7 +208,14 @@ class ProductContextResolutionService:
 
         conflict_id = None
         review = False
-        if selected_flat and detected_flat and set(selected_flat) != set(detected_flat):
+        if governed_selection and governed_selection["type"] == "SELECT_PRODUCT_SCOPE":
+            effective = tuple(governed_selection["product_scope"])
+            if not effective or not set(effective) <= set(selected_flat + detected_flat):
+                raise ValueError("governed product choice outside source scope")
+            self._validate(effective)
+            status = "RESOLVED"
+            conflict_id = UUID(str(governed_selection["conflict_id"]))
+        elif selected_flat and detected_flat and set(selected_flat) != set(detected_flat):
             conflict_id = uuid4()
             review = True
             self.repository.save_conflict(ContextConflict(
@@ -213,7 +242,7 @@ class ProductContextResolutionService:
             product_category_ids=combined["PRODUCT_CATEGORY"],
             product_family_ids=combined["PRODUCT_FAMILY"],
             product_ids=combined["PRODUCT"], product_tag_ids=combined["PRODUCT_TAG"],
-            source=("EXPLICIT_USER_SELECTION" if selected_flat else
+            source=("HUMAN_REVIEW_SELECTION" if governed_selection and governed_selection["type"] == "SELECT_PRODUCT_SCOPE" else "EXPLICIT_USER_SELECTION" if selected_flat else
                     "DOCUMENT_DERIVED" if detected_flat else "GENERIC"),
             confidence=1.0 if selected_flat else (0.85 if detected_flat else 0.0),
             source_trace_ids=source_trace_ids, effective_scope=effective,
@@ -702,12 +731,14 @@ class ContextValidationService:
         self.repository = repository
 
     def validate(
-        self, project_id: UUID, *, workflow_run_id: UUID | None = None,
+        self, project_id: UUID, *, workflow_run_id: UUID | None = None, version: int | None = None,
     ) -> tuple[dict[str, int], tuple[UUID, ...]]:
-        stats = self.repository.aggregate_statistics(project_id)
+        stats = self.repository.aggregate_statistics(project_id, version=version) if version is not None else self.repository.aggregate_statistics(project_id)
         review_ids: list[UUID] = []
         if workflow_run_id:
             for conflict in self.repository.list_conflicts(project_id):
+                if version is not None and conflict["version"] != version:
+                    continue
                 if conflict["resolution_status"] != "RESOLVED" and conflict["review_required"]:
                     review_ids.append(self.repository.create_review_task(
                         workflow_run_id=workflow_run_id, object_type="CONTEXT_CONFLICT",
@@ -741,6 +772,7 @@ class ContextResolutionService:
     def run(
         self, project_id: UUID, *, selected_product_scope: tuple[UUID, ...] = (),
         detected_product_scope: tuple[UUID, ...] = (),
+        product_source_trace_ids: tuple[UUID, ...] = (),
         selected_scenarios: tuple[UUID, ...] = (), detected_scenarios: tuple[UUID, ...] = (),
         systems: tuple[dict[str, object], ...] = (), devices: tuple[dict[str, object], ...] = (),
         parties: tuple[dict[str, object], ...] = (),
@@ -761,7 +793,9 @@ class ContextResolutionService:
         )
         self.products.resolve(
             project_id, selected_scope=selected_product_scope,
-            detected_scope=detected_product_scope, version=version,
+            detected_scope=detected_product_scope, source_trace_ids=product_source_trace_ids, version=version,
+            governed_selection=self.repository.governed_input_selection(project_id, confirmed_intake_version_id)
+                if confirmed_intake_version_id is not None else None,
         )
         self.scenarios.resolve(
             project_id, selected=selected_scenarios, detected=detected_scenarios,
@@ -855,7 +889,9 @@ class ContextResolutionService:
             project_id, data_item_candidate_bindings=data_item_flow_bindings or {},
             version=version,
         )
-        stats, review_ids = self.validation.validate(project_id, workflow_run_id=workflow_run_id)
+        governed = self.repository.governed_input_selection(project_id, confirmed_intake_version_id) if confirmed_intake_version_id is not None else None
+        stats, review_ids = self.validation.validate(project_id, workflow_run_id=workflow_run_id,
+            version=version if governed else None)
         confidence = 1.0 if stats["conflict_count"] == 0 else 0.5
         self.repository.finish_context_run(
             UUID(str(run["context_resolution_run_id"])),

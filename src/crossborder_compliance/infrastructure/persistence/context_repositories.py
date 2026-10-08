@@ -164,6 +164,40 @@ class PostgresContextResolutionRepository:
         from crossborder_compliance.infrastructure.persistence.structured_intake import inputs
         return inputs(self, project_id, intake_version_id, snapshot_id)
 
+    def governed_input_selection(self, project_id: UUID, intake_version_id: UUID):
+        from crossborder_compliance.infrastructure.persistence.review_models import ReviewCorrectionEntity
+        with self._sessions() as s:
+            selection = s.scalar(select(ReviewCorrectionEntity).where(
+                ReviewCorrectionEntity.tenant_id == self.tenant_id,
+                ReviewCorrectionEntity.successor_project_version_id == str(intake_version_id)))
+            if selection is None:
+                return None
+            if selection.correction_type == "CLARIFY_INTAKE":
+                return {"type": selection.correction_type, "review_id": selection.source_review_id,
+                    "correction_id": selection.correction_id}
+            conflict = self._get(s, ContextConflictEntity, ContextConflictEntity.conflict_id, UUID(selection.source_conflict_id))
+            pin = s.scalar(select(AnalysisSnapshotContextPinEntity).where(
+                AnalysisSnapshotContextPinEntity.tenant_id == self.tenant_id,
+                AnalysisSnapshotContextPinEntity.analysis_snapshot_id == selection.source_snapshot_id))
+            if not conflict or not pin or conflict.project_id != str(project_id) or conflict.version != pin.context_resolution_version:
+                raise LookupError("governed correction source not found")
+            value = {"correction_id": selection.correction_id, "review_id": selection.source_review_id,
+                "conflict_id": conflict.conflict_id, "reviewer": selection.submitted_by, "resolved_at": selection.created_at,
+                "type": selection.correction_type, "source_trace_ids": conflict.source_trace_ids_json}
+            if selection.correction_type == "SELECT_BUSINESS_FACT":
+                fact = self._get(s, BusinessFactEntity, BusinessFactEntity.fact_id, UUID(selection.selected_fact_id))
+                if (not fact or fact.fact_id not in conflict.object_ids_json or fact.project_id != str(project_id)
+                        or fact.version != pin.context_resolution_version):
+                    raise LookupError("governed fact selection not found")
+                return {**value, "fact_type": fact.fact_type, "normalized_value": fact.normalized_value_json}
+            if selection.correction_type == "SELECT_PRODUCT_SCOPE":
+                if not set(selection.selected_product_ids_json) <= set(conflict.object_ids_json):
+                    raise ValueError("product choice outside governed conflict")
+                return {**value, "product_scope": tuple(UUID(x) for x in selection.selected_product_ids_json),
+                    "selected_scope": tuple(UUID(x) for x in conflict.details_json.get("selected_product_scope", ())),
+                    "detected_scope": tuple(UUID(x) for x in conflict.details_json.get("detected_product_context", ()))}
+            return None
+
     def list_candidate_items(self, project_id: UUID) -> list[dict[str, object]]:
         runs = self._project_parse_runs(project_id)
         with self._sessions() as s:
@@ -1067,7 +1101,7 @@ class PostgresContextResolutionRepository:
                 "review_required": r.review_required, "version": r.version,
             } for r in rows]
 
-    def aggregate_statistics(self, project_id: UUID) -> dict[str, int]:
+    def aggregate_statistics(self, project_id: UUID, *, version: int | None = None) -> dict[str, int]:
         runs = self._project_parse_runs(project_id)
         with self._sessions() as s:
             raw_field_count = int(s.scalar(select(func.count()).select_from(CandidateDataItemEntity).where(
@@ -1094,12 +1128,14 @@ class PostgresContextResolutionRepository:
                 ContextConflictEntity.tenant_id == self.tenant_id,
                 ContextConflictEntity.project_id == str(project_id),
                 ContextConflictEntity.resolution_status != "RESOLVED",
+                *([ContextConflictEntity.version == version] if version is not None else []),
             )) or 0)
             review = int(s.scalar(select(func.count()).select_from(ContextConflictEntity).where(
                 ContextConflictEntity.tenant_id == self.tenant_id,
                 ContextConflictEntity.project_id == str(project_id),
                 ContextConflictEntity.review_required.is_(True),
                 ContextConflictEntity.resolution_status != "RESOLVED",
+                *([ContextConflictEntity.version == version] if version is not None else []),
             )) or 0)
             return {
                 "raw_field_count": raw_field_count,

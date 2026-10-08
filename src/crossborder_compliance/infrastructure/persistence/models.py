@@ -638,6 +638,14 @@ class ReviewTaskEntity(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow, nullable=False)
     resolved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
+    # Governed workflow review context, separate from checkpoint/legal authority.
+    owning_stage: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    reason_codes_json: Mapped[list] = mapped_column(JSON, nullable=False, default=list, server_default="[]")
+    evidence_ids_json: Mapped[list] = mapped_column(JSON, nullable=False, default=list, server_default="[]")
+    legal_basis_ids_json: Mapped[list] = mapped_column(JSON, nullable=False, default=list, server_default="[]")
+    required_role: Mapped[str] = mapped_column(String(120), nullable=False, default="workflow:review", server_default="workflow:review")
+    requirement_confirmation: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
+
 
 class ReviewDecisionEntity(TenantAuditMixin, Base):
     __tablename__ = "review_decisions"
@@ -650,6 +658,7 @@ class ReviewDecisionEntity(TenantAuditMixin, Base):
     comment: Mapped[str | None] = mapped_column(Text, nullable=True)
     decided_by: Mapped[str] = mapped_column(String(200), nullable=False)
     decided_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, default=utcnow)
+    decision_payload_json: Mapped[dict] = mapped_column(JSON, nullable=False, default=dict, server_default="{}")
 
 
 class WorkflowEventEntity(Base):

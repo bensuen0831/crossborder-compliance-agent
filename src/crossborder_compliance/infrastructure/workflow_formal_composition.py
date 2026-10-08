@@ -8,6 +8,8 @@ from crossborder_compliance.application.formal_result_services import (
     RegulatoryDocumentRequirementService,
 )
 from crossborder_compliance.application.knowledge_services import KnowledgeScopeResolver
+from crossborder_compliance.application.review_services import WorkflowReviewGovernance
+from crossborder_compliance.infrastructure.persistence.postgres_repositories import PostgresReviewRepository
 from crossborder_compliance.application.retrieval_services import KnowledgeRetrievalService
 from crossborder_compliance.application.workflow_formal import (
     FormalWorkflowAuthorization,
@@ -105,6 +107,7 @@ def formal_workflow_runtime(
         stages=stages.bindings(),
         policy=execution_policy,
         emit_result_refs=True,
+        review_governance=WorkflowReviewGovernance(PostgresReviewRepository(sessions, context), stages.contexts, plan),
     )
     runtime = LangGraphWorkflowRuntimeAdapter(
         postgres_uri=postgres_uri,

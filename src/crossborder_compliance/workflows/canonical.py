@@ -76,8 +76,9 @@ class StateEnvelope(ReferenceModel):
 
 
 class CanonicalGraphFactory:
-    def __init__(self, *, authorization, stages=None, policy=None, emit_result_refs=False):
+    def __init__(self, *, authorization, stages=None, policy=None, emit_result_refs=False, review_governance=None):
         self.authorization = authorization
+        self.review_governance = review_governance
         self.stages = dict(stages or {})
         if not all(isinstance(k, SemanticStep) for k in self.stages):
             raise ValueError("stage bindings require semantic step keys")
@@ -109,7 +110,10 @@ class CanonicalGraphFactory:
 
     def authorize_resume(self, workflow_run_id, decision):
         self.authorize(workflow_run_id, "review")
-        return self.authorization.authorize_review(workflow_run_id, decision)
+        value = self.authorization.authorize_review(workflow_run_id, decision)
+        if self.review_governance is not None:
+            value = self.review_governance.authorize_resume(workflow_run_id, value)
+        return value
 
     def config(self, workflow_run_id):
         return {
@@ -296,6 +300,8 @@ class CanonicalGraphFactory:
                 review_type="WORKFLOW_STAGE_REVIEW",
                 reason="CANONICAL_STAGE_REQUIRES_REVIEW",
             )
+            if self.review_governance is not None:
+                self.review_governance.describe(review_id, state.current_step, state.reason_codes, state.result_refs)
             ops.mark_review_required(wf)
             event(state, WorkflowEventType.REVIEW_REQUIRED, "REVIEW_REQUIRED", "review")
             decision = interrupt({"review_id": str(review_id), "step": state.current_step.value})

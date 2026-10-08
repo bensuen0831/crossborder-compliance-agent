@@ -19,7 +19,10 @@ from crossborder_compliance.infrastructure.persistence import metadata_models as
 pytestmark = pytest.mark.runtime_smoke
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "42571c7148456f41adb64d2528c169a357214a25"
-HEAD = "0014_m2c_formal_result_authority"
+from alembic.script import ScriptDirectory
+from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after
+HEAD = ScriptDirectory(str(ROOT / "alembic")).get_current_head()
+assert revision_at_or_after(HEAD, "0014_m2c_formal_result_authority")
 
 
 def catalog(url):

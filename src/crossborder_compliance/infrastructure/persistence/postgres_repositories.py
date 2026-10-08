@@ -531,7 +531,10 @@ class PostgresWorkflowRunRepository(_TenantScopedRepository):
             return RuntimeDomainMapper.workflow_run_to_domain(row) if row else None
 
 
-class PostgresReviewRepository(_TenantScopedRepository):
+from crossborder_compliance.infrastructure.persistence.review_governance import ReviewGovernanceOperations
+
+
+class PostgresReviewRepository(ReviewGovernanceOperations, _TenantScopedRepository):
     def get_review(self, review_id: UUID):
         with self._sessions() as session:
             row = self._scoped_get(session, ReviewTaskEntity, ReviewTaskEntity.review_id, review_id)

@@ -8,7 +8,9 @@ from crossborder_compliance.infrastructure.persistence import models as b
 from crossborder_compliance.infrastructure.persistence.document_repositories import PostgresDocumentIntelligenceRepository
 
 
-def pin_intake_document_inputs(sessions, context, project_id, snapshot_id):
+def pin_intake_document_inputs(sessions, context, project_id, snapshot_id, *, source_snapshot_id=None):
+    if source_snapshot_id is not None:
+        return pin_review_document_universe(sessions, context, project_id, snapshot_id, source_snapshot_id)
     tenant = str(context.tenant_id)
     with sessions() as session:
         snapshot = session.get(b.AnalysisSnapshotEntity, str(snapshot_id))
@@ -62,4 +64,36 @@ def pin_intake_document_inputs(sessions, context, project_id, snapshot_id):
     with sessions() as session, session.begin():
         snapshot = session.get(b.AnalysisSnapshotEntity, str(snapshot_id))
         snapshot.provenance_json = {**snapshot.provenance_json, "document_input_universe_pinned": True}
+    return tuple(run_id for _, run_id in selected)
+
+
+def pin_review_document_universe(sessions, context, project_id, snapshot_id, source_snapshot_id):
+    tenant = str(context.tenant_id)
+    with sessions() as session:
+        snapshot = session.get(b.AnalysisSnapshotEntity, str(snapshot_id))
+        version = session.get(b.ProjectVersionEntity, snapshot.project_version_id) if snapshot else None
+        source = session.get(b.AnalysisSnapshotEntity, str(source_snapshot_id))
+        source_version = session.get(b.ProjectVersionEntity, source.project_version_id) if source else None
+        if (not snapshot or not version or not source or not source_version
+                or any(row.tenant_id != tenant for row in (snapshot, version, source, source_version))
+                or version.project_id != str(project_id) or source_version.project_id != str(project_id)
+                or version.status != "CONFIRMED" or snapshot.analysis_as_of_date != source.analysis_as_of_date
+                or not source.provenance_json.get("document_input_universe_pinned")):
+            raise LookupError("exact review snapshot input universe unavailable")
+        source_pins = session.scalars(select(d.AnalysisSnapshotParseRunPinEntity).where(
+            d.AnalysisSnapshotParseRunPinEntity.tenant_id == tenant,
+            d.AnalysisSnapshotParseRunPinEntity.analysis_snapshot_id == str(source_snapshot_id))).all()
+        version_ids = session.scalars(select(d.ProjectVersionDocumentLinkEntity.document_version_id).where(
+            d.ProjectVersionDocumentLinkEntity.tenant_id == tenant,
+            d.ProjectVersionDocumentLinkEntity.project_version_id == version.project_version_id)).all()
+        if set(version_ids) != {p.document_version_id for p in source_pins}:
+            raise ValueError("review successor document universe differs from exact source pins")
+        selected = [(UUID(p.document_version_id), UUID(p.parse_run_id)) for p in source_pins]
+    # Read savepoint must close before child writes; its rollback cannot undo pins.
+    repo = PostgresDocumentIntelligenceRepository(sessions, context)
+    for version_id, run_id in selected:
+        repo.pin_parse_run(analysis_snapshot_id=snapshot_id, document_version_id=version_id, parse_run_id=run_id)
+    with sessions() as child, child.begin():
+        target = child.get(b.AnalysisSnapshotEntity, str(snapshot_id))
+        target.provenance_json = {**target.provenance_json, "document_input_universe_pinned": True}
     return tuple(run_id for _, run_id in selected)

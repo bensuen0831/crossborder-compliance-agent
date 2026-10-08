@@ -6,7 +6,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 from crossborder_compliance.domain.contracts import WorkflowEventDTO
 from crossborder_compliance.infrastructure.persistence.models import (
-    AnalysisSnapshotEntity, AuditEventEntity, ReviewTaskEntity, WorkflowEventEntity, WorkflowRunEntity,
+    AnalysisSnapshotEntity, AuditEventEntity, ReviewTaskEntity, ReviewDecisionEntity, WorkflowEventEntity, WorkflowRunEntity,
 )
 
 def utcnow(): return datetime.now(timezone.utc)
@@ -50,10 +50,37 @@ class RuntimeRepository:
 
     def resolve_review(self, review_id: UUID, decision: dict[str, object]) -> None:
         with self._sessions() as s, s.begin():
-            row=s.get(ReviewTaskEntity,str(review_id))
+            row=s.scalar(select(ReviewTaskEntity).where(ReviewTaskEntity.review_id==str(review_id)).with_for_update())
             if row:
-                row.status="APPROVED" if decision.get("decision") in {"APPROVE","APPROVED"} else "REJECTED"
-                row.decision_json=decision; row.resolved_at=utcnow()
+                # Smoke compatibility remains outside formal governed review.
+                if row.owning_stage is None:
+                    row.status="APPROVED" if decision.get("decision") in {"APPROVE","APPROVED"} else "PENDING" if decision.get("decision")=="REQUEST_CHANGES" else "REJECTED"
+                    row.decision_json=decision; row.resolved_at=None if row.status=="PENDING" else utcnow()
+                    return
+                from crossborder_compliance.domain.contracts import ReviewDecisionDTO
+                parsed=ReviewDecisionDTO.model_validate(decision)
+                if parsed.review_id!=review_id:
+                    raise ValueError("REVIEW_NOT_FOUND")
+                stored=s.get(ReviewDecisionEntity,str(parsed.decision_id))
+                if stored is not None:
+                    if (stored.tenant_id,stored.review_id,stored.decision_code,stored.decided_by,stored.comment,stored.decided_at)!=(row.tenant_id,str(review_id),parsed.decision.value,parsed.decided_by,parsed.comment,parsed.decided_at):
+                        raise ValueError("IDEMPOTENCY_PAYLOAD_CONFLICT")
+                    return
+                if row.status!="PENDING":
+                    raise ValueError("REVIEW_ALREADY_RESOLVED")
+                s.add(ReviewDecisionEntity(decision_id=str(parsed.decision_id),tenant_id=row.tenant_id,
+                    review_id=str(review_id),decision_code=parsed.decision.value,comment=parsed.comment,
+                    decided_by=parsed.decided_by,decided_at=parsed.decided_at,
+                    decision_payload_json=parsed.model_dump(mode="json")))
+                row.status={"APPROVE":"APPROVED","REJECT":"REJECTED","REQUEST_CHANGES":"PENDING"}[parsed.decision.value]
+                row.decision_json=parsed.model_dump(mode="json");row.record_version+=1
+                row.resolved_at=None if row.status=="PENDING" else utcnow()
+                run=s.get(WorkflowRunEntity,row.workflow_run_id)
+                if run is None or run.tenant_id!=row.tenant_id or run.thread_id!=row.thread_id:
+                    raise ValueError("REVIEW_NOT_FOUND")
+                s.add(AuditEventEntity(audit_event_id=self._audit_id(UUID(row.workflow_run_id),f"review-decision:{parsed.decision_id}"),
+                    tenant_id=row.tenant_id,workflow_run_id=row.workflow_run_id,analysis_snapshot_id=run.analysis_snapshot_id,event_type="REVIEW_DECISION_RECORDED",
+                    provenance_json={"review_id":str(review_id),"decision_id":str(parsed.decision_id),"actor_id":parsed.decided_by}))
 
     def record_event(self, tenant_id: UUID, event: WorkflowEventDTO) -> None:
         with self._sessions() as s, s.begin():

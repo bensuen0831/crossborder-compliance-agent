@@ -251,7 +251,12 @@ class ProjectIntakeOperations:
         with self._sessions() as s, s.begin():
             # Scope-first retrieval requires REPEATABLE READ. Establish its
             # existing isolation contract before the confirmation's first read.
-            s.connection(execution_options={"isolation_level": "REPEATABLE READ"})
+            from sqlalchemy.engine import Connection
+            if isinstance(s.get_bind(), Connection):
+                if s.get_bind().get_isolation_level() != "REPEATABLE READ":
+                    raise ValueError("confirmation requires REPEATABLE READ owning transaction")
+            else:
+                s.connection(execution_options={"isolation_level": "REPEATABLE READ"})
             project = self._intake_project(s, project_id, True)
             row = self._intake_current(s, project)
             if row.version_no != expected_version:
@@ -295,4 +300,39 @@ class ProjectIntakeOperations:
 
             prepare(joined_sessions, self._context, facts, snapshot_id, run_id)
             s.refresh(snapshot)
+            return self._intake_view(s, row)
+
+    def successor_from_review(self, project_id, source_version_id, source_snapshot_id, facts):
+        """Append one typed owning input version; never edit the confirmed payload."""
+        self._intake_permission("update")
+        with self._sessions() as s, s.begin():
+            project = self._intake_project(s, project_id, True)
+            old = self._intake_current(s, project)
+            if old.project_version_id != str(source_version_id) or old.status != "CONFIRMED":
+                raise IntakeConflict("STALE_SOURCE_INTAKE_VERSION")
+            if facts.analysis_as_of_date != ProjectIntakeContext.model_validate(old.intake_json).analysis_as_of_date:
+                raise IntakeConflict("REVIEW_ANALYSIS_DATE_CHANGE_NOT_CONFIGURED")
+            source = self._scoped_get(s, AnalysisSnapshotEntity, AnalysisSnapshotEntity.analysis_snapshot_id, source_snapshot_id)
+            if source is None or source.project_version_id != old.project_version_id:
+                raise LookupError("review source snapshot not found")
+            from crossborder_compliance.infrastructure.persistence.document_models import AnalysisSnapshotParseRunPinEntity, ProjectVersionDocumentLinkEntity
+            from crossborder_compliance.infrastructure.persistence.models import DocumentVersionEntity
+            versions = list(s.scalars(select(AnalysisSnapshotParseRunPinEntity.document_version_id).where(
+                AnalysisSnapshotParseRunPinEntity.tenant_id == self.tenant_id,
+                AnalysisSnapshotParseRunPinEntity.analysis_snapshot_id == str(source_snapshot_id))))
+            # The exact snapshot, rather than active Document/ParseRun state, owns this universe.
+            facts = facts.model_copy(update={"uploaded_documents": list(dict.fromkeys(
+                s.get(DocumentVersionEntity, v).document_id for v in versions))})
+            row = ProjectVersionEntity(project_version_id=str(uuid4()), tenant_id=self.tenant_id,
+                project_id=str(project_id), version_no=old.version_no + 1, status="DRAFT",
+                intake_json=self._intake_payload(facts, project, old.version_no + 1))
+            s.add(row)
+            s.flush()
+            for version_id in versions:
+                s.add(ProjectVersionDocumentLinkEntity(link_id=str(uuid4()), tenant_id=self.tenant_id,
+                    project_version_id=row.project_version_id, document_version_id=version_id))
+            s.flush()
+            old.status = "SUPERSEDED"
+            project.active_version_id = row.project_version_id
+            project.record_version += 1
             return self._intake_view(s, row)

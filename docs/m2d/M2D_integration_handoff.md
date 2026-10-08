@@ -1,0 +1,7 @@
+# M2-D integration handoff
+
+Dedicated branch milestone-m2d-human-review-resume; Draft PR25→main. No merge. Baseline0dc005e583465a4604a5d40a369cb5fc2f0ccbef/v3.6-m2c-pass. Alembic single0015_m2d_review_governance. Final exact-head closure evidence is published separately without moving tested code to record-only commits.
+
+Use canonical reviews API/H5 center for current formal-v2 tasks. Same-snapshot confirmation commits immutable approval then resumes the existing durable checkpoint and reexecutes the owning stage. Request changes/reject do not advance. Input-changing source selection or clarification constructs a new canonical ProjectVersion/context/Snapshot/run and reruns all dependent owners from requirement. Both provenance paths and S1 complete semantic results remain intact; lineage exposes original/successor links. Persisted approval and successor delivery failures have body-free authorized recovery commands.
+
+No universal corrections, partial rerun optimizer, historical authority retrofit, multi-subject, Stage2, production provider onboarding or auth redesign. Party/flow/jurisdiction/document input editing is unavailable through this review product; do not bypass by JSON patches. Retain capability gaps. Integration requires exact-head mandatory backend, migration, architecture/runtime, frontend/i18n/browser and all7 CI workflows. Only subsequent explicit authorization may merge or start another phase.
