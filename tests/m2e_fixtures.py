@@ -54,4 +54,29 @@ def destination_configuration(f):
         required_rule_ids=[f['rule']['definition_id']],reason_code='CONFIGURED_APPLICABILITY',requires_classification=False))
     publish_config(f,'COUNTRY_PROFILE',dict(jurisdiction_id=destination,capability_ids=[f['capability']['definition_id']],
         rule_pack_ids=[f['pack']['definition_id']],knowledge_collection_ids=[f['col']],applicability_config_ids=[cfg['definition_id']]))
+    # Expand the existing generic owning policies via their ordinary review /
+    # publication lifecycle. Old foundation snapshots retain their v1 pins.
+    with f['sf']() as session:
+        configs=[]
+        kinds={'OBLIGATION_POLICY','COMPLIANCE_PATH_POLICY','RISK_POLICY','RECOMMENDATION_POLICY',
+               'CROSS_BORDER_ASSESSMENT_POLICY','DOCUMENT_REQUIREMENT_POLICY'}
+        for definition in session.scalars(select(m.MetadataDefinitionEntity).where(
+            m.MetadataDefinitionEntity.tenant_id==f['tenant'],m.MetadataDefinitionEntity.kind.in_(kinds))):
+            row=session.get(m.MetadataVersionEntity,definition.active_version_id)
+            configs.append((definition.kind,definition.definition_id,row.payload_json))
+    destination_obligation=str(uuid4())
+    order=['OBLIGATION_POLICY','COMPLIANCE_PATH_POLICY','RISK_POLICY','RECOMMENDATION_POLICY',
+           'CROSS_BORDER_ASSESSMENT_POLICY','DOCUMENT_REQUIREMENT_POLICY']
+    for kind,identity,original in sorted(configs,key=lambda row:order.index(row[0])):
+        import copy
+        config_payload=copy.deepcopy(original)
+        config_payload['jurisdiction_ids']=[f['juri'],destination]
+        if kind=='OBLIGATION_POLICY':
+            config_payload['entries'].append(dict(entry_id=destination_obligation,code='DESTINATION_REQUIREMENT',
+                jurisdiction_id=destination,applicability_config_id=cfg['definition_id'],
+                required_rule_ids=[f['rule']['definition_id']],legal_basis_ids=[basis]))
+        if kind=='COMPLIANCE_PATH_POLICY':
+            for template in config_payload['templates']:
+                template['obligation_entry_ids'].append(destination_obligation)
+        publish_config(f,kind,config_payload,definition_id=identity)
     return destination

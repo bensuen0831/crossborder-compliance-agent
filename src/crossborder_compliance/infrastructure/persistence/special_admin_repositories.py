@@ -141,6 +141,8 @@ class PostgresClassificationAdminRepository:
             row.record_version += 1
             row.updated_at = utcnow()
             if target_status == GovernanceStatus.ACTIVE.value:
+                from crossborder_compliance.infrastructure.persistence.classification_governance import publish_bindings
+                publish_bindings(session, row)
                 if row.applicability_json.get("phase1h"):
                     # A canonical scheme has one current V1 generation; historic pins remain valid.
                     scheme = session.scalar(select(ClassificationSchemeEntity).where(

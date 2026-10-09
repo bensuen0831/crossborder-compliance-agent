@@ -30,6 +30,7 @@ class ClassificationRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
     analysis_snapshot_id: UUID
     data_item_id: UUID | None = None
+    jurisdiction_id: UUID | None = None
     scheme_version_id: UUID
 
 
@@ -120,6 +121,7 @@ def execute(
             snapshot_id=request.analysis_snapshot_id,
             data_item_id=request.data_item_id,
             scheme_version_id=request.scheme_version_id,
+            jurisdiction_id=request.jurisdiction_id,
         )
     except Exception as exc:
         _translate_error(exc)

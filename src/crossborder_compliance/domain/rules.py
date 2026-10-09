@@ -115,6 +115,7 @@ class RuleHit(Contract):
     data_item_id: UUID | None
     analysis_snapshot_id: UUID
     context_version: int
+    jurisdiction_id: UUID | None = None  # Legacy persisted V1 hits omit this field.
     matched: bool
     triggered_actions: tuple[ClassificationAction, ...]
     severity: str | None
@@ -237,6 +238,7 @@ class SafeRuleEngine:
                     data_item_id=facts.data_item_id,
                     analysis_snapshot_id=facts.analysis_snapshot_id,
                     context_version=facts.context_version,
+                    jurisdiction_id=facts.jurisdiction_id,
                     matched=match,
                     triggered_actions=c.actions if match else (),
                     severity=c.severity if match else None,

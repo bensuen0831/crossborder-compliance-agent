@@ -135,18 +135,8 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id, *, source_s
         PostgresFormalClassificationRepository,
     )
 
-    with sessions() as s:
-        schemes = s.scalars(
-            select(m.ClassificationSchemeVersionEntity).where(
-                m.ClassificationSchemeVersionEntity.tenant_id == str(context.tenant_id),
-                m.ClassificationSchemeVersionEntity.lifecycle_status == "ACTIVE",
-            )
-        ).all()
-        if len(schemes) != 1:
-            raise ValueError("M2A_CLASSIFICATION_CONFIGURATION_GAP")
-        scheme_version_id = UUID(schemes[0].scheme_version_id)
-    PostgresFormalClassificationRepository(sessions, context).pin_configuration(
-        project_id, snapshot_id, scheme_version_id
+    classification_bindings = PostgresFormalClassificationRepository(sessions, context).pin_configurations(
+        project_id, snapshot_id
     )
     retrieval = PostgresRetrievalRepository(sessions, context)
     KnowledgeScopeResolver(retrieval, context).resolve(
@@ -206,7 +196,7 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id, *, source_s
             subject_type=subject_type,
             subject_id=subject_id,
             classification_data_item_ids=item_ids,
-            scheme_version_id=scheme_version_id if item_ids else None,
+            classification_bindings=classification_bindings,
             input_capability_gap="MULTI_SUBJECT_WORKFLOW_NOT_CONFIGURED" if len(item_ids) > 1 else None,
             applicability=bindings,
             retrieval_query=dict(

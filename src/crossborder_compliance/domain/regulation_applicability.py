@@ -115,6 +115,8 @@ class ApplicabilityInput(Contract):
             ):
                 raise ValueError("wrong classification snapshot/subject")
         for h in self.rule_hits:
+            if h.jurisdiction_id is not None and h.jurisdiction_id != self.jurisdiction_id:
+                raise ValueError("wrong RuleHit jurisdiction")
             if (
                 h.tenant_id,
                 h.project_id,

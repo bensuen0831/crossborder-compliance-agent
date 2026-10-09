@@ -9,6 +9,7 @@ from sqlalchemy import select
 from crossborder_compliance.infrastructure.persistence.context_temporal import exact_item_detail, item_trace_ids
 
 from crossborder_compliance.domain.classification import (
+    ClassificationJurisdictionBinding,
     ClassificationOutcome,
     ClassificationResult,
     ClassificationScheme,
@@ -44,9 +45,9 @@ class PostgresFormalClassificationRepository:
             raise LookupError("classification resource not found")
         return row
 
-    def prepare(self, project_id, snapshot_id, data_item_id, scheme_version_id):
+    def prepare(self, project_id, snapshot_id, data_item_id, scheme_version_id, *, jurisdiction_id=None):
         facts, scheme, rules = self._prepare(
-            project_id, snapshot_id, data_item_id, scheme_version_id
+            project_id, snapshot_id, data_item_id, scheme_version_id, jurisdiction_id=jurisdiction_id
         )
         ids, types, packs = ExistingClassificationEvidence(self.sessions, self.context).references(
             project_id, snapshot_id, data_item_id
@@ -73,8 +74,105 @@ class PostgresFormalClassificationRepository:
             "rule_version_ids": [str(rule.rule_version_id) for rule in rules],
         }
 
+    def pin_configurations(self, project_id, snapshot_id):
+        """Freeze all governed jurisdiction bindings and the rule union atomically."""
+        self.authorize(project_id)
+        with self.sessions() as s, s.begin():
+            snapshot = s.scalar(select(b.AnalysisSnapshotEntity).where(
+                b.AnalysisSnapshotEntity.tenant_id == self.tenant,
+                b.AnalysisSnapshotEntity.analysis_snapshot_id == str(snapshot_id)).with_for_update())
+            if snapshot is None:
+                raise LookupError("classification resource not found")
+            project = self.scoped(s, b.ProjectVersionEntity, b.ProjectVersionEntity.project_version_id, snapshot.project_version_id)
+            if project.project_id != str(project_id):
+                raise LookupError("classification resource not found")
+            context = s.scalar(select(c.AnalysisSnapshotContextPinEntity).where(
+                c.AnalysisSnapshotContextPinEntity.tenant_id == self.tenant,
+                c.AnalysisSnapshotContextPinEntity.analysis_snapshot_id == str(snapshot_id),
+                c.AnalysisSnapshotContextPinEntity.project_id == str(project_id)))
+            if context is None:
+                raise ValueError("snapshot must pin formal Phase 1E context")
+            jurisdictions = set(s.scalars(select(c.JurisdictionContextEntity.jurisdiction_id).where(
+                c.JurisdictionContextEntity.tenant_id == self.tenant,
+                c.JurisdictionContextEntity.project_id == str(project_id),
+                c.JurisdictionContextEntity.version == context.context_resolution_version,
+                c.JurisdictionContextEntity.validation_status == "VALIDATED",
+                c.JurisdictionContextEntity.review_required.is_(False))).all())
+            pins = s.scalars(select(m.AnalysisSnapshotRegistryPinEntity).where(
+                m.AnalysisSnapshotRegistryPinEntity.tenant_id == self.tenant,
+                m.AnalysisSnapshotRegistryPinEntity.analysis_snapshot_id == str(snapshot_id),
+                m.AnalysisSnapshotRegistryPinEntity.pin_type.in_(["CLASSIFICATION_BINDING_V1", "CLASSIFICATION_V1", "RULE_V1"]))).all()
+            existing = [p for p in pins if p.pin_type == "CLASSIFICATION_BINDING_V1"]
+            if existing:
+                if {p.logical_key for p in existing} != jurisdictions:
+                    raise ValueError("CLASSIFICATION_CONFIGURATION_CONFLICT")
+                return tuple(ClassificationJurisdictionBinding(jurisdiction_id=p.logical_key,
+                    scheme_version_id=p.version_id, classification_binding_id=p.object_id)
+                    for p in sorted(existing,key=lambda p:p.logical_key))
+            if pins:
+                raise ValueError("classification legacy pins cannot be enlarged")
+            versions = s.scalars(select(m.ClassificationSchemeVersionEntity).where(
+                m.ClassificationSchemeVersionEntity.tenant_id == self.tenant,
+                m.ClassificationSchemeVersionEntity.lifecycle_status == "ACTIVE")).all()
+            if len(versions) != 1:
+                raise ValueError("M2A_CLASSIFICATION_CONFIGURATION_GAP")
+            version = versions[0]
+            scheme = ClassificationScheme.model_validate({**version.applicability_json.get("phase1h", {}),
+                "tenant_id":self.tenant,"scheme_id":version.scheme_id,"scheme_version_id":version.scheme_version_id,
+                "version":version.version_no,"lifecycle":version.lifecycle_status})
+            published = s.scalar(select(m.AdminPublishRecordEntity).where(
+                m.AdminPublishRecordEntity.tenant_id == self.tenant,
+                m.AdminPublishRecordEntity.object_kind == "CLASSIFICATION",
+                m.AdminPublishRecordEntity.version_id == version.scheme_version_id))
+            def effective(row):
+                return not ((row.effective_from and snapshot.analysis_as_of_date < row.effective_from)
+                    or (row.effective_to and snapshot.analysis_as_of_date > row.effective_to))
+            if not published or not effective(version) or not jurisdictions:
+                raise ValueError("CLASSIFICATION_CONFIGURATION_GAP")
+            scenarios=set(s.scalars(select(c.ScenarioContextEntity.scenario_definition_id).where(
+                c.ScenarioContextEntity.tenant_id == self.tenant,
+                c.ScenarioContextEntity.project_id == str(project_id),
+                c.ScenarioContextEntity.version == context.context_resolution_version,
+                c.ScenarioContextEntity.validation_status == "VALIDATED",
+                c.ScenarioContextEntity.review_required.is_(False))).all())
+            candidates = s.scalars(select(m.ClassificationBindingEntity).where(
+                m.ClassificationBindingEntity.tenant_id == self.tenant,
+                m.ClassificationBindingEntity.scheme_version_id == version.scheme_version_id,
+                m.ClassificationBindingEntity.status == "ACTIVE")).all()
+            resolved=[]
+            for jurisdiction in sorted(jurisdictions):
+                eligible=[row for row in candidates if row.jurisdiction_id == jurisdiction and effective(row)
+                    and (row.scenario_definition_id is None or row.scenario_definition_id in scenarios)
+                    and (row.industry_ref is None or row.industry_ref == project.intake_json.get("industry"))]
+                if not eligible or UUID(jurisdiction) not in scheme.jurisdiction_ids:
+                    raise ValueError("CLASSIFICATION_CONFIGURATION_GAP")
+                # Existing registry ordering: lower configured priority is stronger.
+                best = min(row.priority for row in eligible)
+                eligible = [row for row in eligible if row.priority == best]
+                if len(eligible) != 1:
+                    raise ValueError("CLASSIFICATION_CONFIGURATION_CONFLICT")
+                resolved.append(ClassificationJurisdictionBinding(jurisdiction_id=jurisdiction,
+                    scheme_version_id=version.scheme_version_id,classification_binding_id=eligible[0].classification_binding_id))
+            rules=s.scalars(select(m.RuleVersionEntity).join(m.RuleDefinitionEntity,
+                m.RuleDefinitionEntity.active_version_id == m.RuleVersionEntity.rule_version_id).where(
+                    m.RuleDefinitionEntity.tenant_id == self.tenant,m.RuleVersionEntity.tenant_id == self.tenant,
+                    m.RuleVersionEntity.lifecycle_status == "ACTIVE",m.RuleVersionEntity.runtime_contract_json.is_not(None))).all()
+            rules=[row for row in rules if effective(row) and set(as_rule(row).contract.scope.jurisdiction_ids) & {UUID(j) for j in jurisdictions}
+                and any(a.scheme_version_id == UUID(version.scheme_version_id) for a in as_rule(row).contract.actions)]
+            if any(not as_rule(row).approved_by or not as_rule(row).published_by for row in rules):
+                raise ValueError("rule has no approved publication")
+            self.add_pin(s,snapshot_id,"CLASSIFICATION_V1",version.scheme_id,version.scheme_version_id,version.version_no)
+            for binding in resolved:
+                s.add(m.AnalysisSnapshotRegistryPinEntity(pin_id=str(uuid4()),tenant_id=self.tenant,
+                    analysis_snapshot_id=str(snapshot_id),pin_type="CLASSIFICATION_BINDING_V1",
+                    logical_key=str(binding.jurisdiction_id),object_id=str(binding.classification_binding_id),
+                    version_id=str(binding.scheme_version_id),version_no=version.version_no))
+            for rule in rules:
+                self.add_pin(s,snapshot_id,"RULE_V1",rule.rule_definition_id,rule.rule_version_id,rule.version_no)
+            return tuple(resolved)
+
     def _prepare(
-        self, project_id, snapshot_id, data_item_id, scheme_version_id, *, initialize=False
+        self, project_id, snapshot_id, data_item_id, scheme_version_id, *, initialize=False, jurisdiction_id=None
     ):
         self.authorize(project_id)
         with self.sessions() as s, s.begin():
@@ -146,10 +244,34 @@ class PostgresFormalClassificationRepository:
                     )
                 ).all()
             )
-            eligible = {str(v) for v in scheme.jurisdiction_ids} & jurisdictions
-            if len(eligible) != 1:
-                raise ValueError("classification requires one resolved scheme jurisdiction")
-            jurisdiction = UUID(next(iter(eligible)))
+            binding_pins = s.scalars(select(m.AnalysisSnapshotRegistryPinEntity).where(
+                m.AnalysisSnapshotRegistryPinEntity.tenant_id == self.tenant,
+                m.AnalysisSnapshotRegistryPinEntity.analysis_snapshot_id == str(snapshot_id),
+                m.AnalysisSnapshotRegistryPinEntity.pin_type == "CLASSIFICATION_BINDING_V1",
+            )).all()
+            if binding_pins:
+                # New snapshots require an explicit jurisdiction. Never resolve a
+                # live binding or choose from the context's jurisdiction set.
+                if jurisdiction_id is None or not any(
+                    p.logical_key == str(jurisdiction_id) and p.version_id == str(scheme_version_id)
+                    for p in binding_pins
+                ):
+                    raise ValueError("classification requires exact pinned jurisdiction binding")
+                jurisdiction = UUID(str(jurisdiction_id))
+            else:
+                # Read/initialization compatibility for the frozen single-jurisdiction
+                # V1 contract only. Multi-jurisdiction initialization uses the batch API.
+                legacy_jurisdictions = {str(v) for v in scheme.jurisdiction_ids} & jurisdictions
+                if len(legacy_jurisdictions) != 1:
+                    raise ValueError("classification requires one resolved scheme jurisdiction")
+                jurisdiction = UUID(next(iter(legacy_jurisdictions)))
+                if jurisdiction_id is not None and jurisdiction != jurisdiction_id:
+                    raise ValueError("classification jurisdiction mismatch")
+            if str(jurisdiction) not in jurisdictions or jurisdiction not in scheme.jurisdiction_ids:
+                raise ValueError("classification jurisdiction outside pinned formal context/scheme")
+            if ((version.effective_from and snapshot.analysis_as_of_date < version.effective_from)
+                or (version.effective_to and snapshot.analysis_as_of_date > version.effective_to)):
+                raise ValueError("classification scheme outside snapshot effective date")
             pins = s.scalars(
                 select(m.AnalysisSnapshotRegistryPinEntity).where(
                     m.AnalysisSnapshotRegistryPinEntity.tenant_id == self.tenant,
@@ -238,7 +360,9 @@ class PostgresFormalClassificationRepository:
                     for p in pins
                     if p.pin_type == "RULE_V1"
                 ]
-            rules = tuple(as_rule(r) for r in rows)
+            rules = tuple(as_rule(r) for r in rows if
+                jurisdiction in as_rule(r).contract.scope.jurisdiction_ids and
+                any(a.scheme_version_id == scheme.scheme_version_id for a in as_rule(r).contract.actions))
             if initialize:
                 return (
                     RuleFactContext(
@@ -397,6 +521,10 @@ class PostgresFormalClassificationRepository:
             for h in outcome.rule_hits
         ):
             raise LookupError("classification resource not found")
+        if any(h.jurisdiction_id != principal.jurisdiction_id for h in outcome.rule_hits):
+            raise LookupError("classification mixed jurisdiction RuleHits")
+        if result is not None and principal.jurisdiction_id is not None and result.jurisdiction_id != principal.jurisdiction_id:
+            raise LookupError("classification jurisdiction mismatch")
         if result is not None and (
             (
                 result.tenant_id,
@@ -437,6 +565,7 @@ class PostgresFormalClassificationRepository:
                         b.ClassificationResultEntity.subject_id == str(result.data_item_id),
                         b.ClassificationResultEntity.scheme_version_id
                         == str(result.scheme_version_id),
+                        b.ClassificationResultEntity.jurisdiction_id == str(result.jurisdiction_id),
                         b.ClassificationResultEntity.formal_provenance_json.is_not(None),
                     )
                 )

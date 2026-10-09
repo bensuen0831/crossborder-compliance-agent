@@ -21,6 +21,12 @@ class ClassificationLevel(Contract):
     rank: int
 
 
+class ClassificationJurisdictionBinding(Contract):
+    jurisdiction_id: UUID
+    scheme_version_id: UUID
+    classification_binding_id: UUID
+
+
 class ClassificationScheme(Contract):
     scheme_id: UUID
     scheme_version_id: UUID
@@ -90,6 +96,8 @@ def classify(
         raise LookupError("scheme not found")
     matches = []
     for hit in hits:
+        if hit.jurisdiction_id is not None and hit.jurisdiction_id != facts.jurisdiction_id:
+            raise LookupError("rule hit jurisdiction mismatch")
         if (
             hit.tenant_id,
             hit.project_id,

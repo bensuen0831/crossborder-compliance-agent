@@ -702,6 +702,10 @@ class PostgresCountryComplianceRepository:
                     not in version.runtime_contract_json["scope"]["jurisdiction_ids"]
                 ):
                     raise LookupError("RuleHit jurisdiction mismatch")
+                if hit.jurisdiction_id is not None and hit.jurisdiction_id != request.jurisdiction_id:
+                    raise LookupError("RuleHit execution jurisdiction mismatch")
+                if hit.jurisdiction_id is None and version.runtime_contract_json["scope"]["jurisdiction_ids"] != [str(request.jurisdiction_id)]:
+                    raise LookupError("legacy RuleHit jurisdiction is ambiguous")
                 hits.append(hit)
             if len(profile.profiles) == 1:
                 country = profile.profiles[0].config
@@ -1229,6 +1233,9 @@ class PostgresCountryComplianceRepository:
                     for r in prior
                     if r.formal_provenance_json
                     and r.formal_provenance_json["analysis_snapshot_id"] == str(snapshot_id)
+                    and (r.formal_provenance_json.get("jurisdiction_id") == str(jurisdiction_id)
+                         or (r.formal_provenance_json.get("jurisdiction_id") is None
+                             and [str(jurisdiction_id)] == [str(j) for r in rules if r.rule_version_id == hit.rule_version_id for j in r.contract.scope.jurisdiction_ids]))
                 ]
                 if saved:
                     historical = RuleHit.model_validate(saved[0].formal_provenance_json)
