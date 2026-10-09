@@ -1,6 +1,6 @@
 {
   "base_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
-  "source_sha": "a9f46b57b828ce4a709a62c1ca77957fe0ad6412",
+  "source_sha": "98eeac1737216939653cea64f625d7611e649c47",
   "ownership": "Approved M2-E WIP preservation + Phase1H/M2-A R1.1 owning-contract recovery; not M2-E closure",
   "paths": {
     "alembic/env.py": "a717ebf0587b4f4c7d818baf8198f2bf7ef6a32f35d061975c2b5d425a627c48",
@@ -9,7 +9,7 @@
     "scripts/m2a_ownership.py": "9b604cddbcdc78f03f9ccc265ea9b83afc8f3a2726fa6c7914d7b6b0617a2865",
     "scripts/m2d_ownership.py": "1e1d58fd252df46201b214fb4028a8c702a665452ca07c7dd2ea5d2cd63b5bdd",
     "scripts/m2e_r1_architecture_check.py": "34854c8044b22bfbe6330ef2c3509604a8c32f99ff22fef35d7e05abf9dd18a3",
-    "scripts/m2e_r1_ownership.py": "9371b2f1a85216f67fc459ae1e351f1dc919afe3be0436b60269f1269753f02f",
+    "scripts/m2e_r1_ownership.py": "415f0d718c795e453434c5922f99252cdc752933f90e5f5a06336dbc4860ff41",
     "scripts/phase1kb_ownership.py": "699c6bac140577d686a1270f9bf0968f7b6f10884401f7e0d27ec9c60d6fbf77",
     "scripts/phase1l_b_ownership.py": "c7768c8ad862e909bf493a384293c03cda018f5a4667baf3a0b76ccbb9fb0cfe",
     "src/crossborder_compliance/application/classification_services.py": "0f2aaae181b58ce171b90987965256764a6f4f4abb523dcf460c02ec8e75b748",
@@ -39,6 +39,7 @@
     "src/crossborder_compliance/interfaces/api/workflow_app.py": "13a3ce97cdc8e77e0158d00f17179c63f0904da3ecc2c4e4bd6a571d889bc5d6",
     "src/crossborder_compliance/workflows/langgraph_adapter.py": "fa83515bd4b9ecb4500a29ce93df9ffffd13536e0e4e644544dcf5c423d93d2c",
     "tests/m2e_fixtures.py": "5d5f6eab6a7878308b5b20d9f843e951d23df425369b26dbd4e2d6951100a9bc",
+    "tests/test_m2b_snapshot_contract_probe.py": "f694c17fa5c2ffcc9457675a7911714a14c3fbe7c14c4507a1d78a9876b5168b",
     "tests/test_m2e_http.py": "4e5e385ef29c7e52ccd979b15c72db6f2ba577751baf103abf5e22baca4ddfad",
     "tests/test_m2e_identity_postgres.py": "f82ea769895b41d6e00520f327fbeca4ad9db72a1b78802a4375c587cc3a5ee3",
     "tests/test_m2e_r11_migrations.py": "f1319589f1dac1ffba2cd17c720da40fe755f348e295dce4434ce25bbfa486f3",
