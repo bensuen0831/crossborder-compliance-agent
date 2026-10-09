@@ -77,7 +77,7 @@ jobs:
       - name: Existing schema and canonical isolated formal workflow fixtures
         run: |
           alembic upgrade head
-          python -c "from alembic.config import Config; from alembic.script import ScriptDirectory; from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after; heads = ScriptDirectory.from_config(Config('alembic.ini')).get_heads(); assert len(heads) == 1 and revision_at_or_after(heads[0], '0010_phase1j')"
+          python -c "from alembic.config import Config; from alembic.script import ScriptDirectory; from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after; heads = ScriptDirectory.from_config(Config('alembic.ini')).get_heads(); assert len(heads) == 1 and revision_at_or_after(heads[0], '0015_m2d_review_governance')"
           python - <<'PY'
           import json
           json.dump({'version':'ci-explicit-no-scan-v1','max_size_bytes':1048576,'scan_required':False,'allowed_types':[{'extension':'.txt','media_type':'text/plain','signature':'text'},{'extension':'.docx','media_type':'application/vnd.openxmlformats-officedocument.wordprocessingml.document','signature':'docx'}]},open('/tmp/m2b-file-policy.json','w'))
