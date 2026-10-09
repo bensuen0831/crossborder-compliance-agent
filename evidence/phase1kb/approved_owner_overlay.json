@@ -1,6 +1,6 @@
 {
   "base_sha": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
-  "source_sha": "739021ebecc64ace88e0c6d438261089637fddc5",
+  "source_sha": "c0e929829e2567e4ba1eaa325748630d706f74c5",
   "authority": "User-approved Phase1K-B typed governance/control-plane/integration scope; finite canonical shared-file extensions; frozen legal owners/migrations unchanged",
   "paths": {
     ".github/workflows/m2d-human-review.yml": "3994ab933db875c26f4ac0aaac755cb7997dff4c2145136c7fc1478cc7c5381f",
@@ -13,6 +13,8 @@
     "frontend/src/api/client.ts": "577ee56cfdbef0235c5b9bdd430c30e65e62cdcb5b6d6ecc0fcdf98cf704cde7",
     "frontend/src/api/m2a-generated.ts": "3bf64646f03c87a914f1fd1314ef62f15e949957440e1e2c99ed31528445357d",
     "frontend/src/api/m2a-schemas.json": "22030862f9124b825bd67bf5175c72c98de65b27d4af80f4b584228ec3ce3907",
+    "frontend/src/api/m2d-generated.ts": "ad4c4193ef09832e2acd88af387a45ea0f66adb41e291fda761969dbd3b6766d",
+    "frontend/src/api/m2d-schemas.json": "630eabe879c7b586da6208ba136f3ed065f53f374c0bc050bc3ff4a7736830f3",
     "frontend/src/api/phase1kb-generated.ts": "12a1ebe4c7b1ec51f3724d42e4bf5b0def260422506b64c1ffb10beb0f676402",
     "frontend/src/api/phase1kb-schemas.json": "bd97990278cadc941f4b0265453a654b275934b81ae3c9590c2bda9261e0951e",
     "frontend/src/features/admin/AdminFeature.tsx": "ec9326fac6921f85264052530e31ddb5933eb69bbfa5ffc4c0a73ade3f6f0b5c",
@@ -36,7 +38,7 @@
     "scripts/phase1j_ownership.py": "c68409a5f52f0879e23a526bbc8ae7a9b49d1d5e9567b0bc5c8260a31981712e",
     "scripts/phase1kb_architecture_check.py": "397fd70f76271885f5a53e98c473c28704f75cc017f7703068e315fd74fb33d5",
     "scripts/phase1kb_closure.py": "af96d605e14763ad28b16a4c085e16cb2b3977ac9d0bed81fc0fd7aa7faf27fc",
-    "scripts/phase1kb_ownership.py": "b00ed0d6734c520d2014bfb6e3415a3e3f0effbb5b17c1bc0dd5a91588b6ae45",
+    "scripts/phase1kb_ownership.py": "856e3d6fa08eea77a6f8d1573725403d09c5448d38cc420306e7ad4ec658bea1",
     "scripts/phase1kb_real_provider_acceptance.py": "6b3e01d95d2a7918f2c5d4507a7c52cd32bad94d9ad32805d3c2dbc773ee9774",
     "src/crossborder_compliance/application/document_ports.py": "96e29ac7796ca4e1da9f5ddcd4437d80bdf647a4eb2c6f86349f5fb00b043ab8",
     "src/crossborder_compliance/application/document_services.py": "4c0ed5428f880e2f4765003c197157e8111f356c2bd5b3159dc01a99b177565b",
