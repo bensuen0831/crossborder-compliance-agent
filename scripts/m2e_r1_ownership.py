@@ -57,6 +57,7 @@ PATHS = frozenset(
         "tests/test_m2e_webhooks_postgres.py",
     ]
 )
+PATHS = PATHS | {"scripts/m2a_ownership.py", "scripts/phase1l_b_ownership.py"}
 
 
 def overlay(root):

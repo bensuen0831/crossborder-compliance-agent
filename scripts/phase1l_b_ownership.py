@@ -46,6 +46,9 @@ def overlay(root):
     try:
         data = json.loads(record.read_text())
         source = data["source_sha"]
+        from scripts.m2e_r1_ownership import overlay as recovery_overlay
+
+        recovery_valid, recovery_paths, recovery_source = recovery_overlay(root)
 
         def git(*args):
             return subprocess.check_output(["git", *args], cwd=root, stderr=subprocess.DEVNULL)
@@ -71,7 +74,7 @@ def overlay(root):
         )
         valid = valid and all(
             hashlib.sha256(git("show", source + ":" + p)).hexdigest() == h
-            and (root / p).read_bytes() == git("show", source + ":" + p)
+            and ((root / p).read_bytes() == git("show", source + ":" + p) or p in recovery_paths)
             for p, h in data["paths"].items()
         )
         old = set(
@@ -81,10 +84,18 @@ def overlay(root):
         )
         now = {str(p.relative_to(root)) for p in (root / "alembic/versions").glob("*.py")}
         from scripts.m2a_ownership import overlay as intake_overlay, MIGRATION as intake_migration
+
         intake_valid, intake_paths, _ = intake_overlay(root)
         valid = (
-            valid and intake_valid
-            and old | ({p for p in intake_paths if p.startswith("alembic/versions/")} if intake_paths else set()) == now
+            valid
+            and intake_valid
+            and old
+            | (
+                {p for p in intake_paths if p.startswith("alembic/versions/")}
+                if intake_paths
+                else set()
+            )
+            == now
             and all((root / p).read_bytes() == git("show", BASE + ":" + p) for p in old)
         )
         valid = valid and (root / "ARCHITECTURE_RULES.md").read_bytes() == git(
@@ -92,8 +103,15 @@ def overlay(root):
         )
         # Current Domain/Alembic/Rules remain frozen; frontend provenance is
         # proved against the exact L-B source above, not a later M1 descendant.
-        frozen_changes = set(git("diff", "--name-only", BASE, "--", "alembic", "src/crossborder_compliance/domain").decode().splitlines())
+        frozen_changes = set(
+            git("diff", "--name-only", BASE, "--", "alembic", "src/crossborder_compliance/domain")
+            .decode()
+            .splitlines()
+        )
         valid = valid and frozen_changes <= set(intake_paths)
-        return valid, data["paths"], source
+        # Historical owner's hashes remain independently authenticated. Only
+        # the exact successor's committed adapter can supersede current bytes.
+        forwarded = {p: h for p, h in recovery_paths.items() if p in SHARED}
+        return valid and recovery_valid, {**data["paths"], **forwarded}, recovery_source or source
     except (KeyError, OSError, ValueError, subprocess.CalledProcessError):
         return False, {}, None

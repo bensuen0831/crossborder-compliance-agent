@@ -201,6 +201,8 @@ def owned_delta(root):
             "evidence/m2d",
             "docs/phase1kb",
             "evidence/phase1kb",
+            "docs/m2e",
+            "evidence/m2e",
         )
         for p in (Path(root) / prefix).rglob("*")
         if p.is_file()

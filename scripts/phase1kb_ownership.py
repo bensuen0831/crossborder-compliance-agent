@@ -131,7 +131,7 @@ def overlay(root):
         source = data["source_sha"]
         from scripts.m2e_r1_ownership import overlay as recovery_overlay
 
-        recovery_valid, recovery_paths, _ = recovery_overlay(root)
+        recovery_valid, recovery_paths, recovery_source = recovery_overlay(root)
 
         def git(*args):
             return subprocess.check_output(
@@ -197,7 +197,7 @@ def overlay(root):
             for p, h in recovery_paths.items()
             if p != "src/crossborder_compliance/workflows/langgraph_adapter.py"
         }
-        return valid and recovery_valid, {**data["paths"], **forwarded}, source
+        return valid and recovery_valid, {**data["paths"], **forwarded}, recovery_source or source
     except (OSError, KeyError, ValueError, subprocess.CalledProcessError):
         return False, {}, None
 
