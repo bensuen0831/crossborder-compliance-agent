@@ -55,9 +55,16 @@ async def lifespan(app):
     profile_worker = ComplianceProfilePublicationWorker(sessions)
     app.state.compliance_profile_worker = profile_worker
     profile_worker.start()
+    # Canonical business execution remains behind the existing runtime; this
+    # worker owns only durable channel delivery and webhook retries.
+    from crossborder_compliance.infrastructure.integration_worker import IntegrationDeliveryWorker
+    integration_worker = IntegrationDeliveryWorker(app)
+    app.state.integration_delivery_worker = integration_worker
+    integration_worker.start()
     try:
         yield
     finally:
+        integration_worker.stop()
         profile_worker.stop()
         worker.stop()
 

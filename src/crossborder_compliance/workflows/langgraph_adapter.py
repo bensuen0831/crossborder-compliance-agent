@@ -141,6 +141,19 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
     def _config(workflow_run_id: UUID) -> dict[str, Any]:
         return {"configurable": {"thread_id": str(workflow_run_id)}, "recursion_limit": 20}
 
+    @staticmethod
+    def _setup_checkpointer(checkpointer):
+        # Official setup contains first-start schema migrations. Serialize that
+        # setup across API reads/workers; never manage its internal tables here.
+        connection = checkpointer.conn
+        connection.execute("SELECT pg_advisory_lock(hashtextextended(%s,0))",
+                           ("canonical-langgraph-checkpointer-setup",))
+        try:
+            checkpointer.setup()
+        finally:
+            connection.execute("SELECT pg_advisory_unlock(hashtextextended(%s,0))",
+                               ("canonical-langgraph-checkpointer-setup",))
+
     def start(self, workflow_run_id: UUID, initial_state: dict[str, Any]) -> WorkflowRunRef:
         if self.graph_factory is not None:
             self.graph_factory.validate(workflow_run_id, initial_state)
@@ -148,7 +161,7 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
                 raise ValueError("canonical initial state must be server-generated")
         *_, PostgresSaver = _require_langgraph()
         with PostgresSaver.from_conn_string(self.postgres_uri) as checkpointer:
-            checkpointer.setup()
+            self._setup_checkpointer(checkpointer)
             graph = self._graph(checkpointer)
             if self.graph_factory is not None:
                 existing = graph.get_state(self._runtime_config(workflow_run_id))
@@ -207,7 +220,7 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
         if self.graph_factory is not None:
             decision = self.graph_factory.authorize_resume(workflow_run_id, decision)
         with PostgresSaver.from_conn_string(self.postgres_uri) as checkpointer:
-            checkpointer.setup()
+            self._setup_checkpointer(checkpointer)
             graph = self._graph(checkpointer)
             if self.graph_factory is not None:
                 saved = graph.get_state(self._runtime_config(workflow_run_id))
@@ -224,7 +237,7 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
             self.graph_factory.authorize(workflow_run_id, "read")
         *_, PostgresSaver = _require_langgraph()
         with PostgresSaver.from_conn_string(self.postgres_uri) as checkpointer:
-            checkpointer.setup()
+            self._setup_checkpointer(checkpointer)
             graph = self._graph(checkpointer)
             snapshot = graph.get_state(self._runtime_config(workflow_run_id))
             if self.graph_factory is not None and snapshot.values:
