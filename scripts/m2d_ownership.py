@@ -83,6 +83,11 @@ def overlay(root):
         from scripts.phase1kb_ownership import overlay as llm_overlay
 
         llm_valid, llm_paths, llm_source = llm_overlay(root)
+        from scripts.m2e_r1_ownership import overlay as recovery_overlay
+
+        recovery_valid, recovery_paths, _ = recovery_overlay(root)
+        llm_valid = llm_valid and recovery_valid
+        llm_paths = {**llm_paths, **recovery_paths}
 
         def git(*args):
             return subprocess.check_output(["git", *args], cwd=root, stderr=subprocess.DEVNULL)

@@ -131,10 +131,19 @@ def publish_bindings(session, row):
     scheme = validate_scheme(row)
     if scheme is None:
         return
-    from crossborder_compliance.infrastructure.persistence.metadata_models import ClassificationBindingEntity
+    from crossborder_compliance.infrastructure.persistence.metadata_models import (
+        ClassificationBindingEntity,
+    )
+
     for jurisdiction in scheme.jurisdiction_ids:
-        session.add(ClassificationBindingEntity(
-            classification_binding_id=str(uuid4()), tenant_id=row.tenant_id,
-            scheme_version_id=row.scheme_version_id, jurisdiction_id=str(jurisdiction),
-            effective_from=row.effective_from, effective_to=row.effective_to, status="ACTIVE",
-        ))
+        session.add(
+            ClassificationBindingEntity(
+                classification_binding_id=str(uuid4()),
+                tenant_id=row.tenant_id,
+                scheme_version_id=row.scheme_version_id,
+                jurisdiction_id=str(jurisdiction),
+                effective_from=row.effective_from,
+                effective_to=row.effective_to,
+                status="ACTIVE",
+            )
+        )

@@ -6,7 +6,7 @@ from datetime import UTC, date, datetime
 from typing import Literal
 from uuid import UUID, uuid4
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_serializer, model_validator
 
 from crossborder_compliance.domain.rule_ast import (
     FieldType,
@@ -129,6 +129,16 @@ class RuleHit(Contract):
     reason_code: str
     review_required: bool
     validation_status: Literal["VALIDATED"] = "VALIDATED"
+
+    @model_serializer(mode="wrap")
+    def preserve_legacy_identity(self, handler):
+        data = handler(self)
+        # V1 persisted hits had no jurisdiction field. Preserve their exact
+        # serialized input for immutable downstream decision digests; new
+        # explicit hits retain the governed jurisdiction in provenance.
+        if self.jurisdiction_id is None:
+            data.pop("jurisdiction_id", None)
+        return data
 
 
 def run_rule_tests(contract: RuleContract, cases: tuple[RuleTestCase, ...]) -> None:

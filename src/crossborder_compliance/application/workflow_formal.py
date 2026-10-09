@@ -42,7 +42,9 @@ class FormalWorkflowPlan(ReferenceModel):
     subject_id: UUID
     classification_data_item_ids: tuple[UUID, ...] = Field(default=(), max_length=128)
     scheme_version_id: UUID | None = None  # Frozen single-jurisdiction legacy plans.
-    classification_bindings: tuple[ClassificationJurisdictionBinding, ...] = Field(default=(), max_length=128)
+    classification_bindings: tuple[ClassificationJurisdictionBinding, ...] = Field(
+        default=(), max_length=128
+    )
     applicability: tuple[ApplicabilityBinding, ...] = Field(min_length=1, max_length=128)
     retrieval_query: KnowledgeRetrievalQuery
     requirement_review: bool = False
@@ -70,7 +72,8 @@ class FormalWorkflowPlan(ReferenceModel):
         ):
             raise ValueError("scenario mode cannot fabricate classification")
         if self.mode == "DATA_AWARE" and (
-            not self.classification_data_item_ids or not (self.scheme_version_id or self.classification_bindings)
+            not self.classification_data_item_ids
+            or not (self.scheme_version_id or self.classification_bindings)
         ):
             raise ValueError("data mode requires explicit classification references")
         if self.input_capability_gap is not None and (
@@ -95,8 +98,12 @@ class FormalWorkflowPlan(ReferenceModel):
             if self.scheme_version_id is not None:
                 raise ValueError("explicit binding plan cannot mix legacy scheme selection")
             jurisdictions = [b.jurisdiction_id for b in self.classification_bindings]
-            if len(set(jurisdictions)) != len(jurisdictions) or set(jurisdictions) != {b.jurisdiction_id for b in self.applicability}:
-                raise ValueError("classification bindings must cover exact applicability jurisdictions")
+            if len(set(jurisdictions)) != len(jurisdictions) or set(jurisdictions) != {
+                b.jurisdiction_id for b in self.applicability
+            }:
+                raise ValueError(
+                    "classification bindings must cover exact applicability jurisdictions"
+                )
         return self
 
 
@@ -425,15 +432,19 @@ class FormalWorkflowStages:
                 )
             refs = []
             executions = (
-                tuple((b.jurisdiction_id,b.scheme_version_id) for b in p.classification_bindings)
-                if p.classification_bindings else ((None,p.scheme_version_id),)
+                tuple((b.jurisdiction_id, b.scheme_version_id) for b in p.classification_bindings)
+                if p.classification_bindings
+                else ((None, p.scheme_version_id),)
             )
             for item in p.classification_data_item_ids:
                 for jurisdiction, scheme in executions:
                     kwargs = {} if jurisdiction is None else {"jurisdiction_id": jurisdiction}
                     outcome = self.classification.execute(
-                        project_id=p.project_id, snapshot_id=p.analysis_snapshot_id,
-                        data_item_id=item, scheme_version_id=scheme, **kwargs,
+                        project_id=p.project_id,
+                        snapshot_id=p.analysis_snapshot_id,
+                        data_item_id=item,
+                        scheme_version_id=scheme,
+                        **kwargs,
                     )
                     status = formal_outcome(outcome.result or outcome, outcome.status)
                     if outcome.result:
@@ -473,9 +484,17 @@ class FormalWorkflowStages:
             classification_results = {ident: self.country.classify(ident) for ident in classes}
             refs, outcomes, reasons = [], [], []
             for binding in p.applicability:
-                scoped_classes = tuple(ident for ident, result in classification_results.items()
-                    if not p.classification_bindings or result.jurisdiction_id == binding.jurisdiction_id)
-                scoped_hits = tuple(h for ident in scoped_classes for h in classification_results[ident].rule_hit_ids)
+                scoped_classes = tuple(
+                    ident
+                    for ident, result in classification_results.items()
+                    if not p.classification_bindings
+                    or result.jurisdiction_id == binding.jurisdiction_id
+                )
+                scoped_hits = tuple(
+                    h
+                    for ident in scoped_classes
+                    for h in classification_results[ident].rule_hit_ids
+                )
                 if p.mode == "SCENARIO_LEVEL":
                     if self.scenario_rules is None:
                         return self._result(
