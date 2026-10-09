@@ -79,7 +79,11 @@ for (const [locale, m] of Object.entries(catalogs)) {
     const errors: string[] = []; page.on('pageerror', e => errors.push(e.message));
     page.on('console', e => { if (e.type() === 'error') errors.push(e.text()); });
     await page.addInitScript(x => localStorage.setItem('stage1-alpha.ui-locale', x), locale);
-    await identity(page.request, 'LLM_USER'); await page.goto('/intake');
+    expect(manifest.LLM_USER.permissions).not.toContain('metadata:admin');
+    expect(manifest.LLM_USER.permissions).not.toContain('metadata:publish');
+    await identity(page.request, 'LLM_USER');
+    expect((await page.request.get('/api/v1/admin/model-providers')).status()).toBe(404);
+    await page.goto('/intake');
     await page.getByLabel(m['ui.m2a.projectName']).fill(`Governed LLM ${locale} ${Date.now()}`);
     await page.getByRole('button', { name: m['ui.m2a.create'], exact: true }).click();
     const project = await page.getByTestId('intake-project-id').innerText();
