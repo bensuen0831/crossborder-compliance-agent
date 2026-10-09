@@ -1,0 +1,241 @@
+{
+  "decision": "PHASE1K-B MAIN INTEGRATION = BLOCKED",
+  "created_at": "2026-10-09T04:12:38.342245+00:00",
+  "base_main_sha": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+  "pr_number": 26,
+  "tested_pr_head_sha": "d74bca4b61178637f24302d8b1fa6baa4f05ea59",
+  "merge_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+  "merge_parents": [
+    "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+    "d74bca4b61178637f24302d8b1fa6baa4f05ea59"
+  ],
+  "tested_main_sha": null,
+  "runner_checkout_sha": null,
+  "alembic_head": "0016_phase1kb_multi_provider_llm_governance",
+  "source_integrity": "PASS",
+  "source_tree_equals_tested_pr": true,
+  "historical_migrations_unchanged": true,
+  "v37_documents": [
+    "\u8de8\u5883\u6578\u64da\u5408\u898f\u667a\u80fd\u9ad4_Codex_Master_Specification_V3.7.md",
+    "\u8de8\u5883\u6578\u64da\u5408\u898f\u667a\u80fd\u9ad4_Phase0_\u67b6\u69cb\u8207\u958b\u767c\u524d\u8a2d\u8a08_V3.7.md",
+    "\u8de8\u5883\u6578\u64da\u5408\u898f\u667a\u80fd\u9ad4_V3.7_\u8a2d\u8a08\u4e00\u81f4\u6027\u6aa2\u67e5\u8207\u8b8a\u66f4\u6458\u8981.md",
+    "\u8de8\u5883\u6578\u64da\u5408\u898f\u667a\u80fd\u9ad4_Phase1K-B_\u4e0b\u4e00\u4efb\u52d9\u63d0\u793a\u8a5e_V3.7.md"
+  ],
+  "backend_passed": null,
+  "architecture_passed": null,
+  "runtime_passed": null,
+  "frontend_passed": null,
+  "browser_passed": null,
+  "browser_retries": null,
+  "locales": {
+    "zh-CN": "NOT_EXECUTED_ON_MAIN",
+    "zh-HK": "NOT_EXECUTED_ON_MAIN",
+    "en-US": "NOT_EXECUTED_ON_MAIN"
+  },
+  "provider_protocol_acceptance": "NOT_EXECUTED_ON_MAIN",
+  "paid_endpoint_acceptance": "NOT_EXECUTED",
+  "migration_results": "NOT_EXECUTED_ON_MAIN",
+  "m2b_temporal_result": "NOT_EXECUTED_ON_MAIN",
+  "m2d_review_result": "NOT_EXECUTED_ON_MAIN",
+  "exact_main_workflow_runs": [
+    {
+      "kind": "phase1kb",
+      "run_id": 37882625172,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37882625172",
+      "head_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+      "event": "workflow_dispatch",
+      "status": "completed",
+      "conclusion": "failure",
+      "jobs": [
+        {
+          "id": 113665510440,
+          "name": "mandatory-backend",
+          "steps_executed": 0,
+          "started_at": "2026-10-09T04:10:22Z",
+          "completed_at": "2026-10-09T04:10:24Z"
+        },
+        {
+          "id": 113665510569,
+          "name": "canonical-frontend-browser",
+          "steps_executed": 0,
+          "started_at": "2026-10-09T04:10:22Z",
+          "completed_at": "2026-10-09T04:10:24Z"
+        }
+      ],
+      "runner_checkout_sha": null,
+      "reason": "GITHUB_ACTIONS_BILLING_OR_SPENDING_LIMIT"
+    },
+    {
+      "kind": "backend",
+      "run_id": 37882630779,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37882630779",
+      "head_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+      "event": "workflow_dispatch",
+      "status": "completed",
+      "conclusion": "failure",
+      "jobs": [
+        {
+          "id": 113665533015,
+          "name": "mandatory-runtime-smoke",
+          "steps_executed": 0,
+          "started_at": "2026-10-09T04:10:27Z",
+          "completed_at": "2026-10-09T04:10:31Z"
+        },
+        {
+          "id": 113665533214,
+          "name": "contract-tests",
+          "steps_executed": 0,
+          "started_at": "2026-10-09T04:10:27Z",
+          "completed_at": "2026-10-09T04:10:30Z"
+        }
+      ],
+      "runner_checkout_sha": null,
+      "reason": "GITHUB_ACTIONS_BILLING_OR_SPENDING_LIMIT"
+    },
+    {
+      "kind": "m2d",
+      "run_id": 37882635996,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37882635996",
+      "head_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+      "event": "workflow_dispatch",
+      "status": "completed",
+      "conclusion": "failure",
+      "jobs": [
+        {
+          "id": 113665545004,
+          "name": "frontend-real-backend-uat",
+          "steps_executed": 0,
+          "started_at": "2026-10-09T04:10:30Z",
+          "completed_at": "2026-10-09T04:10:32Z"
+        }
+      ],
+      "runner_checkout_sha": null,
+      "reason": "GITHUB_ACTIONS_BILLING_OR_SPENDING_LIMIT"
+    },
+    {
+      "kind": "m2c",
+      "run_id": 37882641167,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37882641167",
+      "head_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+      "event": "workflow_dispatch",
+      "status": "completed",
+      "conclusion": "failure",
+      "jobs": [
+        {
+          "id": 113665559687,
+          "name": "frontend-real-backend-uat",
+          "steps_executed": 0,
+          "started_at": "2026-10-09T04:10:34Z",
+          "completed_at": "2026-10-09T04:10:36Z"
+        }
+      ],
+      "runner_checkout_sha": null,
+      "reason": "GITHUB_ACTIONS_BILLING_OR_SPENDING_LIMIT"
+    },
+    {
+      "kind": "m2b",
+      "run_id": 37882646354,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37882646354",
+      "head_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+      "event": "workflow_dispatch",
+      "status": "completed",
+      "conclusion": "failure",
+      "jobs": [
+        {
+          "id": 113665577014,
+          "name": "frontend-real-backend-uat",
+          "steps_executed": 0,
+          "started_at": "2026-10-09T04:10:38Z",
+          "completed_at": "2026-10-09T04:10:41Z"
+        }
+      ],
+      "runner_checkout_sha": null,
+      "reason": "GITHUB_ACTIONS_BILLING_OR_SPENDING_LIMIT"
+    },
+    {
+      "kind": "m2a",
+      "run_id": 37882652557,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37882652557",
+      "head_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+      "event": "workflow_dispatch",
+      "status": "completed",
+      "conclusion": "failure",
+      "jobs": [
+        {
+          "id": 113665597537,
+          "name": "frontend-real-backend-uat",
+          "steps_executed": 0,
+          "started_at": "2026-10-09T04:10:43Z",
+          "completed_at": "2026-10-09T04:10:45Z"
+        }
+      ],
+      "runner_checkout_sha": null,
+      "reason": "GITHUB_ACTIONS_BILLING_OR_SPENDING_LIMIT"
+    },
+    {
+      "kind": "m1",
+      "run_id": 37882658498,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37882658498",
+      "head_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+      "event": "workflow_dispatch",
+      "status": "completed",
+      "conclusion": "failure",
+      "jobs": [
+        {
+          "id": 113665614075,
+          "name": "frontend-real-backend-uat",
+          "steps_executed": 0,
+          "started_at": "2026-10-09T04:10:47Z",
+          "completed_at": "2026-10-09T04:10:50Z"
+        }
+      ],
+      "runner_checkout_sha": null,
+      "reason": "GITHUB_ACTIONS_BILLING_OR_SPENDING_LIMIT"
+    },
+    {
+      "kind": "m0",
+      "run_id": 37882663736,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37882663736",
+      "head_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+      "event": "workflow_dispatch",
+      "status": "completed",
+      "conclusion": "failure",
+      "jobs": [
+        {
+          "id": 113665630430,
+          "name": "real-backend-uat",
+          "steps_executed": 0,
+          "started_at": "2026-10-09T04:10:51Z",
+          "completed_at": "2026-10-09T04:10:54Z"
+        },
+        {
+          "id": 113665630622,
+          "name": "frontend",
+          "steps_executed": 0,
+          "started_at": "2026-10-09T04:10:51Z",
+          "completed_at": "2026-10-09T04:10:54Z"
+        }
+      ],
+      "runner_checkout_sha": null,
+      "reason": "GITHUB_ACTIONS_BILLING_OR_SPENDING_LIMIT"
+    }
+  ],
+  "premerge_ci": "8/8 SUCCESS",
+  "premerge_evidence_branch": "evidence/phase1kb-closure-d74bca4",
+  "premerge_evidence_commit": "04eb7384f98b9a11574934e1af42c2b381175034",
+  "premerge_evidence_unchanged": true,
+  "tag": null,
+  "requested_tag": "v3.7-phase1kb-pass",
+  "blockers": [
+    "GITHUB_ACTIONS_BILLING_OR_SPENDING_LIMIT"
+  ],
+  "failure_classification": "CI_INFRASTRUCTURE_BEFORE_JOB_EXECUTION",
+  "product_failure_observed": false,
+  "recovery_attempted": false,
+  "recovery_requirement": "Resolve repository owner GitHub Billing & plans failed payments/spending limit, then rerun all eight required workflows at exact merge SHA; do not borrow PR artifacts.",
+  "m2e_entry_decision": "BLOCKED",
+  "stage1_full_e2e_entry": "BLOCKED_UNTIL_M2E_MAIN_CLOSURE",
+  "stage2_started": false,
+  "evidence_branch": "evidence/phase1kb-main-closure-0f5a40c",
+  "evidence_kind": "immutable blocked main integration evidence; not a tested product baseline"
+}
