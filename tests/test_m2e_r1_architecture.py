@@ -34,3 +34,14 @@ def test_recovery_is_exact_committed_finite_successor_owner():
     assert not any(p.startswith("frontend/") for p in paths)
     assert "src/crossborder_compliance/domain/decision_engine.py" not in paths
     assert "src/crossborder_compliance/infrastructure/persistence/rule_governance.py" not in paths
+
+
+def test_batched_git_proof_still_rejects_live_frozen_engine_tampering(monkeypatch):
+    protected = ROOT / "src/crossborder_compliance/domain/decision_engine.py"
+    original = Path.read_bytes
+    monkeypatch.setattr(
+        Path,
+        "read_bytes",
+        lambda path: b"unauthorized change" if path == protected else original(path),
+    )
+    assert not overlay(ROOT)[0]
