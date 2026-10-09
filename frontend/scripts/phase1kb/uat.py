@@ -181,7 +181,10 @@ def seed(args, urls, key):
         **user,
         "display_name": "Governed AI user",
         "permissions": sorted(
-            (set(user["permissions"]) - {"metadata:admin", "metadata:review", "metadata:publish", "knowledge:admin"})
+            (
+                set(user["permissions"])
+                - {"metadata:admin", "metadata:review", "metadata:publish", "knowledge:admin"}
+            )
             | {"llm:invoke", "knowledge:retrieve"}
             | {f"prompt:{identity}:use" for identity in prompt_ids}
         ),
