@@ -57,7 +57,7 @@ jobs:
           if-no-files-found: warn
   canonical-frontend-browser:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 45
     services:
       postgres:
         image: pgvector/pgvector:pg16
@@ -101,6 +101,8 @@ jobs:
           frontend/node_modules/.bin/openapi-typescript frontend/src/api/phase1kb-schemas.json -o frontend/src/api/phase1kb-generated.ts
           python frontend/scripts/m2a/export_contracts.py
           frontend/node_modules/.bin/openapi-typescript frontend/src/api/m2a-schemas.json -o frontend/src/api/m2a-generated.ts
+          python frontend/scripts/m2d/export_contracts.py
+          frontend/node_modules/.bin/openapi-typescript frontend/src/api/m2d-schemas.json -o frontend/src/api/m2d-generated.ts
           git diff --exit-code -- frontend/src/api
           npm run typecheck --prefix frontend
           npm run lint --prefix frontend
@@ -119,6 +121,7 @@ jobs:
           PY
           python frontend/scripts/phase1kb/uat.py --manifest /tmp/phase1kb-personas.json --secret-root /tmp/phase1kb-private-secrets --key-file /tmp/phase1kb-key --seed
           python frontend/scripts/phase1kb/uat.py --manifest /tmp/phase1kb-personas.json --secret-root /tmp/phase1kb-private-secrets --key-file /tmp/phase1kb-key > /tmp/phase1kb-host.log 2>&1 &
+          echo "$!" > /tmp/phase1kb-host.pid
           cd frontend
           npx playwright install --with-deps chromium
           npm run dev > /tmp/phase1kb-vite.log 2>&1 &
@@ -127,10 +130,28 @@ jobs:
             sleep 1
           done
           exit 1
-      - name: Admin/user three-locale smoke and all M2-D/C/B/A/M1/M0 regressions, zero retries
-        run: npm run test:e2e --prefix frontend -- phase1kb.spec.ts m2d.spec.ts m2c.spec.ts m2b.spec.ts m2a.spec.ts m1.spec.ts knowledge.spec.ts
+      - name: Admin/user three-locale smoke and M2-D/C/B/A/M1 regressions, zero retries
+        run: |
+          npm run test:e2e --prefix frontend -- phase1kb.spec.ts m2d.spec.ts m2c.spec.ts m2b.spec.ts m2a.spec.ts m1.spec.ts
+          cp frontend/test-results/results.json /tmp/phase1kb-core-browser.json
+      - name: Original M0 insufficient-evidence fixture and 36-test matrix, zero retries
+        run: |
+          kill "$(cat /tmp/phase1kb-host.pid)"
+          for attempt in $(seq 1 30); do
+            if ! kill -0 "$(cat /tmp/phase1kb-host.pid)" 2>/dev/null; then break; fi
+            sleep 1
+          done
+          python scripts/m0_preview/seed.py --output /tmp/phase1kb-m0-personas.json
+          python scripts/m0_preview/server.py --manifest /tmp/phase1kb-m0-personas.json > /tmp/phase1kb-m0-host.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8010/health/live > /dev/null; then break; fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:8010/health/live > /dev/null
+          npm run test:e2e --prefix frontend -- knowledge.spec.ts --repeat-each=3
+          cp frontend/test-results/results.json /tmp/phase1kb-m0-browser.json
       - name: Exact-head frontend/browser measurement, no credentials archived
-        run: python scripts/phase1kb_closure.py frontend --directory artifacts/phase1kb/closure --frontend /tmp/phase1kb-frontend.json --browser frontend/test-results/results.json
+        run: python scripts/phase1kb_closure.py frontend --directory artifacts/phase1kb/closure --frontend /tmp/phase1kb-frontend.json --browser /tmp/phase1kb-core-browser.json --m0-browser /tmp/phase1kb-m0-browser.json
       - uses: actions/upload-artifact@v4
         if: success()
         with:

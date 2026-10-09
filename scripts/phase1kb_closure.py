@@ -17,11 +17,18 @@ def main():
     parser.add_argument("--directory", type=Path, required=True)
     parser.add_argument("--frontend", type=Path)
     parser.add_argument("--browser", type=Path)
+    parser.add_argument("--m0-browser", type=Path)
     args = parser.parse_args()
     head = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
-    expected = os.environ.get("EXPECTED_PR_HEAD", head)
-    assert head == expected, "Exact-head identity mismatch"
-    result = dict(tested_pr_head_sha=expected, runner_checkout_sha=head, final_sha=head)
+    expected = os.environ.get("EXPECTED_PR_HEAD")
+    if expected:
+        assert head == expected, "Exact-head identity mismatch"
+    result = dict(
+        tested_pr_head_sha=expected,
+        runner_checkout_sha=head,
+        final_sha=head,
+        exact_head_verified=expected is not None,
+    )
     if args.gate == "backend":
         backend = read(args.directory / "pytest_full_summary.json")
         assert backend["pass"] and backend["passed"] >= 763
@@ -71,26 +78,28 @@ def main():
     else:
         ui = read(args.frontend)
         assert ui["numPassedTests"] >= 130 and ui["numFailedTests"] == ui["numPendingTests"] == 0
-        browser = read(args.browser)
-        stats = browser["stats"]
-        assert (
-            stats["expected"] == 57
-            and stats["unexpected"] == stats["skipped"] == stats["flaky"] == 0
-        )
+        # M0 owns an insufficient-evidence fixture; M1/KB use sufficient inputs.
+        # Measure both original matrices without mixing fixture semantics.
+        browsers = ((read(args.browser), 21), (read(args.m0_browser), 36))
         counts = {}
 
         def walk(suites):
             for suite in suites:
                 for spec in suite.get("specs", []):
                     for test in spec["tests"]:
-                        assert all(
+                        assert test["results"] and all(
                             r["retry"] == 0 and r["status"] == "passed" for r in test["results"]
                         )
                         file = Path(spec["file"]).name
                         counts[file] = counts.get(file, 0) + 1
                 walk(suite.get("suites", []))
 
-        walk(browser["suites"])
+        for browser, expected_count in browsers:
+            stats = browser["stats"]
+            assert not browser.get("errors")
+            assert stats["expected"] == expected_count
+            assert stats["unexpected"] == stats["skipped"] == stats["flaky"] == 0
+            walk(browser["suites"])
         assert counts == {
             "phase1kb.spec.ts": 6,
             "knowledge.spec.ts": 36,

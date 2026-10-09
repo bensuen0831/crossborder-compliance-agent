@@ -6,7 +6,7 @@ Each enhancement has a genuine canonical DocumentParseRun and SourceTrace. It wr
 
 The canonical parse-quality gate rejects low-confidence, ungoverned fact types, invalid source locators, and partial model outcomes before formal confirmation. Completed durable tasks are idempotent. Previously pinned parse runs are never appended to or replaced. M2-D successor analyses inherit their original document/model universe without re-extraction.
 
-K-B8 focused PostgreSQL gate: 22 PASS (6 new document enhancement, 6 snapshot, 10 existing document input tests). Full closure, browser coverage, and exact-head CI remain pending.
+K-B8 focused PostgreSQL gate: 22 PASS (6 new document enhancement, 6 snapshot, 10 existing document input tests). Real three-locale browser document extraction and canonical START/READ PASS; full/exact-head closure remains pending.
 
 The existing KnowledgeRetrievalService now accepts the existing evidence-gap planner boundary. After an insufficient first evidence pack, its pinned query-expansion purpose invokes the same gateway. The bounded candidate phrases cause one additional lexical search round over the same allowed plan; current permission/revocation is revalidated again before constructing evidence. Only canonical retrieved knowledge contributes to EvidencePack. The existing sufficiency service decides whether evidence is now sufficient. Unavailable/denied LLM enhancement retains insufficiency; replay of a completed canonical retrieval run does not invoke models again.
 
