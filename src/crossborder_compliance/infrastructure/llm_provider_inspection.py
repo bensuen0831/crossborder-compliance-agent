@@ -59,12 +59,14 @@ class ProviderInspection:
             result = self._adapter(protocol, connection).execute(
                 None, ProviderInput(operation="health_check", texts=(), max_output_tokens=1)
             )
-            return {
+            response = {
                 "status": "HEALTHY" if result.healthy else "ENDPOINT_UNREACHABLE",
                 "candidate_models": result.discovered_models,
             }
         except (GatewayDenied, ProviderFailure) as error:
-            return self._failure(error)
+            response = self._failure(error)
+        self.repository.record_provider_health(provider_version_id, response["status"])
+        return response
 
     def model_test(self, deployment_id, operation):
         AdminActionPolicy().require(self.repository.context, "metadata:admin")
@@ -95,4 +97,5 @@ class ProviderInspection:
         except (GatewayDenied, ProviderFailure) as error:
             status = self._failure(error)["status"]
         self.repository.record_health(deployment_id, status)
+        self.repository.record_provider_health(model.provider_version_id, status)
         return {"status": status, "candidate_models": ()}

@@ -7,7 +7,14 @@ from threading import Thread
 
 
 @contextmanager
-def local_provider(names=("A1", "A2"), *, credential="ci-local-credential", delay=0, structured_response=None):
+def local_provider(
+    names=("A1", "A2"),
+    *,
+    credential="ci-local-credential",
+    delay=0,
+    structured_response=None,
+    port=0,
+):
     calls = []
 
     class Handler(BaseHTTPRequestHandler):
@@ -61,8 +68,16 @@ def local_provider(names=("A1", "A2"), *, credential="ci-local-credential", dela
             else:
                 output = payload.get("response_format")
                 calls.append((self.path, "structured_output" if output else "chat", model))
-                structured = structured_response(payload) if callable(structured_response) else structured_response
-                result = json.dumps(structured if structured is not None else {"ok": True}) if output else "Safe protocol response"
+                structured = (
+                    structured_response(payload)
+                    if callable(structured_response)
+                    else structured_response
+                )
+                result = (
+                    json.dumps(structured if structured is not None else {"ok": True})
+                    if output
+                    else "Safe protocol response"
+                )
                 self.send_json(
                     {
                         "choices": [{"message": {"content": result}, "finish_reason": "stop"}],
@@ -70,7 +85,7 @@ def local_provider(names=("A1", "A2"), *, credential="ci-local-credential", dela
                     }
                 )
 
-    server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+    server = ThreadingHTTPServer(("127.0.0.1", port), Handler)
     thread = Thread(target=server.serve_forever, daemon=True)
     thread.start()
     try:

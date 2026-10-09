@@ -300,6 +300,7 @@ class PostgresLLMConfiguration:
             ttl = float(config.get("health_ttl_seconds", 300))
             healthy = (
                 health
+                and version.health_status in {"HEALTHY", "UNKNOWN"}
                 and health.health_status == "HEALTHY"
                 and ttl > 0
                 and 0 <= (datetime.now(UTC) - health.observed_at).total_seconds() <= ttl

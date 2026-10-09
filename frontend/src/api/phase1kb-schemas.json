@@ -1191,6 +1191,16 @@
             "title": "Protocol",
             "default": "OPENAI_COMPATIBLE"
           },
+          "operation_paths": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "propertyNames": {
+              "$ref": "#/components/schemas/ModelOperation"
+            },
+            "type": "object",
+            "title": "Operation Paths"
+          },
           "base_url": {
             "type": "string",
             "maxLength": 400,
@@ -1379,6 +1389,62 @@
           "secret_configured": {
             "type": "boolean",
             "title": "Secret Configured"
+          },
+          "health_status": {
+            "type": "string",
+            "title": "Health Status",
+            "default": "UNKNOWN"
+          },
+          "health_checked_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Health Checked At"
+          },
+          "timeout_seconds": {
+            "type": "number",
+            "title": "Timeout Seconds",
+            "default": 30
+          },
+          "operation_paths": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "propertyNames": {
+              "$ref": "#/components/schemas/ModelOperation"
+            },
+            "type": "object",
+            "title": "Operation Paths"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
           },
           "enabled": {
             "type": "boolean",

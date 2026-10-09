@@ -27,6 +27,9 @@ from crossborder_compliance.infrastructure.llm_invocation_governance import (
     PostgresLLMInvocationGovernance,
 )
 from crossborder_compliance.infrastructure.llm_provider_inspection import ProviderInspection
+from crossborder_compliance.infrastructure.persistence.config_admin_repositories import (
+    PostgresGovernedArtifactAdminRepository,
+)
 from crossborder_compliance.infrastructure.persistence.llm_gateway_audit import PostgresGatewayAudit
 from crossborder_compliance.infrastructure.persistence.metadata_repositories import (
     PostgresAdminMetadataRepository,
@@ -62,13 +65,34 @@ def selected(control, request):
         "owner",
         set(owner.permission.scopes) | {f"project:{intake.project_id}:read", "resource:read"},
     )
+    prompts = PostgresGovernedArtifactAdminRepository(sf, repo.context, "prompts")
+    prompt = publish_metadata(
+        prompts,
+        prompts.create_draft(
+            code=uuid4().hex,
+            display_name="Governed selected-model smoke prompt",
+            payload={
+                "template_text": "Return only the requested safe structured candidate.",
+                "capability_requirement": ["STRUCTURED_OUTPUT"],
+            },
+        ),
+    )
+    ctx = RepositoryContext.user(
+        tenant, "owner", set(ctx.permission.scopes) | {f"prompt:{prompt['definition_id']}:use"}
+    )
     models, providers, calls, outputs = [], [], [], []
     with ExitStack() as stack:
         for names in (("A1", "A2"), ("B1", "B2")):
             box = [None]
             outputs.append(box)
-            url, observed = stack.enter_context(local_provider(names, structured_response=
-                lambda payload, box=box: box[0](payload) if callable(box[0]) else box[0]))
+            url, observed = stack.enter_context(
+                local_provider(
+                    names,
+                    structured_response=lambda payload, box=box: (
+                        box[0](payload) if callable(box[0]) else box[0]
+                    ),
+                )
+            )
             calls.append(observed)
             provider = publish(
                 sf,
@@ -174,6 +198,7 @@ def selected(control, request):
             project_id=intake.project_id,
             analysis_snapshot_id=snapshot,
             operation="structured_output",
+            prompt_id=prompt["definition_id"],
             input_refs=(ref,),
             output_schema={
                 "type": "object",
@@ -248,6 +273,12 @@ def test_selection_through_real_two_provider_http_and_durable_audit(selected):
             for row in audits
         )
         assert all("ci-local-credential" not in str(row.provenance_json) for row in audits)
+        assert all(row.provenance_json["prompt_version_id"] for row in audits)
+        assert all(row.provenance_json["invocation_policy_versions"] for row in audits)
+        assert all(
+            row.provenance_json["started_at"] <= row.provenance_json["completed_at"]
+            for row in audits
+        )
     assert sum(len(calls) for calls in f["calls"]) == len(result.model_results)
 
 

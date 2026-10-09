@@ -1,6 +1,6 @@
 """Allowlisted provider/model views; credentials and secret references are absent."""
 
-from datetime import date
+from datetime import date, datetime
 from typing import Literal
 from uuid import UUID
 
@@ -28,6 +28,12 @@ class ProviderVersionView(AllowlistedModelView):
     trust_level: str
     data_boundary: str
     secret_configured: bool
+    health_status: str = "UNKNOWN"
+    health_checked_at: datetime | None = None
+    timeout_seconds: float = 30
+    operation_paths: dict[ModelOperation, str] = Field(default_factory=dict)
+    created_at: datetime | None = None
+    updated_at: datetime | None = None
     enabled: bool
     lifecycle_status: GovernanceStatus
     record_version: int

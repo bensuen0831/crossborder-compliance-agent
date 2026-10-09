@@ -2,6 +2,7 @@
 
 No client tenant/scope headers are trusted. Not a production authentication service.
 """
+
 import argparse
 import json
 import os
@@ -24,17 +25,29 @@ def create_demo_app(manifest_path: Path):
 
     app = FastAPI(title="M0 Local UAT", lifespan=baseline.lifespan)
     for router in (
-        baseline.health_router, baseline.metadata_router, baseline.admin_metadata_router,
-        baseline.documents_router, baseline.context_resolution_router,
-        baseline.classification_router, baseline.knowledge_router, baseline.retrieval_router,
+        baseline.health_router,
+        baseline.metadata_router,
+        baseline.admin_metadata_router,
+        baseline.documents_router,
+        baseline.context_resolution_router,
+        baseline.classification_router,
+        baseline.model_providers_router,
+        baseline.bindings_router,
+        baseline.llm_models_router,
+        baseline.knowledge_router,
+        baseline.retrieval_router,
     ):
         app.include_router(router)
 
     # Server-owned synthetic project persona strips all admin scopes. No browser grants.
     manifest["PROJECT"] = {
-        **manifest["A"], "display_name": "UAT Project User",
-        "permissions": [p for p in manifest["A"]["permissions"]
-                        if p not in {"knowledge:admin", "metadata:admin", "metadata:review", "metadata:publish"}],
+        **manifest["A"],
+        "display_name": "UAT Project User",
+        "permissions": [
+            p
+            for p in manifest["A"]["permissions"]
+            if p not in {"knowledge:admin", "metadata:admin", "metadata:review", "metadata:publish"}
+        ],
     }
     sessions = {}
 
@@ -59,9 +72,26 @@ def create_demo_app(manifest_path: Path):
         scopes = persona["permissions"]
         grants = {}
         if "knowledge:admin" in scopes:
-            grants["knowledge-versions"] = ["VIEW", "EDIT", "REVIEW", "APPROVE", "PUBLISH", "ARCHIVE", "OPERATIONS"]
+            grants["knowledge-versions"] = [
+                "VIEW",
+                "EDIT",
+                "REVIEW",
+                "APPROVE",
+                "PUBLISH",
+                "ARCHIVE",
+                "OPERATIONS",
+            ]
         if "metadata:admin" in scopes:
-            for resource in ("jurisdictions", "scenarios", "products", "knowledge-collections", "templates", "prompts", "models", "rules"):
+            for resource in (
+                "jurisdictions",
+                "scenarios",
+                "products",
+                "knowledge-collections",
+                "templates",
+                "prompts",
+                "models",
+                "rules",
+            ):
                 grants[resource] = ["VIEW", "EDIT", "REVIEW"]
                 if "metadata:review" in scopes:
                     grants[resource].append("APPROVE")
@@ -69,8 +99,11 @@ def create_demo_app(manifest_path: Path):
                     grants[resource].extend(["PUBLISH", "ARCHIVE"])
         if grants:
             result["admin_context"] = {
-                "actorId": persona["actor_id"], "tenantId": persona["tenant_id"],
-                "roles": ["local-uat-admin"], "grants": grants, "backendScopes": scopes,
+                "actorId": persona["actor_id"],
+                "tenantId": persona["tenant_id"],
+                "roles": ["local-uat-admin"],
+                "grants": grants,
+                "backendScopes": scopes,
             }
         return result
 

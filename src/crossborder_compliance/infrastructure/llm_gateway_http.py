@@ -29,6 +29,15 @@ def check_endpoint(url, external):
         or (external and p.scheme != "https")
     ):
         raise GatewayDenied("MODEL_ENDPOINT_INVALID")
+    if p.hostname.lower() in {"metadata.google.internal", "instance-data.ec2.internal"}:
+        raise GatewayDenied("MODEL_ENDPOINT_INVALID")
+    try:
+        address = ipaddress.ip_address(p.hostname)
+        address = getattr(address, "ipv4_mapped", None) or address
+        if address.is_link_local or address.is_unspecified or address.is_multicast:
+            raise GatewayDenied("MODEL_ENDPOINT_INVALID")
+    except ValueError:
+        pass
     if external:
         try:
             ips = [x[4][0] for x in socket.getaddrinfo(p.hostname, p.port or 443)]

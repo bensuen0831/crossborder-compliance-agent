@@ -433,6 +433,10 @@ export interface components {
              * @enum {string}
              */
             protocol: "OPENAI_COMPATIBLE" | "GENERIC_REST";
+            /** Operation Paths */
+            operation_paths?: {
+                [key: string]: string;
+            };
             /** Base Url */
             base_url: string;
             /**
@@ -513,6 +517,26 @@ export interface components {
             data_boundary: string;
             /** Secret Configured */
             secret_configured: boolean;
+            /**
+             * Health Status
+             * @default UNKNOWN
+             */
+            health_status: string;
+            /** Health Checked At */
+            health_checked_at?: string | null;
+            /**
+             * Timeout Seconds
+             * @default 30
+             */
+            timeout_seconds: number;
+            /** Operation Paths */
+            operation_paths?: {
+                [key: string]: string;
+            };
+            /** Created At */
+            created_at?: string | null;
+            /** Updated At */
+            updated_at?: string | null;
             /** Enabled */
             enabled: boolean;
             lifecycle_status: components["schemas"]["GovernanceStatus"];

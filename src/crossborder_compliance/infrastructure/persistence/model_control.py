@@ -1,5 +1,6 @@
 """Independent control commands over the existing Phase1C provider/model tables."""
 
+from datetime import UTC, datetime
 from uuid import uuid4
 
 from sqlalchemy import func, select
@@ -88,6 +89,13 @@ class PostgresModelControlRepository:
                 )
             )
 
+    def record_provider_health(self, version_id, status):
+        self.policy.require(self.context, "metadata:admin")
+        with self.sessions() as s, s.begin():
+            version = self._row(s, m.ModelProviderVersionEntity, version_id, True)
+            version.health_status = status
+            version.health_checked_at = datetime.now(UTC)
+
     def list_providers(self):
         self.policy.require(self.context, "metadata:admin")
         with self.sessions() as s:
@@ -132,6 +140,12 @@ class PostgresModelControlRepository:
             trust_level=version.trust_level,
             data_boundary=version.data_boundary,
             secret_configured=bool(version.secret_ref),
+            health_status=version.health_status,
+            health_checked_at=version.health_checked_at,
+            timeout_seconds=version.timeout_policy_json.get("seconds", 30),
+            operation_paths=config.get("paths", {}),
+            created_at=version.created_at,
+            updated_at=version.updated_at,
             enabled=provider.enabled and version.enabled,
             lifecycle_status=version.lifecycle_status,
             record_version=version.record_version,
@@ -197,6 +211,9 @@ class PostgresModelControlRepository:
                     "url": request.base_url,
                     "vendor_preset": request.vendor_preset,
                     "health_ttl_seconds": request.health_ttl_seconds,
+                    "paths": {
+                        operation.value: path for operation, path in request.operation_paths.items()
+                    },
                     "governance": {"created_by": self.context.permission.actor_id},
                 },
                 auth_type="BEARER_SECRET_REF" if secret_ref else "NONE",

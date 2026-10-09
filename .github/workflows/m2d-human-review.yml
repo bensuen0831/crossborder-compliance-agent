@@ -121,7 +121,8 @@ jobs:
           ui=json.load(open('/tmp/m2d-frontend.json'))
           assert ui['numPassedTests']>=121 and ui['numFailedTests']==0 and ui['numPendingTests']==0
           measured={'tested_sha':head,'runner_checkout_sha':head,'focused_backend_passed':len(cases),'frontend_passed':ui['numPassedTests'],'browser':x,'m0_required_workflow':'M0 H5 Preview at same SHA','retry_count':0,'alembic':__import__('alembic.script',fromlist=['ScriptDirectory']).ScriptDirectory('alembic').get_current_head()}
-          assert measured['alembic']=='0015_m2d_review_governance'
+          from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after
+          assert revision_at_or_after(measured['alembic'], '0015_m2d_review_governance')
           json.dump(measured,open('/tmp/m2d-measured.json','w'),indent=2)
           print('::notice::M2D_EXACT_HEAD_SUMMARY=' + json.dumps(measured))
           PY

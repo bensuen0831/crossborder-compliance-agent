@@ -12,7 +12,7 @@ export function ModelProviders({ session, transport }: { session: AdminSession; 
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const client = useMemo(() => new ModelControlClient(transport), [transport]);
-  const [form] = Form.useForm<ProviderDraft>();
+  const [form] = Form.useForm<ProviderDraft & { operation_paths_text?: string }>();
   const [modelForm] = Form.useForm<ModelDraft>();
   const [editing, setEditing] = useState<Provider>();
   const [selected, setSelected] = useState<Provider>();
@@ -35,15 +35,16 @@ export function ModelProviders({ session, transport }: { session: AdminSession; 
     const version = provider.versions[0]; setEditing(provider);
     form.resetFields(); form.setFieldsValue({ code: provider.code, display_name: provider.display_name, vendor_preset: version.vendor_preset,
       protocol: version.protocol as ProviderDraft['protocol'], base_url: version.base_url ?? '', deployment_class: version.deployment_class as ProviderDraft['deployment_class'],
-      trust_level: version.trust_level, data_boundary: version.data_boundary, effective_from: new Date().toISOString().slice(0, 10) });
+      trust_level: version.trust_level, data_boundary: version.data_boundary, timeout_seconds: version.timeout_seconds,
+      operation_paths_text: JSON.stringify(version.operation_paths ?? {}, null, 2), effective_from: new Date().toISOString().slice(0, 10) });
   };
   const transition = (version: ProviderVersion | Model, kind: 'PROVIDER' | 'MODEL', target_status: Transition['target_status']) => act(() => kind === 'PROVIDER'
     ? client.transitionProvider((version as ProviderVersion).provider_version_id, { target_status, expected_record_version: version.record_version })
     : client.transitionModel((version as Model).deployment_id, { target_status, expected_record_version: version.record_version }));
   const actions = (version: ProviderVersion | Model, kind: 'PROVIDER' | 'MODEL') => <Space wrap>
-    {version.lifecycle_status === 'DRAFT' && <Button disabled={busy} onClick={() => void transition(version, kind, 'PENDING_REVIEW')}>{t('ui.phase1kb.submit')}</Button>}
-    {version.lifecycle_status === 'PENDING_REVIEW' && session.backendScopes.includes('metadata:review') && <Button disabled={busy} onClick={() => void transition(version, kind, 'APPROVED')}>{t('ui.phase1kb.approve')}</Button>}
-    {version.lifecycle_status === 'APPROVED' && session.backendScopes.includes('metadata:publish') && <Button disabled={busy} onClick={() => void transition(version, kind, 'ACTIVE')}>{t('ui.phase1kb.publish')}</Button>}
+    {version.lifecycle_status === 'DRAFT' && <Button autoInsertSpace={false} disabled={busy} onClick={() => void transition(version, kind, 'PENDING_REVIEW')}>{t('ui.phase1kb.submit')}</Button>}
+    {version.lifecycle_status === 'PENDING_REVIEW' && session.backendScopes.includes('metadata:review') && <Button autoInsertSpace={false} disabled={busy} onClick={() => void transition(version, kind, 'APPROVED')}>{t('ui.phase1kb.approve')}</Button>}
+    {version.lifecycle_status === 'APPROVED' && session.backendScopes.includes('metadata:publish') && <Button autoInsertSpace={false} disabled={busy} onClick={() => void transition(version, kind, 'ACTIVE')}>{t('ui.phase1kb.publish')}</Button>}
   </Space>;
   const selectedProvider = providers.data?.providers.find(provider => provider.provider_id === selected?.provider_id) ?? selected;
   if (!access) return <PermissionDenied />;
@@ -55,20 +56,22 @@ export function ModelProviders({ session, transport }: { session: AdminSession; 
         { title: t('ui.phase1kb.displayName'), dataIndex: 'display_name' },
         { title: t('ui.phase1kb.status'), render: (_, provider) => <Space><Tag>{provider.enabled ? t('ui.phase1kb.enabled') : t('ui.phase1kb.disabled')}</Tag><Tag>{provider.versions[0]?.lifecycle_status}</Tag><Tag>{provider.versions[0]?.secret_configured ? t('ui.phase1kb.configured') : t('ui.phase1kb.notConfigured')}</Tag></Space> },
         { title: t('ui.phase1kb.actions'), render: (_, provider) => <Space wrap>
-          <Button onClick={() => edit(provider)}>{t('ui.phase1kb.editSecret')}</Button>
-          <Button onClick={() => { setSelected(provider); setCandidateNames([]); setProbe(undefined); }}>{t('ui.phase1kb.models')}</Button>
-          <Button disabled={busy} onClick={() => void act(() => client.providerEnabled(provider, !provider.enabled))}>{t(provider.enabled ? 'ui.phase1kb.disable' : 'ui.phase1kb.enable')}</Button>
+          <Button autoInsertSpace={false} onClick={() => edit(provider)}>{t('ui.phase1kb.editSecret')}</Button>
+          <Button autoInsertSpace={false} onClick={() => { setSelected(provider); setCandidateNames([]); setProbe(undefined); }}>{t('ui.phase1kb.models')}</Button>
+          <Button autoInsertSpace={false} disabled={busy} onClick={() => void act(() => client.providerEnabled(provider, !provider.enabled))}>{t(provider.enabled ? 'ui.phase1kb.disable' : 'ui.phase1kb.enable')}</Button>
           {provider.versions.map(version => <Space key={version.provider_version_id}><Tag>{t('ui.phase1kb.version', { version: version.provider_version })}</Tag>{actions(version, 'PROVIDER')}
-            <Button disabled={busy} onClick={() => void act(async () => setProbe(await client.testConnection(version.provider_version_id)))}>{t('ui.phase1kb.testConnection')}</Button>
-            <Button disabled={busy} onClick={() => void act(async () => { const result = await client.discover(version.provider_version_id); setProbe(result); setCandidateNames(result.candidate_models); setSelected(provider); })}>{t('ui.phase1kb.discover')}</Button>
+            <Tag>{t(`ui.phase1kb.health.${version.health_status ?? 'UNKNOWN'}`)}</Tag>
+            <Button autoInsertSpace={false} disabled={busy} onClick={() => void act(async () => setProbe(await client.testConnection(version.provider_version_id)))}>{t('ui.phase1kb.testConnection')}</Button>
+            <Button autoInsertSpace={false} disabled={busy} onClick={() => void act(async () => { const result = await client.discover(version.provider_version_id); setProbe(result); setCandidateNames(result.candidate_models); setSelected(provider); })}>{t('ui.phase1kb.discover')}</Button>
           </Space>)}
         </Space> },
       ]} />
     </Card>}
-    {probe && <Alert type={probe.status === 'HEALTHY' ? 'success' : 'warning'} title={`${t('ui.phase1kb.health')}: ${probe.status}`} />}
+    {probe && <Alert type={probe.status === 'HEALTHY' ? 'success' : 'warning'} title={`${t('ui.phase1kb.health')}: ${t(`ui.phase1kb.health.${probe.status}`)}`} />}
     <Card title={t(editing ? 'ui.phase1kb.editProvider' : 'ui.phase1kb.createProvider')}>
-      <Form form={form} layout="vertical" initialValues={{ protocol: 'OPENAI_COMPATIBLE', deployment_class: 'EXTERNAL', vendor_preset: 'OTHER_OPENAI_COMPATIBLE', timeout_seconds: 30, effective_from: new Date().toISOString().slice(0, 10) }} onFinish={(values) => void act(async () => {
-        await client.saveProvider({ ...values, ...(editing ? { provider_id: editing.provider_id, expected_record_version: editing.record_version } : {}) });
+      <Form name="phase1kb-provider" form={form} layout="vertical" initialValues={{ protocol: 'OPENAI_COMPATIBLE', deployment_class: 'EXTERNAL', vendor_preset: 'OTHER_OPENAI_COMPATIBLE', timeout_seconds: 30, effective_from: new Date().toISOString().slice(0, 10) }} onFinish={(values) => void act(async () => {
+        const { operation_paths_text, ...payload } = values;
+        await client.saveProvider({ ...payload, operation_paths: JSON.parse(operation_paths_text || '{}'), ...(editing ? { provider_id: editing.provider_id, expected_record_version: editing.record_version } : {}) });
         form.resetFields(); setEditing(undefined);
       })}>
         <Form.Item name="code" label={t('ui.phase1kb.code')} rules={[{ required: true }]}><Input disabled={!!editing} /></Form.Item>
@@ -81,8 +84,9 @@ export function ModelProviders({ session, transport }: { session: AdminSession; 
         <Form.Item name="trust_level" label={t('ui.phase1kb.trust')} rules={[{ required: true }]}><Input /></Form.Item>
         <Form.Item name="data_boundary" label={t('ui.phase1kb.boundary')} rules={[{ required: true }]}><Input /></Form.Item>
         <Form.Item name="timeout_seconds" label={t('ui.phase1kb.timeout')}><InputNumber min={1} max={300} /></Form.Item>
+        <Form.Item name="operation_paths_text" label={t('ui.phase1kb.operationPaths')} help={t('ui.phase1kb.operationPathsHelp')}><Input.TextArea rows={3} /></Form.Item>
         <Form.Item name="effective_from" label={t('ui.phase1kb.effectiveDate')} rules={[{ required: true }]}><Input type="date" /></Form.Item>
-        <Space><Button htmlType="submit" type="primary" loading={busy}>{t('ui.phase1kb.saveProvider')}</Button><Button onClick={() => { form.resetFields(); setEditing(undefined); }}>{t('ui.phase1kb.clear')}</Button></Space>
+        <Space><Button autoInsertSpace={false} htmlType="submit" type="primary" loading={busy}>{t('ui.phase1kb.saveProvider')}</Button><Button autoInsertSpace={false} onClick={() => { form.resetFields(); setEditing(undefined); }}>{t('ui.phase1kb.clear')}</Button></Space>
       </Form>
     </Card>
     {selected && <Card title={`${t('ui.phase1kb.models')} — ${selected.display_name}`}>
@@ -91,13 +95,13 @@ export function ModelProviders({ session, transport }: { session: AdminSession; 
         { title: t('ui.phase1kb.displayName'), dataIndex: 'display_name' }, { title: t('ui.phase1kb.remoteModel'), dataIndex: 'remote_model_name' },
         { title: t('ui.phase1kb.health'), dataIndex: 'health_status' }, { title: t('ui.phase1kb.status'), dataIndex: 'lifecycle_status' },
         { title: t('ui.phase1kb.actions'), render: (_, model) => <Space wrap>{actions(model, 'MODEL')}
-          <Button disabled={busy} onClick={() => void act(() => client.modelEnabled(model, !model.enabled))}>{t(model.enabled ? 'ui.phase1kb.disable' : 'ui.phase1kb.enable')}</Button>
-          <Button onClick={() => { setEditModel(model); modelForm.setFieldsValue({ ...model, effective_from: new Date().toISOString().slice(0, 10) }); }}>{t('ui.phase1kb.configureModel')}</Button>
-          {model.operations.filter(operation => ['chat', 'structured_output', 'embedding'].includes(operation)).map(operation => <Button key={operation} disabled={busy} onClick={() => void act(async () => setProbe(await client.testModel(model.deployment_id, operation as 'chat' | 'structured_output' | 'embedding')))}>{t('ui.phase1kb.testModel')} {operation}</Button>)}
+          <Button autoInsertSpace={false} disabled={busy} onClick={() => void act(() => client.modelEnabled(model, !model.enabled))}>{t(model.enabled ? 'ui.phase1kb.disable' : 'ui.phase1kb.enable')}</Button>
+          <Button autoInsertSpace={false} onClick={() => { setEditModel(model); modelForm.setFieldsValue({ ...model, effective_from: new Date().toISOString().slice(0, 10) }); }}>{t('ui.phase1kb.configureModel')}</Button>
+          {model.operations.filter(operation => ['chat', 'structured_output', 'embedding'].includes(operation)).map(operation => <Button autoInsertSpace={false} key={operation} disabled={busy} onClick={() => void act(async () => setProbe(await client.testModel(model.deployment_id, operation as 'chat' | 'structured_output' | 'embedding')))}>{t('ui.phase1kb.testModel')} {operation}</Button>)}
         </Space> },
       ]} />
       <Typography.Paragraph>{t('ui.phase1kb.discoveryNote')}</Typography.Paragraph>
-      <Form form={modelForm} layout="vertical" initialValues={{ max_output_tokens: 512, priority: 100, capabilities: ['TEXT'], operations: ['chat'], structured_output_format: 'json_schema', effective_from: new Date().toISOString().slice(0, 10) }} onFinish={(values) => void act(async () => {
+      <Form name="phase1kb-model" form={modelForm} layout="vertical" initialValues={{ max_output_tokens: 512, priority: 100, capabilities: ['TEXT'], operations: ['chat'], structured_output_format: 'json_schema', effective_from: new Date().toISOString().slice(0, 10) }} onFinish={(values) => void act(async () => {
         await client.saveModel(selected.provider_id, { ...values, ...(editModel ? { model_id: editModel.model_id, expected_record_version: editModel.model_record_version } : {}) });
         modelForm.resetFields(); setEditModel(undefined);
       })}>
@@ -111,7 +115,7 @@ export function ModelProviders({ session, transport }: { session: AdminSession; 
         <Form.Item name="priority" label={t('ui.phase1kb.priority')}><InputNumber min={0} max={10000} /></Form.Item>
         <Form.Item name="structured_output_format" label={t('ui.phase1kb.structuredFormat')}><Select options={schemas.components.schemas.ModelDraft.properties.structured_output_format.enum.map(value => ({ value, label: value }))} /></Form.Item>
         <Form.Item name="effective_from" label={t('ui.phase1kb.effectiveDate')} rules={[{ required: true }]}><Input type="date" /></Form.Item>
-        <Button type="primary" htmlType="submit" loading={busy}>{t('ui.phase1kb.saveModel')}</Button>
+        <Button autoInsertSpace={false} type="primary" htmlType="submit" loading={busy}>{t('ui.phase1kb.saveModel')}</Button>
       </Form>
     </Card>}
   </Space>;

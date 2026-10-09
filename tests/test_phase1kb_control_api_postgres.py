@@ -72,3 +72,35 @@ def test_ordinary_user_cannot_manage_providers(control):
         "/api/v1/admin/model-providers"
     )
     assert response.status_code == 404
+
+
+def test_canonical_router_order_preserves_write_only_credentials(control, monkeypatch):
+    from crossborder_compliance.interfaces.api.main import app
+
+    sf, tenant, repo, store, _ = control
+    monkeypatch.setattr(app.state, "knowledge_session_factory", sf, raising=False)
+    monkeypatch.setattr(app.state, "llm_secret_store_factory", lambda ctx: store, raising=False)
+    monkeypatch.setitem(app.dependency_overrides, get_repository_context, lambda: repo.context)
+    client = TestClient(app)
+    credential = "canonical-validation-secret-never-returned"
+    invalid = client.post("/api/v1/admin/model-providers", json={"credential": credential})
+    assert invalid.status_code == 422
+    assert invalid.json() == {"detail": "MODEL_CONTROL_REQUEST_INVALID"}
+    assert credential not in invalid.text
+    with local_provider() as (url, _):
+        created = client.post(
+            "/api/v1/admin/model-providers",
+            json={
+                "code": uuid4().hex,
+                "display_name": "Canonical static route",
+                "base_url": url,
+                "deployment_class": "PRIVATE_CLOUD",
+                "trust_level": "APPROVED",
+                "data_boundary": "TENANT",
+                "credential": credential,
+                "effective_from": date.today().isoformat(),
+            },
+        )
+    assert created.status_code == 201
+    assert created.json()["secret_configured"]
+    assert credential not in created.text
