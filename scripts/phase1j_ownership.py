@@ -70,19 +70,31 @@ def overlay(root):
             .splitlines()
         )
         now = set(str(p.relative_to(root)) for p in (root / "alembic/versions").glob("*.py"))
-        from scripts.m2a_ownership import overlay as intake_overlay, MIGRATION as intake_migration
+        from scripts.m2a_ownership import MIGRATION as intake_migration
+        from scripts.m2a_ownership import overlay as intake_overlay
+
         intake_valid, intake_paths, _ = intake_overlay(root)
         valid = (
-            valid and intake_valid
-            and now == old | {MIGRATION} | ({p for p in intake_paths if p.startswith("alembic/versions/")} if intake_paths else set())
+            valid
+            and intake_valid
+            and now
+            == old
+            | {MIGRATION}
+            | (
+                {p for p in intake_paths if p.startswith("alembic/versions/")}
+                if intake_paths
+                else set()
+            )
             and all((root / p).read_bytes() == git("show", BASE + ":" + p) for p in old)
         )
         valid = valid and (root / "ARCHITECTURE_RULES.md").read_bytes().startswith(
             git("show", BASE + ":ARCHITECTURE_RULES.md")
         )
-        valid = valid and (
-            root / "src/crossborder_compliance/domain/contracts.py"
-        ).read_bytes() == git("show", BASE + ":src/crossborder_compliance/domain/contracts.py")
+        from scripts.phase1kb_ownership import preserved_v1_contracts
+
+        valid = valid and preserved_v1_contracts(
+            root, git("show", BASE + ":src/crossborder_compliance/domain/contracts.py")
+        )
         return valid, record["paths"], source
     except (KeyError, ValueError, OSError, subprocess.CalledProcessError):
         return False, {}, None

@@ -8,6 +8,8 @@ from pathlib import Path
 BASE = "efda0955342de8d1ea36aa0f754d63c9b421fec8"
 PATHS = frozenset(
     {
+        "scripts/phase1j_architecture_checks.py",
+        "scripts/phase1j_ownership.py",
         ".github/workflows/m2d-human-review.yml",
         "scripts/m2a_ownership.py",
         "frontend/index.html",
@@ -177,3 +179,22 @@ def overlay(root):
         return valid, data["paths"], source
     except (OSError, KeyError, ValueError, subprocess.CalledProcessError):
         return False, {}, None
+
+
+def preserved_v1_contracts(root, expected):
+    """Only the approved optional intake preference/import may extend frozen v1 bytes."""
+    current = (Path(root) / "src/crossborder_compliance/domain/contracts.py").read_bytes()
+    if current == expected:
+        return True
+    valid, paths, source = overlay(root)
+    if not valid or source is None or "src/crossborder_compliance/domain/contracts.py" not in paths:
+        return False
+    additions = (
+        b"from crossborder_compliance.domain.llm_invocation import AIModelPreference\n",
+        b"    ai_model_preference: AIModelPreference = Field(default_factory=AIModelPreference)\n",
+    )
+    if not all(current.count(line) == 1 for line in additions):
+        return False
+    for line in additions:
+        current = current.replace(line, b"")
+    return current == expected

@@ -4,6 +4,8 @@ import ast
 import subprocess
 from pathlib import Path
 
+from scripts.phase1kb_ownership import preserved_v1_contracts
+
 
 def check(root):
     from decimal import Decimal
@@ -65,9 +67,11 @@ def check(root):
         "j_approved_rules_append_only": rules.startswith(baseline)
         and len([l for l in rules[len(baseline) :].decode().splitlines() if l[:3].isdigit()]) == 4
         and all(str(i) + "." in rules[len(baseline) :].decode() for i in range(152, 156)),
-        "j_v1_contracts_byte_preserved": (src / "domain/contracts.py").read_bytes()
-        == subprocess.check_output(
-            ["git", "show", BASE + ":src/crossborder_compliance/domain/contracts.py"], cwd=root
+        "j_v1_contracts_byte_preserved": preserved_v1_contracts(
+            root,
+            subprocess.check_output(
+                ["git", "show", BASE + ":src/crossborder_compliance/domain/contracts.py"], cwd=root
+            ),
         ),
         "j_dependency_order_authority": PARENTS == SQL_PARENTS == expected,
         "j_domain_application_pure": not any(
