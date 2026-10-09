@@ -1,0 +1,23 @@
+{
+  "tested_main_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+  "architecture": {
+    "architecture_rule_check.py": 151,
+    "m2a_architecture_check.py": 13,
+    "m2b_architecture_check.py": 27,
+    "m2c_architecture_check.py": 15,
+    "m2c_projection_architecture.py": 15,
+    "m2d_architecture_check.py": 21,
+    "phase1kb_architecture_check.py": 27
+  },
+  "total": 269,
+  "owner_overlay_valid": true,
+  "owner_paths": 102,
+  "single_alembic_head": "0016_phase1kb_multi_provider_llm_governance",
+  "historical_migrations_byte_identity": true,
+  "working_tree_diff_check": true,
+  "baseline_diff_check": {
+    "exit": 2,
+    "classification": "five pre-existing Markdown double-space line breaks; source equals tested PR; no source changes"
+  },
+  "execution_gates": "REMOTE_CI_PENDING"
+}

@@ -1,0 +1,40 @@
+{
+  "tested_pr_head_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+  "runner_checkout_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+  "final_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+  "exact_head_verified": true,
+  "backend": {
+    "passed": 844,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "runtime_passed": 25,
+  "architecture_passed": 269,
+  "architecture_total": 269,
+  "migration": {
+    "base_sha": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+    "from_revision": "0015_m2d_review_governance",
+    "head": "0016_phase1kb_multi_provider_llm_governance",
+    "fresh": true,
+    "exact0015_upgrade": true,
+    "schema_equivalence": true,
+    "frozen_migrations_unchanged": true,
+    "empty_downgrade_reupgrade": true,
+    "authoritative_pins_transactional_refusal": true
+  },
+  "alembic": "0016_phase1kb_multi_provider_llm_governance"
+}

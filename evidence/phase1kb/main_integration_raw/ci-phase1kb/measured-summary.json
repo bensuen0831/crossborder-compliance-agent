@@ -1,0 +1,1905 @@
+{
+  "run_id": 37925455356,
+  "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37925455356",
+  "workflow": "Phase1KB Multi-provider LLM Governance",
+  "tested_main_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+  "runner_checkout_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+  "checkout_jobs": {
+    "mandatory-backend": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+    "canonical-frontend-browser": "0f5a40c5ca3a8771624fb38e9380856d79e67342"
+  },
+  "backend": {
+    "tested_pr_head_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+    "runner_checkout_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+    "final_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+    "exact_head_verified": true,
+    "backend": {
+      "passed": 844,
+      "skipped": 0,
+      "failed": 0,
+      "errors": 0,
+      "deselected": 0,
+      "phase_coverage": {
+        "phase1b": true,
+        "phase1c": true,
+        "phase1d": true,
+        "phase1e": true,
+        "phase1f": true,
+        "phase1g": true,
+        "phase1h": true,
+        "phase1i": true,
+        "phase1j": true
+      },
+      "pass": true
+    },
+    "runtime_passed": 25,
+    "architecture_passed": 269,
+    "architecture_total": 269,
+    "migration": {
+      "base_sha": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+      "from_revision": "0015_m2d_review_governance",
+      "head": "0016_phase1kb_multi_provider_llm_governance",
+      "fresh": true,
+      "exact0015_upgrade": true,
+      "schema_equivalence": true,
+      "frozen_migrations_unchanged": true,
+      "empty_downgrade_reupgrade": true,
+      "authoritative_pins_transactional_refusal": true
+    },
+    "alembic": "0016_phase1kb_multi_provider_llm_governance"
+  },
+  "frontend": {
+    "tested_pr_head_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+    "runner_checkout_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+    "final_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+    "exact_head_verified": true,
+    "frontend_passed": 130,
+    "browser_counts": {
+      "m1.spec.ts": 3,
+      "m2a.spec.ts": 3,
+      "m2b.spec.ts": 3,
+      "m2c.spec.ts": 3,
+      "m2d.spec.ts": 3,
+      "phase1kb.spec.ts": 6,
+      "knowledge.spec.ts": 36
+    },
+    "retry_count": 0,
+    "locales": [
+      "zh-CN",
+      "zh-HK",
+      "en-US"
+    ],
+    "quality": "PASS"
+  },
+  "runtime": {
+    "all_mandatory_assertions_pass": true,
+    "analysis_snapshot_id": "274d0803-fb82-49ac-8715-92034ecfc71a",
+    "assertions": {
+      "analysis_snapshot_and_checkpoint_are_separate_sources": true,
+      "analysis_snapshot_exists": true,
+      "analysis_snapshot_id_preserved_after_restart": true,
+      "api_layer_has_no_raw_langgraph_import": true,
+      "audit_provenance_retained": true,
+      "canonical_events_only": true,
+      "domain_metadata_does_not_own_checkpoint_tables": true,
+      "external_workflow_event_contract_has_no_raw_langgraph_fields": true,
+      "final_workflow_status_completed": true,
+      "formal_completion_audit_count_eq_one": true,
+      "graph_runtime_checkpointer_state_schema_versions_retained": true,
+      "no_raw_langgraph_payload_keys_persisted": true,
+      "postgres_checkpoint_row_gt_zero": true,
+      "process1_checkpoint_existed_before_process_exit": true,
+      "process2_loaded_checkpoint_context_before_resume": true,
+      "resume_retry_event_counts_unchanged": true,
+      "resume_retry_review_count_unchanged": true,
+      "resume_retry_safe": true,
+      "review_required_event_count_eq_one": true,
+      "review_task_count_eq_one": true,
+      "tenant_id_preserved_after_restart": true,
+      "workflow_completed_event_count_eq_one": true,
+      "workflow_resumed_event_count_eq_one": true,
+      "workflow_run_exists": true,
+      "workflow_run_id_equals_thread_id": true
+    },
+    "audit_event_count": 2,
+    "canonical_event_counts": {
+      "NODE_COMPLETED": 1,
+      "REVIEW_REQUIRED": 1,
+      "WORKFLOW_COMPLETED": 1,
+      "WORKFLOW_RESUMED": 1,
+      "WORKFLOW_STARTED": 1
+    },
+    "canonical_events": [
+      "WORKFLOW_STARTED",
+      "NODE_COMPLETED",
+      "REVIEW_REQUIRED",
+      "WORKFLOW_RESUMED",
+      "WORKFLOW_COMPLETED"
+    ],
+    "checkpoint_query_error": null,
+    "checkpoint_row_count": 5,
+    "checkpoint_tables": [
+      "checkpoint_blobs",
+      "checkpoint_migrations",
+      "checkpoint_writes",
+      "checkpoints"
+    ],
+    "completion_audit_count": 1,
+    "process1_checkpoint_next": [
+      "node_b"
+    ],
+    "process2_checkpoint_values_before_resume": {
+      "analysis_snapshot_id": "274d0803-fb82-49ac-8715-92034ecfc71a",
+      "completed": false,
+      "node_a_completed": true,
+      "phase": "A_DONE",
+      "tenant_id": "bd047893-7cf1-4a10-9415-c28297953539",
+      "workflow_run_id": "c0aaf508-9c99-47f2-a7f8-a9500ad79051"
+    },
+    "raw_payload_key_hits": [],
+    "retained_versions": {
+      "checkpointer_version": "3.1.2",
+      "graph_definition_version": "phase1a-smoke-v1",
+      "langgraph_runtime_version": "1.2.14",
+      "state_schema_version": "phase1a-smoke-state-v1"
+    },
+    "review_task_count": 1,
+    "tenant_id": "bd047893-7cf1-4a10-9415-c28297953539",
+    "thread_id": "c0aaf508-9c99-47f2-a7f8-a9500ad79051",
+    "workflow_run_id": "c0aaf508-9c99-47f2-a7f8-a9500ad79051",
+    "workflow_status": "COMPLETED"
+  },
+  "architecture": {
+    "architecture_rule_check_stdout.json": {
+      "pass": true,
+      "passed": 151,
+      "total": 151,
+      "checks": [
+        {
+          "check": "domain_has_no_langgraph_import",
+          "pass": true,
+          "evidence": "clean"
+        },
+        {
+          "check": "domain_has_no_sqlalchemy_import",
+          "pass": true,
+          "evidence": "clean"
+        },
+        {
+          "check": "application_has_no_sqlalchemy_import",
+          "pass": true,
+          "evidence": "clean"
+        },
+        {
+          "check": "langgraph_runtime_isolated_to_adapter",
+          "pass": true,
+          "evidence": [
+            "src/crossborder_compliance/workflows/langgraph_adapter.py"
+          ]
+        },
+        {
+          "check": "no_eval_exec",
+          "pass": true,
+          "evidence": "clean"
+        },
+        {
+          "check": "human_review_node_not_agent",
+          "pass": true,
+          "evidence": "clean"
+        },
+        {
+          "check": "classification_results_is_only_formal_classification_source",
+          "pass": true,
+          "evidence": "classification_results present; data_classifications absent"
+        },
+        {
+          "check": "workflow_stage_view_not_persisted",
+          "pass": true,
+          "evidence": "no WorkflowStageView persistence model/table"
+        },
+        {
+          "check": "regulatory_structure_node_is_canonical_persistence",
+          "pass": true,
+          "evidence": "RegulatoryStructureNodeEntity present"
+        },
+        {
+          "check": "stage1_explicit_cross_border_results",
+          "pass": true,
+          "evidence": "Stage1ComplianceResultDTO.cross_border_results"
+        },
+        {
+          "check": "legal_basis_rulehit_many_to_many_contract",
+          "pass": true,
+          "evidence": "LegalBasisItemDTO.rule_hit_ids[]"
+        },
+        {
+          "check": "legal_basis_rulehit_many_to_many_persistence",
+          "pass": true,
+          "evidence": "association table legal_basis_rule_hit_links"
+        },
+        {
+          "check": "domain_migration_does_not_own_checkpointer_schema",
+          "pass": true,
+          "evidence": "no checkpoint internal DDL in Domain Alembic"
+        },
+        {
+          "check": "api_workflow_idempotency_separated",
+          "pass": true,
+          "evidence": "separate tables present"
+        },
+        {
+          "check": "workflow_state_has_no_runtime_services_or_secrets",
+          "pass": true,
+          "evidence": {
+            "forbidden": [
+              "db_session",
+              "repository",
+              "client",
+              "secret",
+              "api_key",
+              "provider",
+              "document_bytes",
+              "knowledge_chunks"
+            ]
+          }
+        },
+        {
+          "check": "durable_postgres_checkpointer_setup_present",
+          "pass": true,
+          "evidence": "PostgresSaver + official setup() path"
+        },
+        {
+          "check": "thread_id_backend_bound_to_workflow_run_id",
+          "pass": true,
+          "evidence": "workflow_run_id used as LangGraph thread_id"
+        },
+        {
+          "check": "conversation_thread_not_langgraph_thread_id",
+          "pass": true,
+          "evidence": "ConversationThreadEntity has no standalone LangGraph thread_id field"
+        },
+        {
+          "check": "interrupt_pre_side_effect_event_idempotent",
+          "pass": true,
+          "evidence": "deterministic event + idempotent review key"
+        },
+        {
+          "check": "raw_langgraph_event_not_external_contract",
+          "pass": true,
+          "evidence": "canonical event boundary present"
+        },
+        {
+          "check": "api_routes_do_not_return_or_import_orm_models",
+          "pass": true,
+          "evidence": "API layer uses Pydantic/Application DTOs only"
+        },
+        {
+          "check": "domain_repositories_are_automatically_tenant_scoped",
+          "pass": true,
+          "evidence": [
+            "PostgresProjectRepository",
+            "PostgresPartyRepository",
+            "PostgresDocumentRepository",
+            "PostgresDataInventoryRepository",
+            "PostgresJurisdictionRepository",
+            "PostgresClassificationRepository",
+            "PostgresEvidenceRepository",
+            "PostgresLegalBasisRepository",
+            "PostgresAnalysisSnapshotRepository",
+            "PostgresWorkflowRunRepository",
+            "PostgresReviewRepository",
+            "PostgresAnalysisStageRepository",
+            "PostgresConversationRepository"
+          ]
+        },
+        {
+          "check": "no_second_classification_repository",
+          "pass": true,
+          "evidence": "one ClassificationRepository adapter; no parallel DataClassificationRepository"
+        },
+        {
+          "check": "no_country_product_regulation_fixed_business_logic",
+          "pass": true,
+          "evidence": "no fixed country/product/regulatory-document business skills"
+        },
+        {
+          "check": "frontend_has_no_business_metadata_enum",
+          "pass": true,
+          "evidence": "no hard-coded frontend business option lists"
+        },
+        {
+          "check": "agent_skill_has_no_model_name_or_base_url",
+          "pass": true,
+          "evidence": "no provider/model/base-url binding in agent/skill/workflow code"
+        },
+        {
+          "check": "prompt_business_content_not_embedded_in_agent",
+          "pass": true,
+          "evidence": "no embedded business prompt in agent/skill code"
+        },
+        {
+          "check": "registry_not_source_of_truth",
+          "pass": true,
+          "evidence": "ProjectionRegistry explicitly identifies itself as non-authoritative projection"
+        },
+        {
+          "check": "admin_draft_not_runtime_visible",
+          "pass": true,
+          "evidence": "runtime loaders filter ACTIVE lifecycle versions only"
+        },
+        {
+          "check": "model_secret_not_persisted_in_metadata",
+          "pass": true,
+          "evidence": "model metadata stores secret_ref only; no credential-value columns"
+        },
+        {
+          "check": "snapshot_not_dynamic_registry_lookup_on_resume",
+          "pass": true,
+          "evidence": "resume adapter does not consult registry; snapshot pins are immutable"
+        },
+        {
+          "check": "registry_publish_uses_transactional_outbox",
+          "pass": true,
+          "evidence": "publish and RegistrySyncEvent are written inside the same DB transaction"
+        },
+        {
+          "check": "no_country_specific_registry_branch",
+          "pass": true,
+          "evidence": "registry resolution is metadata/binding driven"
+        },
+        {
+          "check": "graph_state_has_no_document_binary",
+          "pass": true,
+          "evidence": "LangGraph state contains references only; no document binary fields"
+        },
+        {
+          "check": "canonical_document_not_llm_narrative",
+          "pass": true,
+          "evidence": "canonical parser output is structured and parser-driven, not LLM narrative"
+        },
+        {
+          "check": "candidate_vision_has_no_legal_result",
+          "pass": true,
+          "evidence": "CandidateDiagramResult contains candidate nodes/edges only"
+        },
+        {
+          "check": "extracted_result_has_source_trace",
+          "pass": true,
+          "evidence": "candidate facts/items/flows carry SourceTraceRef and persistence rejects empty provenance"
+        },
+        {
+          "check": "spreadsheet_preserves_row_column_provenance",
+          "pass": true,
+          "evidence": "XLSX adapter preserves row/column/header/formula/merged-cell metadata"
+        },
+        {
+          "check": "formal_counts_not_llm",
+          "pass": true,
+          "evidence": "DocumentAnalysisSummary is programmatically aggregated from persistence"
+        },
+        {
+          "check": "parse_run_is_versioned",
+          "pass": true,
+          "evidence": "Phase 1B parse-run identity + Phase 1D one-to-one detail extension has explicit version and unique tenant/document/version constraint"
+        },
+        {
+          "check": "snapshot_can_pin_parse_run",
+          "pass": true,
+          "evidence": "AnalysisSnapshot has immutable parse-run pin persistence"
+        },
+        {
+          "check": "parser_provider_is_adapter_only",
+          "pass": true,
+          "evidence": "provider SDKs isolated to infrastructure/document_parsers.py"
+        },
+        {
+          "check": "phase1d_has_no_country_product_regulation_logic",
+          "pass": true,
+          "evidence": "Document Intelligence foundation contains no fixed country/product/regulation decisions"
+        },
+        {
+          "check": "candidate_not_formal_compliance_input",
+          "pass": true,
+          "evidence": "Candidate \u2192 Resolution \u2192 Formal object boundary is persisted; candidates are retained"
+        },
+        {
+          "check": "product_context_is_registry_driven",
+          "pass": true,
+          "evidence": "Product Context resolves ACTIVE metadata definitions and persists registry bindings"
+        },
+        {
+          "check": "no_product_search_all_scope",
+          "pass": true,
+          "evidence": "No selection uses document-detected scope or unresolved generic scope; never all products"
+        },
+        {
+          "check": "product_conflict_is_explicit",
+          "pass": true,
+          "evidence": "Explicit selection vs detected scope conflict is persisted as PRODUCT_CONTEXT_CONFLICT"
+        },
+        {
+          "check": "business_fact_conflict_is_explicit",
+          "pass": true,
+          "evidence": "Conflicting normalized values for one registry fact type create explicit reviewable conflict"
+        },
+        {
+          "check": "possible_duplicate_requires_review_conflict",
+          "pass": true,
+          "evidence": "Semantic POSSIBLE_SAME remains candidate-only and enters ContextConflict/review"
+        },
+        {
+          "check": "unresolved_party_requires_review_conflict",
+          "pass": true,
+          "evidence": "Unresolved PartyCandidate persists PartyResolution plus explicit reviewable conflict"
+        },
+        {
+          "check": "data_item_source_trace_required",
+          "pass": true,
+          "evidence": "Formal data_items retain all candidate and SourceTrace links"
+        },
+        {
+          "check": "formal_counts_are_separate",
+          "pass": true,
+          "evidence": "Raw occurrence, normalized DataItem and DataGroup counts are separate programmatic aggregates"
+        },
+        {
+          "check": "no_parallel_data_item_source_of_truth",
+          "pass": true,
+          "evidence": "Phase 1B data_items remains authoritative; Phase 1E adds detail/link tables only"
+        },
+        {
+          "check": "no_parallel_data_flow_source_of_truth",
+          "pass": true,
+          "evidence": "Phase 1B data_flow_nodes/data_flow_edges/data_item_flow_links remain authoritative"
+        },
+        {
+          "check": "data_flow_is_structured",
+          "pass": true,
+          "evidence": "Formal flow uses structured Node/Edge/DataItemFlowLink plus versioned detail"
+        },
+        {
+          "check": "jurisdiction_not_regulation_decision",
+          "pass": true,
+          "evidence": "Jurisdiction Context carries location context only; no regulation/cross-border legal decision"
+        },
+        {
+          "check": "semantic_resolution_candidate_only",
+          "pass": true,
+          "evidence": "Semantic similarity can create candidate/review evidence but does not directly merge formal DataItems"
+        },
+        {
+          "check": "context_snapshot_versioned",
+          "pass": true,
+          "evidence": "AnalysisSnapshot pins immutable versioned Context/DataInventory/DataFlow versions"
+        },
+        {
+          "check": "no_country_product_rule_logic",
+          "pass": true,
+          "evidence": "No country/product-code/regulation decision routing, risk, or compliance-path logic"
+        },
+        {
+          "check": "knowledge_platform_not_vector_db",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "scope_resolver_has_no_retrieval",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "hard_filter_precedes_similarity",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "unrelated_product_knowledge_excluded",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "unresolved_product_scope_fail_safe",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "knowledge_chunk_has_provenance",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "vector_index_is_derived",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "fts_index_is_derived",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "registry_not_knowledge_source",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "translation_review_boundary",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "knowledge_quality_before_active",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "snapshot_pins_knowledge_version",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "phase1f_uses_phase1e_context",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "no_country_specific_knowledge_branch",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "no_regulation_business_decision",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "controlled_downloader_boundary",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "knowledge_ingestion_no_graph_checkpoints",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "no_parallel_knowledge_source",
+          "pass": true,
+          "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage"
+        },
+        {
+          "check": "retrieval_consumes_phase1f_scope",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "retrieval_hard_filters_before_similarity",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "retrieval_indexes_are_derived",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "hybrid_merge_deterministic_score_provenance",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "reranker_allowed_candidates_only",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "rerank_scope_revalidation",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "evidence_pack_complete_provenance",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "rag_context_not_legal_source",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "sufficiency_is_policy_driven",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "generic_knowledge_not_jurisdiction_sufficient",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "external_preserves_formal_scope",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "unverified_discovery_not_evidence",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "official_external_validation",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "runtime_external_not_active",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "external_snapshot_reproducible",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "fallback_guidance_nonempty",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "fallback_not_compliance_path",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "retrieval_policy_snapshot_pinned",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "no_country_product_regulation_retrieval_branch",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "retrieval_services_no_provider_sql_graph_sdk",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "wiki_reuses_durable_review",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "wiki_not_official_legal_evidence",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "graph_reviewed_derived_provenance",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "runtime_client_cannot_supply_scope",
+          "pass": true,
+          "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases"
+        },
+        {
+          "check": "normal_publish_automatic_runtime_sync",
+          "pass": true,
+          "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+        },
+        {
+          "check": "publication_reuses_registry_outbox_service",
+          "pass": true,
+          "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+        },
+        {
+          "check": "runtime_ready_before_new_retrieval",
+          "pass": true,
+          "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+        },
+        {
+          "check": "publication_snapshot_stability",
+          "pass": true,
+          "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+        },
+        {
+          "check": "publication_duplicate_retry_safe",
+          "pass": true,
+          "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+        },
+        {
+          "check": "publication_failed_build_not_ready",
+          "pass": true,
+          "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+        },
+        {
+          "check": "runtime_materialization_no_agent_graph",
+          "pass": true,
+          "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py"
+        },
+        {
+          "check": "rule_runtime_validated_typed_ast",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "rule_ast_no_unrestricted_calls",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "rule_domain_no_external_dependencies",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "formal_classification_versioned_provenance",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "no_data_typed_outcome",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "rule_publish_gate_uses_existing_transaction",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "rule_and_scheme_content_immutable",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "api_references_only_no_narrative",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "classification_reuses_scope_checked_evidence",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "classification_persisted_retry_unique",
+          "pass": true,
+          "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence"
+        },
+        {
+          "check": "applicability_canonical_identity",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "profile_reuses_metadata_governance",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "profile_reuses_registry_outbox",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "scenario_fixed_pipeline_deterministic",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "scenario_conflicts_typed",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "generic_country_capabilities_only",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "generic_skills_pure",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "applicability_scope_revalidation",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "applicability_reference_only_api",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "profile_new_pin_ready_and_historical",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "applicability_conflicts_and_insufficiency",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "scenario_no_fake_classification",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "applicability_immutable_retry_canonical_links",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "applicability_has_no_country_branch_or_provider",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "phase1i_migration_frozen_explicit_dual_path",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "locale_metadata_single_versioned_authority",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "locale_no_business_translations_in_domain_application",
+          "pass": true,
+          "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py"
+        },
+        {
+          "check": "j_approved_rules_append_only",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_v1_contracts_byte_preserved",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_dependency_order_authority",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_domain_application_pure",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_no_llm_authority",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_legal_stage_excludes_future_risk",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_decimal_risk_governed_examples",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_recommendation_no_tie_choice",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_final_preserves_unresolved",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_reference_only_request",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_existing_registry_policy_governance",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_five_immutable_result_authorities",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_canonical_provenance_refs",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_locale_neutral_canonical_decimal",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_security_idempotency_revalidation",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        },
+        {
+          "check": "j_migration_dual_path_test",
+          "pass": true,
+          "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests"
+        }
+      ]
+    },
+    "m2a_architecture_check.json": {
+      "pass": true,
+      "passed": 13,
+      "total": 13,
+      "checks": {
+        "intake_draft_not_formal_input": true,
+        "confirmed_intake_required_for_snapshot": true,
+        "snapshot_pins_intake_version": true,
+        "no_parallel_project_source_of_truth": true,
+        "no_parallel_intake_source_of_truth": true,
+        "frontend_does_not_authorize": true,
+        "frontend_does_not_create_formal_decision": true,
+        "intake_metadata_is_registry_driven": true,
+        "cross_tenant_intake_forbidden": true,
+        "workflow_start_requires_authorized_snapshot": true,
+        "browser_cannot_inject_policy_or_decision": true,
+        "manual_fact_uses_canonical_provenance_without_fake_document": true,
+        "missing_formal_facts_controlled_stop": true
+      }
+    },
+    "m2b_architecture_check.json": {
+      "pass": true,
+      "passed": 27,
+      "total": 27,
+      "checks": {
+        "stable_canonical_data_item_identity": true,
+        "immutable_inventory_version_detail": true,
+        "inventory_version_scoped_membership": true,
+        "inventory_version_scoped_candidate_links": true,
+        "inventory_version_scoped_source_trace_links": true,
+        "snapshot_cannot_see_future_provenance": true,
+        "phase1f_reads_exact_inventory_version": true,
+        "phase1h_reads_exact_inventory_version": true,
+        "phase1i_reads_exact_inventory_version": true,
+        "snapshot_evidence_scoped_to_input_universe": true,
+        "no_latest_version_fallback": true,
+        "historical_snapshot_immutable": true,
+        "unknown_legacy_provenance_not_fabricated": true,
+        "version_scoped_product_and_flow_links": true,
+        "binary_not_in_workflow_state": true,
+        "document_source_of_truth_is_single": true,
+        "parse_run_source_of_truth_is_single": true,
+        "document_candidate_requires_genuine_source_trace": true,
+        "no_fake_parse_run": true,
+        "manual_and_document_provenance_distinct": true,
+        "snapshot_pins_exact_document_universe": true,
+        "confirmed_snapshot_is_not_mutated": true,
+        "binary_storage_is_infrastructure_boundary": true,
+        "frontend_does_not_authorize_upload": true,
+        "frontend_does_not_formalize_facts": true,
+        "document_parser_not_reimplemented": true,
+        "cross_source_conflict_uses_existing_authority": true
+      }
+    },
+    "m2c_architecture.json": {
+      "pass_": true,
+      "passed": 15,
+      "total": 15,
+      "checks": {
+        "crossborder_status_not_derived_from_final_path_status": true,
+        "conditional_proposal_not_equal_conditional_transfer": true,
+        "crossborder_has_formal_owner": true,
+        "crossborder_policy_is_versioned_and_pinned": true,
+        "crossborder_has_legal_basis_and_evidence": true,
+        "required_document_has_formal_owner": true,
+        "required_document_has_requirement_level": true,
+        "required_document_is_metadata_rule_driven": true,
+        "template_availability_does_not_change_legal_requirement": true,
+        "required_document_does_not_trigger_generation": true,
+        "stage2_requires_user_opt_in": true,
+        "frontend_has_no_crossborder_decision_logic": true,
+        "frontend_has_no_document_requirement_logic": true,
+        "historical_snapshot_preserves_crossborder_result": true,
+        "historical_snapshot_preserves_document_requirement": true
+      }
+    },
+    "m2c_projection_architecture.json": {
+      "pass_": true,
+      "passed": 15,
+      "total": 15,
+      "checks": {
+        "single_canonical_graph": true,
+        "formal_order": true,
+        "nodes_delegate_authority": true,
+        "legacy_version_closed": true,
+        "typed_aggregation_has_no_infrastructure": true,
+        "aggregation_reads_owning_results": true,
+        "exact_document_universe": true,
+        "exact_context_membership": true,
+        "result_scope_revalidated": true,
+        "historical_authority_gap_explicit": true,
+        "frontend_uses_authority_not_path_status": true,
+        "frontend_requires_no_decision_write": true,
+        "unassessed_subjects_fail_closed": true,
+        "template_does_not_change_requirement": true,
+        "stage2_unavailable_and_opt_in_only": true
+      }
+    },
+    "m2d_architecture.json": {
+      "pass_": true,
+      "passed": 21,
+      "total": 21,
+      "checks": {
+        "review_task_reuses_canonical_authority": true,
+        "review_decision_is_append_only": true,
+        "frontend_cannot_set_decided_by": true,
+        "frontend_cannot_patch_formal_results": true,
+        "allowed_actions_are_backend_owned": true,
+        "approve_cannot_fabricate_missing_fact": true,
+        "approve_cannot_fabricate_evidence": true,
+        "request_changes_does_not_resume": true,
+        "correction_routes_to_owning_domain": true,
+        "input_correction_cannot_mutate_snapshot": true,
+        "successor_snapshot_required_for_input_change": true,
+        "same_snapshot_resume_requires_no_input_mutation": true,
+        "review_resume_reexecutes_owner": true,
+        "no_arbitrary_graph_jump": true,
+        "reexecution_boundary_is_backend_owned": true,
+        "historical_result_remains_immutable": true,
+        "review_lineage_is_auditable": true,
+        "single_workflow_runtime": true,
+        "single_checkpointer": true,
+        "single_review_authority": true,
+        "stage2_not_started": true
+      },
+      "ownership_paths": 142
+    },
+    "phase1kb_architecture.json": {
+      "pass_": true,
+      "passed": 27,
+      "total": 27,
+      "checks": {
+        "single_model_registry": true,
+        "single_provider_registry": true,
+        "llm_invocation_requires_policy_trigger": true,
+        "rag_first_boundary_preserved": true,
+        "evidence_first_boundary_preserved": true,
+        "llm_parametric_knowledge_is_not_evidence": true,
+        "frontend_never_calls_provider_directly": true,
+        "admin_secret_is_write_only": true,
+        "api_key_never_returned": true,
+        "multiple_provider_instances_supported": true,
+        "multiple_models_per_provider_supported": true,
+        "vendor_preset_not_legal_logic": true,
+        "user_model_selection_is_allowlisted": true,
+        "user_selection_does_not_bypass_policy": true,
+        "model_selection_is_snapshot_pinned": true,
+        "historical_model_pin_is_immutable": true,
+        "multi_model_result_is_derived": true,
+        "multi_model_vote_not_legal_authority": true,
+        "llm_cannot_own_classification": true,
+        "llm_cannot_own_applicability": true,
+        "llm_cannot_own_crossborder": true,
+        "llm_cannot_own_obligation": true,
+        "llm_cannot_own_risk": true,
+        "llm_cannot_own_final_path": true,
+        "stage2_not_started": true,
+        "document_candidates_have_genuine_trace": true,
+        "encrypted_secret_infrastructure_only": true
+      },
+      "ownership_paths": 102
+    }
+  },
+  "migration": {
+    "base_sha": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+    "from_revision": "0015_m2d_review_governance",
+    "head": "0016_phase1kb_multi_provider_llm_governance",
+    "fresh": true,
+    "exact0015_upgrade": true,
+    "schema_equivalence": true,
+    "frozen_migrations_unchanged": true,
+    "empty_downgrade_reupgrade": true,
+    "authoritative_pins_transactional_refusal": true
+  },
+  "test_case_coverage": {
+    "test_phase1kb": [
+      {
+        "classname": "tests.test_phase1kb_architecture",
+        "name": "test_phase1kb_additive_architecture_and_finite_committed_ownership",
+        "time": "2.694"
+      },
+      {
+        "classname": "tests.test_phase1kb_catalog_postgres",
+        "name": "test_advisory_eligibility_uses_real_policy_health_and_canonical_draft",
+        "time": "0.170"
+      },
+      {
+        "classname": "tests.test_phase1kb_catalog_postgres",
+        "name": "test_unresolved_protection_does_not_allow_external_provider[EXTERNAL]",
+        "time": "0.159"
+      },
+      {
+        "classname": "tests.test_phase1kb_catalog_postgres",
+        "name": "test_catalog_revalidates_project_and_tenant_permission[False]",
+        "time": "0.126"
+      },
+      {
+        "classname": "tests.test_phase1kb_catalog_postgres",
+        "name": "test_catalog_revalidates_project_and_tenant_permission[True]",
+        "time": "0.135"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_api_postgres",
+        "name": "test_typed_provider_api_write_only_secret_real_http",
+        "time": "0.590"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_api_postgres",
+        "name": "test_validation_does_not_echo_secret_or_client_authority",
+        "time": "0.021"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_api_postgres",
+        "name": "test_ordinary_user_cannot_manage_providers",
+        "time": "0.018"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_api_postgres",
+        "name": "test_canonical_router_order_preserves_write_only_credentials",
+        "time": "0.514"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_multiple_provider_instances_multiple_models_same_remote_name",
+        "time": "0.116"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_secret_rotation_append_version_preserves_old_reference",
+        "time": "0.036"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_editing_unpublished_provider_retains_write_only_secret",
+        "time": "0.028"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_current_authorization_and_cross_tenant_fail_closed",
+        "time": "0.016"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_external_private_endpoint_rejected_before_secret_write",
+        "time": "0.009"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_optimistic_configuration_conflict",
+        "time": "0.015"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_published_model_configuration_is_immutable",
+        "time": "0.044"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_independent_review_is_required",
+        "time": "0.021"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_disable_is_current_revocation_and_requires_matching_version",
+        "time": "0.020"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_real_binary_llm_candidates_genuine_trace_resolution_and_restart",
+        "time": "1.074"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_semantic_uncertainty_cannot_enter_formal_input[low_confidence]",
+        "time": "1.125"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_semantic_uncertainty_cannot_enter_formal_input[invalid_trace]",
+        "time": "1.115"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_semantic_uncertainty_cannot_enter_formal_input[unknown_fact_type]",
+        "time": "1.121"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_native_structured_input_does_not_invoke_semantic_model",
+        "time": "1.157"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_multi_model_disagreement_uses_existing_fact_conflict_authority[MULTI_MODEL]",
+        "time": "1.565"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://169.254.169.254/latest/meta-data]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://[fe80::1]/v1]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://[::ffff:169.254.169.254]/v1]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://metadata.google.internal/v1]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://instance-data.ec2.internal/v1]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://0.0.0.0/v1]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_legacy_generic_metadata_cannot_store_plaintext_credentials[config0]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_legacy_generic_metadata_cannot_store_plaintext_credentials[config1]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_legacy_generic_metadata_cannot_store_plaintext_credentials[config2]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_legacy_generic_metadata_cannot_store_plaintext_credentials[config3]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_generic_operation_path_cannot_change_origin_or_inject_query[//other.example/secret]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_generic_operation_path_cannot_change_origin_or_inject_query[/../metadata]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_generic_operation_path_cannot_change_origin_or_inject_query[/%2e%2e/metadata]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_generic_operation_path_cannot_change_origin_or_inject_query[/chat?token=x]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_presets_real_http_same_protocol_no_business_branch[OPENAI_GPT]",
+        "time": "0.646"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_presets_real_http_same_protocol_no_business_branch[DEEPSEEK]",
+        "time": "0.630"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_presets_real_http_same_protocol_no_business_branch[QWEN]",
+        "time": "0.630"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_presets_real_http_same_protocol_no_business_branch[GLM]",
+        "time": "0.627"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_presets_real_http_same_protocol_no_business_branch[OTHER_OPENAI_COMPATIBLE]",
+        "time": "0.629"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_real_http_bad_credential_sanitized",
+        "time": "0.536"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_real_http_timeout_unavailable_and_unsupported",
+        "time": "0.587"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_missing_secret_capability_is_not_fake_health",
+        "time": "0.514"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_parser_insufficiency_all_modes_candidate_only[MINIMAL]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_parser_insufficiency_all_modes_candidate_only[STANDARD]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_parser_insufficiency_all_modes_candidate_only[ENHANCED]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_rag_first_never_expand_sufficient_evidence[KNOWLEDGE_EVIDENCE_INSUFFICIENT]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_rag_first_never_expand_sufficient_evidence[RETRIEVAL_QUERY_EXPANSION_REQUIRED]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_stage2_always_denied_even_if_policy_lists_it[DOCUMENT_GENERATION_REQUESTED]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_stage2_always_denied_even_if_policy_lists_it[CONTRACT_GENERATION_REQUESTED]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_stage2_always_denied_even_if_policy_lists_it[CONTRACT_REVIEW_REQUESTED]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_legal_purpose_not_in_contract_or_multi_vote",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_user_selection_shape_and_server_limit",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_governed_policy_can_deny_otherwise_valid_trigger",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_metadata_postgres",
+        "name": "test_typed_policies_use_existing_metadata_lifecycle[LLM_INVOCATION_POLICY-payload0]",
+        "time": "0.018"
+      },
+      {
+        "classname": "tests.test_phase1kb_metadata_postgres",
+        "name": "test_typed_policies_use_existing_metadata_lifecycle[LLM_PROVIDER_PRESET-payload1]",
+        "time": "0.017"
+      },
+      {
+        "classname": "tests.test_phase1kb_metadata_postgres",
+        "name": "test_usage_policy_cannot_allow_cross_tenant_or_unknown_models",
+        "time": "0.016"
+      },
+      {
+        "classname": "tests.test_phase1kb_migrations",
+        "name": "test_fresh_exact0015_equivalence_empty_downgrade_reupgrade_and_retention",
+        "time": "17.601"
+      },
+      {
+        "classname": "tests.test_phase1kb_query_postgres",
+        "name": "test_real_http_query_expansion_same_scope_and_no_model_memory_evidence[True]",
+        "time": "1.184"
+      },
+      {
+        "classname": "tests.test_phase1kb_query_postgres",
+        "name": "test_real_http_query_expansion_same_scope_and_no_model_memory_evidence[False]",
+        "time": "1.189"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_encrypted_not_plaintext_reference_scope_and_restart",
+        "time": "0.004"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_missing_key_untrusted_permissions_and_symlink_fail_closed",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_invalid_secret_never_echoed[]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_invalid_secret_never_echoed[bad\\nvalue]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_invalid_secret_never_echoed[bad\\rvalue]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_invalid_secret_never_echoed[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_selection_through_real_two_provider_http_and_durable_audit[AUTO]",
+        "time": "0.872"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_selection_through_real_two_provider_http_and_durable_audit[SINGLE_A]",
+        "time": "0.913"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_selection_through_real_two_provider_http_and_durable_audit[SINGLE_B]",
+        "time": "1.123"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_selection_through_real_two_provider_http_and_durable_audit[MULTI_MODEL]",
+        "time": "1.392"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_single_current_revocation_denied_without_other_provider_fallback[SINGLE_A]",
+        "time": "1.125"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_policy_trigger_blocks_sufficient_deterministic_extraction_before_http",
+        "time": "1.117"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_confirmation_freezes_exact_models_policies_prompt_and_preferences",
+        "time": "1.138"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_unavailable_frame_cannot_silently_gain_future_llm_capability",
+        "time": "1.126"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_historical_snapshot_model_and_prompt_do_not_use_new_versions",
+        "time": "1.122"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_frozen_configuration_rejects_unpinned_operation_instead_of_latest",
+        "time": "1.131"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_review_successor_preserves_original_model_frame",
+        "time": "1.126"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_published_invocation_policy_payload_cannot_be_changed",
+        "time": "1.158"
+      }
+    ],
+    "test_m2b": [
+      {
+        "classname": "tests.test_m2b_architecture",
+        "name": "test_m2b_temporal_architecture",
+        "time": "0.007"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_actual_upload_restore_parse_retry_and_exact_identity",
+        "time": "1.110"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[tenant]",
+        "time": "1.716"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[actor]",
+        "time": "0.924"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[permission]",
+        "time": "0.944"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[stale]",
+        "time": "0.984"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[size]",
+        "time": "1.741"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[type]",
+        "time": "0.947"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[content]",
+        "time": "1.029"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[scanner]",
+        "time": "0.952"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[storage]",
+        "time": "0.970"
+      },
+      {
+        "classname": "tests.test_m2b_file_policy",
+        "name": "test_content_policy_and_immutable_storage",
+        "time": "0.006"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_real_upload_confirm_snapshot_canonical_start_read_and_history[foundation_i0]",
+        "time": "11.561"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_pending_document_prevents_confirmation_and_no_snapshot",
+        "time": "1.124"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_client_cannot_inject_document_authority",
+        "time": "0.973"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_current_authorization_for_missing_storage_and_read_policy",
+        "time": "1.133"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_multi_item_never_bypasses_data_analysis",
+        "time": "2.407"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_single_item_executes_existing_data_aware_services",
+        "time": "14.036"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_actual_uploaded_manual_and_document_fact_merge_or_durable_review[False]",
+        "time": "1.275"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_actual_uploaded_manual_and_document_fact_merge_or_durable_review[True]",
+        "time": "2.411"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_process_crash_after_acceptance_then_restart_has_one_parse",
+        "time": "1.875"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_ungoverned_document_candidate_routes_review_before_formal_decisions",
+        "time": "1.536"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_same_binary_wrong_project_is_explicit_conflict_without_identity_leak",
+        "time": "1.062"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_existing_conflict_takes_priority_over_multi_subject_capability_gap",
+        "time": "2.501"
+      },
+      {
+        "classname": "tests.test_m2b_migrations",
+        "name": "test_fresh_exact_0011_equivalence_empty_down_up_and_retention",
+        "time": "16.613"
+      },
+      {
+        "classname": "tests.test_m2b_migrations",
+        "name": "test_exact_legacy_0012_preserves_real_detail_and_quarantines_unproven_links",
+        "time": "4.488"
+      },
+      {
+        "classname": "tests.test_m2b_ownership",
+        "name": "test_m2b_owner_is_committed_finite_and_excludes_legal_engines",
+        "time": "2.939"
+      },
+      {
+        "classname": "tests.test_m2b_ownership",
+        "name": "test_m2b_owner_cannot_approve_arbitrary_source",
+        "time": "0.021"
+      },
+      {
+        "classname": "tests.test_m2b_snapshot_contract_probe",
+        "name": "test_stable_item_has_exact_immutable_snapshot_state_and_provenance",
+        "time": "2.190"
+      },
+      {
+        "classname": "tests.test_m2b_temporal_postgres",
+        "name": "test_item_detail_exact_membership_never_uses_latest",
+        "time": "0.944"
+      },
+      {
+        "classname": "tests.test_m2b_temporal_postgres",
+        "name": "test_formal_inventory_detail_cannot_be_rewritten[update]",
+        "time": "1.833"
+      },
+      {
+        "classname": "tests.test_m2b_temporal_postgres",
+        "name": "test_formal_inventory_detail_cannot_be_rewritten[delete]",
+        "time": "0.938"
+      },
+      {
+        "classname": "tests.test_m2b_temporal_postgres",
+        "name": "test_formal_inventory_detail_cannot_be_rewritten[duplicate]",
+        "time": "0.940"
+      },
+      {
+        "classname": "tests.test_m2b_temporal_postgres",
+        "name": "test_i_preserves_old_pin_and_reads_exact_new_pin",
+        "time": "1.441"
+      }
+    ],
+    "test_m2d": [
+      {
+        "classname": "tests.test_m2d_api_postgres",
+        "name": "test_http_approve_and_recover_no_client_authority[foundation_i0]",
+        "time": "11.201"
+      },
+      {
+        "classname": "tests.test_m2d_api_postgres",
+        "name": "test_http_request_changes_then_typed_intake_successor[foundation_i0]",
+        "time": "10.824"
+      },
+      {
+        "classname": "tests.test_m2d_architecture",
+        "name": "test_m2d_approved_finite_owner_preserves_baseline_authorities",
+        "time": "2.040"
+      },
+      {
+        "classname": "tests.test_m2d_architecture",
+        "name": "test_m2d_additive_review_architecture",
+        "time": "2.178"
+      },
+      {
+        "classname": "tests.test_m2d_correction_postgres",
+        "name": "test_fact_choice_creates_successor_keeps_source_and_exact_parse_universe[foundation_i0]",
+        "time": "10.621"
+      },
+      {
+        "classname": "tests.test_m2d_correction_postgres",
+        "name": "test_outside_target_and_wrong_payload_do_not_create_successor[foundation_i0]",
+        "time": "2.534"
+      },
+      {
+        "classname": "tests.test_m2d_correction_postgres",
+        "name": "test_product_choice_uses_product_owner_and_preserves_detection[selected]",
+        "time": "1.973"
+      },
+      {
+        "classname": "tests.test_m2d_correction_postgres",
+        "name": "test_product_choice_uses_product_owner_and_preserves_detection[detected]",
+        "time": "1.971"
+      },
+      {
+        "classname": "tests.test_m2d_correction_postgres",
+        "name": "test_successor_delivery_failure_after_commit_can_recover_without_old_resume[foundation_i0]",
+        "time": "10.618"
+      },
+      {
+        "classname": "tests.test_m2d_formal_review_postgres",
+        "name": "test_formal_crossborder_review_refuses_approval_and_retains_support[authority0]",
+        "time": "2.945"
+      },
+      {
+        "classname": "tests.test_m2d_migrations",
+        "name": "test_fresh_exact_0014_equivalence_empty_down_up_retention",
+        "time": "17.196"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[decided_by]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[tenant_id]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[langgraph_thread_id]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[policy]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[start_at]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[final_path]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[FACT_CONFLICT]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[BUSINESS_FACT_CONFLICT]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[PRODUCT_CONTEXT_CONFLICT]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[JURISDICTION_UNRESOLVED]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[INSUFFICIENT_EVIDENCE]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[EVIDENCE_INSUFFICIENT]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[CAPABILITY_NOT_CONFIGURED]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[UNDETERMINED]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_only_explicit_immutable_requirement_confirmation_can_approve",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_correction_is_typed_not_free_text_or_arbitrary_json_path",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_request_changes_history_no_resume_and_duplicate_cas",
+        "time": "1.193"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_reject_is_review_boundary_not_failed_and_history_immutable",
+        "time": "1.138"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_approval_reexecutes_owner_duplicate_identity_and_history",
+        "time": "16.236"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_current_tenant_project_role_and_list_filters",
+        "time": "1.188"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_concurrent_reviewers_one_cas_winner",
+        "time": "2.610"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_delivery_failure_recovery_uses_persisted_approval",
+        "time": "16.022"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_approval_process_restart_keeps_canonical_history_and_checkpoint",
+        "time": "20.136"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_required_role_current_on_read_write_and_direct_resume",
+        "time": "1.239"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_direct_worker_approval_records_canonical_snapshot_audit",
+        "time": "17.002"
+      }
+    ]
+  },
+  "required_semantic_cases": [
+    "test_selection_through_real_two_provider_http_and_durable_audit",
+    "test_encrypted_not_plaintext_reference_scope_and_restart",
+    "test_confirmation_freezes_exact_models_policies_prompt_and_preferences",
+    "test_real_binary_llm_candidates_genuine_trace_resolution_and_restart",
+    "test_real_http_query_expansion_same_scope_and_no_model_memory_evidence",
+    "test_stable_item_has_exact_immutable_snapshot_state_and_provenance",
+    "test_approval_reexecutes_owner_duplicate_identity_and_history",
+    "test_request_changes_history_no_resume_and_duplicate_cas",
+    "test_fact_choice_creates_successor_keeps_source_and_exact_parse_universe",
+    "test_concurrent_reviewers_one_cas_winner",
+    "test_approval_process_restart_keeps_canonical_history_and_checkpoint",
+    "test_historical_snapshot_model_and_prompt_do_not_use_new_versions",
+    "test_review_successor_preserves_original_model_frame",
+    "test_single_current_revocation_denied_without_other_provider_fallback",
+    "test_multiple_provider_instances_multiple_models_same_remote_name",
+    "test_legal_purpose_not_in_contract_or_multi_vote",
+    "test_current_authorization_and_cross_tenant_fail_closed",
+    "test_published_model_configuration_is_immutable"
+  ],
+  "provider_protocol_acceptance": "PASS",
+  "paid_internet_endpoints": "NOT_EXECUTED",
+  "m2b_temporal": "PASS",
+  "m2d_review": "PASS",
+  "browser_passed": 57,
+  "browser_retries": 0
+}

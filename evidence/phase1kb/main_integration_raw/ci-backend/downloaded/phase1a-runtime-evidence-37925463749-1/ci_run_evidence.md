@@ -1,0 +1,15 @@
+# Phase 1A.1 CI Run Evidence
+
+## Run Identifier
+
+- **run_id**: `37925463749`
+- **run_attempt**: `1`
+- **repository**: `bensuen0831/crossborder-compliance-agent`
+- **workflow**: `phase1a-runtime-smoke`
+- **job**: `mandatory-runtime-smoke`
+- **sha**: `0f5a40c5ca3a8771624fb38e9380856d79e67342`
+- **tested_pr_head_sha**: `0f5a40c5ca3a8771624fb38e9380856d79e67342`
+- **runner_checkout_sha**: `0f5a40c5ca3a8771624fb38e9380856d79e67342`
+- **ref**: `refs/heads/main`
+- **runner_os**: `Linux`
+- **run_url**: `https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37925463749`
