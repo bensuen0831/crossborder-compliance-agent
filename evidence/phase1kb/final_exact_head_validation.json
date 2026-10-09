@@ -1,0 +1,214 @@
+{
+  "decision": "PHASE1K-B = PASS",
+  "evidence_kind": "immutable PR-head closure, not main integration",
+  "created_at": "2026-10-09T03:41:26.463583+00:00",
+  "branch": "phase1kb-multi-provider-llm-governance",
+  "base_main_sha": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+  "final_pr_head_sha": "d74bca4b61178637f24302d8b1fa6baa4f05ea59",
+  "pr": {
+    "number": 26,
+    "url": "https://github.com/bensuen0831/crossborder-compliance-agent/pull/26",
+    "draft": true,
+    "target": "main"
+  },
+  "backend_measured": {
+    "tested_pr_head_sha": "d74bca4b61178637f24302d8b1fa6baa4f05ea59",
+    "runner_checkout_sha": "d74bca4b61178637f24302d8b1fa6baa4f05ea59",
+    "final_sha": "d74bca4b61178637f24302d8b1fa6baa4f05ea59",
+    "exact_head_verified": true,
+    "backend": {
+      "passed": 844,
+      "skipped": 0,
+      "failed": 0,
+      "errors": 0,
+      "deselected": 0,
+      "phase_coverage": {
+        "phase1b": true,
+        "phase1c": true,
+        "phase1d": true,
+        "phase1e": true,
+        "phase1f": true,
+        "phase1g": true,
+        "phase1h": true,
+        "phase1i": true,
+        "phase1j": true
+      },
+      "pass": true
+    },
+    "runtime_passed": 25,
+    "architecture_passed": 269,
+    "architecture_total": 269,
+    "migration": {
+      "base_sha": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+      "from_revision": "0015_m2d_review_governance",
+      "head": "0016_phase1kb_multi_provider_llm_governance",
+      "fresh": true,
+      "exact0015_upgrade": true,
+      "schema_equivalence": true,
+      "frozen_migrations_unchanged": true,
+      "empty_downgrade_reupgrade": true,
+      "authoritative_pins_transactional_refusal": true
+    },
+    "alembic": "0016_phase1kb_multi_provider_llm_governance"
+  },
+  "frontend_measured": {
+    "tested_pr_head_sha": "d74bca4b61178637f24302d8b1fa6baa4f05ea59",
+    "runner_checkout_sha": "d74bca4b61178637f24302d8b1fa6baa4f05ea59",
+    "final_sha": "d74bca4b61178637f24302d8b1fa6baa4f05ea59",
+    "exact_head_verified": true,
+    "frontend_passed": 130,
+    "browser_counts": {
+      "m1.spec.ts": 3,
+      "m2a.spec.ts": 3,
+      "m2b.spec.ts": 3,
+      "m2c.spec.ts": 3,
+      "m2d.spec.ts": 3,
+      "phase1kb.spec.ts": 6,
+      "knowledge.spec.ts": 36
+    },
+    "retry_count": 0,
+    "locales": [
+      "zh-CN",
+      "zh-HK",
+      "en-US"
+    ],
+    "quality": "PASS"
+  },
+  "source_manifest": {
+    "head": "d74bca4b61178637f24302d8b1fa6baa4f05ea59",
+    "baseline": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+    "owner_source": "f91a3bc47a7b91c1cf8b61d9bfa3c7d712a9235a",
+    "finite_paths": 102,
+    "checked_at": "2026-10-09T02:20:35.070276+00:00",
+    "working_tree_clean": true,
+    "frozen_migrations_byte_equal": true,
+    "stage2": "NOT_STARTED",
+    "m2e_code": "NOT_STARTED"
+  },
+  "ci_runs": [
+    {
+      "id": 37876459381,
+      "name": "M1 Intake Analysis Alpha",
+      "head_sha": "d74bca4b61178637f24302d8b1fa6baa4f05ea59",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37876459381",
+      "run_attempt": 1,
+      "created_at": "2026-10-09T02:50:23Z",
+      "updated_at": "2026-10-09T02:59:36Z"
+    },
+    {
+      "id": 37876459323,
+      "name": "M2C Formal Result Workspace",
+      "head_sha": "d74bca4b61178637f24302d8b1fa6baa4f05ea59",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37876459323",
+      "run_attempt": 1,
+      "created_at": "2026-10-09T02:50:23Z",
+      "updated_at": "2026-10-09T03:09:52Z"
+    },
+    {
+      "id": 37876459340,
+      "name": "M2B Production Document Integration",
+      "head_sha": "d74bca4b61178637f24302d8b1fa6baa4f05ea59",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37876459340",
+      "run_attempt": 1,
+      "created_at": "2026-10-09T02:50:23Z",
+      "updated_at": "2026-10-09T03:03:38Z"
+    },
+    {
+      "id": 37876459359,
+      "name": "M0 Knowledge & Evidence Preview",
+      "head_sha": "d74bca4b61178637f24302d8b1fa6baa4f05ea59",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37876459359",
+      "run_attempt": 1,
+      "created_at": "2026-10-09T02:50:23Z",
+      "updated_at": "2026-10-09T02:57:17Z"
+    },
+    {
+      "id": 37876459346,
+      "name": "M2A Production Intake",
+      "head_sha": "d74bca4b61178637f24302d8b1fa6baa4f05ea59",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37876459346",
+      "run_attempt": 1,
+      "created_at": "2026-10-09T02:50:23Z",
+      "updated_at": "2026-10-09T02:58:19Z"
+    },
+    {
+      "id": 37876459369,
+      "name": "M2D Governed Human Review",
+      "head_sha": "d74bca4b61178637f24302d8b1fa6baa4f05ea59",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37876459369",
+      "run_attempt": 1,
+      "created_at": "2026-10-09T02:50:23Z",
+      "updated_at": "2026-10-09T03:23:03Z"
+    },
+    {
+      "id": 37876459370,
+      "name": "phase1a-runtime-smoke",
+      "head_sha": "d74bca4b61178637f24302d8b1fa6baa4f05ea59",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37876459370",
+      "run_attempt": 1,
+      "created_at": "2026-10-09T02:50:23Z",
+      "updated_at": "2026-10-09T03:24:09Z"
+    },
+    {
+      "id": 37876459348,
+      "name": "Phase1KB Multi-provider LLM Governance",
+      "head_sha": "d74bca4b61178637f24302d8b1fa6baa4f05ea59",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/37876459348",
+      "run_attempt": 1,
+      "created_at": "2026-10-09T02:50:23Z",
+      "updated_at": "2026-10-09T03:28:26Z"
+    }
+  ],
+  "provider_acceptance": {
+    "scope": "protocol-realistic local HTTP via canonical adapters",
+    "presets": [
+      "OPENAI_GPT",
+      "DEEPSEEK",
+      "QWEN",
+      "GLM",
+      "OTHER_OPENAI_COMPATIBLE"
+    ],
+    "status": "PASS",
+    "paid_internet_endpoints": "NOT_EXECUTED",
+    "opt_in": "REAL_LLM_E2E=1"
+  },
+  "gates": {
+    "invocation_policy": "PASS",
+    "rag_first_evidence_first": "PASS",
+    "multiple_providers_models": "PASS",
+    "admin_control_plane": "PASS",
+    "secret_boundary": "PASS",
+    "connection_discovery_model_test": "PASS",
+    "eligible_model_catalog": "PASS",
+    "auto": "PASS",
+    "single": "PASS",
+    "multi_model": "PASS",
+    "snapshot_pinning": "PASS",
+    "document_candidate_extraction": "PASS",
+    "knowledge_gap_query_expansion": "PASS",
+    "formal_legal_decision_boundary": "PASS",
+    "security": "PASS",
+    "existing_regressions": "PASS"
+  },
+  "blockers": [],
+  "m2e_external_agent_api_entry": "ALLOWED",
+  "stage1_full_e2e_entry": "BLOCKED_UNTIL_M2E_MAIN_CLOSURE",
+  "stage2": "NOT_STARTED",
+  "merged": false
+}

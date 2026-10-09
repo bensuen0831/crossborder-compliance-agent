@@ -1,6 +1,6 @@
 # M2-E northbound contract boundary — freeze only
 
-Entry decision: PENDING Phase1K-B exact-head closure. No M2-E implementation exists in this task. Stage1 full E2E remains blocked until M2-E main closure; Stage2 NOT STARTED.
+Entry decision: M2-E EXTERNAL AGENT API ENTRY = ALLOWED after Phase1K-B exact-head closure PASS at `d74bca4b61178637f24302d8b1fa6baa4f05ea59`; all eight CI workflows SUCCESS. See `Phase1KB_final_exact_head_validation.md`. No M2-E implementation exists in this task. Stage1 full E2E remains blocked until M2-E main closure; Stage2 NOT STARTED.
 
 | Future contract | Required boundary |
 |---|---|

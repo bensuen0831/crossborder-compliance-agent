@@ -1,6 +1,6 @@
 # Phase1K-B measured gates
 
-Closure decision: PENDING exact-head CI; no interrupted/local run is final evidence. Draft PR26; no merge. Backend full floor763, existing architecture242 plus27, runtime25, frontend121 plus9, browser baseline51 plus6, retry0 remain mandatory.
+Closure decision: PASS at exact PR head `d74bca4b61178637f24302d8b1fa6baa4f05ea59`. Backend844, architecture269/269, runtime25/25, frontend130, browser57/57; zero failed/errors/skipped/deselected/retries. All eight exact-head workflows SUCCESS. See `Phase1KB_final_exact_head_validation.md` and `evidence/phase1kb/final_exact_head_validation.json`. Draft PR26 remains unmerged. Historical checkpoint notes below retain the chronology; their pending/revalidation statements are superseded by this measured final decision.
 
 Focused checkpoints: invocation11; backend registry/secret/control/gateway60; HTTP31; Admin API/config15/control9/metadata3/UI6; catalog16; selected real HTTP6 and gateway regression69; snapshot/intake/K-A/M2-D29; document semantic extraction/context/M2-B22; insufficient-query/G/L-B14. KB10 endpoint/K-A HTTP37, canonical API4, exact audit/selection6, UI9 and three-locale real-browser6 PASS. Typecheck/lint/i18n PASS. Migration dual path1 PASS (fresh/exact0015/schema equivalence/empty down/up/pin retention refusal).
 
