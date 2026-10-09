@@ -20,6 +20,8 @@ PATHS = frozenset(
         "frontend/scripts/phase1kb/uat.py",
         "frontend/src/api/client.ts",
         "frontend/src/api/m2a-generated.ts",
+        "frontend/src/api/m1-generated.ts",
+        "frontend/src/api/m1-schemas.json",
         "frontend/src/api/m2d-generated.ts",
         "frontend/src/api/m2d-schemas.json",
         "frontend/src/api/m2a-schemas.json",

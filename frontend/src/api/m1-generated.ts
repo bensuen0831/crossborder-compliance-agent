@@ -329,6 +329,28 @@ export interface components {
              */
             legal_obligation: false;
         };
+        /** AIModelPreference */
+        AIModelPreference: {
+            /** @default STANDARD */
+            usage_mode: components["schemas"]["LLMUsageMode"];
+            /** @default AUTO */
+            selection_mode: components["schemas"]["ModelSelectionMode"];
+            /**
+             * Selected Model Ids
+             * @default []
+             */
+            selected_model_ids: string[];
+        };
+        /**
+         * LLMUsageMode
+         * @enum {string}
+         */
+        LLMUsageMode: "MINIMAL" | "STANDARD" | "ENHANCED";
+        /**
+         * ModelSelectionMode
+         * @enum {string}
+         */
+        ModelSelectionMode: "AUTO" | "SINGLE" | "MULTI_MODEL";
         /** ProvenanceDTO */
         ProvenanceDTO: {
             /** Source Type */
@@ -457,6 +479,7 @@ export interface components {
              * Format: date
              */
             analysis_as_of_date: string;
+            ai_model_preference?: components["schemas"]["AIModelPreference"];
         };
         /** HTTPValidationError */
         HTTPValidationError: {

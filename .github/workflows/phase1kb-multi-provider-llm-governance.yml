@@ -103,6 +103,10 @@ jobs:
           frontend/node_modules/.bin/openapi-typescript frontend/src/api/m2a-schemas.json -o frontend/src/api/m2a-generated.ts
           python frontend/scripts/m2d/export_contracts.py
           frontend/node_modules/.bin/openapi-typescript frontend/src/api/m2d-schemas.json -o frontend/src/api/m2d-generated.ts
+          python frontend/scripts/m1/export_contracts.py
+          frontend/node_modules/.bin/openapi-typescript frontend/src/api/m1-schemas.json -o frontend/src/api/m1-generated.ts
+          python frontend/scripts/m2c/export_contracts.py
+          frontend/node_modules/.bin/openapi-typescript frontend/src/api/m2c-schemas.json -o frontend/src/api/m2c-generated.ts
           git diff --exit-code -- frontend/src/api
           npm run typecheck --prefix frontend
           npm run lint --prefix frontend

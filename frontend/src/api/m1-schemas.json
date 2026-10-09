@@ -740,6 +740,49 @@
         "title": "RegulationApplicabilityResult",
         "type": "object"
       },
+      "AIModelPreference": {
+        "additionalProperties": false,
+        "properties": {
+          "usage_mode": {
+            "$ref": "#/components/schemas/LLMUsageMode",
+            "default": "STANDARD"
+          },
+          "selection_mode": {
+            "$ref": "#/components/schemas/ModelSelectionMode",
+            "default": "AUTO"
+          },
+          "selected_model_ids": {
+            "default": [],
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "maxItems": 16,
+            "title": "Selected Model Ids",
+            "type": "array"
+          }
+        },
+        "title": "AIModelPreference",
+        "type": "object"
+      },
+      "LLMUsageMode": {
+        "enum": [
+          "MINIMAL",
+          "STANDARD",
+          "ENHANCED"
+        ],
+        "title": "LLMUsageMode",
+        "type": "string"
+      },
+      "ModelSelectionMode": {
+        "enum": [
+          "AUTO",
+          "SINGLE",
+          "MULTI_MODEL"
+        ],
+        "title": "ModelSelectionMode",
+        "type": "string"
+      },
       "ProvenanceDTO": {
         "additionalProperties": false,
         "properties": {
@@ -1036,6 +1079,9 @@
             "format": "date",
             "title": "Analysis As Of Date",
             "type": "string"
+          },
+          "ai_model_preference": {
+            "$ref": "#/components/schemas/AIModelPreference"
           }
         },
         "required": [
