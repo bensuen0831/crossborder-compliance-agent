@@ -6,8 +6,10 @@ It is not an M2-E closure/production readiness decision.
 """
 
 import hashlib
+import io
 import json
 import subprocess
+import tarfile
 from pathlib import Path
 
 BASE = "0f5a40c5ca3a8771624fb38e9380856d79e67342"
@@ -57,7 +59,11 @@ PATHS = frozenset(
         "tests/test_m2e_webhooks_postgres.py",
     ]
 )
-PATHS = PATHS | {"scripts/m2a_ownership.py", "scripts/phase1l_b_ownership.py"}
+PATHS = PATHS | {
+    "scripts/m2a_ownership.py",
+    "scripts/phase1l_b_ownership.py",
+    "tests/test_m2b_snapshot_contract_probe.py",
+}
 
 
 def overlay(root):
@@ -84,6 +90,16 @@ def overlay(root):
                 == 0
             )
 
+        def blobs(sha, paths):
+            # Batch immutable Git-object reads only. Current files and proof
+            # records are still rechecked on every invocation; no cached
+            # authorization/validity can hide a later modification.
+            archive = git("archive", "--format=tar", sha, "--", *paths)
+            with tarfile.open(fileobj=io.BytesIO(archive)) as files:
+                return {
+                    entry.name: files.extractfile(entry).read() for entry in files if entry.isfile()
+                }
+
         valid = (
             data["base_sha"] == BASE
             and source != BASE
@@ -91,9 +107,10 @@ def overlay(root):
             and ancestor(source, "HEAD")
         )
         valid = valid and set(data["paths"]) == PATHS
+        committed = blobs(source, sorted(PATHS))
         valid = valid and all(
-            hashlib.sha256(git("show", source + ":" + p)).hexdigest() == h
-            and (root / p).read_bytes() == git("show", source + ":" + p)
+            hashlib.sha256(committed[p]).hexdigest() == h
+            and (root / p).read_bytes() == committed[p]
             for p, h in data["paths"].items()
         )
         baseline = (
@@ -112,10 +129,9 @@ def overlay(root):
             .splitlines()
         )
         baseline += ["ARCHITECTURE_RULES.md", "pyproject.toml"]
+        original = blobs(BASE, baseline)
         valid = valid and all(
-            (root / p).read_bytes() == git("show", BASE + ":" + p)
-            for p in baseline
-            if p not in PATHS
+            (root / p).read_bytes() == original[p] for p in baseline if p not in PATHS
         )
         delta = set(git("diff", "--name-only", BASE, source).decode().splitlines())
         valid = valid and all(
