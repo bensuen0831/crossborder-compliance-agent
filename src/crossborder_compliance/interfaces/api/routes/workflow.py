@@ -119,6 +119,11 @@ def delivery(request, context, project_id, snapshot_id, operation, expected_run=
         plan=plan,
         postgres_uri=get_settings().langgraph_database_uri,
         request_id=str(getattr(request.state, "request_id", "workflow-http")),
+        llm_dependencies={
+            "secrets": request.app.state.llm_secret_store_factory(context)
+                       if getattr(request.app.state, "llm_secret_store_factory", None) else None,
+            "redaction": getattr(request.app.state, "llm_data_redaction_service", None),
+        },
     )
     factory.authorize(run_id, operation)
     return sf, runtime, factory, run_id

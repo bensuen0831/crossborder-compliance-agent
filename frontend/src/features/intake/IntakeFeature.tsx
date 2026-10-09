@@ -11,6 +11,7 @@ import { m1Api } from './api';
 import { emptyDraft, optionId, optionLabel, type Draft, type GovernedOption, type WorkflowView } from './contracts';
 import { restoreDraft, type IntakePersistence } from './persistence';
 import { DocumentInputs } from './DocumentInputs';
+import { AISettings } from '../models/AISettings';
 import './intake.css';
 
 export function IntakeFeature({ session, context: existingContext, persistence, initialStep = 0, onStepChange }: { session: Session; context?: AuthorizedContext; persistence?: IntakePersistence; initialStep?: number; onStepChange?: (step: number) => void }) {
@@ -42,7 +43,7 @@ export function IntakeFeature({ session, context: existingContext, persistence, 
   const party = (key: 'organizations' | 'thirdParties', label: string) => <label>{t(label)}<select multiple value={draft[key]} disabled={persistence?.record.status === 'CONFIRMED' || !parties.data?.length} onChange={event => update(key, Array.from(event.target.selectedOptions, option => option.value))}>{parties.data?.map(row => <option key={row.project_party_id} value={row.project_party_id}>{row.display_name}</option>)}</select></label>;
   const valid = draft.scenario && draft.product && draft.source.length && draft.destination.length && draft.purpose.trim() && draft.description.trim() && (persistence || (draft.flows.length > 0 && draft.flows.every(row => row.data_item_id && row.source_location && row.destination_location)));
   const scenario = metadata.data?.scenarios.find(row => optionId(row) === draft.scenario);
-  const summary = Object.entries(draft).map(([key, value]) => <div key={key}><dt>{t(`ui.m1.field.${key}`)}</dt><dd>{typeof value === 'string' ? (Object.values(metadata.data ?? {}).flat().find(row => optionId(row) === value)?.presentation?.display_name ?? Object.values(metadata.data ?? {}).flat().find(row => optionId(row) === value)?.display_name ?? value) || t('notAvailable') : key === 'flows' ? draft.flows.map(row => <p key={row.id}>{row.data_item_id} → {row.source_location} → {row.destination_location}</p>) : (value as string[]).map(id => {
+  const summary = Object.entries(draft).filter(([key]) => key !== 'aiModelPreference').map(([key, value]) => <div key={key}><dt>{t(`ui.m1.field.${key}`)}</dt><dd>{typeof value === 'string' ? (Object.values(metadata.data ?? {}).flat().find(row => optionId(row) === value)?.presentation?.display_name ?? Object.values(metadata.data ?? {}).flat().find(row => optionId(row) === value)?.display_name ?? value) || t('notAvailable') : key === 'flows' ? draft.flows.map(row => <p key={row.id}>{row.data_item_id} → {row.source_location} → {row.destination_location}</p>) : (value as string[]).map(id => {
     const metadataRow = Object.values(metadata.data ?? {}).flat().find(row => optionId(row) === id);
     return <span className="m1-value" key={id}>{metadataRow ? optionLabel(metadataRow) : items.data?.find(row => row.data_item_id === id)?.display_name ?? parties.data?.find(row => row.project_party_id === id)?.display_name ?? id}</span>;
   })}</dd></div>);
@@ -69,7 +70,7 @@ export function IntakeFeature({ session, context: existingContext, persistence, 
           <p>{t('ui.m1.categoryGap')}</p>
           {!parties.data?.length && <p>{t('ui.m1.noParties')}</p>}
         </>}
-        {step === 2 && <><label>{t('ui.m1.field.description')}<textarea required maxLength={4000} value={draft.description} onChange={event => update('description', event.target.value)}/></label>
+        {step === 2 && <>{persistence && <AISettings projectId={persistence.record.project_id} identity={session.identity_key} value={draft.aiModelPreference} onChange={value => update('aiModelPreference', value)} disabled={persistence.record.status === 'CONFIRMED'}/>} <label>{t('ui.m1.field.description')}<textarea required maxLength={4000} value={draft.description} onChange={event => update('description', event.target.value)}/></label>
           {persistence ? <DocumentInputs persistence={persistence} identity={session.identity_key} dirty={dirty}/> : <>
           <label>{t('ui.m1.field.documents')}<textarea value={draft.documents} maxLength={2000} onChange={event => update('documents', event.target.value)}/></label>
           {!context ? <p>{t('ui.m1.documentGap')}</p> : documents.isPending ? <LoadingState/> : documents.error ? <ErrorState error={documents.error}/> : <details><summary>{t('ui.m1.documentsSummary')}</summary><pre className="provenance">{JSON.stringify(documents.data, null, 2)}</pre></details>}

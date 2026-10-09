@@ -1,6 +1,7 @@
 """Typed production intake transport; browser facts never carry authority."""
 
 from typing import Annotated
+from functools import partial
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Request
@@ -13,7 +14,7 @@ from crossborder_compliance.application.intake_services import (
     UpdateIntakeDraft,
 )
 from crossborder_compliance.domain.security import RepositoryContext
-from crossborder_compliance.infrastructure.intake_composition import intake_service
+from crossborder_compliance.infrastructure.intake_composition import intake_service, prepare_snapshot
 from crossborder_compliance.infrastructure.persistence.project_intake import IntakeConflict
 from crossborder_compliance.interfaces.api.dependencies import get_repository_context
 from crossborder_compliance.interfaces.api.routes.workflow import sessions
@@ -24,7 +25,14 @@ Context = Annotated[RepositoryContext, Depends(get_repository_context)]
 
 def invoke(request, context, operation, *args):
     try:
-        return getattr(intake_service(sessions(request), context, getattr(request.app.state, "intake_snapshot_preparer", None)), operation)(*args)
+        secret_factory = getattr(request.app.state, "llm_secret_store_factory", None)
+        preparer = getattr(request.app.state, "intake_snapshot_preparer", None) or partial(
+            prepare_snapshot, llm_dependencies={
+                "storage": getattr(request.app.state, "document_object_storage", None),
+                "secrets": secret_factory(context) if secret_factory else None,
+                "redaction": getattr(request.app.state, "llm_data_redaction_service", None),
+            })
+        return getattr(intake_service(sessions(request), context, preparer), operation)(*args)
     except (LookupError, PermissionError) as exc:
         raise HTTPException(404, "intake resource not found") from exc
     except (IntakeConflict, IntegrityError) as exc:

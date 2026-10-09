@@ -48,7 +48,7 @@ class LLMService:
         self.policy = ModelUsagePolicyService()
         self.router = ModelRouter()
 
-    def _audit(self, request, code, *, model=None, decision=None, redaction=None):
+    def _audit(self, request, code, *, model=None, decision=None, redaction=None, usage=None):
         try:
             self.audit.record(
                 GatewayAuditEvent(
@@ -58,6 +58,12 @@ class LLMService:
                     analysis_snapshot_id=request.analysis_snapshot_id,
                     operation=request.operation,
                     model_id=model.model_id if model else None,
+                    provider_id=model.provider_id if model else None,
+                    provider_version_id=model.provider_version_id if model else None,
+                    deployment_id=model.deployment_id if model else None,
+                    invocation_group_id=request.invocation_group_id,
+                    prompt_id=request.prompt_id,
+                    usage=usage or {},
                     policy_versions=decision.policy_versions if decision else (),
                     redaction_run_id=redaction.run_id if redaction else None,
                     reason_code=code,
@@ -66,7 +72,7 @@ class LLMService:
         except Exception:
             raise GatewayDenied("GATEWAY_AUDIT_UNAVAILABLE") from None
 
-    def _prepare(self, request):
+    def _prepare(self, request, *, selected_pool=()):
         self.configuration.authorize(request)
         try:
             items = self.inputs.load(self.context, request.project_id, request.input_refs)
@@ -102,12 +108,22 @@ class LLMService:
         )
         if not candidates:
             raise GatewayDenied("NO_ALLOWED_PROVIDER_CAPABILITY")
+        if selected_pool:
+            if not set(selected_pool) <= {model.model_id for model in candidates}:
+                raise GatewayDenied("MODEL_SELECTION_NOT_ALLOWED")
+            candidates = tuple(model for model in candidates if model.model_id in selected_pool)
         self.configuration.pin_models(request, candidates)
         prompt = self.configuration.prompt(request)
         if request.output_schema:
             validate_schema(request.output_schema)
         texts = tuple(t for item in items for t in item.texts)
         return policies, decision, candidates, prompt, texts
+
+    def prepare_selected_models(self, request, selected_model_ids):
+        """Freeze the authorized group before the first independent invocation."""
+        self._prepare(
+            request.model_copy(update={"selected_model_id": None}), selected_pool=selected_model_ids
+        )
 
     def _payload(self, request, model, policies, decision, prompt, texts):
         redaction = None
@@ -194,7 +210,12 @@ class LLMService:
                     raise GatewayDenied("MODEL_PROVIDER_FAILED") from None
                 self._validate_result(request, model, payload, result)
                 self._audit(
-                    request, "COMPLETED", model=model, decision=decision, redaction=redaction
+                    request,
+                    "COMPLETED",
+                    model=model,
+                    decision=decision,
+                    redaction=redaction,
+                    usage=result.usage,
                 )
                 return LLMResult(
                     request_id=request.request_id,

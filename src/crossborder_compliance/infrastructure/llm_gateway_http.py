@@ -3,6 +3,7 @@
 import ipaddress
 import json
 import socket
+import ssl
 import time
 from urllib.parse import urlparse
 
@@ -28,6 +29,15 @@ def check_endpoint(url, external):
         or (external and p.scheme != "https")
     ):
         raise GatewayDenied("MODEL_ENDPOINT_INVALID")
+    if p.hostname.lower() in {"metadata.google.internal", "instance-data.ec2.internal"}:
+        raise GatewayDenied("MODEL_ENDPOINT_INVALID")
+    try:
+        address = ipaddress.ip_address(p.hostname)
+        address = getattr(address, "ipv4_mapped", None) or address
+        if address.is_link_local or address.is_unspecified or address.is_multicast:
+            raise GatewayDenied("MODEL_ENDPOINT_INVALID")
+    except ValueError:
+        pass
     if external:
         try:
             ips = [x[4][0] for x in socket.getaddrinfo(p.hostname, p.port or 443)]
@@ -141,7 +151,12 @@ class HTTPProviderAdapter:
                         follow_redirects=False,
                         timeout=seconds,
                     ) as client:
-                        with client.stream(method, url, json=body, headers=headers) as response:
+                        with client.stream(
+                            method,
+                            url,
+                            **({"json": body} if body is not None else {}),
+                            headers=headers,
+                        ) as response:
                             response.raise_for_status()
                             raw = bytearray()
                             for part in response.iter_bytes():
@@ -151,12 +166,24 @@ class HTTPProviderAdapter:
                             value = json.loads(raw)
                             self._without_secret(value, secret)
                             return self._decode(payload, value)
-                except (httpx.TimeoutException, httpx.NetworkError, httpx.HTTPStatusError):
+                except (httpx.TimeoutException, httpx.NetworkError, httpx.HTTPStatusError) as error:
                     if attempt + 1 < attempts:
                         time.sleep(backoff)
                     else:
-                        raise ProviderFailure() from None
-        except GatewayDenied:
+                        if isinstance(error, httpx.TimeoutException):
+                            code = "TIMEOUT"
+                        elif isinstance(error, httpx.HTTPStatusError):
+                            code = {
+                                401: "AUTHENTICATION_FAILED",
+                                403: "AUTHENTICATION_FAILED",
+                                404: "MODEL_ENDPOINT_INVALID",
+                            }.get(error.response.status_code, "ENDPOINT_UNREACHABLE")
+                        elif isinstance(error.__cause__, ssl.SSLError):
+                            code = "TLS_ERROR"
+                        else:
+                            code = "ENDPOINT_UNREACHABLE"
+                        raise ProviderFailure(code) from None
+        except (GatewayDenied, ProviderFailure):
             raise
         except Exception:
             raise ProviderFailure() from None
@@ -245,31 +272,62 @@ class OpenAICompatibleProviderAdapter(HTTPProviderAdapter):
         if payload.operation == ModelOperation.CHAT_STREAM:
             body["stream"] = True
         if payload.operation == ModelOperation.STRUCTURED_OUTPUT:
-            body["response_format"] = {
-                "type": "json_schema",
-                "json_schema": {
-                    "name": "structured_result",
-                    "schema": payload.output_schema,
-                    "strict": True,
-                },
-            }
+            body["response_format"] = (
+                {"type": "json_object"}
+                if model.structured_output_format == "json_object"
+                else {
+                    "type": "json_schema",
+                    "json_schema": {
+                        "name": "structured_result",
+                        "schema": payload.output_schema,
+                        "strict": True,
+                    },
+                }
+            )
+            if model.structured_output_format == "json_object":
+                body["messages"].insert(
+                    0,
+                    {
+                        "role": "system",
+                        "content": "Return a JSON object conforming to this schema: "
+                        + json.dumps(payload.output_schema),
+                    },
+                )
         return "POST", "/chat/completions", body
 
     def _decode(self, payload, body):
         if payload.operation == ModelOperation.HEALTH_CHECK:
-            return ProviderResult(healthy=isinstance(body.get("data"), list))
+            entries = body.get("data")
+            if not isinstance(entries, list) or len(entries) > 4096:
+                raise GatewayDenied("MODEL_RESULT_INVALID")
+            ids = tuple(entry["id"] for entry in entries)
+            if any(
+                not isinstance(identity, str) or not 1 <= len(identity) <= 200 for identity in ids
+            ):
+                raise GatewayDenied("MODEL_RESULT_INVALID")
+            return ProviderResult(healthy=True, discovered_models=tuple(dict.fromkeys(ids)))
+        usage = {
+            key: value
+            for key, value in body.get("usage", {}).items()
+            if key in {"prompt_tokens", "completion_tokens", "total_tokens"}
+            and isinstance(value, int)
+            and not isinstance(value, bool)
+            and value >= 0
+        }
         if payload.operation == ModelOperation.EMBEDDING:
             rows = sorted(body["data"], key=lambda x: x["index"])
             if [r["index"] for r in rows] != list(range(len(payload.texts))):
                 raise GatewayDenied("MODEL_RESULT_INVALID")
-            return ProviderResult(embeddings=tuple(tuple(r["embedding"]) for r in rows))
+            return ProviderResult(
+                embeddings=tuple(tuple(r["embedding"]) for r in rows), usage=usage
+            )
         choice = body["choices"][0]
         if choice["message"].get("tool_calls") or choice.get("finish_reason") != "stop":
             raise GatewayDenied("MODEL_RESULT_INVALID")
         text = choice["message"]["content"]
         if payload.operation == ModelOperation.STRUCTURED_OUTPUT:
-            return ProviderResult(structured=json.loads(text))
-        return ProviderResult(text=text)
+            return ProviderResult(structured=json.loads(text), usage=usage)
+        return ProviderResult(text=text, usage=usage)
 
     def _delta(self, body):
         choice = body["choices"][0]

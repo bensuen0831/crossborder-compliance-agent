@@ -60,6 +60,7 @@ def formal_workflow_runtime(
     preferred_locale=None,
     execution_policy=None,
     retrieval_ports=None,
+    llm_dependencies=None,
 ):
     """The trusted host supplies a server-prepared, stable plan and current access.
 
@@ -75,6 +76,10 @@ def formal_workflow_runtime(
     ):
         raise PermissionError("workflow project not found")
     retrieval_repo = PostgresRetrievalRepository(sessions, context)
+    from crossborder_compliance.infrastructure.llm_query_expansion import query_expansion_planner
+    retrieval_ports = dict(retrieval_ports or {})
+    retrieval_ports.setdefault("query_expansion", query_expansion_planner(
+        sessions, context, plan.retrieval_query, **(llm_dependencies or {})))
     country_repo = PostgresCountryComplianceRepository(sessions, context)
     stages = FormalWorkflowStages(
         plan,
@@ -87,7 +92,7 @@ def formal_workflow_runtime(
             context,
             PostgresFTSRetrieverAdapter(sessions, context),
             PgvectorRetrieverAdapter(sessions, context),
-            **(retrieval_ports or {}),
+            **retrieval_ports,
         ),
         evidence=retrieval_repo,
         classification=ClassificationService(

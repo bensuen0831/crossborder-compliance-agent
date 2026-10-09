@@ -98,12 +98,13 @@ class DocumentIngestionService:
 
 
 class DocumentParseService:
-    def __init__(self, repository: DocumentIntelligenceRepositoryPort, storage: ObjectStoragePort, parsers: list[DocumentParserPort], task_queue: TaskQueuePort, *, vision: VisionDiagramPort | None = None):
+    def __init__(self, repository: DocumentIntelligenceRepositoryPort, storage: ObjectStoragePort, parsers: list[DocumentParserPort], task_queue: TaskQueuePort, *, vision: VisionDiagramPort | None = None, semantic_extractor=None):
         self.repository = repository
         self.storage = storage
         self.parsers = parsers
         self.task_queue = task_queue
         self.vision = vision
+        self.semantic_extractor = semantic_extractor
 
     def request_parse(self, *, document_version_id: UUID, idempotency_key: str, parser_profile_id: str = "default") -> dict[str, object]:
         task = self.repository.create_parse_task(document_version_id=document_version_id, idempotency_key=idempotency_key, parser_profile_id=parser_profile_id)
@@ -138,8 +139,11 @@ class DocumentParseService:
             parsed = parser.parse(document_version_id=UUID(str(version["document_version_id"])), content=content, filename=str(version["filename"]), mime_type=str(version["mime_type"]))
             traces = self.repository.replace_structure(run_id, parsed.nodes)
             quality = self._quality(run_id, parsed, traces)
-            self.repository.save_quality(quality)
             self._extract_candidates(run_id, parsed.nodes, traces)
+            if self.semantic_extractor is not None:
+                if self.semantic_extractor.enhance(run_id, parsed.nodes, traces):
+                    quality = replace(quality, status=ParseQualityStatus.REVIEW_REQUIRED)
+            self.repository.save_quality(quality)
             counts = {
                 "page_count": sum(n.node_type == CanonicalNodeType.PAGE for n in parsed.nodes),
                 "table_count": sum(n.node_type == CanonicalNodeType.TABLE for n in parsed.nodes),

@@ -18,6 +18,7 @@ from crossborder_compliance.infrastructure.persistence.metadata_models import (
     KnowledgeCollectionEntity,
     KnowledgeCollectionVersionEntity,
     PromptDefinitionEntity,
+    PromptBindingEntity,
     PromptVersionEntity,
     RegistrySyncEventEntity,
     RuleDefinitionEntity,
@@ -89,6 +90,34 @@ class PostgresGovernedArtifactAdminRepository:
 
     def _require(self, scope: str) -> None:
         self._policy.require(self._context, scope)
+
+    def bind_llm_invocation(self, version_id, purpose):
+        """Reuse canonical PromptBinding; new snapshots resolve published purpose bindings."""
+        self._require("metadata:publish")
+        if self._spec["kind"] != "PROMPT":
+            raise ValueError("PROMPT_BINDING_RESOURCE_INVALID")
+        with self._sessions() as session, session.begin():
+            version = session.scalar(select(PromptVersionEntity).where(
+                PromptVersionEntity.tenant_id == self.tenant_id,
+                PromptVersionEntity.prompt_version_id == str(version_id),
+                PromptVersionEntity.lifecycle_status == "ACTIVE",
+                PromptVersionEntity.status == "ACTIVE",
+            ))
+            if version is None:
+                raise LookupError("published prompt not found")
+            binding = session.scalar(select(PromptBindingEntity).where(
+                PromptBindingEntity.tenant_id == self.tenant_id,
+                PromptBindingEntity.prompt_version_id == str(version_id),
+                PromptBindingEntity.binding_type == "LLM_INVOCATION_PURPOSE",
+                PromptBindingEntity.binding_ref == purpose.value,
+            ))
+            if binding is None:
+                binding = PromptBindingEntity(prompt_binding_id=str(uuid4()), tenant_id=self.tenant_id,
+                    prompt_version_id=str(version_id), binding_type="LLM_INVOCATION_PURPOSE",
+                    binding_ref=purpose.value)
+                session.add(binding)
+                session.flush()
+            return {"binding_id": binding.prompt_binding_id, "prompt_version_id": str(version_id), "purpose": purpose.value}
 
     def create_draft(self, *, code: str, display_name: str, payload: dict[str, object]) -> dict[str, object]:
         self._require(self._policy.draft_scope)

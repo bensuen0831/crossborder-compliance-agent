@@ -1,0 +1,164 @@
+name: Phase1KB Multi-provider LLM Governance
+on:
+  pull_request:
+    paths: ['src/**', 'tests/**', 'scripts/**', 'smoke/**', 'alembic/**', 'frontend/**', 'docs/phase1kb/**', 'evidence/phase1kb/**', 'pyproject.toml', '.github/workflows/phase1kb-multi-provider-llm-governance.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mandatory-backend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env: {POSTGRES_DB: compliance, POSTGRES_USER: compliance, POSTGRES_PASSWORD: compliance}
+        ports: ['5432:5432']
+        options: --health-cmd="pg_isready -U compliance -d compliance" --health-interval=5s --health-timeout=5s --health-retries=20
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+        options: --health-cmd="redis-cli ping" --health-interval=5s --health-timeout=3s --health-retries=20
+    env:
+      APP_ENV: LOCAL_SERVER
+      DATABASE_URL: postgresql+psycopg://compliance:compliance@127.0.0.1:5432/compliance
+      LANGGRAPH_DATABASE_URI: postgresql://compliance:compliance@127.0.0.1:5432/compliance?sslmode=disable
+      REDIS_URL: redis://127.0.0.1:6379/0
+      PYTHONPATH: ${{ github.workspace }}/src:${{ github.workspace }}
+      SMOKE_STATE_FILE: /tmp/phase1kb-smoke.json
+      EVIDENCE_DIR: artifacts/phase1kb/closure
+      EXPECTED_PR_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0, ref: '${{ github.event.pull_request.head.sha || github.sha }}'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install -e '.[dev]'
+      - name: Full mandatory PostgreSQL runtime, registry, real HTTP providers, security and migration
+        run: bash smoke/run_gate.sh
+      - name: All additive architecture authorities and exact-head backend measurement
+        run: |
+          python scripts/m2c_architecture_check.py > artifacts/phase1kb/closure/m2c_architecture.json
+          python scripts/m2c_projection_architecture.py > artifacts/phase1kb/closure/m2c_projection_architecture.json
+          python scripts/m2d_architecture_check.py > artifacts/phase1kb/closure/m2d_architecture.json
+          python scripts/phase1kb_architecture_check.py > artifacts/phase1kb/closure/phase1kb_architecture.json
+          python scripts/phase1kb_closure.py backend --directory artifacts/phase1kb/closure
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: phase1kb-backend-${{ github.run_id }}
+          path: |
+            artifacts/phase1kb/closure/pytest_full_summary.json
+            artifacts/phase1kb/closure/pytest_full.xml
+            artifacts/phase1kb/closure/runtime_verify.json
+            artifacts/phase1kb/closure/backend_measured.json
+            artifacts/phase1kb/migration_dual_path.json
+            artifacts/phase1kb/closure/*architecture*.json
+          if-no-files-found: warn
+  canonical-frontend-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env: {POSTGRES_DB: kb_browser, POSTGRES_USER: compliance, POSTGRES_PASSWORD: compliance}
+        ports: ['5432:5432']
+        options: --health-cmd="pg_isready -U compliance -d kb_browser" --health-interval=5s --health-timeout=5s --health-retries=20
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+        options: --health-cmd="redis-cli ping" --health-interval=5s --health-timeout=3s --health-retries=20
+    env:
+      APP_ENV: LOCAL_SERVER
+      DATABASE_URL: postgresql+psycopg://compliance:compliance@127.0.0.1:5432/kb_browser
+      LANGGRAPH_DATABASE_URI: postgresql://compliance:compliance@127.0.0.1:5432/kb_browser?sslmode=disable
+      REDIS_URL: redis://127.0.0.1:6379/0
+      PYTHONPATH: ${{ github.workspace }}/src:${{ github.workspace }}
+      M0_LOCAL_UAT: '1'
+      M2B_LOCAL_UAT: '1'
+      M2D_LOCAL_UAT: '1'
+      PHASE1KB_LOCAL_UAT: '1'
+      M2B_FILE_POLICY: /tmp/phase1kb-file-policy.json
+      M2B_BINARY_ROOT: /tmp/phase1kb-objects
+      M2A_UAT_MANIFEST: /tmp/phase1kb-personas.json
+      M1_UAT_MANIFEST: /tmp/phase1kb-personas.json
+      M2D_UAT_MANIFEST: /tmp/phase1kb-personas.json
+      VITE_M0_DEMO: 'true'
+      VITE_SESSION_PATH: /m0-demo/session
+      EXPECTED_PR_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0, ref: '${{ github.event.pull_request.head.sha || github.sha }}'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm, cache-dependency-path: frontend/package-lock.json}
+      - run: python -m pip install -e '.[dev]'
+      - name: Canonical generated contracts, full frontend regression and quality
+        run: |
+          npm ci --prefix frontend --no-audit --no-fund
+          python frontend/scripts/phase1kb/export_contracts.py
+          frontend/node_modules/.bin/openapi-typescript frontend/src/api/phase1kb-schemas.json -o frontend/src/api/phase1kb-generated.ts
+          python frontend/scripts/m2a/export_contracts.py
+          frontend/node_modules/.bin/openapi-typescript frontend/src/api/m2a-schemas.json -o frontend/src/api/m2a-generated.ts
+          python frontend/scripts/m2d/export_contracts.py
+          frontend/node_modules/.bin/openapi-typescript frontend/src/api/m2d-schemas.json -o frontend/src/api/m2d-generated.ts
+          python frontend/scripts/m1/export_contracts.py
+          frontend/node_modules/.bin/openapi-typescript frontend/src/api/m1-schemas.json -o frontend/src/api/m1-generated.ts
+          python frontend/scripts/m2c/export_contracts.py
+          frontend/node_modules/.bin/openapi-typescript frontend/src/api/m2c-schemas.json -o frontend/src/api/m2c-generated.ts
+          git diff --exit-code -- frontend/src/api
+          npm run typecheck --prefix frontend
+          npm run lint --prefix frontend
+          npm test --prefix frontend -- --maxWorkers=1 --reporter=default --reporter=json --outputFile=/tmp/phase1kb-frontend.json
+          npm run check:i18n --prefix frontend
+          npm run build --prefix frontend
+      - name: Real PostgreSQL and protocol-realistic multi-provider fixtures
+        run: |
+          alembic upgrade head
+          python - <<'PY'
+          from cryptography.fernet import Fernet
+          from pathlib import Path
+          import json
+          key = Path('/tmp/phase1kb-key'); key.write_bytes(Fernet.generate_key()); key.chmod(0o600)
+          Path('/tmp/phase1kb-file-policy.json').write_text(json.dumps({'version':'explicit-ci-no-scan-v1','max_size_bytes':1048576,'scan_required':False,'allowed_types':[{'extension':'.txt','media_type':'text/plain','signature':'text'},{'extension':'.docx','media_type':'application/vnd.openxmlformats-officedocument.wordprocessingml.document','signature':'docx'}]}))
+          PY
+          python frontend/scripts/phase1kb/uat.py --manifest /tmp/phase1kb-personas.json --secret-root /tmp/phase1kb-private-secrets --key-file /tmp/phase1kb-key --seed
+          python frontend/scripts/phase1kb/uat.py --manifest /tmp/phase1kb-personas.json --secret-root /tmp/phase1kb-private-secrets --key-file /tmp/phase1kb-key > /tmp/phase1kb-host.log 2>&1 &
+          echo "$!" > /tmp/phase1kb-host.pid
+          cd frontend
+          npx playwright install --with-deps chromium
+          npm run dev > /tmp/phase1kb-vite.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:5173 > /dev/null && curl --fail --silent http://127.0.0.1:8010/health/live > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          exit 1
+      - name: Admin/user three-locale smoke and M2-D/C/B/A/M1 regressions, zero retries
+        run: |
+          npm run test:e2e --prefix frontend -- phase1kb.spec.ts m2d.spec.ts m2c.spec.ts m2b.spec.ts m2a.spec.ts m1.spec.ts
+          cp frontend/test-results/results.json /tmp/phase1kb-core-browser.json
+      - name: Original M0 insufficient-evidence fixture and 36-test matrix, zero retries
+        run: |
+          kill "$(cat /tmp/phase1kb-host.pid)"
+          for attempt in $(seq 1 30); do
+            if ! kill -0 "$(cat /tmp/phase1kb-host.pid)" 2>/dev/null; then break; fi
+            sleep 1
+          done
+          python scripts/m0_preview/seed.py --output /tmp/phase1kb-m0-personas.json
+          python scripts/m0_preview/server.py --manifest /tmp/phase1kb-m0-personas.json > /tmp/phase1kb-m0-host.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8010/health/live > /dev/null; then break; fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:8010/health/live > /dev/null
+          npm run test:e2e --prefix frontend -- knowledge.spec.ts --repeat-each=3
+          cp frontend/test-results/results.json /tmp/phase1kb-m0-browser.json
+      - name: Exact-head frontend/browser measurement, no credentials archived
+        run: python scripts/phase1kb_closure.py frontend --directory artifacts/phase1kb/closure --frontend /tmp/phase1kb-frontend.json --browser /tmp/phase1kb-core-browser.json --m0-browser /tmp/phase1kb-m0-browser.json
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: phase1kb-frontend-${{ github.run_id }}
+          path: artifacts/phase1kb/closure/frontend_measured.json
+          if-no-files-found: error

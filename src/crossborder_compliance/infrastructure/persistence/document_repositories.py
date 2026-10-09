@@ -307,6 +307,20 @@ class PostgresDocumentIntelligenceRepository(ProjectDocumentOperations):
             return [{"fact_id":r.fact_id,"fact_type":r.fact_type,"normalized_value":r.normalized_value_json,"original_value":r.original_value_json,
                 "confidence":r.confidence,"validation_status":r.validation_status,"conflict_status":r.conflict_status} for r in rows]
 
+    def record_semantic_provenance(self, parse_run_id, result):
+        with self._sessions() as s, s.begin():
+            row = self._get(s, DocumentParseRunDetailEntity, DocumentParseRunDetailEntity.parse_run_id, parse_run_id)
+            if row is None or row.status != "RUNNING":
+                raise ValueError("semantic provenance requires the current genuine parse run")
+            row.provenance_json = {**row.provenance_json, "semantic_invocation": {
+                "invocation_group_id": str(result.invocation_group_id),
+                "analysis_snapshot_id": str(result.analysis_snapshot_id),
+                "authority": result.authority,
+                "requests": [{"request_id": str(child.request_id), "model_id": str(child.model_id),
+                              "deployment_id": str(child.result.deployment_id) if child.result else None,
+                              "status": child.status} for child in result.model_results],
+            }}
+
     def list_candidate_items(self,parse_run_id:UUID)->list[dict[str,object]]:
         with self._sessions() as s:
             rows=s.scalars(select(CandidateDataItemEntity).where(CandidateDataItemEntity.tenant_id==self.tenant_id,CandidateDataItemEntity.parse_run_id==str(parse_run_id))).all()

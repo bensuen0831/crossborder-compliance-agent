@@ -6,10 +6,6 @@ from crossborder_compliance.config import get_settings
 from crossborder_compliance.infrastructure.compliance_profile_worker import (
     ComplianceProfilePublicationWorker,
 )
-from crossborder_compliance.interfaces.api.routes.country_compliance import (
-    router as country_compliance_router,
-)
-from crossborder_compliance.interfaces.api.routes.decisions import router as decisions_router
 from crossborder_compliance.infrastructure.knowledge_publication_worker import (
     KnowledgePublicationWorker,
 )
@@ -17,15 +13,26 @@ from crossborder_compliance.infrastructure.persistence.db import build_session_f
 from crossborder_compliance.interfaces.api.routes.admin_metadata import (
     router as admin_metadata_router,
 )
+from crossborder_compliance.interfaces.api.routes.classification import (
+    router as classification_router,
+)
 from crossborder_compliance.interfaces.api.routes.context_resolution import (
     router as context_resolution_router,
 )
+from crossborder_compliance.interfaces.api.routes.country_compliance import (
+    router as country_compliance_router,
+)
+from crossborder_compliance.interfaces.api.routes.decisions import router as decisions_router
 from crossborder_compliance.interfaces.api.routes.documents import router as documents_router
 from crossborder_compliance.interfaces.api.routes.health import router as health_router
 from crossborder_compliance.interfaces.api.routes.knowledge import router as knowledge_router
+from crossborder_compliance.interfaces.api.routes.llm_models import router as llm_models_router
 from crossborder_compliance.interfaces.api.routes.metadata import router as metadata_router
+from crossborder_compliance.interfaces.api.routes.model_providers import bindings_router
+from crossborder_compliance.interfaces.api.routes.model_providers import (
+    router as model_providers_router,
+)
 from crossborder_compliance.interfaces.api.routes.retrieval import router as retrieval_router
-from crossborder_compliance.interfaces.api.routes.classification import router as classification_router
 from crossborder_compliance.observability.logging import configure_logging
 from crossborder_compliance.observability.tracing import configure_tracing
 
@@ -64,6 +71,11 @@ app.include_router(context_resolution_router)
 app.include_router(classification_router)
 app.include_router(country_compliance_router)
 app.include_router(decisions_router)
+
+# Specific write-only credential routes precede generic /admin/{kind} routes.
+app.include_router(model_providers_router)
+app.include_router(bindings_router)
+app.include_router(llm_models_router)
 app.include_router(knowledge_router)
 
 app.include_router(retrieval_router)

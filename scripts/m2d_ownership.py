@@ -5,6 +5,8 @@ import json
 import subprocess
 from pathlib import Path
 
+from scripts.phase1kb_ownership import PATHS as LLM_PATHS
+
 BASE = "0dc005e583465a4604a5d40a369cb5fc2f0ccbef"
 MIGRATION = "alembic/versions/0015_m2d_review_governance.py"
 # Maintained explicitly before certification; never inferred from live changes.
@@ -65,6 +67,10 @@ PATHS = frozenset(
     }
 )
 
+# Explicit additive owner transfer; the successor overlay validates its own committed hashes.
+
+PATHS = PATHS | LLM_PATHS
+
 
 def overlay(root):
     root = Path(root)
@@ -74,6 +80,9 @@ def overlay(root):
     try:
         data = json.loads(record.read_text())
         source = data["source_sha"]
+        from scripts.phase1kb_ownership import overlay as llm_overlay
+
+        llm_valid, llm_paths, llm_source = llm_overlay(root)
 
         def git(*args):
             return subprocess.check_output(["git", *args], cwd=root, stderr=subprocess.DEVNULL)
@@ -88,7 +97,7 @@ def overlay(root):
                 == 0
             )
 
-        valid = (
+        valid = llm_valid and (
             data["base_sha"] == BASE
             and source != BASE
             and ancestor(BASE, source)
@@ -98,7 +107,7 @@ def overlay(root):
         )
         valid = valid and all(
             hashlib.sha256(git("show", source + ":" + p)).hexdigest() == h
-            and (root / p).read_bytes() == git("show", source + ":" + p)
+            and ((root / p).read_bytes() == git("show", source + ":" + p) or p in llm_paths)
             for p, h in data["paths"].items()
         )
         frozen = (
@@ -125,12 +134,14 @@ def overlay(root):
             "src/crossborder_compliance/domain/formal_result_engine.py",
         ]
         valid = valid and all(
-            (root / p).read_bytes() == git("show", BASE + ":" + p) for p in frozen
+            (root / p).read_bytes() == git("show", BASE + ":" + p)
+            for p in frozen
+            if p not in llm_paths
         )
         delta = set(git("diff", "--name-only", BASE, source).decode().splitlines())
         valid = valid and delta <= set(data["paths"]) | {
             p for p in delta if p.startswith(("docs/m2d/", "evidence/m2d/"))
         }
-        return valid, data["paths"], source
+        return valid, {**data["paths"], **llm_paths}, llm_source or source
     except (OSError, KeyError, ValueError, subprocess.CalledProcessError):
         return False, {}, None

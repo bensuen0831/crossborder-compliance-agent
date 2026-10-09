@@ -338,6 +338,16 @@ class PostgresModelAdminRepository:
                     model_definition_id=model_definition_id,
                     provider_version_id=provider_version_id,
                     deployment_ref=str(payload.get("deployment_ref", "default")),
+                    configuration_json={
+                        "remote_model_name": str(payload.get("model_id", code)),
+                        "display_name": display_name,
+                        "max_output_tokens": payload.get("max_output_tokens") or 1,
+                        "capabilities": list(payload.get("capabilities", [])),
+                        "operations": list(endpoint_config.get("operations", [])),
+                        "embedding_dimension": payload.get("embedding_dimension"),
+                        "priority": endpoint_config.get("routing_priority", 100),
+                        "structured_output_format": payload.get("structured_output_format", "json_schema"),
+                    },
                     lifecycle_status=GovernanceStatus.DRAFT.value,
                     enabled=bool(payload.get("enabled", True)),
                     status="ACTIVE",
@@ -390,6 +400,9 @@ class PostgresModelAdminRepository:
                 raise LookupError("model provider version not found")
             if "endpoint_config" in payload:
                 provider_version.endpoint_config_json = dict(payload["endpoint_config"])
+                deployment.configuration_json = dict(deployment.configuration_json,
+                    operations=list(payload["endpoint_config"].get("operations", [])),
+                    priority=payload["endpoint_config"].get("routing_priority", 100))
             if "base_url_ref" in payload:
                 provider_version.base_url_ref = payload["base_url_ref"]
             if "secret_ref" in payload:

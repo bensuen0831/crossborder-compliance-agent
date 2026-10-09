@@ -95,7 +95,8 @@ class ModelRouter:
         candidates = tuple(
             m
             for m in models
-            if m.model_id in decision.allowed_model_ids
+            if (request.selected_model_id is None or m.model_id == request.selected_model_id)
+            and m.model_id in decision.allowed_model_ids
             and m.provider_id in decision.allowed_provider_ids
             and capabilities <= set(m.capabilities)
             and request.operation in m.operations
@@ -111,5 +112,9 @@ class ModelRouter:
             )
         )
         if not candidates:
-            raise GatewayDenied("NO_ALLOWED_HEALTHY_CAPABLE_MODEL")
+            raise GatewayDenied(
+                "MODEL_SELECTION_NOT_ALLOWED"
+                if request.selected_model_id
+                else "NO_ALLOWED_HEALTHY_CAPABLE_MODEL"
+            )
         return tuple(sorted(candidates, key=lambda m: (m.priority, str(m.model_id))))

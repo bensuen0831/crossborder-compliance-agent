@@ -1,0 +1,1605 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/admin/model-providers": {
+      "get": {
+        "tags": [
+          "model-control"
+        ],
+        "summary": "Providers",
+        "operationId": "providers_api_v1_admin_model_providers_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderListView"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "model-control"
+        ],
+        "summary": "Save Provider",
+        "operationId": "save_provider_api_v1_admin_model_providers_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProviderDraft"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderVersionView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/model-providers/versions/{version_id}/transition": {
+      "post": {
+        "tags": [
+          "model-control"
+        ],
+        "summary": "Provider Transition",
+        "operationId": "provider_transition_api_v1_admin_model_providers_versions__version_id__transition_post",
+        "parameters": [
+          {
+            "name": "version_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Version Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ControlTransition"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderVersionView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/model-providers/{provider_id}/enabled": {
+      "put": {
+        "tags": [
+          "model-control"
+        ],
+        "summary": "Provider Enabled",
+        "operationId": "provider_enabled_api_v1_admin_model_providers__provider_id__enabled_put",
+        "parameters": [
+          {
+            "name": "provider_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Provider Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ControlEnabled"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnabledView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/model-providers/versions/{version_id}/test-connection": {
+      "post": {
+        "tags": [
+          "model-control"
+        ],
+        "summary": "Test Connection",
+        "operationId": "test_connection_api_v1_admin_model_providers_versions__version_id__test_connection_post",
+        "parameters": [
+          {
+            "name": "version_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Version Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderTestResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/model-providers/versions/{version_id}/discover-models": {
+      "post": {
+        "tags": [
+          "model-control"
+        ],
+        "summary": "Discover Models",
+        "operationId": "discover_models_api_v1_admin_model_providers_versions__version_id__discover_models_post",
+        "parameters": [
+          {
+            "name": "version_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Version Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderTestResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/model-providers/{provider_id}/models": {
+      "get": {
+        "tags": [
+          "model-control"
+        ],
+        "summary": "Models",
+        "operationId": "models_api_v1_admin_model_providers__provider_id__models_get",
+        "parameters": [
+          {
+            "name": "provider_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Provider Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelListView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "model-control"
+        ],
+        "summary": "Save Model",
+        "operationId": "save_model_api_v1_admin_model_providers__provider_id__models_post",
+        "parameters": [
+          {
+            "name": "provider_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Provider Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ModelDraft"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/model-providers/models/deployments/{deployment_id}/transition": {
+      "post": {
+        "tags": [
+          "model-control"
+        ],
+        "summary": "Model Transition",
+        "operationId": "model_transition_api_v1_admin_model_providers_models_deployments__deployment_id__transition_post",
+        "parameters": [
+          {
+            "name": "deployment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Deployment Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ControlTransition"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/model-providers/models/{model_id}/enabled": {
+      "put": {
+        "tags": [
+          "model-control"
+        ],
+        "summary": "Model Enabled",
+        "operationId": "model_enabled_api_v1_admin_model_providers_models__model_id__enabled_put",
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Model Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ControlEnabled"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnabledView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/model-providers/models/deployments/{deployment_id}/test": {
+      "post": {
+        "tags": [
+          "model-control"
+        ],
+        "summary": "Test Model",
+        "operationId": "test_model_api_v1_admin_model_providers_models_deployments__deployment_id__test_post",
+        "parameters": [
+          {
+            "name": "deployment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Deployment Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ModelTestRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProviderTestResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/prompts/versions/{version_id}/llm-invocation-binding": {
+      "post": {
+        "tags": [
+          "model-control"
+        ],
+        "summary": "Bind Invocation Prompt",
+        "operationId": "bind_invocation_prompt_api_v1_admin_prompts_versions__version_id__llm_invocation_binding_post",
+        "parameters": [
+          {
+            "name": "version_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Version Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PromptInvocationBindingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromptInvocationBindingView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{project_id}/eligible-models": {
+      "get": {
+        "tags": [
+          "eligible-models"
+        ],
+        "summary": "Eligible Models",
+        "operationId": "eligible_models_api_v1_projects__project_id__eligible_models_get",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EligibleModelCatalog"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ControlEnabled": {
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled"
+          },
+          "expected_record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Record Version"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "enabled",
+          "expected_record_version"
+        ],
+        "title": "ControlEnabled"
+      },
+      "ControlTransition": {
+        "properties": {
+          "target_status": {
+            "$ref": "#/components/schemas/GovernanceStatus"
+          },
+          "expected_record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Record Version"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "target_status",
+          "expected_record_version"
+        ],
+        "title": "ControlTransition"
+      },
+      "EligibleModel": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Model Id"
+          },
+          "deployment_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Deployment Id"
+          },
+          "provider_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Provider Id"
+          },
+          "provider_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Provider Version Id"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "capabilities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Capabilities"
+          },
+          "operations": {
+            "items": {
+              "$ref": "#/components/schemas/ModelOperation"
+            },
+            "type": "array",
+            "title": "Operations"
+          },
+          "health_status": {
+            "type": "string",
+            "title": "Health Status"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model_id",
+          "deployment_id",
+          "provider_id",
+          "provider_version_id",
+          "display_name",
+          "capabilities",
+          "operations",
+          "health_status"
+        ],
+        "title": "EligibleModel"
+      },
+      "EligibleModelCatalog": {
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Project Id"
+          },
+          "eligible_models": {
+            "items": {
+              "$ref": "#/components/schemas/EligibleModel"
+            },
+            "type": "array",
+            "title": "Eligible Models"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "reason_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason Code"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "project_id",
+          "eligible_models",
+          "status"
+        ],
+        "title": "EligibleModelCatalog"
+      },
+      "EnabledView": {
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled"
+          },
+          "record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Record Version"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "enabled",
+          "record_version"
+        ],
+        "title": "EnabledView"
+      },
+      "GovernanceStatus": {
+        "type": "string",
+        "enum": [
+          "DRAFT",
+          "PENDING_REVIEW",
+          "APPROVED",
+          "ACTIVE",
+          "SUPERSEDED",
+          "EXPIRED",
+          "ARCHIVED"
+        ],
+        "title": "GovernanceStatus"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "InvocationPurpose": {
+        "type": "string",
+        "enum": [
+          "DOCUMENT_CANDIDATE_EXTRACTION",
+          "QUERY_EXPANSION",
+          "DERIVED_EXPLANATION"
+        ],
+        "title": "InvocationPurpose"
+      },
+      "ModelCapabilityCode": {
+        "type": "string",
+        "enum": [
+          "TEXT",
+          "VISION",
+          "STRUCTURED_OUTPUT",
+          "LONG_CONTEXT",
+          "EMBEDDING",
+          "RERANK"
+        ],
+        "title": "ModelCapabilityCode"
+      },
+      "ModelDraft": {
+        "properties": {
+          "model_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model Id"
+          },
+          "expected_record_version": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Record Version"
+          },
+          "provider_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Provider Version Id"
+          },
+          "remote_model_name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Remote Model Name"
+          },
+          "display_name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Display Name"
+          },
+          "capabilities": {
+            "items": {
+              "$ref": "#/components/schemas/ModelCapabilityCode"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Capabilities"
+          },
+          "operations": {
+            "items": {
+              "$ref": "#/components/schemas/ModelOperation"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Operations"
+          },
+          "max_output_tokens": {
+            "type": "integer",
+            "maximum": 65536.0,
+            "minimum": 1.0,
+            "title": "Max Output Tokens"
+          },
+          "embedding_dimension": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 16000.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Embedding Dimension"
+          },
+          "priority": {
+            "type": "integer",
+            "maximum": 10000.0,
+            "minimum": 0.0,
+            "title": "Priority",
+            "default": 100
+          },
+          "structured_output_format": {
+            "type": "string",
+            "enum": [
+              "json_schema",
+              "json_object"
+            ],
+            "title": "Structured Output Format",
+            "default": "json_schema"
+          },
+          "effective_from": {
+            "type": "string",
+            "format": "date",
+            "title": "Effective From"
+          },
+          "effective_to": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective To"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "provider_version_id",
+          "remote_model_name",
+          "display_name",
+          "capabilities",
+          "operations",
+          "max_output_tokens",
+          "effective_from"
+        ],
+        "title": "ModelDraft"
+      },
+      "ModelListView": {
+        "properties": {
+          "models": {
+            "items": {
+              "$ref": "#/components/schemas/ModelView"
+            },
+            "type": "array",
+            "title": "Models"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "models"
+        ],
+        "title": "ModelListView"
+      },
+      "ModelOperation": {
+        "type": "string",
+        "enum": [
+          "chat",
+          "chat_stream",
+          "structured_output",
+          "embedding",
+          "rerank",
+          "count_tokens",
+          "health_check"
+        ],
+        "title": "ModelOperation"
+      },
+      "ModelTestRequest": {
+        "properties": {
+          "operation": {
+            "type": "string",
+            "enum": [
+              "chat",
+              "structured_output",
+              "embedding"
+            ],
+            "title": "Operation",
+            "default": "chat"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "ModelTestRequest"
+      },
+      "ModelView": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Model Id"
+          },
+          "provider_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Provider Id"
+          },
+          "deployment_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Deployment Id"
+          },
+          "provider_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Provider Version Id"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "remote_model_name": {
+            "type": "string",
+            "title": "Remote Model Name"
+          },
+          "capabilities": {
+            "items": {
+              "$ref": "#/components/schemas/ModelCapabilityCode"
+            },
+            "type": "array",
+            "title": "Capabilities"
+          },
+          "operations": {
+            "items": {
+              "$ref": "#/components/schemas/ModelOperation"
+            },
+            "type": "array",
+            "title": "Operations"
+          },
+          "max_output_tokens": {
+            "type": "integer",
+            "title": "Max Output Tokens"
+          },
+          "embedding_dimension": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Embedding Dimension"
+          },
+          "priority": {
+            "type": "integer",
+            "title": "Priority"
+          },
+          "structured_output_format": {
+            "type": "string",
+            "enum": [
+              "json_schema",
+              "json_object"
+            ],
+            "title": "Structured Output Format"
+          },
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled"
+          },
+          "lifecycle_status": {
+            "$ref": "#/components/schemas/GovernanceStatus"
+          },
+          "record_version": {
+            "type": "integer",
+            "title": "Record Version"
+          },
+          "model_record_version": {
+            "type": "integer",
+            "title": "Model Record Version"
+          },
+          "health_status": {
+            "type": "string",
+            "title": "Health Status"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model_id",
+          "provider_id",
+          "deployment_id",
+          "provider_version_id",
+          "display_name",
+          "remote_model_name",
+          "capabilities",
+          "operations",
+          "max_output_tokens",
+          "embedding_dimension",
+          "priority",
+          "structured_output_format",
+          "enabled",
+          "lifecycle_status",
+          "record_version",
+          "model_record_version",
+          "health_status"
+        ],
+        "title": "ModelView"
+      },
+      "PromptInvocationBindingRequest": {
+        "properties": {
+          "purpose": {
+            "$ref": "#/components/schemas/InvocationPurpose"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "purpose"
+        ],
+        "title": "PromptInvocationBindingRequest"
+      },
+      "PromptInvocationBindingView": {
+        "properties": {
+          "binding_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Binding Id"
+          },
+          "prompt_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Prompt Version Id"
+          },
+          "purpose": {
+            "$ref": "#/components/schemas/InvocationPurpose"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "binding_id",
+          "prompt_version_id",
+          "purpose"
+        ],
+        "title": "PromptInvocationBindingView"
+      },
+      "ProviderDraft": {
+        "properties": {
+          "provider_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider Id"
+          },
+          "expected_record_version": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Record Version"
+          },
+          "code": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Code"
+          },
+          "display_name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Display Name"
+          },
+          "vendor_preset": {
+            "type": "string",
+            "maxLength": 80,
+            "title": "Vendor Preset",
+            "default": "OTHER_OPENAI_COMPATIBLE"
+          },
+          "protocol": {
+            "type": "string",
+            "enum": [
+              "OPENAI_COMPATIBLE",
+              "GENERIC_REST"
+            ],
+            "title": "Protocol",
+            "default": "OPENAI_COMPATIBLE"
+          },
+          "operation_paths": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "propertyNames": {
+              "$ref": "#/components/schemas/ModelOperation"
+            },
+            "type": "object",
+            "title": "Operation Paths"
+          },
+          "base_url": {
+            "type": "string",
+            "maxLength": 400,
+            "minLength": 1,
+            "title": "Base Url"
+          },
+          "deployment_class": {
+            "type": "string",
+            "enum": [
+              "EXTERNAL",
+              "PRIVATE_CLOUD",
+              "ON_PREMISE"
+            ],
+            "title": "Deployment Class",
+            "default": "EXTERNAL"
+          },
+          "trust_level": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Trust Level"
+          },
+          "data_boundary": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Data Boundary"
+          },
+          "credential": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "password",
+                "writeOnly": true
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Credential"
+          },
+          "timeout_seconds": {
+            "type": "number",
+            "maximum": 300.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Timeout Seconds",
+            "default": 30
+          },
+          "health_ttl_seconds": {
+            "type": "integer",
+            "maximum": 86400.0,
+            "minimum": 1.0,
+            "title": "Health Ttl Seconds",
+            "default": 300
+          },
+          "effective_from": {
+            "type": "string",
+            "format": "date",
+            "title": "Effective From"
+          },
+          "effective_to": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective To"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "display_name",
+          "base_url",
+          "trust_level",
+          "data_boundary",
+          "effective_from"
+        ],
+        "title": "ProviderDraft"
+      },
+      "ProviderListView": {
+        "properties": {
+          "providers": {
+            "items": {
+              "$ref": "#/components/schemas/ProviderView"
+            },
+            "type": "array",
+            "title": "Providers"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "providers"
+        ],
+        "title": "ProviderListView"
+      },
+      "ProviderTestResult": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "HEALTHY",
+              "AUTHENTICATION_FAILED",
+              "ENDPOINT_UNREACHABLE",
+              "TLS_ERROR",
+              "MODEL_ENDPOINT_INVALID",
+              "CAPABILITY_UNSUPPORTED",
+              "SECRET_UNAVAILABLE",
+              "TIMEOUT"
+            ],
+            "title": "Status"
+          },
+          "candidate_models": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Candidate Models",
+            "default": []
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "ProviderTestResult"
+      },
+      "ProviderVersionView": {
+        "properties": {
+          "provider_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Provider Id"
+          },
+          "provider_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Provider Version Id"
+          },
+          "provider_version": {
+            "type": "integer",
+            "title": "Provider Version"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "vendor_preset": {
+            "type": "string",
+            "title": "Vendor Preset"
+          },
+          "protocol": {
+            "type": "string",
+            "title": "Protocol"
+          },
+          "base_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Base Url"
+          },
+          "deployment_class": {
+            "type": "string",
+            "title": "Deployment Class"
+          },
+          "trust_level": {
+            "type": "string",
+            "title": "Trust Level"
+          },
+          "data_boundary": {
+            "type": "string",
+            "title": "Data Boundary"
+          },
+          "secret_configured": {
+            "type": "boolean",
+            "title": "Secret Configured"
+          },
+          "health_status": {
+            "type": "string",
+            "title": "Health Status",
+            "default": "UNKNOWN"
+          },
+          "health_checked_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Health Checked At"
+          },
+          "timeout_seconds": {
+            "type": "number",
+            "title": "Timeout Seconds",
+            "default": 30
+          },
+          "operation_paths": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "propertyNames": {
+              "$ref": "#/components/schemas/ModelOperation"
+            },
+            "type": "object",
+            "title": "Operation Paths"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          },
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled"
+          },
+          "lifecycle_status": {
+            "$ref": "#/components/schemas/GovernanceStatus"
+          },
+          "record_version": {
+            "type": "integer",
+            "title": "Record Version"
+          },
+          "effective_from": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective From"
+          },
+          "effective_to": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective To"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "provider_id",
+          "provider_version_id",
+          "provider_version",
+          "display_name",
+          "vendor_preset",
+          "protocol",
+          "base_url",
+          "deployment_class",
+          "trust_level",
+          "data_boundary",
+          "secret_configured",
+          "enabled",
+          "lifecycle_status",
+          "record_version",
+          "effective_from",
+          "effective_to"
+        ],
+        "title": "ProviderVersionView"
+      },
+      "ProviderView": {
+        "properties": {
+          "provider_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Provider Id"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled"
+          },
+          "record_version": {
+            "type": "integer",
+            "title": "Record Version"
+          },
+          "active_version_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Version Id"
+          },
+          "versions": {
+            "items": {
+              "$ref": "#/components/schemas/ProviderVersionView"
+            },
+            "type": "array",
+            "title": "Versions"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "provider_id",
+          "code",
+          "display_name",
+          "enabled",
+          "record_version",
+          "active_version_id",
+          "versions"
+        ],
+        "title": "ProviderView"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

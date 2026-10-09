@@ -1,16 +1,16 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from datetime import date, datetime, timezone
-from enum import StrEnum
 import ipaddress
+from dataclasses import dataclass, field
+from datetime import UTC, date, datetime
+from enum import StrEnum
 from typing import Any
 from urllib.parse import urlparse
 from uuid import UUID
 
 
 def utcnow() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 class GovernanceStatus(StrEnum):
@@ -66,6 +66,33 @@ _ALLOWED_ENDPOINT_SCHEMES = {"https", "http", "internal"}
 
 
 def validate_endpoint_config(config: dict[str, Any]) -> None:
+    def check_keys(value):
+        if isinstance(value, dict):
+            if any(
+                str(key).lower().replace("-", "_")
+                in {
+                    "api_key",
+                    "apikey",
+                    "credential",
+                    "credentials",
+                    "password",
+                    "token",
+                    "access_token",
+                    "authorization",
+                    "secret",
+                    "secret_value",
+                }
+                or str(key).lower().replace("-", "_").endswith("_api_key")
+                for key in value
+            ):
+                raise ValueError("provider credentials require a secret reference")
+            for child in value.values():
+                check_keys(child)
+        elif isinstance(value, (list, tuple)):
+            for child in value:
+                check_keys(child)
+
+    check_keys(config)
     url = config.get("url")
     if not url:
         return
@@ -74,6 +101,8 @@ def validate_endpoint_config(config: dict[str, Any]) -> None:
         raise ValueError("endpoint scheme is not allowed")
     if parsed.username or parsed.password:
         raise ValueError("endpoint credentials must not be embedded in URL")
+    if parsed.query or parsed.fragment:
+        raise ValueError("endpoint query and fragment are not allowed")
     if parsed.scheme == "internal":
         if not parsed.netloc and not parsed.path:
             raise ValueError("internal endpoint reference is empty")
@@ -82,7 +111,9 @@ def validate_endpoint_config(config: dict[str, Any]) -> None:
         raise ValueError("endpoint hostname is required")
     if parsed.scheme == "http":
         host = parsed.hostname.lower()
-        private = host in {"localhost", "127.0.0.1", "::1"} or host.endswith((".internal", ".local"))
+        private = host in {"localhost", "127.0.0.1", "::1"} or host.endswith(
+            (".internal", ".local")
+        )
         if not private:
             try:
                 ip = ipaddress.ip_address(host)

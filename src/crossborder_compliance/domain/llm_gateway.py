@@ -1,8 +1,8 @@
 """Provider-neutral foundation contracts. No legal decisions or credential values."""
 
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from enum import StrEnum
-from typing import Literal
+from typing import Annotated, Literal
 from uuid import UUID, uuid4
 
 from pydantic import Field, model_validator
@@ -43,6 +43,8 @@ class LLMRequest(Contract):
     required_capabilities: tuple[ModelCapabilityCode, ...] = ()
     output_schema: dict | None = Field(default=None, repr=False)
     max_output_tokens: int = Field(default=512, ge=1, le=65536)
+    selected_model_id: UUID | None = None
+    invocation_group_id: UUID | None = None
 
     @model_validator(mode="after")
     def shape(self):
@@ -115,6 +117,8 @@ class ModelCandidate(Contract):
     max_output_tokens: int = Field(ge=1)
     embedding_dimension: int | None = Field(default=None, ge=1, le=16000)
     priority: int = 100
+    structured_output_format: Literal["json_schema", "json_object"] = "json_schema"
+    analysis_as_of_date: date | None = None
 
 
 class PolicyDecision(Contract):
@@ -174,6 +178,10 @@ class ProviderResult(Contract):
     ranked_indices: tuple[int, ...] = ()
     token_count: int | None = Field(default=None, ge=0)
     healthy: bool | None = None
+    discovered_models: tuple[str, ...] = ()
+    usage: dict[
+        Literal["prompt_tokens", "completion_tokens", "total_tokens"], Annotated[int, Field(ge=0)]
+    ] = Field(default_factory=dict)
 
 
 class LLMResult(Contract):
@@ -204,6 +212,15 @@ class GatewayAuditEvent(Contract):
     analysis_snapshot_id: UUID
     operation: ModelOperation
     model_id: UUID | None = None
+    provider_id: UUID | None = None
+    provider_version_id: UUID | None = None
+    deployment_id: UUID | None = None
+    invocation_group_id: UUID | None = None
+    prompt_id: UUID | None = None
+    recorded_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    usage: dict[
+        Literal["prompt_tokens", "completion_tokens", "total_tokens"], Annotated[int, Field(ge=0)]
+    ] = Field(default_factory=dict)
     policy_versions: tuple[UUID, ...] = ()
     redaction_run_id: UUID | None = None
     reason_code: Literal["ALLOWED", "COMPLETED", "DENIED", "PROVIDER_FAILED", "STREAM_FAILED"]
@@ -218,5 +235,6 @@ class GatewayDenied(PermissionError):
 class ProviderFailure(RuntimeError):
     """Sanitized retryable transport failure; raw provider exceptions never escape."""
 
-    def __init__(self):
+    def __init__(self, code="ENDPOINT_UNREACHABLE"):
+        self.code = code
         super().__init__("MODEL_PROVIDER_UNAVAILABLE")

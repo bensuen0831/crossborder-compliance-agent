@@ -110,6 +110,18 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AIModelPreference */
+        AIModelPreference: {
+            /** @default STANDARD */
+            usage_mode: components["schemas"]["LLMUsageMode"];
+            /** @default AUTO */
+            selection_mode: components["schemas"]["ModelSelectionMode"];
+            /**
+             * Selected Model Ids
+             * @default []
+             */
+            selected_model_ids: string[];
+        };
         /** FactSelection */
         FactSelection: {
             /**
@@ -198,7 +210,18 @@ export interface components {
              * Format: date
              */
             analysis_as_of_date: string;
+            ai_model_preference?: components["schemas"]["AIModelPreference"];
         };
+        /**
+         * LLMUsageMode
+         * @enum {string}
+         */
+        LLMUsageMode: "MINIMAL" | "STANDARD" | "ENHANCED";
+        /**
+         * ModelSelectionMode
+         * @enum {string}
+         */
+        ModelSelectionMode: "AUTO" | "SINGLE" | "MULTI_MODEL";
         /** ProductSelection */
         ProductSelection: {
             /**
