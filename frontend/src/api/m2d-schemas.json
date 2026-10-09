@@ -446,6 +446,31 @@
   },
   "components": {
     "schemas": {
+      "AIModelPreference": {
+        "properties": {
+          "usage_mode": {
+            "$ref": "#/components/schemas/LLMUsageMode",
+            "default": "STANDARD"
+          },
+          "selection_mode": {
+            "$ref": "#/components/schemas/ModelSelectionMode",
+            "default": "AUTO"
+          },
+          "selected_model_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "maxItems": 16,
+            "title": "Selected Model Ids",
+            "default": []
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "AIModelPreference"
+      },
       "FactSelection": {
         "properties": {
           "correction_type": {
@@ -672,6 +697,9 @@
             "type": "string",
             "format": "date",
             "title": "Analysis As Of Date"
+          },
+          "ai_model_preference": {
+            "$ref": "#/components/schemas/AIModelPreference"
           }
         },
         "additionalProperties": false,
@@ -680,6 +708,24 @@
           "analysis_as_of_date"
         ],
         "title": "IntakeFacts"
+      },
+      "LLMUsageMode": {
+        "type": "string",
+        "enum": [
+          "MINIMAL",
+          "STANDARD",
+          "ENHANCED"
+        ],
+        "title": "LLMUsageMode"
+      },
+      "ModelSelectionMode": {
+        "type": "string",
+        "enum": [
+          "AUTO",
+          "SINGLE",
+          "MULTI_MODEL"
+        ],
+        "title": "ModelSelectionMode"
       },
       "ProductSelection": {
         "properties": {
