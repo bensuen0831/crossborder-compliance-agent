@@ -63,6 +63,8 @@ PATHS = PATHS | {
     "scripts/m2a_ownership.py",
     "scripts/phase1l_b_ownership.py",
     "tests/test_m2b_snapshot_contract_probe.py",
+    "tests/test_m2d_architecture.py",
+    "tests/test_phase1kb_migrations.py",
 }
 
 
