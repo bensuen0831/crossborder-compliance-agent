@@ -607,6 +607,7 @@ class PostgresIntegrationRepository:
         run_id=None,
         snapshot_id=None,
         scope=None,
+        claimed_client_id=None,
     ):
         with self.sessions() as s, s.begin():
             ctx = self.admin_context
@@ -620,6 +621,13 @@ class PostgresIntegrationRepository:
                 if principal
                 else (ctx.permission.actor_id if ctx else "unauthenticated")
             )
+            claimed = (
+                s.get(Client, str(claimed_client_id))
+                if claimed_client_id and not principal and not ctx
+                else None
+            )
+            if claimed is not None:
+                tenant = claimed.tenant_id
             s.add(
                 AuditEventEntity(
                     audit_event_id=str(uuid4()),
@@ -628,7 +636,10 @@ class PostgresIntegrationRepository:
                     analysis_snapshot_id=str(snapshot_id or ""),
                     event_type="EXTERNAL_OPERATION",
                     provenance_json={
-                        "integration_client_id": str(principal.client_id) if principal else None,
+                        "integration_client_id": str(principal.client_id)
+                        if principal
+                        else (claimed.client_id if claimed else None),
+                        "authentication_verified": principal is not None,
                         "actor_id": actor,
                         "project_id": str(project_id) if project_id else None,
                         "operation": operation,

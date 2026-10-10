@@ -45,6 +45,13 @@ def server(f, tmp_path, review=False):
     app.include_router(admin_router)
     app.include_router(router)
     app.include_router(workflow_router)
+    from crossborder_compliance.interfaces.api.routes.intake import router as intake_router
+    from crossborder_compliance.interfaces.api.routes.intake_documents import (
+        router as documents_router,
+    )
+
+    app.include_router(intake_router)
+    app.include_router(documents_router)
     app.state.knowledge_session_factory = f["sf"]
     app.state.integration_policy = IntegrationPolicy(
         stream_duration_seconds=1, worker_poll_seconds=0.1, request_timeout_seconds=180
@@ -101,10 +108,37 @@ def test_external_real_docx_rag_async_result_and_review(foundation_j, tmp_path, 
         )
         project = intake["project_id"]
         base = f"/api/v1/external/projects/{project}"
+        # Exercise both input channels under the same authorized integration
+        # context, not two different policies or impersonated Web users.
+        from types import SimpleNamespace
+
+        from crossborder_compliance.domain.integrations import IntegrationScope
+        from crossborder_compliance.infrastructure.external_composition import integration_service
+
+        service = integration_service(SimpleNamespace(app=app))
+        principal = service.authenticate(auth["Authorization"][7:])
+        ctx = service.authorize(principal, IntegrationScope.PROJECT_READ, UUID(project))
+        app.dependency_overrides[get_repository_context] = lambda: ctx
+        canonical_base = f"/api/v1/projects/{project}"
+        initial = c.get(canonical_base + "/intake")
+        initial_draft_equal = initial.status_code == 200 and initial.json() == intake
+        assert initial_draft_equal
+        updated = c.put(
+            canonical_base + "/intake",
+            json={
+                "expected_version": intake["version"],
+                "idempotency_key": uuid4().hex,
+                "facts": facts,
+            },
+        )
+        assert updated.status_code == 200, updated.text
+        intake = updated.json()
+        updated_draft_equal = c.get(base + "/intake", headers=auth).json() == intake
+        assert updated_draft_equal
         uploaded = c.post(
             base + "/documents",
             headers={**auth, "Idempotency-Key": uuid4().hex},
-            data={"expected_version": 1},
+            data={"expected_version": intake["version"]},
             files={
                 "file": (
                     "requirements.docx",
@@ -121,10 +155,17 @@ def test_external_real_docx_rag_async_result_and_review(foundation_j, tmp_path, 
             {"expected_version": uploaded.json()["intake_version"]},
         )
         assert parsed["items"][0]["parse_status"] == "COMPLETED"
+        canonical_documents = c.get(canonical_base + "/intake/documents")
+        assert canonical_documents.status_code == 200 and canonical_documents.json() == parsed
         confirmed = mutation(
             "POST", base + "/intake/confirm", {"expected_version": parsed["intake_version"]}
         )
         assert confirmed["status"] == "CONFIRMED"
+        canonical_confirmed = c.get(canonical_base + "/intake")
+        assert canonical_confirmed.status_code == 200 and canonical_confirmed.json() == confirmed
+        assert (
+            canonical_confirmed.json()["analysis_snapshot_id"] == confirmed["analysis_snapshot_id"]
+        )
         with f["sf"]() as s:
             traces = s.scalars(
                 select(b.SourceTraceRefEntity).where(
@@ -151,6 +192,7 @@ def test_external_real_docx_rag_async_result_and_review(foundation_j, tmp_path, 
         # A process interrupted after durable claim must be recoverable. A second
         # delivery process cannot claim a live lease; restart reclaims the same run.
         from datetime import UTC, datetime, timedelta
+
         from crossborder_compliance.infrastructure.persistence.integration_models import (
             IntegrationWorkflowDeliveryEntity as Job,
         )
@@ -220,8 +262,9 @@ def test_external_real_docx_rag_async_result_and_review(foundation_j, tmp_path, 
             assert "checkpoint" not in events.text and "secret_ref" not in events.text
             # Real upgraded HTTP connection, same canonical projection as SSE.
             import json
-            from websockets.sync.client import connect
+
             from websockets.exceptions import ConnectionClosedOK, InvalidStatus
+            from websockets.sync.client import connect
 
             ws_url = (
                 str(c.base_url).rstrip("/").replace("http://", "ws://")
@@ -264,7 +307,8 @@ def test_external_real_docx_rag_async_result_and_review(foundation_j, tmp_path, 
             assert c.get(started.json()["result_url"], headers=other).status_code == 404
             with pytest.raises(InvalidStatus):
                 connect(ws_url, additional_headers=other)
-            import os, subprocess
+            import os
+            import subprocess
             from pathlib import Path
 
             measured = {
@@ -302,15 +346,21 @@ def test_external_real_docx_rag_async_result_and_review(foundation_j, tmp_path, 
                     "same_authorized_canonical_context": True,
                     "canonical_route": "Stage1ResultService",
                     "all_structured_fields_equal": direct.json() == value,
+                    "canonical_input_channel_exercised": True,
+                    "intake_adapter_equal": initial_draft_equal and updated_draft_equal,
+                    "canonical_document_universe_equal": canonical_documents.json() == parsed,
+                    "confirmed_input_and_snapshot_equal": canonical_confirmed.json() == confirmed,
+                    "model_preferences_equal": canonical_confirmed.json()["intake"]
+                    == confirmed["intake"],
                     "owning_fields": [
                         "classification",
                         "applicability",
                         "cross_border",
-                        "obligations",
+                        "obligation",
                         "risk",
                         "recommendation",
                         "final_path",
-                        "required_documents",
+                        "document_requirements",
                         "legal_basis",
                         "analysis_snapshot_id",
                     ],

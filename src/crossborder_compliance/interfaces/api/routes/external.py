@@ -164,6 +164,7 @@ class ExternalRoute(APIRoute):
                 request.path_params.get("run_id"),
                 request.path_params.get("snapshot_id"),
                 getattr(request.state, "integration_scope", None),
+                getattr(request.state, "integration_claimed_client_id", None),
             )
             return response
 
@@ -225,11 +226,13 @@ def channel(request, p):
 @router.post("/oauth/token", response_model=TokenView)
 async def token(
     request: Request,
-    grant_type: str = Form(...),
-    client_id: UUID = Form(...),
-    client_secret: str = Form(...),
+    grant_type: Annotated[str, Form()],
+    client_id: Annotated[UUID, Form()],
+    client_secret: Annotated[str, Form()],
     scope: str | None = Form(None),
 ):
+    request.state.integration_claimed_client_id = client_id
+    request.state.integration_scope = "oauth:token"
     form = await request.form()
     if set(form) - {"grant_type", "client_id", "client_secret", "scope"} or any(
         len(form.getlist(k)) != 1 for k in form
@@ -280,7 +283,7 @@ async def upload(
     request: Request,
     p: Principal,
     key: Key,
-    file: UploadFile = File(...),
+    file: Annotated[UploadFile, File()],
     expected_version: int = Form(..., ge=1),
 ):
     form = await request.form()
@@ -401,7 +404,10 @@ async def events(
                 return
             for value in values:
                 cursor = value.event_id
-                yield f"id: {value.event_id}\nevent: {value.event_code}\ndata: {value.model_dump_json()}\n\n"
+                yield (
+                    f"id: {value.event_id}\nevent: {value.event_code}\n"
+                    f"data: {value.model_dump_json()}\n\n"
+                )
                 if value.event_code in {"WORKFLOW_COMPLETED", "WORKFLOW_FAILED", "REVIEW_REQUIRED"}:
                     return
             yield ": heartbeat\n\n"

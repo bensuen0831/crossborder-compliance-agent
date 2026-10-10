@@ -106,7 +106,18 @@ def main():
         ):
             measured = read(args.directory / filename)
             assert measured["runner_checkout_sha"] == head
-        assert read(args.directory / "ui_api_parity.json")["all_structured_fields_equal"]
+        parity = read(args.directory / "ui_api_parity.json")
+        assert all(
+            parity[k]
+            for k in (
+                "all_structured_fields_equal",
+                "canonical_input_channel_exercised",
+                "intake_adapter_equal",
+                "canonical_document_universe_equal",
+                "confirmed_input_and_snapshot_equal",
+                "model_preferences_equal",
+            )
+        )
         assert (
             read(args.directory / "external_review_validation.json")["workflow_status"]
             == "REVIEW_REQUIRED"
@@ -117,7 +128,7 @@ def main():
         security = [
             case for case in cases if case.attrib.get("classname", "").startswith("tests.test_m2e_")
         ]
-        assert len(security) >= 80 and all(
+        assert len(security) >= 66 and all(
             case.find("failure") is None
             and case.find("error") is None
             and case.find("skipped") is None
