@@ -146,13 +146,31 @@ class LangGraphWorkflowRuntimeAdapter(WorkflowRuntimePort):
         # Official setup contains first-start schema migrations. Serialize that
         # setup across API reads/workers; never manage its internal tables here.
         connection = checkpointer.conn
-        connection.execute("SELECT pg_advisory_lock(hashtextextended(%s,0))",
-                           ("canonical-langgraph-checkpointer-setup",))
+        # A blocking lock SELECT remains an active PostgreSQL transaction.
+        # Official CREATE INDEX CONCURRENTLY can wait for that transaction,
+        # creating a deadlock against the lock holder. Poll a nonblocking
+        # session lock in autocommit mode, between fully completed statements.
+        import time
+        if not connection.autocommit:
+            raise ValueError('canonical checkpointer setup requires autocommit')
+        timeout=float(os.environ.get('LANGGRAPH_SETUP_TIMEOUT_SECONDS','60'))
+        if not 0 < timeout <= 600:
+            raise ValueError('invalid checkpointer setup timeout')
+        deadline=time.monotonic()+timeout
+        while True:
+            with connection.execute('SELECT pg_try_advisory_lock(hashtextextended(%s,0)) AS acquired',
+                ('canonical-langgraph-checkpointer-setup',)) as cursor:
+                row=cursor.fetchone()
+                acquired=row['acquired'] if isinstance(row,dict) else row[0]
+            if acquired:break
+            if time.monotonic()>=deadline:raise TimeoutError('canonical checkpointer setup unavailable')
+            time.sleep(min(.05,max(0,deadline-time.monotonic())))
         try:
             checkpointer.setup()
         finally:
-            connection.execute("SELECT pg_advisory_unlock(hashtextextended(%s,0))",
-                               ("canonical-langgraph-checkpointer-setup",))
+            with connection.execute("SELECT pg_advisory_unlock(hashtextextended(%s,0))",
+                ("canonical-langgraph-checkpointer-setup",)) as cursor:
+                cursor.fetchone()
 
     def start(self, workflow_run_id: UUID, initial_state: dict[str, Any]) -> WorkflowRunRef:
         if self.graph_factory is not None:

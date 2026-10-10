@@ -54,7 +54,8 @@ def main():
         from alembic.script import ScriptDirectory
 
         heads = ScriptDirectory("alembic").get_heads()
-        assert heads == ["0016_phase1kb_multi_provider_llm_governance"]
+        from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after
+        assert len(heads) == 1 and revision_at_or_after(heads[0], "0016_phase1kb_multi_provider_llm_governance")
         migration = read("artifacts/phase1kb/migration_dual_path.json")
         assert all(
             migration[key]

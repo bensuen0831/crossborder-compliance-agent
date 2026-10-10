@@ -1,4 +1,5 @@
 """Integration governance use cases over one northbound identity repository."""
+
 from typing import Protocol
 
 from crossborder_compliance.domain.integrations import IntegrationPolicy
@@ -20,6 +21,7 @@ class IntegrationRepositoryPort(Protocol):
     def update_client(self, client_id, command, key): ...
     def rotate_client(self, client_id, command, key): ...
     def bind_project(self, client_id, command, key): ...
+    def project_bindings(self, client_id): ...
 
 
 class IntegrationService:
@@ -49,3 +51,6 @@ class IntegrationService:
 
     def bind_project(self, identity, command, key):
         return self.repository.bind_project(identity, command, key)
+
+    def project_bindings(self, identity):
+        return self.repository.project_bindings(identity)

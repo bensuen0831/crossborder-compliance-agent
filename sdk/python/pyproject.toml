@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "crossborder-external-agent-client"
+version = "1.0.0"
+requires-python = ">=3.11"
+dependencies = ["httpx>=0.28,<1", "jsonschema>=4.25,<5"]
+[tool.setuptools.packages.find]
+where = ["src"]
+[tool.setuptools.package-data]
+crossborder_agent = ["external-v1.json"]

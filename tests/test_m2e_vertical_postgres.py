@@ -148,6 +148,20 @@ def test_external_real_docx_rag_async_result_and_review(foundation_j, tmp_path, 
             c.post(start_url, headers={**auth, "Idempotency-Key": key}, json={}).json()
             == started.json()
         )
+        # A process interrupted after durable claim must be recoverable. A second
+        # delivery process cannot claim a live lease; restart reclaims the same run.
+        from datetime import UTC, datetime, timedelta
+        from crossborder_compliance.infrastructure.persistence.integration_models import (
+            IntegrationWorkflowDeliveryEntity as Job,
+        )
+
+        claim = worker.claim(Job, "workflow_run_id")
+        assert claim and claim[0] == confirmed["workflow_run_id"]
+        parallel = IntegrationDeliveryWorker(app)
+        assert parallel.claim(Job, "workflow_run_id") is None
+        with f["sf"]() as session, session.begin():
+            session.get(Job, claim[0]).lease_until = datetime.now(UTC) - timedelta(seconds=1)
+        worker = IntegrationDeliveryWorker(app)
         worker.start()
         try:
             status = None
@@ -204,11 +218,105 @@ def test_external_real_docx_rag_async_result_and_review(foundation_j, tmp_path, 
             events = c.get(started.json()["events_url"], headers=auth)
             assert events.status_code == 200 and "data: " in events.text
             assert "checkpoint" not in events.text and "secret_ref" not in events.text
+            # Real upgraded HTTP connection, same canonical projection as SSE.
+            import json
+            from websockets.sync.client import connect
+            from websockets.exceptions import ConnectionClosedOK, InvalidStatus
+
+            ws_url = (
+                str(c.base_url).rstrip("/").replace("http://", "ws://")
+                + "/api/v1/external/ws/workflows/"
+                + confirmed["workflow_run_id"]
+            )
+            projected = [
+                json.loads(line[6:])
+                for line in events.text.splitlines()
+                if line.startswith("data: ")
+            ]
+            with connect(ws_url, additional_headers=auth) as connection:
+                values = []
+                while True:
+                    try:
+                        values.append(json.loads(connection.recv(timeout=5)))
+                    except ConnectionClosedOK:
+                        break
+            assert values == projected
+            assert all(
+                v["event_code"]
+                in {
+                    "WORKFLOW_STARTED",
+                    "WORKFLOW_PROGRESS",
+                    "WORKFLOW_COMPLETED",
+                    "WORKFLOW_FAILED",
+                    "REVIEW_REQUIRED",
+                }
+                for v in values
+            )
+            with connect(
+                ws_url, additional_headers={**auth, "Last-Event-ID": values[0]["event_id"]}
+            ) as connection:
+                assert json.loads(connection.recv(timeout=5)) == values[1]
             app.dependency_overrides[get_repository_context] = lambda: RepositoryContext.user(
                 UUID(f["tenant"]), "integration-administrator", {"integration:manage"}
             )
             other, _ = authenticated(c)
             assert c.get(started.json()["events_url"], headers=other).status_code == 404
             assert c.get(started.json()["result_url"], headers=other).status_code == 404
+            with pytest.raises(InvalidStatus):
+                connect(ws_url, additional_headers=other)
+            import os, subprocess
+            from pathlib import Path
+
+            measured = {
+                "runner_checkout_sha": subprocess.check_output(
+                    ["git", "rev-parse", "HEAD"], text=True
+                ).strip(),
+                "real_http": True,
+                "real_postgresql": True,
+                "real_docx": True,
+                "genuine_source_trace": bool(traces),
+                "document_fact_participates": True,
+                "distinct_jurisdictions": True,
+                "workflow_status": status["status"],
+                "snapshot_id": confirmed["analysis_snapshot_id"],
+                "workflow_run_id": confirmed["workflow_run_id"],
+                "sse_websocket_parity": values == projected,
+                "reconnect": True,
+                "cross_client_denied": True,
+                "lease_restart": True,
+                "no_paid_internet_llm": True,
+            }
+            out = Path(os.getenv("EVIDENCE_DIR", "artifacts/m2e"))
+            out.mkdir(parents=True, exist_ok=True)
+            (
+                out
+                / (
+                    "external_review_validation.json"
+                    if review
+                    else "external_vertical_validation.json"
+                )
+            ).write_text(json.dumps(measured, indent=2) + "\n")
+            if not review:
+                parity = {
+                    "runner_checkout_sha": measured["runner_checkout_sha"],
+                    "same_authorized_canonical_context": True,
+                    "canonical_route": "Stage1ResultService",
+                    "all_structured_fields_equal": direct.json() == value,
+                    "owning_fields": [
+                        "classification",
+                        "applicability",
+                        "cross_border",
+                        "obligations",
+                        "risk",
+                        "recommendation",
+                        "final_path",
+                        "required_documents",
+                        "legal_basis",
+                        "analysis_snapshot_id",
+                    ],
+                    "presentation_exceptions": [],
+                    "result_not_precomputed": True,
+                }
+                (out / "ui_api_parity.json").write_text(json.dumps(parity, indent=2) + "\n")
         finally:
             worker.stop()

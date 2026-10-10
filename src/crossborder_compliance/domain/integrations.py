@@ -1,4 +1,5 @@
 """Northbound identity/transport governance; no compliance decision authority."""
+
 from datetime import datetime
 from enum import StrEnum
 from uuid import UUID
@@ -23,15 +24,37 @@ CANONICAL_SCOPE_MAP = {
     IntegrationScope.PROJECT_CREATE: {"project:create", "project:read"},
     IntegrationScope.PROJECT_READ: {"project:read"},
     IntegrationScope.INTAKE_WRITE: {"project:read", "project:update", "project:confirm"},
-    IntegrationScope.DOCUMENT_UPLOAD: {"project:read", "project:update", "document:read", "document:upload", "document:parse", "document:unlink"},
+    IntegrationScope.DOCUMENT_UPLOAD: {
+        "project:read",
+        "project:update",
+        "document:read",
+        "document:upload",
+        "document:parse",
+        "document:unlink",
+    },
     IntegrationScope.COMPLIANCE_ANALYZE: {
-        "project:read", "workflow:read", "workflow:execute", "decision:read", "decision:execute", "classification:read",
-        "classification:execute", "applicability:read", "applicability:execute",
-        "knowledge:read", "knowledge:retrieve", "read:internal",
+        "project:read",
+        "workflow:read",
+        "workflow:execute",
+        "decision:read",
+        "decision:execute",
+        "classification:read",
+        "classification:execute",
+        "applicability:read",
+        "applicability:execute",
+        "knowledge:read",
+        "knowledge:retrieve",
+        "read:internal",
     },
     IntegrationScope.COMPLIANCE_READ: {
-        "project:read", "workflow:read", "decision:read", "classification:read", "applicability:read",
-        "knowledge:read", "knowledge:retrieve", "read:internal",
+        "project:read",
+        "workflow:read",
+        "decision:read",
+        "classification:read",
+        "applicability:read",
+        "knowledge:read",
+        "knowledge:retrieve",
+        "read:internal",
     },
     IntegrationScope.MODEL_SELECT: {"project:read", "llm:invoke"},
     IntegrationScope.WEBHOOK_MANAGE: set(),
@@ -51,13 +74,23 @@ class IntegrationPolicy(Contract):
     event_poll_seconds: float = Field(default=0.5, gt=0)
     rate_window_seconds: int = Field(default=60, ge=1)
     tenant_rate_limit: int = Field(default=1000, ge=1)
-    client_rate_limits: dict[str, int] = Field(default_factory=lambda: {
-        "read": 120, "write": 60, "upload": 20, "start": 10, "auth": 30,
-    })
+    client_rate_limits: dict[str, int] = Field(
+        default_factory=lambda: {
+            "read": 120,
+            "write": 60,
+            "upload": 20,
+            "start": 10,
+            "auth": 30,
+        }
+    )
     quota_window_seconds: int = Field(default=86400, ge=1)
-    client_quotas: dict[str, int] = Field(default_factory=lambda: {
-        "requests": 10000, "upload": 100, "start": 100,
-    })
+    client_quotas: dict[str, int] = Field(
+        default_factory=lambda: {
+            "requests": 10000,
+            "upload": 100,
+            "start": 100,
+        }
+    )
     webhook_timeout_seconds: float = Field(default=10, gt=0, le=60)
     webhook_max_attempts: int = Field(default=5, ge=1, le=20)
     webhook_backoff_seconds: float = Field(default=2, gt=0)
@@ -65,6 +98,30 @@ class IntegrationPolicy(Contract):
     worker_poll_seconds: float = Field(default=1, gt=0)
     delivery_lease_seconds: int = Field(default=300, ge=30)
     analysis_deadline_seconds: int = Field(default=1800, ge=60)
+    event_batch_size: int = Field(default=100, ge=1, le=1000)
+    workflow_delivery_max_attempts: int = Field(default=5, ge=1, le=20)
+
+
+class EmptyCommand(Contract):
+    pass
+
+
+class DeliveryAccepted(Contract):
+    delivery_id: UUID
+    status: str
+
+
+class ProjectBindingView(Contract):
+    project_id: UUID
+    binding_type: str
+    status: str
+
+
+class IntegrationOptions(Contract):
+    scopes: tuple[IntegrationScope, ...]
+    webhook_events: tuple[str, ...]
+    credential_types: tuple[str, ...] = ("OAUTH2", "SERVICE_ACCOUNT")
+    deployment_classes: tuple[str, ...] = ("EXTERNAL", "INTERNAL")
 
 
 class ClientCreate(Contract):
@@ -161,10 +218,23 @@ class ExternalWorkflowEvent(Contract):
     result_ref: str | None = None
     review_ref: UUID | None = None
     reason_codes: tuple[str, ...] = ()
+    correlation_id: str | None = None
 
 
-WEBHOOK_EVENTS = frozenset({"WORKFLOW_STARTED", "WORKFLOW_PROGRESS", "REVIEW_REQUIRED",
-                            "WORKFLOW_COMPLETED", "WORKFLOW_FAILED"})
+WEBHOOK_EVENTS = frozenset(
+    {
+        "WORKFLOW_STARTED",
+        "WORKFLOW_PROGRESS",
+        "REVIEW_REQUIRED",
+        "WORKFLOW_COMPLETED",
+        "WORKFLOW_FAILED",
+    }
+)
+PROGRESS_SOURCE_EVENTS = frozenset({"NODE_STARTED", "NODE_PROGRESS", "NODE_COMPLETED"})
+
+
+def external_event_code(code):
+    return "WORKFLOW_PROGRESS" if code in PROGRESS_SOURCE_EVENTS else code
 
 
 class WebhookCreate(Contract):
@@ -175,6 +245,8 @@ class WebhookCreate(Contract):
 
 class WebhookUpdate(VersionCommand):
     enabled: bool
+    callback_url: str | None = Field(default=None, min_length=1, max_length=2048)
+    event_codes: tuple[str, ...] | None = Field(default=None, min_length=1, max_length=5)
 
 
 class WebhookView(Contract):
@@ -185,6 +257,7 @@ class WebhookView(Contract):
     enabled: bool
     record_version: int
     secret_configured: bool
+    deployment_class: str = "EXTERNAL"
 
 
 class WebhookSecretView(Contract):

@@ -19,8 +19,11 @@ app.include_router(intake_documents_router)
 from crossborder_compliance.interfaces.api.routes.reviews import router as reviews_router
 app.include_router(reviews_router)
 
-from crossborder_compliance.interfaces.api.routes.integrations import admin_router as integration_admin_router
-app.include_router(integration_admin_router)
-
 from crossborder_compliance.interfaces.api.routes.external import router as external_router
 app.include_router(external_router)
+
+
+@app.get('/api/v1/external/openapi.json',include_in_schema=False)
+def external_contract():
+    from crossborder_compliance.interfaces.api.external_openapi import external_openapi
+    return external_openapi()

@@ -68,8 +68,16 @@ PATHS = PATHS | {
 }
 
 
+R1_PATHS = PATHS
+from scripts.m2e_resume_ownership import RESUME_PATHS
+PATHS = PATHS | RESUME_PATHS
+
+
 def overlay(root):
     root = Path(root)
+    if (root / "evidence/m2e/resume_approved_owner_overlay.json").exists():
+        from scripts.m2e_resume_ownership import overlay as resume_overlay
+        return resume_overlay(root, R1_PATHS)
     record = root / "evidence/m2e/r1_approved_owner_overlay.json"
     if not record.exists():
         return True, {}, None
@@ -108,8 +116,8 @@ def overlay(root):
             and ancestor(BASE, source)
             and ancestor(source, "HEAD")
         )
-        valid = valid and set(data["paths"]) == PATHS
-        committed = blobs(source, sorted(PATHS))
+        valid = valid and set(data["paths"]) == R1_PATHS
+        committed = blobs(source, sorted(R1_PATHS))
         valid = valid and all(
             hashlib.sha256(committed[p]).hexdigest() == h
             and (root / p).read_bytes() == committed[p]
@@ -133,11 +141,11 @@ def overlay(root):
         baseline += ["ARCHITECTURE_RULES.md", "pyproject.toml"]
         original = blobs(BASE, baseline)
         valid = valid and all(
-            (root / p).read_bytes() == original[p] for p in baseline if p not in PATHS
+            (root / p).read_bytes() == original[p] for p in baseline if p not in R1_PATHS
         )
         delta = set(git("diff", "--name-only", BASE, source).decode().splitlines())
         valid = valid and all(
-            p in PATHS or p.startswith(("docs/m2e/", "evidence/m2e/")) for p in delta
+            p in R1_PATHS or p.startswith(("docs/m2e/", "evidence/m2e/")) for p in delta
         )
         return valid, data["paths"], source
     except (OSError, ValueError, KeyError, subprocess.CalledProcessError):

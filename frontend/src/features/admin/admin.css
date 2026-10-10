@@ -43,3 +43,9 @@
 
 .admin-feature.admin-embedded { min-height: 0; padding: 12px 0; }
 .admin-embedded .identity { display: none; }
+.integration-clients { overflow-wrap: anywhere; min-width: 0; }
+.integration-clients li { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-block: .75rem; }
+.integration-clients fieldset { display: flex; flex-wrap: wrap; gap: .75rem; margin-block: .75rem; }
+.integration-clients form > label { display: flex; flex-direction: column; margin-block: .75rem; max-width: 36rem; }
+.integration-clients input, .integration-clients select { max-width: 100%; }
+.integration-clients output { display: block; overflow-wrap: anywhere; user-select: all; }

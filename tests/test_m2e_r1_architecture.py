@@ -4,7 +4,7 @@ import shutil
 from pathlib import Path
 
 from scripts.m2e_r1_architecture_check import check
-from scripts.m2e_r1_ownership import BASE, PATHS, overlay
+from scripts.m2e_r1_ownership import BASE, PATHS, R1_PATHS, overlay
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -31,7 +31,7 @@ def test_recovery_is_exact_committed_finite_successor_owner():
     valid, paths, source = overlay(ROOT)
     assert valid and source and source != BASE
     assert paths.keys() == PATHS
-    assert not any(p.startswith("frontend/") for p in paths)
+    assert not any(p.startswith("frontend/") for p in R1_PATHS)
     assert "src/crossborder_compliance/domain/decision_engine.py" not in paths
     assert "src/crossborder_compliance/infrastructure/persistence/rule_governance.py" not in paths
 
