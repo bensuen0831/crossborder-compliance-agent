@@ -1,0 +1,32 @@
+{
+  "evidence_scope": "PR_HEAD_CHECKPOINT_NOT_FINAL_CLOSURE",
+  "tested_pr_head_sha": "35aef765f0db117548a44b1c7d8e8a423c23bf0b",
+  "backend": {
+    "passed": 910,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 0
+  },
+  "architecture": {
+    "passed": 307,
+    "total": 307
+  },
+  "runtime": {
+    "passed": 25,
+    "total": 25
+  },
+  "frontend": {
+    "passed": 135
+  },
+  "browser": {
+    "passed": 60,
+    "retries": 0
+  },
+  "m2e_workflow_run_id": 38029892741,
+  "m2e_dedicated_workflow": "SUCCESS",
+  "overall_pr_closure": "BLOCKED_STATIC_SUBSET_METADATA",
+  "static_failure": "3 real PostgreSQL cases missing runtime_smoke marker were incorrectly scheduled in SQLite-only static subset",
+  "correction": "Add existing runtime_smoke marker to only PostgreSQL cases; retain public OpenAPI in static subset; full mandatory suite remains910 with no skips/deselections",
+  "correction_source_sha": "18af8e9a54ba73f4ba756fa08e60c0210db6ff81"
+}
