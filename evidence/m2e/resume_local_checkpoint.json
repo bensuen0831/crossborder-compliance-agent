@@ -1,0 +1,65 @@
+{
+  "evidence_scope": "LOCAL_CODE_CHECKPOINT_NOT_FINAL_PR_CLOSURE",
+  "runner_checkout_sha": "4467e4e1432dc41a293a3b15205f2770c2afd20e",
+  "executable_source_sha": "d150bc95390c0baad7be0542ced8aa58fd62103d",
+  "backend": {
+    "passed": 908,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "architecture": {
+    "passed": 307,
+    "total": 307
+  },
+  "runtime": {
+    "passed": 25,
+    "total": 25
+  },
+  "frontend": {
+    "tested_pr_head_sha": "4467e4e1432dc41a293a3b15205f2770c2afd20e",
+    "runner_checkout_sha": "4467e4e1432dc41a293a3b15205f2770c2afd20e",
+    "final_sha": "4467e4e1432dc41a293a3b15205f2770c2afd20e",
+    "exact_head_verified": true,
+    "frontend_passed": 135,
+    "browser_counts": {
+      "m1.spec.ts": 3,
+      "m2a.spec.ts": 3,
+      "m2b.spec.ts": 3,
+      "m2c.spec.ts": 3,
+      "m2d.spec.ts": 3,
+      "m2e.spec.ts": 3,
+      "phase1kb.spec.ts": 6,
+      "knowledge.spec.ts": 36
+    },
+    "retry_count": 0,
+    "locales": [
+      "zh-CN",
+      "zh-HK",
+      "en-US"
+    ],
+    "quality": "PASS"
+  },
+  "correction_source_sha": "d585564a0fbd170dab8f23625680891c65dc2cbc",
+  "correction_focused_security_contract": {
+    "passed": 12
+  },
+  "paid_internet_llm": "NOT EXECUTED",
+  "pr_closure": "PENDING_EXACT_FINAL_HEAD_CI",
+  "main_integration": "PENDING",
+  "stage1_full_e2e_entry": "BLOCKED",
+  "stage2": "NOT STARTED"
+}

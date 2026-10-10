@@ -30,3 +30,11 @@ Base: `0f5a40c5ca3a8771624fb38e9380856d79e67342`. PR27 is open/draft; working tr
 No new schema need has been proven. No second legal/result/event/runtime authority is authorized. Paid Internet LLM acceptance is excluded; Stage2 and Full Stage1 E2E remain unstarted. No merge/tag authorization exists.
 
 Next action: close gateway event/security/administration gaps with focused real PostgreSQL/HTTP tests, then frontend/OpenAPI/SDK/CI. Preserve all historical R1 evidence.
+
+## Resume implementation checkpoint
+
+All previously PARTIAL/NOT IMPLEMENTED channel items are now implemented. Canonical Admin clients, bindings and webhooks, external-only OpenAPI, transport SDKs and dedicated CI exist. Local full checkout4467e4e measured908 backend,307 architecture,25 runtime,135 frontend and60 browser (all original57 plus M2E3),0 failures/errors/skips/deselections/retries. Migration paths/refusal, distinct-jurisdiction DOCX/RAG workflow and review, SSE/WS, local HTTP callbacks and parallel saver/restart tests passed.
+
+Final supplementary security/contract12 tests passed; canonical/internal draft update, external read, document universe and confirmation snapshot are compared in the original real HTTP vertical fixture, before exact Stage1ResultService output comparison. These corrections add2 tests. Credential expiry acceptance uses the governed model:select scope required by canonical default AI preference; no permission bypass. Failed OAuth audit retains an unauthenticated actor while identifying the server-owned client/tenant, never treating a supplied ID as authenticated authority.
+
+Remaining: exact final-head mandatory CI and immutable measured archive. No unpublished cloud setting is required; CI declares PostgreSQL/Redis and secret-safe protocol fixtures. Paid Internet LLM endpoints NOT EXECUTED. Main integration PENDING; Full Stage1 E2E BLOCKED; Stage2 NOT STARTED.
