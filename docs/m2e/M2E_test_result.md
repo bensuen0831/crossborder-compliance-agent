@@ -7,3 +7,9 @@ Supplementary audit/expiry/public SDK/security12 tests PASS. Original distinct-j
 Final CI measures current exact checkout independently via scripts/m2e_closure.py: backend>=893 with0failed/errors/skips/deselections, architecture>=307, runtime25, frontend>=135, browser60 with0retries. Full JUnit must include at least66 M2E cases. Each final artifact records tested_pr_head_sha == runner_checkout_sha == final_sha. Immutable final artifacts and CI references are archived on evidence/m2e-pr-closure-<head>, without advancing the tested PR branch for evidence alone.
 
 PR closure PENDING exact-head CI; main integration PENDING; Stage1 Full E2E BLOCKED; Stage2 NOT STARTED. Historical R1 evidence unchanged. Paid Internet LLM acceptance NOT EXECUTED.
+
+## Exact-head checkpoint and scheduling correction
+
+Dedicated M2E run38029892741 at35aef765f0db117548a44b1c7d8e8a423c23bf0b measured910 backend PASS with0fail/errors/skips/deselections;307/307 architecture;25/25 runtime;135 frontend;60/60 browser,0retries; migration PASS and66 M2E cases. Overall PR closure at that SHA was BLOCKED: the separate legacy SQLite-only static subset mistakenly selected3 real PostgreSQL SDK/route cases without runtime_smoke markers.
+
+Correction only adds the existing runtime marker to those PostgreSQL tests; public OpenAPI remains static. No test deleted/skipped, no product/migration/R1 source changed. Full mandatory910-test suite and all exact-head CI rerun on the final successor. Source scheduling correction and prior successful measurements are independently retained in resume_ci_checkpoint_35aef76.json.
