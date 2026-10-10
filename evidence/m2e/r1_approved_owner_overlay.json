@@ -1,7 +1,7 @@
 {
   "base_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
-  "source_sha": "11f1b2b629b87de53f0c0fc6b2a24c99b75c22da",
-  "ownership": "Approved M2-E WIP preservation + Phase1H/M2-A R1.1 owning-contract recovery; not M2-E closure",
+  "source_sha": "6655b6cbe7711b68979ee7862aa70416f432d850",
+  "ownership": "Approved finite M2-E WIP / Phase1H R1 owning recovery; not M2-E closure",
   "paths": {
     "alembic/env.py": "a717ebf0587b4f4c7d818baf8198f2bf7ef6a32f35d061975c2b5d425a627c48",
     "alembic/versions/0017_m2e_external_agent_api.py": "25cdb35ebd50c503abd3554fe7cb1da665007a216461022cc8ea6f4f93cdb7de",
@@ -9,7 +9,7 @@
     "scripts/m2a_ownership.py": "9b604cddbcdc78f03f9ccc265ea9b83afc8f3a2726fa6c7914d7b6b0617a2865",
     "scripts/m2d_ownership.py": "1e1d58fd252df46201b214fb4028a8c702a665452ca07c7dd2ea5d2cd63b5bdd",
     "scripts/m2e_r1_architecture_check.py": "34854c8044b22bfbe6330ef2c3509604a8c32f99ff22fef35d7e05abf9dd18a3",
-    "scripts/m2e_r1_ownership.py": "415f0d718c795e453434c5922f99252cdc752933f90e5f5a06336dbc4860ff41",
+    "scripts/m2e_r1_ownership.py": "97ba721d726bbe09fe82fee7b564b74e7429033728b7eea02be9890c75acfaed",
     "scripts/phase1kb_ownership.py": "699c6bac140577d686a1270f9bf0968f7b6f10884401f7e0d27ec9c60d6fbf77",
     "scripts/phase1l_b_ownership.py": "c7768c8ad862e909bf493a384293c03cda018f5a4667baf3a0b76ccbb9fb0cfe",
     "src/crossborder_compliance/application/classification_services.py": "0f2aaae181b58ce171b90987965256764a6f4f4abb523dcf460c02ec8e75b748",
@@ -40,6 +40,7 @@
     "src/crossborder_compliance/workflows/langgraph_adapter.py": "fa83515bd4b9ecb4500a29ce93df9ffffd13536e0e4e644544dcf5c423d93d2c",
     "tests/m2e_fixtures.py": "5d5f6eab6a7878308b5b20d9f843e951d23df425369b26dbd4e2d6951100a9bc",
     "tests/test_m2b_snapshot_contract_probe.py": "f694c17fa5c2ffcc9457675a7911714a14c3fbe7c14c4507a1d78a9876b5168b",
+    "tests/test_m2d_architecture.py": "a7adb69d03c254c1530b2faadb1504a35c6cda1b2c57f6e8ecb3d0c6c8424d74",
     "tests/test_m2e_http.py": "4e5e385ef29c7e52ccd979b15c72db6f2ba577751baf103abf5e22baca4ddfad",
     "tests/test_m2e_identity_postgres.py": "f82ea769895b41d6e00520f327fbeca4ad9db72a1b78802a4375c587cc3a5ee3",
     "tests/test_m2e_r11_migrations.py": "f1319589f1dac1ffba2cd17c720da40fe755f348e295dce4434ce25bbfa486f3",
@@ -47,6 +48,7 @@
     "tests/test_m2e_r1_classification_postgres.py": "c4c2aad86b5472eb7e50f848ee8f30d55787a3e38426cf8af50b01631bae053e",
     "tests/test_m2e_r1_isolation.py": "a4fd954bac6e8994f5ac12e1799893acf2653272bbe4a333162e4961c24e71d5",
     "tests/test_m2e_vertical_postgres.py": "2f8ff05b7a9f990877ca1c15bda1d03089e5266d31d1f89b32e8cac75a729518",
-    "tests/test_m2e_webhooks_postgres.py": "13b907733cbea3b19da347cf52ac8dcc50f19ab0b544b7719154c1d231f1f67e"
+    "tests/test_m2e_webhooks_postgres.py": "13b907733cbea3b19da347cf52ac8dcc50f19ab0b544b7719154c1d231f1f67e",
+    "tests/test_phase1kb_migrations.py": "afd349478b2e868cdbc01114af4c5aedd0463ae4ce37fdb669dfbd55de50b8d3"
   }
 }
