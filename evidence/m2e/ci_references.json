@@ -1,0 +1,222 @@
+{
+  "tested_pr_head_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+  "runner_checkout_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+  "all_mandatory_success": true,
+  "runs": [
+    {
+      "conclusion": "success",
+      "databaseId": 38033961221,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961221",
+      "workflowName": "M0 Knowledge & Evidence Preview"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38033961098,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961098",
+      "workflowName": "M2A Production Intake"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38033961145,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961145",
+      "workflowName": "M2B Production Document Integration"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38033961150,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961150",
+      "workflowName": "M1 Intake Analysis Alpha"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38033961141,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961141",
+      "workflowName": "M2C Formal Result Workspace"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38033961138,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961138",
+      "workflowName": "M2D Governed Human Review"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38033961132,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961132",
+      "workflowName": "M2E External Agent API Gateway"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38033961120,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961120",
+      "workflowName": "Phase1KB Multi-provider LLM Governance"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38033961165,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961165",
+      "workflowName": "phase1a-runtime-smoke"
+    }
+  ],
+  "runner_checkout_verification": [
+    {
+      "run_id": 38033961098,
+      "head_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "jobs": [
+        {
+          "job": "frontend-real-backend-uat",
+          "runner_checkout_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+          "source": "actions/checkout git log -1 --format=%H",
+          "verified": true
+        }
+      ],
+      "verified": true
+    },
+    {
+      "run_id": 38033961120,
+      "head_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "jobs": [
+        {
+          "job": "canonical-frontend-browser",
+          "runner_checkout_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+          "source": "actions/checkout git log -1 --format=%H",
+          "verified": true
+        },
+        {
+          "job": "mandatory-backend",
+          "runner_checkout_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+          "source": "actions/checkout git log -1 --format=%H",
+          "verified": true
+        }
+      ],
+      "verified": true
+    },
+    {
+      "run_id": 38033961132,
+      "head_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "jobs": [
+        {
+          "job": "canonical-frontend-browser",
+          "runner_checkout_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+          "source": "actions/checkout git log -1 --format=%H",
+          "verified": true
+        },
+        {
+          "job": "mandatory-backend",
+          "runner_checkout_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+          "source": "actions/checkout git log -1 --format=%H",
+          "verified": true
+        }
+      ],
+      "verified": true
+    },
+    {
+      "run_id": 38033961138,
+      "head_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "jobs": [
+        {
+          "job": "frontend-real-backend-uat",
+          "runner_checkout_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+          "source": "actions/checkout git log -1 --format=%H",
+          "verified": true
+        }
+      ],
+      "verified": true
+    },
+    {
+      "run_id": 38033961141,
+      "head_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "jobs": [
+        {
+          "job": "frontend-real-backend-uat",
+          "runner_checkout_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+          "source": "actions/checkout git log -1 --format=%H",
+          "verified": true
+        }
+      ],
+      "verified": true
+    },
+    {
+      "run_id": 38033961145,
+      "head_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "jobs": [
+        {
+          "job": "frontend-real-backend-uat",
+          "runner_checkout_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+          "source": "actions/checkout git log -1 --format=%H",
+          "verified": true
+        }
+      ],
+      "verified": true
+    },
+    {
+      "run_id": 38033961150,
+      "head_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "jobs": [
+        {
+          "job": "frontend-real-backend-uat",
+          "runner_checkout_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+          "source": "actions/checkout git log -1 --format=%H",
+          "verified": true
+        }
+      ],
+      "verified": true
+    },
+    {
+      "run_id": 38033961165,
+      "head_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "jobs": [
+        {
+          "job": "mandatory-runtime-smoke",
+          "runner_checkout_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+          "source": "actions/checkout git log -1 --format=%H",
+          "verified": true
+        },
+        {
+          "job": "contract-tests",
+          "runner_checkout_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+          "source": "actions/checkout git log -1 --format=%H",
+          "verified": true
+        }
+      ],
+      "verified": true
+    },
+    {
+      "run_id": 38033961221,
+      "head_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "jobs": [
+        {
+          "job": "frontend",
+          "runner_checkout_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+          "source": "actions/checkout git log -1 --format=%H",
+          "verified": true
+        },
+        {
+          "job": "real-backend-uat",
+          "runner_checkout_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+          "source": "actions/checkout git log -1 --format=%H",
+          "verified": true
+        }
+      ],
+      "verified": true
+    }
+  ]
+}

@@ -6,7 +6,7 @@ Supplementary audit/expiry/public SDK/security12 tests PASS. Original distinct-j
 
 Final CI measures current exact checkout independently via scripts/m2e_closure.py: backend>=893 with0failed/errors/skips/deselections, architecture>=307, runtime25, frontend>=135, browser60 with0retries. Full JUnit must include at least66 M2E cases. Each final artifact records tested_pr_head_sha == runner_checkout_sha == final_sha. Immutable final artifacts and CI references are archived on evidence/m2e-pr-closure-<head>, without advancing the tested PR branch for evidence alone.
 
-PR closure PENDING exact-head CI; main integration PENDING; Stage1 Full E2E BLOCKED; Stage2 NOT STARTED. Historical R1 evidence unchanged. Paid Internet LLM acceptance NOT EXECUTED.
+Historical pre-closure status: PR closure was PENDING exact-head CI; main integration remains PENDING; Stage1 Full E2E BLOCKED; Stage2 NOT STARTED. Historical R1 evidence unchanged. Paid Internet LLM acceptance NOT EXECUTED.
 
 ## Exact-head checkpoint and scheduling correction
 
@@ -19,3 +19,13 @@ Correction only adds the existing runtime marker to those PostgreSQL tests; publ
 The original real A/B jurisdiction/DOCX/RAG S1 fixture empirically reproduced404 for external intake/supersede. The new route and transport SDK methods delegate to the existing canonical ProjectDocument port/service/repository supersede transaction. Focused happy acceptance passes duplicate identity, idempotency payload conflict, new draft/update/confirmation/new Snapshot and byte-equivalent structured historical S1 result. No new authority/schema; frozen migrations unchanged. Final mandatory CI requires successor/historical-result flags from the real vertical slice and reruns the complete910-test gate after this change.
 
 Durable readiness regression exposed a transient review ref before the technical canonical call completed. M2E status/result gating now respects existing DELIVERING job state, without modifying canonical Review/Runtime/Legal owners. Deterministic real HTTP lease assertions verify RUNNING and retryable RESULT_NOT_READY before delivery; isolated fresh PostgreSQL happy/review/successor2 PASS in125.29s. Existing test databases and failed-case rows preserved.
+
+## Final PR-head closure
+
+Final tested PR head: `291d52fef7d94fe2462942a910c594dff09c98b0`. PR #27 remains OPEN/DRAFT/NOT MERGED.
+
+Backend 910 PASS; 0 failed/errors/skipped/deselected. Architecture 307/307 PASS; Runtime 25/25 PASS. Frontend 135 PASS, typecheck/lint/build/i18n PASS. Browser 60/60 PASS (existing57+M2E3), retries0; zh-CN/zh-HK/en-US PASS.
+
+Migration fresh/exact upgrade/schema equivalence/safe downgrade/re-upgrade/unsafe refusal PASS. Frozen0001–0016 and0017 remain unchanged. All nine mandatory workflows SUCCESS and all runner checkout identities equal the final PR head.
+
+M2-E PR CLOSURE = PASS. Final machine-readable evidence and runner checkout proofs are in evidence/m2e. Historical/local checkpoint measurements above remain independent. M2-E MAIN INTEGRATION = PENDING; STAGE1 FULL E2E ENTRY = BLOCKED; Stage2 = NOT STARTED. Paid Internet LLM endpoints NOT EXECUTED.

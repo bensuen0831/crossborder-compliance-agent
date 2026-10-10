@@ -12,3 +12,13 @@
 - Successor completion: real confirmed S1 external POST previously404; thin existing ProjectDocument owner adaptation now passes duplicate/CAS, new input/snapshot and exact old S1 result read. Source:1388906b691a08dafd18abfd0c0cee65140fc611; finite resume55/combined87 paths. No schema/authority/runtime changes. SDK transport build PASS. Next: final focused owner/public contracts, final delivery commit, fresh exact-head CI.
 
 - Async readiness: DELIVERING remains technical RUNNING; result409 RESULT_NOT_READY/retryable until canonical call durably finishes. Real lease test asserts this before delivery. Fresh isolated PG happy+review+successor2 PASS; all retained earlier DBs/rows untouched. Final owner/contract focused check and CI next.
+
+## Final PR exact-head gate
+
+Final tested PR head: `291d52fef7d94fe2462942a910c594dff09c98b0`. PR #27 remains OPEN/DRAFT/NOT MERGED.
+
+Backend 910 PASS; 0 failed/errors/skipped/deselected. Architecture 307/307 PASS; Runtime 25/25 PASS. Frontend 135 PASS, typecheck/lint/build/i18n PASS. Browser 60/60 PASS (existing57+M2E3), retries0; zh-CN/zh-HK/en-US PASS.
+
+Migration fresh/exact upgrade/schema equivalence/safe downgrade/re-upgrade/unsafe refusal PASS. Frozen0001–0016 and0017 remain unchanged. All nine mandatory workflows SUCCESS and all runner checkout identities equal the final PR head.
+
+Completed: M2-E production channel and PR closure;55 resume paths/87 total owning paths authenticated; all measured evidence sealed independently. Next exact action: STOP and wait for explicit merge authorization, then separate exact-main closure. Do not reread frozen Master/Phase0/R1 owners; do not modify current tested head.
