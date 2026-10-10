@@ -368,5 +368,44 @@ def test_external_real_docx_rag_async_result_and_review(foundation_j, tmp_path, 
                     "result_not_precomputed": True,
                 }
                 (out / "ui_api_parity.json").write_text(json.dumps(parity, indent=2) + "\n")
+                # Input/model changes must use the same canonical successor
+                # operation as Web, preserving the exact historical S1 result.
+                successor_url = base + "/intake/supersede"
+                successor_key = uuid4().hex
+                successor_headers = {**auth, "Idempotency-Key": successor_key}
+                successor_body = {"expected_version": confirmed["version"]}
+                successor = c.post(successor_url, headers=successor_headers, json=successor_body)
+                assert successor.status_code == 200, successor.text
+                assert (
+                    c.post(successor_url, headers=successor_headers, json=successor_body).json()
+                    == successor.json()
+                )
+                clash = c.post(
+                    successor_url,
+                    headers=successor_headers,
+                    json={"expected_version": confirmed["version"] + 1},
+                )
+                assert clash.status_code == 409
+                draft = c.get(base + "/intake", headers=auth).json()
+                assert draft["status"] == "DRAFT" and draft["analysis_snapshot_id"] is None
+                changed = mutation(
+                    "PUT",
+                    base + "/intake",
+                    {
+                        "expected_version": draft["version"],
+                        "facts": {**facts, "scenario_description": "Successor input"},
+                    },
+                )
+                next_confirmed = mutation(
+                    "POST", base + "/intake/confirm", {"expected_version": changed["version"]}
+                )
+                assert next_confirmed["analysis_snapshot_id"] != confirmed["analysis_snapshot_id"]
+                assert c.get(started.json()["result_url"], headers=auth).json() == value
+                measured["external_successor_snapshot"] = True
+                measured["historical_result_unchanged_after_successor"] = True
+                (out / "external_vertical_validation.json").write_text(
+                    json.dumps(measured, indent=2) + "\n"
+                )
+
         finally:
             worker.stop()

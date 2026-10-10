@@ -73,6 +73,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/external/projects/{project_id}/intake/supersede": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Successor */
+        post: operations["successor_api_v1_external_projects__project_id__intake_supersede_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/external/projects/{project_id}/documents": {
         parameters: {
             query?: never;
@@ -3767,6 +3784,117 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntakeView"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            504: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+        };
+    };
+    successor_api_v1_external_projects__project_id__intake_supersede_post: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                authorization?: string | null;
+            };
+            path: {
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ConfirmProjectIntake"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    "X-Correlation-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DocumentInputsView"];
                 };
             };
             /** @description Stable sanitized gateway error */

@@ -211,7 +211,8 @@ def channel(request, p):
             else IntegrationScope.MODEL_SELECT
             if path.endswith("/eligible-models")
             else IntegrationScope.DOCUMENT_UPLOAD
-            if "/documents" in path and request.method != "GET"
+            if ("/documents" in path or path.endswith("/intake/supersede"))
+            and request.method != "GET"
             else IntegrationScope.PROJECT_READ
             if request.method == "GET"
             else IntegrationScope.PROJECT_CREATE
@@ -270,6 +271,16 @@ def update(project_id: UUID, body: ExternalIntakeUpdate, request: Request, p: Pr
 @router.post("/projects/{project_id}/intake/confirm", response_model=IntakeView)
 def confirm(project_id: UUID, body: ConfirmProjectIntake, request: Request, p: Principal, key: Key):
     return channel(request, p).confirm(project_id, body, key)
+
+
+@router.post("/projects/{project_id}/intake/supersede", response_model=DocumentInputsView)
+def successor(
+    project_id: UUID, body: ConfirmProjectIntake, request: Request, p: Principal, key: Key
+):
+    return channel(request, p).successor(
+        project_id,
+        DraftDocumentRequest(expected_version=body.expected_version, idempotency_key=key),
+    )
 
 
 @router.get("/projects/{project_id}/documents", response_model=DocumentInputsView)

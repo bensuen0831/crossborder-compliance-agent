@@ -111,6 +111,14 @@ class AgentClient:
             json={"expected_version": expected_version},
         )
 
+    def create_successor(self, project: str, expected_version: int, key: str) -> JSON:
+        return self._call(
+            "POST",
+            f"/projects/{quote(project, safe='')}/intake/supersede",
+            key=key,
+            json={"expected_version": expected_version},
+        )
+
     def list_eligible_models(self, project: str) -> JSON:
         return self._call("GET", f"/projects/{quote(project, safe='')}/eligible-models")
 

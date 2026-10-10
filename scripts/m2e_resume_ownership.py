@@ -57,6 +57,8 @@ RESUME_PATHS = frozenset(
         "sdk/typescript/src/generated.ts",
         "sdk/typescript/test/client.test.mjs",
         "sdk/typescript/tsconfig.json",
+        "src/crossborder_compliance/application/document_upload.py",
+        "src/crossborder_compliance/application/external_channel.py",
         "src/crossborder_compliance/application/integrations.py",
         "src/crossborder_compliance/domain/integrations.py",
         "src/crossborder_compliance/infrastructure/external_composition.py",

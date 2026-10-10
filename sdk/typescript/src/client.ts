@@ -37,6 +37,7 @@ export class AgentClient {
     return this.call<Schema['DocumentInputsView']>(`/projects/${encodeURIComponent(project)}/documents`, 'POST', form, key);
   }
   parseDocument(project: string, version: string, expectedVersion: number, key: string) { return this.call<Schema['DocumentInputsView']>(`/projects/${encodeURIComponent(project)}/documents/${encodeURIComponent(version)}/parse`, 'POST', { expected_version: expectedVersion }, key); }
+  createSuccessor(project: string, expectedVersion: number, key: string) { return this.call<Schema['DocumentInputsView']>(`/projects/${encodeURIComponent(project)}/intake/supersede`, 'POST', { expected_version: expectedVersion }, key); }
   listEligibleModels(project: string) { return this.call<Schema['EligibleModelCatalog']>(`/projects/${encodeURIComponent(project)}/eligible-models`); }
   confirm(project: string, expectedVersion: number, key: string) { return this.call<Schema['IntakeView']>(`/projects/${encodeURIComponent(project)}/intake/confirm`, 'POST', { expected_version: expectedVersion }, key); }
   startAnalysis(project: string, snapshot: string, key: string) { return this.call<Schema['ExternalWorkflowAccepted']>(`/projects/${encodeURIComponent(project)}/snapshots/${encodeURIComponent(snapshot)}/workflow`, 'POST', {}, key); }

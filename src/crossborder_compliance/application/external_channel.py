@@ -39,6 +39,11 @@ class ExternalChannelService:
             lambda ref: self.canonical.intake(ctx).read(project, int(ref)),
             lambda result: str(result.version))
 
+    def successor(self, project, command):
+        self._context(IntegrationScope.INTAKE_WRITE, project)
+        context = self._context(IntegrationScope.DOCUMENT_UPLOAD, project)
+        return self.canonical.documents(context).supersede(project, command)
+
     def documents(self, project):
         return self.canonical.documents(self._context(IntegrationScope.PROJECT_READ, project)).list_inputs(project)
 

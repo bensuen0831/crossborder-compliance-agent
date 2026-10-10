@@ -122,6 +122,11 @@ def main():
             read(args.directory / "external_review_validation.json")["workflow_status"]
             == "REVIEW_REQUIRED"
         )
+        vertical = read(args.directory / "external_vertical_validation.json")
+        assert (
+            vertical["external_successor_snapshot"]
+            and vertical["historical_result_unchanged_after_successor"]
+        )
         import xml.etree.ElementTree as ET
 
         cases = ET.parse(args.directory / "pytest_full.xml").findall(".//testcase")
