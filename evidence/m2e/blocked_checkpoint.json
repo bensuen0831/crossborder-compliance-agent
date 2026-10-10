@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0",
+  "status": "BLOCKED",
+  "base_main": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+  "base_tag": "v3.7-phase1kb-pass",
+  "base_tag_object": "b5aacaf6af0ab526de25f6d06d195ef4ece92727",
+  "branch": "milestone-m2e-external-agent-api",
+  "worktree": "/workspace/milestone-m2e-external-agent-api",
+  "single_alembic_head": "0017_m2e_external_agent_api",
+  "focused_executions": [
+    {
+      "log": "artifacts/m2e/identity-tests.log",
+      "summary": "10 passed in 3.03s",
+      "passed": 10,
+      "sha256": "c9d258ec974840ec357f56dbe319b5f57b6e6ceaf6f817d6b27da0a9179202d5",
+      "scope": "focused WIP execution, not PR-head closure"
+    },
+    {
+      "log": "artifacts/m2e/http-tests.log",
+      "summary": "8 passed in 5.85s",
+      "passed": 8,
+      "sha256": "99b748933f2751900cd0d66ec85723c85b93f3c60dac30a621f1e329c2a0cf2c",
+      "scope": "focused WIP execution, not PR-head closure"
+    },
+    {
+      "log": "artifacts/m2e/webhook-tests.log",
+      "summary": "10 passed in 5.25s",
+      "passed": 10,
+      "sha256": "d1ca3b7848ea0af528439b564ee2bc52ea17cc13cc3ed0c45c3ef961b68506ea",
+      "scope": "focused WIP execution, not PR-head closure"
+    }
+  ],
+  "blocker": {
+    "code": "FROZEN_MULTI_JURISDICTION_CLASSIFICATION_PINNING_GAP",
+    "required_acceptance": "new project, distinct source/destination, real DOCX, canonical confirmation/workflow/result",
+    "reproduction": "tests/test_m2e_vertical_postgres.py::test_external_real_docx_rag_async_result_and_review[False-foundation_i0]",
+    "observed": "Real HTTP confirm returns 422 INVALID_INPUT. Owning classification preparation raises ValueError: classification requires one resolved scheme jurisdiction.",
+    "observed_test_summary": "1 failed in 5.48s; stopped on first failure",
+    "owning_files": [
+      "src/crossborder_compliance/infrastructure/intake_composition.py",
+      "src/crossborder_compliance/infrastructure/persistence/classification_repository.py",
+      "src/crossborder_compliance/infrastructure/persistence/rule_governance.py"
+    ],
+    "owner_changes_applied": false,
+    "failing_test_skipped_or_deleted": false
+  },
+  "frozen_migrations": [
+    {
+      "path": "alembic/versions/0001_phase1a_runtime_tables.py",
+      "sha256": "d8a3d4c060beaa95ee2daab5658a476854640c24b3100cee6ebd4c44d86d793a"
+    },
+    {
+      "path": "alembic/versions/0002_phase1b_domain_foundation.py",
+      "sha256": "4fa947ad533c7faeaa5d8893917a7c1fcb9933436be9ec41180524eae4c3b9da"
+    },
+    {
+      "path": "alembic/versions/0003_phase1c_metadata_registry.py",
+      "sha256": "fb8c17f96cfe83c6cbb9f5d1b71450f1e77ae1ee1a9d9df334f6fefff24d66b1"
+    },
+    {
+      "path": "alembic/versions/0004_phase1d_document_intelligence.py",
+      "sha256": "9f1bf0b1ad8924d698a66d996571565fe5ffd22808f906d639d04549fa8d48ff"
+    },
+    {
+      "path": "alembic/versions/0005_phase1e_context_resolution.py",
+      "sha256": "6f524b052b4e13df4d809f9ab85157999df43ed9f819d76f5aff9e52493993e3"
+    },
+    {
+      "path": "alembic/versions/0006_phase1f_knowledge_scope.py",
+      "sha256": "5c4ffecc8cf1ff7787bb282eaed18699b918ad5e40c44e23f761fefd0eeb6085"
+    },
+    {
+      "path": "alembic/versions/0007_phase1g_retrieval_evidence.py",
+      "sha256": "47117a332785bb63d7ef6ae3537bce321732e9d570f2afc005051888c8c5d4b4"
+    },
+    {
+      "path": "alembic/versions/0008_phase1h_rule_classification.py",
+      "sha256": "04ac67c7ffe3445a1d89b633549690d0c59fa12ac978e90ca5514b5902484f77"
+    },
+    {
+      "path": "alembic/versions/0009_phase1i_applicability.py",
+      "sha256": "e363840390a0cb673aef676d75c02c24ed8ea7002a9c1a03605db80bf30447e8"
+    },
+    {
+      "path": "alembic/versions/0010_phase1j_formal_decisions.py",
+      "sha256": "cebbe1158f5b98ca0c2a7dd87726111f50e2fc24f1f83f828ac1243d24d0e57f"
+    },
+    {
+      "path": "alembic/versions/0011_m2a_structured_intake.py",
+      "sha256": "573785cdee48f57d8ff7761b49d73e57cf110befd4a14d3e1fcae031e5a89cf0"
+    },
+    {
+      "path": "alembic/versions/0012_m2b_document_inputs.py",
+      "sha256": "f732e59b44c6fb54a4880f5ca777140560614a675315f9ec8f94212409b4cb8f"
+    },
+    {
+      "path": "alembic/versions/0013_m2b_context_temporal_contract.py",
+      "sha256": "79133fdda7aeda64a1c10e164abe1fbde73534dfecb3f7397a0b8f642ad33561"
+    },
+    {
+      "path": "alembic/versions/0014_m2c_formal_result_authority.py",
+      "sha256": "63f1e8f97587dd52983d51cb632972ef9a9d0a7b83f60f4f32678ba3d29bd266"
+    },
+    {
+      "path": "alembic/versions/0015_m2d_review_governance.py",
+      "sha256": "e424078407d47b338b722503f61bd4abd5f94e0cc65aeb7440f4e4330e51e02a"
+    },
+    {
+      "path": "alembic/versions/0016_phase1kb_multi_provider_llm_governance.py",
+      "sha256": "6f375dc1bc9ba86b668160ac28572822ddfe6867d16d2104d7ee5db5d422ee93"
+    }
+  ],
+  "migration_gate": {
+    "fresh_upgrade": "PASS in local development database",
+    "empty_downgrade_reupgrade": "PASS in local development database",
+    "exact_0016_upgrade_and_equivalence": "NOT_EXECUTED",
+    "data_refusal": "NOT_EXECUTED"
+  },
+  "closure": {
+    "mandatory_backend": "NOT_EXECUTED",
+    "architecture": "NOT_EXECUTED",
+    "runtime": "NOT_EXECUTED",
+    "frontend": "NOT_EXECUTED",
+    "browser": "NOT_EXECUTED",
+    "exact_pr_head_ci": "NOT_EXECUTED"
+  },
+  "main_integration": "PENDING",
+  "stage1_full_e2e_entry": "BLOCKED",
+  "stage2": "NOT_STARTED",
+  "paid_internet_llm_acceptance": "NOT_EXECUTED"
+}

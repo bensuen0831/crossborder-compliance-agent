@@ -1,0 +1,77 @@
+import { test, expect } from '@playwright/test';
+import fs from 'node:fs';
+import zhCN from '../src/locales/zh-CN.json' with { type: 'json' };
+import zhHK from '../src/locales/zh-HK.json' with { type: 'json' };
+import enUS from '../src/locales/en-US.json' with { type: 'json' };
+const catalogs = { 'zh-CN': zhCN, 'zh-HK': zhHK, 'en-US': enUS };
+const manifest = JSON.parse(fs.readFileSync(process.env.M2A_UAT_MANIFEST!, 'utf8'));
+// Create/rotate responses are one-time credentials: never capture traces/images.
+test.use({ trace: 'off', screenshot: 'off' });
+test.afterEach(async ({ page }) => {
+  // Playwright also creates DOM error-context snapshots when traces are off.
+  await page.locator('[data-testid="one-time-secret"]').evaluateAll(nodes => nodes.forEach(node => { node.textContent = ''; })).catch(() => undefined);
+});
+for (const [locale, m] of Object.entries(catalogs)) {
+  test(`integration Admin, one-time credentials and signed callback ${locale}`, async ({ page }) => {
+    const errors: string[] = [];
+    page.on('pageerror', error => errors.push(error.message));
+    page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
+    await page.addInitScript(value => localStorage.setItem('stage1-alpha.ui-locale', value), locale);
+    expect((await page.request.post('/m0-demo/login', { data: { persona: 'INTEGRATION_ADMIN' } })).status()).toBe(200);
+    await page.goto('/admin');
+    const open = async () => { await page.getByRole('button', { name: m['ui.m2e.integrations'], exact: true }).click(); };
+    await open();
+    const form = page.getByRole('form', { name: m['ui.m2e.createClient'] });
+    const name = `ERP ${locale} ${Date.now()}`;
+    await form.getByLabel(m['ui.m2e.name']).fill(name);
+    await form.getByLabel('project:read', { exact: true }).check();
+    await form.getByLabel('webhook:manage', { exact: true }).check();
+    const created = page.waitForResponse(r => r.url().endsWith('/admin/integration-clients') && r.request().method() === 'POST');
+    await form.getByRole('button', { name: m['ui.m2e.createClient'] }).click();
+    const identity = await (await created).json();
+    expect(await page.getByTestId('one-time-secret').textContent() === identity.credential).toBe(true);
+    await page.reload(); await open();
+    await expect(page.getByTestId('one-time-secret')).toHaveCount(0);
+    const row = page.locator('.integration-clients > ul > li').filter({ hasText: name });
+    await row.getByRole('button', { name, exact: true }).click();
+    const projectResponse = await page.request.post('/api/v1/projects', { data: { name: `${name} project`, idempotency_key: crypto.randomUUID(), facts: { analysis_as_of_date: '2026-10-10' } } });
+    expect(projectResponse.status()).toBe(201);
+    const project = (await projectResponse.json()).project_id;
+    const bind = page.getByRole('form', { name: m['ui.m2e.bindProject'] });
+    await bind.getByLabel(m['ui.m2e.projectId']).fill(project);
+    await bind.getByRole('button', { name: m['ui.m2e.bindProject'] }).click();
+    await expect(page.locator('.integration-clients')).toContainText(project);
+    const webhook = page.getByRole('form', { name: m['ui.m2e.createWebhook'] });
+    await webhook.getByLabel(m['ui.m2e.callback']).fill(manifest.INTEGRATION_ADMIN.callback_url);
+    await webhook.getByLabel(m['ui.m2e.deployment']).selectOption('INTERNAL');
+    await webhook.getByLabel('WORKFLOW_COMPLETED', { exact: true }).check();
+    const subscribed = page.waitForResponse(r => r.url().endsWith('/webhook-subscriptions') && r.request().method() === 'POST');
+    await webhook.getByRole('button', { name: m['ui.m2e.createWebhook'] }).click();
+    const sub = await (await subscribed).json();
+    expect(await page.getByTestId('one-time-secret').textContent() === sub.secret).toBe(true);
+    await page.getByRole('button', { name: m['ui.m2e.dismiss'] }).click();
+    await page.getByRole('button', { name: m['ui.m2e.testDelivery'] }).click();
+    const deliveryUrl = `/api/v1/admin/integration-clients/${identity.client.client_id}/webhook-subscriptions/${sub.subscription.subscription_id}/deliveries`;
+    await expect.poll(async () => (await (await page.request.get(deliveryUrl)).json())[0]?.status).toBe('DELIVERED');
+    await page.getByRole('button', { name: m['ui.m2e.history'] }).click();
+    await expect(page.getByRole('list', { name: m['ui.m2e.history'] })).toContainText('DELIVERED');
+    const rotated = page.waitForResponse(r => r.url().endsWith('/rotate-credential') && r.request().method() === 'POST');
+    await row.getByRole('button', { name: m['ui.m2e.rotate'], exact: true }).click();
+    const rotationResponse = await rotated;
+    expect(rotationResponse.status()).toBe(200);
+    const next = await rotationResponse.json();
+    const token = (secret: string) => page.request.post('/api/v1/external/oauth/token', { form: { grant_type: 'client_credentials', client_id: identity.client.client_id, client_secret: secret } });
+    expect((await token(identity.credential)).status()).toBe(401);
+    expect((await token(next.credential)).status()).toBe(200);
+    await page.getByRole('button', { name: m['ui.m2e.dismiss'] }).click();
+    await row.getByRole('button', { name: m['ui.m2e.disable'], exact: true }).click();
+    await expect(row).toContainText('DISABLED');
+    await row.getByRole('button', { name: m['ui.m2e.enable'], exact: true }).click();
+    await expect(row).toContainText('ACTIVE');
+    const stored = await page.evaluate(() => JSON.stringify({ ...localStorage, ...sessionStorage }));
+    expect([identity.credential, next.credential, sub.secret].some(secret => stored.includes(secret))).toBe(false);
+    expect(await page.locator('body').innerText()).not.toContain('ui.m2e.');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    expect(errors).toEqual([]);
+  });
+}

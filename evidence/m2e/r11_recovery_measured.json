@@ -1,0 +1,134 @@
+{
+  "decision": "M2-E-R1 OWNING-CONTRACT RECOVERY = PASS",
+  "m2e_resume": "ALLOWED",
+  "stage1_full_e2e_entry": "BLOCKED",
+  "stage2": "NOT STARTED",
+  "base_main": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+  "preserved_saved_head": "b7b7602a58581b6316510e184300684cfa6d8036",
+  "branch": "milestone-m2e-external-agent-api",
+  "draft_pr": 27,
+  "tested_checkout_sha": "3fc7465c51f23683ab466b485f6e40afb93a709e",
+  "executable_owner_source_sha": "6655b6cbe7711b68979ee7862aa70416f432d850",
+  "backend": {
+    "tests": 893,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 893,
+    "deselected": 0,
+    "seconds": 1886.774
+  },
+  "regression_groups": {
+    "phase1h": {
+      "passed": 84,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "phase1i": {
+      "passed": 72,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "phase1j": {
+      "passed": 79,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "phase1l_b": {
+      "passed": 43,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "m1": {
+      "passed": 11,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "m2a": {
+      "passed": 33,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "m2b": {
+      "passed": 34,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "m2c": {
+      "passed": 40,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "m2d": {
+      "passed": 36,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "phase1kb": {
+      "passed": 81,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "m2e": {
+      "passed": 49,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "architecture": {
+    "existing": 269,
+    "new": 11,
+    "passed": 280,
+    "total": 280
+  },
+  "runtime": {
+    "passed": 25,
+    "total": 25
+  },
+  "migration": {
+    "migration": "0018_phase1h_multijurisdiction_classification_identity",
+    "parent": "0017_m2e_external_agent_api",
+    "fresh": true,
+    "exact0016_to0017_to0018": true,
+    "exact0017_upgrade": true,
+    "schema_equivalence": true,
+    "legacy_row_and_digest_unchanged": true,
+    "safe_downgrade": true,
+    "reupgrade": true,
+    "two_jurisdictions_persist": true,
+    "same_jurisdiction_duplicate_rejected": true,
+    "unsafe_downgrade_transactionally_refused": true,
+    "predicate_unchanged": true
+  },
+  "test_artifact_sha256": {
+    "pytest_full.xml": "279f5a8d9e92db3edd19aa6e420f1282aef4fba64a75b09ccdb403302e83d1f4",
+    "pytest_full.log": "8307d177bd1542229a47be3f68d978f74a38e8b6417aeb2ff6f003a1a6546923",
+    "ci_run_evidence.json": "9552079ff19609b40d379c4f1cecb1000de7e6a44f21056bb4dd5f3ee852dbd9",
+    "runtime_assertions.json": "d6f3aa08a068616d7457a0cb78aa5ff747777265ef933232d289abc6ebb4f9eb",
+    "migration_measured.json": "9b030dba66b68971af4b62bacee86d5f67c1487e065cb9d10a163326178df735",
+    "architecture_base.log": "40a8590a49ea7bde48ae2472c42fea1c6f0596596ac0f9bd5a7a2623eace104f",
+    "additive_architecture.json": "63bf6e56a6549c886c98d0ddd8bafe831ccec949ea7bb8674261463a530b375c"
+  },
+  "failed_prior_attempt": {
+    "passed": 891,
+    "failed": 2,
+    "used_as_closure": false,
+    "fixes": "Finite authorized owner forwarding and actual Alembic lineage; all original assertions retained"
+  },
+  "m2e_exact_head_ci_closure": "NOT EXECUTED: intentionally paused by R1 scope",
+  "browser_admin_sdk_openapi_closure": "NOT EXECUTED: intentionally paused by R1 scope",
+  "merge": "NOT PERFORMED",
+  "tag": "NOT CREATED",
+  "blockers": []
+}

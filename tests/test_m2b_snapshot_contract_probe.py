@@ -59,6 +59,23 @@ def test_stable_item_has_exact_immutable_snapshot_state_and_provenance(foundatio
 
     scoped_context = project_context(f["sf"], context, UUID(project_id))
     classifier = PostgresFormalClassificationRepository(f["sf"], scoped_context)
+
+    def prepare(snapshot_id):
+        # These snapshots are newly confirmed under the explicit R1 contract.
+        # Use their exact immutable binding rather than a current/default scheme
+        # or silently inferred jurisdiction. Legacy H replay is tested separately.
+        from crossborder_compliance.infrastructure.persistence import metadata_models as m
+        with f["sf"]() as session:
+            bindings = session.scalars(select(m.AnalysisSnapshotRegistryPinEntity).where(
+                m.AnalysisSnapshotRegistryPinEntity.tenant_id == f["tenant"],
+                m.AnalysisSnapshotRegistryPinEntity.analysis_snapshot_id == snapshot_id,
+                m.AnalysisSnapshotRegistryPinEntity.pin_type == "CLASSIFICATION_BINDING_V1",
+            )).all()
+            assert len(bindings) == 1
+            binding = bindings[0]
+            assert binding.version_id == f["scheme_version"]
+        return classifier.prepare(UUID(project_id), UUID(snapshot_id), UUID(item_id),
+            UUID(binding.version_id), jurisdiction_id=UUID(binding.logical_key))
     with f["sf"]() as session:
         item = session.scalar(select(b.DataItemEntity).where(
             b.DataItemEntity.tenant_id == f["tenant"],
@@ -71,7 +88,7 @@ def test_stable_item_has_exact_immutable_snapshot_state_and_provenance(foundatio
             e.DataItemSourceTraceLinkEntity.data_item_id == item_id,
         )))
     # H accepts the original snapshot; this is not a missing permission/config.
-    classifier.prepare(UUID(project_id), UUID(first_snapshot), UUID(item_id), UUID(f["scheme_version"]))
+    prepare(first_snapshot)
     from crossborder_compliance.application.context_services import DataItemNormalizationService
     from crossborder_compliance.infrastructure.persistence.context_repositories import PostgresContextResolutionRepository
     from crossborder_compliance.infrastructure.persistence import document_models as d
@@ -120,7 +137,7 @@ def test_stable_item_has_exact_immutable_snapshot_state_and_provenance(foundatio
     with pytest.raises(ValueError, match="IMMUTABLE_INVENTORY"):
         DataItemNormalizationService(PostgresContextResolutionRepository(f["sf"], scoped_context,
             parse_run_ids=(UUID(second_parse.json()["items"][0]["parse_run_id"]),))).normalize(UUID(project_id), version=1)
-    classifier.prepare(UUID(project_id), UUID(second_snapshot), UUID(item_id), UUID(f["scheme_version"]))
+    prepare(second_snapshot)
     from crossborder_compliance.infrastructure.persistence.context_temporal import item_trace_ids
     with f["sf"]() as session:
         v1_traces = set(item_trace_ids(session, f["tenant"], item_id, 1, first_snapshot))
@@ -128,7 +145,7 @@ def test_stable_item_has_exact_immutable_snapshot_state_and_provenance(foundatio
         assert v1_traces == original_traces
         assert v2_traces and v1_traces.isdisjoint(v2_traces)
     # Old snapshot validation and provenance remain unchanged.
-    classifier.prepare(UUID(project_id), UUID(first_snapshot), UUID(item_id), UUID(f["scheme_version"]))
+    prepare(first_snapshot)
     from crossborder_compliance.infrastructure.persistence.knowledge_repositories import PostgresKnowledgeRepository
     knowledge = PostgresKnowledgeRepository(f["sf"], scoped_context)
     assert knowledge.formal_context(project_id, "DATA_ITEM", item_id, first_snapshot)["context_version"] == 1
@@ -143,7 +160,7 @@ def test_stable_item_has_exact_immutable_snapshot_state_and_provenance(foundatio
         with pytest.raises(LookupError): exact_item_detail(session, f["tenant"], item_id, 3)
         with pytest.raises(LookupError): exact_item_detail(session, f["tenant"], item_id, 999)
         assert set(item_trace_ids(session, f["tenant"], item_id, 1, first_snapshot)) == original_traces
-    with pytest.raises(LookupError): classifier.prepare(UUID(project_id), UUID(absent_snapshot), UUID(item_id), UUID(f["scheme_version"]))
+    with pytest.raises(LookupError): prepare(absent_snapshot)
     with pytest.raises(LookupError): knowledge.formal_context(project_id, "DATA_ITEM", item_id, absent_snapshot)
     assert client.post(base_url + "/supersede", json={"expected_version": 6, "idempotency_key": str(uuid4())}).status_code == 200
     returning_record = client.get(base_url).json()
@@ -160,7 +177,7 @@ def test_stable_item_has_exact_immutable_snapshot_state_and_provenance(foundatio
         assert restored_detail.data_item_id == item_id
         assert restored_detail.display_name == detail.display_name
         assert set(item_trace_ids(session, f["tenant"], item_id, 1, first_snapshot)) == original_traces
-    classifier.prepare(UUID(project_id), UUID(restored_snapshot), UUID(item_id), UUID(f["scheme_version"]))
+    prepare(restored_snapshot)
     assert knowledge.formal_context(project_id, "DATA_ITEM", item_id, restored_snapshot)["context_version"] == 4
     evidence = {
         "status": "TEMPORAL_COUNTEREXAMPLE_CORRECTED_NOT_FULL_CLOSURE",

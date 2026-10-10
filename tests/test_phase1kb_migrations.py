@@ -7,6 +7,7 @@ from pathlib import Path
 from uuid import uuid4
 
 import pytest
+from alembic.script import ScriptDirectory
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import make_url
 from test_m2d_migrations import catalog as previous_catalog
@@ -15,11 +16,13 @@ from test_phase1j_migrations import seed_scope
 
 from crossborder_compliance.config import get_settings
 from crossborder_compliance.infrastructure.persistence import metadata_models as m
+from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after
 
 pytestmark = pytest.mark.runtime_smoke
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "efda0955342de8d1ea36aa0f754d63c9b421fec8"
-HEAD = "0016_phase1kb_multi_provider_llm_governance"
+HEAD = ScriptDirectory(str(ROOT / "alembic")).get_current_head()
+assert revision_at_or_after(HEAD, "0016_phase1kb_multi_provider_llm_governance")
 
 
 def catalog(url):

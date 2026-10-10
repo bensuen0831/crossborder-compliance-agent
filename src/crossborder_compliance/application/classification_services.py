@@ -20,6 +20,7 @@ class ClassificationRepositoryPort(Protocol):
         snapshot_id: UUID,
         data_item_id: UUID | None,
         scheme_version_id: UUID,
+        jurisdiction_id: UUID | None = None,
     ) -> tuple[RuleFactContext, ClassificationScheme, tuple[ComplianceRule, ...]]: ...
     def save(self, outcome: ClassificationOutcome) -> ClassificationOutcome: ...
     def get_result(self, result_id: UUID) -> dict: ...
@@ -39,9 +40,11 @@ class ClassificationService:
         snapshot_id: UUID,
         data_item_id: UUID | None,
         scheme_version_id: UUID,
+        jurisdiction_id: UUID | None = None,
     ) -> ClassificationOutcome:
+        execution = {} if jurisdiction_id is None else {"jurisdiction_id": jurisdiction_id}
         facts, scheme, rules = self.repository.prepare(
-            project_id, snapshot_id, data_item_id, scheme_version_id
+            project_id, snapshot_id, data_item_id, scheme_version_id, **execution
         )
         if facts.data_item_id is None:
             return ClassificationOutcome(status=self.policy.no_data, reason_codes=("NO_DATA_ITEM",))

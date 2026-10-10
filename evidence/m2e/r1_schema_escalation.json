@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "recovery": "M2-E-R1",
+  "status": "BLOCKED",
+  "base_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+  "previous_blocked_head": "c7d546b37a7dab2a098cda1e649010edac443798",
+  "original_blocker_reproduced": true,
+  "logs": {
+    "r1-before.log": {
+      "summary": "1 failed in 4.80s",
+      "sha256": "4812a8c93d282a780a8c618284d3c30ae3097fdbb1c55876a368ed7405c3de11"
+    },
+    "r1-first.log": {
+      "summary": "1 failed, 41 passed in 13.40s",
+      "sha256": "e6a4cb97327c642293a502b8c338da93b579965129071c0fd034cff81b51f8d3"
+    },
+    "r1-owning.log": {
+      "summary": "1 failed in 2.54s",
+      "sha256": "638bbc70a3197f5ddf19dd7022b2df1be1dff2638bd54651492ff376eac855e6"
+    },
+    "r1-vertical.log": {
+      "summary": "1 failed in 61.40s (0:01:01)",
+      "sha256": "be93cb537eb8ef44e498dc87a00ac143ddad32fd01beac776286adad60537713"
+    }
+  },
+  "new_blocker": {
+    "code": "CLASSIFICATION_EXECUTION_UNIQUE_INDEX_OMITS_JURISDICTION",
+    "owning_table": "classification_results",
+    "index": "uq_formal_classification_snapshot",
+    "existing_key": [
+      "tenant_id",
+      "project_id",
+      "analysis_snapshot_id",
+      "subject_id",
+      "scheme_version_id"
+    ],
+    "required_key": [
+      "tenant_id",
+      "project_id",
+      "analysis_snapshot_id",
+      "subject_id",
+      "jurisdiction_id",
+      "scheme_version_id"
+    ],
+    "predicate": "formal_provenance_json IS NOT NULL",
+    "observed_error": "psycopg.errors.UniqueViolation",
+    "reproduction": "tests/test_m2e_r1_classification_postgres.py::test_two_jurisdictions_complete_rule_union_and_distinct_execution_identity"
+  },
+  "r1_migration_created": false,
+  "wip_0017_modified": false,
+  "frozen_migrations_unchanged": [
+    "alembic/versions/0001_phase1a_runtime_tables.py",
+    "alembic/versions/0002_phase1b_domain_foundation.py",
+    "alembic/versions/0003_phase1c_metadata_registry.py",
+    "alembic/versions/0004_phase1d_document_intelligence.py",
+    "alembic/versions/0005_phase1e_context_resolution.py",
+    "alembic/versions/0006_phase1f_knowledge_scope.py",
+    "alembic/versions/0007_phase1g_retrieval_evidence.py",
+    "alembic/versions/0008_phase1h_rule_classification.py",
+    "alembic/versions/0009_phase1i_applicability.py",
+    "alembic/versions/0010_phase1j_formal_decisions.py",
+    "alembic/versions/0011_m2a_structured_intake.py",
+    "alembic/versions/0012_m2b_document_inputs.py",
+    "alembic/versions/0013_m2b_context_temporal_contract.py",
+    "alembic/versions/0014_m2c_formal_result_authority.py",
+    "alembic/versions/0015_m2d_review_governance.py",
+    "alembic/versions/0016_phase1kb_multi_provider_llm_governance.py"
+  ],
+  "recovery_regressions": "NOT_COMPLETED",
+  "architecture_gate": "NOT_COMPLETED",
+  "m2e_resume": "BLOCKED",
+  "merge": "NOT_PERFORMED",
+  "stage1_full_e2e": "NOT_STARTED",
+  "stage2": "NOT_STARTED"
+}

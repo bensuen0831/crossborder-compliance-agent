@@ -119,3 +119,31 @@ def validate_scheme(row):
             }
         )
     return None
+
+
+def publish_bindings(session, row):
+    """Materialize explicitly approved jurisdiction scope in the same publish transaction.
+
+    These are the existing governed binding rows, not runtime defaults. Every
+    new scheme generation gets distinct binding identities; historical pins
+    never consult their current status or mutable interval.
+    """
+    scheme = validate_scheme(row)
+    if scheme is None:
+        return
+    from crossborder_compliance.infrastructure.persistence.metadata_models import (
+        ClassificationBindingEntity,
+    )
+
+    for jurisdiction in scheme.jurisdiction_ids:
+        session.add(
+            ClassificationBindingEntity(
+                classification_binding_id=str(uuid4()),
+                tenant_id=row.tenant_id,
+                scheme_version_id=row.scheme_version_id,
+                jurisdiction_id=str(jurisdiction),
+                effective_from=row.effective_from,
+                effective_to=row.effective_to,
+                status="ACTIVE",
+            )
+        )

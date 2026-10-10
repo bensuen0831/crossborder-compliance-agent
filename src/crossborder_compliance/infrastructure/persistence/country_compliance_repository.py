@@ -4,8 +4,6 @@ from uuid import UUID, uuid4
 
 from sqlalchemy import select
 
-from crossborder_compliance.infrastructure.persistence.context_temporal import exact_item_detail, flow_item_ids
-
 from crossborder_compliance.application.country_compliance_services import (
     ApplicabilityRequest,
     CountryProfileResolution,
@@ -37,6 +35,10 @@ from crossborder_compliance.infrastructure.persistence.classification_repository
     PostgresFormalClassificationRepository,
 )
 from crossborder_compliance.infrastructure.persistence.compliance_profile_governance import scoped
+from crossborder_compliance.infrastructure.persistence.context_temporal import (
+    exact_item_detail,
+    flow_item_ids,
+)
 from crossborder_compliance.infrastructure.persistence.knowledge_repositories import hash_value
 from crossborder_compliance.infrastructure.persistence.retrieval_repositories import (
     PostgresRetrievalRepository,
@@ -45,19 +47,27 @@ from crossborder_compliance.infrastructure.persistence.retrieval_repositories im
 
 class PostgresCountryComplianceRepository:
     def initialize_formal_results(self, project_id, snapshot_id):
-        from crossborder_compliance.infrastructure.persistence.formal_result_repository import initialize
+        from crossborder_compliance.infrastructure.persistence.formal_result_repository import (
+            initialize,
+        )
+
         return initialize(self, project_id, snapshot_id)
 
     def prepare_formal_result(self, request):
-        from crossborder_compliance.infrastructure.persistence.formal_result_repository import prepare
+        from crossborder_compliance.infrastructure.persistence.formal_result_repository import (
+            prepare,
+        )
+
         return prepare(self, request)
 
     def save_formal_result(self, request, result):
         from crossborder_compliance.infrastructure.persistence.formal_result_repository import save
+
         return save(self, request, result)
 
     def read_formal_result(self, kind, ident):
         from crossborder_compliance.infrastructure.persistence.formal_result_repository import read
+
         return read(self, kind, ident)
 
     def initialize_decisions(self, project_id, snapshot_id):
@@ -65,22 +75,29 @@ class PostgresCountryComplianceRepository:
         # New snapshots capture C0 before J; C0 never retrofits a historical pin.
         with self.sessions() as session:
             from crossborder_compliance.infrastructure.persistence.decision_repository import pins
-            sealed = any(p.pin_type == 'PHASE1J_INITIALIZATION' for p in pins(self, session, snapshot_id))
+
+            sealed = any(
+                p.pin_type == "PHASE1J_INITIALIZATION" for p in pins(self, session, snapshot_id)
+            )
         if not sealed:
             self.initialize_formal_results(project_id, snapshot_id)
         from crossborder_compliance.infrastructure.persistence.decision_repository import initialize
+
         return initialize(self, project_id, snapshot_id)
 
     def prepare_decision(self, request):
         from crossborder_compliance.infrastructure.persistence.decision_repository import prepare
+
         return prepare(self, request)
 
     def save_decision(self, request, result):
         from crossborder_compliance.infrastructure.persistence.decision_repository import save
+
         return save(self, request, result)
 
     def read_decision(self, stage, ident):
         from crossborder_compliance.infrastructure.persistence.decision_repository import read
+
         return read(self, stage, ident)
 
     def __init__(self, sessions, context):
@@ -629,7 +646,9 @@ class PostgresCountryComplianceRepository:
                 raise LookupError("regulation source no longer authorized")
             if request.subject_type == "DATA_ITEM":
                 item = self.get(s, b.DataItemEntity, request.subject_id)
-                detail = exact_item_detail(s, self.tenant, request.subject_id, pin.data_inventory_version)
+                detail = exact_item_detail(
+                    s, self.tenant, request.subject_id, pin.data_inventory_version
+                )
                 if (
                     item.project_id != str(request.project_id)
                     or detail.version != pin.data_inventory_version
@@ -648,10 +667,17 @@ class PostgresCountryComplianceRepository:
                     or detail.validation_status != "VALIDATED"
                 ):
                     raise LookupError("formal data flow unavailable")
-                items = tuple(UUID(v) for v in flow_item_ids(s, self.tenant, request.subject_id, pin.data_inventory_version))
+                items = tuple(
+                    UUID(v)
+                    for v in flow_item_ids(
+                        s, self.tenant, request.subject_id, pin.data_inventory_version
+                    )
+                )
                 for ident in items:
                     linked_item = self.get(s, b.DataItemEntity, ident)
-                    linked_detail = exact_item_detail(s, self.tenant, ident, pin.data_inventory_version)
+                    linked_detail = exact_item_detail(
+                        s, self.tenant, ident, pin.data_inventory_version
+                    )
                     if (
                         linked_item.project_id != str(request.project_id)
                         or linked_detail.version != pin.data_inventory_version
@@ -702,6 +728,15 @@ class PostgresCountryComplianceRepository:
                     not in version.runtime_contract_json["scope"]["jurisdiction_ids"]
                 ):
                     raise LookupError("RuleHit jurisdiction mismatch")
+                if (
+                    hit.jurisdiction_id is not None
+                    and hit.jurisdiction_id != request.jurisdiction_id
+                ):
+                    raise LookupError("RuleHit execution jurisdiction mismatch")
+                if hit.jurisdiction_id is None and version.runtime_contract_json["scope"][
+                    "jurisdiction_ids"
+                ] != [str(request.jurisdiction_id)]:
+                    raise LookupError("legacy RuleHit jurisdiction is ambiguous")
                 hits.append(hit)
             if len(profile.profiles) == 1:
                 country = profile.profiles[0].config
@@ -1229,6 +1264,19 @@ class PostgresCountryComplianceRepository:
                     for r in prior
                     if r.formal_provenance_json
                     and r.formal_provenance_json["analysis_snapshot_id"] == str(snapshot_id)
+                    and (
+                        r.formal_provenance_json.get("jurisdiction_id") == str(jurisdiction_id)
+                        or (
+                            r.formal_provenance_json.get("jurisdiction_id") is None
+                            and [str(jurisdiction_id)]
+                            == [
+                                str(j)
+                                for r in rules
+                                if r.rule_version_id == hit.rule_version_id
+                                for j in r.contract.scope.jurisdiction_ids
+                            ]
+                        )
+                    )
                 ]
                 if saved:
                     historical = RuleHit.model_validate(saved[0].formal_provenance_json)

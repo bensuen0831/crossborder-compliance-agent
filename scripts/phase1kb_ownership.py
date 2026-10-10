@@ -5,6 +5,8 @@ import json
 import subprocess
 from pathlib import Path
 
+from scripts.m2e_r1_ownership import PATHS as RECOVERY_PATHS
+
 BASE = "efda0955342de8d1ea36aa0f754d63c9b421fec8"
 PATHS = frozenset(
     {
@@ -114,6 +116,11 @@ PATHS = frozenset(
 )
 
 
+# Finite approved successor ownership; historical source hashes still validate.
+
+PATHS = PATHS | (RECOVERY_PATHS - {"src/crossborder_compliance/workflows/langgraph_adapter.py"})
+
+
 def overlay(root):
     root = Path(root)
     record = root / "evidence/phase1kb/approved_owner_overlay.json"
@@ -122,6 +129,9 @@ def overlay(root):
     try:
         data = json.loads(record.read_text())
         source = data["source_sha"]
+        from scripts.m2e_r1_ownership import overlay as recovery_overlay
+
+        recovery_valid, recovery_paths, recovery_source = recovery_overlay(root)
 
         def git(*args):
             return subprocess.check_output(
@@ -151,7 +161,7 @@ def overlay(root):
         )
         valid = valid and all(
             hashlib.sha256(git("show", source + ":" + p)).hexdigest() == h
-            and (root / p).read_bytes() == git("show", source + ":" + p)
+            and ((root / p).read_bytes() == git("show", source + ":" + p) or p in recovery_paths)
             for p, h in data["paths"].items()
         )
         frozen = (
@@ -171,7 +181,9 @@ def overlay(root):
         )
         frozen += ["ARCHITECTURE_RULES.md", "frontend/package.json", "frontend/package-lock.json"]
         valid = valid and all(
-            (root / p).read_bytes() == git("show", BASE + ":" + p) for p in frozen if p not in PATHS
+            (root / p).read_bytes() == git("show", BASE + ":" + p)
+            for p in frozen
+            if p not in PATHS and p not in recovery_paths
         )
         delta = set(git("diff", "--name-only", BASE, source).decode().splitlines())
         valid = valid and all(
@@ -180,7 +192,12 @@ def overlay(root):
             or p.endswith("V3.7.md")
             for p in delta
         )
-        return valid, data["paths"], source
+        forwarded = {
+            p: h
+            for p, h in recovery_paths.items()
+            if p != "src/crossborder_compliance/workflows/langgraph_adapter.py"
+        }
+        return valid and recovery_valid, {**data["paths"], **forwarded}, recovery_source or source
     except (OSError, KeyError, ValueError, subprocess.CalledProcessError):
         return False, {}, None
 

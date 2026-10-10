@@ -43,10 +43,13 @@ configure_tracing(settings.otel_service_name)
 
 @asynccontextmanager
 async def lifespan(app):
-    sessions = (
-        getattr(app.state, "knowledge_session_factory", None)
-        or build_session_factory(settings.database_url)[1]
-    )
+    sessions = getattr(app.state, "knowledge_session_factory", None)
+    owned_engine = None
+    if sessions is None:
+        owned_engine, sessions = build_session_factory(settings.database_url)
+    # One deployment-owned pool, not a fresh pool for every HTTP request.
+    # RepositoryContext and live authorization remain request scoped.
+    app.state.knowledge_session_factory = sessions
     worker = KnowledgePublicationWorker(
         sessions, settings.redis_url, embedding=getattr(app.state, "query_embedding_port", None)
     )
@@ -55,16 +58,29 @@ async def lifespan(app):
     profile_worker = ComplianceProfilePublicationWorker(sessions)
     app.state.compliance_profile_worker = profile_worker
     profile_worker.start()
+    # Canonical business execution remains behind the existing runtime; this
+    # worker owns only durable channel delivery and webhook retries.
+    from crossborder_compliance.infrastructure.integration_worker import IntegrationDeliveryWorker
+    integration_worker = IntegrationDeliveryWorker(app)
+    app.state.integration_delivery_worker = integration_worker
+    integration_worker.start()
     try:
         yield
     finally:
+        integration_worker.stop()
         profile_worker.stop()
         worker.stop()
+        if owned_engine is not None:
+            owned_engine.dispose()
+            if app.state.knowledge_session_factory is sessions:
+                del app.state.knowledge_session_factory
 
 
 app = FastAPI(lifespan=lifespan, title="Cross-border Compliance Agent", version="0.7.0-phase1g")
 app.include_router(health_router)
 app.include_router(metadata_router)
+from crossborder_compliance.interfaces.api.routes.integrations import admin_router as integration_admin_router
+app.include_router(integration_admin_router)
 app.include_router(admin_metadata_router)
 app.include_router(documents_router)
 app.include_router(context_resolution_router)

@@ -1,0 +1,8 @@
+{
+  "single_head": [
+    "0018_phase1h_multijurisdiction_classification_identity"
+  ],
+  "current_revision": "0018_phase1h_multijurisdiction_classification_identity",
+  "index_definition": "CREATE UNIQUE INDEX uq_formal_classification_snapshot ON public.classification_results USING btree (tenant_id, project_id, analysis_snapshot_id, subject_id, jurisdiction_id, scheme_version_id) WHERE (formal_provenance_json IS NOT NULL)",
+  "predicate_unchanged": true
+}

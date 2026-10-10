@@ -22,6 +22,7 @@ from crossborder_compliance.application.workflow_skeleton import (
     StageExecutionResult,
     StageOutcomeCode,
 )
+from crossborder_compliance.domain.classification import ClassificationJurisdictionBinding
 from crossborder_compliance.domain.retrieval import KnowledgeRetrievalQuery, RAGContextPack
 
 
@@ -40,7 +41,10 @@ class FormalWorkflowPlan(ReferenceModel):
     subject_type: Literal["DATA_ITEM", "DATA_FLOW", "SCENARIO"]
     subject_id: UUID
     classification_data_item_ids: tuple[UUID, ...] = Field(default=(), max_length=128)
-    scheme_version_id: UUID | None = None
+    scheme_version_id: UUID | None = None  # Frozen single-jurisdiction legacy plans.
+    classification_bindings: tuple[ClassificationJurisdictionBinding, ...] = Field(
+        default=(), max_length=128
+    )
     applicability: tuple[ApplicabilityBinding, ...] = Field(min_length=1, max_length=128)
     retrieval_query: KnowledgeRetrievalQuery
     requirement_review: bool = False
@@ -68,7 +72,8 @@ class FormalWorkflowPlan(ReferenceModel):
         ):
             raise ValueError("scenario mode cannot fabricate classification")
         if self.mode == "DATA_AWARE" and (
-            not self.classification_data_item_ids or not self.scheme_version_id
+            not self.classification_data_item_ids
+            or not (self.scheme_version_id or self.classification_bindings)
         ):
             raise ValueError("data mode requires explicit classification references")
         if self.input_capability_gap is not None and (
@@ -89,6 +94,16 @@ class FormalWorkflowPlan(ReferenceModel):
             self.applicability
         ):
             raise ValueError("duplicate applicability binding")
+        if self.classification_bindings:
+            if self.scheme_version_id is not None:
+                raise ValueError("explicit binding plan cannot mix legacy scheme selection")
+            jurisdictions = [b.jurisdiction_id for b in self.classification_bindings]
+            if len(set(jurisdictions)) != len(jurisdictions) or set(jurisdictions) != {
+                b.jurisdiction_id for b in self.applicability
+            }:
+                raise ValueError(
+                    "classification bindings must cover exact applicability jurisdictions"
+                )
         return self
 
 
@@ -416,18 +431,26 @@ class FormalWorkflowStages:
                     reasons=("SCENARIO_LEVEL_NO_CLASSIFICATION",),
                 )
             refs = []
+            executions = (
+                tuple((b.jurisdiction_id, b.scheme_version_id) for b in p.classification_bindings)
+                if p.classification_bindings
+                else ((None, p.scheme_version_id),)
+            )
             for item in p.classification_data_item_ids:
-                outcome = self.classification.execute(
-                    project_id=p.project_id,
-                    snapshot_id=p.analysis_snapshot_id,
-                    data_item_id=item,
-                    scheme_version_id=p.scheme_version_id,
-                )
-                status = formal_outcome(outcome.result or outcome, outcome.status)
-                if outcome.result:
-                    refs.append(outcome.result.classification_result_id)
-                if status != StageOutcomeCode.SUCCESS:
-                    return self._result(request, status, tuple(refs), outcome.reason_codes)
+                for jurisdiction, scheme in executions:
+                    kwargs = {} if jurisdiction is None else {"jurisdiction_id": jurisdiction}
+                    outcome = self.classification.execute(
+                        project_id=p.project_id,
+                        snapshot_id=p.analysis_snapshot_id,
+                        data_item_id=item,
+                        scheme_version_id=scheme,
+                        **kwargs,
+                    )
+                    status = formal_outcome(outcome.result or outcome, outcome.status)
+                    if outcome.result:
+                        refs.append(outcome.result.classification_result_id)
+                    if status != StageOutcomeCode.SUCCESS:
+                        return self._result(request, status, tuple(refs), outcome.reason_codes)
             return self._result(
                 request, StageOutcomeCode.SUCCESS, tuple(refs), ("FORMAL_CLASSIFICATION",)
             )
@@ -458,10 +481,20 @@ class FormalWorkflowStages:
                     )
             retrieval_id = request.result_refs[SemanticStep.RETRIEVAL]
             classes = request.result_ref_sets.get(SemanticStep.CLASSIFICATION, ())
-            hits = tuple(h for ident in classes for h in self.country.classify(ident).rule_hit_ids)
+            classification_results = {ident: self.country.classify(ident) for ident in classes}
             refs, outcomes, reasons = [], [], []
             for binding in p.applicability:
-                scoped_hits = hits
+                scoped_classes = tuple(
+                    ident
+                    for ident, result in classification_results.items()
+                    if not p.classification_bindings
+                    or result.jurisdiction_id == binding.jurisdiction_id
+                )
+                scoped_hits = tuple(
+                    h
+                    for ident in scoped_classes
+                    for h in classification_results[ident].rule_hit_ids
+                )
                 if p.mode == "SCENARIO_LEVEL":
                     if self.scenario_rules is None:
                         return self._result(
@@ -499,7 +532,7 @@ class FormalWorkflowStages:
                         jurisdiction_id=binding.jurisdiction_id,
                         applicability_config_id=binding.config_id,
                         retrieval_run_id=retrieval_id,
-                        classification_result_ids=classes,
+                        classification_result_ids=scoped_classes,
                         rule_hit_ids=tuple(dict.fromkeys(scoped_hits)),
                     )
                 )

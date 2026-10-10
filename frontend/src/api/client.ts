@@ -6,6 +6,7 @@ import m2aSchemas from './m2a-schemas.json';
 import m2cSchemas from './m2c-schemas.json';
 import m2dSchemas from './m2d-schemas.json';
 import phase1kbSchemas from './phase1kb-schemas.json';
+import m2eSchemas from './m2e-schemas.json';
 import type { AuthorizedContext, Health, Metadata, Readiness, RetrievalRequest, RetrievalResponse, Scope, Session } from './contracts';
 
 export class ApiError extends Error {
@@ -48,7 +49,7 @@ const presentationSchemas: Record<string, object> = {
 export function validateContract<T>(name: string, body: unknown): T {
   let validate = validators.get(name);
   if (!validate) {
-    validate = ajv.compile(presentationSchemas[name] ?? { $ref: `#/components/schemas/${name}`, components: { schemas: { ...openapi.components.schemas, ...m1Schemas.components.schemas, ...m2aSchemas.components.schemas, ...m2cSchemas.components.schemas, ...m2dSchemas.components.schemas, ...phase1kbSchemas.components.schemas } } });
+    validate = ajv.compile(presentationSchemas[name] ?? { $ref: `#/components/schemas/${name}`, components: { schemas: { ...openapi.components.schemas, ...m1Schemas.components.schemas, ...m2aSchemas.components.schemas, ...m2cSchemas.components.schemas, ...m2dSchemas.components.schemas, ...phase1kbSchemas.components.schemas, ...m2eSchemas.components.schemas } } });
     validators.set(name, validate);
   }
   if (!validate(body)) throw new ApiError(502, 'API_CONTRACT_MISMATCH');
