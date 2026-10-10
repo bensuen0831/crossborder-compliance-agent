@@ -1,0 +1,57 @@
+{
+  "run_id": 38040033976,
+  "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38040033976",
+  "workflow": "M2A Production Intake",
+  "event": "workflow_dispatch",
+  "conclusion": "success",
+  "tested_main_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "runner_checkout_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "checkout_jobs": {
+    "frontend-real-backend-uat": "df3a10923734495d728981f4f319b66afadf8c71"
+  },
+  "browser": {
+    "stats": {
+      "startTime": "2026-10-10T09:08:11.013Z",
+      "duration": 93464.985,
+      "expected": 3,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "files": {
+      "m2a.spec.ts": 3
+    },
+    "titles": [
+      "m2a.spec.ts / new persisted project, refresh, exact snapshot and canonical START/READ in zh-CN",
+      "m2a.spec.ts / new persisted project, refresh, exact snapshot and canonical START/READ in zh-HK",
+      "m2a.spec.ts / new persisted project, refresh, exact snapshot and canonical START/READ in en-US"
+    ],
+    "retry_count": 0
+  },
+  "frontend_passed": 135,
+  "i18n": {
+    "status": "PASS",
+    "locales": [
+      "zh-CN",
+      "zh-HK",
+      "en-US"
+    ],
+    "keys_per_locale": 657,
+    "checked_files": 50,
+    "hard_coded_ui_strings": 0,
+    "missing_keys": 0
+  },
+  "checkout_notice": {
+    "tested_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+    "browser": {
+      "startTime": "2026-10-10T09:08:11.013Z",
+      "duration": 93464.985,
+      "expected": 3,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "retry_count": 0,
+    "alembic": "0018_phase1h_multijurisdiction_classification_identity"
+  }
+}

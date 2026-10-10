@@ -1,0 +1,143 @@
+{
+  "schema_version": "1.0.0",
+  "measured_at": "2026-10-10T07:57:51.899545+00:00",
+  "M2-E PR CLOSURE": "PASS",
+  "pr": 27,
+  "branch": "milestone-m2e-external-agent-api",
+  "base_main": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+  "base_tag": "v3.7-phase1kb-pass",
+  "tested_pr_head_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+  "runner_checkout_sha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+  "final_pr_head": "291d52fef7d94fe2462942a910c594dff09c98b0",
+  "alembic": "0018_phase1h_multijurisdiction_classification_identity",
+  "backend": {
+    "passed": 910,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "architecture": {
+    "passed": 307,
+    "total": 307
+  },
+  "runtime": {
+    "passed": 25,
+    "total": 25
+  },
+  "frontend": {
+    "passed": 135
+  },
+  "browser": {
+    "passed": 60,
+    "total": 60,
+    "retries": 0,
+    "counts": {
+      "m1.spec.ts": 3,
+      "m2a.spec.ts": 3,
+      "m2b.spec.ts": 3,
+      "m2c.spec.ts": 3,
+      "m2d.spec.ts": 3,
+      "m2e.spec.ts": 3,
+      "phase1kb.spec.ts": 6,
+      "knowledge.spec.ts": 36
+    }
+  },
+  "locales": [
+    "zh-CN",
+    "zh-HK",
+    "en-US"
+  ],
+  "exact_head_ci": [
+    {
+      "conclusion": "success",
+      "databaseId": 38033961221,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961221",
+      "workflowName": "M0 Knowledge & Evidence Preview"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38033961098,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961098",
+      "workflowName": "M2A Production Intake"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38033961145,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961145",
+      "workflowName": "M2B Production Document Integration"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38033961150,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961150",
+      "workflowName": "M1 Intake Analysis Alpha"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38033961141,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961141",
+      "workflowName": "M2C Formal Result Workspace"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38033961138,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961138",
+      "workflowName": "M2D Governed Human Review"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38033961132,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961132",
+      "workflowName": "M2E External Agent API Gateway"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38033961120,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961120",
+      "workflowName": "Phase1KB Multi-provider LLM Governance"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38033961165,
+      "headSha": "291d52fef7d94fe2462942a910c594dff09c98b0",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38033961165",
+      "workflowName": "phase1a-runtime-smoke"
+    }
+  ],
+  "paid_internet_llm": "NOT EXECUTED",
+  "blockers": [],
+  "main_integration": "PENDING",
+  "stage1_full_e2e_entry": "BLOCKED",
+  "stage2": "NOT STARTED",
+  "evidence_branch": "evidence/m2e-pr-closure-291d52f"
+}

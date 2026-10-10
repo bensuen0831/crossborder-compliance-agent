@@ -1,0 +1,78 @@
+{
+  "run_id": 38040040447,
+  "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38040040447",
+  "workflow": "M0 Knowledge & Evidence Preview",
+  "event": "workflow_dispatch",
+  "conclusion": "success",
+  "tested_main_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "runner_checkout_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "checkout_jobs": {
+    "real-backend-uat": "df3a10923734495d728981f4f319b66afadf8c71",
+    "frontend": "df3a10923734495d728981f4f319b66afadf8c71"
+  },
+  "browser": {
+    "stats": {
+      "startTime": "2026-10-10T09:05:52.176Z",
+      "duration": 108823.081,
+      "expected": 36,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "files": {
+      "knowledge.spec.ts": 36
+    },
+    "titles": [
+      "knowledge.spec.ts / zh-CN / real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "knowledge.spec.ts / zh-CN / identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "knowledge.spec.ts / zh-CN / no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "knowledge.spec.ts / zh-CN / canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "knowledge.spec.ts / zh-CN / real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "knowledge.spec.ts / zh-CN / identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "knowledge.spec.ts / zh-CN / no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "knowledge.spec.ts / zh-CN / canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "knowledge.spec.ts / zh-CN / real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "knowledge.spec.ts / zh-CN / identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "knowledge.spec.ts / zh-CN / no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "knowledge.spec.ts / zh-CN / canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "knowledge.spec.ts / zh-HK / real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "knowledge.spec.ts / zh-HK / identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "knowledge.spec.ts / zh-HK / no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "knowledge.spec.ts / zh-HK / canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "knowledge.spec.ts / zh-HK / real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "knowledge.spec.ts / zh-HK / identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "knowledge.spec.ts / zh-HK / no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "knowledge.spec.ts / zh-HK / canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "knowledge.spec.ts / zh-HK / real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "knowledge.spec.ts / zh-HK / identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "knowledge.spec.ts / zh-HK / no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "knowledge.spec.ts / zh-HK / canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "knowledge.spec.ts / en-US / real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "knowledge.spec.ts / en-US / identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "knowledge.spec.ts / en-US / no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "knowledge.spec.ts / en-US / canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "knowledge.spec.ts / en-US / real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "knowledge.spec.ts / en-US / identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "knowledge.spec.ts / en-US / no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "knowledge.spec.ts / en-US / canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "knowledge.spec.ts / en-US / real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "knowledge.spec.ts / en-US / identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "knowledge.spec.ts / en-US / no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "knowledge.spec.ts / en-US / canonical Admin route inspects real Knowledge version and denies the normal project user"
+    ],
+    "retry_count": 0
+  },
+  "frontend_passed": 135,
+  "i18n": {
+    "status": "PASS",
+    "locales": [
+      "zh-CN",
+      "zh-HK",
+      "en-US"
+    ],
+    "keys_per_locale": 657,
+    "checked_files": 50,
+    "hard_coded_ui_strings": 0,
+    "missing_keys": 0
+  }
+}

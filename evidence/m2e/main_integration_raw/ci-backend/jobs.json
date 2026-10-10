@@ -1,0 +1,237 @@
+{
+  "total_count": 2,
+  "jobs": [
+    {
+      "id": 114178223460,
+      "run_id": 38040019858,
+      "workflow_name": "phase1a-runtime-smoke",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/bensuen0831/crossborder-compliance-agent/actions/runs/38040019858",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOU0yFEM8AAAAalY1tZA",
+      "head_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "url": "https://api.github.com/repos/bensuen0831/crossborder-compliance-agent/actions/jobs/114178223460",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38040019858/job/114178223460",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-10T09:03:10Z",
+      "started_at": "2026-10-10T09:03:12Z",
+      "completed_at": "2026-10-10T09:06:39Z",
+      "name": "contract-tests",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-10T09:03:13Z",
+          "completed_at": "2026-10-10T09:03:13Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-10T09:03:13Z",
+          "completed_at": "2026-10-10T09:03:16Z"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-10T09:03:16Z",
+          "completed_at": "2026-10-10T09:03:19Z"
+        },
+        {
+          "name": "Run python -m pip install --upgrade pip",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-10T09:03:19Z",
+          "completed_at": "2026-10-10T09:03:19Z"
+        },
+        {
+          "name": "Run python -m pip install -e \".[dev]\"",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-10T09:03:19Z",
+          "completed_at": "2026-10-10T09:03:34Z"
+        },
+        {
+          "name": "Contract/static test subset",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-10T09:03:34Z",
+          "completed_at": "2026-10-10T09:06:33Z"
+        },
+        {
+          "name": "Architecture rules",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-10T09:06:33Z",
+          "completed_at": "2026-10-10T09:06:35Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-10T09:06:35Z",
+          "completed_at": "2026-10-10T09:06:37Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-10T09:06:37Z",
+          "completed_at": "2026-10-10T09:06:37Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-10T09:06:37Z",
+          "completed_at": "2026-10-10T09:06:37Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/bensuen0831/crossborder-compliance-agent/check-runs/114178223460",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000000573,
+      "runner_name": "GitHub Actions 1000000573",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 114178223637,
+      "run_id": 38040019858,
+      "workflow_name": "phase1a-runtime-smoke",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/bensuen0831/crossborder-compliance-agent/actions/runs/38040019858",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOU0yFEM8AAAAalY1uFQ",
+      "head_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "url": "https://api.github.com/repos/bensuen0831/crossborder-compliance-agent/actions/jobs/114178223637",
+      "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38040019858/job/114178223637",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-10T09:03:10Z",
+      "started_at": "2026-10-10T09:03:13Z",
+      "completed_at": "2026-10-10T09:26:18Z",
+      "name": "mandatory-runtime-smoke",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-10T09:03:13Z",
+          "completed_at": "2026-10-10T09:03:14Z"
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-10T09:03:14Z",
+          "completed_at": "2026-10-10T09:03:32Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-10T09:03:32Z",
+          "completed_at": "2026-10-10T09:03:34Z"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-10T09:03:34Z",
+          "completed_at": "2026-10-10T09:03:37Z"
+        },
+        {
+          "name": "Install project runtime and test dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-10T09:03:37Z",
+          "completed_at": "2026-10-10T09:03:54Z"
+        },
+        {
+          "name": "Run mandatory PostgreSQL-backed LangGraph gate",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-10T09:03:54Z",
+          "completed_at": "2026-10-10T09:26:14Z"
+        },
+        {
+          "name": "Publish measured Phase 1G empirical evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-10T09:26:14Z",
+          "completed_at": "2026-10-10T09:26:14Z"
+        },
+        {
+          "name": "Upload empirical Phase 1A.1 evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-10T09:26:14Z",
+          "completed_at": "2026-10-10T09:26:15Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-10T09:26:15Z",
+          "completed_at": "2026-10-10T09:26:15Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-10T09:26:15Z",
+          "completed_at": "2026-10-10T09:26:15Z"
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-10T09:26:15Z",
+          "completed_at": "2026-10-10T09:26:16Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-10T09:26:16Z",
+          "completed_at": "2026-10-10T09:26:16Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/bensuen0831/crossborder-compliance-agent/check-runs/114178223637",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000000574,
+      "runner_name": "GitHub Actions 1000000574",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

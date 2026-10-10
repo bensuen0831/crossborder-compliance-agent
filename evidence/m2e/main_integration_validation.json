@@ -1,0 +1,2602 @@
+{
+  "decision": "M2-E MAIN INTEGRATION = PASS",
+  "created_at": "2026-10-10T09:44:18.046982+00:00",
+  "source_pr": 27,
+  "source_pr_head": "291d52fef7d94fe2462942a910c594dff09c98b0",
+  "baseline_main_sha": "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+  "merged_main_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "final_main_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "tested_main_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "merge_parents": [
+    "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+    "291d52fef7d94fe2462942a910c594dff09c98b0"
+  ],
+  "runner_checkout_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "runner_checkout_shas": {
+    "m2e": {
+      "canonical-frontend-browser": "df3a10923734495d728981f4f319b66afadf8c71",
+      "mandatory-backend": "df3a10923734495d728981f4f319b66afadf8c71"
+    },
+    "phase1kb": {
+      "mandatory-backend": "df3a10923734495d728981f4f319b66afadf8c71",
+      "canonical-frontend-browser": "df3a10923734495d728981f4f319b66afadf8c71"
+    },
+    "backend": {
+      "contract-tests": "df3a10923734495d728981f4f319b66afadf8c71",
+      "mandatory-runtime-smoke": "df3a10923734495d728981f4f319b66afadf8c71"
+    },
+    "m2d": {
+      "frontend-real-backend-uat": "df3a10923734495d728981f4f319b66afadf8c71"
+    },
+    "m2c": {
+      "frontend-real-backend-uat": "df3a10923734495d728981f4f319b66afadf8c71"
+    },
+    "m2b": {
+      "frontend-real-backend-uat": "df3a10923734495d728981f4f319b66afadf8c71"
+    },
+    "m2a": {
+      "frontend-real-backend-uat": "df3a10923734495d728981f4f319b66afadf8c71"
+    },
+    "m1": {
+      "frontend-real-backend-uat": "df3a10923734495d728981f4f319b66afadf8c71"
+    },
+    "m0": {
+      "real-backend-uat": "df3a10923734495d728981f4f319b66afadf8c71",
+      "frontend": "df3a10923734495d728981f4f319b66afadf8c71"
+    }
+  },
+  "tag": "v3.7-m2e-pass",
+  "tag_object_sha": "c92daef5b47136fb14e2782c737927176d45086a",
+  "tag_target_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "migration_head": "0018_phase1h_multijurisdiction_classification_identity",
+  "backend": {
+    "passed": 910,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "architecture": {
+    "passed": 307,
+    "total": 307
+  },
+  "runtime": {
+    "passed": 25,
+    "total": 25
+  },
+  "frontend": {
+    "passed": 135,
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "build": "PASS",
+    "i18n": "PASS"
+  },
+  "browser": {
+    "passed": 60,
+    "total": 60,
+    "retries": 0,
+    "breakdown": {
+      "m1.spec.ts": 3,
+      "m2a.spec.ts": 3,
+      "m2b.spec.ts": 3,
+      "m2c.spec.ts": 3,
+      "m2d.spec.ts": 3,
+      "m2e.spec.ts": 3,
+      "phase1kb.spec.ts": 6,
+      "knowledge.spec.ts": 36
+    },
+    "locales": {
+      "zh-CN": "PASS",
+      "zh-HK": "PASS",
+      "en-US": "PASS"
+    }
+  },
+  "migration": {
+    "tested_pr_head_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+    "runner_checkout_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+    "final_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+    "exact_head_verified": true,
+    "classification": {
+      "migration": "0018_phase1h_multijurisdiction_classification_identity",
+      "parent": "0017_m2e_external_agent_api",
+      "fresh": true,
+      "exact0016_to0017_to0018": true,
+      "exact0017_upgrade": true,
+      "schema_equivalence": true,
+      "legacy_row_and_digest_unchanged": true,
+      "safe_downgrade": true,
+      "reupgrade": true,
+      "two_jurisdictions_persist": true,
+      "same_jurisdiction_duplicate_rejected": true,
+      "unsafe_downgrade_transactionally_refused": true,
+      "predicate_unchanged": true,
+      "frozen_0001_0016": true,
+      "unchanged_0017": true,
+      "frozen_digests": {
+        "0001_phase1a_runtime_tables.py": "d8a3d4c060beaa95ee2daab5658a476854640c24b3100cee6ebd4c44d86d793a",
+        "0002_phase1b_domain_foundation.py": "4fa947ad533c7faeaa5d8893917a7c1fcb9933436be9ec41180524eae4c3b9da",
+        "0003_phase1c_metadata_registry.py": "fb8c17f96cfe83c6cbb9f5d1b71450f1e77ae1ee1a9d9df334f6fefff24d66b1",
+        "0004_phase1d_document_intelligence.py": "9f1bf0b1ad8924d698a66d996571565fe5ffd22808f906d639d04549fa8d48ff",
+        "0005_phase1e_context_resolution.py": "6f524b052b4e13df4d809f9ab85157999df43ed9f819d76f5aff9e52493993e3",
+        "0006_phase1f_knowledge_scope.py": "5c4ffecc8cf1ff7787bb282eaed18699b918ad5e40c44e23f761fefd0eeb6085",
+        "0007_phase1g_retrieval_evidence.py": "47117a332785bb63d7ef6ae3537bce321732e9d570f2afc005051888c8c5d4b4",
+        "0008_phase1h_rule_classification.py": "04ac67c7ffe3445a1d89b633549690d0c59fa12ac978e90ca5514b5902484f77",
+        "0009_phase1i_applicability.py": "e363840390a0cb673aef676d75c02c24ed8ea7002a9c1a03605db80bf30447e8",
+        "0010_phase1j_formal_decisions.py": "cebbe1158f5b98ca0c2a7dd87726111f50e2fc24f1f83f828ac1243d24d0e57f",
+        "0011_m2a_structured_intake.py": "573785cdee48f57d8ff7761b49d73e57cf110befd4a14d3e1fcae031e5a89cf0",
+        "0012_m2b_document_inputs.py": "f732e59b44c6fb54a4880f5ca777140560614a675315f9ec8f94212409b4cb8f",
+        "0013_m2b_context_temporal_contract.py": "79133fdda7aeda64a1c10e164abe1fbde73534dfecb3f7397a0b8f642ad33561",
+        "0014_m2c_formal_result_authority.py": "63f1e8f97587dd52983d51cb632972ef9a9d0a7b83f60f4f32678ba3d29bd266",
+        "0015_m2d_review_governance.py": "e424078407d47b338b722503f61bd4abd5f94e0cc65aeb7440f4e4330e51e02a",
+        "0016_phase1kb_multi_provider_llm_governance.py": "6f375dc1bc9ba86b668160ac28572822ddfe6867d16d2104d7ee5db5d422ee93",
+        "0017_m2e_external_agent_api.py": "25cdb35ebd50c503abd3554fe7cb1da665007a216461022cc8ea6f4f93cdb7de"
+      }
+    },
+    "integration": {
+      "empty0017_downgrade_reupgrade": true,
+      "populated0017_transactional_refusal": true,
+      "credential_identity_hash_status_preserved": true,
+      "0018_upgrade_preserves_integration_identity": true
+    },
+    "pass": true
+  },
+  "local_migration": {
+    "tested_main_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+    "pass": true,
+    "passed": 3,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 0,
+    "postgresql": "17.11 (Debian 17.11-0+deb13u1)",
+    "isolation": "unique temporary databases created and dropped by tests",
+    "classification": {
+      "migration": "0018_phase1h_multijurisdiction_classification_identity",
+      "parent": "0017_m2e_external_agent_api",
+      "fresh": true,
+      "exact0016_to0017_to0018": true,
+      "exact0017_upgrade": true,
+      "schema_equivalence": true,
+      "legacy_row_and_digest_unchanged": true,
+      "safe_downgrade": true,
+      "reupgrade": true,
+      "two_jurisdictions_persist": true,
+      "same_jurisdiction_duplicate_rejected": true,
+      "unsafe_downgrade_transactionally_refused": true,
+      "predicate_unchanged": true
+    },
+    "integration": {
+      "empty0017_downgrade_reupgrade": true,
+      "populated0017_transactional_refusal": true,
+      "credential_identity_hash_status_preserved": true,
+      "0018_upgrade_preserves_integration_identity": true
+    },
+    "test_cases": [
+      {
+        "classname": "tests.test_m2e_r11_migrations",
+        "name": "test_fresh_exact0017_equivalence_preserving_rows_downgrade_and_refusal",
+        "time": "16.273"
+      },
+      {
+        "classname": "tests.test_m2e_r11_migrations",
+        "name": "test_frozen_migrations_and_wip0017_byte_identity",
+        "time": "0.030"
+      },
+      {
+        "classname": "tests.test_m2e_integration_migrations",
+        "name": "test_empty_and_populated_integration_downgrade_transactional_policy",
+        "time": "8.830"
+      }
+    ],
+    "scope": "independent local main-specific migration evidence; exact-main CI separately required"
+  },
+  "capability_gates": {
+    "authentication": "PASS",
+    "scopes_project_binding": "PASS",
+    "external_api": "PASS",
+    "async_delivery": "PASS",
+    "sse": "PASS",
+    "websocket": "PASS",
+    "webhook": "PASS",
+    "security": "PASS",
+    "idempotency_cas": "PASS",
+    "rate_quota_audit": "PASS",
+    "openapi": "PASS",
+    "python_sdk": "PASS",
+    "typescript_sdk": "PASS",
+    "ui_api_formal_parity": "PASS",
+    "r1_jurisdiction_contract": "PASS",
+    "m2b_temporal": "PASS",
+    "m2d_review": "PASS",
+    "phase1kb_regression": "PASS",
+    "hitl": "PASS",
+    "restart": "PASS",
+    "successor_snapshot": "PASS",
+    "historical_immutability": "PASS"
+  },
+  "security": {
+    "tested_pr_head_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+    "runner_checkout_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+    "final_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+    "exact_head_verified": true,
+    "passed_m2e_tests": 66,
+    "classes": [
+      "tests.test_m2e_architecture_closure",
+      "tests.test_m2e_checkpointer_concurrency",
+      "tests.test_m2e_gateway_closure",
+      "tests.test_m2e_http",
+      "tests.test_m2e_identity_postgres",
+      "tests.test_m2e_integration_migrations",
+      "tests.test_m2e_openapi_sdk",
+      "tests.test_m2e_r11_migrations",
+      "tests.test_m2e_r1_architecture",
+      "tests.test_m2e_r1_classification_postgres",
+      "tests.test_m2e_r1_isolation",
+      "tests.test_m2e_vertical_postgres",
+      "tests.test_m2e_webhooks_postgres"
+    ],
+    "paid_internet_llm": "NOT EXECUTED",
+    "pass": true
+  },
+  "external_vertical": {
+    "runner_checkout_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+    "real_http": true,
+    "real_postgresql": true,
+    "real_docx": true,
+    "genuine_source_trace": true,
+    "document_fact_participates": true,
+    "distinct_jurisdictions": true,
+    "workflow_status": "COMPLETED",
+    "snapshot_id": "404923de-a9d0-5d78-80e6-9dc743e517d7",
+    "workflow_run_id": "0a8de2ee-d586-56f0-ab12-05743c4ba94e",
+    "sse_websocket_parity": true,
+    "reconnect": true,
+    "cross_client_denied": true,
+    "lease_restart": true,
+    "no_paid_internet_llm": true,
+    "external_successor_snapshot": true,
+    "historical_result_unchanged_after_successor": true
+  },
+  "external_review": {
+    "runner_checkout_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+    "real_http": true,
+    "real_postgresql": true,
+    "real_docx": true,
+    "genuine_source_trace": true,
+    "document_fact_participates": true,
+    "distinct_jurisdictions": true,
+    "workflow_status": "REVIEW_REQUIRED",
+    "snapshot_id": "3ebf35b7-9345-56cf-a983-a558bd739439",
+    "workflow_run_id": "208f0219-2d80-5d47-b8e0-b6601f8bb13d",
+    "sse_websocket_parity": true,
+    "reconnect": true,
+    "cross_client_denied": true,
+    "lease_restart": true,
+    "no_paid_internet_llm": true
+  },
+  "ui_api_parity": {
+    "runner_checkout_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+    "same_authorized_canonical_context": true,
+    "canonical_route": "Stage1ResultService",
+    "all_structured_fields_equal": true,
+    "canonical_input_channel_exercised": true,
+    "intake_adapter_equal": true,
+    "canonical_document_universe_equal": true,
+    "confirmed_input_and_snapshot_equal": true,
+    "model_preferences_equal": true,
+    "owning_fields": [
+      "classification",
+      "applicability",
+      "cross_border",
+      "obligation",
+      "risk",
+      "recommendation",
+      "final_path",
+      "document_requirements",
+      "legal_basis",
+      "analysis_snapshot_id"
+    ],
+    "presentation_exceptions": [],
+    "result_not_precomputed": true
+  },
+  "required_semantic_cases": [
+    "test_oauth_live_scopes_hashed_credentials_and_no_get_secret",
+    "test_token_revalidates_current_authority",
+    "test_service_account_same_context_revocable_no_global_authority",
+    "test_binding_fail_closed_cross_client_and_tenant",
+    "test_admin_idempotency_cas_and_secret_reveal_once",
+    "test_atomic_rate_and_quota_are_configured",
+    "test_real_http_create_read_update_cas_actor_binding_and_idempotency",
+    "test_public_input_rejects_authority_and_sanitizes_validation",
+    "test_http_auth_denied_errors_safe_and_no_secret_in_admin_get",
+    "test_oauth_failed_attempts_are_durably_rate_limited",
+    "test_parallel_rate_counter_and_repository_restart",
+    "test_admin_options_bindings_disabled_client_and_scope_audit",
+    "test_webhook_edits_governed_callback_and_event_filter",
+    "test_interrupted_delivery_new_worker_reclaims_and_old_lease_cannot_finish",
+    "test_unknown_workflow_has_safe_stable_error",
+    "test_failed_oauth_audit_has_server_bound_identity_without_authenticating",
+    "test_expired_service_credential_is_denied_by_real_http",
+    "test_actual_signed_delivery_retry_and_bounded_failure",
+    "test_external_callback_ssrf_rejected",
+    "test_disable_and_rotate_key_cas_idempotency_preserve_delivery_history",
+    "test_external_only_openapi_strict_authority_security_errors",
+    "test_python_sdk_real_http_auth_intake_cas_no_authority_injection",
+    "test_external_real_docx_rag_async_result_and_review",
+    "test_parallel_first_startup_and_process_restart_one_checkpoint_authority",
+    "test_two_jurisdictions_complete_rule_union_and_distinct_execution_identity",
+    "test_configuration_gap_or_conflict_is_atomic",
+    "test_unpinned_or_implicit_execution_rejected",
+    "test_future_rule_binding_and_scheme_changes_do_not_change_s1",
+    "test_legacy_single_jurisdiction_historical_execution",
+    "test_database_rejects_competing_same_jurisdiction_result",
+    "test_applicability_rejects_cross_jurisdiction_rule_hit",
+    "test_formal_stages_execute_and_scope_each_explicit_jurisdiction",
+    "test_legacy_rule_hit_serialization_preserves_historical_digest_input",
+    "test_fresh_exact0017_equivalence_preserving_rows_downgrade_and_refusal",
+    "test_frozen_migrations_and_wip0017_byte_identity",
+    "test_empty_and_populated_integration_downgrade_transactional_policy",
+    "test_approval_reexecutes_owner_duplicate_identity_and_history",
+    "test_request_changes_history_no_resume_and_duplicate_cas",
+    "test_fact_choice_creates_successor_keeps_source_and_exact_parse_universe",
+    "test_concurrent_reviewers_one_cas_winner",
+    "test_approval_process_restart_keeps_canonical_history_and_checkpoint",
+    "test_stable_item_has_exact_immutable_snapshot_state_and_provenance"
+  ],
+  "semantic_test_case_evidence": {
+    "test_m2e": [
+      {
+        "classname": "tests.test_m2e_architecture_closure",
+        "name": "test_additive_gateway_architecture",
+        "time": "0.571"
+      },
+      {
+        "classname": "tests.test_m2e_architecture_closure",
+        "name": "test_gateway_cannot_import_formal_engine",
+        "time": "0.622"
+      },
+      {
+        "classname": "tests.test_m2e_architecture_closure",
+        "name": "test_finite_resume_proof_does_not_authorize_r1_engine_change",
+        "time": "0.071"
+      },
+      {
+        "classname": "tests.test_m2e_checkpointer_concurrency",
+        "name": "test_parallel_first_startup_and_process_restart_one_checkpoint_authority",
+        "time": "0.783"
+      },
+      {
+        "classname": "tests.test_m2e_gateway_closure",
+        "name": "test_oauth_failed_attempts_are_durably_rate_limited",
+        "time": "0.427"
+      },
+      {
+        "classname": "tests.test_m2e_gateway_closure",
+        "name": "test_parallel_rate_counter_and_repository_restart",
+        "time": "0.191"
+      },
+      {
+        "classname": "tests.test_m2e_gateway_closure",
+        "name": "test_admin_options_bindings_disabled_client_and_scope_audit",
+        "time": "0.420"
+      },
+      {
+        "classname": "tests.test_m2e_gateway_closure",
+        "name": "test_webhook_edits_governed_callback_and_event_filter",
+        "time": "0.625"
+      },
+      {
+        "classname": "tests.test_m2e_gateway_closure",
+        "name": "test_interrupted_delivery_new_worker_reclaims_and_old_lease_cannot_finish",
+        "time": "0.657"
+      },
+      {
+        "classname": "tests.test_m2e_gateway_closure",
+        "name": "test_unknown_workflow_has_safe_stable_error",
+        "time": "0.417"
+      },
+      {
+        "classname": "tests.test_m2e_gateway_closure",
+        "name": "test_failed_oauth_audit_has_server_bound_identity_without_authenticating",
+        "time": "0.418"
+      },
+      {
+        "classname": "tests.test_m2e_gateway_closure",
+        "name": "test_expired_service_credential_is_denied_by_real_http",
+        "time": "0.518"
+      },
+      {
+        "classname": "tests.test_m2e_http",
+        "name": "test_real_http_create_read_update_cas_actor_binding_and_idempotency",
+        "time": "0.718"
+      },
+      {
+        "classname": "tests.test_m2e_http",
+        "name": "test_public_input_rejects_authority_and_sanitizes_validation[tenant_id]",
+        "time": "0.417"
+      },
+      {
+        "classname": "tests.test_m2e_http",
+        "name": "test_public_input_rejects_authority_and_sanitizes_validation[actor_id]",
+        "time": "0.417"
+      },
+      {
+        "classname": "tests.test_m2e_http",
+        "name": "test_public_input_rejects_authority_and_sanitizes_validation[permission]",
+        "time": "0.416"
+      },
+      {
+        "classname": "tests.test_m2e_http",
+        "name": "test_public_input_rejects_authority_and_sanitizes_validation[formal_risk]",
+        "time": "0.418"
+      },
+      {
+        "classname": "tests.test_m2e_http",
+        "name": "test_public_input_rejects_authority_and_sanitizes_validation[workflow_state]",
+        "time": "0.416"
+      },
+      {
+        "classname": "tests.test_m2e_http",
+        "name": "test_public_input_rejects_authority_and_sanitizes_validation[provider_credentials]",
+        "time": "0.416"
+      },
+      {
+        "classname": "tests.test_m2e_http",
+        "name": "test_http_auth_denied_errors_safe_and_no_secret_in_admin_get",
+        "time": "0.416"
+      },
+      {
+        "classname": "tests.test_m2e_identity_postgres",
+        "name": "test_oauth_live_scopes_hashed_credentials_and_no_get_secret",
+        "time": "0.142"
+      },
+      {
+        "classname": "tests.test_m2e_identity_postgres",
+        "name": "test_token_revalidates_current_authority[expired]",
+        "time": "0.125"
+      },
+      {
+        "classname": "tests.test_m2e_identity_postgres",
+        "name": "test_token_revalidates_current_authority[disabled]",
+        "time": "0.128"
+      },
+      {
+        "classname": "tests.test_m2e_identity_postgres",
+        "name": "test_token_revalidates_current_authority[revoked]",
+        "time": "0.127"
+      },
+      {
+        "classname": "tests.test_m2e_identity_postgres",
+        "name": "test_token_revalidates_current_authority[rotated]",
+        "time": "0.272"
+      },
+      {
+        "classname": "tests.test_m2e_identity_postgres",
+        "name": "test_token_revalidates_current_authority[scope_removed]",
+        "time": "0.131"
+      },
+      {
+        "classname": "tests.test_m2e_identity_postgres",
+        "name": "test_service_account_same_context_revocable_no_global_authority",
+        "time": "0.342"
+      },
+      {
+        "classname": "tests.test_m2e_identity_postgres",
+        "name": "test_binding_fail_closed_cross_client_and_tenant",
+        "time": "0.251"
+      },
+      {
+        "classname": "tests.test_m2e_identity_postgres",
+        "name": "test_admin_idempotency_cas_and_secret_reveal_once",
+        "time": "0.127"
+      },
+      {
+        "classname": "tests.test_m2e_identity_postgres",
+        "name": "test_atomic_rate_and_quota_are_configured",
+        "time": "0.140"
+      },
+      {
+        "classname": "tests.test_m2e_integration_migrations",
+        "name": "test_empty_and_populated_integration_downgrade_transactional_policy",
+        "time": "13.917"
+      },
+      {
+        "classname": "tests.test_m2e_openapi_sdk",
+        "name": "test_production_specific_integration_routes_precede_generic_metadata[/api/v1/admin/integration-clients]",
+        "time": "0.215"
+      },
+      {
+        "classname": "tests.test_m2e_openapi_sdk",
+        "name": "test_production_specific_integration_routes_precede_generic_metadata[/api/v1/admin/integration-clients/options]",
+        "time": "0.216"
+      },
+      {
+        "classname": "tests.test_m2e_openapi_sdk",
+        "name": "test_external_only_openapi_strict_authority_security_errors",
+        "time": "0.527"
+      },
+      {
+        "classname": "tests.test_m2e_openapi_sdk",
+        "name": "test_python_sdk_real_http_auth_intake_cas_no_authority_injection",
+        "time": "0.517"
+      },
+      {
+        "classname": "tests.test_m2e_r11_migrations",
+        "name": "test_fresh_exact0017_equivalence_preserving_rows_downgrade_and_refusal",
+        "time": "24.349"
+      },
+      {
+        "classname": "tests.test_m2e_r11_migrations",
+        "name": "test_frozen_migrations_and_wip0017_byte_identity",
+        "time": "0.032"
+      },
+      {
+        "classname": "tests.test_m2e_r1_architecture",
+        "name": "test_recovery_architecture_checks",
+        "time": "0.016"
+      },
+      {
+        "classname": "tests.test_m2e_r1_architecture",
+        "name": "test_architecture_rejects_cross_jurisdiction_applicability",
+        "time": "0.061"
+      },
+      {
+        "classname": "tests.test_m2e_r1_architecture",
+        "name": "test_recovery_is_exact_committed_finite_successor_owner",
+        "time": "0.105"
+      },
+      {
+        "classname": "tests.test_m2e_r1_architecture",
+        "name": "test_batched_git_proof_still_rejects_live_frozen_engine_tampering",
+        "time": "0.104"
+      },
+      {
+        "classname": "tests.test_m2e_r1_classification_postgres",
+        "name": "test_two_jurisdictions_complete_rule_union_and_distinct_execution_identity",
+        "time": "0.392"
+      },
+      {
+        "classname": "tests.test_m2e_r1_classification_postgres",
+        "name": "test_configuration_gap_or_conflict_is_atomic[missing]",
+        "time": "0.274"
+      },
+      {
+        "classname": "tests.test_m2e_r1_classification_postgres",
+        "name": "test_configuration_gap_or_conflict_is_atomic[ambiguous]",
+        "time": "0.284"
+      },
+      {
+        "classname": "tests.test_m2e_r1_classification_postgres",
+        "name": "test_configuration_gap_or_conflict_is_atomic[expired]",
+        "time": "0.275"
+      },
+      {
+        "classname": "tests.test_m2e_r1_classification_postgres",
+        "name": "test_configuration_gap_or_conflict_is_atomic[scope]",
+        "time": "0.285"
+      },
+      {
+        "classname": "tests.test_m2e_r1_classification_postgres",
+        "name": "test_configuration_gap_or_conflict_is_atomic[multiple_schemes]",
+        "time": "1.469"
+      },
+      {
+        "classname": "tests.test_m2e_r1_classification_postgres",
+        "name": "test_unpinned_or_implicit_execution_rejected",
+        "time": "0.295"
+      },
+      {
+        "classname": "tests.test_m2e_r1_classification_postgres",
+        "name": "test_future_rule_binding_and_scheme_changes_do_not_change_s1",
+        "time": "0.407"
+      },
+      {
+        "classname": "tests.test_m2e_r1_classification_postgres",
+        "name": "test_legacy_single_jurisdiction_historical_execution",
+        "time": "0.262"
+      },
+      {
+        "classname": "tests.test_m2e_r1_classification_postgres",
+        "name": "test_database_rejects_competing_same_jurisdiction_result",
+        "time": "0.340"
+      },
+      {
+        "classname": "tests.test_m2e_r1_isolation",
+        "name": "test_legacy_rule_hit_serialization_preserves_historical_digest_input",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2e_r1_isolation",
+        "name": "test_applicability_rejects_cross_jurisdiction_rule_hit",
+        "time": "0.002"
+      },
+      {
+        "classname": "tests.test_m2e_r1_isolation",
+        "name": "test_formal_stages_execute_and_scope_each_explicit_jurisdiction",
+        "time": "0.003"
+      },
+      {
+        "classname": "tests.test_m2e_vertical_postgres",
+        "name": "test_external_real_docx_rag_async_result_and_review[False-foundation_i0]",
+        "time": "119.410"
+      },
+      {
+        "classname": "tests.test_m2e_vertical_postgres",
+        "name": "test_external_real_docx_rag_async_result_and_review[True-foundation_i0]",
+        "time": "5.624"
+      },
+      {
+        "classname": "tests.test_m2e_webhooks_postgres",
+        "name": "test_actual_signed_delivery_retry_and_bounded_failure[success]",
+        "time": "0.657"
+      },
+      {
+        "classname": "tests.test_m2e_webhooks_postgres",
+        "name": "test_actual_signed_delivery_retry_and_bounded_failure[retry]",
+        "time": "0.672"
+      },
+      {
+        "classname": "tests.test_m2e_webhooks_postgres",
+        "name": "test_actual_signed_delivery_retry_and_bounded_failure[failure]",
+        "time": "0.673"
+      },
+      {
+        "classname": "tests.test_m2e_webhooks_postgres",
+        "name": "test_actual_signed_delivery_retry_and_bounded_failure[timeout]",
+        "time": "0.700"
+      },
+      {
+        "classname": "tests.test_m2e_webhooks_postgres",
+        "name": "test_external_callback_ssrf_rejected[http://127.0.0.1/callback]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2e_webhooks_postgres",
+        "name": "test_external_callback_ssrf_rejected[https://169.254.169.254/latest]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2e_webhooks_postgres",
+        "name": "test_external_callback_ssrf_rejected[https://user:password@example.com/callback]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2e_webhooks_postgres",
+        "name": "test_external_callback_ssrf_rejected[https://metadata.google.internal/]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2e_webhooks_postgres",
+        "name": "test_external_callback_ssrf_rejected[https://10.0.0.1/callback]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2e_webhooks_postgres",
+        "name": "test_disable_and_rotate_key_cas_idempotency_preserve_delivery_history",
+        "time": "0.620"
+      }
+    ],
+    "test_phase1kb": [
+      {
+        "classname": "tests.test_phase1kb_architecture",
+        "name": "test_phase1kb_additive_architecture_and_finite_committed_ownership",
+        "time": "3.507"
+      },
+      {
+        "classname": "tests.test_phase1kb_catalog_postgres",
+        "name": "test_advisory_eligibility_uses_real_policy_health_and_canonical_draft",
+        "time": "0.239"
+      },
+      {
+        "classname": "tests.test_phase1kb_catalog_postgres",
+        "name": "test_unresolved_protection_does_not_allow_external_provider[EXTERNAL]",
+        "time": "0.211"
+      },
+      {
+        "classname": "tests.test_phase1kb_catalog_postgres",
+        "name": "test_catalog_revalidates_project_and_tenant_permission[False]",
+        "time": "0.176"
+      },
+      {
+        "classname": "tests.test_phase1kb_catalog_postgres",
+        "name": "test_catalog_revalidates_project_and_tenant_permission[True]",
+        "time": "0.173"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_api_postgres",
+        "name": "test_typed_provider_api_write_only_secret_real_http",
+        "time": "0.601"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_api_postgres",
+        "name": "test_validation_does_not_echo_secret_or_client_authority",
+        "time": "0.027"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_api_postgres",
+        "name": "test_ordinary_user_cannot_manage_providers",
+        "time": "0.026"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_api_postgres",
+        "name": "test_canonical_router_order_preserves_write_only_credentials",
+        "time": "0.518"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_multiple_provider_instances_multiple_models_same_remote_name",
+        "time": "0.164"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_secret_rotation_append_version_preserves_old_reference",
+        "time": "0.047"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_editing_unpublished_provider_retains_write_only_secret",
+        "time": "0.033"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_current_authorization_and_cross_tenant_fail_closed",
+        "time": "0.022"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_external_private_endpoint_rejected_before_secret_write",
+        "time": "0.013"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_optimistic_configuration_conflict",
+        "time": "0.021"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_published_model_configuration_is_immutable",
+        "time": "0.065"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_independent_review_is_required",
+        "time": "0.027"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_disable_is_current_revocation_and_requires_matching_version",
+        "time": "0.024"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_real_binary_llm_candidates_genuine_trace_resolution_and_restart",
+        "time": "1.678"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_semantic_uncertainty_cannot_enter_formal_input[low_confidence]",
+        "time": "1.679"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_semantic_uncertainty_cannot_enter_formal_input[invalid_trace]",
+        "time": "1.763"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_semantic_uncertainty_cannot_enter_formal_input[unknown_fact_type]",
+        "time": "1.672"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_native_structured_input_does_not_invoke_semantic_model",
+        "time": "1.169"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_multi_model_disagreement_uses_existing_fact_conflict_authority[MULTI_MODEL]",
+        "time": "1.819"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://169.254.169.254/latest/meta-data]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://[fe80::1]/v1]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://[::ffff:169.254.169.254]/v1]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://metadata.google.internal/v1]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://instance-data.ec2.internal/v1]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://0.0.0.0/v1]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_legacy_generic_metadata_cannot_store_plaintext_credentials[config0]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_legacy_generic_metadata_cannot_store_plaintext_credentials[config1]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_legacy_generic_metadata_cannot_store_plaintext_credentials[config2]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_legacy_generic_metadata_cannot_store_plaintext_credentials[config3]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_generic_operation_path_cannot_change_origin_or_inject_query[//other.example/secret]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_generic_operation_path_cannot_change_origin_or_inject_query[/../metadata]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_generic_operation_path_cannot_change_origin_or_inject_query[/%2e%2e/metadata]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_generic_operation_path_cannot_change_origin_or_inject_query[/chat?token=x]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_presets_real_http_same_protocol_no_business_branch[OPENAI_GPT]",
+        "time": "0.685"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_presets_real_http_same_protocol_no_business_branch[DEEPSEEK]",
+        "time": "0.685"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_presets_real_http_same_protocol_no_business_branch[QWEN]",
+        "time": "0.689"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_presets_real_http_same_protocol_no_business_branch[GLM]",
+        "time": "0.689"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_presets_real_http_same_protocol_no_business_branch[OTHER_OPENAI_COMPATIBLE]",
+        "time": "0.692"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_real_http_bad_credential_sanitized",
+        "time": "0.549"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_real_http_timeout_unavailable_and_unsupported",
+        "time": "0.619"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_missing_secret_capability_is_not_fake_health",
+        "time": "0.515"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_parser_insufficiency_all_modes_candidate_only[MINIMAL]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_parser_insufficiency_all_modes_candidate_only[STANDARD]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_parser_insufficiency_all_modes_candidate_only[ENHANCED]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_rag_first_never_expand_sufficient_evidence[KNOWLEDGE_EVIDENCE_INSUFFICIENT]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_rag_first_never_expand_sufficient_evidence[RETRIEVAL_QUERY_EXPANSION_REQUIRED]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_stage2_always_denied_even_if_policy_lists_it[DOCUMENT_GENERATION_REQUESTED]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_stage2_always_denied_even_if_policy_lists_it[CONTRACT_GENERATION_REQUESTED]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_stage2_always_denied_even_if_policy_lists_it[CONTRACT_REVIEW_REQUESTED]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_legal_purpose_not_in_contract_or_multi_vote",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_user_selection_shape_and_server_limit",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_governed_policy_can_deny_otherwise_valid_trigger",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_metadata_postgres",
+        "name": "test_typed_policies_use_existing_metadata_lifecycle[LLM_INVOCATION_POLICY-payload0]",
+        "time": "0.025"
+      },
+      {
+        "classname": "tests.test_phase1kb_metadata_postgres",
+        "name": "test_typed_policies_use_existing_metadata_lifecycle[LLM_PROVIDER_PRESET-payload1]",
+        "time": "0.022"
+      },
+      {
+        "classname": "tests.test_phase1kb_metadata_postgres",
+        "name": "test_usage_policy_cannot_allow_cross_tenant_or_unknown_models",
+        "time": "0.021"
+      },
+      {
+        "classname": "tests.test_phase1kb_migrations",
+        "name": "test_fresh_exact0015_equivalence_empty_downgrade_reupgrade_and_retention",
+        "time": "24.781"
+      },
+      {
+        "classname": "tests.test_phase1kb_query_postgres",
+        "name": "test_real_http_query_expansion_same_scope_and_no_model_memory_evidence[True]",
+        "time": "1.417"
+      },
+      {
+        "classname": "tests.test_phase1kb_query_postgres",
+        "name": "test_real_http_query_expansion_same_scope_and_no_model_memory_evidence[False]",
+        "time": "1.407"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_encrypted_not_plaintext_reference_scope_and_restart",
+        "time": "0.004"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_missing_key_untrusted_permissions_and_symlink_fail_closed",
+        "time": "0.002"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_invalid_secret_never_echoed[]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_invalid_secret_never_echoed[bad\\nvalue]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_invalid_secret_never_echoed[bad\\rvalue]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_invalid_secret_never_echoed[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_selection_through_real_two_provider_http_and_durable_audit[AUTO]",
+        "time": "1.166"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_selection_through_real_two_provider_http_and_durable_audit[SINGLE_A]",
+        "time": "1.020"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_selection_through_real_two_provider_http_and_durable_audit[SINGLE_B]",
+        "time": "1.169"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_selection_through_real_two_provider_http_and_durable_audit[MULTI_MODEL]",
+        "time": "1.569"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_single_current_revocation_denied_without_other_provider_fallback[SINGLE_A]",
+        "time": "1.169"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_policy_trigger_blocks_sufficient_deterministic_extraction_before_http",
+        "time": "1.169"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_confirmation_freezes_exact_models_policies_prompt_and_preferences",
+        "time": "3.156"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_unavailable_frame_cannot_silently_gain_future_llm_capability",
+        "time": "1.176"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_historical_snapshot_model_and_prompt_do_not_use_new_versions",
+        "time": "1.171"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_frozen_configuration_rejects_unpinned_operation_instead_of_latest",
+        "time": "1.171"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_review_successor_preserves_original_model_frame",
+        "time": "1.168"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_published_invocation_policy_payload_cannot_be_changed",
+        "time": "1.175"
+      }
+    ],
+    "test_m2b": [
+      {
+        "classname": "tests.test_m2b_architecture",
+        "name": "test_m2b_temporal_architecture",
+        "time": "0.005"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_actual_upload_restore_parse_retry_and_exact_identity",
+        "time": "2.059"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[tenant]",
+        "time": "1.373"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[actor]",
+        "time": "1.381"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[permission]",
+        "time": "1.364"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[stale]",
+        "time": "1.357"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[size]",
+        "time": "1.908"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[type]",
+        "time": "1.364"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[content]",
+        "time": "1.383"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[scanner]",
+        "time": "1.394"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[storage]",
+        "time": "1.968"
+      },
+      {
+        "classname": "tests.test_m2b_file_policy",
+        "name": "test_content_policy_and_immutable_storage",
+        "time": "0.005"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_real_upload_confirm_snapshot_canonical_start_read_and_history[foundation_i0]",
+        "time": "16.461"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_pending_document_prevents_confirmation_and_no_snapshot",
+        "time": "1.578"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_client_cannot_inject_document_authority",
+        "time": "1.490"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_current_authorization_for_missing_storage_and_read_policy",
+        "time": "2.245"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_multi_item_never_bypasses_data_analysis",
+        "time": "2.403"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_single_item_executes_existing_data_aware_services",
+        "time": "21.849"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_actual_uploaded_manual_and_document_fact_merge_or_durable_review[False]",
+        "time": "2.492"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_actual_uploaded_manual_and_document_fact_merge_or_durable_review[True]",
+        "time": "2.290"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_process_crash_after_acceptance_then_restart_has_one_parse",
+        "time": "2.881"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_ungoverned_document_candidate_routes_review_before_formal_decisions",
+        "time": "2.270"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_same_binary_wrong_project_is_explicit_conflict_without_identity_leak",
+        "time": "2.271"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_existing_conflict_takes_priority_over_multi_subject_capability_gap",
+        "time": "2.507"
+      },
+      {
+        "classname": "tests.test_m2b_migrations",
+        "name": "test_fresh_exact_0011_equivalence_empty_down_up_and_retention",
+        "time": "25.673"
+      },
+      {
+        "classname": "tests.test_m2b_migrations",
+        "name": "test_exact_legacy_0012_preserves_real_detail_and_quarantines_unproven_links",
+        "time": "6.223"
+      },
+      {
+        "classname": "tests.test_m2b_ownership",
+        "name": "test_m2b_owner_is_committed_finite_and_excludes_legal_engines",
+        "time": "3.797"
+      },
+      {
+        "classname": "tests.test_m2b_ownership",
+        "name": "test_m2b_owner_cannot_approve_arbitrary_source",
+        "time": "0.030"
+      },
+      {
+        "classname": "tests.test_m2b_snapshot_contract_probe",
+        "name": "test_stable_item_has_exact_immutable_snapshot_state_and_provenance",
+        "time": "3.223"
+      },
+      {
+        "classname": "tests.test_m2b_temporal_postgres",
+        "name": "test_item_detail_exact_membership_never_uses_latest",
+        "time": "2.033"
+      },
+      {
+        "classname": "tests.test_m2b_temporal_postgres",
+        "name": "test_formal_inventory_detail_cannot_be_rewritten[update]",
+        "time": "1.350"
+      },
+      {
+        "classname": "tests.test_m2b_temporal_postgres",
+        "name": "test_formal_inventory_detail_cannot_be_rewritten[delete]",
+        "time": "1.362"
+      },
+      {
+        "classname": "tests.test_m2b_temporal_postgres",
+        "name": "test_formal_inventory_detail_cannot_be_rewritten[duplicate]",
+        "time": "1.354"
+      },
+      {
+        "classname": "tests.test_m2b_temporal_postgres",
+        "name": "test_i_preserves_old_pin_and_reads_exact_new_pin",
+        "time": "2.011"
+      }
+    ],
+    "test_m2c": [
+      {
+        "classname": "tests.test_m2c_architecture",
+        "name": "test_c0_additive_architecture_boundaries",
+        "time": "0.014"
+      },
+      {
+        "classname": "tests.test_m2c_architecture",
+        "name": "test_c0_owner_is_finite_committed_and_preserves_frozen_engines",
+        "time": "6.242"
+      },
+      {
+        "classname": "tests.test_m2c_authority_contracts",
+        "name": "test_final_path_status_never_supplies_legal_transfer_authority[CONDITIONAL_PROPOSAL]",
+        "time": "0.017"
+      },
+      {
+        "classname": "tests.test_m2c_authority_contracts",
+        "name": "test_final_path_status_never_supplies_legal_transfer_authority[NO_VIABLE_PATH]",
+        "time": "0.015"
+      },
+      {
+        "classname": "tests.test_m2c_authority_contracts",
+        "name": "test_final_path_status_never_supplies_legal_transfer_authority[PROPOSED]",
+        "time": "0.015"
+      },
+      {
+        "classname": "tests.test_m2c_authority_contracts",
+        "name": "test_no_viable_path_does_not_establish_prohibition_when_evidence_missing",
+        "time": "0.013"
+      },
+      {
+        "classname": "tests.test_m2c_authority_contracts",
+        "name": "test_missing_non_transfer_predicate_input_cannot_assert_permission",
+        "time": "0.013"
+      },
+      {
+        "classname": "tests.test_m2c_authority_contracts",
+        "name": "test_template_is_not_a_legal_trigger_and_locales_are_governed",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2c_authority_contracts",
+        "name": "test_client_cannot_inject_legal_result_policy_or_tenant",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2c_authority_contracts",
+        "name": "test_authority_closes_exact_subject_universe[data_item_ids]",
+        "time": "0.013"
+      },
+      {
+        "classname": "tests.test_m2c_authority_contracts",
+        "name": "test_authority_closes_exact_subject_universe[data_flow_ids]",
+        "time": "0.012"
+      },
+      {
+        "classname": "tests.test_m2c_authority_contracts",
+        "name": "test_authority_closes_exact_subject_universe[jurisdiction_ids]",
+        "time": "0.012"
+      },
+      {
+        "classname": "tests.test_m2c_authority_contracts",
+        "name": "test_authority_fact_evidence_is_closed_to_owning_legal_support",
+        "time": "0.013"
+      },
+      {
+        "classname": "tests.test_m2c_authority_postgres",
+        "name": "test_governed_cross_border_precedence[authority0-TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED-LEGAL_PROHIBITION]",
+        "time": "15.844"
+      },
+      {
+        "classname": "tests.test_m2c_authority_postgres",
+        "name": "test_governed_cross_border_precedence[authority1-TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED-LOCALIZATION_REQUIRED]",
+        "time": "15.159"
+      },
+      {
+        "classname": "tests.test_m2c_authority_postgres",
+        "name": "test_governed_cross_border_precedence[authority2-DIRECT_TRANSFER_ALLOWED-TRANSFER_PREREQUISITES_SATISFIED]",
+        "time": "15.321"
+      },
+      {
+        "classname": "tests.test_m2c_authority_postgres",
+        "name": "test_governed_cross_border_precedence[authority3-CONDITIONAL_TRANSFER_ALLOWED-APPROVAL_PENDING]",
+        "time": "15.184"
+      },
+      {
+        "classname": "tests.test_m2c_authority_postgres",
+        "name": "test_governed_cross_border_precedence[authority4-REVIEW_REQUIRED-EVIDENCE_INSUFFICIENT]",
+        "time": "15.932"
+      },
+      {
+        "classname": "tests.test_m2c_authority_postgres",
+        "name": "test_missing_formal_evidence_is_review_not_certainty",
+        "time": "1.562"
+      },
+      {
+        "classname": "tests.test_m2c_authority_postgres",
+        "name": "test_pinned_context_conflicts_require_review[authority0-FACT_CONFLICT]",
+        "time": "1.490"
+      },
+      {
+        "classname": "tests.test_m2c_authority_postgres",
+        "name": "test_pinned_context_conflicts_require_review[authority1-PRODUCT_CONTEXT_CONFLICT]",
+        "time": "1.520"
+      },
+      {
+        "classname": "tests.test_m2c_authority_postgres",
+        "name": "test_restart_aliases_and_snapshot_exact_reads",
+        "time": "32.940"
+      },
+      {
+        "classname": "tests.test_m2c_authority_postgres",
+        "name": "test_authorization_and_immutable_result",
+        "time": "14.939"
+      },
+      {
+        "classname": "tests.test_m2c_authority_postgres",
+        "name": "test_conditional_local_alternative_is_not_transfer_permission[authority0]",
+        "time": "15.149"
+      },
+      {
+        "classname": "tests.test_m2c_authority_postgres",
+        "name": "test_template_availability_is_independent_and_history_is_pinned[authority0]",
+        "time": "17.906"
+      },
+      {
+        "classname": "tests.test_m2c_authority_postgres",
+        "name": "test_s1_results_survive_s2_binary_policy_template_and_legal_knowledge[authority0]",
+        "time": "19.287"
+      },
+      {
+        "classname": "tests.test_m2c_authority_postgres",
+        "name": "test_authority_api_is_typed_authorized_and_reference_only",
+        "time": "24.409"
+      },
+      {
+        "classname": "tests.test_m2c_migrations",
+        "name": "test_fresh_exact_0013_equivalence_empty_down_up_retention",
+        "time": "25.753"
+      },
+      {
+        "classname": "tests.test_m2c_projection_architecture",
+        "name": "test_c1_additive_projection_ownership",
+        "time": "0.005"
+      },
+      {
+        "classname": "tests.test_m2c_workflow_contracts",
+        "name": "test_legacy_version_retains_original_sixteen_step_order",
+        "time": "0.068"
+      },
+      {
+        "classname": "tests.test_m2c_workflow_contracts",
+        "name": "test_unknown_or_mixed_version_pairs_fail_closed[unknown-unknown]",
+        "time": "0.051"
+      },
+      {
+        "classname": "tests.test_m2c_workflow_contracts",
+        "name": "test_unknown_or_mixed_version_pairs_fail_closed[phase1l-a-canonical-v1-phase1l-a-references-v2]",
+        "time": "0.050"
+      },
+      {
+        "classname": "tests.test_m2c_workflow_contracts",
+        "name": "test_unknown_or_mixed_version_pairs_fail_closed[phase1l-a-canonical-v2-phase1l-a-references-v1]",
+        "time": "0.050"
+      },
+      {
+        "classname": "tests.test_m2c_workflow_postgres",
+        "name": "test_canonical_v2_executes_owners_and_preserves_refs_on_locale_replay[foundation_i0]",
+        "time": "29.397"
+      },
+      {
+        "classname": "tests.test_m2c_workflow_postgres",
+        "name": "test_canonical_v2_executes_owners_and_preserves_refs_on_locale_replay[foundation_i1]",
+        "time": "17.378"
+      },
+      {
+        "classname": "tests.test_m2c_workflow_postgres",
+        "name": "test_authorized_stage1_projection_exact_snapshot_and_tenant[foundation_i0]",
+        "time": "60.166"
+      },
+      {
+        "classname": "tests.test_m2c_workflow_postgres",
+        "name": "test_authorized_stage1_projection_exact_snapshot_and_tenant[foundation_i1]",
+        "time": "35.703"
+      },
+      {
+        "classname": "tests.test_m2c_workflow_postgres",
+        "name": "test_crossborder_review_is_durable_and_does_not_produce_later_decisions[authority0]",
+        "time": "5.520"
+      },
+      {
+        "classname": "tests.test_m2c_workflow_postgres",
+        "name": "test_historical_v1_actual_postgres_read_has_explicit_authority_gap",
+        "time": "20.973"
+      },
+      {
+        "classname": "tests.test_m2c_workflow_postgres",
+        "name": "test_stage1_projection_ignores_future_inventory_and_documents",
+        "time": "43.154"
+      }
+    ],
+    "test_m2d": [
+      {
+        "classname": "tests.test_m2d_api_postgres",
+        "name": "test_http_approve_and_recover_no_client_authority[foundation_i0]",
+        "time": "17.443"
+      },
+      {
+        "classname": "tests.test_m2d_api_postgres",
+        "name": "test_http_request_changes_then_typed_intake_successor[foundation_i0]",
+        "time": "17.625"
+      },
+      {
+        "classname": "tests.test_m2d_architecture",
+        "name": "test_m2d_approved_finite_owner_preserves_baseline_authorities",
+        "time": "10.596"
+      },
+      {
+        "classname": "tests.test_m2d_architecture",
+        "name": "test_m2d_additive_review_architecture",
+        "time": "3.138"
+      },
+      {
+        "classname": "tests.test_m2d_correction_postgres",
+        "name": "test_fact_choice_creates_successor_keeps_source_and_exact_parse_universe[foundation_i0]",
+        "time": "17.679"
+      },
+      {
+        "classname": "tests.test_m2d_correction_postgres",
+        "name": "test_outside_target_and_wrong_payload_do_not_create_successor[foundation_i0]",
+        "time": "3.337"
+      },
+      {
+        "classname": "tests.test_m2d_correction_postgres",
+        "name": "test_product_choice_uses_product_owner_and_preserves_detection[selected]",
+        "time": "3.125"
+      },
+      {
+        "classname": "tests.test_m2d_correction_postgres",
+        "name": "test_product_choice_uses_product_owner_and_preserves_detection[detected]",
+        "time": "3.115"
+      },
+      {
+        "classname": "tests.test_m2d_correction_postgres",
+        "name": "test_successor_delivery_failure_after_commit_can_recover_without_old_resume[foundation_i0]",
+        "time": "18.376"
+      },
+      {
+        "classname": "tests.test_m2d_formal_review_postgres",
+        "name": "test_formal_crossborder_review_refuses_approval_and_retains_support[authority0]",
+        "time": "5.875"
+      },
+      {
+        "classname": "tests.test_m2d_migrations",
+        "name": "test_fresh_exact_0014_equivalence_empty_down_up_retention",
+        "time": "26.418"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[decided_by]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[tenant_id]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[langgraph_thread_id]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[policy]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[start_at]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[final_path]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[FACT_CONFLICT]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[BUSINESS_FACT_CONFLICT]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[PRODUCT_CONTEXT_CONFLICT]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[JURISDICTION_UNRESOLVED]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[INSUFFICIENT_EVIDENCE]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[EVIDENCE_INSUFFICIENT]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[CAPABILITY_NOT_CONFIGURED]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[UNDETERMINED]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_only_explicit_immutable_requirement_confirmation_can_approve",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_correction_is_typed_not_free_text_or_arbitrary_json_path",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_request_changes_history_no_resume_and_duplicate_cas",
+        "time": "2.090"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_reject_is_review_boundary_not_failed_and_history_immutable",
+        "time": "1.927"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_approval_reexecutes_owner_duplicate_identity_and_history",
+        "time": "26.635"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_current_tenant_project_role_and_list_filters",
+        "time": "3.102"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_concurrent_reviewers_one_cas_winner",
+        "time": "1.916"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_delivery_failure_recovery_uses_persisted_approval",
+        "time": "26.099"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_approval_process_restart_keeps_canonical_history_and_checkpoint",
+        "time": "33.064"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_required_role_current_on_read_write_and_direct_resume",
+        "time": "1.918"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_direct_worker_approval_records_canonical_snapshot_audit",
+        "time": "27.992"
+      }
+    ]
+  },
+  "phase1kb_semantic_evidence": {
+    "test_phase1kb": [
+      {
+        "classname": "tests.test_phase1kb_architecture",
+        "name": "test_phase1kb_additive_architecture_and_finite_committed_ownership",
+        "time": "4.054"
+      },
+      {
+        "classname": "tests.test_phase1kb_catalog_postgres",
+        "name": "test_advisory_eligibility_uses_real_policy_health_and_canonical_draft",
+        "time": "0.295"
+      },
+      {
+        "classname": "tests.test_phase1kb_catalog_postgres",
+        "name": "test_unresolved_protection_does_not_allow_external_provider[EXTERNAL]",
+        "time": "0.260"
+      },
+      {
+        "classname": "tests.test_phase1kb_catalog_postgres",
+        "name": "test_catalog_revalidates_project_and_tenant_permission[False]",
+        "time": "0.219"
+      },
+      {
+        "classname": "tests.test_phase1kb_catalog_postgres",
+        "name": "test_catalog_revalidates_project_and_tenant_permission[True]",
+        "time": "0.211"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_api_postgres",
+        "name": "test_typed_provider_api_write_only_secret_real_http",
+        "time": "0.613"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_api_postgres",
+        "name": "test_validation_does_not_echo_secret_or_client_authority",
+        "time": "0.034"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_api_postgres",
+        "name": "test_ordinary_user_cannot_manage_providers",
+        "time": "0.030"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_api_postgres",
+        "name": "test_canonical_router_order_preserves_write_only_credentials",
+        "time": "0.523"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_multiple_provider_instances_multiple_models_same_remote_name",
+        "time": "0.207"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_secret_rotation_append_version_preserves_old_reference",
+        "time": "0.056"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_editing_unpublished_provider_retains_write_only_secret",
+        "time": "0.038"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_current_authorization_and_cross_tenant_fail_closed",
+        "time": "0.027"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_external_private_endpoint_rejected_before_secret_write",
+        "time": "0.016"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_optimistic_configuration_conflict",
+        "time": "0.026"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_published_model_configuration_is_immutable",
+        "time": "0.093"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_independent_review_is_required",
+        "time": "0.035"
+      },
+      {
+        "classname": "tests.test_phase1kb_control_postgres",
+        "name": "test_disable_is_current_revocation_and_requires_matching_version",
+        "time": "0.031"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_real_binary_llm_candidates_genuine_trace_resolution_and_restart",
+        "time": "1.717"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_semantic_uncertainty_cannot_enter_formal_input[low_confidence]",
+        "time": "1.703"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_semantic_uncertainty_cannot_enter_formal_input[invalid_trace]",
+        "time": "1.432"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_semantic_uncertainty_cannot_enter_formal_input[unknown_fact_type]",
+        "time": "1.441"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_native_structured_input_does_not_invoke_semantic_model",
+        "time": "1.225"
+      },
+      {
+        "classname": "tests.test_phase1kb_document_postgres",
+        "name": "test_multi_model_disagreement_uses_existing_fact_conflict_authority[MULTI_MODEL]",
+        "time": "1.982"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://169.254.169.254/latest/meta-data]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://[fe80::1]/v1]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://[::ffff:169.254.169.254]/v1]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://metadata.google.internal/v1]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://instance-data.ec2.internal/v1]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_private_deployment_does_not_authorize_metadata_service[http://0.0.0.0/v1]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_legacy_generic_metadata_cannot_store_plaintext_credentials[config0]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_legacy_generic_metadata_cannot_store_plaintext_credentials[config1]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_legacy_generic_metadata_cannot_store_plaintext_credentials[config2]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_legacy_generic_metadata_cannot_store_plaintext_credentials[config3]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_generic_operation_path_cannot_change_origin_or_inject_query[//other.example/secret]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_generic_operation_path_cannot_change_origin_or_inject_query[/../metadata]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_generic_operation_path_cannot_change_origin_or_inject_query[/%2e%2e/metadata]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_endpoint_security",
+        "name": "test_generic_operation_path_cannot_change_origin_or_inject_query[/chat?token=x]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_presets_real_http_same_protocol_no_business_branch[OPENAI_GPT]",
+        "time": "0.712"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_presets_real_http_same_protocol_no_business_branch[DEEPSEEK]",
+        "time": "0.718"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_presets_real_http_same_protocol_no_business_branch[QWEN]",
+        "time": "0.724"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_presets_real_http_same_protocol_no_business_branch[GLM]",
+        "time": "0.710"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_presets_real_http_same_protocol_no_business_branch[OTHER_OPENAI_COMPATIBLE]",
+        "time": "0.715"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_real_http_bad_credential_sanitized",
+        "time": "0.554"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_real_http_timeout_unavailable_and_unsupported",
+        "time": "0.641"
+      },
+      {
+        "classname": "tests.test_phase1kb_http_postgres",
+        "name": "test_missing_secret_capability_is_not_fake_health",
+        "time": "0.517"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_parser_insufficiency_all_modes_candidate_only[MINIMAL]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_parser_insufficiency_all_modes_candidate_only[STANDARD]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_parser_insufficiency_all_modes_candidate_only[ENHANCED]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_rag_first_never_expand_sufficient_evidence[KNOWLEDGE_EVIDENCE_INSUFFICIENT]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_rag_first_never_expand_sufficient_evidence[RETRIEVAL_QUERY_EXPANSION_REQUIRED]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_stage2_always_denied_even_if_policy_lists_it[DOCUMENT_GENERATION_REQUESTED]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_stage2_always_denied_even_if_policy_lists_it[CONTRACT_GENERATION_REQUESTED]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_stage2_always_denied_even_if_policy_lists_it[CONTRACT_REVIEW_REQUESTED]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_legal_purpose_not_in_contract_or_multi_vote",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_user_selection_shape_and_server_limit",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_invocation_policy",
+        "name": "test_governed_policy_can_deny_otherwise_valid_trigger",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_metadata_postgres",
+        "name": "test_typed_policies_use_existing_metadata_lifecycle[LLM_INVOCATION_POLICY-payload0]",
+        "time": "0.028"
+      },
+      {
+        "classname": "tests.test_phase1kb_metadata_postgres",
+        "name": "test_typed_policies_use_existing_metadata_lifecycle[LLM_PROVIDER_PRESET-payload1]",
+        "time": "0.028"
+      },
+      {
+        "classname": "tests.test_phase1kb_metadata_postgres",
+        "name": "test_usage_policy_cannot_allow_cross_tenant_or_unknown_models",
+        "time": "0.029"
+      },
+      {
+        "classname": "tests.test_phase1kb_migrations",
+        "name": "test_fresh_exact0015_equivalence_empty_downgrade_reupgrade_and_retention",
+        "time": "29.919"
+      },
+      {
+        "classname": "tests.test_phase1kb_query_postgres",
+        "name": "test_real_http_query_expansion_same_scope_and_no_model_memory_evidence[True]",
+        "time": "1.606"
+      },
+      {
+        "classname": "tests.test_phase1kb_query_postgres",
+        "name": "test_real_http_query_expansion_same_scope_and_no_model_memory_evidence[False]",
+        "time": "3.903"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_encrypted_not_plaintext_reference_scope_and_restart",
+        "time": "0.004"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_missing_key_untrusted_permissions_and_symlink_fail_closed",
+        "time": "0.002"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_invalid_secret_never_echoed[]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_invalid_secret_never_echoed[bad\\nvalue]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_invalid_secret_never_echoed[bad\\rvalue]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_secrets",
+        "name": "test_invalid_secret_never_echoed[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_selection_through_real_two_provider_http_and_durable_audit[AUTO]",
+        "time": "1.138"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_selection_through_real_two_provider_http_and_durable_audit[SINGLE_A]",
+        "time": "1.153"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_selection_through_real_two_provider_http_and_durable_audit[SINGLE_B]",
+        "time": "1.189"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_selection_through_real_two_provider_http_and_durable_audit[MULTI_MODEL]",
+        "time": "1.695"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_single_current_revocation_denied_without_other_provider_fallback[SINGLE_A]",
+        "time": "1.209"
+      },
+      {
+        "classname": "tests.test_phase1kb_selection_postgres",
+        "name": "test_policy_trigger_blocks_sufficient_deterministic_extraction_before_http",
+        "time": "1.221"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_confirmation_freezes_exact_models_policies_prompt_and_preferences",
+        "time": "1.207"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_unavailable_frame_cannot_silently_gain_future_llm_capability",
+        "time": "1.204"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_historical_snapshot_model_and_prompt_do_not_use_new_versions",
+        "time": "1.204"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_frozen_configuration_rejects_unpinned_operation_instead_of_latest",
+        "time": "1.208"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_review_successor_preserves_original_model_frame",
+        "time": "1.208"
+      },
+      {
+        "classname": "tests.test_phase1kb_snapshot_postgres",
+        "name": "test_published_invocation_policy_payload_cannot_be_changed",
+        "time": "1.210"
+      }
+    ],
+    "test_m2b": [
+      {
+        "classname": "tests.test_m2b_architecture",
+        "name": "test_m2b_temporal_architecture",
+        "time": "0.005"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_actual_upload_restore_parse_retry_and_exact_identity",
+        "time": "2.069"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[tenant]",
+        "time": "1.397"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[actor]",
+        "time": "1.387"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[permission]",
+        "time": "1.428"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[stale]",
+        "time": "1.394"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[size]",
+        "time": "1.910"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[type]",
+        "time": "1.402"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[content]",
+        "time": "1.403"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[scanner]",
+        "time": "1.412"
+      },
+      {
+        "classname": "tests.test_m2b_document_inputs",
+        "name": "test_upload_boundary_fail_closed[storage]",
+        "time": "1.933"
+      },
+      {
+        "classname": "tests.test_m2b_file_policy",
+        "name": "test_content_policy_and_immutable_storage",
+        "time": "0.007"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_real_upload_confirm_snapshot_canonical_start_read_and_history[foundation_i0]",
+        "time": "16.653"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_pending_document_prevents_confirmation_and_no_snapshot",
+        "time": "1.584"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_client_cannot_inject_document_authority",
+        "time": "1.466"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_current_authorization_for_missing_storage_and_read_policy",
+        "time": "2.217"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_multi_item_never_bypasses_data_analysis",
+        "time": "2.402"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_single_item_executes_existing_data_aware_services",
+        "time": "22.083"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_actual_uploaded_manual_and_document_fact_merge_or_durable_review[False]",
+        "time": "2.594"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_actual_uploaded_manual_and_document_fact_merge_or_durable_review[True]",
+        "time": "2.355"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_process_crash_after_acceptance_then_restart_has_one_parse",
+        "time": "2.952"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_ungoverned_document_candidate_routes_review_before_formal_decisions",
+        "time": "2.289"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_same_binary_wrong_project_is_explicit_conflict_without_identity_leak",
+        "time": "2.179"
+      },
+      {
+        "classname": "tests.test_m2b_integration",
+        "name": "test_existing_conflict_takes_priority_over_multi_subject_capability_gap",
+        "time": "2.450"
+      },
+      {
+        "classname": "tests.test_m2b_migrations",
+        "name": "test_fresh_exact_0011_equivalence_empty_down_up_and_retention",
+        "time": "26.833"
+      },
+      {
+        "classname": "tests.test_m2b_migrations",
+        "name": "test_exact_legacy_0012_preserves_real_detail_and_quarantines_unproven_links",
+        "time": "6.583"
+      },
+      {
+        "classname": "tests.test_m2b_ownership",
+        "name": "test_m2b_owner_is_committed_finite_and_excludes_legal_engines",
+        "time": "3.910"
+      },
+      {
+        "classname": "tests.test_m2b_ownership",
+        "name": "test_m2b_owner_cannot_approve_arbitrary_source",
+        "time": "0.031"
+      },
+      {
+        "classname": "tests.test_m2b_snapshot_contract_probe",
+        "name": "test_stable_item_has_exact_immutable_snapshot_state_and_provenance",
+        "time": "3.465"
+      },
+      {
+        "classname": "tests.test_m2b_temporal_postgres",
+        "name": "test_item_detail_exact_membership_never_uses_latest",
+        "time": "2.273"
+      },
+      {
+        "classname": "tests.test_m2b_temporal_postgres",
+        "name": "test_formal_inventory_detail_cannot_be_rewritten[update]",
+        "time": "1.472"
+      },
+      {
+        "classname": "tests.test_m2b_temporal_postgres",
+        "name": "test_formal_inventory_detail_cannot_be_rewritten[delete]",
+        "time": "1.497"
+      },
+      {
+        "classname": "tests.test_m2b_temporal_postgres",
+        "name": "test_formal_inventory_detail_cannot_be_rewritten[duplicate]",
+        "time": "1.476"
+      },
+      {
+        "classname": "tests.test_m2b_temporal_postgres",
+        "name": "test_i_preserves_old_pin_and_reads_exact_new_pin",
+        "time": "2.321"
+      }
+    ],
+    "test_m2d": [
+      {
+        "classname": "tests.test_m2d_api_postgres",
+        "name": "test_http_approve_and_recover_no_client_authority[foundation_i0]",
+        "time": "18.627"
+      },
+      {
+        "classname": "tests.test_m2d_api_postgres",
+        "name": "test_http_request_changes_then_typed_intake_successor[foundation_i0]",
+        "time": "18.294"
+      },
+      {
+        "classname": "tests.test_m2d_architecture",
+        "name": "test_m2d_approved_finite_owner_preserves_baseline_authorities",
+        "time": "10.871"
+      },
+      {
+        "classname": "tests.test_m2d_architecture",
+        "name": "test_m2d_additive_review_architecture",
+        "time": "3.303"
+      },
+      {
+        "classname": "tests.test_m2d_correction_postgres",
+        "name": "test_fact_choice_creates_successor_keeps_source_and_exact_parse_universe[foundation_i0]",
+        "time": "19.207"
+      },
+      {
+        "classname": "tests.test_m2d_correction_postgres",
+        "name": "test_outside_target_and_wrong_payload_do_not_create_successor[foundation_i0]",
+        "time": "2.375"
+      },
+      {
+        "classname": "tests.test_m2d_correction_postgres",
+        "name": "test_product_choice_uses_product_owner_and_preserves_detection[selected]",
+        "time": "3.339"
+      },
+      {
+        "classname": "tests.test_m2d_correction_postgres",
+        "name": "test_product_choice_uses_product_owner_and_preserves_detection[detected]",
+        "time": "3.158"
+      },
+      {
+        "classname": "tests.test_m2d_correction_postgres",
+        "name": "test_successor_delivery_failure_after_commit_can_recover_without_old_resume[foundation_i0]",
+        "time": "18.556"
+      },
+      {
+        "classname": "tests.test_m2d_formal_review_postgres",
+        "name": "test_formal_crossborder_review_refuses_approval_and_retains_support[authority0]",
+        "time": "6.397"
+      },
+      {
+        "classname": "tests.test_m2d_migrations",
+        "name": "test_fresh_exact_0014_equivalence_empty_down_up_retention",
+        "time": "27.162"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[decided_by]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[tenant_id]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[langgraph_thread_id]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[policy]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[start_at]",
+        "time": "0.001"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_browser_cannot_inject_review_authority[final_path]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[FACT_CONFLICT]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[BUSINESS_FACT_CONFLICT]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[PRODUCT_CONTEXT_CONFLICT]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[JURISDICTION_UNRESOLVED]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[INSUFFICIENT_EVIDENCE]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[EVIDENCE_INSUFFICIENT]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[CAPABILITY_NOT_CONFIGURED]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_approval_cannot_clear_formal_reason[UNDETERMINED]",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_only_explicit_immutable_requirement_confirmation_can_approve",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_contracts",
+        "name": "test_correction_is_typed_not_free_text_or_arbitrary_json_path",
+        "time": "0.000"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_request_changes_history_no_resume_and_duplicate_cas",
+        "time": "2.069"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_reject_is_review_boundary_not_failed_and_history_immutable",
+        "time": "1.921"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_approval_reexecutes_owner_duplicate_identity_and_history",
+        "time": "26.932"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_current_tenant_project_role_and_list_filters",
+        "time": "3.134"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_concurrent_reviewers_one_cas_winner",
+        "time": "1.985"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_delivery_failure_recovery_uses_persisted_approval",
+        "time": "27.003"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_approval_process_restart_keeps_canonical_history_and_checkpoint",
+        "time": "33.446"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_required_role_current_on_read_write_and_direct_resume",
+        "time": "2.093"
+      },
+      {
+        "classname": "tests.test_m2d_review_postgres",
+        "name": "test_direct_worker_approval_records_canonical_snapshot_audit",
+        "time": "27.705"
+      }
+    ]
+  },
+  "ci_runs": [
+    {
+      "kind": "m2e",
+      "run_id": 38040012494,
+      "name": "M2E External Agent API Gateway",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "runner_checkout_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "run_attempt": 1,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38040012494"
+    },
+    {
+      "kind": "phase1kb",
+      "run_id": 38040015931,
+      "name": "Phase1KB Multi-provider LLM Governance",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "runner_checkout_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "run_attempt": 1,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38040015931"
+    },
+    {
+      "kind": "backend",
+      "run_id": 38040019858,
+      "name": "phase1a-runtime-smoke",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "runner_checkout_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "run_attempt": 1,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38040019858"
+    },
+    {
+      "kind": "m2d",
+      "run_id": 38040023168,
+      "name": "M2D Governed Human Review",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "runner_checkout_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "run_attempt": 1,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38040023168"
+    },
+    {
+      "kind": "m2c",
+      "run_id": 38040026447,
+      "name": "M2C Formal Result Workspace",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "runner_checkout_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "run_attempt": 1,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38040026447"
+    },
+    {
+      "kind": "m2b",
+      "run_id": 38040030358,
+      "name": "M2B Production Document Integration",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "runner_checkout_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "run_attempt": 1,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38040030358"
+    },
+    {
+      "kind": "m2a",
+      "run_id": 38040033976,
+      "name": "M2A Production Intake",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "runner_checkout_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "run_attempt": 1,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38040033976"
+    },
+    {
+      "kind": "m1",
+      "run_id": 38040036974,
+      "name": "M1 Intake Analysis Alpha",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "runner_checkout_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "run_attempt": 1,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38040036974"
+    },
+    {
+      "kind": "m0",
+      "run_id": 38040040447,
+      "name": "M0 Knowledge & Evidence Preview",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "runner_checkout_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+      "run_attempt": 1,
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38040040447"
+    }
+  ],
+  "source_integrity": {
+    "tested_main_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+    "merge_parents": [
+      "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+      "291d52fef7d94fe2462942a910c594dff09c98b0"
+    ],
+    "source_head_ancestor": true,
+    "source_tree_equals_tested_pr": true,
+    "tracked_and_untracked_clean_at_validation": true,
+    "single_alembic_head": "0018_phase1h_multijurisdiction_classification_identity",
+    "migration_lineage": [
+      "0016_phase1kb_multi_provider_llm_governance",
+      "0017_m2e_external_agent_api",
+      "0018_phase1h_multijurisdiction_classification_identity"
+    ],
+    "frozen_0001_0016_byte_identity": true,
+    "frozen_digests": {
+      "alembic/versions/0001_phase1a_runtime_tables.py": "d8a3d4c060beaa95ee2daab5658a476854640c24b3100cee6ebd4c44d86d793a",
+      "alembic/versions/0002_phase1b_domain_foundation.py": "4fa947ad533c7faeaa5d8893917a7c1fcb9933436be9ec41180524eae4c3b9da",
+      "alembic/versions/0003_phase1c_metadata_registry.py": "fb8c17f96cfe83c6cbb9f5d1b71450f1e77ae1ee1a9d9df334f6fefff24d66b1",
+      "alembic/versions/0004_phase1d_document_intelligence.py": "9f1bf0b1ad8924d698a66d996571565fe5ffd22808f906d639d04549fa8d48ff",
+      "alembic/versions/0005_phase1e_context_resolution.py": "6f524b052b4e13df4d809f9ab85157999df43ed9f819d76f5aff9e52493993e3",
+      "alembic/versions/0006_phase1f_knowledge_scope.py": "5c4ffecc8cf1ff7787bb282eaed18699b918ad5e40c44e23f761fefd0eeb6085",
+      "alembic/versions/0007_phase1g_retrieval_evidence.py": "47117a332785bb63d7ef6ae3537bce321732e9d570f2afc005051888c8c5d4b4",
+      "alembic/versions/0008_phase1h_rule_classification.py": "04ac67c7ffe3445a1d89b633549690d0c59fa12ac978e90ca5514b5902484f77",
+      "alembic/versions/0009_phase1i_applicability.py": "e363840390a0cb673aef676d75c02c24ed8ea7002a9c1a03605db80bf30447e8",
+      "alembic/versions/0010_phase1j_formal_decisions.py": "cebbe1158f5b98ca0c2a7dd87726111f50e2fc24f1f83f828ac1243d24d0e57f",
+      "alembic/versions/0011_m2a_structured_intake.py": "573785cdee48f57d8ff7761b49d73e57cf110befd4a14d3e1fcae031e5a89cf0",
+      "alembic/versions/0012_m2b_document_inputs.py": "f732e59b44c6fb54a4880f5ca777140560614a675315f9ec8f94212409b4cb8f",
+      "alembic/versions/0013_m2b_context_temporal_contract.py": "79133fdda7aeda64a1c10e164abe1fbde73534dfecb3f7397a0b8f642ad33561",
+      "alembic/versions/0014_m2c_formal_result_authority.py": "63f1e8f97587dd52983d51cb632972ef9a9d0a7b83f60f4f32678ba3d29bd266",
+      "alembic/versions/0015_m2d_review_governance.py": "e424078407d47b338b722503f61bd4abd5f94e0cc65aeb7440f4e4330e51e02a",
+      "alembic/versions/0016_phase1kb_multi_provider_llm_governance.py": "6f375dc1bc9ba86b668160ac28572822ddfe6867d16d2104d7ee5db5d422ee93"
+    },
+    "architecture": {
+      "architecture_rule_check.py": 151,
+      "m2a_architecture_check.py": 13,
+      "m2b_architecture_check.py": 27,
+      "m2c_architecture_check.py": 15,
+      "m2c_projection_architecture.py": 15,
+      "m2d_architecture_check.py": 21,
+      "phase1kb_architecture_check.py": 27,
+      "m2e_r1_architecture_check.py": 11,
+      "m2e_architecture_check.py": 27
+    },
+    "total": 307,
+    "working_tree_diff_check": true,
+    "baseline_diff_check_exit": 0,
+    "baseline_diff_check_output": ""
+  },
+  "supplemental_static_subset": {
+    "passed": 488,
+    "skipped": 7,
+    "deselected": 415,
+    "scope": "supplemental only; full PostgreSQL suite is independently verified with zero skips/deselections",
+    "log_lines": [
+      "contract-tests\tlog\t2026-10-10T09:06:32.0435327Z 488 passed, 7 skipped, 415 deselected, 2 warnings in 175.07s (0:02:55)"
+    ]
+  },
+  "paid_internet_llm": "NOT EXECUTED",
+  "retained_capability_gaps": [
+    "MULTI_SUBJECT_WORKFLOW_NOT_CONFIGURED",
+    "HISTORICAL_FORMAL_RESULT_AUTHORITY_NOT_CONFIGURED",
+    "unsupported correction targets",
+    "legacy authority read-only",
+    "partial-rerun optimizer not implemented"
+  ],
+  "evidence_branch": "evidence/m2e-main-closure-df3a109",
+  "evidence_manifest": "evidence/m2e/main_integration_raw/sha256_manifest.json",
+  "evidence_manifest_sha256": "b0b80c4cec32286e437e0011c460c494a2c3451042d9aa72766bdf648c067dcb",
+  "evidence_limitations": [
+    "Native strict measurement and actual job logs; M2E workflow does not upload raw Playwright matrix files; legacy workflows supply independent raw matrices for their scopes.",
+    "Independent local migration supplement: 3 PASS on PostgreSQL17.11 using temporary databases; required exact-main GitHub Actions uses fresh PostgreSQL16 services.",
+    "Paid Internet LLM = NOT EXECUTED; provider protocol tests use local HTTP fixtures.",
+    "Supplemental contract/static subset: 488 PASS, 7 skipped, 415 deselected, disclosed separately; complete PostgreSQL suite has zero skipped/deselected.",
+    "Exact-main validation executed in fresh isolated GitHub Actions PostgreSQL/Redis runners; no PR-head or ephemeral merge-ref evidence substitutes for main.",
+    "Pre-existing untracked Phase1H closure document was temporarily preserved outside the strict source audit with verified digest and is restored after publication; it is excluded from product and closure evidence commits.",
+    "No Stage1 Full E2E coding or Stage2 implementation started."
+  ],
+  "blockers": [],
+  "stage1_full_e2e_entry": "ALLOWED",
+  "stage1_full_e2e_code_started": false,
+  "stage2_started": false
+}

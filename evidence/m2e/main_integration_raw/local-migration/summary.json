@@ -1,0 +1,50 @@
+{
+  "tested_main_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "pass": true,
+  "passed": 3,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "deselected": 0,
+  "postgresql": "17.11 (Debian 17.11-0+deb13u1)",
+  "isolation": "unique temporary databases created and dropped by tests",
+  "classification": {
+    "migration": "0018_phase1h_multijurisdiction_classification_identity",
+    "parent": "0017_m2e_external_agent_api",
+    "fresh": true,
+    "exact0016_to0017_to0018": true,
+    "exact0017_upgrade": true,
+    "schema_equivalence": true,
+    "legacy_row_and_digest_unchanged": true,
+    "safe_downgrade": true,
+    "reupgrade": true,
+    "two_jurisdictions_persist": true,
+    "same_jurisdiction_duplicate_rejected": true,
+    "unsafe_downgrade_transactionally_refused": true,
+    "predicate_unchanged": true
+  },
+  "integration": {
+    "empty0017_downgrade_reupgrade": true,
+    "populated0017_transactional_refusal": true,
+    "credential_identity_hash_status_preserved": true,
+    "0018_upgrade_preserves_integration_identity": true
+  },
+  "test_cases": [
+    {
+      "classname": "tests.test_m2e_r11_migrations",
+      "name": "test_fresh_exact0017_equivalence_preserving_rows_downgrade_and_refusal",
+      "time": "16.273"
+    },
+    {
+      "classname": "tests.test_m2e_r11_migrations",
+      "name": "test_frozen_migrations_and_wip0017_byte_identity",
+      "time": "0.030"
+    },
+    {
+      "classname": "tests.test_m2e_integration_migrations",
+      "name": "test_empty_and_populated_integration_downgrade_transactional_policy",
+      "time": "8.830"
+    }
+  ],
+  "scope": "independent local main-specific migration evidence; exact-main CI separately required"
+}

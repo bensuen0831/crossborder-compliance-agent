@@ -1,0 +1,15 @@
+{
+  "migration": "0018_phase1h_multijurisdiction_classification_identity",
+  "parent": "0017_m2e_external_agent_api",
+  "fresh": true,
+  "exact0016_to0017_to0018": true,
+  "exact0017_upgrade": true,
+  "schema_equivalence": true,
+  "legacy_row_and_digest_unchanged": true,
+  "safe_downgrade": true,
+  "reupgrade": true,
+  "two_jurisdictions_persist": true,
+  "same_jurisdiction_duplicate_rejected": true,
+  "unsafe_downgrade_transactionally_refused": true,
+  "predicate_unchanged": true
+}

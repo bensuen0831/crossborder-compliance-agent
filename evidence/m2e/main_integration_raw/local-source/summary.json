@@ -1,0 +1,50 @@
+{
+  "tested_main_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "merge_parents": [
+    "0f5a40c5ca3a8771624fb38e9380856d79e67342",
+    "291d52fef7d94fe2462942a910c594dff09c98b0"
+  ],
+  "source_head_ancestor": true,
+  "source_tree_equals_tested_pr": true,
+  "tracked_and_untracked_clean_at_validation": true,
+  "single_alembic_head": "0018_phase1h_multijurisdiction_classification_identity",
+  "migration_lineage": [
+    "0016_phase1kb_multi_provider_llm_governance",
+    "0017_m2e_external_agent_api",
+    "0018_phase1h_multijurisdiction_classification_identity"
+  ],
+  "frozen_0001_0016_byte_identity": true,
+  "frozen_digests": {
+    "alembic/versions/0001_phase1a_runtime_tables.py": "d8a3d4c060beaa95ee2daab5658a476854640c24b3100cee6ebd4c44d86d793a",
+    "alembic/versions/0002_phase1b_domain_foundation.py": "4fa947ad533c7faeaa5d8893917a7c1fcb9933436be9ec41180524eae4c3b9da",
+    "alembic/versions/0003_phase1c_metadata_registry.py": "fb8c17f96cfe83c6cbb9f5d1b71450f1e77ae1ee1a9d9df334f6fefff24d66b1",
+    "alembic/versions/0004_phase1d_document_intelligence.py": "9f1bf0b1ad8924d698a66d996571565fe5ffd22808f906d639d04549fa8d48ff",
+    "alembic/versions/0005_phase1e_context_resolution.py": "6f524b052b4e13df4d809f9ab85157999df43ed9f819d76f5aff9e52493993e3",
+    "alembic/versions/0006_phase1f_knowledge_scope.py": "5c4ffecc8cf1ff7787bb282eaed18699b918ad5e40c44e23f761fefd0eeb6085",
+    "alembic/versions/0007_phase1g_retrieval_evidence.py": "47117a332785bb63d7ef6ae3537bce321732e9d570f2afc005051888c8c5d4b4",
+    "alembic/versions/0008_phase1h_rule_classification.py": "04ac67c7ffe3445a1d89b633549690d0c59fa12ac978e90ca5514b5902484f77",
+    "alembic/versions/0009_phase1i_applicability.py": "e363840390a0cb673aef676d75c02c24ed8ea7002a9c1a03605db80bf30447e8",
+    "alembic/versions/0010_phase1j_formal_decisions.py": "cebbe1158f5b98ca0c2a7dd87726111f50e2fc24f1f83f828ac1243d24d0e57f",
+    "alembic/versions/0011_m2a_structured_intake.py": "573785cdee48f57d8ff7761b49d73e57cf110befd4a14d3e1fcae031e5a89cf0",
+    "alembic/versions/0012_m2b_document_inputs.py": "f732e59b44c6fb54a4880f5ca777140560614a675315f9ec8f94212409b4cb8f",
+    "alembic/versions/0013_m2b_context_temporal_contract.py": "79133fdda7aeda64a1c10e164abe1fbde73534dfecb3f7397a0b8f642ad33561",
+    "alembic/versions/0014_m2c_formal_result_authority.py": "63f1e8f97587dd52983d51cb632972ef9a9d0a7b83f60f4f32678ba3d29bd266",
+    "alembic/versions/0015_m2d_review_governance.py": "e424078407d47b338b722503f61bd4abd5f94e0cc65aeb7440f4e4330e51e02a",
+    "alembic/versions/0016_phase1kb_multi_provider_llm_governance.py": "6f375dc1bc9ba86b668160ac28572822ddfe6867d16d2104d7ee5db5d422ee93"
+  },
+  "architecture": {
+    "architecture_rule_check.py": 151,
+    "m2a_architecture_check.py": 13,
+    "m2b_architecture_check.py": 27,
+    "m2c_architecture_check.py": 15,
+    "m2c_projection_architecture.py": 15,
+    "m2d_architecture_check.py": 21,
+    "phase1kb_architecture_check.py": 27,
+    "m2e_r1_architecture_check.py": 11,
+    "m2e_architecture_check.py": 27
+  },
+  "total": 307,
+  "working_tree_diff_check": true,
+  "baseline_diff_check_exit": 0,
+  "baseline_diff_check_output": ""
+}
