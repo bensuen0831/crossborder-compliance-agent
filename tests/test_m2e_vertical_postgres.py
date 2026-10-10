@@ -199,6 +199,13 @@ def test_external_real_docx_rag_async_result_and_review(foundation_j, tmp_path, 
 
         claim = worker.claim(Job, "workflow_run_id")
         assert claim and claim[0] == confirmed["workflow_run_id"]
+        active_delivery = c.get(started.json()["status_url"], headers=auth)
+        assert active_delivery.status_code == 200
+        assert active_delivery.json()["status"] == "RUNNING"
+        assert active_delivery.json()["reason_codes"] == ["ASYNC_DELIVERY_IN_PROGRESS"]
+        not_ready = c.get(started.json()["result_url"], headers=auth)
+        assert not_ready.status_code == 409 and not_ready.json()["error_code"] == "RESULT_NOT_READY"
+        assert not_ready.json()["retryable"] is True
         parallel = IntegrationDeliveryWorker(app)
         assert parallel.claim(Job, "workflow_run_id") is None
         with f["sf"]() as session, session.begin():
@@ -207,13 +214,14 @@ def test_external_real_docx_rag_async_result_and_review(foundation_j, tmp_path, 
         worker.start()
         try:
             status = None
-            for _ in range(100):
+            poll_deadline = time.monotonic() + app.state.integration_policy.request_timeout_seconds
+            while time.monotonic() < poll_deadline:
                 response = c.get(started.json()["status_url"], headers=auth)
                 assert response.status_code == 200, response.text
                 status = response.json()
                 if status["status"] in {"COMPLETED", "REVIEW_REQUIRED", "FAILED", "WARNING"}:
                     break
-                time.sleep(0.1)
+                time.sleep(1)
             assert status["status"] == ("REVIEW_REQUIRED" if review else "COMPLETED"), status
             result = c.get(started.json()["result_url"], headers=auth)
             assert result.status_code == 200, result.text

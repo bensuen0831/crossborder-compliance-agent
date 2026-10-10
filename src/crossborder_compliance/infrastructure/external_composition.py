@@ -46,6 +46,7 @@ def integration_service(request, context=None):
 
 def integration_secret_store(request, context):
     import os
+
     from crossborder_compliance.infrastructure.llm_secrets import EncryptedFileSecretStore
 
     factory = getattr(request.app.state, "integration_secret_store_factory", None)
@@ -173,13 +174,17 @@ class CanonicalChannelComposition:
         # Pending technical delivery is a projection, not a second workflow status authority.
         with self.sessions() as s:
             job = s.get(IntegrationWorkflowDeliveryEntity, str(run))
-            if job and job.status == "PENDING":
+            if job and job.status in {"PENDING", "DELIVERING"}:
                 return canonical_workflow.WorkflowView(
                     workflow_run_id=run,
                     project_id=project,
                     analysis_snapshot_id=snapshot,
                     status="RUNNING",
-                    reason_codes=("ASYNC_DELIVERY_PENDING",),
+                    reason_codes=(
+                        "ASYNC_DELIVERY_PENDING"
+                        if job.status == "PENDING"
+                        else "ASYNC_DELIVERY_IN_PROGRESS",
+                    ),
                 )
             if job and job.status == "DENIED":
                 raise IntegrationFailure("FORBIDDEN")
@@ -194,6 +199,10 @@ class CanonicalChannelComposition:
         return canonical_workflow.read(run, self.request, context)
 
     def result(self, context, run):
+        with self.sessions() as session:
+            job = session.get(IntegrationWorkflowDeliveryEntity, str(run))
+            if job and job.status in {"PENDING", "DELIVERING"}:
+                raise IntegrationFailure("RESULT_NOT_READY", 409, retryable=True)
         return canonical_workflow.stage1_result(run, self.request, context)
 
     def events(self, tenant, project, snapshot, run, after=None):
