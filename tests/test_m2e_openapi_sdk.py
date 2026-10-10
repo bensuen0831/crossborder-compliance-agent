@@ -16,6 +16,7 @@ from crossborder_compliance.interfaces.api.external_openapi import external_open
 ROOT = Path(__file__).resolve().parents[1]
 
 
+@pytest.mark.runtime_smoke
 @pytest.mark.parametrize(
     "path", ["/api/v1/admin/integration-clients", "/api/v1/admin/integration-clients/options"]
 )
@@ -77,6 +78,7 @@ def test_external_only_openapi_strict_authority_security_errors():
     assert spec["x-websocket"]["payload"]["$ref"].endswith("/ExternalWorkflowEvent")
 
 
+@pytest.mark.runtime_smoke
 def test_python_sdk_real_http_auth_intake_cas_no_authority_injection(gateway):
     _, http, _ = gateway
     sys.path.insert(0, str(ROOT / "sdk/python/src"))
