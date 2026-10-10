@@ -1,7 +1,7 @@
 {
   "base_sha": "df2e2e0b8552ab2172f02ce2d79f1ef911660efb",
   "r1_source_sha": "6655b6cbe7711b68979ee7862aa70416f432d850",
-  "source_sha": "6259804ec086fac05db5346cb672d73bf77a26a4",
+  "source_sha": "1388906b691a08dafd18abfd0c0cee65140fc611",
   "ownership": "Authorized M2-E channel/control plane/transport closure and canonical successor port delegation; frozen formal R1 owner retained",
   "paths": {
     ".github/workflows/m2e-external-agent-api.yml": "9576f4451040b7934265782493bd829ef5519015cb0523bdcba7f019abd8990d",
@@ -55,7 +55,7 @@
     "src/crossborder_compliance/domain/integrations.py": "7317f9002225ca5f1172d9686e15e511ed84172be9016afcabe2e1cd0774cb2e",
     "src/crossborder_compliance/domain/regulation_applicability.py": "e9a712893217c27db0dc0dcfda3136fd6118f42cd98db9e85bec142dedae3c73",
     "src/crossborder_compliance/domain/rules.py": "ac54cf34a1f0615702f686a0697f32bdcc6c45294842e0ec9a616b41052f7359",
-    "src/crossborder_compliance/infrastructure/external_composition.py": "7b0f48f5df054c167f0cfc31e6e17d8f3a1ecad13f896bc020b7517fbaf2357c",
+    "src/crossborder_compliance/infrastructure/external_composition.py": "eb1889dc3edfaa221688acd60451d45c24f622110f6d2040f1e18b3a32cdeabd",
     "src/crossborder_compliance/infrastructure/intake_composition.py": "36291c06c2ca2b6de8fe1a5473d8ee6651f9788ab8aa04dd399d5d9f081d3fc9",
     "src/crossborder_compliance/infrastructure/integration_worker.py": "d233d60b0c5c6cad782c0ba867efb92c0005270b91d98dd334fbdfb96719cb16",
     "src/crossborder_compliance/infrastructure/persistence/classification_governance.py": "f4ad78e4d6425cec45d4fdf4d724d457021f2eb109fe5c2b2e007019aa36cf68",
@@ -88,7 +88,7 @@
     "tests/test_m2e_r1_architecture.py": "506bff79daf60dfdf01c66dd404b57aea90bcc6796d925491014ff0280fa6415",
     "tests/test_m2e_r1_classification_postgres.py": "c4c2aad86b5472eb7e50f848ee8f30d55787a3e38426cf8af50b01631bae053e",
     "tests/test_m2e_r1_isolation.py": "a4fd954bac6e8994f5ac12e1799893acf2653272bbe4a333162e4961c24e71d5",
-    "tests/test_m2e_vertical_postgres.py": "6780f22b89f624fda0e398285deafb21a500cde58aa6e46d07285899f4396833",
+    "tests/test_m2e_vertical_postgres.py": "96a542577b72c2bb0d4b8e1da00eeb1a17a489fab7473f13b5fac721489e93d2",
     "tests/test_m2e_webhooks_postgres.py": "13b907733cbea3b19da347cf52ac8dcc50f19ab0b544b7719154c1d231f1f67e",
     "tests/test_phase1kb_migrations.py": "afd349478b2e868cdbc01114af4c5aedd0463ae4ce37fdb669dfbd55de50b8d3"
   }
