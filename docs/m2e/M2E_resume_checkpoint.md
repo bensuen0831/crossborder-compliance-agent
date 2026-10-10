@@ -8,3 +8,5 @@
 - Migrations:0017 and0018 unchanged; no0019; frozen0001–0016 unchanged.
 - Blockers: final exact-head CI pending. No dependency on unpublished cloud draft. No source-of-truth/runtime/schema ambiguity. Prior exact head35aef76 dedicated M2E CI measured910/307/25/135/60, but legacy SQLite static subset rejected3 PostgreSQL cases missing runtime_smoke markers. Owning scheduling correction preserves all910 mandatory tests; exact-head CI must rerun.
 - Do not reread: V3.7 authority docs, frozen R1 classification/migration contracts and historical evidence. Main unchanged; no merge/tag/FullE2E/Stage2.
+
+- Successor completion: real confirmed S1 external POST previously404; thin existing ProjectDocument owner adaptation now passes duplicate/CAS, new input/snapshot and exact old S1 result read. Source:1388906b691a08dafd18abfd0c0cee65140fc611; finite resume55/combined87 paths. No schema/authority/runtime changes. SDK transport build PASS. Next: final focused owner/public contracts, final delivery commit, fresh exact-head CI.

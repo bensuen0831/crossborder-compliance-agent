@@ -24,3 +24,9 @@ Quick start: Admin creates scoped client → obtain OAuth token with `grant_type
 CRUD/status reads are synchronous. Analysis is async-first:202 returns project/snapshot/run/status/result/events refs. Drafts cannot manufacture snapshots or runs. Confirmation pins formal inputs/documents/knowledge/policies/models. Changed confirmed inputs require canonical successor semantics; no historical snapshot mutation.
 
 Errors: `error_code,message,details,trace_id,retryable`; no exception/SQL/secret text. Scope/tenant/project denial is safe. Rates/quotas return429 withRetry-After. Codes include UNAUTHORIZED, FORBIDDEN, INVALID_SCOPE, PROJECT_ACCESS_DENIED, IDEMPOTENCY_CONFLICT, VERSION_CONFLICT, INVALID_INPUT, DOCUMENT_REJECTED, MODEL_SELECTION_NOT_ALLOWED, WORKFLOW_NOT_FOUND, RESULT_NOT_READY, RATE_LIMITED, QUOTA_EXCEEDED, CAPABILITY_NOT_CONFIGURED. Existing owning prerequisite failures remain controlled; no fabricated formal result.
+
+### Confirmed-input successor
+
+`POST /api/v1/external/projects/{project_id}/intake/supersede` accepts only expected_version and Idempotency-Key, returning canonical DocumentInputsView. Requires live intake:write plus document:upload scopes and project binding, matching the existing document/input owner. It copies the exact existing document input links into a new draft version through the canonical ProjectDocument service, with its existing CAS/idempotency transaction. No new input authority or snapshot mutation.
+
+Read the new draft with GET intake, update typed facts/model preference via PUT (model:select remains required), then confirm to obtain a new Snapshot/run identity. A historical run/result remains readable and unchanged. Python create_successor / TypeScript createSuccessor are transport wrappers only. Direct confirmed PUT remains rejected.

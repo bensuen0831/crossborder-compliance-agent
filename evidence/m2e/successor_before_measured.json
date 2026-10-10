@@ -1,0 +1,17 @@
+{
+  "evidence_scope": "BEFORE_FIX_COUNTEREXAMPLE",
+  "product_checkout_sha": "a4f5934d84f32742194e124e28a638a960d256d9",
+  "additional_fixture_uncommitted": true,
+  "test": "tests/test_m2e_vertical_postgres.py::test_external_real_docx_rag_async_result_and_review[False-foundation_i0]",
+  "real_http": true,
+  "real_postgresql": true,
+  "genuine_docx_rag_distinct_jurisdictions": true,
+  "existing_stage1_completed_before_counterexample": true,
+  "request": "POST /api/v1/external/projects/{project_id}/intake/supersede",
+  "observed_status": 404,
+  "expected_status": 200,
+  "result": "PROVEN_MISSING_CHANNEL_ADAPTER",
+  "canonical_owner_already_exists": true,
+  "new_legal_authority_required": false,
+  "migration_required": false
+}

@@ -7,3 +7,5 @@ Use external API contract/SDK guide for OAuth scopes, create/facts, real multipa
 Parity compares full Stage1ResultService JSON between canonical internal and external reads under the same live authorized context: snapshot/classification/applicability/crossborder/obligation/risk/recommendation/path/documents/legalbasis/evidence. No precomputed final result. Historical snapshot and Review successor invariants stay R1/M2-B/M2-D-owned.
 
 Remaining integration gate: PR exact-head closure → explicit authorized merge → exact merged-main mandatory CI → annotated tag/evidence archive. Only that main gate unlocks Stage1 Full E2E. No merge/tag/full business matrix/Stage2 in this task. Paid Internet LLM acceptance remains NOT EXECUTED.
+
+Successor analysis input uses POST intake/supersede with expected_version/Idempotency-Key and live intake:write+document:upload; read draft, update typed facts/model preference, confirm a new Snapshot, then existing START. The old Snapshot/run/result is not mutated. SDK create_successor/createSuccessor maps this operation; no third-party ReviewDecision endpoint is added.
