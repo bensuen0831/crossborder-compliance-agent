@@ -35,6 +35,7 @@ OWNER_PATHS = frozenset(
         "frontend/src/locales/zh-HK.json",
         "scripts/architecture_rule_check.py",
         "scripts/m2e_closure.py",
+        "scripts/m2a_ownership.py",
         "scripts/phase1l_b_ownership.py",
         "scripts/m2e_r1_ownership.py",
         "scripts/stage1_candidate_architecture.py",
