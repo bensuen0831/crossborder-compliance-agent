@@ -961,3 +961,10 @@ class ConversationMessageEntity(TenantAuditMixin, Base):
     content: Mapped[str] = mapped_column(Text, nullable=False)
     attachment_refs_json: Mapped[list] = mapped_column(JSON, nullable=False, default=list)
     analysis_run_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+
+
+# Audit's additive pre-confirm FK belongs to the same canonical Base. Register
+# its target even when a schema checker imports only the historical models.
+from crossborder_compliance.infrastructure.persistence import (
+    candidate_governance_models as _candidate_governance_models,
+)  # noqa: E402,F401
