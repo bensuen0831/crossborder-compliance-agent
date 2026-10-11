@@ -8,7 +8,7 @@ export interface IntakePersistence {
   record: IntakeView;
   refresh?: () => Promise<void>;
   save: (draft: Draft) => Promise<void>;
-  confirm: () => Promise<IntakeView>;
+  confirm: (decisionSetId?: string) => Promise<IntakeView>;
 }
 export const intakeApi = {
   create: (name: string, analysis_as_of_date: string, key: string) => request<IntakeView>('/api/v1/projects', { method: 'POST', body: JSON.stringify({ name, idempotency_key: key, facts: { analysis_as_of_date } }) }, 'IntakeView'),
@@ -18,7 +18,7 @@ export const intakeApi = {
     return result;
   },
   save: (record: IntakeView, facts: IntakeFacts, key: string) => request<IntakeView>(`/api/v1/projects/${record.project_id}/intake`, { method: 'PUT', body: JSON.stringify({ expected_version: record.version, idempotency_key: key, facts }) }, 'IntakeView'),
-  confirm: (record: IntakeView) => request<IntakeView>(`/api/v1/projects/${record.project_id}/intake/confirm`, { method: 'POST', body: JSON.stringify({ expected_version: record.version }) }, 'IntakeView'),
+  confirm: (record: IntakeView, decisionSetId?: string) => request<IntakeView>(`/api/v1/projects/${record.project_id}/intake/confirm`, { method: 'POST', body: JSON.stringify({ expected_version: record.version, ...(decisionSetId ? { candidate_decision_set_id: decisionSetId } : {}) }) }, 'IntakeView'),
 };
 export function restoreDraft(record: IntakeView): Draft {
   const x = record.intake;

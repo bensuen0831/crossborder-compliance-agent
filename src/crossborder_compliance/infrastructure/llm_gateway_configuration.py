@@ -8,6 +8,7 @@ from sqlalchemy import select
 
 from crossborder_compliance.application.llm_gateway_policy import required_capabilities
 from crossborder_compliance.domain.llm_gateway import (
+    DraftPreparationInvocationScope,
     GatewayDenied,
     ModelCandidate,
     ModelUsagePolicy,
@@ -45,11 +46,28 @@ class ProviderConnection:
 
 
 class PostgresLLMConfiguration:
-    def __init__(self, sessions, context, *, draft_catalog=False, frozen_snapshot=False):
+    def __init__(
+        self,
+        sessions,
+        context,
+        *,
+        draft_catalog=False,
+        frozen_snapshot=False,
+        candidate_preparation_id=None,
+    ):
         self.sessions, self.context = sessions, context
         self.draft_catalog = draft_catalog
         self.frozen_snapshot = frozen_snapshot
+        self.candidate_preparation_id = candidate_preparation_id
         self.pins = PostgresSnapshotRegistryPinRepository(sessions, context)
+        if candidate_preparation_id is not None:
+            if draft_catalog:
+                raise ValueError("draft catalog is not invocation scope")
+            from crossborder_compliance.infrastructure.persistence.candidate_preparation_pins import (
+                PostgresCandidatePreparationPins,
+            )
+
+            self.pins = PostgresCandidatePreparationPins(sessions, context)
         self.model_registry = ModelRegistry(PostgresModelRegistryRepository(sessions, context))
         self.policy_registry = GenericMetadataRegistry(
             PostgresRegistrySourceRepository(sessions, context), "MODEL_USAGE_POLICY"
@@ -79,6 +97,38 @@ class PostgresLLMConfiguration:
                 raise GatewayDenied("RESOURCE_NOT_FOUND")
         if self.draft_catalog:
             return
+        if self.candidate_preparation_id is not None:
+            from crossborder_compliance.infrastructure.persistence.candidate_governance_models import (
+                CandidatePreparationEntity,
+            )
+
+            scope = getattr(request, "invocation_scope", None)
+            if (
+                not isinstance(scope, DraftPreparationInvocationScope)
+                or scope.candidate_preparation_id != self.candidate_preparation_id
+                or request.analysis_snapshot_id is not None
+                or scope.project_id != request.project_id
+            ):
+                raise GatewayDenied("DRAFT_INVOCATION_SCOPE_INVALID")
+            with self.sessions() as s:
+                preparation = s.get(CandidatePreparationEntity, str(self.candidate_preparation_id))
+                version = s.get(b.ProjectVersionEntity, str(scope.project_version_id))
+                if (
+                    not preparation
+                    or not version
+                    or preparation.tenant_id != self.tenant
+                    or version.tenant_id != self.tenant
+                    or preparation.project_id != str(request.project_id)
+                    or version.project_id != str(request.project_id)
+                    or preparation.project_version_id != version.project_version_id
+                    or version.status != "DRAFT"
+                    or str(project.active_version_id) != str(scope.project_version_id)
+                    or preparation.status not in {"PREPARING", "COMPLETED"}
+                ):
+                    raise GatewayDenied("CANDIDATE_PREPARATION_STALE")
+            return
+        if isinstance(getattr(request, "invocation_scope", None), DraftPreparationInvocationScope):
+            raise GatewayDenied("DRAFT_INVOCATION_SCOPE_INVALID")
         with self.sessions() as s:
             snapshot = s.scalar(
                 select(b.AnalysisSnapshotEntity)
@@ -102,9 +152,12 @@ class PostgresLLMConfiguration:
     def _saved(self, request, kind):
         if self.draft_catalog:
             return []
-        return [
-            p for p in self.pins.list_pins(request.analysis_snapshot_id) if p["pin_type"] == kind
-        ]
+        return [p for p in self.list_pins(request) if p["pin_type"] == kind]
+
+    def list_pins(self, request):
+        if self.candidate_preparation_id is not None:
+            return self.pins.list_pins(self.candidate_preparation_id)
+        return self.pins.list_pins(request.analysis_snapshot_id)
 
     def _pin(self, request, kind, key, object_id, version_id, version):
         if self.draft_catalog:
@@ -120,8 +173,13 @@ class PostgresLLMConfiguration:
             ) != (str(object_id), str(version_id), version):
                 raise GatewayDenied("LLM_SNAPSHOT_PIN_REQUIRED")
             return
+        identity = (
+            {"candidate_preparation_id": self.candidate_preparation_id}
+            if self.candidate_preparation_id is not None
+            else {"analysis_snapshot_id": request.analysis_snapshot_id}
+        )
         self.pins.add_pin(
-            analysis_snapshot_id=request.analysis_snapshot_id,
+            **identity,
             pin_type=kind,
             logical_key=key,
             object_id=UUID(str(object_id)),
@@ -130,6 +188,16 @@ class PostgresLLMConfiguration:
         )
 
     def _as_of(self, request):
+        if self.candidate_preparation_id is not None:
+            from crossborder_compliance.infrastructure.persistence.candidate_governance_models import (
+                CandidatePreparationEntity,
+            )
+
+            with self.sessions() as s:
+                preparation = s.get(CandidatePreparationEntity, str(self.candidate_preparation_id))
+                if preparation is None or preparation.tenant_id != self.tenant:
+                    raise GatewayDenied("RESOURCE_NOT_FOUND")
+                return preparation.analysis_as_of_date
         if self.draft_catalog:
             return (
                 PostgresProjectRepository(self.sessions, self.context)
@@ -413,6 +481,15 @@ class PostgresLLMConfiguration:
                 model.deployment_id,
                 model.provider_version,
             )
+            if self.candidate_preparation_id:
+                self._pin(
+                    request,
+                    "LLM_PROVIDER_VERSION",
+                    str(model.provider_id),
+                    model.provider_id,
+                    model.provider_version_id,
+                    model.provider_version,
+                )
 
     def prompt(self, request):
         if request.prompt_id is None:

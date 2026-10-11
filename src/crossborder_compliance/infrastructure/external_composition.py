@@ -97,6 +97,25 @@ class CanonicalChannelComposition:
     def documents(self, context):
         return document_input_service(self.request, self.sessions, context)
 
+    def candidates(self, context):
+        from crossborder_compliance.application.candidate_governance_services import (
+            DocumentCandidateGovernanceService,
+        )
+        from crossborder_compliance.infrastructure.persistence.candidate_governance import (
+            PostgresCandidateGovernance,
+        )
+
+        factory = getattr(self.request.app.state, "llm_secret_store_factory", None)
+        return DocumentCandidateGovernanceService(
+            PostgresCandidateGovernance(
+                self.sessions,
+                context,
+                storage=getattr(self.request.app.state, "document_object_storage", None),
+                secrets=factory(context) if factory else None,
+                redaction=getattr(self.request.app.state, "llm_data_redaction_service", None),
+            )
+        )
+
     def eligible_models(self, context, project):
         return model_catalog(self.sessions, context).read(ModelCatalogQuery(project_id=project))
 

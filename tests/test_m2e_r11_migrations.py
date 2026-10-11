@@ -9,6 +9,7 @@ from pathlib import Path
 from uuid import uuid4
 
 import pytest
+from alembic.script import ScriptDirectory
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import make_url
 from sqlalchemy.exc import IntegrityError
@@ -18,6 +19,7 @@ from test_phase1j_migrations import catalog, seed_scope
 from crossborder_compliance.config import get_settings
 from crossborder_compliance.domain.classification import ClassificationResult
 from crossborder_compliance.infrastructure.persistence import models as b
+from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after
 
 pytestmark = pytest.mark.runtime_smoke
 ROOT = Path(__file__).resolve().parents[1]
@@ -56,7 +58,10 @@ def test_fresh_exact0017_equivalence_preserving_rows_downgrade_and_refusal(tmp_p
     admin = create_engine(base.set(database="postgres"), isolation_level="AUTOCOMMIT")
     names = ["r11_migration_" + uuid4().hex for _ in range(2)]
     urls = [base.set(database=n).render_as_string(hide_password=False) for n in names]
-    evidence = {"migration": HEAD, "parent": OLD}
+    current_heads = ScriptDirectory(str(ROOT / "alembic")).get_heads()
+    assert len(current_heads) == 1 and revision_at_or_after(current_heads[0], HEAD)
+    current_head = current_heads[0]
+    evidence = {"migration": HEAD, "parent": OLD, "tested_migration_head": current_head}
     engine = None
     try:
         with admin.connect() as c:
@@ -148,7 +153,7 @@ def test_fresh_exact0017_equivalence_preserving_rows_downgrade_and_refusal(tmp_p
         safe = migrate(ROOT, urls[1], "downgrade", OLD)
         assert safe.returncode == 0, safe.stderr
         assert rows() == before and "jurisdiction_id" not in index(engine).split("USING btree")[1]
-        again = migrate(ROOT, urls[1], "upgrade", HEAD)
+        again = migrate(ROOT, urls[1], "upgrade", "head")
         assert again.returncode == 0, again.stderr
         assert rows() == before and catalog(urls[0]) == catalog(urls[1])
         destination = str(uuid4())
@@ -188,7 +193,7 @@ def test_fresh_exact0017_equivalence_preserving_rows_downgrade_and_refusal(tmp_p
         )
         assert rows() == both and catalog(urls[1]) == schema_before and index(engine) == definition
         with engine.connect() as c:
-            assert c.scalar(text("SELECT version_num FROM alembic_version")) == HEAD
+            assert c.scalar(text("SELECT version_num FROM alembic_version")) == current_head
         evidence.update(
             fresh=True,
             exact0016_to0017_to0018=True,

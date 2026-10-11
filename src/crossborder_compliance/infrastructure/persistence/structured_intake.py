@@ -52,13 +52,29 @@ def inputs(repo, project_id, intake_version_id, snapshot_id):
         ).all()
         result = []
         for definition in definitions:
-            if not definition.active_version_id:
+            preparation_pin = (
+                s.scalar(
+                    select(m.AnalysisSnapshotRegistryPinEntity).where(
+                        m.AnalysisSnapshotRegistryPinEntity.tenant_id == tenant,
+                        m.AnalysisSnapshotRegistryPinEntity.analysis_snapshot_id
+                        == str(snapshot_id),
+                        m.AnalysisSnapshotRegistryPinEntity.pin_type == "LLM_FACT_TYPE",
+                        m.AnalysisSnapshotRegistryPinEntity.object_id == definition.definition_id,
+                    )
+                )
+                if confirmed.get("candidate_preparation_id")
+                else None
+            )
+            version_id = (
+                preparation_pin.version_id if preparation_pin else definition.active_version_id
+            )
+            if not version_id:
                 continue
             config = repo._get(
                 s,
                 m.MetadataVersionEntity,
                 m.MetadataVersionEntity.version_id,
-                UUID(definition.active_version_id),
+                UUID(version_id),
             )
             if config is None:
                 raise ValueError("structured binding version unavailable")
@@ -66,7 +82,8 @@ def inputs(repo, project_id, intake_version_id, snapshot_id):
             if raw is None:
                 continue
             if (
-                config.lifecycle_status != "ACTIVE"
+                config.lifecycle_status
+                not in ({"ACTIVE", "SUPERSEDED"} if preparation_pin else {"ACTIVE"})
                 or not config.approved_by
                 or not config.published_at
                 or not s.scalar(

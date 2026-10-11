@@ -24,6 +24,10 @@ from fastapi.routing import APIRoute
 from sqlalchemy.exc import IntegrityError
 from starlette.concurrency import run_in_threadpool
 
+from crossborder_compliance.application.candidate_governance_services import (
+    CandidateDecisionReceipt,
+    CandidatePreview,
+)
 from crossborder_compliance.application.document_upload import (
     DocumentCapabilityError,
     DocumentInputsView,
@@ -46,6 +50,8 @@ from crossborder_compliance.infrastructure.external_composition import (
 )
 from crossborder_compliance.infrastructure.persistence.project_intake import IntakeConflict
 from crossborder_compliance.interfaces.api.external_schemas import (
+    ExternalCandidateDecisions,
+    ExternalCandidatePreparation,
     ExternalIntakeUpdate,
     ExternalProjectCreate,
 )
@@ -57,6 +63,10 @@ def safe_failure(exc):
         return exc
     if isinstance(exc, GatewayDenied):
         return IntegrationFailure("MODEL_SELECTION_NOT_ALLOWED")
+    if isinstance(exc, IntakeConflict) and str(exc).startswith(
+        ("CANDIDATE_", "INVALID_CANDIDATE_")
+    ):
+        return IntegrationFailure(str(exc), 409)
     if isinstance(exc, (IntakeConflict, IntegrityError)):
         return IntegrationFailure("VERSION_CONFLICT", 409)
     if isinstance(exc, (LookupError, PermissionError)):
@@ -271,6 +281,27 @@ def update(project_id: UUID, body: ExternalIntakeUpdate, request: Request, p: Pr
 @router.post("/projects/{project_id}/intake/confirm", response_model=IntakeView)
 def confirm(project_id: UUID, body: ConfirmProjectIntake, request: Request, p: Principal, key: Key):
     return channel(request, p).confirm(project_id, body, key)
+
+
+@router.post("/projects/{project_id}/candidate-preparation", response_model=CandidatePreview)
+def prepare_candidates(
+    project_id: UUID, body: ExternalCandidatePreparation, request: Request, p: Principal, key: Key
+):
+    return channel(request, p).prepare_candidates(project_id, body, key)
+
+
+@router.get("/projects/{project_id}/candidate-preview", response_model=CandidatePreview)
+def preview_candidates(
+    project_id: UUID, request: Request, p: Principal, candidate_preparation_id: UUID | None = None
+):
+    return channel(request, p).candidate_preview(project_id, candidate_preparation_id)
+
+
+@router.post("/projects/{project_id}/candidate-decisions", response_model=CandidateDecisionReceipt)
+def resolve_candidates(
+    project_id: UUID, body: ExternalCandidateDecisions, request: Request, p: Principal, key: Key
+):
+    return channel(request, p).resolve_candidates(project_id, body, key)
 
 
 @router.post("/projects/{project_id}/intake/supersede", response_model=DocumentInputsView)

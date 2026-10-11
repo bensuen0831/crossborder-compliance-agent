@@ -70,13 +70,22 @@ PATHS = PATHS | {
 
 R1_PATHS = PATHS
 from scripts.m2e_resume_ownership import RESUME_PATHS
+
 PATHS = PATHS | RESUME_PATHS
+from scripts.stage1_candidate_ownership import OWNER_PATHS
+
+PATHS = PATHS | OWNER_PATHS
 
 
 def overlay(root):
     root = Path(root)
+    if (root / "evidence/stage1-full-e2e/r11_approved_owner_overlay.json").exists():
+        from scripts.stage1_candidate_ownership import overlay as candidate_overlay
+
+        return candidate_overlay(root, R1_PATHS | RESUME_PATHS)
     if (root / "evidence/m2e/resume_approved_owner_overlay.json").exists():
         from scripts.m2e_resume_ownership import overlay as resume_overlay
+
         return resume_overlay(root, R1_PATHS)
     record = root / "evidence/m2e/r1_approved_owner_overlay.json"
     if not record.exists():

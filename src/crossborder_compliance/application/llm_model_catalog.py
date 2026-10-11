@@ -9,7 +9,11 @@ from crossborder_compliance.application.llm_gateway_policy import (
     ModelUsagePolicyService,
 )
 from crossborder_compliance.domain.knowledge import Contract
-from crossborder_compliance.domain.llm_gateway import GatewayDenied, ModelOperation
+from crossborder_compliance.domain.llm_gateway import (
+    DraftPreparationInvocationScope,
+    GatewayDenied,
+    ModelOperation,
+)
 from crossborder_compliance.domain.metadata import ModelCapabilityCode
 
 
@@ -23,6 +27,11 @@ class ModelCatalogQuery(Contract):
 
 class SnapshotModelConfigurationQuery(ModelCatalogQuery):
     analysis_snapshot_id: UUID
+
+
+class PreparationModelConfigurationQuery(ModelCatalogQuery):
+    invocation_scope: DraftPreparationInvocationScope
+    analysis_snapshot_id: None = None
 
 
 class EligibleModel(Contract):

@@ -11,10 +11,13 @@ from crossborder_compliance.application.document_services import DocumentParseSe
 from crossborder_compliance.application.llm_document_extraction import (
     DocumentSemanticExtractionService,
 )
-from crossborder_compliance.application.llm_model_catalog import SnapshotModelConfigurationQuery
+from crossborder_compliance.application.llm_model_catalog import (
+    PreparationModelConfigurationQuery,
+)
 from crossborder_compliance.domain.llm_document_candidates import DocumentCandidateExtraction
 from crossborder_compliance.domain.llm_gateway import (
     AuthorizedInput,
+    DraftPreparationInvocationScope,
     GatewayDenied,
     InputReference,
     LLMRequest,
@@ -109,15 +112,19 @@ class PinnedDocumentInput:
                 project_id=project_id,
                 required_scopes=("document:read",),
                 texts=(
-                            json.dumps(
-                                {"allowed_fact_types": self.fact_types, "source_nodes": [
-                            {
-                                "source_node_id": node["structure_node_id"],
-                                "text": node.get("original_text") or node.get("normalized_text"),
-                            }
-                            for node in nodes
-                            if node.get("original_text") or node.get("normalized_text")
-                                ]}
+                    json.dumps(
+                        {
+                            "allowed_fact_types": self.fact_types,
+                            "source_nodes": [
+                                {
+                                    "source_node_id": node["structure_node_id"],
+                                    "text": node.get("original_text")
+                                    or node.get("normalized_text"),
+                                }
+                                for node in nodes
+                                if node.get("original_text") or node.get("normalized_text")
+                            ],
+                        }
                     ),
                 ),
             ),
@@ -125,18 +132,48 @@ class PinnedDocumentInput:
 
 
 def prepare_document_candidates(
-    sessions, context, intake, snapshot_id, *, storage=None, secrets=None, redaction=None
+    sessions,
+    context,
+    intake,
+    snapshot_id=None,
+    *,
+    candidate_preparation_id=None,
+    storage=None,
+    secrets=None,
+    redaction=None,
 ):
-    config = PostgresLLMConfiguration(sessions, context, frozen_snapshot=True)
+    if candidate_preparation_id is None or snapshot_id is not None:
+        raise GatewayDenied("DOCUMENT_CANDIDATES_REQUIRE_DRAFT_PREPARATION")
+    from crossborder_compliance.infrastructure.llm_draft_document_inputs import DraftDocumentInput
+    from crossborder_compliance.infrastructure.persistence.candidate_governance_models import (
+        CandidatePreparationEntity,
+    )
+
+    config = PostgresLLMConfiguration(
+        sessions, context, frozen_snapshot=True, candidate_preparation_id=candidate_preparation_id
+    )
+    with sessions() as s:
+        preparation = s.get(CandidatePreparationEntity, str(candidate_preparation_id))
+        if (
+            not preparation
+            or preparation.tenant_id != str(context.tenant_id)
+            or preparation.project_id != str(intake.project_id)
+        ):
+            raise GatewayDenied("RESOURCE_NOT_FOUND")
+        project_version_id = UUID(preparation.project_version_id)
+    scope = DraftPreparationInvocationScope(
+        candidate_preparation_id=candidate_preparation_id,
+        project_id=intake.project_id,
+        project_version_id=project_version_id,
+    )
+    query = PreparationModelConfigurationQuery(project_id=intake.project_id, invocation_scope=scope)
     selection = config._saved(
-        SnapshotModelConfigurationQuery(
-            project_id=intake.project_id, analysis_snapshot_id=snapshot_id
-        ),
+        query,
         "LLM_SELECTION",
     )
     if not selection or selection[0]["logical_key"] != "CONFIGURED":
         return
-    prompts = config.pins.list_pins(snapshot_id)
+    prompts = config.list_pins(query)
     prompt = next(
         (
             p
@@ -148,15 +185,28 @@ def prepare_document_candidates(
     )
     if prompt is None:
         return
+    # The canonical preparation owner authorizes exactly the published,
+    # purpose-bound prompt pinned by its policy. Channels cannot select or
+    # inject a prompt grant. The gateway retains its resource permission check;
+    # Snapshot invocations and arbitrary draft prompts receive no new grants.
+    from dataclasses import replace
+
+    config.authorize(query)
+    context = replace(
+        context,
+        permission=replace(
+            context.permission,
+            scopes=context.permission.scopes | {f"prompt:{prompt['object_id']}:use"},
+        ),
+    )
+    config = PostgresLLMConfiguration(
+        sessions, context, frozen_snapshot=True, candidate_preparation_id=candidate_preparation_id
+    )
     with sessions() as s:
-        snapshot = s.get(b.AnalysisSnapshotEntity, str(snapshot_id))
-        if snapshot.provenance_json.get("document_input_universe_pinned"):
-            return
         links = s.scalars(
             select(d.ProjectVersionDocumentLinkEntity.document_version_id).where(
                 d.ProjectVersionDocumentLinkEntity.tenant_id == str(context.tenant_id),
-                d.ProjectVersionDocumentLinkEntity.project_version_id
-                == snapshot.project_version_id,
+                d.ProjectVersionDocumentLinkEntity.project_version_id == str(project_version_id),
             )
         ).all()
     if not links:
@@ -179,14 +229,14 @@ def prepare_document_candidates(
         raise ValueError("CAPABILITY_NOT_CONFIGURED: DOCUMENT_SEMANTIC_EXTRACTION")
     request = LLMRequest(
         project_id=intake.project_id,
-        analysis_snapshot_id=snapshot_id,
+        invocation_scope=scope,
         operation="structured_output",
         prompt_id=UUID(prompt["object_id"]),
         input_refs=(
             InputReference(
                 resource_type="PREPARATION",
                 resource_id=intake.project_id,
-                version_id=UUID(snapshot.project_version_id),
+                version_id=project_version_id,
             ),
         ),
         output_schema=DocumentCandidateExtraction.model_json_schema(),
@@ -224,7 +274,7 @@ def prepare_document_candidates(
             or hashlib.sha256(binary).hexdigest() != version["content_hash"]
         ):
             raise ValueError("DOCUMENT_BINARY_INTEGRITY_FAILURE")
-        inputs = PinnedDocumentInput(config, repository, snapshot_id, types)
+        inputs = DraftDocumentInput(config, repository, candidate_preparation_id, types)
         invocation = enhancement_invocation(config, inputs, secrets, redaction=redaction)
         extractor = DocumentSemanticExtractionService(
             repository,
@@ -243,7 +293,7 @@ def prepare_document_candidates(
         )
         task = service.request_parse(
             document_version_id=UUID(version_id),
-            idempotency_key=f"llm-preparation:{snapshot_id}:{version_id}",
+            idempotency_key=f"llm-preparation:{candidate_preparation_id}:{version_id}",
             parser_profile_id="native-v1",
         )
         service.process_task(UUID(task["task_id"]))

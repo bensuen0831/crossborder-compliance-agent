@@ -1,3 +1,5 @@
+import { CandidateReview } from './CandidateReview';
+import { useDocumentCandidates } from './candidateApi';
 import { useState, type CSSProperties } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Alert, Button, Card, Steps, theme } from 'antd';
@@ -27,8 +29,9 @@ export function IntakeFeature({ session, context: existingContext, persistence, 
   const [draft, setDraft] = useState(() => persistence ? restoreDraft(persistence.record) : emptyDraft());
   const [confirmed, setConfirmed] = useState(persistence?.record.status === 'CONFIRMED');
   const [workflow, setWorkflow] = useState<WorkflowView>();
+  const candidateState = useDocumentCandidates(persistence?.record, session.identity_key, step === 3);
   const save = useMutation({ mutationFn: async () => { await persistence!.save(draft); setDirty(false); }, retry: false });
-  const execute = useMutation({ mutationFn: async () => { if (persistence) { const value = await persistence.confirm(); if (!value.analysis_snapshot_id || !value.retrieval_policy_id) throw new Error('CONFIRMED_SNAPSHOT_REQUIRED'); return m1Api.workflowStart({ project_id: value.project_id, analysis_snapshot_id: value.analysis_snapshot_id, policy_id: value.retrieval_policy_id, display_name: value.intake.project_name }); } return m1Api.workflowStart(context!); }, onSuccess: setWorkflow, retry: false });
+  const execute = useMutation({ mutationFn: async () => { if (persistence) { const value = await persistence.confirm(candidateState.decisionSetId ?? undefined); if (!value.analysis_snapshot_id || !value.retrieval_policy_id) throw new Error('CONFIRMED_SNAPSHOT_REQUIRED'); return m1Api.workflowStart({ project_id: value.project_id, analysis_snapshot_id: value.analysis_snapshot_id, policy_id: value.retrieval_policy_id, display_name: value.intake.project_name }); } return m1Api.workflowStart(context!); }, onSuccess: setWorkflow, retry: false });
   const refresh = useMutation({ mutationFn: () => m1Api.workflowRead(workflow!.workflow_run_id), onSuccess: setWorkflow, retry: false });
   const workflowStatus: Record<string, string> = { RUNNING: 'ui.m1.workflowRunning', COMPLETED: 'ui.m1.workflowCompleted', REVIEW_REQUIRED: 'ui.m1.reviewRequired', WARNING: 'ui.m1.workflowWarning', FAILED: 'ui.m1.workflowFailed', CANCELLED: 'ui.m1.workflowFailed' };
   const metadata = useQuery({ queryKey: ['m1-metadata', session.identity_key, projectId, locale],
@@ -76,8 +79,9 @@ export function IntakeFeature({ session, context: existingContext, persistence, 
           {!context ? <p>{t('ui.m1.documentGap')}</p> : documents.isPending ? <LoadingState/> : documents.error ? <ErrorState error={documents.error}/> : <details><summary>{t('ui.m1.documentsSummary')}</summary><pre className="provenance">{JSON.stringify(documents.data, null, 2)}</pre></details>}
           <Alert type="warning" title={t('ui.m1.documentGap')}/><Button disabled>{t('ui.m1.upload')}</Button><p>{t('ui.m1.untrusted')}</p></>}</>}
         {step === 3 && <><dl className="m1-summary">{summary}</dl>{persistence && <DocumentInputs persistence={persistence} identity={session.identity_key} dirty={dirty}/>} {!valid && <Alert type="warning" title={t('ui.m1.missingInputs')}/>}
+          {persistence?.record.status === 'DRAFT' && <CandidateReview state={candidateState} dirty={dirty}/>}
           <label className="m1-confirm"><input type="checkbox" checked={confirmed} disabled={!valid} onChange={event => setConfirmed(event.target.checked)}/>{t('ui.m1.confirmFacts')}</label>
-          {confirmed && <Alert type="info" title={t('ui.m1.factsOnly')}/>}<Button disabled={!confirmed || !valid || !!workflow || (!!persistence && dirty)} loading={execute.isPending} onClick={() => execute.mutate()}>{t(persistence ? 'ui.m2a.confirmStart' : 'ui.m1.execute')}</Button><p>{t('ui.m1.workflowPrepared')}</p></>}
+          {confirmed && <Alert type="info" title={t('ui.m1.factsOnly')}/>}<Button disabled={!confirmed || !valid || !!workflow || (!!persistence && (dirty || candidateState.blocked))} loading={execute.isPending} onClick={() => execute.mutate()}>{t(persistence ? 'ui.m2a.confirmStart' : 'ui.m1.execute')}</Button><p>{t('ui.m1.workflowPrepared')}</p></>}
         <div className="m1-actions">{persistence && <Button disabled={!dirty || persistence.record.status !== 'DRAFT'} loading={save.isPending} onClick={() => save.mutate()}>{t('ui.m2a.save')}</Button>}{step > 0 && <Button onClick={() => setStep(value => value - 1)}>{t('ui.m1.back')}</Button>}{step < 3 && <Button htmlType="submit" disabled={step === 0 && (!draft.scenario || !draft.product)}>{t('ui.m1.next')}</Button>}</div>
       </form>
     </Card>

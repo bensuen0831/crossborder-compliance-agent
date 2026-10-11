@@ -1,0 +1,396 @@
+{
+  "schema_version": "1.0",
+  "observed_at": "2026-10-10T17:17:32.507785+00:00",
+  "task": "STAGE1-E2E-R1 PRE-CONFIRM CANDIDATE GOVERNANCE RECOVERY",
+  "decision": "BLOCKED",
+  "high_reasoning_escalation_required": true,
+  "reason": "PRECONFIRM_AUTHORIZATION_PERSISTENCE_IDENTITY_MISSING",
+  "baseline": {
+    "repository": "bensuen0831/crossborder-compliance-agent",
+    "head": "df3a10923734495d728981f4f319b66afadf8c71",
+    "origin_main": "df3a10923734495d728981f4f319b66afadf8c71",
+    "tag": "v3.7-m2e-pass",
+    "tag_object": "c92daef5b47136fb14e2782c737927176d45086a",
+    "tag_type": "tag",
+    "tag_target": "df3a10923734495d728981f4f319b66afadf8c71",
+    "alembic_head": "0018_phase1h_multijurisdiction_classification_identity",
+    "start_gate": "PASS",
+    "working_branch": "milestone-stage1-full-e2e",
+    "tracked_diff_paths": []
+  },
+  "d0": {
+    "status": "COMPLETE_ESCALATION_REQUIRED",
+    "persistence_questions_answered": 10,
+    "schema_database": "PostgreSQL 17.11 (Debian 17.11-0+deb13u1)",
+    "schema_probe": "evidence/stage1-full-e2e/r1_schema_inventory.json",
+    "null_draft_audit_probe": {
+      "insert_succeeded": false,
+      "sqlstate": "23502",
+      "column": "workflow_run_id",
+      "rolled_back": true
+    },
+    "resolution_reuse_probe": {
+      "rejected": true,
+      "reason": "IMMUTABLE_CANDIDATE_RESOLUTION_REWRITE",
+      "candidate_id": "c58c33e7-7103-41f3-b659-76a8be4703ef",
+      "original_authority": "POLICY",
+      "before_sha256": "6cb30cbcfb998887091f5a22cfc8cdddaf31f76363cca7251c45eb76f57e7089",
+      "after_sha256": "6cb30cbcfb998887091f5a22cfc8cdddaf31f76363cca7251c45eb76f57e7089",
+      "row_unchanged": true,
+      "interpretation": "Existing formal mapping cannot be rewritten as pre-confirm user authorization. This checks the immutability guard; pre-first-formalization identity conflict is also established by the unique constraint and adapter code."
+    },
+    "draft_request_contract_probe": {
+      "accepted_without_snapshot": false,
+      "validation_errors": [
+        {
+          "field": [
+            "analysis_snapshot_id"
+          ],
+          "type": "missing"
+        }
+      ]
+    },
+    "external_presnapshot_audit": {
+      "exists_in_source": true,
+      "source": "src/crossborder_compliance/infrastructure/persistence/integrations.py::audit",
+      "unbound_id_representation": "empty strings",
+      "new_execution_verified": false,
+      "limitation": "Existing external-operation audit convention is acknowledged; NOT NULL alone is not proof of migration necessity."
+    }
+  },
+  "original_counterexample": {
+    "path": "evidence/stage1-full-e2e/candidate_confirmation_counterexample.json",
+    "sha256": "e10f6995cecd54f96d7681183c183f31f7fc7f4ef6e1bd61a3148e2bd56a8357",
+    "kind": "retained real PostgreSQL/HTTP/DOCX/local HTTP LLM diagnostic",
+    "rerun_this_turn": false,
+    "missing_confirmation": true
+  },
+  "candidate_families": {
+    "BusinessFactCandidate": {
+      "evidence": "original runtime counterexample and source",
+      "user_authorization_gate": "MISSING"
+    },
+    "CandidateDataItem": {
+      "evidence": "static owning-service inspection",
+      "user_authorization_gate": "MISSING"
+    },
+    "CandidateDataFlowNode": {
+      "evidence": "static owning-service inspection",
+      "user_authorization_gate": "MISSING"
+    },
+    "CandidateDataFlowEdge": {
+      "evidence": "static owning-service inspection",
+      "user_authorization_gate": "MISSING",
+      "qualification": "Incomplete structural fields may fail closed; structural sufficiency does not establish consent."
+    },
+    "ProductContextCandidate": {
+      "evidence": "static owning-service inspection",
+      "document_derived_gate": "MISSING",
+      "explicit_structured_selection": "Distinct existing user-input contract; duplicate confirmation not required"
+    }
+  },
+  "persistence_decision": {
+    "no_migration_path_under_current_owner_contracts": "NOT_ESTABLISHED",
+    "missing_identity": "Immutable draft-scoped candidate preparation and independent append-only human authorization, separate from later candidate-to-formal mapping.",
+    "project_version_json": "Possible encoding, but adding events changes the immutable payload or creates a new version that stales prior decisions.",
+    "candidate_resolution": "Formal/context unique namespace with immutable mapping; no separate draft/preparation/actor/edit identity.",
+    "business_fact_resolution": "Post-formal mapping, not pre-confirm authority.",
+    "parse_provenance": "Per-document extraction source lineage, not draft-wide authorization.",
+    "audit_reuse": "Keep canonical audit_events; existing pre-snapshot external logs do not supply preparation/decision operational authority.",
+    "alternatives_requiring_architecture_decision": [
+      "Mutable server-owned intake annex with revised immutable-payload contract",
+      "Operational event-sourced authorization owner reconstructed from audit payloads"
+    ],
+    "proposal": "Add preparation/decision owners and review existing gateway/audit scoped extension."
+  },
+  "proposed_migration": {
+    "revision": "0019_stage1_candidate_governance",
+    "down_revision": "0018_phase1h_multijurisdiction_classification_identity",
+    "approved": false,
+    "file_created": false,
+    "applied": false,
+    "new_owner_tables": [
+      "candidate_preparations",
+      "candidate_decisions"
+    ],
+    "existing_authority_extension": "Typed LLMInvocationScope and reviewed existing audit_events draft/snapshot representation; preserve legacy EXTERNAL_OPERATION blank IDs.",
+    "upgrade": "Add new owning identities; preserve historical migrations/candidates/formal mappings/Snapshots/results; no fabricated consent backfill.",
+    "downgrade": "Refuse while any retained R1 authority or draft audit exists; safe empty downgrade/re-upgrade only.",
+    "historical_compatibility": "Existing snapshot and legacy external audit semantics retained; no new legal/runtime/review authority."
+  },
+  "execution": {
+    "production_source_modified": false,
+    "migration_modified": false,
+    "new_schema_created": false,
+    "new_routes_or_ui": false,
+    "recovery_acceptance": "NOT_EXECUTED",
+    "full_backend": "NOT_EXECUTED",
+    "architecture_acceptance": "NOT_EXECUTED",
+    "runtime_acceptance": "NOT_EXECUTED",
+    "frontend_acceptance": "NOT_EXECUTED",
+    "browser_acceptance": "NOT_EXECUTED",
+    "browser_retries": null,
+    "new_remote_ci": "NOT_EXECUTED",
+    "new_pr_created": false,
+    "commit_created": false,
+    "merged": false,
+    "tag_created": false,
+    "paid_internet_llm": "NOT EXECUTED"
+  },
+  "historical_baseline_counts_only": {
+    "backend": 910,
+    "architecture": 307,
+    "runtime": 25,
+    "frontend": 135,
+    "browser": 60,
+    "browser_retries": 0,
+    "not_r1_results": true
+  },
+  "recovery_gates": {
+    "preconfirm_preparation": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "candidate_preview": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "no_formal_objects_before_decision": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "unresolved_blocks_confirm": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "accept": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "reject": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "edit": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "candidate_immutability": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "actor_time_provenance": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "source_trace_provenance": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "llm_provenance": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "stale_draft": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "stale_document": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "stale_config": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "structured_precedence": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "multi_model_no_voting": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "confirm_no_hidden_extraction": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "exact_snapshot_pins": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "successor_immutability": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "m2a": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "m2b": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "m2d": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "phase1kb": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "m2e": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "backend": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "architecture": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "runtime": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "frontend": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL",
+    "browser": "NOT_EXECUTED_PENDING_ARCHITECTURE_APPROVAL"
+  },
+  "blockers": [
+    {
+      "code": "PRECONFIRM_AUTHORIZATION_PERSISTENCE_IDENTITY_MISSING",
+      "required_action": "Architecture approval of proposed 0019 scope or an explicit alternative owner-contract redesign; do not create migration automatically.",
+      "user_stop_rule": "R1 sections 35-36 and 81; 0019 not approved."
+    }
+  ],
+  "stage1_full_e2e_resume": "BLOCKED",
+  "stage1_full_e2e_pr_closure": "BLOCKED",
+  "main_integration": "PENDING",
+  "stage2_started": false,
+  "source_digests": {
+    "ARCHITECTURE_RULES.md": {
+      "baseline_sha256": "59ccfdeaafc729f0f34252cf5eaf8a9fce8d129cbab5ae1b8870108a36712d01",
+      "workspace_sha256": "59ccfdeaafc729f0f34252cf5eaf8a9fce8d129cbab5ae1b8870108a36712d01",
+      "byte_identity": true
+    },
+    "src/crossborder_compliance/domain/contracts.py": {
+      "baseline_sha256": "c1b07c69d564c5f0bc32e1cdfe29ffe2fd2761982346225fc4a6e46e6b4ce60c",
+      "workspace_sha256": "c1b07c69d564c5f0bc32e1cdfe29ffe2fd2761982346225fc4a6e46e6b4ce60c",
+      "byte_identity": true
+    },
+    "src/crossborder_compliance/domain/llm_gateway.py": {
+      "baseline_sha256": "cc6f2d20abc0690b25288ea22a79983185693d64c89e57637c4358f7a091dbe4",
+      "workspace_sha256": "cc6f2d20abc0690b25288ea22a79983185693d64c89e57637c4358f7a091dbe4",
+      "byte_identity": true
+    },
+    "src/crossborder_compliance/application/intake_services.py": {
+      "baseline_sha256": "9000525d479913d9c40a7d38bfa919834c126fa10d793a38e6bf12d61a83334b",
+      "workspace_sha256": "9000525d479913d9c40a7d38bfa919834c126fa10d793a38e6bf12d61a83334b",
+      "byte_identity": true
+    },
+    "src/crossborder_compliance/application/context_services.py": {
+      "baseline_sha256": "bba443a9873ed5c4c18c9ee65660bc3fe7a2cae0b88797dd4d30e72e39e8ebe0",
+      "workspace_sha256": "bba443a9873ed5c4c18c9ee65660bc3fe7a2cae0b88797dd4d30e72e39e8ebe0",
+      "byte_identity": true
+    },
+    "src/crossborder_compliance/infrastructure/intake_composition.py": {
+      "baseline_sha256": "36291c06c2ca2b6de8fe1a5473d8ee6651f9788ab8aa04dd399d5d9f081d3fc9",
+      "workspace_sha256": "36291c06c2ca2b6de8fe1a5473d8ee6651f9788ab8aa04dd399d5d9f081d3fc9",
+      "byte_identity": true
+    },
+    "src/crossborder_compliance/infrastructure/llm_gateway_configuration.py": {
+      "baseline_sha256": "ae4b5896e48321534e0c7a0ede1b2eb616ac8ee9748ec93dd146d56229e61507",
+      "workspace_sha256": "ae4b5896e48321534e0c7a0ede1b2eb616ac8ee9748ec93dd146d56229e61507",
+      "byte_identity": true
+    },
+    "src/crossborder_compliance/infrastructure/llm_document_inputs.py": {
+      "baseline_sha256": "9e9e92bd376d47048344088fcd666f1e0873847f8020f084d3601cc01d733359",
+      "workspace_sha256": "9e9e92bd376d47048344088fcd666f1e0873847f8020f084d3601cc01d733359",
+      "byte_identity": true
+    },
+    "src/crossborder_compliance/infrastructure/persistence/models.py": {
+      "baseline_sha256": "b571740f154ec67d30922e1875f42b97299c5e50c2c924ca16271d232aa6d675",
+      "workspace_sha256": "b571740f154ec67d30922e1875f42b97299c5e50c2c924ca16271d232aa6d675",
+      "byte_identity": true
+    },
+    "src/crossborder_compliance/infrastructure/persistence/context_models.py": {
+      "baseline_sha256": "2940284d8255c00b6bf37c1a9590ef90f901bcef8d9c1399d099873b06b0e94a",
+      "workspace_sha256": "2940284d8255c00b6bf37c1a9590ef90f901bcef8d9c1399d099873b06b0e94a",
+      "byte_identity": true
+    },
+    "src/crossborder_compliance/infrastructure/persistence/context_repositories.py": {
+      "baseline_sha256": "8e06a59b8a4c3190c47844ff9644de9d29995d213574cc3ae1d3ee38ebc241ba",
+      "workspace_sha256": "8e06a59b8a4c3190c47844ff9644de9d29995d213574cc3ae1d3ee38ebc241ba",
+      "byte_identity": true
+    },
+    "src/crossborder_compliance/infrastructure/persistence/project_intake.py": {
+      "baseline_sha256": "e4eec387bf632569b6f7e250c08ab438c465ea08960054d8e5af6c92cccb947b",
+      "workspace_sha256": "e4eec387bf632569b6f7e250c08ab438c465ea08960054d8e5af6c92cccb947b",
+      "byte_identity": true
+    },
+    "src/crossborder_compliance/infrastructure/persistence/document_models.py": {
+      "baseline_sha256": "5e92448adb65bbb1a89e0ffbfc92fdf4af486ced66c326c58e80b30567429f8d",
+      "workspace_sha256": "5e92448adb65bbb1a89e0ffbfc92fdf4af486ced66c326c58e80b30567429f8d",
+      "byte_identity": true
+    },
+    "src/crossborder_compliance/infrastructure/persistence/document_repositories.py": {
+      "baseline_sha256": "e37fcd75d0e25af94f77604afff31d32c804f534885e9bd085ec94efdecd5045",
+      "workspace_sha256": "e37fcd75d0e25af94f77604afff31d32c804f534885e9bd085ec94efdecd5045",
+      "byte_identity": true
+    },
+    "src/crossborder_compliance/infrastructure/persistence/llm_gateway_audit.py": {
+      "baseline_sha256": "4d89bf5faffcf728afa96e67637dddd61a172ae3b2907c1cc903a43316949f40",
+      "workspace_sha256": "4d89bf5faffcf728afa96e67637dddd61a172ae3b2907c1cc903a43316949f40",
+      "byte_identity": true
+    },
+    "src/crossborder_compliance/infrastructure/persistence/integrations.py": {
+      "baseline_sha256": "457f4277d519120b8db2102bb56fda8137aef49190ead84667df01262c4eca13",
+      "workspace_sha256": "457f4277d519120b8db2102bb56fda8137aef49190ead84667df01262c4eca13",
+      "byte_identity": true
+    },
+    "docs/m2a/M2A_design.md": {
+      "baseline_sha256": "18912d3de8fe0b909c1784c43a89e61218b4720cd194e2efddec60617ef056bd",
+      "workspace_sha256": "18912d3de8fe0b909c1784c43a89e61218b4720cd194e2efddec60617ef056bd",
+      "byte_identity": true
+    },
+    "docs/m2a/M2A_persistence_result.md": {
+      "baseline_sha256": "55f2560834fcff6fcc9d6c6d4054fda73a11514df88787eeaae5939eade231e9",
+      "workspace_sha256": "55f2560834fcff6fcc9d6c6d4054fda73a11514df88787eeaae5939eade231e9",
+      "byte_identity": true
+    },
+    "alembic/versions/0001_phase1a_runtime_tables.py": {
+      "baseline_sha256": "d8a3d4c060beaa95ee2daab5658a476854640c24b3100cee6ebd4c44d86d793a",
+      "workspace_sha256": "d8a3d4c060beaa95ee2daab5658a476854640c24b3100cee6ebd4c44d86d793a",
+      "byte_identity": true
+    },
+    "alembic/versions/0002_phase1b_domain_foundation.py": {
+      "baseline_sha256": "4fa947ad533c7faeaa5d8893917a7c1fcb9933436be9ec41180524eae4c3b9da",
+      "workspace_sha256": "4fa947ad533c7faeaa5d8893917a7c1fcb9933436be9ec41180524eae4c3b9da",
+      "byte_identity": true
+    },
+    "alembic/versions/0003_phase1c_metadata_registry.py": {
+      "baseline_sha256": "fb8c17f96cfe83c6cbb9f5d1b71450f1e77ae1ee1a9d9df334f6fefff24d66b1",
+      "workspace_sha256": "fb8c17f96cfe83c6cbb9f5d1b71450f1e77ae1ee1a9d9df334f6fefff24d66b1",
+      "byte_identity": true
+    },
+    "alembic/versions/0004_phase1d_document_intelligence.py": {
+      "baseline_sha256": "9f1bf0b1ad8924d698a66d996571565fe5ffd22808f906d639d04549fa8d48ff",
+      "workspace_sha256": "9f1bf0b1ad8924d698a66d996571565fe5ffd22808f906d639d04549fa8d48ff",
+      "byte_identity": true
+    },
+    "alembic/versions/0005_phase1e_context_resolution.py": {
+      "baseline_sha256": "6f524b052b4e13df4d809f9ab85157999df43ed9f819d76f5aff9e52493993e3",
+      "workspace_sha256": "6f524b052b4e13df4d809f9ab85157999df43ed9f819d76f5aff9e52493993e3",
+      "byte_identity": true
+    },
+    "alembic/versions/0006_phase1f_knowledge_scope.py": {
+      "baseline_sha256": "5c4ffecc8cf1ff7787bb282eaed18699b918ad5e40c44e23f761fefd0eeb6085",
+      "workspace_sha256": "5c4ffecc8cf1ff7787bb282eaed18699b918ad5e40c44e23f761fefd0eeb6085",
+      "byte_identity": true
+    },
+    "alembic/versions/0007_phase1g_retrieval_evidence.py": {
+      "baseline_sha256": "47117a332785bb63d7ef6ae3537bce321732e9d570f2afc005051888c8c5d4b4",
+      "workspace_sha256": "47117a332785bb63d7ef6ae3537bce321732e9d570f2afc005051888c8c5d4b4",
+      "byte_identity": true
+    },
+    "alembic/versions/0008_phase1h_rule_classification.py": {
+      "baseline_sha256": "04ac67c7ffe3445a1d89b633549690d0c59fa12ac978e90ca5514b5902484f77",
+      "workspace_sha256": "04ac67c7ffe3445a1d89b633549690d0c59fa12ac978e90ca5514b5902484f77",
+      "byte_identity": true
+    },
+    "alembic/versions/0009_phase1i_applicability.py": {
+      "baseline_sha256": "e363840390a0cb673aef676d75c02c24ed8ea7002a9c1a03605db80bf30447e8",
+      "workspace_sha256": "e363840390a0cb673aef676d75c02c24ed8ea7002a9c1a03605db80bf30447e8",
+      "byte_identity": true
+    },
+    "alembic/versions/0010_phase1j_formal_decisions.py": {
+      "baseline_sha256": "cebbe1158f5b98ca0c2a7dd87726111f50e2fc24f1f83f828ac1243d24d0e57f",
+      "workspace_sha256": "cebbe1158f5b98ca0c2a7dd87726111f50e2fc24f1f83f828ac1243d24d0e57f",
+      "byte_identity": true
+    },
+    "alembic/versions/0011_m2a_structured_intake.py": {
+      "baseline_sha256": "573785cdee48f57d8ff7761b49d73e57cf110befd4a14d3e1fcae031e5a89cf0",
+      "workspace_sha256": "573785cdee48f57d8ff7761b49d73e57cf110befd4a14d3e1fcae031e5a89cf0",
+      "byte_identity": true
+    },
+    "alembic/versions/0012_m2b_document_inputs.py": {
+      "baseline_sha256": "f732e59b44c6fb54a4880f5ca777140560614a675315f9ec8f94212409b4cb8f",
+      "workspace_sha256": "f732e59b44c6fb54a4880f5ca777140560614a675315f9ec8f94212409b4cb8f",
+      "byte_identity": true
+    },
+    "alembic/versions/0013_m2b_context_temporal_contract.py": {
+      "baseline_sha256": "79133fdda7aeda64a1c10e164abe1fbde73534dfecb3f7397a0b8f642ad33561",
+      "workspace_sha256": "79133fdda7aeda64a1c10e164abe1fbde73534dfecb3f7397a0b8f642ad33561",
+      "byte_identity": true
+    },
+    "alembic/versions/0014_m2c_formal_result_authority.py": {
+      "baseline_sha256": "63f1e8f97587dd52983d51cb632972ef9a9d0a7b83f60f4f32678ba3d29bd266",
+      "workspace_sha256": "63f1e8f97587dd52983d51cb632972ef9a9d0a7b83f60f4f32678ba3d29bd266",
+      "byte_identity": true
+    },
+    "alembic/versions/0015_m2d_review_governance.py": {
+      "baseline_sha256": "e424078407d47b338b722503f61bd4abd5f94e0cc65aeb7440f4e4330e51e02a",
+      "workspace_sha256": "e424078407d47b338b722503f61bd4abd5f94e0cc65aeb7440f4e4330e51e02a",
+      "byte_identity": true
+    },
+    "alembic/versions/0016_phase1kb_multi_provider_llm_governance.py": {
+      "baseline_sha256": "6f375dc1bc9ba86b668160ac28572822ddfe6867d16d2104d7ee5db5d422ee93",
+      "workspace_sha256": "6f375dc1bc9ba86b668160ac28572822ddfe6867d16d2104d7ee5db5d422ee93",
+      "byte_identity": true
+    },
+    "alembic/versions/0017_m2e_external_agent_api.py": {
+      "baseline_sha256": "25cdb35ebd50c503abd3554fe7cb1da665007a216461022cc8ea6f4f93cdb7de",
+      "workspace_sha256": "25cdb35ebd50c503abd3554fe7cb1da665007a216461022cc8ea6f4f93cdb7de",
+      "byte_identity": true
+    },
+    "alembic/versions/0018_phase1h_multijurisdiction_classification_identity.py": {
+      "baseline_sha256": "e0aa96fbd00f49e370f66edf3c0e0bb20c97888955e8e3547fab65cffbec8f62",
+      "workspace_sha256": "e0aa96fbd00f49e370f66edf3c0e0bb20c97888955e8e3547fab65cffbec8f62",
+      "byte_identity": true
+    }
+  },
+  "artifact_digests": {
+    "docs/stage1-e2e/Stage1_E2E_R1_candidate_contract_inventory.md": "71d1459010253e4684819bce4107590ab2479588513b6ec8b061b9bf26d70b58",
+    "docs/stage1-e2e/Stage1_E2E_R1_candidate_governance_design.md": "888ad423afb86871bf1b11f75f18c1f0f231e239dc9dee174083bdc50f3a8738",
+    "docs/stage1-e2e/Stage1_E2E_R1_recovery_result.md": "b71fc613c414890efb01fdfd6a865c9cf731f8f1a9d188b7e222eca606bb46f2",
+    "evidence/stage1-full-e2e/r1_schema_inventory.json": "7f01a13d4f3f58cb1a437804a324cc8fd4654bf4bb59293b77cfa26f57586307"
+  },
+  "preserved_files": {
+    "Phase1H_integration_closure.md": "c9530e2a9c36746deadc143e3e94ab982c370650b653758ebe2f1d1aeb19ec37",
+    "docs/stage1-e2e/Stage1_E2E_D0_inventory.md": "17e6bdd3c50db55b5de7f6d1984fbdfc0ddd4558a372b86940518dc0d357ce6a",
+    "docs/stage1-e2e/Stage1_E2E_test_result.md": "d5605779b5f26f846f6d4ffa419df1dffb3a277773cfb7499c1ef4eed7d5f6f3",
+    "evidence/stage1-full-e2e/candidate_confirmation_counterexample.json": "e10f6995cecd54f96d7681183c183f31f7fc7f4ef6e1bd61a3148e2bd56a8357",
+    "evidence/stage1-full-e2e/start_gate.json": "8b1235098cb5d1b9ab8cda0f753e800fc4ad05264c103b6a394250ff275bc356",
+    "evidence/stage1-full-e2e/candidate_boundary_probe.py": "a7ad916c101320cce555da09425071cb905f3e094d79069a42071880d7f7996f",
+    "evidence/stage1-full-e2e/final_pr_validation.json": "b54a4551626e9f83742040625d1988ae07b9e8dc5f89fddfd5b44287538f37dd"
+  },
+  "evidence_limits": [
+    "Schema and adapter diagnostics only; no recovery acceptance measured.",
+    "Original real HTTP/DOCX/local-provider counterexample retained, not rerun this turn.",
+    "Other candidate-family findings are static source evidence.",
+    "Existing external pre-snapshot audit is source-proven, not newly executed.",
+    "No paid Internet provider called.",
+    "JSON storage capability is acknowledged; incompatible ownership reuse is the escalation reason."
+  ]
+}

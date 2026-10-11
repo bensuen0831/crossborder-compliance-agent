@@ -73,6 +73,57 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/external/projects/{project_id}/candidate-preparation": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Prepare Candidates */
+        post: operations["prepare_candidates_api_v1_external_projects__project_id__candidate_preparation_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/external/projects/{project_id}/candidate-preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Preview Candidates */
+        get: operations["preview_candidates_api_v1_external_projects__project_id__candidate_preview_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/external/projects/{project_id}/candidate-decisions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Resolve Candidates */
+        post: operations["resolve_candidates_api_v1_external_projects__project_id__candidate_decisions_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/external/projects/{project_id}/intake/supersede": {
         parameters: {
             query?: never;
@@ -552,6 +603,134 @@ export interface components {
             /** Template Priority */
             template_priority: number;
         };
+        /** CandidateDecisionInput */
+        CandidateDecisionInput: {
+            /**
+             * Preparation Candidate Id
+             * Format: uuid
+             */
+            preparation_candidate_id: string;
+            /**
+             * Action
+             * @enum {string}
+             */
+            action: "ACCEPT" | "REJECT" | "EDIT";
+            /** Edited Payload */
+            edited_payload?: {
+                [key: string]: unknown;
+            } | null;
+        };
+        /** CandidateDecisionReceipt */
+        CandidateDecisionReceipt: {
+            /**
+             * Candidate Decision Set Id
+             * Format: uuid
+             */
+            candidate_decision_set_id: string;
+            /**
+             * Candidate Preparation Id
+             * Format: uuid
+             */
+            candidate_preparation_id: string;
+            /** Submitted By */
+            submitted_by: string;
+            /**
+             * Submitted At
+             * Format: date-time
+             */
+            submitted_at: string;
+        };
+        /** CandidatePreview */
+        CandidatePreview: {
+            /** Candidate Preparation Id */
+            candidate_preparation_id: string | null;
+            /** Project Version Id */
+            project_version_id?: string | null;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "NOT_PREPARED" | "PREPARING" | "COMPLETED" | "FAILED";
+            /** Candidate Universe Digest */
+            candidate_universe_digest: string | null;
+            /**
+             * Stale
+             * @default false
+             */
+            stale: boolean;
+            /** Candidates */
+            candidates: components["schemas"]["CandidatePreviewItem"][];
+            /** Candidate Decision Set Id */
+            candidate_decision_set_id?: string | null;
+        };
+        /** CandidatePreviewItem */
+        CandidatePreviewItem: {
+            /**
+             * Preparation Candidate Id
+             * Format: uuid
+             */
+            preparation_candidate_id: string;
+            /**
+             * Candidate Id
+             * Format: uuid
+             */
+            candidate_id: string;
+            /**
+             * Candidate Type
+             * @enum {string}
+             */
+            candidate_type: "BUSINESS_FACT" | "DATA_ITEM" | "DATA_FLOW_NODE" | "DATA_FLOW_EDGE";
+            /**
+             * Candidate Origin
+             * @enum {string}
+             */
+            candidate_origin: "LLM_STRUCTURED_OUTPUT" | "NATIVE_DETERMINISTIC" | "DOCUMENT_DERIVED";
+            /** Candidate Digest */
+            candidate_digest: string;
+            /** Proposed Payload */
+            proposed_payload: {
+                [key: string]: unknown;
+            };
+            /** Confidence */
+            confidence: number | null;
+            /** Requires Confirmation */
+            requires_confirmation: boolean;
+            /** Sources */
+            sources: components["schemas"]["CandidateSourcePreview"][];
+            /**
+             * Decision Status
+             * @default UNRESOLVED
+             * @enum {string}
+             */
+            decision_status: "UNRESOLVED" | "ACCEPT" | "REJECT" | "EDIT";
+            /** Edited Payload */
+            edited_payload?: {
+                [key: string]: unknown;
+            } | null;
+            /** Llm Provenance */
+            llm_provenance?: {
+                [key: string]: unknown;
+            } | null;
+        };
+        /** CandidateSourcePreview */
+        CandidateSourcePreview: {
+            /**
+             * Source Trace Ref Id
+             * Format: uuid
+             */
+            source_trace_ref_id: string;
+            /**
+             * Parse Run Id
+             * Format: uuid
+             */
+            parse_run_id: string;
+            /** Document Version Id */
+            document_version_id: string | null;
+            /** Section */
+            section?: string | null;
+            /** Source Excerpt */
+            source_excerpt: string;
+        };
         /** CapabilityDependency */
         CapabilityDependency: {
             /**
@@ -784,6 +963,8 @@ export interface components {
         ConfirmProjectIntake: {
             /** Expected Version */
             expected_version: number;
+            /** Candidate Decision Set Id */
+            candidate_decision_set_id?: string | null;
         };
         /** CrossBorderAssessmentDTOv2 */
         CrossBorderAssessmentDTOv2: {
@@ -1875,6 +2056,25 @@ export interface components {
             candidate_path_id: string;
             /** Reason Codes */
             reason_codes: string[];
+        };
+        /** ExternalCandidateDecisions */
+        ExternalCandidateDecisions: {
+            /** Expected Version */
+            expected_version: number;
+            /**
+             * Candidate Preparation Id
+             * Format: uuid
+             */
+            candidate_preparation_id: string;
+            /** Candidate Universe Digest */
+            candidate_universe_digest: string;
+            /** Decisions */
+            decisions: components["schemas"]["CandidateDecisionInput"][];
+        };
+        /** ExternalCandidatePreparation */
+        ExternalCandidatePreparation: {
+            /** Expected Version */
+            expected_version: number;
         };
         /** ExternalIntakeUpdate */
         ExternalIntakeUpdate: {
@@ -3784,6 +3984,336 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntakeView"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            504: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+        };
+    };
+    prepare_candidates_api_v1_external_projects__project_id__candidate_preparation_post: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                authorization?: string | null;
+            };
+            path: {
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExternalCandidatePreparation"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    "X-Correlation-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CandidatePreview"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            504: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+        };
+    };
+    preview_candidates_api_v1_external_projects__project_id__candidate_preview_get: {
+        parameters: {
+            query?: {
+                candidate_preparation_id?: string | null;
+            };
+            header?: {
+                authorization?: string | null;
+            };
+            path: {
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    "X-Correlation-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CandidatePreview"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+            /** @description Stable sanitized gateway error */
+            504: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GatewayError"];
+                };
+            };
+        };
+    };
+    resolve_candidates_api_v1_external_projects__project_id__candidate_decisions_post: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                authorization?: string | null;
+            };
+            path: {
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExternalCandidateDecisions"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    "X-Correlation-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CandidateDecisionReceipt"];
                 };
             };
             /** @description Stable sanitized gateway error */

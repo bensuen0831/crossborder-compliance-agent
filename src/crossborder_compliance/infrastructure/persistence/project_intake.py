@@ -239,19 +239,25 @@ class ProjectIntakeOperations:
             )
             s.add(row)
             s.flush()
-            from crossborder_compliance.infrastructure.persistence.project_document_inputs import copy_links
-            copy_links(s,self.tenant_id,old,row)
+            from crossborder_compliance.infrastructure.persistence.project_document_inputs import (
+                copy_links,
+            )
+
+            copy_links(s, self.tenant_id, old, row)
             project.active_version_id = row.project_version_id
             project.record_version += 1
             key.response_ref = row.project_version_id
             return self._intake_view(s, row)
 
-    def confirm_intake(self, project_id, expected_version, prepare):
+    def confirm_intake(
+        self, project_id, expected_version, prepare, *, candidate_decision_set_id=None
+    ):
         self._intake_permission("confirm")
         with self._sessions() as s, s.begin():
             # Scope-first retrieval requires REPEATABLE READ. Establish its
             # existing isolation contract before the confirmation's first read.
             from sqlalchemy.engine import Connection
+
             if isinstance(s.get_bind(), Connection):
                 if s.get_bind().get_isolation_level() != "REPEATABLE READ":
                     raise ValueError("confirmation requires REPEATABLE READ owning transaction")
@@ -262,10 +268,24 @@ class ProjectIntakeOperations:
             if row.version_no != expected_version:
                 raise IntakeConflict("STALE_INTAKE_VERSION")
             if row.status == "CONFIRMED":
+                if candidate_decision_set_id is not None:
+                    view = self._intake_view(s, row)
+                    original = s.get(AnalysisSnapshotEntity, str(view.analysis_snapshot_id))
+                    if original.provenance_json.get("candidate_decision_set_id") != str(
+                        candidate_decision_set_id
+                    ):
+                        raise IntakeConflict("CANDIDATE_PREPARATION_STALE")
                 return self._intake_view(s, row)
             if row.status != "DRAFT":
                 raise IntakeConflict("INTAKE_NOT_DRAFT")
             facts = ProjectIntakeContext.model_validate(row.intake_json)
+            from crossborder_compliance.infrastructure.persistence.candidate_governance import (
+                confirmation_authorization,
+            )
+
+            candidate_authorization = confirmation_authorization(
+                s, self._context, project_id, row, candidate_decision_set_id
+            )
             snapshot_id = uuid5(UUID(row.project_version_id), "analysis-snapshot")
             run_id = uuid5(snapshot_id, "canonical-workflow")
             snapshot = AnalysisSnapshotEntity(
@@ -280,6 +300,7 @@ class ProjectIntakeOperations:
                     "confirmed_by": self._context.permission.actor_id,
                     "confirmed_at": datetime.now(UTC).isoformat(),
                     "workflow_run_id": str(run_id),
+                    **candidate_authorization,
                 },
             )
             row.status = "CONFIRMED"
@@ -310,27 +331,63 @@ class ProjectIntakeOperations:
             old = self._intake_current(s, project)
             if old.project_version_id != str(source_version_id) or old.status != "CONFIRMED":
                 raise IntakeConflict("STALE_SOURCE_INTAKE_VERSION")
-            if facts.analysis_as_of_date != ProjectIntakeContext.model_validate(old.intake_json).analysis_as_of_date:
+            if (
+                facts.analysis_as_of_date
+                != ProjectIntakeContext.model_validate(old.intake_json).analysis_as_of_date
+            ):
                 raise IntakeConflict("REVIEW_ANALYSIS_DATE_CHANGE_NOT_CONFIGURED")
-            source = self._scoped_get(s, AnalysisSnapshotEntity, AnalysisSnapshotEntity.analysis_snapshot_id, source_snapshot_id)
+            source = self._scoped_get(
+                s,
+                AnalysisSnapshotEntity,
+                AnalysisSnapshotEntity.analysis_snapshot_id,
+                source_snapshot_id,
+            )
             if source is None or source.project_version_id != old.project_version_id:
                 raise LookupError("review source snapshot not found")
-            from crossborder_compliance.infrastructure.persistence.document_models import AnalysisSnapshotParseRunPinEntity, ProjectVersionDocumentLinkEntity
-            from crossborder_compliance.infrastructure.persistence.models import DocumentVersionEntity
-            versions = list(s.scalars(select(AnalysisSnapshotParseRunPinEntity.document_version_id).where(
-                AnalysisSnapshotParseRunPinEntity.tenant_id == self.tenant_id,
-                AnalysisSnapshotParseRunPinEntity.analysis_snapshot_id == str(source_snapshot_id))))
+            from crossborder_compliance.infrastructure.persistence.document_models import (
+                AnalysisSnapshotParseRunPinEntity,
+                ProjectVersionDocumentLinkEntity,
+            )
+            from crossborder_compliance.infrastructure.persistence.models import (
+                DocumentVersionEntity,
+            )
+
+            versions = list(
+                s.scalars(
+                    select(AnalysisSnapshotParseRunPinEntity.document_version_id).where(
+                        AnalysisSnapshotParseRunPinEntity.tenant_id == self.tenant_id,
+                        AnalysisSnapshotParseRunPinEntity.analysis_snapshot_id
+                        == str(source_snapshot_id),
+                    )
+                )
+            )
             # The exact snapshot, rather than active Document/ParseRun state, owns this universe.
-            facts = facts.model_copy(update={"uploaded_documents": list(dict.fromkeys(
-                s.get(DocumentVersionEntity, v).document_id for v in versions))})
-            row = ProjectVersionEntity(project_version_id=str(uuid4()), tenant_id=self.tenant_id,
-                project_id=str(project_id), version_no=old.version_no + 1, status="DRAFT",
-                intake_json=self._intake_payload(facts, project, old.version_no + 1))
+            facts = facts.model_copy(
+                update={
+                    "uploaded_documents": list(
+                        dict.fromkeys(s.get(DocumentVersionEntity, v).document_id for v in versions)
+                    )
+                }
+            )
+            row = ProjectVersionEntity(
+                project_version_id=str(uuid4()),
+                tenant_id=self.tenant_id,
+                project_id=str(project_id),
+                version_no=old.version_no + 1,
+                status="DRAFT",
+                intake_json=self._intake_payload(facts, project, old.version_no + 1),
+            )
             s.add(row)
             s.flush()
             for version_id in versions:
-                s.add(ProjectVersionDocumentLinkEntity(link_id=str(uuid4()), tenant_id=self.tenant_id,
-                    project_version_id=row.project_version_id, document_version_id=version_id))
+                s.add(
+                    ProjectVersionDocumentLinkEntity(
+                        link_id=str(uuid4()),
+                        tenant_id=self.tenant_id,
+                        project_version_id=row.project_version_id,
+                        document_version_id=version_id,
+                    )
+                )
             s.flush()
             old.status = "SUPERSEDED"
             project.active_version_id = row.project_version_id

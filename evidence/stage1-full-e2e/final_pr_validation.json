@@ -1,0 +1,95 @@
+{
+  "decision": "BLOCKED",
+  "escalation": "HIGH_REASONING_ESCALATION_REQUIRED",
+  "reason": "PRECONFIRMATION_CANDIDATE_AUTHORIZATION_CONTRACT_MISSING",
+  "branch": "milestone-stage1-full-e2e",
+  "baseline_main_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "baseline_tag": "v3.7-m2e-pass",
+  "tag_object_sha": "c92daef5b47136fb14e2782c737927176d45086a",
+  "tag_target_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "source_under_diagnosis_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "final_pr_head_sha": null,
+  "source_pr": null,
+  "start_gate": "PASS",
+  "d0_inventory": "COMPLETE",
+  "product_source_changes": false,
+  "migration_head": "0018_phase1h_multijurisdiction_classification_identity",
+  "new_migration": false,
+  "migration_requirement": "NOT ESTABLISHED; do not create 0019",
+  "observed_counterexample": "candidate_confirmation_counterexample.json",
+  "affected_owners": [
+    "ProjectIntakeService / ProjectIntakeOperations",
+    "PostgresLLMConfiguration / PinnedDocumentInput",
+    "DocumentSemanticExtractionService",
+    "BusinessFactNormalizationService"
+  ],
+  "current_invariants": [
+    "Candidate != Formal Input until explicit user confirmation",
+    "LLM invocation uses governed exact Snapshot/model/policy/prompt/input pins",
+    "A confirmed immutable Snapshot must not serve as a fabricated draft preview identity",
+    "One canonical review authority and one canonical workflow runtime"
+  ],
+  "required_contract_decision": "Define canonical durable authorization/configuration identity for candidate preview before final input confirmation; preserve existing owners and exact pins. D0 does not authorize an implementation or establish that a database migration is needed.",
+  "pending_coverage": [
+    "real jurisdiction-linked DataFlow intake",
+    "four business outcomes x three locales",
+    "separate-project Web/API semantic parity",
+    "continuous DOCX to formal chain",
+    "LLM candidate preview/confirmation",
+    "dedicated exact-head CI"
+  ],
+  "full_backend": {
+    "status": "NOT EXECUTED",
+    "baseline_historical_pass_count": 910
+  },
+  "architecture": {
+    "status": "NOT EXECUTED",
+    "baseline_historical_pass_count": 307
+  },
+  "runtime": {
+    "status": "NOT EXECUTED",
+    "baseline_historical_pass_count": 25
+  },
+  "frontend": {
+    "status": "NOT EXECUTED",
+    "baseline_historical_pass_count": 135
+  },
+  "browser": {
+    "status": "NOT EXECUTED",
+    "baseline_historical_pass_count": 60,
+    "new_journeys_executed": 0,
+    "retry_count": null
+  },
+  "exact_head_ci": {
+    "status": "NOT EXECUTED",
+    "runs": []
+  },
+  "paid_internet_llm": "NOT EXECUTED",
+  "main_integration": "PENDING",
+  "stage2_started": false,
+  "blockers": [
+    "PRECONFIRMATION_CANDIDATE_AUTHORIZATION_CONTRACT_MISSING"
+  ],
+  "frozen_owner_sha256": {
+    "src/crossborder_compliance/infrastructure/intake_composition.py": "36291c06c2ca2b6de8fe1a5473d8ee6651f9788ab8aa04dd399d5d9f081d3fc9",
+    "src/crossborder_compliance/infrastructure/llm_document_inputs.py": "9e9e92bd376d47048344088fcd666f1e0873847f8020f084d3601cc01d733359",
+    "src/crossborder_compliance/infrastructure/llm_snapshot_pins.py": "fa895775ea93bfce6ac99f87ac4729b0eee991265dcb7dd76ff2a1d0aad1e3e3",
+    "src/crossborder_compliance/infrastructure/llm_gateway_configuration.py": "ae4b5896e48321534e0c7a0ede1b2eb616ac8ee9748ec93dd146d56229e61507",
+    "src/crossborder_compliance/application/llm_document_extraction.py": "2e3c0575ab8f74c08bcef8c5d392e0afd417d42b26b0dbbc3b1d05b071d5237b",
+    "src/crossborder_compliance/application/context_services.py": "bba443a9873ed5c4c18c9ee65660bc3fe7a2cae0b88797dd4d30e72e39e8ebe0",
+    "src/crossborder_compliance/application/intake_services.py": "9000525d479913d9c40a7d38bfa919834c126fa10d793a38e6bf12d61a83334b",
+    "src/crossborder_compliance/infrastructure/persistence/project_intake.py": "e4eec387bf632569b6f7e250c08ab438c465ea08960054d8e5af6c92cccb947b",
+    "frontend/src/features/intake/persistence.ts": "cc23151fc3eb2d50303db1795f4aba6202cf159411412cbf41921be5b26efdf6",
+    "scripts/m2e_resume_ownership.py": "5e70e847e4008b3674ea01ea26bfd84d9ba64b490b248e1fa02497afc0f1ea6f"
+  },
+  "evidence_sha256": {
+    "candidate_confirmation_counterexample.json": "e10f6995cecd54f96d7681183c183f31f7fc7f4ef6e1bd61a3148e2bd56a8357",
+    "candidate_boundary_probe.py": "a7ad916c101320cce555da09425071cb905f3e094d79069a42071880d7f7996f",
+    "start_gate.json": "8b1235098cb5d1b9ab8cda0f753e800fc4ad05264c103b6a394250ff275bc356"
+  },
+  "preserved_user_file_sha256": "c9530e2a9c36746deadc143e3e94ab982c370650b653758ebe2f1d1aeb19ec37",
+  "report_sha256": {
+    "docs/stage1-e2e/Stage1_E2E_D0_inventory.md": "17e6bdd3c50db55b5de7f6d1984fbdfc0ddd4558a372b86940518dc0d357ce6a",
+    "docs/stage1-e2e/Stage1_E2E_test_result.md": "d5605779b5f26f846f6d4ffa419df1dffb3a277773cfb7499c1ef4eed7d5f6f3"
+  }
+}

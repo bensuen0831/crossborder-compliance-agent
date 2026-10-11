@@ -26,7 +26,11 @@ class PostgresLLMInvocationGovernance:
                     b.ProjectVersionEntity.project_version_id == selection[0]["version_id"],
                     b.ProjectVersionEntity.tenant_id == config.tenant,
                     b.ProjectVersionEntity.project_id == str(request.project_id),
-                    b.ProjectVersionEntity.status.in_(("CONFIRMED", "SUPERSEDED")),
+                    b.ProjectVersionEntity.status.in_(
+                        ("DRAFT",)
+                        if config.candidate_preparation_id is not None
+                        else ("CONFIRMED", "SUPERSEDED")
+                    ),
                 )
             )
             if intake is None or selection[0]["object_id"] != str(request.project_id):

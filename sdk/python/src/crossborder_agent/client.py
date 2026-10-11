@@ -122,12 +122,44 @@ class AgentClient:
     def list_eligible_models(self, project: str) -> JSON:
         return self._call("GET", f"/projects/{quote(project, safe='')}/eligible-models")
 
-    def confirm(self, project: str, expected_version: int, key: str) -> JSON:
+    def prepare_candidates(self, project: str, expected_version: int, key: str) -> JSON:
+        payload = validate("ExternalCandidatePreparation", {"expected_version": expected_version})
+        return self._call(
+            "POST",
+            f"/projects/{quote(project, safe='')}/candidate-preparation",
+            json=payload,
+            key=key,
+        )
+
+    def candidate_preview(self, project: str) -> JSON:
+        return self._call("GET", f"/projects/{quote(project, safe='')}/candidate-preview")
+
+    def resolve_candidates(self, project: str, input: JSON, key: str) -> JSON:
+        validate("ExternalCandidateDecisions", input)
+        return self._call(
+            "POST", f"/projects/{quote(project, safe='')}/candidate-decisions", json=input, key=key
+        )
+
+    def confirm(
+        self,
+        project: str,
+        expected_version: int,
+        key: str,
+        *,
+        candidate_decision_set_id: str | None = None,
+    ) -> JSON:
         return self._call(
             "POST",
             f"/projects/{quote(project, safe='')}/intake/confirm",
             key=key,
-            json={"expected_version": expected_version},
+            json={
+                "expected_version": expected_version,
+                **(
+                    {"candidate_decision_set_id": candidate_decision_set_id}
+                    if candidate_decision_set_id
+                    else {}
+                ),
+            },
         )
 
     def start_analysis(self, project: str, snapshot: str, key: str) -> AnalysisAccepted:

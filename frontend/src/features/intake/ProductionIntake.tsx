@@ -33,7 +33,7 @@ export function ProductionIntake({ session, context }: { session: Session; conte
       <IntakeFeature key={`${session.identity_key}:${project}:${saved.data.version}`} session={session} initialStep={step} onStepChange={setStep} persistence={{ record: saved.data,
         refresh: async () => { const value = await intakeApi.read(saved.data.project_id); cache.setQueryData(queryKey, value); },
         save: async draft => { const facts = draftFacts(saved.data, draft); const payload = JSON.stringify([saved.data.project_id, saved.data.version, facts]); if (saveAttempt.current?.payload !== payload) saveAttempt.current = { payload, key: crypto.randomUUID() }; const value = await intakeApi.save(saved.data, facts, saveAttempt.current.key); setStep(0); cache.setQueryData(queryKey, value); },
-        confirm: async () => { const value = await intakeApi.confirm(saved.data); cache.setQueryData(queryKey, value); return value; } }}/>
+        confirm: async decisionSetId => { const value = await intakeApi.confirm(saved.data, decisionSetId); cache.setQueryData(queryKey, value); return value; } }}/>
     </> : context && <IntakeFeature key={`${session.identity_key}:${context.project_id}:${context.analysis_snapshot_id}`} session={session} context={context}/>}
   </>;
 }

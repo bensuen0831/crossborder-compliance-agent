@@ -62,6 +62,7 @@ class UpdateIntakeDraft(BaseModel):
 class ConfirmProjectIntake(BaseModel):
     model_config = ConfigDict(extra="forbid")
     expected_version: int = Field(ge=1)
+    candidate_decision_set_id: UUID | None = None
 
 
 class IntakeView(BaseModel):
@@ -112,6 +113,13 @@ class ProjectIntakeService:
             raise ValueError("INTAKE_REQUIRED_FACTS_MISSING")
         if self.prepare_snapshot is None:
             raise ValueError("INTAKE_SNAPSHOT_PREPARATION_UNAVAILABLE")
+        if request.candidate_decision_set_id is not None:
+            return self.repository.confirm_intake(
+                project_id,
+                request.expected_version,
+                self.prepare_snapshot,
+                candidate_decision_set_id=request.candidate_decision_set_id,
+            )
         return self.repository.confirm_intake(
             project_id, request.expected_version, self.prepare_snapshot
         )

@@ -56,7 +56,13 @@ def main():
         from alembic.script import ScriptDirectory
 
         heads = ScriptDirectory("alembic").get_heads()
-        assert heads == ["0018_phase1h_multijurisdiction_classification_identity"]
+        from crossborder_compliance.infrastructure.persistence.migration_lineage import (
+            revision_at_or_after,
+        )
+
+        assert len(heads) == 1 and revision_at_or_after(
+            heads[0], "0018_phase1h_multijurisdiction_classification_identity"
+        )
         migration = read(args.directory / "migration_measured.json")
         assert all(
             migration[k]

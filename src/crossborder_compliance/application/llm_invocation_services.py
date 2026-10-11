@@ -3,7 +3,7 @@
 from uuid import uuid4
 
 from crossborder_compliance.application.llm_invocation_policy import LLMInvocationPolicyService
-from crossborder_compliance.domain.llm_gateway import GatewayDenied
+from crossborder_compliance.domain.llm_gateway import DraftPreparationInvocationScope, GatewayDenied
 from crossborder_compliance.domain.llm_invocation import (
     ModelInvocationOutcome,
     ModelSelectionMode,
@@ -16,6 +16,12 @@ class GovernedLLMInvocationService:
         self.gateway, self.governance = gateway, governance
 
     def invoke(self, request, facts):
+        if isinstance(request.invocation_scope, DraftPreparationInvocationScope) and (
+            facts.purpose.value != "DOCUMENT_CANDIDATE_EXTRACTION"
+            or facts.trigger.value
+            not in {"DOCUMENT_SEMANTIC_EXTRACTION_REQUIRED", "DOCUMENT_EXTRACTION_LOW_CONFIDENCE"}
+        ):
+            raise GatewayDenied("DRAFT_INVOCATION_PURPOSE_DENIED")
         # The server's snapshot reader owns preferences and immutable policy pins.
         policy, preference = self.governance.load(request)
         decision = LLMInvocationPolicyService().evaluate(policy, preference, facts)
@@ -59,6 +65,7 @@ class GovernedLLMInvocationService:
         return MultiModelInvocationResult(
             invocation_group_id=group_id,
             analysis_snapshot_id=request.analysis_snapshot_id,
+            invocation_scope=request.invocation_scope,
             purpose=facts.purpose,
             strategy=preference.selection_mode,
             model_results=tuple(outcomes),

@@ -1,0 +1,661 @@
+{
+  "source_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "observed_at": "2026-10-10T17:11:42.962054+00:00",
+  "checks": {
+    "project_versions": {
+      "columns": [
+        {
+          "name": "project_version_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "project_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "version_no",
+          "type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "intake_json",
+          "type": "JSON",
+          "nullable": false
+        },
+        {
+          "name": "tenant_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "record_version",
+          "type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR(40)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "name": "effective_from",
+          "type": "DATE",
+          "nullable": true
+        },
+        {
+          "name": "effective_to",
+          "type": "DATE",
+          "nullable": true
+        }
+      ],
+      "unique_constraints": [
+        {
+          "column_names": [
+            "tenant_id",
+            "project_id",
+            "version_no"
+          ],
+          "name": "uq_project_versions_number",
+          "comment": null,
+          "dialect_options": {
+            "postgresql_include": [],
+            "postgresql_nulls_not_distinct": false
+          }
+        }
+      ],
+      "foreign_keys": [
+        {
+          "name": "project_versions_project_id_fkey",
+          "constrained_columns": [
+            "project_id"
+          ],
+          "referred_schema": null,
+          "referred_table": "projects",
+          "referred_columns": [
+            "project_id"
+          ],
+          "options": {
+            "ondelete": "CASCADE"
+          },
+          "comment": null
+        }
+      ],
+      "check_constraints": [
+        {
+          "name": "ck_project_versions_number",
+          "sqltext": "version_no >= 1",
+          "comment": null
+        }
+      ]
+    },
+    "candidate_resolutions": {
+      "columns": [
+        {
+          "name": "resolution_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "candidate_type",
+          "type": "VARCHAR(100)",
+          "nullable": false
+        },
+        {
+          "name": "candidate_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "formal_object_type",
+          "type": "VARCHAR(100)",
+          "nullable": false
+        },
+        {
+          "name": "formal_object_id",
+          "type": "VARCHAR(36)",
+          "nullable": true
+        },
+        {
+          "name": "action",
+          "type": "VARCHAR(40)",
+          "nullable": false
+        },
+        {
+          "name": "confidence",
+          "type": "DOUBLE PRECISION",
+          "nullable": false
+        },
+        {
+          "name": "resolution_reason_code",
+          "type": "VARCHAR(120)",
+          "nullable": false
+        },
+        {
+          "name": "source_trace_ids_json",
+          "type": "JSON",
+          "nullable": false
+        },
+        {
+          "name": "reviewer_required",
+          "type": "BOOLEAN",
+          "nullable": false
+        },
+        {
+          "name": "resolved_at",
+          "type": "TIMESTAMP",
+          "nullable": true
+        },
+        {
+          "name": "resolved_by_type",
+          "type": "VARCHAR(80)",
+          "nullable": false
+        },
+        {
+          "name": "version",
+          "type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "tenant_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "record_version",
+          "type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR(40)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "unique_constraints": [
+        {
+          "column_names": [
+            "tenant_id",
+            "candidate_type",
+            "candidate_id",
+            "version"
+          ],
+          "name": "uq_candidate_resolution_version",
+          "comment": null,
+          "dialect_options": {
+            "postgresql_include": [],
+            "postgresql_nulls_not_distinct": false
+          }
+        }
+      ],
+      "foreign_keys": [],
+      "check_constraints": []
+    },
+    "business_fact_resolutions": {
+      "columns": [
+        {
+          "name": "resolution_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "candidate_fact_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "business_fact_id",
+          "type": "VARCHAR(36)",
+          "nullable": true
+        },
+        {
+          "name": "action",
+          "type": "VARCHAR(40)",
+          "nullable": false
+        },
+        {
+          "name": "confidence",
+          "type": "DOUBLE PRECISION",
+          "nullable": false
+        },
+        {
+          "name": "reason_code",
+          "type": "VARCHAR(120)",
+          "nullable": false
+        },
+        {
+          "name": "source_trace_ids_json",
+          "type": "JSON",
+          "nullable": false
+        },
+        {
+          "name": "reviewer_required",
+          "type": "BOOLEAN",
+          "nullable": false
+        },
+        {
+          "name": "version",
+          "type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "tenant_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "record_version",
+          "type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR(40)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "unique_constraints": [
+        {
+          "column_names": [
+            "tenant_id",
+            "candidate_fact_id",
+            "version"
+          ],
+          "name": "uq_business_fact_resolution_candidate_version",
+          "comment": null,
+          "dialect_options": {
+            "postgresql_include": [],
+            "postgresql_nulls_not_distinct": false
+          }
+        }
+      ],
+      "foreign_keys": [
+        {
+          "name": "business_fact_resolutions_business_fact_id_fkey",
+          "constrained_columns": [
+            "business_fact_id"
+          ],
+          "referred_schema": null,
+          "referred_table": "business_facts",
+          "referred_columns": [
+            "fact_id"
+          ],
+          "options": {
+            "ondelete": "SET NULL"
+          },
+          "comment": null
+        },
+        {
+          "name": "business_fact_resolutions_candidate_fact_id_fkey",
+          "constrained_columns": [
+            "candidate_fact_id"
+          ],
+          "referred_schema": null,
+          "referred_table": "business_fact_candidates",
+          "referred_columns": [
+            "fact_id"
+          ],
+          "options": {
+            "ondelete": "CASCADE"
+          },
+          "comment": null
+        }
+      ],
+      "check_constraints": []
+    },
+    "document_parse_run_details": {
+      "columns": [
+        {
+          "name": "parse_run_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "document_version_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "parse_run_version",
+          "type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "parser_profile_id",
+          "type": "VARCHAR(120)",
+          "nullable": false
+        },
+        {
+          "name": "parser_name",
+          "type": "VARCHAR(120)",
+          "nullable": false
+        },
+        {
+          "name": "parser_version",
+          "type": "VARCHAR(80)",
+          "nullable": false
+        },
+        {
+          "name": "started_at",
+          "type": "TIMESTAMP",
+          "nullable": true
+        },
+        {
+          "name": "completed_at",
+          "type": "TIMESTAMP",
+          "nullable": true
+        },
+        {
+          "name": "native_parse_used",
+          "type": "BOOLEAN",
+          "nullable": false
+        },
+        {
+          "name": "ocr_used",
+          "type": "BOOLEAN",
+          "nullable": false
+        },
+        {
+          "name": "vision_used",
+          "type": "BOOLEAN",
+          "nullable": false
+        },
+        {
+          "name": "page_count",
+          "type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "table_count",
+          "type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "image_count",
+          "type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "warning_count",
+          "type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "quality_score",
+          "type": "DOUBLE PRECISION",
+          "nullable": true
+        },
+        {
+          "name": "error_code",
+          "type": "VARCHAR(120)",
+          "nullable": true
+        },
+        {
+          "name": "language",
+          "type": "VARCHAR(40)",
+          "nullable": true
+        },
+        {
+          "name": "provenance_json",
+          "type": "JSON",
+          "nullable": false
+        },
+        {
+          "name": "tenant_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "record_version",
+          "type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR(40)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "unique_constraints": [
+        {
+          "column_names": [
+            "tenant_id",
+            "document_version_id",
+            "parse_run_version"
+          ],
+          "name": "uq_document_parse_run_detail_version",
+          "comment": null,
+          "dialect_options": {
+            "postgresql_include": [],
+            "postgresql_nulls_not_distinct": false
+          }
+        }
+      ],
+      "foreign_keys": [
+        {
+          "name": "document_parse_run_details_document_version_id_fkey",
+          "constrained_columns": [
+            "document_version_id"
+          ],
+          "referred_schema": null,
+          "referred_table": "document_versions",
+          "referred_columns": [
+            "document_version_id"
+          ],
+          "options": {
+            "ondelete": "CASCADE"
+          },
+          "comment": null
+        },
+        {
+          "name": "document_parse_run_details_parse_run_id_fkey",
+          "constrained_columns": [
+            "parse_run_id"
+          ],
+          "referred_schema": null,
+          "referred_table": "document_parse_runs",
+          "referred_columns": [
+            "document_parse_run_id"
+          ],
+          "options": {
+            "ondelete": "CASCADE"
+          },
+          "comment": null
+        }
+      ],
+      "check_constraints": []
+    },
+    "audit_events": {
+      "columns": [
+        {
+          "name": "audit_event_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "tenant_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "workflow_run_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "analysis_snapshot_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "event_type",
+          "type": "VARCHAR(120)",
+          "nullable": false
+        },
+        {
+          "name": "provenance_json",
+          "type": "JSON",
+          "nullable": false
+        },
+        {
+          "name": "occurred_at",
+          "type": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "unique_constraints": [],
+      "foreign_keys": [],
+      "check_constraints": []
+    },
+    "api_idempotency_records": {
+      "columns": [
+        {
+          "name": "api_idempotency_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "tenant_id",
+          "type": "VARCHAR(36)",
+          "nullable": false
+        },
+        {
+          "name": "api_client_id",
+          "type": "VARCHAR(120)",
+          "nullable": false
+        },
+        {
+          "name": "idempotency_key",
+          "type": "VARCHAR(255)",
+          "nullable": false
+        },
+        {
+          "name": "request_hash",
+          "type": "VARCHAR(128)",
+          "nullable": false
+        },
+        {
+          "name": "response_ref",
+          "type": "VARCHAR(255)",
+          "nullable": true
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "unique_constraints": [
+        {
+          "column_names": [
+            "api_client_id",
+            "idempotency_key"
+          ],
+          "name": "uq_api_idempotency",
+          "comment": null,
+          "dialect_options": {
+            "postgresql_include": [],
+            "postgresql_nulls_not_distinct": false
+          }
+        }
+      ],
+      "foreign_keys": [],
+      "check_constraints": []
+    }
+  },
+  "alembic_versions": [
+    "0018_phase1h_multijurisdiction_classification_identity"
+  ],
+  "postgresql_version": "17.11 (Debian 17.11-0+deb13u1)",
+  "audit_scope_counts": [
+    {
+      "event_type": "LLM_ALLOWED",
+      "rows": 2,
+      "unbound_rows": 0
+    },
+    {
+      "event_type": "LLM_COMPLETED",
+      "rows": 2,
+      "unbound_rows": 0
+    },
+    {
+      "event_type": "WORKFLOW_COMPLETED",
+      "rows": 6,
+      "unbound_rows": 0
+    },
+    {
+      "event_type": "WORKFLOW_CREATED",
+      "rows": 1,
+      "unbound_rows": 0
+    }
+  ],
+  "user_triggers": [],
+  "null_draft_audit_probe": {
+    "insert_succeeded": false,
+    "sqlstate": "23502",
+    "column": "workflow_run_id",
+    "rolled_back": true
+  },
+  "resolution_reuse_probe": {
+    "rejected": true,
+    "reason": "IMMUTABLE_CANDIDATE_RESOLUTION_REWRITE",
+    "candidate_id": "c58c33e7-7103-41f3-b659-76a8be4703ef",
+    "original_authority": "POLICY",
+    "before_sha256": "6cb30cbcfb998887091f5a22cfc8cdddaf31f76363cca7251c45eb76f57e7089",
+    "after_sha256": "6cb30cbcfb998887091f5a22cfc8cdddaf31f76363cca7251c45eb76f57e7089",
+    "row_unchanged": true,
+    "interpretation": "Existing formal mapping cannot be rewritten as pre-confirm user authorization. This checks the immutability guard; pre-first-formalization identity conflict is also established by the unique constraint and adapter code."
+  },
+  "draft_request_contract_probe": {
+    "accepted_without_snapshot": false,
+    "validation_errors": [
+      {
+        "field": [
+          "analysis_snapshot_id"
+        ],
+        "type": "missing"
+      }
+    ]
+  }
+}

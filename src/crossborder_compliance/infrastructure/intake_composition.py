@@ -52,12 +52,28 @@ def project_context(sessions, context, project_id):
         permission=replace(
             context.permission,
             scopes=context.permission.scopes
-            | {f"project:{project_id}:comply", f"project:{project_id}:classify", f"project:{project_id}:read"},
+            | {
+                f"project:{project_id}:comply",
+                f"project:{project_id}:classify",
+                f"project:{project_id}:read",
+            },
         ),
     )
 
 
-def prepare_snapshot(sessions, context, intake, snapshot_id, run_id, *, source_snapshot_id=None, detected_product_scope=(), product_source_trace_ids=(), requirement_confirmation=False, llm_dependencies=None):
+def prepare_snapshot(
+    sessions,
+    context,
+    intake,
+    snapshot_id,
+    run_id,
+    *,
+    source_snapshot_id=None,
+    detected_product_scope=(),
+    product_source_trace_ids=(),
+    requirement_confirmation=False,
+    llm_dependencies=None,
+):
     project_id = intake.project_id
     context = project_context(sessions, context, project_id)
     from crossborder_compliance.infrastructure.persistence.structured_intake import (
@@ -66,13 +82,30 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id, *, source_s
 
     validate_references(sessions, context, intake, snapshot_id)
     from crossborder_compliance.infrastructure.llm_snapshot_pins import freeze_llm_configuration
-    freeze_llm_configuration(sessions, context, intake, snapshot_id, source_snapshot_id=source_snapshot_id)
-    if source_snapshot_id is None:
-        from crossborder_compliance.infrastructure.llm_document_inputs import prepare_document_candidates
-        prepare_document_candidates(sessions, context, intake, snapshot_id, **(llm_dependencies or {}))
-    from crossborder_compliance.infrastructure.persistence.document_snapshot_inputs import pin_intake_document_inputs
-    parse_run_ids = pin_intake_document_inputs(sessions, context, project_id, snapshot_id, source_snapshot_id=source_snapshot_id)
-    repo = PostgresContextResolutionRepository(sessions, context, parse_run_ids=parse_run_ids)
+    from crossborder_compliance.infrastructure.persistence.candidate_governance import (
+        transfer_preparation_pins,
+    )
+
+    transferred = transfer_preparation_pins(sessions, context, snapshot_id)
+    if not transferred:
+        freeze_llm_configuration(
+            sessions, context, intake, snapshot_id, source_snapshot_id=source_snapshot_id
+        )
+    from crossborder_compliance.infrastructure.persistence.document_snapshot_inputs import (
+        pin_intake_document_inputs,
+    )
+
+    parse_run_ids = pin_intake_document_inputs(
+        sessions, context, project_id, snapshot_id, source_snapshot_id=source_snapshot_id
+    )
+    with sessions() as s:
+        confirmation = s.get(b.AnalysisSnapshotEntity, str(snapshot_id)).provenance_json
+    repo = PostgresContextResolutionRepository(
+        sessions,
+        context,
+        parse_run_ids=parse_run_ids,
+        candidate_decision_set_id=confirmation.get("candidate_decision_set_id"),
+    )
     locations = {
         kind: values
         for kind, values in (
@@ -109,8 +142,11 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id, *, source_s
         ),
     )
     context_run = UUID(result["context_resolution_run_id"])
-    effective = [row for row in repo.get_product_context(project_id)
-                 if row["version"] == result["version"] and not row["review_required"]]
+    effective = [
+        row
+        for row in repo.get_product_context(project_id)
+        if row["version"] == result["version"] and not row["review_required"]
+    ]
     product_refs = set(ref for row in effective for ref in row["effective_scope"])
     # An explicitly confirmed single effective product is unambiguous project
     # input scope; reuse E's existing binding contract. Multi-product input
@@ -120,10 +156,17 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id, *, source_s
         definition = repo.metadata_definition(product_ref)
         if definition and definition["kind"] in {"PRODUCT", "PRODUCT_DOMAIN"}:
             for item in repo.get_data_items(project_id, version=result["version"]):
-                repo.bind_data_item_product(data_item_id=UUID(item["data_item_id"]),
-                    product_domain_definition_id=product_ref if definition["kind"] == "PRODUCT_DOMAIN" else None,
+                repo.bind_data_item_product(
+                    data_item_id=UUID(item["data_item_id"]),
+                    product_domain_definition_id=product_ref
+                    if definition["kind"] == "PRODUCT_DOMAIN"
+                    else None,
                     product_definition_id=product_ref if definition["kind"] == "PRODUCT" else None,
-                    relationship_type="PRIMARY", confidence=1.0, source_trace_ids=(), version=result["version"])
+                    relationship_type="PRIMARY",
+                    confidence=1.0,
+                    source_trace_ids=(),
+                    version=result["version"],
+                )
     repo.pin_snapshot_context(
         analysis_snapshot_id=snapshot_id,
         project_id=project_id,
@@ -135,9 +178,9 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id, *, source_s
         PostgresFormalClassificationRepository,
     )
 
-    classification_bindings = PostgresFormalClassificationRepository(sessions, context).pin_configurations(
-        project_id, snapshot_id
-    )
+    classification_bindings = PostgresFormalClassificationRepository(
+        sessions, context
+    ).pin_configurations(project_id, snapshot_id)
     retrieval = PostgresRetrievalRepository(sessions, context)
     KnowledgeScopeResolver(retrieval, context).resolve(
         str(project_id), snapshot_id=str(snapshot_id)
@@ -197,7 +240,9 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id, *, source_s
             subject_id=subject_id,
             classification_data_item_ids=item_ids,
             classification_bindings=classification_bindings,
-            input_capability_gap="MULTI_SUBJECT_WORKFLOW_NOT_CONFIGURED" if len(item_ids) > 1 else None,
+            input_capability_gap="MULTI_SUBJECT_WORKFLOW_NOT_CONFIGURED"
+            if len(item_ids) > 1
+            else None,
             applicability=bindings,
             retrieval_query=dict(
                 project_id=str(project_id),
@@ -230,17 +275,26 @@ def prepare_snapshot(sessions, context, intake, snapshot_id, run_id, *, source_s
 
 
 def intake_service(sessions, context, snapshot_preparer=None):
-    return ProjectIntakeService(PostgresProjectRepository(sessions, context), snapshot_preparer or prepare_snapshot)
+    return ProjectIntakeService(
+        PostgresProjectRepository(sessions, context), snapshot_preparer or prepare_snapshot
+    )
 
 
 def intake_workflow_host(sessions, context, project_id, snapshot_id):
     context = project_context(sessions, context, project_id)
     with sessions() as session:
-        pinned = session.scalar(select(b.AnalysisSnapshotEntity).where(
-            b.AnalysisSnapshotEntity.tenant_id == str(context.tenant_id),
-            b.AnalysisSnapshotEntity.analysis_snapshot_id == str(snapshot_id)))
+        pinned = session.scalar(
+            select(b.AnalysisSnapshotEntity).where(
+                b.AnalysisSnapshotEntity.tenant_id == str(context.tenant_id),
+                b.AnalysisSnapshotEntity.analysis_snapshot_id == str(snapshot_id),
+            )
+        )
         version = session.get(b.ProjectVersionEntity, pinned.project_version_id) if pinned else None
-        if version is None or version.tenant_id != str(context.tenant_id) or version.project_id != str(project_id):
+        if (
+            version is None
+            or version.tenant_id != str(context.tenant_id)
+            or version.project_id != str(project_id)
+        ):
             raise LookupError("confirmed intake snapshot not found")
         number = version.version_no
     view = PostgresProjectRepository(sessions, context).read_intake(project_id, number)
