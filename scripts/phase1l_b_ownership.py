@@ -98,8 +98,13 @@ def overlay(root):
             == now
             and all((root / p).read_bytes() == git("show", BASE + ":" + p) for p in old)
         )
+        rules_source = (
+            recovery_source
+            if recovery_valid and "ARCHITECTURE_RULES.md" in recovery_paths
+            else BASE
+        )
         valid = valid and (root / "ARCHITECTURE_RULES.md").read_bytes() == git(
-            "show", BASE + ":ARCHITECTURE_RULES.md"
+            "show", rules_source + ":ARCHITECTURE_RULES.md"
         )
         # Current Domain/Alembic/Rules remain frozen; frontend provenance is
         # proved against the exact L-B source above, not a later M1 descendant.

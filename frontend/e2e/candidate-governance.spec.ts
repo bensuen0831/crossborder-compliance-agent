@@ -1,5 +1,6 @@
 import { test, expect, type APIRequestContext, type Page } from '@playwright/test';
 import fs from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import zhCN from '../src/locales/zh-CN.json' with { type: 'json' };
 import zhHK from '../src/locales/zh-HK.json' with { type: 'json' };
 import enUS from '../src/locales/en-US.json' with { type: 'json' };
@@ -62,7 +63,7 @@ for (const [locale, action] of [['zh-CN', 'ACCEPT'], ['zh-HK', 'ACCEPT'], ['en-U
     await page.getByRole('button', { name: m['ui.m2a.save'], exact: true }).click();
     await expect(page.getByLabel(m['ui.m1.field.scenario'])).toBeVisible(); await page.reload(); await next(); await next();
     await expect(selection).toHaveValue(mode);
-    await page.getByLabel(m['ui.m2b.select']).setInputFiles({ name: 'candidate-governance.docx', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', buffer: fs.readFileSync(new URL('./fixtures/candidate-governance.docx', import.meta.url)) });
+    await page.getByLabel(m['ui.m2b.select']).setInputFiles({ name: 'candidate-governance.docx', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', buffer: execFileSync('python', ['-c', 'from docx import Document; import sys; d=Document(sys.argv[1]); d.add_paragraph("R11_BROWSER_SOURCE_MARKER project "+sys.argv[2]); d.save(sys.stdout.buffer)', new URL('./fixtures/candidate-governance.docx', import.meta.url).pathname, project]) });
     const uploaded = page.waitForResponse(r => r.url().includes('/intake/documents') && r.request().method() === 'POST');
     await page.getByRole('button', { name: m['ui.m2b.upload'], exact: true }).click();
     const uploadResponse = await uploaded; expect(uploadResponse.status(), await uploadResponse.text()).toBe(201);
