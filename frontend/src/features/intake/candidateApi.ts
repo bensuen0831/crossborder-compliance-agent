@@ -20,4 +20,3 @@ export function useDocumentCandidates(record: IntakeView | undefined, identity: 
   const blocked = !!preview.data && (preview.data.stale || preview.data.candidates.some(item => item.requires_confirmation && item.decision_status === 'UNRESOLVED'));
   return { preview, preparation, resolution, blocked, decisionSetId: preview.data?.candidate_decision_set_id ?? undefined };
 }
-
