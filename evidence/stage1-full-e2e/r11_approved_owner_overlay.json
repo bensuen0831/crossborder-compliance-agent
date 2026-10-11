@@ -1,7 +1,6 @@
 {
-  "base_sha": "df3a10923734495d728981f4f319b66afadf8c71",
-  "source_sha": "1fc54cd5aca20b661e07a9536adcdd4c510ffd1e",
   "authorization": "STAGE1-E2E-R1.1 approved0019 owning recovery",
+  "base_sha": "df3a10923734495d728981f4f319b66afadf8c71",
   "paths": {
     ".github/workflows/m2e-external-agent-api.yml": "9576f4451040b7934265782493bd829ef5519015cb0523bdcba7f019abd8990d",
     ".github/workflows/stage1-candidate-governance.yml": "4a01dcf2f4fcb1d19a1f7ea4837a4ebcfbbee43d782f5cb1fac080f18e114170",
@@ -12,6 +11,7 @@
     "alembic/versions/0019_stage1_candidate_governance.py": "bf95e33f21bcbe3ae7729d57202b5afa5479818e60252246dcf5cadfe5b04878",
     "frontend/e2e/candidate-governance.spec.ts": "e1b34aae90087edee456efc8065a323f01bb28117f9e0efa5276ba7eb3c1626e",
     "frontend/e2e/fixtures/candidate-governance.docx": "019772012e25054a8fc6d4c05d55d4d1e09a7970bf1c02f0bb7ab950e81b6da8",
+    "frontend/e2e/m2d.spec.ts": "64d1ee7041d411b7180c799a64fd7385f8b65ffaf0d2ee0ac6b344092ec21230",
     "frontend/e2e/m2e.spec.ts": "891eb787036becd59e7978d5e44e745555a38529cb3175d9e6e962c9cb3d576c",
     "frontend/e2e/phase1kb.spec.ts": "d54a986d5b89e5319326cf251672e874a8a74b019c6d41ed74f6164bc48e47ca",
     "frontend/scripts/m2e/export_contracts.py": "b6915330c2a5371f42f12f9b6d6acbe5fce000f873731dc57c288599e59d9650",
@@ -49,7 +49,7 @@
     "scripts/phase1l_b_ownership.py": "666549a0ce5e367fae47209f4d914c69e9964702a2ef321abc364458f87fc9b0",
     "scripts/stage1_candidate_architecture.py": "f638ad24cae48d710008972803c9bedb2dc4d6914f43750e8fce9e5385f740d6",
     "scripts/stage1_candidate_closure.py": "beec28211e74a2d0499761f5a5067679e4d74279ddc7bd35a26d4864eb376601",
-    "scripts/stage1_candidate_ownership.py": "bd69414e437683e89d5d9c26450004259881166f8d5ad03f0b0cb2ddd227a4ad",
+    "scripts/stage1_candidate_ownership.py": "eb5cabaf123da0bf08da7a06a6e944e5fd3c90d0e81ce5caa100c60b8a77d6b1",
     "sdk/openapi/external-v1.json": "a5091471a84e4d39cede69332acf4b22a6dd833d6b02f0e9a8b8cf15132e5d9c",
     "sdk/python/.gitignore": "9445b8071d0fa8f072c0a2d99a3e797de03ebb820facc421100bdcabc4628950",
     "sdk/python/pyproject.toml": "08c6f5788b0b8b07389568e6a7038a849dc9e7f3f2099a55d22148a6641eb64a",
@@ -138,5 +138,6 @@
     "tests/test_stage1_candidate_governance_domain.py": "c9f02b513ef39218a4d82556c4ae86ed375390beedb99de563abf7d299c78803",
     "tests/test_stage1_candidate_governance_http.py": "72399fb0e3cf3687014237da8f8459f6f59c378b82053345028f89742c4e1e3a",
     "tests/test_stage1_candidate_governance_migrations.py": "abd923205b6e656725c4b9d27c25439d1ad90ed9abecaede101673b9575ec69e"
-  }
+  },
+  "source_sha": "6ec9adbb9bee199f59d5cb9efa7849be2de2847a"
 }
