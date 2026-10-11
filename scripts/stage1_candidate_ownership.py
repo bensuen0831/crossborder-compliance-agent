@@ -88,7 +88,9 @@ def overlay(root, previous_paths):
     root = Path(root).resolve()
 
     def git(*args):
-        return subprocess.check_output(["git", *args], cwd=root, stderr=subprocess.DEVNULL)
+        return subprocess.check_output(
+            ["git", "-c", "core.quotepath=false", *args], cwd=root, stderr=subprocess.DEVNULL
+        )
 
     def ancestor(a, b):
         return (
