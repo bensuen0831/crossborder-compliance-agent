@@ -21,6 +21,7 @@ OWNER_PATHS = frozenset(
         "alembic/versions/0019_stage1_candidate_governance.py",
         "frontend/e2e/candidate-governance.spec.ts",
         "frontend/e2e/fixtures/candidate-governance.docx",
+        "frontend/e2e/m2d.spec.ts",
         "frontend/e2e/phase1kb.spec.ts",
         "frontend/src/api/m2a-generated.ts",
         "frontend/src/api/m2a-schemas.json",
