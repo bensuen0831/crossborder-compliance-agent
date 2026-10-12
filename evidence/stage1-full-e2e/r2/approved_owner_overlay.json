@@ -61,7 +61,7 @@
     "scripts/stage1_candidate_closure.py": "e3a987533830254342de73ba1565cff0b20f5343407873fd895eeb28b95a5158",
     "scripts/stage1_candidate_ownership.py": "0b1ccfe99c907b82d889294047c42a0893164321df17258a4347d0cb3b5131b3",
     "scripts/stage1_decision_compatibility_architecture.py": "a789c02031309d84eeedc47786790ce992fe4f1a6e142085538085304c0a1902",
-    "scripts/stage1_e2e_ownership.py": "fbf96ffe2c541ddcb0483bdda6062ded773bb45bb70292aa4e77f986556166d9",
+    "scripts/stage1_e2e_ownership.py": "6d100cf6c2c6ab72685accee122052233e600eccadd049fccf790e7927fc8a47",
     "sdk/openapi/external-v1.json": "fd9997f9df89ae0e1251cd3fc17db9a641aa17e9b5d3225d70a06fdef50b2984",
     "sdk/python/.gitignore": "9445b8071d0fa8f072c0a2d99a3e797de03ebb820facc421100bdcabc4628950",
     "sdk/python/pyproject.toml": "08c6f5788b0b8b07389568e6a7038a849dc9e7f3f2099a55d22148a6641eb64a",
@@ -153,11 +153,12 @@
     "tests/test_m2e_integration_migrations.py": "dcfe6a62398e8ef779befae7f136fbd7ff257050c7a6ecbf52fafc6ed923c611",
     "tests/test_m2e_openapi_sdk.py": "9044c2b66ec5cab541d02e8a481e0e3acdf7aa2cce217ffc7d2091fabb837afa",
     "tests/test_m2e_r11_migrations.py": "d9dbf2f1b2313b1f5f0fa9e5374438d746cb471f8e89198299182b045eefb9c9",
-    "tests/test_m2e_r1_architecture.py": "506bff79daf60dfdf01c66dd404b57aea90bcc6796d925491014ff0280fa6415",
+    "tests/test_m2e_r1_architecture.py": "31c0097acfd92838bd2e1d847a3f569b46f34cec5c8c81d21c8d3c5b858e1d90",
     "tests/test_m2e_r1_classification_postgres.py": "c4c2aad86b5472eb7e50f848ee8f30d55787a3e38426cf8af50b01631bae053e",
     "tests/test_m2e_r1_isolation.py": "a4fd954bac6e8994f5ac12e1799893acf2653272bbe4a333162e4961c24e71d5",
     "tests/test_m2e_vertical_postgres.py": "6780f22b89f624fda0e398285deafb21a500cde58aa6e46d07285899f4396833",
     "tests/test_m2e_webhooks_postgres.py": "13b907733cbea3b19da347cf52ac8dcc50f19ab0b544b7719154c1d231f1f67e",
+    "tests/test_phase1kb_architecture.py": "2a6f96ceec022e55e916c77ac1c8f734c175e5e68ae87b7ba47352a03a0d5059",
     "tests/test_phase1kb_document_postgres.py": "480102a4b628a1e58986d6ba25a61ff908b461ada4923b10d1ec7b30824474e0",
     "tests/test_phase1kb_migrations.py": "afd349478b2e868cdbc01114af4c5aedd0463ae4ce37fdb669dfbd55de50b8d3",
     "tests/test_stage1_business_http.py": "0e09b5754f20677a9d39867855b3ec973458af3e062f12ea93e26ee8edf8028e",
@@ -175,5 +176,5 @@
     "tests/test_stage1_support_pipeline.py": "728b05217dc2e11437b96b7fe76bbdc322c7e30e16ba9d57956ddea5caeb06fb"
   },
   "scope": "Approved0020 version-aware compatibility; bounded R2 input wiring; unchanged legal calculation bodies",
-  "source_sha": "cd7367f568e6fc95d6d35d67abafba402a47bd5d"
+  "source_sha": "21c4df5332de6d68aee22c8b8260e7e5a4ab2fba"
 }
