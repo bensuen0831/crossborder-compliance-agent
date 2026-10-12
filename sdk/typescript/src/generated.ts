@@ -1168,6 +1168,11 @@ export interface components {
              */
             source_trace_ids: string[];
         };
+        /**
+         * DecisionEngineVersion
+         * @enum {string}
+         */
+        DecisionEngineVersion: "FORMAL_DECISION_V2" | "FORMAL_DECISION_V2_1";
         /** DecisionEnvelope[CandidateCompliancePathDTOv2] */
         DecisionEnvelope_CandidateCompliancePathDTOv2_: {
             /**
@@ -1266,12 +1271,8 @@ export interface components {
             input_digest: string;
             /** Pins Digest */
             pins_digest: string;
-            /**
-             * Engine Version
-             * @default FORMAL_DECISION_V2
-             * @constant
-             */
-            engine_version: "FORMAL_DECISION_V2";
+            /** @default FORMAL_DECISION_V2_1 */
+            engine_version: components["schemas"]["DecisionEngineVersion"];
             provenance: components["schemas"]["DecisionProvenance"];
             /** Ordinary Status */
             ordinary_status: string;
@@ -1374,12 +1375,8 @@ export interface components {
             input_digest: string;
             /** Pins Digest */
             pins_digest: string;
-            /**
-             * Engine Version
-             * @default FORMAL_DECISION_V2
-             * @constant
-             */
-            engine_version: "FORMAL_DECISION_V2";
+            /** @default FORMAL_DECISION_V2_1 */
+            engine_version: components["schemas"]["DecisionEngineVersion"];
             provenance: components["schemas"]["DecisionProvenance"];
             /** Ordinary Status */
             ordinary_status: string;
@@ -1482,12 +1479,8 @@ export interface components {
             input_digest: string;
             /** Pins Digest */
             pins_digest: string;
-            /**
-             * Engine Version
-             * @default FORMAL_DECISION_V2
-             * @constant
-             */
-            engine_version: "FORMAL_DECISION_V2";
+            /** @default FORMAL_DECISION_V2_1 */
+            engine_version: components["schemas"]["DecisionEngineVersion"];
             provenance: components["schemas"]["DecisionProvenance"];
             /** Ordinary Status */
             ordinary_status: string;
@@ -1590,12 +1583,8 @@ export interface components {
             input_digest: string;
             /** Pins Digest */
             pins_digest: string;
-            /**
-             * Engine Version
-             * @default FORMAL_DECISION_V2
-             * @constant
-             */
-            engine_version: "FORMAL_DECISION_V2";
+            /** @default FORMAL_DECISION_V2_1 */
+            engine_version: components["schemas"]["DecisionEngineVersion"];
             provenance: components["schemas"]["DecisionProvenance"];
             /** Ordinary Status */
             ordinary_status: string;
@@ -1698,12 +1687,8 @@ export interface components {
             input_digest: string;
             /** Pins Digest */
             pins_digest: string;
-            /**
-             * Engine Version
-             * @default FORMAL_DECISION_V2
-             * @constant
-             */
-            engine_version: "FORMAL_DECISION_V2";
+            /** @default FORMAL_DECISION_V2_1 */
+            engine_version: components["schemas"]["DecisionEngineVersion"];
             provenance: components["schemas"]["DecisionProvenance"];
             /** Ordinary Status */
             ordinary_status: string;
@@ -1718,12 +1703,8 @@ export interface components {
             retrieval_run_ids: string[];
             /** Pins */
             pins: components["schemas"]["PinRef"][];
-            /**
-             * Engine Version
-             * @default FORMAL_DECISION_V2
-             * @constant
-             */
-            engine_version: "FORMAL_DECISION_V2";
+            /** @default FORMAL_DECISION_V2_1 */
+            engine_version: components["schemas"]["DecisionEngineVersion"];
             /**
              * Schema Version
              * @default 2.0
@@ -2318,6 +2299,8 @@ export interface components {
              */
             analysis_as_of_date: string;
             ai_model_preference?: components["schemas"]["AIModelPreference"];
+            /** Data Flows */
+            data_flows?: components["schemas"]["StructuredDataFlowInput"][];
         };
         /** IntakeView */
         IntakeView: {
@@ -2719,6 +2702,8 @@ export interface components {
              */
             analysis_as_of_date: string;
             ai_model_preference?: components["schemas"]["AIModelPreference"];
+            /** Data Flows */
+            data_flows?: components["schemas"]["StructuredDataFlowInput"][];
         };
         /** ProjectSummary */
         ProjectSummary: {
@@ -3303,6 +3288,46 @@ export interface components {
             item_id?: string | null;
             /** Content Digest */
             content_digest: string;
+        };
+        /**
+         * StructuredDataFlowInput
+         * @description Explicit draft input, not a candidate or a formal flow/result identity.
+         */
+        StructuredDataFlowInput: {
+            /**
+             * Input Key
+             * Format: uuid
+             */
+            input_key: string;
+            /** Data Item Canonical Name */
+            data_item_canonical_name: string;
+            /**
+             * Source Jurisdiction Id
+             * Format: uuid
+             */
+            source_jurisdiction_id: string;
+            /**
+             * Destination Jurisdiction Id
+             * Format: uuid
+             */
+            destination_jurisdiction_id: string;
+            /**
+             * Direction
+             * @enum {string}
+             */
+            direction: "SOURCE_TO_DESTINATION" | "BIDIRECTIONAL";
+            /** Source Name */
+            source_name: string;
+            /** Destination Name */
+            destination_name: string;
+            /** Source Party Id */
+            source_party_id?: string | null;
+            /** Destination Party Id */
+            destination_party_id?: string | null;
+            /** Source System Id */
+            source_system_id?: string | null;
+            /** Destination System Id */
+            destination_system_id?: string | null;
         };
         /** TokenView */
         TokenView: {

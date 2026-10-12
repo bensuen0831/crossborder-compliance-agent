@@ -228,6 +228,18 @@ def prepare_snapshot(
         mode = "DATA_AWARE" if item_ids else "SCENARIO_LEVEL"
         subject_type = "DATA_ITEM" if item_ids else "SCENARIO"
         subject_id = item_ids[0] if item_ids else UUID(intake.business_scenario)
+        if intake.data_flows:
+            # One explicit typed flow is an existing canonical DATA_FLOW subject.
+            # Its linked items are classified by jurisdiction; the formal
+            # applicability/decision owners then consume the actual flow ID.
+            # Preserve the frozen multi-subject boundary instead of selecting
+            # an arbitrary flow or silently analyzing only a data item.
+            edges = [edge for edge in repo.get_data_flows(project_id)["edges"]
+                     if edge["version"] == result["version"]]
+            if len(edges) != 1 or len(item_ids) != 1:
+                raise ValueError("MULTI_SUBJECT_WORKFLOW_NOT_CONFIGURED")
+            subject_type = "DATA_FLOW"
+            subject_id = UUID(edges[0]["flow_edge_id"])
         plan = FormalWorkflowPlan(
             tenant_id=context.tenant_id,
             requirement_review=requirement_confirmation,

@@ -428,6 +428,11 @@ class PostgresContextResolutionRepository:
 
         return inputs(self, project_id, intake_version_id, snapshot_id)
 
+    def structured_flow_inputs(self, project_id: UUID, intake_version_id: UUID, snapshot_id: UUID):
+        from crossborder_compliance.infrastructure.persistence.structured_intake import flow_inputs
+
+        return flow_inputs(self, project_id, intake_version_id, snapshot_id)
+
     def governed_input_selection(self, project_id: UUID, intake_version_id: UUID):
         from crossborder_compliance.infrastructure.persistence.review_models import (
             ReviewCorrectionEntity,

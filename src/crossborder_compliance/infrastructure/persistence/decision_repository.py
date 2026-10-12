@@ -7,10 +7,11 @@ from uuid import UUID, uuid4
 from sqlalchemy import select, text
 
 from crossborder_compliance.application.country_compliance_services import ApplicabilityRequest
-from crossborder_compliance.application.decision_services import DecisionRequest, calculate
+from crossborder_compliance.application.decision_services import DecisionRequest, calculate, verify_calculation
 from crossborder_compliance.domain.compliance_profiles import effective
 from crossborder_compliance.domain.decision_contracts import (
     ENVELOPE_TYPES,
+    DecisionEngineVersion,
     CapabilityDependency,
     LegalSupport,
     PinRef,
@@ -258,7 +259,12 @@ def _loaded(repo, session, kind, ident, operation="read"):
     authorize(repo, row.project_id, operation)
     if row.owner_actor_id != repo.context.permission.actor_id:
         raise LookupError("decision resource not found")
+    repo.snapshot(session, UUID(row.project_id), UUID(row.analysis_snapshot_id), operation="read")
     result = ENVELOPE_TYPES[kind].model_validate(row.result_json)
+    version = DecisionEngineVersion(row.engine_version)
+    row_provenance_version = DecisionEngineVersion(row.provenance_json["engine_version"])
+    if version != result.engine_version or version != result.provenance.engine_version or version != row_provenance_version:
+        raise ValueError("FORMAL_DECISION_ENGINE_VERSION_MISMATCH")
     if result.stage_kind != kind or str(result.result_id) != row.result_id:
         raise ValueError("stored stage identity mismatch")
     return row, result
@@ -266,6 +272,16 @@ def _loaded(repo, session, kind, ident, operation="read"):
 
 def prepare(repo, request, operation="execute", memo=None):
     authorize(repo, request.project_id, operation)
+    if operation == "execute":
+        with repo.sessions() as session:
+            for model in j.MODELS.values():
+                versions = session.scalars(select(model.engine_version).where(
+                    model.tenant_id == repo.tenant,
+                    model.analysis_snapshot_id == str(request.analysis_snapshot_id),
+                )).all()
+                for value in versions:
+                    if DecisionEngineVersion(value) == DecisionEngineVersion.LEGACY:
+                        raise ValueError("LEGACY_DECISION_SNAPSHOT_READ_ONLY")
     memo = memo if memo is not None else {}
     applications, prepared = [], []
     for ident in sorted(request.applicability_result_ids, key=str):
@@ -477,7 +493,7 @@ def read(repo, stage, ident, memo=None):
         if request.stage_kind != stage:
             raise ValueError("stored request stage mismatch")
     inputs, parents = prepare(repo, request, "read", memo)
-    current = calculate(stage, inputs, parents)
+    current = verify_calculation(stage, inputs, parents, saved.engine_version)
     if result_digest(saved) != result_digest(current):
         raise ValueError("saved decision no longer revalidates")
     return saved
@@ -485,6 +501,8 @@ def read(repo, stage, ident, memo=None):
 
 def save(repo, request, result):
     authorize(repo, request.project_id, "execute")
+    if result.engine_version != DecisionEngineVersion.CORRECTED or result.provenance.engine_version != DecisionEngineVersion.CORRECTED:
+        raise ValueError("LEGACY_DECISION_EXECUTION_FORBIDDEN")
     with repo.sessions() as s, s.begin():
         # H revalidation locks the snapshot in its own transaction. Serialize J
         # writers within the request-key project scope (including different

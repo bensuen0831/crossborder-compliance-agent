@@ -1163,6 +1163,10 @@ for name, passed in check_stage1_candidates(ROOT).items():
         "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
     )
 
+from scripts.stage1_decision_compatibility_architecture import check as check_decision_compatibility
+for name, passed in check_decision_compatibility(ROOT).items():
+    add(name, passed, "Approved0020 engine compatibility; immutable historical V2 / corrected V2_1")
+
 failed = [check for check in checks if not check["pass"]]
 result = {
     "pass": not failed,

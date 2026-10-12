@@ -33,11 +33,14 @@ def main():
         assert measured["backend"]["passed"] >= 910
         assert measured["architecture_passed"] == measured["architecture_total"] >= 331
         assert measured["runtime_passed"] == 25
-        assert measured["alembic"] == "0019_stage1_candidate_governance"
+        assert measured["alembic"] == "0020_stage1_formal_decision_engine_compatibility"
         checks = check(root)
         assert len(checks) == 24 and all(checks.values())
         migration = read(args.directory / "candidate_governance_migration_measured.json")
-        assert migration["head"] == measured["alembic"]
+        assert migration["head"] == "0019_stage1_candidate_governance"
+        compatibility = read(args.directory / "decision_compatibility_migration_measured.json")
+        assert compatibility["migration_head"] == measured["alembic"]
+        assert all(compatibility[k] for k in ("fresh", "exact0019_upgrade", "schema_equivalence", "legacy_rows_preserved", "empty_and_legacy_safe_downgrade", "reupgrade", "current_rows_downgrade_refused", "no_data_rewritten"))
         assert all(
             migration[k]
             for k in (

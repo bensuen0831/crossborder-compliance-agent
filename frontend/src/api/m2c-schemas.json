@@ -1447,6 +1447,14 @@
         ],
         "title": "DataItemSummary"
       },
+      "DecisionEngineVersion": {
+        "type": "string",
+        "enum": [
+          "FORMAL_DECISION_V2",
+          "FORMAL_DECISION_V2_1"
+        ],
+        "title": "DecisionEngineVersion"
+      },
       "DecisionEnvelope_CandidateCompliancePathDTOv2_": {
         "properties": {
           "result_id": {
@@ -1618,10 +1626,8 @@
             "title": "Pins Digest"
           },
           "engine_version": {
-            "type": "string",
-            "const": "FORMAL_DECISION_V2",
-            "title": "Engine Version",
-            "default": "FORMAL_DECISION_V2"
+            "$ref": "#/components/schemas/DecisionEngineVersion",
+            "default": "FORMAL_DECISION_V2_1"
           },
           "provenance": {
             "$ref": "#/components/schemas/DecisionProvenance"
@@ -1832,10 +1838,8 @@
             "title": "Pins Digest"
           },
           "engine_version": {
-            "type": "string",
-            "const": "FORMAL_DECISION_V2",
-            "title": "Engine Version",
-            "default": "FORMAL_DECISION_V2"
+            "$ref": "#/components/schemas/DecisionEngineVersion",
+            "default": "FORMAL_DECISION_V2_1"
           },
           "provenance": {
             "$ref": "#/components/schemas/DecisionProvenance"
@@ -2046,10 +2050,8 @@
             "title": "Pins Digest"
           },
           "engine_version": {
-            "type": "string",
-            "const": "FORMAL_DECISION_V2",
-            "title": "Engine Version",
-            "default": "FORMAL_DECISION_V2"
+            "$ref": "#/components/schemas/DecisionEngineVersion",
+            "default": "FORMAL_DECISION_V2_1"
           },
           "provenance": {
             "$ref": "#/components/schemas/DecisionProvenance"
@@ -2260,10 +2262,8 @@
             "title": "Pins Digest"
           },
           "engine_version": {
-            "type": "string",
-            "const": "FORMAL_DECISION_V2",
-            "title": "Engine Version",
-            "default": "FORMAL_DECISION_V2"
+            "$ref": "#/components/schemas/DecisionEngineVersion",
+            "default": "FORMAL_DECISION_V2_1"
           },
           "provenance": {
             "$ref": "#/components/schemas/DecisionProvenance"
@@ -2474,10 +2474,8 @@
             "title": "Pins Digest"
           },
           "engine_version": {
-            "type": "string",
-            "const": "FORMAL_DECISION_V2",
-            "title": "Engine Version",
-            "default": "FORMAL_DECISION_V2"
+            "$ref": "#/components/schemas/DecisionEngineVersion",
+            "default": "FORMAL_DECISION_V2_1"
           },
           "provenance": {
             "$ref": "#/components/schemas/DecisionProvenance"
@@ -2550,10 +2548,8 @@
             "title": "Pins"
           },
           "engine_version": {
-            "type": "string",
-            "const": "FORMAL_DECISION_V2",
-            "title": "Engine Version",
-            "default": "FORMAL_DECISION_V2"
+            "$ref": "#/components/schemas/DecisionEngineVersion",
+            "default": "FORMAL_DECISION_V2_1"
           },
           "schema_version": {
             "type": "string",

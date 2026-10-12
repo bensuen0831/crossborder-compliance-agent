@@ -6,7 +6,10 @@ from uuid import UUID
 from pydantic import Field, model_validator
 
 from crossborder_compliance.domain.decision_contracts import StageKind
+from crossborder_compliance.domain.decision_contracts import DecisionEngineVersion
 from crossborder_compliance.domain.decision_engine import (
+    CORRECTED_CALCULATION,
+    LEGACY_VERIFICATION_CALCULATION,
     candidates,
     final_path,
     obligations,
@@ -56,14 +59,29 @@ class DecisionRequest(Contract):
 
 
 def calculate(stage, inputs, parents):
+    """New execution has one server-owned version; callers cannot choose legacy."""
+    return _calculate(stage, inputs, parents, CORRECTED_CALCULATION)
+
+
+def verify_calculation(stage, inputs, parents, engine_version: DecisionEngineVersion):
+    """Historical read dispatches solely from the validated persisted version."""
+    version = DecisionEngineVersion(engine_version)
+    strategy = {DecisionEngineVersion.LEGACY: LEGACY_VERIFICATION_CALCULATION,
+                DecisionEngineVersion.CORRECTED: CORRECTED_CALCULATION}[version]
+    return _calculate(stage, inputs, parents, strategy)
+
+
+def _calculate(stage, inputs, parents, strategy):
+    if any(parent.engine_version != strategy.engine_version for parent in parents.values()):
+        raise ValueError("FORMAL_DECISION_MIXED_ENGINE_VERSIONS")
     if stage == "OBLIGATION":
-        return obligations(inputs)
+        return obligations(inputs, _calculation=strategy)
     if stage == "CANDIDATE_PATH":
-        return candidates(inputs, parents["OBLIGATION"])
+        return candidates(inputs, parents["OBLIGATION"], _calculation=strategy)
     if stage == "RISK":
-        return risks(inputs, parents["CANDIDATE_PATH"])
+        return risks(inputs, parents["CANDIDATE_PATH"], _calculation=strategy)
     if stage == "RECOMMENDATION":
-        return recommendation(inputs, parents["CANDIDATE_PATH"], parents["RISK"])
+        return recommendation(inputs, parents["CANDIDATE_PATH"], parents["RISK"], _calculation=strategy)
     if stage == "FINAL_PATH":
         return final_path(
             inputs,
@@ -71,6 +89,7 @@ def calculate(stage, inputs, parents):
             parents["CANDIDATE_PATH"],
             parents["RISK"],
             parents["RECOMMENDATION"],
+            _calculation=strategy,
         )
     raise ValueError("unknown stage")
 

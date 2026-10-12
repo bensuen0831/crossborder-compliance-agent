@@ -653,6 +653,11 @@ export interface components {
              */
             source_trace_ids: string[];
         };
+        /**
+         * DecisionEngineVersion
+         * @enum {string}
+         */
+        DecisionEngineVersion: "FORMAL_DECISION_V2" | "FORMAL_DECISION_V2_1";
         /** DecisionEnvelope[CandidateCompliancePathDTOv2] */
         DecisionEnvelope_CandidateCompliancePathDTOv2_: {
             /**
@@ -751,12 +756,8 @@ export interface components {
             input_digest: string;
             /** Pins Digest */
             pins_digest: string;
-            /**
-             * Engine Version
-             * @default FORMAL_DECISION_V2
-             * @constant
-             */
-            engine_version: "FORMAL_DECISION_V2";
+            /** @default FORMAL_DECISION_V2_1 */
+            engine_version: components["schemas"]["DecisionEngineVersion"];
             provenance: components["schemas"]["DecisionProvenance"];
             /** Ordinary Status */
             ordinary_status: string;
@@ -859,12 +860,8 @@ export interface components {
             input_digest: string;
             /** Pins Digest */
             pins_digest: string;
-            /**
-             * Engine Version
-             * @default FORMAL_DECISION_V2
-             * @constant
-             */
-            engine_version: "FORMAL_DECISION_V2";
+            /** @default FORMAL_DECISION_V2_1 */
+            engine_version: components["schemas"]["DecisionEngineVersion"];
             provenance: components["schemas"]["DecisionProvenance"];
             /** Ordinary Status */
             ordinary_status: string;
@@ -967,12 +964,8 @@ export interface components {
             input_digest: string;
             /** Pins Digest */
             pins_digest: string;
-            /**
-             * Engine Version
-             * @default FORMAL_DECISION_V2
-             * @constant
-             */
-            engine_version: "FORMAL_DECISION_V2";
+            /** @default FORMAL_DECISION_V2_1 */
+            engine_version: components["schemas"]["DecisionEngineVersion"];
             provenance: components["schemas"]["DecisionProvenance"];
             /** Ordinary Status */
             ordinary_status: string;
@@ -1075,12 +1068,8 @@ export interface components {
             input_digest: string;
             /** Pins Digest */
             pins_digest: string;
-            /**
-             * Engine Version
-             * @default FORMAL_DECISION_V2
-             * @constant
-             */
-            engine_version: "FORMAL_DECISION_V2";
+            /** @default FORMAL_DECISION_V2_1 */
+            engine_version: components["schemas"]["DecisionEngineVersion"];
             provenance: components["schemas"]["DecisionProvenance"];
             /** Ordinary Status */
             ordinary_status: string;
@@ -1183,12 +1172,8 @@ export interface components {
             input_digest: string;
             /** Pins Digest */
             pins_digest: string;
-            /**
-             * Engine Version
-             * @default FORMAL_DECISION_V2
-             * @constant
-             */
-            engine_version: "FORMAL_DECISION_V2";
+            /** @default FORMAL_DECISION_V2_1 */
+            engine_version: components["schemas"]["DecisionEngineVersion"];
             provenance: components["schemas"]["DecisionProvenance"];
             /** Ordinary Status */
             ordinary_status: string;
@@ -1203,12 +1188,8 @@ export interface components {
             retrieval_run_ids: string[];
             /** Pins */
             pins: components["schemas"]["PinRef"][];
-            /**
-             * Engine Version
-             * @default FORMAL_DECISION_V2
-             * @constant
-             */
-            engine_version: "FORMAL_DECISION_V2";
+            /** @default FORMAL_DECISION_V2_1 */
+            engine_version: components["schemas"]["DecisionEngineVersion"];
             /**
              * Schema Version
              * @default 2.0

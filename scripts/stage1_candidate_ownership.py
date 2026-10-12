@@ -89,6 +89,9 @@ OWNER_PATHS = frozenset(
 
 def overlay(root, previous_paths):
     root = Path(root).resolve()
+    if (root / "evidence/stage1-full-e2e/r2/approved_owner_overlay.json").exists():
+        from scripts.stage1_e2e_ownership import overlay as successor
+        return successor(root, previous_paths)
 
     def git(*args):
         return subprocess.check_output(

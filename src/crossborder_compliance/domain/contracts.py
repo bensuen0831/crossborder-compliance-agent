@@ -50,6 +50,21 @@ class SourceLocatorDTO(BaseModel):
     row: str | None = None
     bbox: tuple[float,float,float,float] | None = None
 
+class StructuredDataFlowInput(BaseModel):
+    """Explicit draft input, not a candidate or a formal flow/result identity."""
+    model_config = ConfigDict(extra="forbid")
+    input_key: UUID
+    data_item_canonical_name: str = Field(min_length=1, max_length=200)
+    source_jurisdiction_id: UUID
+    destination_jurisdiction_id: UUID
+    direction: Literal["SOURCE_TO_DESTINATION", "BIDIRECTIONAL"]
+    source_name: str = Field(min_length=1, max_length=200)
+    destination_name: str = Field(min_length=1, max_length=200)
+    source_party_id: UUID | None = None
+    destination_party_id: UUID | None = None
+    source_system_id: UUID | None = None
+    destination_system_id: UUID | None = None
+
 class ProjectIntakeContext(ContractDTO):
     project_id: UUID; project_name: str = Field(min_length=1,max_length=200)
     industry: str|None=None; business_scenario: str|None=None; scenario_description: str|None=None
@@ -60,6 +75,16 @@ class ProjectIntakeContext(ContractDTO):
     business_purpose: str|None=None; organizations: list[str]=Field(default_factory=list); third_parties: list[str]=Field(default_factory=list)
     uploaded_documents: list[str]=Field(default_factory=list); requested_outputs: list[str]=Field(default_factory=list); analysis_as_of_date: date
     ai_model_preference: AIModelPreference = Field(default_factory=AIModelPreference)
+    data_flows: list[StructuredDataFlowInput] = Field(default_factory=list, max_length=32)
+
+    @model_validator(mode="after")
+    def distinct_flow_inputs(self):
+        if len({flow.input_key for flow in self.data_flows}) != len(self.data_flows):
+            raise ValueError("INTAKE_FLOW_DUPLICATE_KEY")
+        for flow in self.data_flows:
+            if str(flow.source_jurisdiction_id) not in self.source_locations or str(flow.destination_jurisdiction_id) not in self.destination_locations:
+                raise ValueError("INTAKE_FLOW_JURISDICTION_SCOPE_MISMATCH")
+        return self
 
 class ChannelContext(ContractDTO):
     channel_type: ChannelType; channel_instance_id: str|None=None; client_id: str|None=None; user_id: str|None=None

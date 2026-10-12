@@ -89,7 +89,7 @@ def stage_model(kind):
             name="ck_j_" + kind.lower() + "_subject",
         ),
         CheckConstraint(
-            "contract_version='2.0' AND engine_version='FORMAL_DECISION_V2'",
+            "contract_version='2.0' AND engine_version IN ('FORMAL_DECISION_V2','FORMAL_DECISION_V2_1')",
             name="ck_j_" + kind.lower() + "_version",
         ),
     ]

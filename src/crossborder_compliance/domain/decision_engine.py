@@ -1,6 +1,7 @@
 """Pure formal decisions in frozen semantic order; no infrastructure or model provider."""
 
 from datetime import date, datetime
+from functools import partial
 from decimal import Decimal
 from typing import Literal
 from uuid import NAMESPACE_URL, UUID, uuid5
@@ -8,8 +9,10 @@ from uuid import NAMESPACE_URL, UUID, uuid5
 from pydantic import Field, model_validator
 
 from crossborder_compliance.domain.contracts import RiskLevel
+from crossborder_compliance.domain.decision_calculation_versions import DecisionCalculation, legacy_merge_support
 from crossborder_compliance.domain.decision_contracts import (
     ENVELOPE_TYPES,
+    DecisionEngineVersion,
     Action,
     CandidateCompliancePathDTOv2,
     CapabilityDependency,
@@ -171,6 +174,7 @@ def ref(envelope):
 
 
 def merge_support(supports):
+    supports = tuple(supports)
     return LegalSupport(
         **{
             key: unique(v for s in supports for v in getattr(s, key))
@@ -178,6 +182,9 @@ def merge_support(supports):
         }
     )
 
+
+CORRECTED_CALCULATION = DecisionCalculation(DecisionEngineVersion.CORRECTED, merge_support)
+LEGACY_VERIFICATION_CALCULATION = DecisionCalculation(DecisionEngineVersion.LEGACY, legacy_merge_support)
 
 def condition_result(policy, inputs):
     schema = {f.code: f.field_type for f in policy.fields}
@@ -202,7 +209,8 @@ def condition_result(policy, inputs):
 
 
 def _envelope(
-    stage, inputs, items, parents=(), ordinary="UNDETERMINED", missing=False, conflict=False
+    stage, inputs, items, parents=(), ordinary="UNDETERMINED", missing=False, conflict=False,
+    *, engine_version=DecisionEngineVersion.CORRECTED
 ):
     identity = inputs.identity.model_dump(mode="python")
     for parent in parents:
@@ -285,6 +293,7 @@ def _envelope(
         reasons.append("REVIEW_REQUIRED")
     origins = unique((*sources, *(o for p in parents for o in p.provenance.origins)))
     provenance = DecisionProvenance(
+        engine_version=engine_version,
         origins=origins,
         context_fact_refs=inputs.support.fact_refs,
         retrieval_run_ids=inputs.support.retrieval_run_ids,
@@ -300,6 +309,7 @@ def _envelope(
         else min((Decimal(str(a.confidence)) for a in inputs.applicability), default=Decimal(0))
     )
     return ENVELOPE_TYPES[stage](
+        engine_version=engine_version,
         result_id=uuid5(NAMESPACE_URL, signature),
         stage_kind=stage,
         **inputs.identity.model_dump(),
@@ -318,10 +328,11 @@ def _envelope(
     )
 
 
-def obligations(inputs):
+def obligations(inputs, *, _calculation=CORRECTED_CALCULATION):
+    envelope = partial(_envelope, engine_version=_calculation.engine_version)
     policy = inputs.policy("OBLIGATION_POLICY")
     if policy is None:
-        return _envelope("OBLIGATION", inputs, (), missing=True)
+        return envelope("OBLIGATION", inputs, (), missing=True)
     items = []
     missing = any(
         a.applicability_status in {"APPLICABLE", "CONDITIONALLY_APPLICABLE"}
@@ -370,7 +381,7 @@ def obligations(inputs):
                         else "REQUIRED"
                     )
         missing = missing or legal == "UNDETERMINED"
-        support = merge_support(
+        support = _calculation.merge_support(
             (
                 inputs.support,
                 LegalSupport(
@@ -419,7 +430,7 @@ def obligations(inputs):
         if items and all(i.legal_effect == "NOT_APPLICABLE" for i in items)
         else "OBLIGATIONS_IDENTIFIED"
     )
-    return _envelope(
+    return envelope(
         "OBLIGATION",
         inputs,
         sorted(items, key=lambda i: str(i.requirement_id)),
@@ -429,10 +440,11 @@ def obligations(inputs):
     )
 
 
-def candidates(inputs, obligation):
+def candidates(inputs, obligation, *, _calculation=CORRECTED_CALCULATION):
+    envelope = partial(_envelope, engine_version=_calculation.engine_version)
     policy = inputs.policy("COMPLIANCE_PATH_POLICY")
     if policy is None:
-        return _envelope("CANDIDATE_PATH", inputs, (), (obligation,), missing=True)
+        return envelope("CANDIDATE_PATH", inputs, (), (obligation,), missing=True)
     by_entry = {o.requirement_id: o for o in obligation.items}
     caps = {c.capability_id: c for c in inputs.capabilities}
     items = []
@@ -503,7 +515,7 @@ def candidates(inputs, obligation):
                 path_code=template.path_code,
                 template_entry_id=template.entry_id,
                 jurisdiction_ids=policy.config.jurisdiction_ids,
-                support=merge_support(o.support for o in covered),
+                support=_calculation.merge_support(o.support for o in covered),
                 reason_codes=("FORMAL_PATH_" + legal, availability),
                 review_required=legal == "UNDETERMINED",
                 policy_version_ref=policy.pin.version_id,
@@ -527,7 +539,7 @@ def candidates(inputs, obligation):
         if any(i.legal_viability in {"VIABLE", "CONDITIONAL"} for i in items)
         else "NO_VIABLE_PATH"
     )
-    return _envelope(
+    return envelope(
         "CANDIDATE_PATH",
         inputs,
         items,
@@ -537,10 +549,11 @@ def candidates(inputs, obligation):
     )
 
 
-def risks(inputs, candidate):
+def risks(inputs, candidate, *, _calculation=CORRECTED_CALCULATION):
+    envelope = partial(_envelope, engine_version=_calculation.engine_version)
     policy = inputs.policy("RISK_POLICY")
     if policy is None:
-        return _envelope("RISK", inputs, (), (candidate,), missing=True)
+        return envelope("RISK", inputs, (), (candidate,), missing=True)
     facts = {f.code: f.value for f in inputs.facts}
     refs = {f.code: f.fact_refs for f in inputs.facts}
     score, band, dimensions = evaluate_policy_values(
@@ -584,7 +597,7 @@ def risks(inputs, candidate):
         )
         for c in candidate.items
     ]
-    return _envelope(
+    return envelope(
         "RISK",
         inputs,
         items,
@@ -594,10 +607,11 @@ def risks(inputs, candidate):
     )
 
 
-def recommendation(inputs, candidate, risk):
+def recommendation(inputs, candidate, risk, *, _calculation=CORRECTED_CALCULATION):
+    envelope = partial(_envelope, engine_version=_calculation.engine_version)
     policy = inputs.policy("RECOMMENDATION_POLICY")
     if policy is None:
-        return _envelope("RECOMMENDATION", inputs, (), (candidate, risk), missing=True)
+        return envelope("RECOMMENDATION", inputs, (), (candidate, risk), missing=True)
     risk_by_candidate = {r.candidate_path_id: r for r in risk.items}
     ranks, excluded, conditional = [], [], []
     bands = {RiskLevel.LOW: 0, RiskLevel.MEDIUM: 1, RiskLevel.HIGH: 2, RiskLevel.CRITICAL: 3}
@@ -685,7 +699,7 @@ def recommendation(inputs, candidate, risk):
     item = ComplianceRecommendationDTOv2(
         recommendation_id=uuid5(policy.pin.version_id, candidate.input_digest + risk.input_digest),
         jurisdiction_ids=inputs.identity.jurisdiction_ids,
-        support=merge_support(c.support for c in candidate.items),
+        support=_calculation.merge_support(c.support for c in candidate.items),
         reason_codes=(status,),
         review_required=review,
         policy_version_ref=policy.pin.version_id,
@@ -699,7 +713,7 @@ def recommendation(inputs, candidate, risk):
         tied_candidate_ids=tied,
         risk_assessment_ids=unique(r.risk_assessment_id for r in risk.items),
     )
-    return _envelope(
+    return envelope(
         "RECOMMENDATION",
         inputs,
         (item,),
@@ -709,10 +723,11 @@ def recommendation(inputs, candidate, risk):
     )
 
 
-def final_path(inputs, obligation, candidate, risk, recommended):
+def final_path(inputs, obligation, candidate, risk, recommended, *, _calculation=CORRECTED_CALCULATION):
+    envelope = partial(_envelope, engine_version=_calculation.engine_version)
     policy = inputs.policy("RECOMMENDATION_POLICY")
     if policy is None or not recommended.items:
-        return _envelope(
+        return envelope(
             "FINAL_PATH", inputs, (), (obligation, candidate, risk, recommended), missing=True
         )
     advice = recommended.items[0]
@@ -743,7 +758,7 @@ def final_path(inputs, obligation, candidate, risk, recommended):
     item = FinalCompliancePathDTOv2(
         final_path_id=uuid5(policy.pin.version_id, recommended.input_digest),
         jurisdiction_ids=inputs.identity.jurisdiction_ids,
-        support=merge_support(o.support for o in obligation.items),
+        support=_calculation.merge_support(o.support for o in obligation.items),
         reason_codes=(status,),
         review_required=bool(unresolved),
         policy_version_ref=policy.pin.version_id,
@@ -769,6 +784,6 @@ def final_path(inputs, obligation, candidate, risk, recommended):
         unresolved_codes=unresolved,
         review_status="PENDING" if unresolved else "NOT_REQUIRED",
     )
-    return _envelope(
+    return envelope(
         "FINAL_PATH", inputs, (item,), (obligation, candidate, risk, recommended), ordinary=status
     )

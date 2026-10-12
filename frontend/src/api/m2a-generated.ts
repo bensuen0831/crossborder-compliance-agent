@@ -513,6 +513,8 @@ export interface components {
              */
             analysis_as_of_date: string;
             ai_model_preference?: components["schemas"]["AIModelPreference"];
+            /** Data Flows */
+            data_flows?: components["schemas"]["StructuredDataFlowInput"][];
         };
         /** IntakeView */
         IntakeView: {
@@ -625,6 +627,8 @@ export interface components {
              */
             analysis_as_of_date: string;
             ai_model_preference?: components["schemas"]["AIModelPreference"];
+            /** Data Flows */
+            data_flows?: components["schemas"]["StructuredDataFlowInput"][];
         };
         /** ProvenanceDTO */
         ProvenanceDTO: {
@@ -667,6 +671,46 @@ export interface components {
             candidate_universe_digest: string;
             /** Decisions */
             decisions: components["schemas"]["CandidateDecisionInput"][];
+        };
+        /**
+         * StructuredDataFlowInput
+         * @description Explicit draft input, not a candidate or a formal flow/result identity.
+         */
+        StructuredDataFlowInput: {
+            /**
+             * Input Key
+             * Format: uuid
+             */
+            input_key: string;
+            /** Data Item Canonical Name */
+            data_item_canonical_name: string;
+            /**
+             * Source Jurisdiction Id
+             * Format: uuid
+             */
+            source_jurisdiction_id: string;
+            /**
+             * Destination Jurisdiction Id
+             * Format: uuid
+             */
+            destination_jurisdiction_id: string;
+            /**
+             * Direction
+             * @enum {string}
+             */
+            direction: "SOURCE_TO_DESTINATION" | "BIDIRECTIONAL";
+            /** Source Name */
+            source_name: string;
+            /** Destination Name */
+            destination_name: string;
+            /** Source Party Id */
+            source_party_id?: string | null;
+            /** Destination Party Id */
+            destination_party_id?: string | null;
+            /** Source System Id */
+            source_system_id?: string | null;
+            /** Destination System Id */
+            destination_system_id?: string | null;
         };
         /** UpdateIntakeDraft */
         UpdateIntakeDraft: {

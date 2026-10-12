@@ -1478,6 +1478,23 @@ class ContextResolutionService:
             data_item_candidate_bindings=data_item_flow_bindings or {},
             version=version,
         )
+        if confirmed_intake_version_id is not None:
+            structured_flows = self.repository.structured_flow_inputs(
+                project_id, confirmed_intake_version_id, structured_snapshot_id
+            )
+        else:
+            structured_flows = ()
+        if structured_flows:
+            from crossborder_compliance.application.structured_dataflow import formalize_user_flows
+
+            formalize_user_flows(
+                self.repository,
+                project_id,
+                UUID(str(run["context_resolution_run_id"])),
+                version,
+                structured_flows,
+                normalize_name=_norm_key,
+            )
         governed = (
             self.repository.governed_input_selection(project_id, confirmed_intake_version_id)
             if confirmed_intake_version_id is not None

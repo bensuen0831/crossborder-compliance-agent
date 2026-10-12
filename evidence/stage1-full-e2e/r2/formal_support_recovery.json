@@ -1,0 +1,423 @@
+{
+  "decision": "BLOCKED",
+  "reason": "HISTORICAL_FORMAL_RESULT_REVALIDATION_INCOMPATIBLE_WITH_CORRECTED_HELPER",
+  "original_failing_source_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+  "formal_baseline_main_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "fixed_source_sha": null,
+  "fixed_source_state": "AUTHORIZED_ONE_LINE_UNCOMMITTED_PATCH",
+  "original_engine_sha256": "234d7194d2558b62882304d4c40fe1f575fa8572a69340d84fcb24c2e07e8a38",
+  "fixed_engine_sha256": "0ca77e3faa529062a551729d3f90d7a6f9820ebb886f436494d024a697c8878a",
+  "minimal_helper_correction": "PASS",
+  "original_tuple": "PASS",
+  "original_generator": "FAIL",
+  "updated_tuple": "PASS",
+  "updated_list": "PASS",
+  "updated_iterator": "PASS",
+  "updated_generator": "PASS",
+  "legal_support_fields": [
+    "applicability_result_ids",
+    "rule_hit_ids",
+    "rule_version_ids",
+    "legal_basis_ids",
+    "evidence_ids",
+    "evidence_pack_ids",
+    "retrieval_run_ids",
+    "knowledge_version_ids",
+    "structure_node_ids",
+    "citation_ids",
+    "citation_locators",
+    "fact_refs"
+  ],
+  "all_actual_authorized_unions_preserved": "PASS",
+  "deduplication_determinism": "PASS",
+  "no_fabricated_refs": "PASS",
+  "source_objects_immutable": "PASS",
+  "focused_tests": {
+    "unit": 22,
+    "combined_unit_phase1j_m2c_four_outcomes": 132,
+    "additional_postgresql_pipeline": 2,
+    "total_passed": 134,
+    "portable_prior_source_replay_failed": 1,
+    "skipped": 0,
+    "deselected": 0,
+    "xfail": 0
+  },
+  "four_business_cases": [
+    {
+      "case": "direct",
+      "outcome": "DIRECT_TRANSFER_ALLOWED",
+      "result": "PASS",
+      "project_id": "2d222a58-00bb-4626-9cbd-85f51617338b",
+      "snapshot_id": "16eb8bfa-5ce8-5f5f-86cd-3e1b841b6ba4",
+      "workflow_run_id": "dd2041e1-75b4-51a1-b913-44daf6db8cd1",
+      "review_task_id": null,
+      "support_counts": {
+        "obligation": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 3
+          },
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 3
+          }
+        ],
+        "candidate_path": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 3
+          }
+        ],
+        "risk": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 3
+          }
+        ],
+        "recommendation": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 3
+          }
+        ],
+        "final_path": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 3
+          }
+        ]
+      },
+      "private_result_sha256": "a06f5739ce11b1ab4ff2bcf5fa09c2e4c1183c63ac578a4426bd7bf318c8f4a6"
+    },
+    {
+      "case": "conditional",
+      "outcome": "CONDITIONAL_TRANSFER_ALLOWED",
+      "result": "PASS",
+      "project_id": "71b6ba5e-81a2-4691-a760-99910f7d146f",
+      "snapshot_id": "73cc8772-0f66-51ec-befc-49add4288e1a",
+      "workflow_run_id": "579141f1-fa4c-56ba-9f1b-daf7150f52df",
+      "review_task_id": null,
+      "support_counts": {
+        "obligation": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 2
+          },
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 2
+          }
+        ],
+        "candidate_path": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 2
+          }
+        ],
+        "risk": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 2
+          }
+        ],
+        "recommendation": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 2
+          }
+        ],
+        "final_path": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 2
+          }
+        ]
+      },
+      "private_result_sha256": "cfcac7526848e19c94bf5660a78b91472e5152381f22612730ca8fb929be0525"
+    },
+    {
+      "case": "localization",
+      "outcome": "TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED",
+      "result": "PASS",
+      "project_id": "3855baa5-2b92-4aca-8a4f-bdd8937a732f",
+      "snapshot_id": "03baea54-583c-5e01-8b3f-e80a472e4870",
+      "workflow_run_id": "ae580b22-6269-53ef-8f3c-adcc5c56cf80",
+      "review_task_id": null,
+      "support_counts": {
+        "obligation": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 2
+          },
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 2
+          }
+        ],
+        "candidate_path": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 2
+          }
+        ],
+        "risk": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 2
+          }
+        ],
+        "recommendation": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 2
+          }
+        ],
+        "final_path": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "rule_version_ids": 1,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4,
+            "evidence_pack_ids": 1,
+            "retrieval_run_ids": 1,
+            "knowledge_version_ids": 2,
+            "structure_node_ids": 2,
+            "citation_ids": 4,
+            "citation_locators": 1,
+            "fact_refs": 2
+          }
+        ]
+      },
+      "private_result_sha256": "392c2b0f22c004e9a671e64d92a321c33a5b1f2ef888fbcb25e85933a69d1fcd"
+    },
+    {
+      "case": "review",
+      "outcome": "REVIEW_REQUIRED",
+      "result": "PASS",
+      "project_id": "425fadcf-bca8-4720-ab25-7e9df0b2085d",
+      "snapshot_id": "4809477b-e1e3-5ac2-a46f-3c2590a5aab3",
+      "workflow_run_id": "6182d222-395e-520e-bae0-da266a20c420",
+      "review_task_id": "b30b14d2-fed4-45a4-b735-f3d30b349751",
+      "support_counts": {},
+      "private_result_sha256": "0d83e39c4b39995f930c01ed4f7541c896d26076fb6d305b95856c3902ac6494"
+    }
+  ],
+  "historical_existing_records": {
+    "original_source_reads_passed": 15,
+    "corrected_helper_reads_passed": 3,
+    "corrected_helper_reads_failed": 12,
+    "stored_rows_unchanged": true,
+    "details": "formal_support_historical_replay_blocker.json"
+  },
+  "full_regression_counts": null,
+  "full_regression_state": "NOT EXECUTED_AFTER_HISTORICAL_STOP_GATE",
+  "exact_head_ci_state": "NOT EXECUTED_FOR_THIS_PATCH",
+  "knowledge_fixture_kind": "SYNTHETIC_GOVERNED_TEST_DATA",
+  "real_regulatory_knowledge_acceptance": "NOT PROVEN",
+  "production_legal_accuracy": "NOT PROVEN",
+  "paid_internet_llm": "NOT EXECUTED",
+  "migration_identity": {
+    "head": "0019_stage1_candidate_governance",
+    "new_migration": false,
+    "frozen_0001_0018_unchanged": true,
+    "compatibility_solution_migration_required": "NOT YET PROVEN"
+  },
+  "recovery_files_changed": [
+    "src/crossborder_compliance/domain/decision_engine.py",
+    "tests/test_stage1_support_merge.py",
+    "tests/test_stage1_support_pipeline.py",
+    "tests/test_stage1_support_historical.py",
+    "tests/stage1_formal_acceptance.py",
+    "docs/stage1-e2e/Stage1_E2E_R2_formal_support_recovery.md",
+    "evidence/stage1-full-e2e/r2/formal_support_recovery.json",
+    "evidence/stage1-full-e2e/r2/formal_support_historical_replay_blocker.json"
+  ],
+  "preexisting_r2_prototypes_preserved": true,
+  "private_before_patch_sha256": "faa59db979d8819f8b7510fc4d51d29d6405046dcee42215e9b8b3f34fc9852f",
+  "log_digests": {
+    "focused": "2b30f982d903f86997971b3b3183b073b8100a24ddbc9044e03157a25d6713b5",
+    "new_pipeline": "4f0ded2fa193d4201212bc8ccea10a57a0f06e3135ca155d8c34e857a0aeaad4",
+    "historical_replay": "3c767e33f2b76a82814140c93196861f94834d6d182899af210d3c1deecaa9f9"
+  },
+  "known_remaining_blockers": [
+    "Historical canonical reads revalidate saved results against the changed current algorithm; engine/verification revision is not represented separately."
+  ],
+  "formal_support_recovery": "BLOCKED",
+  "stage1_full_e2e_resume": "BLOCKED",
+  "pr": 28,
+  "pr_draft": true,
+  "commit_push_performed": false,
+  "main_integration": "PENDING",
+  "stage2_started": false
+}

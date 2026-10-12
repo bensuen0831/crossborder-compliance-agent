@@ -75,6 +75,8 @@ PATHS = PATHS | RESUME_PATHS
 from scripts.stage1_candidate_ownership import OWNER_PATHS
 
 PATHS = PATHS | OWNER_PATHS
+from scripts.stage1_e2e_ownership import PATHS as STAGE1_PATHS
+PATHS = PATHS | STAGE1_PATHS
 
 
 def overlay(root):

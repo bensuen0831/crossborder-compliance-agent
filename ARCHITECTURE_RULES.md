@@ -204,3 +204,16 @@ Migration `0019` is owned by Stage1 Input Governance, Document Candidate Governa
 Preparation invokes the existing governed Gateway only for document candidate extraction. Actor identity comes from RepositoryContext. ACCEPT authorizes the exact proposal, REJECT excludes it, EDIT preserves the proposal and source trace. Final confirmation validates the exact draft/document/candidate universe, revalidates security without substituting newer configuration, and copies exact preparation pins into the canonical Snapshot. Confirmation generates zero new candidates and makes zero document LLM calls. Existing candidate resolution remains candidate-to-formal mapping; pre-confirm authorization is distinct from M2-D formal Human Review. Historical Snapshots do not require retroactive0019 decisions. Downgrade refuses whenever any candidate-governance authority would be lost.
 
 The 24 additive executable checks are in `scripts/stage1_candidate_architecture.py`; all preceding checks and frozen0001–0018 migrations remain required.
+
+## Stage1 historical FormalDecision compatibility (approved 0020)
+
+FORMAL_DECISION_V2 is frozen historical verification only. New execution and
+persistence use FORMAL_DECISION_V2_1. The five existing result authorities remain
+the only stores. Row, result JSON and provenance versions must agree; unknown
+versions and mixed-version dependencies fail closed. Historical revalidation
+resolves the original authorized inputs/pins and compares the complete formal
+result digest using the explicitly persisted version. No fallback, inferred
+version or history rewrite is permitted. Legacy snapshots containing legacy
+decision authority are read-only; a new analysis requires a new Snapshot.
+Migration 0020 changes only the five engine CHECK constraints and refuses
+downgrade if corrected authority exists. Stage 2 remains NOT STARTED.

@@ -41,7 +41,7 @@ def test_frozen_migration_bytes_and_single_lineage():
     from alembic.script import ScriptDirectory
 
     scripts = ScriptDirectory.from_config(Config(str(ROOT / "alembic.ini")))
-    assert scripts.get_heads() == [HEAD]
+    assert scripts.get_heads() == ["0020_stage1_formal_decision_engine_compatibility"]
     assert scripts.get_revision(HEAD).down_revision == OLD
     for path in (ROOT / "alembic/versions").glob("*.py"):
         if path.name[:4].isdigit() and int(path.name[:4]) <= 18:
@@ -68,7 +68,7 @@ def test_fresh_exact0018_equivalence_empty_roundtrip_and_retained_authority(tmp_
         with admin.connect() as c:
             for n in names:
                 c.execute(text('CREATE DATABASE "' + n + '"'))
-        result = migrate(ROOT, urls[0], "upgrade", "head")
+        result = migrate(ROOT, urls[0], "upgrade", HEAD)
         assert result.returncode == 0, result.stderr
         result = migrate(source, urls[1], "upgrade", "head")
         assert result.returncode == 0, result.stderr
@@ -103,7 +103,7 @@ def test_fresh_exact0018_equivalence_empty_roundtrip_and_retained_authority(tmp_
                 .mappings()
                 .one()
             )
-        result = migrate(ROOT, urls[1], "upgrade", "head")
+        result = migrate(ROOT, urls[1], "upgrade", HEAD)
         assert result.returncode == 0, result.stderr
         with engine.connect() as c:
             after = dict(
