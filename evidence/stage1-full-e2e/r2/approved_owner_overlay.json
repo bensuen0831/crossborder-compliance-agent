@@ -61,7 +61,7 @@
     "scripts/stage1_candidate_closure.py": "e3a987533830254342de73ba1565cff0b20f5343407873fd895eeb28b95a5158",
     "scripts/stage1_candidate_ownership.py": "0b1ccfe99c907b82d889294047c42a0893164321df17258a4347d0cb3b5131b3",
     "scripts/stage1_decision_compatibility_architecture.py": "a789c02031309d84eeedc47786790ce992fe4f1a6e142085538085304c0a1902",
-    "scripts/stage1_e2e_ownership.py": "2fd40a1d4eca5c21cd8c4f77f8ee02e0774444e47dc3163df31ef271c00acbf5",
+    "scripts/stage1_e2e_ownership.py": "fbf96ffe2c541ddcb0483bdda6062ded773bb45bb70292aa4e77f986556166d9",
     "sdk/openapi/external-v1.json": "fd9997f9df89ae0e1251cd3fc17db9a641aa17e9b5d3225d70a06fdef50b2984",
     "sdk/python/.gitignore": "9445b8071d0fa8f072c0a2d99a3e797de03ebb820facc421100bdcabc4628950",
     "sdk/python/pyproject.toml": "08c6f5788b0b8b07389568e6a7038a849dc9e7f3f2099a55d22148a6641eb64a",
@@ -143,7 +143,8 @@
     "tests/stage1_formal_acceptance.py": "6d169961e643435d246c9b32e9a6a14a2816d238c1a9c3e8b03331644df9328a",
     "tests/stage1_legacy_history.py": "969c52618aa9d24f700fc54f04feff9dc9cebcc99eb5d0a84f7d333f0d1bc19c",
     "tests/test_m2b_snapshot_contract_probe.py": "f694c17fa5c2ffcc9457675a7911714a14c3fbe7c14c4507a1d78a9876b5168b",
-    "tests/test_m2d_architecture.py": "a7adb69d03c254c1530b2faadb1504a35c6cda1b2c57f6e8ecb3d0c6c8424d74",
+    "tests/test_m2c_architecture.py": "716754ff8a62d96360e28f26eb135bf35ae507446f75988b5d30db48fb2daf99",
+    "tests/test_m2d_architecture.py": "3e7c0d2a6d9b9371123b3ffa8ba69b952eac7a5726c111cc33f6983156e820a4",
     "tests/test_m2e_architecture_closure.py": "af3f22ad2af226bb06fe57bedf6ad4b782e7f79b2608b8da0f035e0d87f4d681",
     "tests/test_m2e_checkpointer_concurrency.py": "b8db3cdf10e90527f39765424b396d2dacfff42a9e81ab5596224c3dad5b06a6",
     "tests/test_m2e_gateway_closure.py": "0b4e235c4335d714da17aff09226992ad66efb8db2e9d6db481de96ef3b6d540",
@@ -173,6 +174,6 @@
     "tests/test_stage1_support_merge.py": "3792480d4afdd2671d0a817638c40e59c3f6d0169067376e95c121f9498555e6",
     "tests/test_stage1_support_pipeline.py": "728b05217dc2e11437b96b7fe76bbdc322c7e30e16ba9d57956ddea5caeb06fb"
   },
-  "scope": "Finite approved R2/0020 compatibility with original negative ownership guards retained",
-  "source_sha": "c716f7959ff27e7fd37729edf24e2b378cd12c6e"
+  "scope": "Approved0020 version-aware compatibility; bounded R2 input wiring; unchanged legal calculation bodies",
+  "source_sha": "cd7367f568e6fc95d6d35d67abafba402a47bd5d"
 }
