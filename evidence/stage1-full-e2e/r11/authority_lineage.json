@@ -1,0 +1,341 @@
+[
+  {
+    "action": "ACCEPT",
+    "tenant_id": "5f9863ad-1488-4a9f-9102-be39732a4a8b",
+    "project_id": "7692886b-a9f5-47ac-94aa-72737d5e675f",
+    "project_version_id": "be9c0faf-6e69-4965-b007-2ec9e265b379",
+    "analysis_as_of_date": "2026-10-11",
+    "candidate_preparation_id": "824a5710-14d5-4231-a91f-61de49eab4ca",
+    "created_by": "author",
+    "input_universe_digest": "f5fb40bfc3eee4c46d55d710ecb0d66865634045e771da105bf0f14f17b75763",
+    "candidate_universe_digest": "eb7040fa7ad71674298b03af32d4c9c2965d91187337247ab7a802693f0ccff9",
+    "candidate_decision_set_id": "e629f274-72b9-4003-8441-08c13df3e5aa",
+    "submitted_by": "author",
+    "submitted_at": "2026-10-11T19:57:29.528116+00:00",
+    "candidate_decision_id": "be5372f6-7f76-4a2c-be18-b46cc81ece98",
+    "decision_payload_digest": "3fc870c5200df2a366cfc2ee11f0d42b920c9ae66c365baf2e5d764d65707767",
+    "preparation_candidate_id": "c454ce7c-f7ad-46e4-86c8-d2b037fdf7dc",
+    "candidate_id": "9ec89c60-5257-418c-8bae-25e55fb35bdc",
+    "candidate_digest": "e67d8a67c584d94472c4f56d4812460a23ba00cd966777e9f0f3f68fb9c3bdd4",
+    "candidate_origin": "LLM_STRUCTURED_OUTPUT",
+    "llm_request_id": "8914cff9-3562-47b5-9073-b3192d4bc219",
+    "llm_invocation_group_id": "b4d511b1-367e-4066-92d4-a6cd831c8d45",
+    "source_trace_ids": [
+      "f485567f-d597-420e-9fd8-ac90e391373e"
+    ],
+    "document_pins": [
+      {
+        "document_version_id": "f0a4303c-92cc-49fe-bfe2-db5b8ce78984",
+        "parse_run_id": "c0e931fe-2502-4be4-b67d-5d4043e1e135"
+      }
+    ],
+    "registry_pins": [
+      {
+        "pin_type": "LLM_USAGE_POLICY",
+        "logical_key": "TENANT",
+        "object_id": "574a3b3f-a84d-46c2-bece-81c50666c0ba",
+        "version_id": "f3c023c9-de17-4c57-977b-9f058f9a1f8b",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_USAGE_POLICY",
+        "logical_key": "PROJECT",
+        "object_id": "ea4babc5-60c8-485f-a7ee-be309a6e805e",
+        "version_id": "21aace50-645c-4fc2-8743-d015f529c0d0",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_MODEL",
+        "logical_key": "structured_output:c922a294-c6c7-4b6b-b365-5551dc62c436",
+        "object_id": "c922a294-c6c7-4b6b-b365-5551dc62c436",
+        "version_id": "d33587c2-46fd-4c38-9542-ce3c91c2d469",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_PROVIDER_VERSION",
+        "logical_key": "4b8df8ed-e383-4697-8f8e-6eb684a94030",
+        "object_id": "4b8df8ed-e383-4697-8f8e-6eb684a94030",
+        "version_id": "36bdde45-b2ad-4542-a843-3d550350faa5",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_FACT_TYPE",
+        "logical_key": "DOCUMENT_NOTE_b6668e518bb344abbdc3a638366e9015",
+        "object_id": "62cc5e62-5c07-48be-bdc0-9a613849f9ab",
+        "version_id": "65903703-d1fd-4ad5-b76c-c02773a08463",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_PURPOSE_PROMPT",
+        "logical_key": "DOCUMENT_CANDIDATE_EXTRACTION",
+        "object_id": "a45f92bc-a4f0-4159-8dd9-2a5423c4e6ff",
+        "version_id": "1715e5b7-67a1-4c9c-8d17-26ca692de7e1",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_PROMPT",
+        "logical_key": "a45f92bc-a4f0-4159-8dd9-2a5423c4e6ff",
+        "object_id": "a45f92bc-a4f0-4159-8dd9-2a5423c4e6ff",
+        "version_id": "1715e5b7-67a1-4c9c-8d17-26ca692de7e1",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_INVOCATION_POLICY",
+        "logical_key": "INVOCATION",
+        "object_id": "248565e9-8b75-42ee-bfa0-ff1a7b9ead6c",
+        "version_id": "0fa9357c-c40f-4514-a0e9-10a7f0d6e2db",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_SELECTION",
+        "logical_key": "CONFIGURED",
+        "object_id": "7692886b-a9f5-47ac-94aa-72737d5e675f",
+        "version_id": "be9c0faf-6e69-4965-b007-2ec9e265b379",
+        "version_no": 3
+      }
+    ],
+    "analysis_snapshot_id": "84b2c950-6436-53b8-a71c-549fb46fc125",
+    "formal_object_id": "f4a502f9-66e1-4d53-bb9f-8b0b4301e0fb",
+    "resolution_id": "3c3424dd-163c-4dd3-8ea5-177065d78161",
+    "resolution_authority": "USER_CONFIRMATION",
+    "draft_audit": [
+      {
+        "event_type": "LLM_COMPLETED",
+        "request_id": "8914cff9-3562-47b5-9073-b3192d4bc219",
+        "model_id": "c922a294-c6c7-4b6b-b365-5551dc62c436",
+        "deployment_id": "d33587c2-46fd-4c38-9542-ce3c91c2d469",
+        "provider_version_id": "36bdde45-b2ad-4542-a843-3d550350faa5",
+        "prompt_version_id": "1715e5b7-67a1-4c9c-8d17-26ca692de7e1",
+        "redaction_run_id": null,
+        "workflow_run_id": null,
+        "analysis_snapshot_id": null
+      }
+    ]
+  },
+  {
+    "action": "REJECT",
+    "tenant_id": "322ba233-2f6e-4585-9fc7-5e2a76dd66da",
+    "project_id": "c6a02aeb-504a-4064-a5a5-d21dc53e78fe",
+    "project_version_id": "4bb90a0c-9289-4e14-847a-a8f687342124",
+    "analysis_as_of_date": "2026-10-11",
+    "candidate_preparation_id": "0be4412a-7573-4803-819c-fd876d04467d",
+    "created_by": "author",
+    "input_universe_digest": "923607b19d9263e1d4f0ff5118004fd4562baca74f0a46218247c743fd469c1b",
+    "candidate_universe_digest": "c5430fa6f922176843748961665df570198759838a3992f790fd3450423eadbb",
+    "candidate_decision_set_id": "785729f5-9985-4ec7-b7cb-ee58dc13496d",
+    "submitted_by": "author",
+    "submitted_at": "2026-10-11T19:57:31.840696+00:00",
+    "candidate_decision_id": "eb7dfbf6-9301-470c-ad97-93516bdef408",
+    "decision_payload_digest": "c516a53be592d43abfcc52512c060ec702bf16eabe90a91de11bd1d9bb532042",
+    "preparation_candidate_id": "99058b70-8e28-45e1-991f-6adc7547f9a9",
+    "candidate_id": "36d56898-5551-428b-9868-e03b6e28115e",
+    "candidate_digest": "db56bfe0c7d43595d29d11cce43289d8a5271e46eecbd15c583d1b7f91b61b9a",
+    "candidate_origin": "LLM_STRUCTURED_OUTPUT",
+    "llm_request_id": "bf6faee2-39c1-4a17-adef-d83461f8647e",
+    "llm_invocation_group_id": "17003caf-0843-4cb5-b24e-68d2dd17f550",
+    "source_trace_ids": [
+      "cff316a6-0bda-4d8a-a659-8b70b5ab7c21"
+    ],
+    "document_pins": [
+      {
+        "document_version_id": "e09cf5ff-dbaf-4697-bea5-996b6a42ac44",
+        "parse_run_id": "eb15294d-8f3c-4a80-88da-b479f0798bfe"
+      }
+    ],
+    "registry_pins": [
+      {
+        "pin_type": "LLM_USAGE_POLICY",
+        "logical_key": "TENANT",
+        "object_id": "56fe58dc-9b4f-4834-b3f4-cf3d44acec6d",
+        "version_id": "1f8c4aa0-02de-494b-ac3c-7e26726e5b45",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_USAGE_POLICY",
+        "logical_key": "PROJECT",
+        "object_id": "942f9a59-6023-4ebb-8e7b-2974783e76b0",
+        "version_id": "67abcd43-cf3b-4739-8ae6-7f7b8657768a",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_MODEL",
+        "logical_key": "structured_output:ecb93071-e23d-4903-aabe-7ba79f695c88",
+        "object_id": "ecb93071-e23d-4903-aabe-7ba79f695c88",
+        "version_id": "95f7f4cd-fd9e-4da0-82e5-7ffb9b470271",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_PROVIDER_VERSION",
+        "logical_key": "2edbf61d-e71b-4a4e-9118-9ab8844b89e8",
+        "object_id": "2edbf61d-e71b-4a4e-9118-9ab8844b89e8",
+        "version_id": "226227fd-ee25-47b0-8895-ef525c8968f9",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_FACT_TYPE",
+        "logical_key": "DOCUMENT_NOTE_3a56c936d3e746ca9bb50a59f4fb8c41",
+        "object_id": "4e7b132c-5591-485a-9b49-a5159ed580aa",
+        "version_id": "fef30d1c-d57e-4022-a835-71e31fb579fe",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_PURPOSE_PROMPT",
+        "logical_key": "DOCUMENT_CANDIDATE_EXTRACTION",
+        "object_id": "ae04c847-1a45-4cb0-806d-86af8e7a75f1",
+        "version_id": "21a4be1b-4900-4ab1-a311-897e8c26594e",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_PROMPT",
+        "logical_key": "ae04c847-1a45-4cb0-806d-86af8e7a75f1",
+        "object_id": "ae04c847-1a45-4cb0-806d-86af8e7a75f1",
+        "version_id": "21a4be1b-4900-4ab1-a311-897e8c26594e",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_INVOCATION_POLICY",
+        "logical_key": "INVOCATION",
+        "object_id": "cf5f2c83-b05e-4fef-ae69-e1c0659dc519",
+        "version_id": "72da59ff-94bd-406f-bbee-0bb5e678ee8b",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_SELECTION",
+        "logical_key": "CONFIGURED",
+        "object_id": "c6a02aeb-504a-4064-a5a5-d21dc53e78fe",
+        "version_id": "4bb90a0c-9289-4e14-847a-a8f687342124",
+        "version_no": 3
+      }
+    ],
+    "analysis_snapshot_id": "3b8560cf-7521-54a8-a012-e25664c86754",
+    "formal_object_id": null,
+    "resolution_id": null,
+    "resolution_authority": null,
+    "draft_audit": [
+      {
+        "event_type": "LLM_COMPLETED",
+        "request_id": "bf6faee2-39c1-4a17-adef-d83461f8647e",
+        "model_id": "ecb93071-e23d-4903-aabe-7ba79f695c88",
+        "deployment_id": "95f7f4cd-fd9e-4da0-82e5-7ffb9b470271",
+        "provider_version_id": "226227fd-ee25-47b0-8895-ef525c8968f9",
+        "prompt_version_id": "21a4be1b-4900-4ab1-a311-897e8c26594e",
+        "redaction_run_id": null,
+        "workflow_run_id": null,
+        "analysis_snapshot_id": null
+      }
+    ]
+  },
+  {
+    "action": "EDIT",
+    "tenant_id": "a2208d07-28ea-48bf-bf0f-82da46d2b781",
+    "project_id": "d878d1d6-bf84-4766-bc2a-926a49036a07",
+    "project_version_id": "33f42b2b-e9ef-4a43-a71d-243606aefc9a",
+    "analysis_as_of_date": "2026-10-11",
+    "candidate_preparation_id": "73a2eff2-4826-4c59-b018-fc6c94111dde",
+    "created_by": "author",
+    "input_universe_digest": "c78ab71431b61b0705dadcd9ab0d89aebe9b709e632aec9682236ea8cd759433",
+    "candidate_universe_digest": "727c2cd040c0cd159dbc29158f3ec44d5eb3bd4c4104f32e2c4d643bbe155ce0",
+    "candidate_decision_set_id": "fa48297e-2180-4498-89bd-d57b4f3fbd8b",
+    "submitted_by": "author",
+    "submitted_at": "2026-10-11T19:57:37.309950+00:00",
+    "candidate_decision_id": "0ec6a9c5-e53d-43d3-82ae-f88f6e5d0752",
+    "decision_payload_digest": "34429bd1165db19bad8ad70e97957959dd804ad4ea5a3a529da4476977c3fe0e",
+    "preparation_candidate_id": "51fc2cef-9506-4ae3-82b3-b9307cbe0ada",
+    "candidate_id": "f3f4dad8-3314-4ffc-87e6-eaf09c88b30b",
+    "candidate_digest": "33782792a01fa164fa9dea298b743680f5ea482c0f6cfb03a5697852d2e3ebe7",
+    "candidate_origin": "LLM_STRUCTURED_OUTPUT",
+    "llm_request_id": "9ad4474b-d183-40a7-a087-5b9b018429ce",
+    "llm_invocation_group_id": "6179690b-12eb-4b3c-9eed-7331de4e087e",
+    "source_trace_ids": [
+      "4adca7d2-7966-4c2e-a4ce-2d91f2ff0968"
+    ],
+    "document_pins": [
+      {
+        "document_version_id": "72b01670-43d4-4787-b9a5-e6f39d254ee1",
+        "parse_run_id": "fd73bf71-d08a-4dce-83ef-d266dbd8faa5"
+      }
+    ],
+    "registry_pins": [
+      {
+        "pin_type": "LLM_USAGE_POLICY",
+        "logical_key": "TENANT",
+        "object_id": "062cfc73-e1a0-4ab8-af0b-ed0f4389a8ea",
+        "version_id": "ab5f5f57-9127-48c5-a8d3-de4a249f864a",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_USAGE_POLICY",
+        "logical_key": "PROJECT",
+        "object_id": "2556a883-9972-49d8-8492-7e642eeab9ef",
+        "version_id": "1d060642-57f0-4694-8390-9ac95751d7ba",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_MODEL",
+        "logical_key": "structured_output:fecc3656-c63b-476b-a3fd-38bde6b10229",
+        "object_id": "fecc3656-c63b-476b-a3fd-38bde6b10229",
+        "version_id": "19998e64-fe74-44ab-95bd-987f840dffbb",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_PROVIDER_VERSION",
+        "logical_key": "a7d1233d-0f3a-4ca8-b75f-998aa38b981d",
+        "object_id": "a7d1233d-0f3a-4ca8-b75f-998aa38b981d",
+        "version_id": "d1421a1f-4c0e-4e2a-aa12-a6fe2cacc635",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_FACT_TYPE",
+        "logical_key": "DOCUMENT_NOTE_55dfc989dd2240119e298bb707058ec1",
+        "object_id": "6e60c0ae-9168-459f-90d3-2c907a438a10",
+        "version_id": "7a4b6128-72d9-4e7f-af53-db2d4a8865b0",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_INVOCATION_POLICY",
+        "logical_key": "INVOCATION",
+        "object_id": "7ac8987f-d406-4b53-a82e-faba8b026465",
+        "version_id": "66360121-fc2d-4cdf-abc9-656e4b837d60",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_PURPOSE_PROMPT",
+        "logical_key": "DOCUMENT_CANDIDATE_EXTRACTION",
+        "object_id": "dfc835b2-3feb-4128-ad97-1bcb847b5418",
+        "version_id": "59403944-3ae7-43ad-aae4-54011ebcc089",
+        "version_no": 1
+      },
+      {
+        "pin_type": "LLM_SELECTION",
+        "logical_key": "CONFIGURED",
+        "object_id": "d878d1d6-bf84-4766-bc2a-926a49036a07",
+        "version_id": "33f42b2b-e9ef-4a43-a71d-243606aefc9a",
+        "version_no": 3
+      },
+      {
+        "pin_type": "LLM_PROMPT",
+        "logical_key": "dfc835b2-3feb-4128-ad97-1bcb847b5418",
+        "object_id": "dfc835b2-3feb-4128-ad97-1bcb847b5418",
+        "version_id": "59403944-3ae7-43ad-aae4-54011ebcc089",
+        "version_no": 1
+      }
+    ],
+    "analysis_snapshot_id": "7a219dc4-a271-5fb0-beb7-08dfb080ef14",
+    "formal_object_id": "34ea10ce-a90a-4bf4-af02-0ae5a8206548",
+    "resolution_id": "d9f30992-af5e-4787-af7f-33bfa78575cc",
+    "resolution_authority": "USER_CONFIRMATION",
+    "draft_audit": [
+      {
+        "event_type": "LLM_COMPLETED",
+        "request_id": "9ad4474b-d183-40a7-a087-5b9b018429ce",
+        "model_id": "fecc3656-c63b-476b-a3fd-38bde6b10229",
+        "deployment_id": "19998e64-fe74-44ab-95bd-987f840dffbb",
+        "provider_version_id": "d1421a1f-4c0e-4e2a-aa12-a6fe2cacc635",
+        "prompt_version_id": "59403944-3ae7-43ad-aae4-54011ebcc089",
+        "redaction_run_id": null,
+        "workflow_run_id": null,
+        "analysis_snapshot_id": null
+      }
+    ]
+  }
+]

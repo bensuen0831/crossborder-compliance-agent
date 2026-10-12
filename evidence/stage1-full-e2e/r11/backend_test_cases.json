@@ -1,0 +1,5672 @@
+[
+  {
+    "module": "tests.test_admin_control_plane_api",
+    "name": "test_knowledge_admin_wire_flow_automatic_ready_and_runtime_query",
+    "elapsed_seconds": 1.478,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_admin_control_plane_api",
+    "name": "test_metadata_draft_edit_history_review_publish_and_unauthorized_publish",
+    "elapsed_seconds": 0.726,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_api_health",
+    "name": "test_live",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_api_health",
+    "name": "test_metadata_is_empty_registry_skeleton",
+    "elapsed_seconds": 0.01,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_contracts",
+    "name": "test_channel_and_request_typed_contract",
+    "elapsed_seconds": 0.002,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_contracts",
+    "name": "test_classification_confidence_validation",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_contracts",
+    "name": "test_legal_basis_uses_rule_hit_ids_list",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_contracts",
+    "name": "test_stage1_requires_explicit_cross_border_results_field",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_interrupt_side_effect_idempotency",
+    "name": "test_deterministic_canonical_event_is_idempotent_across_interrupt_replay",
+    "elapsed_seconds": 0.1,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_interrupt_side_effect_idempotency",
+    "name": "test_review_task_and_status_transitions_are_reentrant",
+    "elapsed_seconds": 0.06,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_langgraph_smoke_environment",
+    "name": "test_phase1a_mandatory_runtime_environment_is_real_and_ready",
+    "elapsed_seconds": 0.007,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_langgraph_smoke_environment",
+    "name": "test_phase1a_runtime_smoke_empirical_evidence_is_complete",
+    "elapsed_seconds": 0.006,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m0_preview_security",
+    "name": "test_m0_adapter_requires_explicit_local_uat",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m0_preview_security",
+    "name": "test_m0_login_requires_registered_persona_and_ignores_client_tenant",
+    "elapsed_seconds": 0.453,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m0_preview_security",
+    "name": "test_m0_blocks_cross_origin_and_external_host",
+    "elapsed_seconds": 0.369,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m0_preview_security",
+    "name": "test_m0_real_retrieval_filters_permission_before_browser_and_tenant_b_cannot_read_a",
+    "elapsed_seconds": 1.104,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m0_preview_security",
+    "name": "test_m0_logout_revokes_cookie_session",
+    "elapsed_seconds": 0.404,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m0_preview_security",
+    "name": "test_stage1_project_user_cannot_perform_admin_actions",
+    "elapsed_seconds": 0.939,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m0_preview_security",
+    "name": "test_stage1_admin_inspects_real_version_and_runtime",
+    "elapsed_seconds": 0.53,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m0_preview_security",
+    "name": "test_stage1_adapter_consumes_phase1h_rule_contract",
+    "elapsed_seconds": 0.382,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m1_phase1lb_ownership",
+    "name": "test_approved_m1_descendant_and_finite_integration_provenance",
+    "elapsed_seconds": 28.961,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m1_phase1lb_ownership",
+    "name": "test_original_lb_source_cannot_modify_forbidden_scope[frontend/src/App.tsx]",
+    "elapsed_seconds": 0.007,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m1_phase1lb_ownership",
+    "name": "test_original_lb_source_cannot_modify_forbidden_scope[src/crossborder_compliance/domain/decision_engine.py]",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m1_phase1lb_ownership",
+    "name": "test_original_lb_source_cannot_modify_forbidden_scope[alembic/versions/0011.py]",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m1_phase1lb_ownership",
+    "name": "test_original_lb_source_cannot_modify_forbidden_scope[ARCHITECTURE_RULES.md]",
+    "elapsed_seconds": 0.003,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m1_phase1lb_ownership",
+    "name": "test_wrong_reviewed_source",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m1_phase1lb_ownership",
+    "name": "test_unrelated_source_ancestry",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m1_phase1lb_ownership",
+    "name": "test_arbitrary_integration_path_rejected",
+    "elapsed_seconds": 23.279,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m1_workflow_api",
+    "name": "test_public_start_read_idempotency_and_authorization",
+    "elapsed_seconds": 21.169,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m1_workflow_api",
+    "name": "test_public_review_state_preserves_pending_identifier",
+    "elapsed_seconds": 1.825,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m1_workflow_api",
+    "name": "test_public_insufficient_evidence_cannot_be_success[foundation_i0]",
+    "elapsed_seconds": 1.762,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_contracts",
+    "name": "test_canonical_intake_authority_and_bounds",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_contracts",
+    "name": "test_generic_binding_type_validation_not_business_mapping",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_contracts",
+    "name": "test_additive_m2a_architecture_checks",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_contracts",
+    "name": "test_architecture_guard_rejects_frontend_authority",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_contracts",
+    "name": "test_m2a_owner_is_finite_and_committed",
+    "elapsed_seconds": 6.613,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_contracts",
+    "name": "test_m2a_cannot_reassign_unverified_baseline",
+    "elapsed_seconds": 0.043,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_intake",
+    "name": "test_draft_restore_version_stale_and_immutable_history",
+    "elapsed_seconds": 0.977,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_intake",
+    "name": "test_create_idempotency_and_payload_conflict",
+    "elapsed_seconds": 1.493,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_intake",
+    "name": "test_browser_authority_injection_and_required_confirmation",
+    "elapsed_seconds": 1.062,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_intake",
+    "name": "test_cross_tenant_actor_and_current_permissions",
+    "elapsed_seconds": 0.988,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_intake",
+    "name": "test_atomic_confirmation_exact_snapshot_and_canonical_start",
+    "elapsed_seconds": 2.326,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_intake",
+    "name": "test_failed_preparation_rolls_back_snapshot_and_confirmation",
+    "elapsed_seconds": 0.965,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_migrations",
+    "name": "test_m2a_fresh_exact_0010_equivalence_downgrade_and_refusal",
+    "elapsed_seconds": 20.046,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_manual_only_exact_provenance_and_existing_formal_chain[foundation_i0]",
+    "elapsed_seconds": 10.537,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_unmapped_missing_facts_warns_without_formal_decisions",
+    "elapsed_seconds": 2.343,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_missing_required_type_warns_even_when_other_fact_exists",
+    "elapsed_seconds": 2.353,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_real_document_and_manual_merge_or_existing_durable_conflict[Manual purpose-False]",
+    "elapsed_seconds": 2.097,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_real_document_and_manual_merge_or_existing_durable_conflict[Other purpose-True]",
+    "elapsed_seconds": 1.948,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_provenance_scope_or_history_tamper_rejected[actor]",
+    "elapsed_seconds": 1.559,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_provenance_scope_or_history_tamper_rejected[version]",
+    "elapsed_seconds": 1.53,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_provenance_scope_or_history_tamper_rejected[tenant]",
+    "elapsed_seconds": 1.984,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_provenance_scope_or_history_tamper_rejected[value]",
+    "elapsed_seconds": 1.555,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_restart_reconstructs_exact_host_and_revalidates_current_tenant[foundation_i0]",
+    "elapsed_seconds": 16.653,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_ungoverned_binding_rejected_atomically[unknown_field-string]",
+    "elapsed_seconds": 2.145,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_ungoverned_binding_rejected_atomically[project_id-string]",
+    "elapsed_seconds": 1.424,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_ungoverned_binding_rejected_atomically[business_purpose-unknown_type]",
+    "elapsed_seconds": 1.494,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_concurrent_confirmation_same_snapshot_or_explicit_retry",
+    "elapsed_seconds": 1.691,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_unknown_or_other_project_refs_cannot_confirm[selected_products]",
+    "elapsed_seconds": 2.06,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_unknown_or_other_project_refs_cannot_confirm[data_categories]",
+    "elapsed_seconds": 1.307,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_unknown_or_other_project_refs_cannot_confirm[uploaded_documents]",
+    "elapsed_seconds": 1.294,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_unknown_or_other_project_refs_cannot_confirm[organizations]",
+    "elapsed_seconds": 1.265,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_unknown_or_other_project_refs_cannot_confirm[third_parties]",
+    "elapsed_seconds": 1.277,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2a_structured_intake",
+    "name": "test_selected_domain_reuses_existing_product_scope_and_pins",
+    "elapsed_seconds": 2.444,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_architecture",
+    "name": "test_m2b_temporal_architecture",
+    "elapsed_seconds": 0.003,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_document_inputs",
+    "name": "test_actual_upload_restore_parse_retry_and_exact_identity",
+    "elapsed_seconds": 1.316,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_document_inputs",
+    "name": "test_upload_boundary_fail_closed[tenant]",
+    "elapsed_seconds": 1.3,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_document_inputs",
+    "name": "test_upload_boundary_fail_closed[actor]",
+    "elapsed_seconds": 1.356,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_document_inputs",
+    "name": "test_upload_boundary_fail_closed[permission]",
+    "elapsed_seconds": 1.72,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_document_inputs",
+    "name": "test_upload_boundary_fail_closed[stale]",
+    "elapsed_seconds": 0.95,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_document_inputs",
+    "name": "test_upload_boundary_fail_closed[size]",
+    "elapsed_seconds": 1.194,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_document_inputs",
+    "name": "test_upload_boundary_fail_closed[type]",
+    "elapsed_seconds": 0.952,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_document_inputs",
+    "name": "test_upload_boundary_fail_closed[content]",
+    "elapsed_seconds": 1.191,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_document_inputs",
+    "name": "test_upload_boundary_fail_closed[scanner]",
+    "elapsed_seconds": 1.338,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_document_inputs",
+    "name": "test_upload_boundary_fail_closed[storage]",
+    "elapsed_seconds": 2.308,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_file_policy",
+    "name": "test_content_policy_and_immutable_storage",
+    "elapsed_seconds": 0.002,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_integration",
+    "name": "test_real_upload_confirm_snapshot_canonical_start_read_and_history[foundation_i0]",
+    "elapsed_seconds": 12.049,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_integration",
+    "name": "test_pending_document_prevents_confirmation_and_no_snapshot",
+    "elapsed_seconds": 1.236,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_integration",
+    "name": "test_client_cannot_inject_document_authority",
+    "elapsed_seconds": 1.998,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_integration",
+    "name": "test_current_authorization_for_missing_storage_and_read_policy",
+    "elapsed_seconds": 1.371,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_integration",
+    "name": "test_multi_item_never_bypasses_data_analysis",
+    "elapsed_seconds": 1.639,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_integration",
+    "name": "test_single_item_executes_existing_data_aware_services",
+    "elapsed_seconds": 15.521,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_integration",
+    "name": "test_actual_uploaded_manual_and_document_fact_merge_or_durable_review[False]",
+    "elapsed_seconds": 1.922,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_integration",
+    "name": "test_actual_uploaded_manual_and_document_fact_merge_or_durable_review[True]",
+    "elapsed_seconds": 2.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_integration",
+    "name": "test_process_crash_after_acceptance_then_restart_has_one_parse",
+    "elapsed_seconds": 1.89,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_integration",
+    "name": "test_ungoverned_document_candidate_routes_review_before_formal_decisions",
+    "elapsed_seconds": 3.158,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_integration",
+    "name": "test_same_binary_wrong_project_is_explicit_conflict_without_identity_leak",
+    "elapsed_seconds": 1.559,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_integration",
+    "name": "test_existing_conflict_takes_priority_over_multi_subject_capability_gap",
+    "elapsed_seconds": 2.225,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_migrations",
+    "name": "test_fresh_exact_0011_equivalence_empty_down_up_and_retention",
+    "elapsed_seconds": 17.536,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_migrations",
+    "name": "test_exact_legacy_0012_preserves_real_detail_and_quarantines_unproven_links",
+    "elapsed_seconds": 4.271,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_ownership",
+    "name": "test_m2b_owner_is_committed_finite_and_excludes_legal_engines",
+    "elapsed_seconds": 3.501,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_ownership",
+    "name": "test_m2b_owner_cannot_approve_arbitrary_source",
+    "elapsed_seconds": 0.033,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_snapshot_contract_probe",
+    "name": "test_stable_item_has_exact_immutable_snapshot_state_and_provenance",
+    "elapsed_seconds": 3.958,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_temporal_postgres",
+    "name": "test_item_detail_exact_membership_never_uses_latest",
+    "elapsed_seconds": 1.238,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_temporal_postgres",
+    "name": "test_formal_inventory_detail_cannot_be_rewritten[update]",
+    "elapsed_seconds": 1.375,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_temporal_postgres",
+    "name": "test_formal_inventory_detail_cannot_be_rewritten[delete]",
+    "elapsed_seconds": 1.147,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_temporal_postgres",
+    "name": "test_formal_inventory_detail_cannot_be_rewritten[duplicate]",
+    "elapsed_seconds": 1.378,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2b_temporal_postgres",
+    "name": "test_i_preserves_old_pin_and_reads_exact_new_pin",
+    "elapsed_seconds": 2.085,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_architecture",
+    "name": "test_c0_additive_architecture_boundaries",
+    "elapsed_seconds": 0.009,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_architecture",
+    "name": "test_c0_owner_is_finite_committed_and_preserves_frozen_engines",
+    "elapsed_seconds": 6.119,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_contracts",
+    "name": "test_final_path_status_never_supplies_legal_transfer_authority[CONDITIONAL_PROPOSAL]",
+    "elapsed_seconds": 0.01,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_contracts",
+    "name": "test_final_path_status_never_supplies_legal_transfer_authority[NO_VIABLE_PATH]",
+    "elapsed_seconds": 0.007,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_contracts",
+    "name": "test_final_path_status_never_supplies_legal_transfer_authority[PROPOSED]",
+    "elapsed_seconds": 0.008,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_contracts",
+    "name": "test_no_viable_path_does_not_establish_prohibition_when_evidence_missing",
+    "elapsed_seconds": 0.007,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_contracts",
+    "name": "test_missing_non_transfer_predicate_input_cannot_assert_permission",
+    "elapsed_seconds": 0.006,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_contracts",
+    "name": "test_template_is_not_a_legal_trigger_and_locales_are_governed",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_contracts",
+    "name": "test_client_cannot_inject_legal_result_policy_or_tenant",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_contracts",
+    "name": "test_authority_closes_exact_subject_universe[data_item_ids]",
+    "elapsed_seconds": 0.007,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_contracts",
+    "name": "test_authority_closes_exact_subject_universe[data_flow_ids]",
+    "elapsed_seconds": 0.005,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_contracts",
+    "name": "test_authority_closes_exact_subject_universe[jurisdiction_ids]",
+    "elapsed_seconds": 0.006,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_contracts",
+    "name": "test_authority_fact_evidence_is_closed_to_owning_legal_support",
+    "elapsed_seconds": 0.006,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_postgres",
+    "name": "test_governed_cross_border_precedence[authority0-TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED-LEGAL_PROHIBITION]",
+    "elapsed_seconds": 11.786,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_postgres",
+    "name": "test_governed_cross_border_precedence[authority1-TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED-LOCALIZATION_REQUIRED]",
+    "elapsed_seconds": 11.067,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_postgres",
+    "name": "test_governed_cross_border_precedence[authority2-DIRECT_TRANSFER_ALLOWED-TRANSFER_PREREQUISITES_SATISFIED]",
+    "elapsed_seconds": 12.609,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_postgres",
+    "name": "test_governed_cross_border_precedence[authority3-CONDITIONAL_TRANSFER_ALLOWED-APPROVAL_PENDING]",
+    "elapsed_seconds": 15.04,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_postgres",
+    "name": "test_governed_cross_border_precedence[authority4-REVIEW_REQUIRED-EVIDENCE_INSUFFICIENT]",
+    "elapsed_seconds": 12.139,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_postgres",
+    "name": "test_missing_formal_evidence_is_review_not_certainty",
+    "elapsed_seconds": 1.218,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_postgres",
+    "name": "test_pinned_context_conflicts_require_review[authority0-FACT_CONFLICT]",
+    "elapsed_seconds": 1.126,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_postgres",
+    "name": "test_pinned_context_conflicts_require_review[authority1-PRODUCT_CONTEXT_CONFLICT]",
+    "elapsed_seconds": 1.22,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_postgres",
+    "name": "test_restart_aliases_and_snapshot_exact_reads",
+    "elapsed_seconds": 24.352,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_postgres",
+    "name": "test_authorization_and_immutable_result",
+    "elapsed_seconds": 12.323,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_postgres",
+    "name": "test_conditional_local_alternative_is_not_transfer_permission[authority0]",
+    "elapsed_seconds": 11.734,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_postgres",
+    "name": "test_template_availability_is_independent_and_history_is_pinned[authority0]",
+    "elapsed_seconds": 12.275,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_postgres",
+    "name": "test_s1_results_survive_s2_binary_policy_template_and_legal_knowledge[authority0]",
+    "elapsed_seconds": 14.833,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_authority_postgres",
+    "name": "test_authority_api_is_typed_authorized_and_reference_only",
+    "elapsed_seconds": 16.687,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_migrations",
+    "name": "test_fresh_exact_0013_equivalence_empty_down_up_retention",
+    "elapsed_seconds": 18.259,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_projection_architecture",
+    "name": "test_c1_additive_projection_ownership",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_workflow_contracts",
+    "name": "test_legacy_version_retains_original_sixteen_step_order",
+    "elapsed_seconds": 0.046,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_workflow_contracts",
+    "name": "test_unknown_or_mixed_version_pairs_fail_closed[unknown-unknown]",
+    "elapsed_seconds": 0.025,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_workflow_contracts",
+    "name": "test_unknown_or_mixed_version_pairs_fail_closed[phase1l-a-canonical-v1-phase1l-a-references-v2]",
+    "elapsed_seconds": 0.021,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_workflow_contracts",
+    "name": "test_unknown_or_mixed_version_pairs_fail_closed[phase1l-a-canonical-v2-phase1l-a-references-v1]",
+    "elapsed_seconds": 0.022,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_workflow_postgres",
+    "name": "test_canonical_v2_executes_owners_and_preserves_refs_on_locale_replay[foundation_i0]",
+    "elapsed_seconds": 23.118,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_workflow_postgres",
+    "name": "test_canonical_v2_executes_owners_and_preserves_refs_on_locale_replay[foundation_i1]",
+    "elapsed_seconds": 12.337,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_workflow_postgres",
+    "name": "test_authorized_stage1_projection_exact_snapshot_and_tenant[foundation_i0]",
+    "elapsed_seconds": 31.58,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_workflow_postgres",
+    "name": "test_authorized_stage1_projection_exact_snapshot_and_tenant[foundation_i1]",
+    "elapsed_seconds": 17.46,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_workflow_postgres",
+    "name": "test_crossborder_review_is_durable_and_does_not_produce_later_decisions[authority0]",
+    "elapsed_seconds": 2.272,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_workflow_postgres",
+    "name": "test_historical_v1_actual_postgres_read_has_explicit_authority_gap",
+    "elapsed_seconds": 9.877,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2c_workflow_postgres",
+    "name": "test_stage1_projection_ignores_future_inventory_and_documents",
+    "elapsed_seconds": 22.189,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_api_postgres",
+    "name": "test_http_approve_and_recover_no_client_authority[foundation_i0]",
+    "elapsed_seconds": 8.581,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_api_postgres",
+    "name": "test_http_request_changes_then_typed_intake_successor[foundation_i0]",
+    "elapsed_seconds": 8.578,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_architecture",
+    "name": "test_m2d_approved_finite_owner_preserves_baseline_authorities",
+    "elapsed_seconds": 8.257,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_architecture",
+    "name": "test_m2d_additive_review_architecture",
+    "elapsed_seconds": 2.394,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_correction_postgres",
+    "name": "test_fact_choice_creates_successor_keeps_source_and_exact_parse_universe[foundation_i0]",
+    "elapsed_seconds": 9.413,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_correction_postgres",
+    "name": "test_outside_target_and_wrong_payload_do_not_create_successor[foundation_i0]",
+    "elapsed_seconds": 1.154,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_correction_postgres",
+    "name": "test_product_choice_uses_product_owner_and_preserves_detection[selected]",
+    "elapsed_seconds": 1.478,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_correction_postgres",
+    "name": "test_product_choice_uses_product_owner_and_preserves_detection[detected]",
+    "elapsed_seconds": 1.509,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_correction_postgres",
+    "name": "test_successor_delivery_failure_after_commit_can_recover_without_old_resume[foundation_i0]",
+    "elapsed_seconds": 9.54,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_formal_review_postgres",
+    "name": "test_formal_crossborder_review_refuses_approval_and_retains_support[authority0]",
+    "elapsed_seconds": 2.401,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_migrations",
+    "name": "test_fresh_exact_0014_equivalence_empty_down_up_retention",
+    "elapsed_seconds": 14.592,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_contracts",
+    "name": "test_browser_cannot_inject_review_authority[decided_by]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_contracts",
+    "name": "test_browser_cannot_inject_review_authority[tenant_id]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_contracts",
+    "name": "test_browser_cannot_inject_review_authority[langgraph_thread_id]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_contracts",
+    "name": "test_browser_cannot_inject_review_authority[policy]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_contracts",
+    "name": "test_browser_cannot_inject_review_authority[start_at]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_contracts",
+    "name": "test_browser_cannot_inject_review_authority[final_path]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_contracts",
+    "name": "test_approval_cannot_clear_formal_reason[FACT_CONFLICT]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_contracts",
+    "name": "test_approval_cannot_clear_formal_reason[BUSINESS_FACT_CONFLICT]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_contracts",
+    "name": "test_approval_cannot_clear_formal_reason[PRODUCT_CONTEXT_CONFLICT]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_contracts",
+    "name": "test_approval_cannot_clear_formal_reason[JURISDICTION_UNRESOLVED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_contracts",
+    "name": "test_approval_cannot_clear_formal_reason[INSUFFICIENT_EVIDENCE]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_contracts",
+    "name": "test_approval_cannot_clear_formal_reason[EVIDENCE_INSUFFICIENT]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_contracts",
+    "name": "test_approval_cannot_clear_formal_reason[CAPABILITY_NOT_CONFIGURED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_contracts",
+    "name": "test_approval_cannot_clear_formal_reason[UNDETERMINED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_contracts",
+    "name": "test_only_explicit_immutable_requirement_confirmation_can_approve",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_contracts",
+    "name": "test_correction_is_typed_not_free_text_or_arbitrary_json_path",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_postgres",
+    "name": "test_request_changes_history_no_resume_and_duplicate_cas",
+    "elapsed_seconds": 1.105,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_postgres",
+    "name": "test_reject_is_review_boundary_not_failed_and_history_immutable",
+    "elapsed_seconds": 0.96,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_postgres",
+    "name": "test_approval_reexecutes_owner_duplicate_identity_and_history",
+    "elapsed_seconds": 13.196,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_postgres",
+    "name": "test_current_tenant_project_role_and_list_filters",
+    "elapsed_seconds": 1.01,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_postgres",
+    "name": "test_concurrent_reviewers_one_cas_winner",
+    "elapsed_seconds": 0.969,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_postgres",
+    "name": "test_delivery_failure_recovery_uses_persisted_approval",
+    "elapsed_seconds": 12.361,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_postgres",
+    "name": "test_approval_process_restart_keeps_canonical_history_and_checkpoint",
+    "elapsed_seconds": 16.082,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_postgres",
+    "name": "test_required_role_current_on_read_write_and_direct_resume",
+    "elapsed_seconds": 0.957,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2d_review_postgres",
+    "name": "test_direct_worker_approval_records_canonical_snapshot_audit",
+    "elapsed_seconds": 11.634,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_architecture_closure",
+    "name": "test_additive_gateway_architecture",
+    "elapsed_seconds": 0.279,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_architecture_closure",
+    "name": "test_gateway_cannot_import_formal_engine",
+    "elapsed_seconds": 0.247,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_architecture_closure",
+    "name": "test_finite_resume_proof_does_not_authorize_r1_engine_change",
+    "elapsed_seconds": 0.135,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_checkpointer_concurrency",
+    "name": "test_parallel_first_startup_and_process_restart_one_checkpoint_authority",
+    "elapsed_seconds": 0.43,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_gateway_closure",
+    "name": "test_oauth_failed_attempts_are_durably_rate_limited",
+    "elapsed_seconds": 0.324,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_gateway_closure",
+    "name": "test_parallel_rate_counter_and_repository_restart",
+    "elapsed_seconds": 0.102,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_gateway_closure",
+    "name": "test_admin_options_bindings_disabled_client_and_scope_audit",
+    "elapsed_seconds": 0.307,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_gateway_closure",
+    "name": "test_webhook_edits_governed_callback_and_event_filter",
+    "elapsed_seconds": 0.572,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_gateway_closure",
+    "name": "test_interrupted_delivery_new_worker_reclaims_and_old_lease_cannot_finish",
+    "elapsed_seconds": 0.597,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_gateway_closure",
+    "name": "test_unknown_workflow_has_safe_stable_error",
+    "elapsed_seconds": 0.31,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_gateway_closure",
+    "name": "test_failed_oauth_audit_has_server_bound_identity_without_authenticating",
+    "elapsed_seconds": 0.315,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_gateway_closure",
+    "name": "test_expired_service_credential_is_denied_by_real_http",
+    "elapsed_seconds": 0.411,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_http",
+    "name": "test_real_http_create_read_update_cas_actor_binding_and_idempotency",
+    "elapsed_seconds": 0.41,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_http",
+    "name": "test_public_input_rejects_authority_and_sanitizes_validation[tenant_id]",
+    "elapsed_seconds": 0.317,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_http",
+    "name": "test_public_input_rejects_authority_and_sanitizes_validation[actor_id]",
+    "elapsed_seconds": 0.311,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_http",
+    "name": "test_public_input_rejects_authority_and_sanitizes_validation[permission]",
+    "elapsed_seconds": 0.309,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_http",
+    "name": "test_public_input_rejects_authority_and_sanitizes_validation[formal_risk]",
+    "elapsed_seconds": 0.31,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_http",
+    "name": "test_public_input_rejects_authority_and_sanitizes_validation[workflow_state]",
+    "elapsed_seconds": 0.309,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_http",
+    "name": "test_public_input_rejects_authority_and_sanitizes_validation[provider_credentials]",
+    "elapsed_seconds": 0.311,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_http",
+    "name": "test_http_auth_denied_errors_safe_and_no_secret_in_admin_get",
+    "elapsed_seconds": 0.311,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_identity_postgres",
+    "name": "test_oauth_live_scopes_hashed_credentials_and_no_get_secret",
+    "elapsed_seconds": 0.084,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_identity_postgres",
+    "name": "test_token_revalidates_current_authority[expired]",
+    "elapsed_seconds": 0.069,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_identity_postgres",
+    "name": "test_token_revalidates_current_authority[disabled]",
+    "elapsed_seconds": 0.076,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_identity_postgres",
+    "name": "test_token_revalidates_current_authority[revoked]",
+    "elapsed_seconds": 0.082,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_identity_postgres",
+    "name": "test_token_revalidates_current_authority[rotated]",
+    "elapsed_seconds": 0.156,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_identity_postgres",
+    "name": "test_token_revalidates_current_authority[scope_removed]",
+    "elapsed_seconds": 0.073,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_identity_postgres",
+    "name": "test_service_account_same_context_revocable_no_global_authority",
+    "elapsed_seconds": 0.189,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_identity_postgres",
+    "name": "test_binding_fail_closed_cross_client_and_tenant",
+    "elapsed_seconds": 0.145,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_identity_postgres",
+    "name": "test_admin_idempotency_cas_and_secret_reveal_once",
+    "elapsed_seconds": 0.071,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_identity_postgres",
+    "name": "test_atomic_rate_and_quota_are_configured",
+    "elapsed_seconds": 0.092,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_integration_migrations",
+    "name": "test_empty_and_populated_integration_downgrade_transactional_policy",
+    "elapsed_seconds": 7.475,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_openapi_sdk",
+    "name": "test_production_specific_integration_routes_precede_generic_metadata[/api/v1/admin/integration-clients]",
+    "elapsed_seconds": 0.212,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_openapi_sdk",
+    "name": "test_production_specific_integration_routes_precede_generic_metadata[/api/v1/admin/integration-clients/options]",
+    "elapsed_seconds": 0.21,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_openapi_sdk",
+    "name": "test_external_only_openapi_strict_authority_security_errors",
+    "elapsed_seconds": 0.216,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_openapi_sdk",
+    "name": "test_python_sdk_real_http_auth_intake_cas_no_authority_injection",
+    "elapsed_seconds": 0.411,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r11_migrations",
+    "name": "test_fresh_exact0017_equivalence_preserving_rows_downgrade_and_refusal",
+    "elapsed_seconds": 14.321,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r11_migrations",
+    "name": "test_frozen_migrations_and_wip0017_byte_identity",
+    "elapsed_seconds": 0.028,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r1_architecture",
+    "name": "test_recovery_architecture_checks",
+    "elapsed_seconds": 0.013,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r1_architecture",
+    "name": "test_architecture_rejects_cross_jurisdiction_applicability",
+    "elapsed_seconds": 0.02,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r1_architecture",
+    "name": "test_recovery_is_exact_committed_finite_successor_owner",
+    "elapsed_seconds": 0.152,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r1_architecture",
+    "name": "test_batched_git_proof_still_rejects_live_frozen_engine_tampering",
+    "elapsed_seconds": 0.141,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r1_classification_postgres",
+    "name": "test_two_jurisdictions_complete_rule_union_and_distinct_execution_identity",
+    "elapsed_seconds": 0.23,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r1_classification_postgres",
+    "name": "test_configuration_gap_or_conflict_is_atomic[missing]",
+    "elapsed_seconds": 0.184,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r1_classification_postgres",
+    "name": "test_configuration_gap_or_conflict_is_atomic[ambiguous]",
+    "elapsed_seconds": 0.154,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r1_classification_postgres",
+    "name": "test_configuration_gap_or_conflict_is_atomic[expired]",
+    "elapsed_seconds": 0.154,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r1_classification_postgres",
+    "name": "test_configuration_gap_or_conflict_is_atomic[scope]",
+    "elapsed_seconds": 0.141,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r1_classification_postgres",
+    "name": "test_configuration_gap_or_conflict_is_atomic[multiple_schemes]",
+    "elapsed_seconds": 0.161,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r1_classification_postgres",
+    "name": "test_unpinned_or_implicit_execution_rejected",
+    "elapsed_seconds": 0.151,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r1_classification_postgres",
+    "name": "test_future_rule_binding_and_scheme_changes_do_not_change_s1",
+    "elapsed_seconds": 0.22,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r1_classification_postgres",
+    "name": "test_legacy_single_jurisdiction_historical_execution",
+    "elapsed_seconds": 0.135,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r1_classification_postgres",
+    "name": "test_database_rejects_competing_same_jurisdiction_result",
+    "elapsed_seconds": 0.182,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r1_isolation",
+    "name": "test_legacy_rule_hit_serialization_preserves_historical_digest_input",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r1_isolation",
+    "name": "test_applicability_rejects_cross_jurisdiction_rule_hit",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_r1_isolation",
+    "name": "test_formal_stages_execute_and_scope_each_explicit_jurisdiction",
+    "elapsed_seconds": 0.002,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_vertical_postgres",
+    "name": "test_external_real_docx_rag_async_result_and_review[False-foundation_i0]",
+    "elapsed_seconds": 66.99,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_vertical_postgres",
+    "name": "test_external_real_docx_rag_async_result_and_review[True-foundation_i0]",
+    "elapsed_seconds": 3.172,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_webhooks_postgres",
+    "name": "test_actual_signed_delivery_retry_and_bounded_failure[success]",
+    "elapsed_seconds": 0.62,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_webhooks_postgres",
+    "name": "test_actual_signed_delivery_retry_and_bounded_failure[retry]",
+    "elapsed_seconds": 0.66,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_webhooks_postgres",
+    "name": "test_actual_signed_delivery_retry_and_bounded_failure[failure]",
+    "elapsed_seconds": 0.614,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_webhooks_postgres",
+    "name": "test_actual_signed_delivery_retry_and_bounded_failure[timeout]",
+    "elapsed_seconds": 0.629,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_webhooks_postgres",
+    "name": "test_external_callback_ssrf_rejected[http://127.0.0.1/callback]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_webhooks_postgres",
+    "name": "test_external_callback_ssrf_rejected[https://169.254.169.254/latest]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_webhooks_postgres",
+    "name": "test_external_callback_ssrf_rejected[https://user:password@example.com/callback]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_webhooks_postgres",
+    "name": "test_external_callback_ssrf_rejected[https://metadata.google.internal/]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_webhooks_postgres",
+    "name": "test_external_callback_ssrf_rejected[https://10.0.0.1/callback]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_m2e_webhooks_postgres",
+    "name": "test_disable_and_rotate_key_cas_idempotency_preserve_delivery_history",
+    "elapsed_seconds": 0.577,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_persistence_boundaries",
+    "name": "test_idempotency_tables_separate_and_no_langgraph_tables_in_domain_metadata",
+    "elapsed_seconds": 0.066,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_persistence_boundaries",
+    "name": "test_analysis_snapshot_is_domain_table",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_domain_unit",
+    "name": "test_version_invariant_rejects_zero",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_domain_unit",
+    "name": "test_project_version_number_invariant",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_domain_unit",
+    "name": "test_data_flow_edge_requires_distinct_nodes",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_domain_unit",
+    "name": "test_classification_confidence_invariant",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_domain_unit",
+    "name": "test_formal_workflow_thread_identity_invariant",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_domain_unit",
+    "name": "test_repository_context_requires_explicit_target_tenant",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_mapping",
+    "name": "test_project_mapping_orm_to_domain_to_application_dto",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_mapping",
+    "name": "test_data_item_mapping_outputs_typed_contract_not_orm",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_postgres_repository",
+    "name": "test_postgres_crud_tenant_isolation_uuid_guessing_and_explicit_system_context",
+    "elapsed_seconds": 0.023,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_postgres_repository",
+    "name": "test_immutable_project_version_active_pointer_and_optimistic_concurrency",
+    "elapsed_seconds": 0.025,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_postgres_repository",
+    "name": "test_unique_constraint_fk_and_transaction_rollback",
+    "elapsed_seconds": 0.012,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_postgres_repository",
+    "name": "test_classification_repository_is_single_formal_result_source",
+    "elapsed_seconds": 0.025,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_postgres_repository",
+    "name": "test_legal_basis_rule_hit_many_to_many_and_cross_tenant_link_rejected",
+    "elapsed_seconds": 0.024,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_postgres_repository",
+    "name": "test_conversation_repository_is_tenant_scoped_and_not_workflow_thread_id",
+    "elapsed_seconds": 0.015,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_postgres_repository",
+    "name": "test_document_immutable_version_active_pointer_and_optimistic_concurrency",
+    "elapsed_seconds": 0.016,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_source_of_truth",
+    "name": "test_source_of_truth_tables_are_normalized",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_source_of_truth",
+    "name": "test_conversation_thread_is_not_langgraph_thread",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1b_typed_contracts",
+    "name": "test_required_frozen_contracts_remain_pydantic_v2_models",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_admin_api",
+    "name": "test_project_user_cannot_publish_but_can_read_active_runtime_metadata",
+    "elapsed_seconds": 0.122,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_admin_api",
+    "name": "test_model_admin_response_never_returns_secret_and_unsafe_url_rejected",
+    "elapsed_seconds": 0.023,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_config_registries",
+    "name": "test_prompt_rule_template_knowledge_registries_read_active_versions_only",
+    "elapsed_seconds": 0.068,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_config_registries",
+    "name": "test_classification_registry_resolves_versioned_binding_without_country_rule_code",
+    "elapsed_seconds": 0.027,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_metadata_postgres",
+    "name": "test_metadata_lifecycle_publish_refresh_tenant_isolation_and_idempotency",
+    "elapsed_seconds": 0.038,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_metadata_postgres",
+    "name": "test_reviewer_separation_invalid_lifecycle_and_optimistic_concurrency",
+    "elapsed_seconds": 0.036,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_metadata_postgres",
+    "name": "test_future_active_version_is_excluded_and_unique_constraint_enforced",
+    "elapsed_seconds": 0.04,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_metadata_postgres",
+    "name": "test_registry_refresh_failure_is_retryable",
+    "elapsed_seconds": 0.03,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_metadata_postgres",
+    "name": "test_publish_transaction_failure_rolls_back_active_pointer_and_publish_record",
+    "elapsed_seconds": 0.034,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_metadata_postgres",
+    "name": "test_old_snapshot_retains_old_registry_version_new_snapshot_gets_new_version",
+    "elapsed_seconds": 0.052,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_metadata_unit",
+    "name": "test_endpoint_config_blocks_dangerous_protocol_and_embedded_credentials",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_metadata_unit",
+    "name": "test_technical_model_codes_are_stable_not_business_metadata_enums",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_metadata_unit",
+    "name": "test_lifecycle_transition_contract",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_metadata_unit",
+    "name": "test_admin_policy_rejects_ordinary_project_user",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_metadata_unit",
+    "name": "test_projection_registry_is_stale_until_explicit_refresh",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_metadata_unit",
+    "name": "test_regulatory_template_precedence_over_enterprise_projection",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_metadata_unit",
+    "name": "test_admin_api_requires_trusted_server_side_repository_context",
+    "elapsed_seconds": 0.003,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_metadata_unit",
+    "name": "test_admin_and_runtime_metadata_routes_are_explicitly_exposed",
+    "elapsed_seconds": 0.456,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_model_registry",
+    "name": "test_model_registry_provider_types_capability_disable_and_secret_boundary",
+    "elapsed_seconds": 0.05,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_model_registry",
+    "name": "test_switch_model_a_to_model_b_requires_only_registry_metadata_change",
+    "elapsed_seconds": 0.058,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_model_registry",
+    "name": "test_disabled_deployment_is_excluded_from_model_registry",
+    "elapsed_seconds": 0.032,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_postgres_registry",
+    "name": "test_metadata_lifecycle_outbox_registry_retry_versioning_effective_date_and_tenant_isolation",
+    "elapsed_seconds": 0.073,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_postgres_registry",
+    "name": "test_snapshot_pinning_old_workflow_retains_old_version_new_workflow_gets_new_version",
+    "elapsed_seconds": 0.041,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_postgres_registry",
+    "name": "test_model_registry_provider_types_secret_boundary_disable_and_metadata_only_switch",
+    "elapsed_seconds": 0.058,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_postgres_registry",
+    "name": "test_prompt_rule_template_knowledge_classification_and_jurisdiction_registries",
+    "elapsed_seconds": 0.093,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_unit_api",
+    "name": "test_admin_rbac_blocks_project_user_before_repository_call",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_unit_api",
+    "name": "test_lifecycle_transition_contract",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_unit_api",
+    "name": "test_model_endpoint_validation_blocks_dangerous_protocols_and_public_http",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_unit_api",
+    "name": "test_admin_api_has_all_required_resource_lifecycle_routes",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_unit_api",
+    "name": "test_runtime_metadata_api_has_required_dynamic_option_routes",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1c_unit_api",
+    "name": "test_stable_governance_status_is_technical_not_business_option_enum",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1d_parsers",
+    "name": "test_generic_pdf_native_and_scanned_ocr_fallback",
+    "elapsed_seconds": 0.04,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1d_parsers",
+    "name": "test_generic_docx_paragraph_heading_and_table_provenance",
+    "elapsed_seconds": 0.018,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1d_parsers",
+    "name": "test_generic_xlsx_multi_sheet_headers_formula_merged_and_cell_provenance",
+    "elapsed_seconds": 0.046,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1d_parsers",
+    "name": "test_generic_csv_structured_not_plain_text",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1d_parsers",
+    "name": "test_generic_pptx_slide_table_and_diagram_candidate",
+    "elapsed_seconds": 0.034,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1d_parsers",
+    "name": "test_generic_text_and_image_vision_candidate_have_no_legal_result",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1d_postgres",
+    "name": "test_phase1d_multiformat_pipeline_provenance_summary_tenant_and_snapshot_pin",
+    "elapsed_seconds": 0.195,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1d_postgres",
+    "name": "test_phase1d_async_failed_retry_quality_gate_and_no_binary_db_source",
+    "elapsed_seconds": 0.064,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1d_security_api",
+    "name": "test_upload_validation_path_mime_size_malware_and_tenant_object_key",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1d_security_api",
+    "name": "test_document_api_requires_trusted_context_and_returns_202_for_async_parse",
+    "elapsed_seconds": 0.018,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1e_api",
+    "name": "test_context_resolution_run_requires_trusted_context_and_returns_typed_result",
+    "elapsed_seconds": 0.01,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1e_api",
+    "name": "test_context_conflict_api_uses_optimistic_concurrency",
+    "elapsed_seconds": 0.007,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1e_api",
+    "name": "test_phase1e_required_api_paths_are_registered",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1e_context_unit",
+    "name": "test_semantic_similarity_is_candidate_only_and_does_not_formal_merge",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1e_context_unit",
+    "name": "test_product_selection_conflict_is_explicit_and_effective_scope_stays_empty",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1e_context_unit",
+    "name": "test_no_selected_product_uses_document_detected_scope_not_all_registry",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1e_postgres",
+    "name": "test_phase1e_context_resolution_formal_inventory_flow_review_versioning_and_isolation",
+    "elapsed_seconds": 2.216,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1e_postgres",
+    "name": "test_phase1e_noncanonical_coordinates_are_rejected",
+    "elapsed_seconds": 0.016,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_protocol_host_policy[http://generic.example/x]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_protocol_host_policy[https://generic.example:80/x]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_protocol_host_policy[https://u:p@generic.example/x]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_protocol_host_policy[https://generic.example/x#fragment]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_protocol_host_policy[https://other.example/x]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_protocol_host_policy[https://generic.example/\\\\x]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_protocol_host_policy[https://generic.example/x\\x01]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_protocol_host_policy[file:///etc/passwd]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_private_dns_policy[127.0.0.1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_private_dns_policy[10.0.0.1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_private_dns_policy[169.254.169.254]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_private_dns_policy[192.168.1.1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_private_dns_policy[::1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_private_dns_policy[fc00::1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_private_dns_policy[::ffff:127.0.0.1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_private_dns_policy[224.0.0.1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_mime_size_encoding_truncation[response0]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_mime_size_encoding_truncation[response1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_mime_size_encoding_truncation[response2]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_mime_size_encoding_truncation[response3]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_mime_size_encoding_truncation[response4]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_mime_size_encoding_truncation[response5]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_pinned_dns_hash_audit_redirect",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_redirect_revalidation_and_limit",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_controlled_mixed_dns_and_timeout",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_download_chunking",
+    "name": "test_chunking_preserves_canonical_boundaries",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_source_crud_permission_tenant_optimistic",
+    "elapsed_seconds": 0.082,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_lifecycle_quality_review_provenance",
+    "elapsed_seconds": 0.189,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_failed_quality_cannot_activate",
+    "elapsed_seconds": 0.119,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_case_a_product_hierarchy_global_shared_and_permission",
+    "elapsed_seconds": 0.34,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_case_b_multi_product_minimal_item_flow",
+    "elapsed_seconds": 0.385,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_case_c_conflict_fail_safe",
+    "elapsed_seconds": 0.34,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_case_d_document_formal_context_only",
+    "elapsed_seconds": 0.295,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_dimension_hard_filter[jurisdiction]",
+    "elapsed_seconds": 0.201,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_dimension_hard_filter[jurisdiction_group]",
+    "elapsed_seconds": 0.201,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_dimension_hard_filter[scenario]",
+    "elapsed_seconds": 0.191,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_dimension_hard_filter[industry]",
+    "elapsed_seconds": 0.241,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_dimension_hard_filter[data_category]",
+    "elapsed_seconds": 0.192,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_effective_lifecycle_and_language_exclusion",
+    "elapsed_seconds": 0.224,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_supersede_diff_and_immutable_snapshot",
+    "elapsed_seconds": 0.22,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_snapshot_current_permission_revocation",
+    "elapsed_seconds": 0.152,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_ingestion_outbox_idempotency_retry_rollback",
+    "elapsed_seconds": 0.153,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_concurrent_publish_and_optimistic_version",
+    "elapsed_seconds": 0.141,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_embedding_obeys_phase1c_provider_registry",
+    "elapsed_seconds": 0.091,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_embedding_derived_indexes_and_pins",
+    "elapsed_seconds": 0.209,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_embedding_bad_dimensions_rolls_back",
+    "elapsed_seconds": 0.149,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_translation_review_and_original_separation",
+    "elapsed_seconds": 0.134,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_tenant_binding_rollback_and_snapshot_mismatch",
+    "elapsed_seconds": 0.079,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_real_api_contracts_and_isolation",
+    "elapsed_seconds": 0.159,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_domain_selected_item_stays_specific",
+    "elapsed_seconds": 0.263,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_missing_phase1e_context_and_source_revocation",
+    "elapsed_seconds": 0.154,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_controlled_url_ingestion_uses_port_and_audit",
+    "elapsed_seconds": 0.098,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_postgres_constraints_and_rollback",
+    "elapsed_seconds": 0.127,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_version_diff_all_structural_changes",
+    "elapsed_seconds": 0.13,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_postgres",
+    "name": "test_pending_translation_cannot_declare_official",
+    "elapsed_seconds": 0.151,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_snapshot_scope",
+    "name": "test_snapshot_new_subject_retains_previously_active_version",
+    "elapsed_seconds": 0.343,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_snapshot_scope",
+    "name": "test_snapshot_empty_knowledge_universe_cannot_refresh_for_new_subject",
+    "elapsed_seconds": 0.18,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_snapshot_scope",
+    "name": "test_snapshot_creation_loser_rechecks_its_own_permission",
+    "elapsed_seconds": 0.201,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_snapshot_scope",
+    "name": "test_snapshot_domain_scope_preserves_formal_item_minimal_products",
+    "elapsed_seconds": 2.197,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1f_snapshot_scope",
+    "name": "test_snapshot_new_subject_uses_frozen_product_hierarchy",
+    "elapsed_seconds": 0.328,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_algorithms",
+    "name": "test_hybrid_deduplicates_stably_and_preserves_individual_scores[WEIGHTED_SCORE]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_algorithms",
+    "name": "test_hybrid_deduplicates_stably_and_preserves_individual_scores[RECIPROCAL_RANK_FUSION]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_algorithms",
+    "name": "test_reranker_injected_candidate_dropped_with_audit_and_scope_checked_again",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_algorithms",
+    "name": "test_verified_jurisdiction_effective_evidence_is_sufficient",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_algorithms",
+    "name": "test_generic_supporting_expired_or_unattributed_evidence_not_sufficient[changes0]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_algorithms",
+    "name": "test_generic_supporting_expired_or_unattributed_evidence_not_sufficient[changes1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_algorithms",
+    "name": "test_generic_supporting_expired_or_unattributed_evidence_not_sufficient[changes2]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_algorithms",
+    "name": "test_generic_supporting_expired_or_unattributed_evidence_not_sufficient[changes3]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_algorithms",
+    "name": "test_missing_topics_partial_and_similarity_does_not_create_coverage",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_algorithms",
+    "name": "test_conflicting_approved_claims_preserved_and_guidance_nonempty",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_algorithms",
+    "name": "test_no_evidence_still_yields_actions_without_unsupported_legal_claims",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_algorithms",
+    "name": "test_policy_and_evidence_contracts_prevent_unbounded_or_unverified_sources",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_algorithms",
+    "name": "test_trusted_redirect_policy_cannot_expose_credentials[https://user:secret@approved.example/knowledge]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_algorithms",
+    "name": "test_trusted_redirect_policy_cannot_expose_credentials[https://approved.example/knowledge?token=secret]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_algorithms",
+    "name": "test_trusted_redirect_policy_cannot_expose_credentials[http://approved.example/knowledge]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_algorithms",
+    "name": "test_trusted_redirect_policy_cannot_expose_credentials[https://approved.example/knowledge#fragment]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_api_postgres",
+    "name": "test_retrieval_api_dtos_auth_snapshot_and_scope_injection",
+    "elapsed_seconds": 0.192,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_api_postgres",
+    "name": "test_admin_policy_typed_creation_publish_and_permission",
+    "elapsed_seconds": 0.111,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_api_postgres",
+    "name": "test_wiki_specific_admin_route_and_runtime_readiness_dto",
+    "elapsed_seconds": 0.203,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_external_postgres",
+    "name": "test_verified_external_pin_reuse_not_active_and_citation_chain",
+    "elapsed_seconds": 0.183,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_external_postgres",
+    "name": "test_external_rejection_never_empty_guidance[expired]",
+    "elapsed_seconds": 0.147,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_external_postgres",
+    "name": "test_external_rejection_never_empty_guidance[authority]",
+    "elapsed_seconds": 0.157,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_external_postgres",
+    "name": "test_external_rejection_never_empty_guidance[hash]",
+    "elapsed_seconds": 0.153,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_external_postgres",
+    "name": "test_external_rejection_never_empty_guidance[permission]",
+    "elapsed_seconds": 0.152,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_external_postgres",
+    "name": "test_external_rejection_never_empty_guidance[T4]",
+    "elapsed_seconds": 0.181,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_external_postgres",
+    "name": "test_external_rejection_never_empty_guidance[timeout]",
+    "elapsed_seconds": 0.149,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_external_postgres",
+    "name": "test_external_rejection_never_empty_guidance[bad_structure]",
+    "elapsed_seconds": 0.164,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_external_postgres",
+    "name": "test_sufficient_internal_does_not_download",
+    "elapsed_seconds": 0.324,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_isolation_postgres",
+    "name": "test_historical_snapshot_retrieval_and_expired_fresh_exclusion",
+    "elapsed_seconds": 0.448,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_isolation_postgres",
+    "name": "test_multi_product_minimal_subject_scope",
+    "elapsed_seconds": 0.499,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_isolation_postgres",
+    "name": "test_product_conflict_no_internal_or_external_product_broadening",
+    "elapsed_seconds": 0.293,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_isolation_postgres",
+    "name": "test_incompatible_dimensions_cannot_enter_candidates[jurisdiction]",
+    "elapsed_seconds": 0.25,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_isolation_postgres",
+    "name": "test_incompatible_dimensions_cannot_enter_candidates[scenario]",
+    "elapsed_seconds": 0.235,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_isolation_postgres",
+    "name": "test_incompatible_dimensions_cannot_enter_candidates[industry]",
+    "elapsed_seconds": 0.239,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_isolation_postgres",
+    "name": "test_incompatible_dimensions_cannot_enter_candidates[data_category]",
+    "elapsed_seconds": 0.257,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_isolation_postgres",
+    "name": "test_query_embedding_uses_registry_and_real_pgvector",
+    "elapsed_seconds": 0.341,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_isolation_postgres",
+    "name": "test_failed_provider_run_retained_without_partial_pack",
+    "elapsed_seconds": 0.26,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_navigation_postgres",
+    "name": "test_wiki_draft_review_runtime_boundary",
+    "elapsed_seconds": 0.218,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_navigation_postgres",
+    "name": "test_graph_provenance_review_and_bad_source_rollback",
+    "elapsed_seconds": 0.184,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_persistence_postgres",
+    "name": "test_run_pack_sufficiency_idempotency_and_reproducibility",
+    "elapsed_seconds": 2.428,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_persistence_postgres",
+    "name": "test_policy_snapshot_pin_optimistic_and_empty_guidance",
+    "elapsed_seconds": 0.164,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_persistence_postgres",
+    "name": "test_rerank_injection_is_audited_and_no_scope_extension",
+    "elapsed_seconds": 0.334,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_persistence_postgres",
+    "name": "test_pack_commit_fk_failure_rolls_back_without_parallel_result",
+    "elapsed_seconds": 0.283,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_publication_postgres",
+    "name": "test_publish_outbox_is_atomic_and_starts_pending",
+    "elapsed_seconds": 0.185,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_publication_postgres",
+    "name": "test_successful_build_ready_cache_graph_and_new_analysis",
+    "elapsed_seconds": 0.335,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_publication_postgres",
+    "name": "test_duplicate_publication_event_no_duplicate_assets",
+    "elapsed_seconds": 0.175,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_publication_postgres",
+    "name": "test_failed_fts_build_not_ready_then_retry",
+    "elapsed_seconds": 0.176,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_publication_postgres",
+    "name": "test_failed_vector_build_not_ready_then_idempotent_retry",
+    "elapsed_seconds": 0.208,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_publication_postgres",
+    "name": "test_previous_ready_survives_failed_new_build_and_old_snapshot",
+    "elapsed_seconds": 0.533,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_publication_postgres",
+    "name": "test_commit_failure_emits_no_event_and_no_runtime_refresh",
+    "elapsed_seconds": 0.157,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_publication_postgres",
+    "name": "test_out_of_order_event_cannot_replace_current_version",
+    "elapsed_seconds": 0.199,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_publication_postgres",
+    "name": "test_normal_background_publish_requires_no_manual_sync",
+    "elapsed_seconds": 0.897,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_publication_postgres",
+    "name": "test_tenant_and_event_version_are_validated",
+    "elapsed_seconds": 0.182,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_publication_postgres",
+    "name": "test_cache_failure_retries_without_partial_ready_assets",
+    "elapsed_seconds": 0.288,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_publication_postgres",
+    "name": "test_concurrent_duplicate_consumers_share_publication_lease",
+    "elapsed_seconds": 0.185,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_search_postgres",
+    "name": "test_real_fts_vector_filter_before_ranking",
+    "elapsed_seconds": 0.451,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_search_postgres",
+    "name": "test_actual_search_current_permission_revocation_and_tenant",
+    "elapsed_seconds": 0.392,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1g_search_postgres",
+    "name": "test_search_snapshot_never_adds_new_index_and_languages_narrow",
+    "elapsed_seconds": 0.525,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_api",
+    "name": "test_trusted_auth_required_and_no_public_rule_evaluation",
+    "elapsed_seconds": 2.645,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_api",
+    "name": "test_reference_only_request_execution_and_result_read",
+    "elapsed_seconds": 0.869,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_api",
+    "name": "test_admin_rule_version_validate_and_scheme_version_interfaces",
+    "elapsed_seconds": 0.447,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_numeric_operators[eq-3-3-True]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_numeric_operators[eq-3-4-False]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_numeric_operators[ne-3-4-True]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_numeric_operators[gt-3-2-True]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_numeric_operators[gte-3-3-True]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_numeric_operators[lt-3-4-True]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_numeric_operators[lte-3-3-True]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_numeric_operators[in-3-right7-True]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_contains[string-document-doc]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_contains[list-left1-a]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_contains[set-left2-b]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_quantifiers[any-values0-True]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_quantifiers[all-values1-False]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_quantifiers[all-values2-True]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_quantifiers[any-values3-False]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_quantifiers[all-values4-False]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_nested_logical",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_typed_values[date-value0-date_before-2026-02-01]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_typed_values[datetime-value1-date_after-2025-01-01T00:00:00+00:00]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_typed_values[decimal-value2-gt-1.001]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_typed_values[boolean-True-eq-True]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_typed_values[code-PERSONAL-eq-PERSONAL]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_null_and_missing_are_not_negated_into_decisions",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_reject_untrusted_dsl[dsl0]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_reject_untrusted_dsl[dsl1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_reject_untrusted_dsl[dsl2]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_reject_untrusted_dsl[dsl3]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_reject_untrusted_dsl[dsl4]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_reject_untrusted_dsl[dsl5]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_reject_untrusted_dsl[__import__('os').system('touch /tmp/phase1h-malicious')]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_reject_untrusted_dsl[{\"op\":\"exists\",\"op\":\"eq\",\"field\":\"v\"}]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_malicious_literal_is_data_only",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_runtime_type_unknowns_and_limits",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_forged_python_ast_cannot_execute_comparison_objects",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_ast",
+    "name": "test_custom_datetime_hooks_do_not_execute",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_evidence_postgres",
+    "name": "test_existing_pack_refs_are_subject_and_actor_scoped",
+    "elapsed_seconds": 2.486,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_migration_lineage",
+    "name": "test_real_phase_ancestry[0002_phase1b]",
+    "elapsed_seconds": 0.006,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_migration_lineage",
+    "name": "test_real_phase_ancestry[0003_phase1c]",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_migration_lineage",
+    "name": "test_real_phase_ancestry[0004_phase1d]",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_migration_lineage",
+    "name": "test_real_phase_ancestry[0005_phase1e]",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_migration_lineage",
+    "name": "test_real_phase_ancestry[0006_phase1f]",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_migration_lineage",
+    "name": "test_real_phase_ancestry[0007_phase1g]",
+    "elapsed_seconds": 0.005,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_migration_lineage",
+    "name": "test_unknown_alias_and_earlier_revisions_rejected[None]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_migration_lineage",
+    "name": "test_unknown_alias_and_earlier_revisions_rejected[head]",
+    "elapsed_seconds": 0.002,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_migration_lineage",
+    "name": "test_unknown_alias_and_earlier_revisions_rejected[heads]",
+    "elapsed_seconds": 0.002,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_migration_lineage",
+    "name": "test_unknown_alias_and_earlier_revisions_rejected[0008]",
+    "elapsed_seconds": 0.003,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_migration_lineage",
+    "name": "test_unknown_alias_and_earlier_revisions_rejected[9999_future]",
+    "elapsed_seconds": 0.002,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_migration_lineage",
+    "name": "test_unknown_alias_and_earlier_revisions_rejected[0001_phase1a]",
+    "elapsed_seconds": 0.002,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_migration_lineage",
+    "name": "test_parallel_heads_are_not_silently_accepted",
+    "elapsed_seconds": 0.002,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_migration_lineage",
+    "name": "test_single_head_but_not_a_descendant",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_migrations",
+    "name": "test_fresh_and_frozen_0007_paths_equivalent_and_downgrade",
+    "elapsed_seconds": 11.796,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_postgres",
+    "name": "test_authorized_formal_classification_persists_one_canonical_result",
+    "elapsed_seconds": 0.141,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_postgres",
+    "name": "test_publish_atomic_gate_tests_review_outbox_and_immutability",
+    "elapsed_seconds": 0.137,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_postgres",
+    "name": "test_historical_rule_pin_survives_new_rule_publication",
+    "elapsed_seconds": 0.149,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_postgres",
+    "name": "test_runtime_isolation[tenant]",
+    "elapsed_seconds": 0.095,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_postgres",
+    "name": "test_runtime_isolation[project_permission]",
+    "elapsed_seconds": 0.111,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_postgres",
+    "name": "test_runtime_isolation[operation_permission]",
+    "elapsed_seconds": 0.105,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_postgres",
+    "name": "test_runtime_isolation[snapshot]",
+    "elapsed_seconds": 0.113,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_postgres",
+    "name": "test_runtime_isolation[item]",
+    "elapsed_seconds": 0.109,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_postgres",
+    "name": "test_evidence_validation_fail_closed_and_missing_data_policy",
+    "elapsed_seconds": 0.152,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_postgres",
+    "name": "test_admin_privilege_and_conflict_gate",
+    "elapsed_seconds": 0.098,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_postgres",
+    "name": "test_published_tests_scheme_and_formal_result_are_immutable",
+    "elapsed_seconds": 0.126,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_postgres",
+    "name": "test_evidence_revocation_cannot_leak_a_saved_result",
+    "elapsed_seconds": 0.128,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_postgres",
+    "name": "test_schema_revision_guard_and_no_data_do_not_write_classification",
+    "elapsed_seconds": 0.105,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_rules",
+    "name": "test_match_provenance_and_classification",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_rules",
+    "name": "test_nonmatch_and_evidence_requirements",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_rules",
+    "name": "test_nonmatched_rule_does_not_demand_unused_evidence_review",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_rules",
+    "name": "test_inactive_rule_rejected_for_new_evaluation[DRAFT]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_rules",
+    "name": "test_inactive_rule_rejected_for_new_evaluation[PENDING_REVIEW]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_rules",
+    "name": "test_inactive_rule_rejected_for_new_evaluation[APPROVED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_rules",
+    "name": "test_inactive_rule_rejected_for_new_evaluation[SUPERSEDED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_rules",
+    "name": "test_inactive_rule_rejected_for_new_evaluation[EXPIRED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_rules",
+    "name": "test_snapshot_history_and_effective_date",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_rules",
+    "name": "test_priority_conflicts_and_multiple_hits",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_rules",
+    "name": "test_rule_hit_isolation[tenant_id]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_rules",
+    "name": "test_rule_hit_isolation[project_id]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_rules",
+    "name": "test_rule_hit_isolation[analysis_snapshot_id]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_rules",
+    "name": "test_rule_hit_isolation[data_item_id]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_rules",
+    "name": "test_scheme_jurisdiction_and_version_isolation",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_rules",
+    "name": "test_no_data_policy_no_fabrication",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1h_rules",
+    "name": "test_fail_test_gate_and_review_confidence",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_scenario_deterministic_merge_required_conditional_disabled_optional_and_inputs",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_scenario_conflicts_are_typed_and_never_silently_choose[required_skill_ids]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_scenario_conflicts_are_typed_and_never_silently_choose[evidence_requirement_profile_id]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_scenario_conflicts_are_typed_and_never_silently_choose[risk_dimension_priorities]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_scenario_conflicts_are_typed_and_never_silently_choose[scenario_specific_checks]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_scenario_cannot_supply_custom_pipeline_or_disable_own_required_skill",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_every_generic_capability_discovery_binding_and_no_obligation[CLASSIFICATION]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_every_generic_capability_discovery_binding_and_no_obligation[CROSS_BORDER]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_every_generic_capability_discovery_binding_and_no_obligation[LOCALIZATION]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_every_generic_capability_discovery_binding_and_no_obligation[FILING]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_every_generic_capability_discovery_binding_and_no_obligation[IMPACT_ASSESSMENT]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_every_generic_capability_discovery_binding_and_no_obligation[CONTRACT]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_every_generic_capability_discovery_binding_and_no_obligation[REGULATOR]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_configured_capability_state_is_retained[NOT_APPLICABLE]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_configured_capability_state_is_retained[REVIEW_REQUIRED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_rule_backed_positive_applicability_statuses[APPLICABLE]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_rule_backed_positive_applicability_statuses[CONDITIONALLY_APPLICABLE]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_rule_backed_positive_applicability_statuses[REVIEW_REQUIRED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_rule_backed_not_applicable_and_missing_hit_cannot_be_negative_decision",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_phase1g_insufficiency_conflict_never_fabricates_applicability[PARTIALLY_SUFFICIENT]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_phase1g_insufficiency_conflict_never_fabricates_applicability[INSUFFICIENT]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_phase1g_insufficiency_conflict_never_fabricates_applicability[CONFLICTED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_legal_basis_and_expired_canonical_source_gate[MISSING_LEGAL_BASIS]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_legal_basis_and_expired_canonical_source_gate[SOURCE_NOT_EFFECTIVE]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_wrong_classification_identity_rejected[tenant_id]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_wrong_classification_identity_rejected[project_id]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_wrong_classification_identity_rejected[analysis_snapshot_id]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_wrong_classification_identity_rejected[jurisdiction_id]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_wrong_classification_identity_rejected[context_version]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_no_data_scenario_can_proceed_only_with_independent_formal_inputs_and_evidence",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_scenario_conflict_and_input_review_are_conservative",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_contradictory_required_rule_hits_are_conflicted_not_last_writer_wins",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_domain",
+    "name": "test_merged_execution_configuration_cannot_reorder_pipeline",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_localized_metadata",
+    "name": "test_independent_labels_same_stable_code[zh-CN]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_localized_metadata",
+    "name": "test_independent_labels_same_stable_code[zh-HK]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_localized_metadata",
+    "name": "test_independent_labels_same_stable_code[en-US]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_localized_metadata",
+    "name": "test_governed_deterministic_fallback_missing_translation",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_localized_metadata",
+    "name": "test_unknown_locale_or_empty_label_rejected[bad0]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_localized_metadata",
+    "name": "test_unknown_locale_or_empty_label_rejected[bad1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_localized_metadata",
+    "name": "test_unknown_locale_or_empty_label_rejected[bad2]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_localized_metadata",
+    "name": "test_locale_change_preserves_formal_result_and_official_evidence_basis",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_localized_metadata",
+    "name": "test_generic_registry_presenter_keeps_canonical_identity_and_payload",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_localized_metadata",
+    "name": "test_localized_labels_cannot_be_persisted_as_formal_configuration_codes",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_migrations",
+    "name": "test_phase1i_fresh_verified_0008_equivalence_and_downgrade",
+    "elapsed_seconds": 10.991,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_actual_canonical_chain_persistence_links_and_idempotency",
+    "elapsed_seconds": 0.731,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_actual_configured_and_insufficient_statuses[foundation_i0]",
+    "elapsed_seconds": 0.63,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_actual_configured_and_insufficient_statuses[foundation_i1]",
+    "elapsed_seconds": 0.656,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_actual_configured_and_insufficient_statuses[foundation_i2]",
+    "elapsed_seconds": 0.598,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_actual_configured_and_insufficient_statuses[foundation_i3]",
+    "elapsed_seconds": 0.82,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_wrong_scope_references_fail_closed[project_id]",
+    "elapsed_seconds": 2.911,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_wrong_scope_references_fail_closed[analysis_snapshot_id]",
+    "elapsed_seconds": 0.621,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_wrong_scope_references_fail_closed[jurisdiction_id]",
+    "elapsed_seconds": 0.581,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_wrong_scope_references_fail_closed[subject_id]",
+    "elapsed_seconds": 0.578,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_wrong_scope_references_fail_closed[applicability_config_id]",
+    "elapsed_seconds": 0.56,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_wrong_scope_references_fail_closed[retrieval_run_id]",
+    "elapsed_seconds": 0.565,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_cross_tenant_project_operation_and_evidence_denial",
+    "elapsed_seconds": 0.676,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_wrong_classification_snapshot_and_missing_basis",
+    "elapsed_seconds": 0.614,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_independent_review_and_atomic_validation_failure",
+    "elapsed_seconds": 0.573,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_immutable_profile_result_and_pins",
+    "elapsed_seconds": 0.584,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_profile_version_effective_date_and_snapshot_history",
+    "elapsed_seconds": 0.695,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_projection_publish_outbox_and_zero_code_additional_jurisdiction",
+    "elapsed_seconds": 1.028,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_actual_scenario_only_h_engine_delegation_no_fake_classification[foundation_i0]",
+    "elapsed_seconds": 0.551,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_read_permission_and_result_identity_fail_closed",
+    "elapsed_seconds": 0.667,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_definition_identity_and_publication_provenance_immutable",
+    "elapsed_seconds": 2.926,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_actual_api_reference_only_contract_and_scope_denials",
+    "elapsed_seconds": 0.803,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_effective_profile_missing_capability_and_ambiguity_conservative[foundation_i0]",
+    "elapsed_seconds": 0.691,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_effective_profile_missing_capability_and_ambiguity_conservative[foundation_i1]",
+    "elapsed_seconds": 0.592,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_effective_profile_missing_capability_and_ambiguity_conservative[foundation_i2]",
+    "elapsed_seconds": 0.627,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_versioned_multilingual_runtime_api_presentation_and_source_integrity",
+    "elapsed_seconds": 1.033,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_actual_flow_consumes_linked_h_classification_and_exact_flow_evidence",
+    "elapsed_seconds": 0.683,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_template_capability_binding_requires_governed_published_version",
+    "elapsed_seconds": 0.63,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1i_postgres",
+    "name": "test_private_profile_labels_and_configuration_are_filtered_per_actor",
+    "elapsed_seconds": 0.546,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_contracts",
+    "name": "test_v1_schema_stays_frozen",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_contracts",
+    "name": "test_localized_authority_rejected[\\u9002\\u7528]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_contracts",
+    "name": "test_localized_authority_rejected[\\u9069\\u7528]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_contracts",
+    "name": "test_localized_authority_rejected[Applicable]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_contracts",
+    "name": "test_localized_authority_rejected[APPLICABLE zh-HK]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_contracts",
+    "name": "test_canonical_decimal_and_extra_fields",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_contracts",
+    "name": "test_policy_reuses_ast_and_unknown_example",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_contracts",
+    "name": "test_invalid_risk_policy_rejected[override0]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_contracts",
+    "name": "test_invalid_risk_policy_rejected[override1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_contracts",
+    "name": "test_invalid_risk_policy_rejected[override2]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_contracts",
+    "name": "test_generic_policy_localization_reuse",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_contracts",
+    "name": "test_governed_fallback_and_locale_neutral_digest",
+    "elapsed_seconds": 0.002,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_legal_risk_path_order_and_no_fulfillment_fabrication",
+    "elapsed_seconds": 0.005,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_decimal_bands_exact_boundaries_and_missing[0-LOW]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_decimal_bands_exact_boundaries_and_missing[value1-LOW]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_decimal_bands_exact_boundaries_and_missing[value2-HIGH]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_decimal_bands_exact_boundaries_and_missing[50-HIGH]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_decimal_bands_exact_boundaries_and_missing[100-HIGH]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_decimal_bands_exact_boundaries_and_missing[None-UNKNOWN]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_decimal_bands_exact_boundaries_and_missing[-1-UNKNOWN]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_decimal_bands_exact_boundaries_and_missing[True-UNKNOWN]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_exact_tie_never_uses_uuid_or_input_order",
+    "elapsed_seconds": 0.009,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_explicit_governed_priority_resolves_tie",
+    "elapsed_seconds": 0.005,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_capability_gap_is_not_legal_prohibition",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_formal_prohibition_comes_only_from_legal_binding",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_applicability_semantics_preserved[NOT_APPLICABLE]",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_applicability_semantics_preserved[CONDITIONALLY_APPLICABLE]",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_applicability_semantics_preserved[INSUFFICIENT_EVIDENCE]",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_applicability_semantics_preserved[CONFLICTED]",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_applicability_semantics_preserved[REVIEW_REQUIRED]",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_missing_condition_is_unknown_not_false",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_conflicting_rule_hits_cannot_overwrite",
+    "elapsed_seconds": 0.008,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_missing_required_risk_does_not_substitute_zero",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_wrong_parent_scope_rejected",
+    "elapsed_seconds": 0.002,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_band_only_table_and_unmatched_is_unknown",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_risk_review_escalation_never_relabels_legality",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_missing_policy_and_incomplete_jurisdiction_fail_conservatively",
+    "elapsed_seconds": 0.006,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_governed_nontransfer_alternative_preserves_prohibition_obligation",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_unknown_action_condition_blocks_selection",
+    "elapsed_seconds": 0.004,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_engines",
+    "name": "test_band_only_formal_trace_requires_authorized_evidence",
+    "elapsed_seconds": 0.005,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_migrations",
+    "name": "test_phase1j_fresh_exact_0009_schema_equivalence_and_downgrade",
+    "elapsed_seconds": 22.521,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_ownership",
+    "name": "test_reviewed_owner_record_and_untouched_historical_migrations",
+    "elapsed_seconds": 6.679,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_ownership",
+    "name": "test_owner_overlay_rejects_unreviewed_changes[hash]",
+    "elapsed_seconds": 5.458,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_ownership",
+    "name": "test_owner_overlay_rejects_unreviewed_changes[sdk]",
+    "elapsed_seconds": 5.222,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_ownership",
+    "name": "test_owner_overlay_rejects_unreviewed_changes[workflow]",
+    "elapsed_seconds": 5.423,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_ownership",
+    "name": "test_owner_overlay_rejects_unreviewed_changes[historical_migration]",
+    "elapsed_seconds": 5.518,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_ownership",
+    "name": "test_owner_overlay_rejects_unreviewed_changes[future_revision]",
+    "elapsed_seconds": 5.633,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_ownership",
+    "name": "test_owner_overlay_rejects_unreviewed_changes[unrelated_source]",
+    "elapsed_seconds": 5.398,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_ownership",
+    "name": "test_owner_overlay_rejects_unreviewed_changes[wrong_base]",
+    "elapsed_seconds": 5.399,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_actual_pipeline_immutable_refs_and_idempotent_aliases",
+    "elapsed_seconds": 9.814,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_concurrent_same_input_returns_single_authority",
+    "elapsed_seconds": 1.669,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_authority_update_delete_refused[RESULT]",
+    "elapsed_seconds": 4.329,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_authority_update_delete_refused[PIN]",
+    "elapsed_seconds": 4.345,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_authority_update_delete_refused[POLICY]",
+    "elapsed_seconds": 4.891,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_authority_update_delete_refused[POLICY_STATE]",
+    "elapsed_seconds": 4.607,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_authority_update_delete_refused[POLICY_PUBLICATION]",
+    "elapsed_seconds": 4.224,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_authority_update_delete_refused[ALIAS]",
+    "elapsed_seconds": 4.718,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_read_security_isolation[foreign_tenant]",
+    "elapsed_seconds": 7.002,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_read_security_isolation[other_owner]",
+    "elapsed_seconds": 4.329,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_read_security_isolation[missing_read]",
+    "elapsed_seconds": 4.19,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_read_security_isolation[missing_project]",
+    "elapsed_seconds": 4.392,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_read_requires_no_execute_and_preserves_existing_upstream_scopes",
+    "elapsed_seconds": 5.092,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_context_change_requires_new_snapshot",
+    "elapsed_seconds": 4.197,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_pin_replay_does_not_select_latest_policy",
+    "elapsed_seconds": 6.016,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_server_rejects_fabricated_computation",
+    "elapsed_seconds": 1.113,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_api_rejects_authoritative_client_fields[facts-value0]",
+    "elapsed_seconds": 1.594,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_api_rejects_authoritative_client_fields[score-0]",
+    "elapsed_seconds": 3.581,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_api_rejects_authoritative_client_fields[risk_band-LOW]",
+    "elapsed_seconds": 1.361,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_api_rejects_authoritative_client_fields[permissions-value3]",
+    "elapsed_seconds": 1.181,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_api_rejects_authoritative_client_fields[locale-en-US]",
+    "elapsed_seconds": 1.185,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_api_rejects_authoritative_client_fields[policy_payload-value5]",
+    "elapsed_seconds": 1.204,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_locale_presentation_preserves_authority",
+    "elapsed_seconds": 9.389,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_actual_scenario_without_fake_classification[foundation_i0]",
+    "elapsed_seconds": 3.194,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_current_evidence_source_revocation_denies_replay",
+    "elapsed_seconds": 4.24,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_published_stable_entry_cannot_be_reassigned",
+    "elapsed_seconds": 0.717,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_explicit_empty_universe_does_not_adopt_later_published_policy",
+    "elapsed_seconds": 3.373,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_same_key_different_authorized_subject_fingerprint_refused",
+    "elapsed_seconds": 1.697,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_competing_governed_policies_preserve_conflict[foundation_j0]",
+    "elapsed_seconds": 4.664,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1j_postgres",
+    "name": "test_actual_reference_only_api_pipeline_and_retry",
+    "elapsed_seconds": 9.992,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_architecture",
+    "name": "test_track_b_boundaries_and_all_frozen_implementation_hashes",
+    "elapsed_seconds": 17.812,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_configuration_postgres",
+    "name": "test_existing_registry_governance_and_pins_real_postgres",
+    "elapsed_seconds": 0.093,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_configuration_postgres",
+    "name": "test_published_new_policy_does_not_refresh_old_analysis",
+    "elapsed_seconds": 0.132,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_configuration_postgres",
+    "name": "test_disabled_pinned_model_cannot_refresh_or_escape",
+    "elapsed_seconds": 0.104,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_configuration_postgres",
+    "name": "test_scope_denial_precedes_model_and_policy_resolution[tenant]",
+    "elapsed_seconds": 0.062,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_configuration_postgres",
+    "name": "test_scope_denial_precedes_model_and_policy_resolution[project]",
+    "elapsed_seconds": 0.059,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_configuration_postgres",
+    "name": "test_scope_denial_precedes_model_and_policy_resolution[snapshot]",
+    "elapsed_seconds": 0.057,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_configuration_postgres",
+    "name": "test_scope_denial_precedes_model_and_policy_resolution[permission]",
+    "elapsed_seconds": 0.055,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_configuration_postgres",
+    "name": "test_unknown_health_and_effective_date_excluded",
+    "elapsed_seconds": 0.097,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_configuration_postgres",
+    "name": "test_model_pin_is_immutable",
+    "elapsed_seconds": 0.085,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_configuration_postgres",
+    "name": "test_policy_rollback_emits_no_publication",
+    "elapsed_seconds": 0.059,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_configuration_postgres",
+    "name": "test_prompt_registry_reuse_and_pin",
+    "elapsed_seconds": 0.072,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_configuration_postgres",
+    "name": "test_governed_prompt_cannot_hide_unsupported_capability",
+    "elapsed_seconds": 0.086,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_all_canonical_operations_route_by_capability[chat]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_all_canonical_operations_route_by_capability[chat_stream]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_all_canonical_operations_route_by_capability[structured_output]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_all_canonical_operations_route_by_capability[embedding]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_all_canonical_operations_route_by_capability[rerank]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_all_canonical_operations_route_by_capability[count_tokens]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_all_canonical_operations_route_by_capability[health_check]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_health_capability_trust_boundary_and_limits_filter_before_provider[health_status-UNKNOWN]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_health_capability_trust_boundary_and_limits_filter_before_provider[capabilities-value1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_health_capability_trust_boundary_and_limits_filter_before_provider[operations-value2]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_health_capability_trust_boundary_and_limits_filter_before_provider[trust_level-UNAPPROVED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_health_capability_trust_boundary_and_limits_filter_before_provider[data_boundary-OTHER]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_health_capability_trust_boundary_and_limits_filter_before_provider[max_output_tokens-1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_restricted_external_denial_and_internal_routing",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_tenant_project_strict_intersection[0]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_tenant_project_strict_intersection[1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_foreign_tenant_project_organization_and_product_are_nonexistent[tenant_id-value0]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_foreign_tenant_project_organization_and_product_are_nonexistent[project_id-value1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_foreign_tenant_project_organization_and_product_are_nonexistent[organization_id-value2]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_foreign_tenant_project_organization_and_product_are_nonexistent[required_scopes-value3]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_redaction_covers_all_body_prompt_and_schema_without_source_overwrite",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_redaction_failure_blocks_external_without_unredacted_fallback[absent]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_redaction_failure_blocks_external_without_unredacted_fallback[exception]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_redaction_failure_blocks_external_without_unredacted_fallback[incomplete]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_redaction_failure_blocks_external_without_unredacted_fallback[review]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_fallback_cannot_escape_policy_or_unredacted_external_path",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_fallback_redacts_after_internal_failure",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_stream_failure_after_first_chunk_cannot_switch_provider",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_prompt_injection_cannot_change_request_policy",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_unknown_security_metadata_defaults_internal_only",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_health_check_can_probe_embedding_only_provider",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_audit_failure_and_revocation_block_provider",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_client_cannot_supply_authorization_policy_or_provider_in_dto",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_missing_and_unauthorized_input_have_same_public_denial",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_invalid_provider_results_never_escape_as_typed_success[embedding-result0]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_invalid_provider_results_never_escape_as_typed_success[rerank-result1]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_invalid_provider_results_never_escape_as_typed_success[structured_output-result2]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_remote_json_schema_reference_never_fetches_or_calls_provider[$ref]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_remote_json_schema_reference_never_fetches_or_calls_provider[$dynamicRef]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_gateway",
+    "name": "test_remote_json_schema_reference_never_fetches_or_calls_provider[$recursiveRef]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_generic_http_credential_resolved_only_inside_adapter",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_secret_filter_checks_decoded_values_not_json_escaping[quote\"key]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_secret_filter_checks_decoded_values_not_json_escaping[back\\\\slash]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_secret_filter_checks_decoded_values_not_json_escaping[unicode\\xa3]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_redirects_secret_echo_and_oversized_response_are_blocked[response0]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_redirects_secret_echo_and_oversized_response_are_blocked[response1]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_redirects_secret_echo_and_oversized_response_are_blocked[response2]",
+    "elapsed_seconds": 0.003,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_retry_policy_is_registry_configuration_not_gateway_branch",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_openai_compatible_wire_without_specific_provider_sdk[chat-body0]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_openai_compatible_wire_without_specific_provider_sdk[embedding-body1]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_openai_compatible_wire_without_specific_provider_sdk[structured_output-body2]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_openai_compatible_wire_without_specific_provider_sdk[health_check-body3]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_openai_does_not_claim_unsupported_rerank_or_token_count",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_stream_blocks_secret_split_across_deltas",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_stream_success_and_incomplete_stream_detection",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_invalid_external_endpoint_denied_before_dns_or_auth[http://public.invalid]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_invalid_external_endpoint_denied_before_dns_or_auth[https://user:secret@public.invalid]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_invalid_external_endpoint_denied_before_dns_or_auth[https://public.invalid/?api_key=secret]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_invalid_external_endpoint_denied_before_dns_or_auth[https://public.invalid/#secret]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_external_dns_private_ip_denied",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_overlapping_sensitive_ranges_mask_union_and_omit_raw_dto",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_detector_wrong_input_hash_or_invalid_range_fail_closed[hash]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1k_a_http_redaction",
+    "name": "test_detector_wrong_input_hash_or_invalid_range_fail_closed[range]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_architecture",
+    "name": "test_phase1kb_additive_architecture_and_finite_committed_ownership",
+    "elapsed_seconds": 2.525,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_catalog_postgres",
+    "name": "test_advisory_eligibility_uses_real_policy_health_and_canonical_draft",
+    "elapsed_seconds": 0.15,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_catalog_postgres",
+    "name": "test_unresolved_protection_does_not_allow_external_provider[EXTERNAL]",
+    "elapsed_seconds": 0.114,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_catalog_postgres",
+    "name": "test_catalog_revalidates_project_and_tenant_permission[False]",
+    "elapsed_seconds": 0.091,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_catalog_postgres",
+    "name": "test_catalog_revalidates_project_and_tenant_permission[True]",
+    "elapsed_seconds": 0.099,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_control_api_postgres",
+    "name": "test_typed_provider_api_write_only_secret_real_http",
+    "elapsed_seconds": 0.56,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_control_api_postgres",
+    "name": "test_validation_does_not_echo_secret_or_client_authority",
+    "elapsed_seconds": 0.019,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_control_api_postgres",
+    "name": "test_ordinary_user_cannot_manage_providers",
+    "elapsed_seconds": 0.014,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_control_api_postgres",
+    "name": "test_canonical_router_order_preserves_write_only_credentials",
+    "elapsed_seconds": 0.512,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_control_postgres",
+    "name": "test_multiple_provider_instances_multiple_models_same_remote_name",
+    "elapsed_seconds": 0.082,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_control_postgres",
+    "name": "test_secret_rotation_append_version_preserves_old_reference",
+    "elapsed_seconds": 0.023,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_control_postgres",
+    "name": "test_editing_unpublished_provider_retains_write_only_secret",
+    "elapsed_seconds": 0.016,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_control_postgres",
+    "name": "test_current_authorization_and_cross_tenant_fail_closed",
+    "elapsed_seconds": 0.011,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_control_postgres",
+    "name": "test_external_private_endpoint_rejected_before_secret_write",
+    "elapsed_seconds": 0.006,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_control_postgres",
+    "name": "test_optimistic_configuration_conflict",
+    "elapsed_seconds": 0.013,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_control_postgres",
+    "name": "test_published_model_configuration_is_immutable",
+    "elapsed_seconds": 0.032,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_control_postgres",
+    "name": "test_independent_review_is_required",
+    "elapsed_seconds": 0.013,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_control_postgres",
+    "name": "test_disable_is_current_revocation_and_requires_matching_version",
+    "elapsed_seconds": 0.011,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_document_postgres",
+    "name": "test_real_binary_llm_candidates_genuine_trace_resolution_and_restart",
+    "elapsed_seconds": 1.093,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_document_postgres",
+    "name": "test_semantic_uncertainty_cannot_enter_formal_input[low_confidence]",
+    "elapsed_seconds": 1.123,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_document_postgres",
+    "name": "test_semantic_uncertainty_cannot_enter_formal_input[invalid_trace]",
+    "elapsed_seconds": 1.109,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_document_postgres",
+    "name": "test_semantic_uncertainty_cannot_enter_formal_input[unknown_fact_type]",
+    "elapsed_seconds": 1.007,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_document_postgres",
+    "name": "test_native_structured_input_does_not_invoke_semantic_model",
+    "elapsed_seconds": 1.113,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_document_postgres",
+    "name": "test_multi_model_disagreement_uses_existing_fact_conflict_authority[MULTI_MODEL]",
+    "elapsed_seconds": 4.365,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_document_postgres",
+    "name": "test_all_document_candidate_types_require_explicit_decisions_before_formal_mapping[list_candidate_facts]",
+    "elapsed_seconds": 0.941,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_document_postgres",
+    "name": "test_all_document_candidate_types_require_explicit_decisions_before_formal_mapping[list_candidate_items]",
+    "elapsed_seconds": 1.106,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_document_postgres",
+    "name": "test_all_document_candidate_types_require_explicit_decisions_before_formal_mapping[list_candidate_flow_nodes]",
+    "elapsed_seconds": 1.093,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_document_postgres",
+    "name": "test_all_document_candidate_types_require_explicit_decisions_before_formal_mapping[list_candidate_flow_edges]",
+    "elapsed_seconds": 1.115,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_endpoint_security",
+    "name": "test_private_deployment_does_not_authorize_metadata_service[http://169.254.169.254/latest/meta-data]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_endpoint_security",
+    "name": "test_private_deployment_does_not_authorize_metadata_service[http://[fe80::1]/v1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_endpoint_security",
+    "name": "test_private_deployment_does_not_authorize_metadata_service[http://[::ffff:169.254.169.254]/v1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_endpoint_security",
+    "name": "test_private_deployment_does_not_authorize_metadata_service[http://metadata.google.internal/v1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_endpoint_security",
+    "name": "test_private_deployment_does_not_authorize_metadata_service[http://instance-data.ec2.internal/v1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_endpoint_security",
+    "name": "test_private_deployment_does_not_authorize_metadata_service[http://0.0.0.0/v1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_endpoint_security",
+    "name": "test_legacy_generic_metadata_cannot_store_plaintext_credentials[config0]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_endpoint_security",
+    "name": "test_legacy_generic_metadata_cannot_store_plaintext_credentials[config1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_endpoint_security",
+    "name": "test_legacy_generic_metadata_cannot_store_plaintext_credentials[config2]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_endpoint_security",
+    "name": "test_legacy_generic_metadata_cannot_store_plaintext_credentials[config3]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_endpoint_security",
+    "name": "test_generic_operation_path_cannot_change_origin_or_inject_query[//other.example/secret]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_endpoint_security",
+    "name": "test_generic_operation_path_cannot_change_origin_or_inject_query[/../metadata]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_endpoint_security",
+    "name": "test_generic_operation_path_cannot_change_origin_or_inject_query[/%2e%2e/metadata]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_endpoint_security",
+    "name": "test_generic_operation_path_cannot_change_origin_or_inject_query[/chat?token=x]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_http_postgres",
+    "name": "test_presets_real_http_same_protocol_no_business_branch[OPENAI_GPT]",
+    "elapsed_seconds": 0.597,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_http_postgres",
+    "name": "test_presets_real_http_same_protocol_no_business_branch[DEEPSEEK]",
+    "elapsed_seconds": 0.616,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_http_postgres",
+    "name": "test_presets_real_http_same_protocol_no_business_branch[QWEN]",
+    "elapsed_seconds": 0.598,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_http_postgres",
+    "name": "test_presets_real_http_same_protocol_no_business_branch[GLM]",
+    "elapsed_seconds": 0.595,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_http_postgres",
+    "name": "test_presets_real_http_same_protocol_no_business_branch[OTHER_OPENAI_COMPATIBLE]",
+    "elapsed_seconds": 0.597,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_http_postgres",
+    "name": "test_real_http_bad_credential_sanitized",
+    "elapsed_seconds": 0.525,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_http_postgres",
+    "name": "test_real_http_timeout_unavailable_and_unsupported",
+    "elapsed_seconds": 0.562,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_http_postgres",
+    "name": "test_missing_secret_capability_is_not_fake_health",
+    "elapsed_seconds": 0.51,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_invocation_policy",
+    "name": "test_parser_insufficiency_all_modes_candidate_only[MINIMAL]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_invocation_policy",
+    "name": "test_parser_insufficiency_all_modes_candidate_only[STANDARD]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_invocation_policy",
+    "name": "test_parser_insufficiency_all_modes_candidate_only[ENHANCED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_invocation_policy",
+    "name": "test_rag_first_never_expand_sufficient_evidence[KNOWLEDGE_EVIDENCE_INSUFFICIENT]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_invocation_policy",
+    "name": "test_rag_first_never_expand_sufficient_evidence[RETRIEVAL_QUERY_EXPANSION_REQUIRED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_invocation_policy",
+    "name": "test_stage2_always_denied_even_if_policy_lists_it[DOCUMENT_GENERATION_REQUESTED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_invocation_policy",
+    "name": "test_stage2_always_denied_even_if_policy_lists_it[CONTRACT_GENERATION_REQUESTED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_invocation_policy",
+    "name": "test_stage2_always_denied_even_if_policy_lists_it[CONTRACT_REVIEW_REQUESTED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_invocation_policy",
+    "name": "test_legal_purpose_not_in_contract_or_multi_vote",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_invocation_policy",
+    "name": "test_user_selection_shape_and_server_limit",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_invocation_policy",
+    "name": "test_governed_policy_can_deny_otherwise_valid_trigger",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_metadata_postgres",
+    "name": "test_typed_policies_use_existing_metadata_lifecycle[LLM_INVOCATION_POLICY-payload0]",
+    "elapsed_seconds": 0.015,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_metadata_postgres",
+    "name": "test_typed_policies_use_existing_metadata_lifecycle[LLM_PROVIDER_PRESET-payload1]",
+    "elapsed_seconds": 0.011,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_metadata_postgres",
+    "name": "test_usage_policy_cannot_allow_cross_tenant_or_unknown_models",
+    "elapsed_seconds": 0.011,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_migrations",
+    "name": "test_fresh_exact0015_equivalence_empty_downgrade_reupgrade_and_retention",
+    "elapsed_seconds": 13.564,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_query_postgres",
+    "name": "test_real_http_query_expansion_same_scope_and_no_model_memory_evidence[True]",
+    "elapsed_seconds": 0.998,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_query_postgres",
+    "name": "test_real_http_query_expansion_same_scope_and_no_model_memory_evidence[False]",
+    "elapsed_seconds": 0.983,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_secrets",
+    "name": "test_encrypted_not_plaintext_reference_scope_and_restart",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_secrets",
+    "name": "test_missing_key_untrusted_permissions_and_symlink_fail_closed",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_secrets",
+    "name": "test_invalid_secret_never_echoed[]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_secrets",
+    "name": "test_invalid_secret_never_echoed[bad\\nvalue]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_secrets",
+    "name": "test_invalid_secret_never_echoed[bad\\rvalue]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_secrets",
+    "name": "test_invalid_secret_never_echoed[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_selection_postgres",
+    "name": "test_selection_through_real_two_provider_http_and_durable_audit[AUTO]",
+    "elapsed_seconds": 1.13,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_selection_postgres",
+    "name": "test_selection_through_real_two_provider_http_and_durable_audit[SINGLE_A]",
+    "elapsed_seconds": 0.789,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_selection_postgres",
+    "name": "test_selection_through_real_two_provider_http_and_durable_audit[SINGLE_B]",
+    "elapsed_seconds": 1.104,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_selection_postgres",
+    "name": "test_selection_through_real_two_provider_http_and_durable_audit[MULTI_MODEL]",
+    "elapsed_seconds": 1.391,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_selection_postgres",
+    "name": "test_single_current_revocation_denied_without_other_provider_fallback[SINGLE_A]",
+    "elapsed_seconds": 1.099,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_selection_postgres",
+    "name": "test_policy_trigger_blocks_sufficient_deterministic_extraction_before_http",
+    "elapsed_seconds": 1.11,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_snapshot_postgres",
+    "name": "test_confirmation_freezes_exact_models_policies_prompt_and_preferences",
+    "elapsed_seconds": 1.096,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_snapshot_postgres",
+    "name": "test_unavailable_frame_cannot_silently_gain_future_llm_capability",
+    "elapsed_seconds": 1.087,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_snapshot_postgres",
+    "name": "test_historical_snapshot_model_and_prompt_do_not_use_new_versions",
+    "elapsed_seconds": 1.087,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_snapshot_postgres",
+    "name": "test_frozen_configuration_rejects_unpinned_operation_instead_of_latest",
+    "elapsed_seconds": 1.089,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_snapshot_postgres",
+    "name": "test_review_successor_preserves_original_model_frame",
+    "elapsed_seconds": 1.134,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1kb_snapshot_postgres",
+    "name": "test_published_invocation_policy_payload_cannot_be_changed",
+    "elapsed_seconds": 1.091,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_contracts",
+    "name": "test_timeout_boundary_is_bounded_and_does_not_accept_late_result",
+    "elapsed_seconds": 0.036,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_contracts",
+    "name": "test_repeated_route_guard_and_state_identity_tampering",
+    "elapsed_seconds": 0.022,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_contracts",
+    "name": "test_real_classification_service_no_data_returns_no_fabricated_result",
+    "elapsed_seconds": 0.02,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_contracts",
+    "name": "test_canonical_events_are_small_and_domain_neutral",
+    "elapsed_seconds": 0.021,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_contracts",
+    "name": "test_revocation_during_stage_blocks_checkpoint_update",
+    "elapsed_seconds": 0.02,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_same_input_all_locales_produces_same_routes_refs_stage_requests_and_event_codes[SUCCESS]",
+    "elapsed_seconds": 0.066,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_same_input_all_locales_produces_same_routes_refs_stage_requests_and_event_codes[NOT_APPLICABLE]",
+    "elapsed_seconds": 0.068,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_same_input_all_locales_produces_same_routes_refs_stage_requests_and_event_codes[INSUFFICIENT_INPUT]",
+    "elapsed_seconds": 0.064,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_same_input_all_locales_produces_same_routes_refs_stage_requests_and_event_codes[EVIDENCE_SUFFICIENT]",
+    "elapsed_seconds": 0.066,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_same_input_all_locales_produces_same_routes_refs_stage_requests_and_event_codes[EVIDENCE_INSUFFICIENT]",
+    "elapsed_seconds": 0.063,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_same_input_all_locales_produces_same_routes_refs_stage_requests_and_event_codes[CONFLICTED]",
+    "elapsed_seconds": 0.064,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_same_input_all_locales_produces_same_routes_refs_stage_requests_and_event_codes[LOW_CONFIDENCE]",
+    "elapsed_seconds": 0.064,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_same_input_all_locales_produces_same_routes_refs_stage_requests_and_event_codes[REVIEW_REQUIRED]",
+    "elapsed_seconds": 0.064,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_same_input_all_locales_produces_same_routes_refs_stage_requests_and_event_codes[CAPABILITY_NOT_CONFIGURED]",
+    "elapsed_seconds": 0.063,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_same_input_all_locales_produces_same_routes_refs_stage_requests_and_event_codes[RETRYABLE_FAILURE]",
+    "elapsed_seconds": 0.063,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_same_input_all_locales_produces_same_routes_refs_stage_requests_and_event_codes[NON_RETRYABLE_FAILURE]",
+    "elapsed_seconds": 0.064,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_same_input_all_locales_produces_same_routes_refs_stage_requests_and_event_codes[FAILED]",
+    "elapsed_seconds": 0.068,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_complete_synthetic_pipeline_refs_and_completion_do_not_depend_on_locale",
+    "elapsed_seconds": 0.086,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_presentation_locale_is_excluded_from_semantic_contracts_and_executable_dependencies",
+    "elapsed_seconds": 0.007,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_localized_semantics_are_rejected_by_state_stage_result_and_event_boundary[\\u7b49\\u5f85\\u4e2d]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_localized_semantics_are_rejected_by_state_stage_result_and_event_boundary[\\u5f85\\u4eba\\u5de5\\u8986\\u6838]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_localized_semantics_are_rejected_by_state_stage_result_and_event_boundary[Human Review Required]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_canonical_event_boundary_preserves_each_stable_status[COMPLETED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_canonical_event_boundary_preserves_each_stable_status[FAILED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_canonical_event_boundary_preserves_each_stable_status[REVIEW_REQUIRED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_canonical_event_boundary_preserves_each_stable_status[RUNNING]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_canonical_event_boundary_preserves_each_stable_status[WAITING]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_canonical_event_boundary_preserves_each_stable_status[WARNING]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_presentation_locale_is_optional_and_only_supported_codes_are_accepted",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_locale",
+    "name": "test_canonical_event_rejects_inconsistent_status_and_unstructured_reason_codes",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_skeleton",
+    "name": "test_routing_without_fabricating_future_results[SUCCESS-WARNING]",
+    "elapsed_seconds": 0.022,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_skeleton",
+    "name": "test_routing_without_fabricating_future_results[NOT_APPLICABLE-WARNING]",
+    "elapsed_seconds": 0.023,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_skeleton",
+    "name": "test_routing_without_fabricating_future_results[EVIDENCE_SUFFICIENT-WARNING]",
+    "elapsed_seconds": 0.023,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_skeleton",
+    "name": "test_routing_without_fabricating_future_results[INSUFFICIENT_INPUT-WARNING]",
+    "elapsed_seconds": 0.023,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_skeleton",
+    "name": "test_routing_without_fabricating_future_results[CAPABILITY_NOT_CONFIGURED-WARNING]",
+    "elapsed_seconds": 0.023,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_skeleton",
+    "name": "test_routing_without_fabricating_future_results[NON_RETRYABLE_FAILURE-FAILED]",
+    "elapsed_seconds": 0.022,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_skeleton",
+    "name": "test_routing_without_fabricating_future_results[FAILED-FAILED]",
+    "elapsed_seconds": 0.022,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_skeleton",
+    "name": "test_routing_without_fabricating_future_results[RETRYABLE_FAILURE-FAILED]",
+    "elapsed_seconds": 0.323,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_skeleton",
+    "name": "test_evidence_insufficient_retains_only_fallback_reference",
+    "elapsed_seconds": 0.022,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_skeleton",
+    "name": "test_compile_order_small_state_and_unconfigured_production",
+    "elapsed_seconds": 0.049,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_skeleton",
+    "name": "test_retry_guards_and_current_authorization",
+    "elapsed_seconds": 0.045,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_skeleton",
+    "name": "test_postgres_process_restart_review_idempotency_and_snapshot[REVIEW_REQUIRED-APPROVE]",
+    "elapsed_seconds": 12.989,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_skeleton",
+    "name": "test_postgres_process_restart_review_idempotency_and_snapshot[CONFLICTED-APPROVE]",
+    "elapsed_seconds": 12.22,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_skeleton",
+    "name": "test_postgres_process_restart_review_idempotency_and_snapshot[LOW_CONFIDENCE-APPROVE]",
+    "elapsed_seconds": 12.302,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_a_skeleton",
+    "name": "test_postgres_process_restart_review_idempotency_and_snapshot[REVIEW_REQUIRED-REJECT]",
+    "elapsed_seconds": 12.367,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_structured_outcomes_and_guard_precedence[COMPLETED-flags0-SUCCESS]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_structured_outcomes_and_guard_precedence[NOT_APPLICABLE-flags1-NOT_APPLICABLE]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_structured_outcomes_and_guard_precedence[INSUFFICIENT_INPUT-flags2-INSUFFICIENT_INPUT]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_structured_outcomes_and_guard_precedence[INSUFFICIENT_EVIDENCE-flags3-EVIDENCE_INSUFFICIENT]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_structured_outcomes_and_guard_precedence[CONFLICTED-flags4-CONFLICTED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_structured_outcomes_and_guard_precedence[REVIEW_REQUIRED-flags5-REVIEW_REQUIRED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_structured_outcomes_and_guard_precedence[CAPABILITY_NOT_CONFIGURED-flags6-CAPABILITY_NOT_CONFIGURED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_structured_outcomes_and_guard_precedence[LOW_CONFIDENCE-flags7-LOW_CONFIDENCE]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_structured_outcomes_and_guard_precedence[COMPLETED-flags8-REVIEW_REQUIRED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_structured_outcomes_and_guard_precedence[COMPLETED-flags9-CONFLICTED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_structured_outcomes_and_guard_precedence[COMPLETED-flags10-EVIDENCE_INSUFFICIENT]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_structured_outcomes_and_guard_precedence[TIED-flags11-REVIEW_REQUIRED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_structured_outcomes_and_guard_precedence[NO_VIABLE_PATH-flags12-REVIEW_REQUIRED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_structured_outcomes_and_guard_precedence[UNRECOGNIZED_FUTURE_STATUS-flags13-NON_RETRYABLE_FAILURE]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_reference_set_contract_is_bounded_and_legacy_state_compatible",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_nodes_delegate_to_actual_formal_service_and_cannot_fabricate_final[success-None]",
+    "elapsed_seconds": 0.041,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_nodes_delegate_to_actual_formal_service_and_cannot_fabricate_final[tie-recommendation]",
+    "elapsed_seconds": 0.035,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_nodes_delegate_to_actual_formal_service_and_cannot_fabricate_final[prohibition-candidate_path]",
+    "elapsed_seconds": 0.031,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_nodes_delegate_to_actual_formal_service_and_cannot_fabricate_final[missing_risk-risk]",
+    "elapsed_seconds": 0.031,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_nodes_delegate_to_actual_formal_service_and_cannot_fabricate_final[conflict-obligation]",
+    "elapsed_seconds": 0.028,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_nodes_delegate_to_actual_formal_service_and_cannot_fabricate_final[capability-recommendation]",
+    "elapsed_seconds": 0.032,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_plan_mode_scope_and_missing_refs_fail_before_service_calls",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_plan_authorization_rejects_mismatched_refs_before_runtime_side_effects[tenant_id]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_plan_authorization_rejects_mismatched_refs_before_runtime_side_effects[project_id]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_plan_authorization_rejects_mismatched_refs_before_runtime_side_effects[analysis_snapshot_id]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_plan_authorization_rejects_mismatched_refs_before_runtime_side_effects[request_context_ref]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_checkpoint_reference_cannot_replace_the_pinned_context_or_scope[formal_context]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_contracts",
+    "name": "test_checkpoint_reference_cannot_replace_the_pinned_context_or_scope[knowledge_scope]",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_ownership",
+    "name": "test_approved_runtime_owner_transfer_and_frozen_domain_migrations",
+    "elapsed_seconds": 5.653,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_ownership",
+    "name": "test_transfer_rejects_unapproved_paths_and_sources[hash]",
+    "elapsed_seconds": 5.414,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_ownership",
+    "name": "test_transfer_rejects_unapproved_paths_and_sources[frontend]",
+    "elapsed_seconds": 5.435,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_ownership",
+    "name": "test_transfer_rejects_unapproved_paths_and_sources[domain]",
+    "elapsed_seconds": 5.492,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_ownership",
+    "name": "test_transfer_rejects_unapproved_paths_and_sources[migration]",
+    "elapsed_seconds": 5.545,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_ownership",
+    "name": "test_transfer_rejects_unapproved_paths_and_sources[wrong_base]",
+    "elapsed_seconds": 5.559,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_ownership",
+    "name": "test_transfer_rejects_unapproved_paths_and_sources[unrelated_source]",
+    "elapsed_seconds": 5.636,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_postgres",
+    "name": "test_real_full_formal_chain_both_modes_and_locale_replay[foundation_i0]",
+    "elapsed_seconds": 16.51,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_postgres",
+    "name": "test_real_full_formal_chain_both_modes_and_locale_replay[foundation_i1]",
+    "elapsed_seconds": 8.58,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_postgres",
+    "name": "test_full_chain_process_restart_review_and_duplicate_resume[foundation_i0]",
+    "elapsed_seconds": 17.726,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_postgres",
+    "name": "test_full_chain_process_restart_review_and_duplicate_resume[foundation_i1]",
+    "elapsed_seconds": 13.771,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_postgres",
+    "name": "test_current_permission_tenant_snapshot_and_evidence_revocation",
+    "elapsed_seconds": 11.538,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_postgres",
+    "name": "test_delivery_contention_is_not_a_node_retry_and_releases_on_error",
+    "elapsed_seconds": 0.905,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_postgres",
+    "name": "test_process_crash_after_formal_save_before_checkpoint_recovers_without_duplicate",
+    "elapsed_seconds": 14.903,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_phase1l_b_postgres",
+    "name": "test_sufficiency_cannot_consume_another_authorized_subjects_retrieval",
+    "elapsed_seconds": 0.874,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_resume_idempotency_boundary",
+    "name": "test_completed_resume_retry_returns_existing_without_langgraph_dependency",
+    "elapsed_seconds": 0.059,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_runtime_boundaries",
+    "name": "test_state_contains_no_runtime_service_or_secret_fields",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_runtime_boundaries",
+    "name": "test_human_review_node_not_agent_registry_pattern",
+    "elapsed_seconds": 0.003,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_architecture",
+    "name": "test_additive_candidate_owner_architecture",
+    "elapsed_seconds": 0.08,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_architecture",
+    "name": "test_architecture_detects_hidden_confirm_extraction",
+    "elapsed_seconds": 0.077,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_domain",
+    "name": "test_draft_scope_has_genuine_distinct_identity_and_no_snapshot",
+    "elapsed_seconds": 0.001,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_domain",
+    "name": "test_draft_cannot_route_other_purposes_to_gateway[QUERY_EXPANSION-KNOWLEDGE_EVIDENCE_INSUFFICIENT]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_domain",
+    "name": "test_draft_cannot_route_other_purposes_to_gateway[DERIVED_EXPLANATION-RESULT_EXPLANATION_REQUESTED]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_domain",
+    "name": "test_confidence_one_is_not_authorization_for_any_formal_owner[FACT]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_domain",
+    "name": "test_confidence_one_is_not_authorization_for_any_formal_owner[ITEM]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_domain",
+    "name": "test_confidence_one_is_not_authorization_for_any_formal_owner[FLOW]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_domain",
+    "name": "test_decision_contract_has_no_policy_action_or_actor_authority[payload0]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_domain",
+    "name": "test_decision_contract_has_no_policy_action_or_actor_authority[payload1]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_domain",
+    "name": "test_decision_contract_has_no_policy_action_or_actor_authority[payload2]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_domain",
+    "name": "test_decision_contract_has_no_policy_action_or_actor_authority[payload3]",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_domain",
+    "name": "test_decision_universe_rejects_duplicate_members",
+    "elapsed_seconds": 0.0,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_http",
+    "name": "test_real_docx_candidate_decision_before_formalization_and_no_hidden_http[ACCEPT]",
+    "elapsed_seconds": 2.199,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_http",
+    "name": "test_real_docx_candidate_decision_before_formalization_and_no_hidden_http[REJECT]",
+    "elapsed_seconds": 2.327,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_http",
+    "name": "test_real_docx_candidate_decision_before_formalization_and_no_hidden_http[EDIT]",
+    "elapsed_seconds": 5.421,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_http",
+    "name": "test_exact_universe_partial_unknown_and_idempotency",
+    "elapsed_seconds": 1.906,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_http",
+    "name": "test_decision_is_stale_after_input_universe_changes[DRAFT]",
+    "elapsed_seconds": 1.788,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_http",
+    "name": "test_decision_is_stale_after_input_universe_changes[DOCUMENT]",
+    "elapsed_seconds": 1.817,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_http",
+    "name": "test_decision_is_stale_after_input_universe_changes[AI]",
+    "elapsed_seconds": 1.851,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_http",
+    "name": "test_prepared_candidates_decisions_and_audit_are_append_only",
+    "elapsed_seconds": 1.804,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_http",
+    "name": "test_revoked_model_configuration_cannot_be_substituted",
+    "elapsed_seconds": 1.879,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_http",
+    "name": "test_external_channel_uses_same_preparation_decision_and_confirm_owner",
+    "elapsed_seconds": 2.289,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_http",
+    "name": "test_reparse_without_version_change_invalidates_prepared_document_pins",
+    "elapsed_seconds": 1.821,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_http",
+    "name": "test_successor_requires_new_preparation_and_leaves_previous_snapshot_and_fact_unchanged",
+    "elapsed_seconds": 5.678,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_http",
+    "name": "test_explicit_structured_input_is_not_reinferred_by_document_model",
+    "elapsed_seconds": 1.862,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_http",
+    "name": "test_confirm_transfers_prepared_fact_type_version_after_future_publication",
+    "elapsed_seconds": 2.286,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_http",
+    "name": "test_candidate_added_after_review_fails_closed_without_partial_formalization",
+    "elapsed_seconds": 1.957,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_http",
+    "name": "test_database_refuses_decision_candidate_from_other_preparation",
+    "elapsed_seconds": 1.81,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_migrations",
+    "name": "test_frozen_migration_bytes_and_single_lineage",
+    "elapsed_seconds": 0.033,
+    "status": "passed"
+  },
+  {
+    "module": "tests.test_stage1_candidate_governance_migrations",
+    "name": "test_fresh_exact0018_equivalence_empty_roundtrip_and_retained_authority",
+    "elapsed_seconds": 11.456,
+    "status": "passed"
+  }
+]
