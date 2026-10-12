@@ -77,6 +77,8 @@ PATHS = frozenset((
     'tests/test_stage1_support_merge.py',
     'tests/test_stage1_support_pipeline.py',
 ))
+from scripts.stage1_e2e_r3_ownership import PATHS as R3_PATHS
+PATHS = PATHS | R3_PATHS
 
 class OriginalCalculationBody(ast.NodeTransformer):
     def visit_Name(self,node):
@@ -99,6 +101,9 @@ def legal_bodies_preserved(original,current):
 
 def overlay(root,previous_paths):
     root=Path(root).resolve()
+    if (root / "evidence/stage1-full-e2e/r3/approved_owner_overlay.json").exists():
+        from scripts.stage1_e2e_r3_ownership import overlay as r3_overlay
+        return r3_overlay(root)
     from scripts.stage1_candidate_ownership import OWNER_PATHS
     def git(*args):return subprocess.check_output(["git","-c","core.quotepath=false",*args],cwd=root,stderr=subprocess.DEVNULL)
     def ancestor(a,b):return subprocess.run(["git","merge-base","--is-ancestor",a,b],cwd=root,stderr=subprocess.DEVNULL).returncode==0

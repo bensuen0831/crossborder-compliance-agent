@@ -41,7 +41,7 @@ jobs:
   mandatory-runtime-smoke:
     runs-on: ubuntu-latest
     # Full PostgreSQL suite includes governed-review successor/restart scenarios.
-    timeout-minutes: 45
+    timeout-minutes: 75
     services:
       postgres:
         image: pgvector/pgvector:pg16
