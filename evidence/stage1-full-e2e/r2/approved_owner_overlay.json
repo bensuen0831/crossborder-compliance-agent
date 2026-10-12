@@ -46,6 +46,7 @@
     "frontend/src/locales/zh-CN.json": "114c22534a12cb4cadd2c264b678a434baeef4bdb747f19f614716d4e6a33645",
     "frontend/src/locales/zh-HK.json": "e40f372892b7f0526c6c2dc7d2c6ca0b3b619cbd786569884515d9b1494c429d",
     "scripts/architecture_rule_check.py": "ddf6bae67b796343755d7c60547ba9a11979e29ed91b5eaa12721dd9f82f0de7",
+    "scripts/m1_phase1lb_ownership.py": "652373106350ef02aa63422c77f9b3bc56e85cf38a8ca7b89c6fd603f6ebf725",
     "scripts/m2a_ownership.py": "ed25998838e6a3cc6c176e8a72b10f19c182e31433f6b0829dd32a2561b3ec7c",
     "scripts/m2d_ownership.py": "1e1d58fd252df46201b214fb4028a8c702a665452ca07c7dd2ea5d2cd63b5bdd",
     "scripts/m2e_architecture_check.py": "4f4e855848b83048d58261ee23776e55925fc898a3a6f3a8fc0d5ce284abee42",
@@ -60,7 +61,7 @@
     "scripts/stage1_candidate_closure.py": "e3a987533830254342de73ba1565cff0b20f5343407873fd895eeb28b95a5158",
     "scripts/stage1_candidate_ownership.py": "0b1ccfe99c907b82d889294047c42a0893164321df17258a4347d0cb3b5131b3",
     "scripts/stage1_decision_compatibility_architecture.py": "a789c02031309d84eeedc47786790ce992fe4f1a6e142085538085304c0a1902",
-    "scripts/stage1_e2e_ownership.py": "6f3c601087987bfce47745411e6aced8dbc65f99e8345db4b9f511be5b714053",
+    "scripts/stage1_e2e_ownership.py": "2fd40a1d4eca5c21cd8c4f77f8ee02e0774444e47dc3163df31ef271c00acbf5",
     "sdk/openapi/external-v1.json": "fd9997f9df89ae0e1251cd3fc17db9a641aa17e9b5d3225d70a06fdef50b2984",
     "sdk/python/.gitignore": "9445b8071d0fa8f072c0a2d99a3e797de03ebb820facc421100bdcabc4628950",
     "sdk/python/pyproject.toml": "08c6f5788b0b8b07389568e6a7038a849dc9e7f3f2099a55d22148a6641eb64a",
@@ -172,6 +173,6 @@
     "tests/test_stage1_support_merge.py": "3792480d4afdd2671d0a817638c40e59c3f6d0169067376e95c121f9498555e6",
     "tests/test_stage1_support_pipeline.py": "728b05217dc2e11437b96b7fe76bbdc322c7e30e16ba9d57956ddea5caeb06fb"
   },
-  "scope": "Finite approved R2 and0020 compatibility successor",
-  "source_sha": "c76ac92724eb2988bcb267dba60f6e0ef0b81dcb"
+  "scope": "Finite approved R2/0020 compatibility with original negative ownership guards retained",
+  "source_sha": "c716f7959ff27e7fd37729edf24e2b378cd12c6e"
 }
