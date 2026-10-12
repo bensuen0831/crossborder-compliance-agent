@@ -542,6 +542,8 @@ export interface components {
             workflow_run_id?: string | null;
             /** Retrieval Policy Id */
             retrieval_policy_id?: string | null;
+            /** Candidate Preparation Id */
+            candidate_preparation_id?: string | null;
         };
         /**
          * LLMUsageMode

@@ -1,0 +1,39 @@
+{
+  "case_id": "TC-01",
+  "fixture_kind": "SYNTHETIC_GOVERNED_TEST_DATA",
+  "business_scenario": "Synthetic enterprise direct processing journey",
+  "product_scope": "selected_governed_product",
+  "source_jurisdiction": "synthetic_source",
+  "destination_jurisdiction": "synthetic_destination",
+  "data_items": [
+    "Governed Data"
+  ],
+  "data_flow": {
+    "direction": "SOURCE_TO_DESTINATION",
+    "source": "Business source",
+    "destination": "Business destination",
+    "item": "Governed Data"
+  },
+  "document": {
+    "format": "genuine DOCX",
+    "factory": "stage1_business_fixtures.genuine_docx",
+    "semantic_only": true,
+    "marker": "BUSINESS_DOC_MARKER"
+  },
+  "structured_facts": {
+    "data_volume": "3",
+    "analysis_as_of_date": "fixed_by_fixture"
+  },
+  "ai_mode": "AUTO",
+  "candidate_decisions": "explicit actor-owned ACCEPT/REJECT/EDIT before confirm",
+  "expected_formal_outcome": "DIRECT_TRANSFER_ALLOWED",
+  "expected_review_state": "COMPLETED",
+  "expected_required_document_levels": [
+    "REQUIRED",
+    "CONDITIONAL",
+    "RECOMMENDED",
+    "NOT_APPLICABLE"
+  ],
+  "expected_support": "exact actual authorized upstream union; no invented sources",
+  "stage2_started": false
+}

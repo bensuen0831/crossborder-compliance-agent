@@ -33,3 +33,11 @@ before R2 REMOTE CI COMPLETION = PASS; status remains PENDING until measured.
 
 Safe diagnostics and log digests: evidence/stage1-full-e2e/r3/ci_diagnostics.json.
 Raw logs remain private, outside the repository. Stage2 NOT STARTED.
+
+## Measured recovery result
+
+Commit `180ec61bae0546305a69f25a5988e91980c35327`: 10/10 workflows SUCCESS, 15/15 jobs verified by executed checkout `git log -1 --format=%H`. Run IDs and per-job proof are in `evidence/stage1-full-e2e/r3/ci_references.json`. This completes R2 REMOTE CI COMPLETION only; it is not evidence for a later R3 final head.
+
+## Additive SDK execution environment
+
+The R3 full Python suite now runs a real TypeScript SDK HTTP journey. Four complete backend jobs install Node 24 and only the TypeScript compiler version already locked in frontend/package-lock.json. This avoids rebuilding the whole frontend to provide a compiler. It changes no tests, assertions, browser retries or product dependencies. Dedicated acceptance jobs separately measure business coverage and retained candidate/history/security cases; full regression remains mandatory in the existing workflows.

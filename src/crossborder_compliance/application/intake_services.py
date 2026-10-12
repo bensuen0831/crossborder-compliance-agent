@@ -75,6 +75,8 @@ class IntakeView(BaseModel):
     analysis_snapshot_id: UUID | None = None
     workflow_run_id: UUID | None = None
     retrieval_policy_id: UUID | None = None
+    # Read-only discovery hint; candidate authorization stays in its owning use case.
+    candidate_preparation_id: UUID | None = None
 
 
 class IntakeRepositoryPort(Protocol):

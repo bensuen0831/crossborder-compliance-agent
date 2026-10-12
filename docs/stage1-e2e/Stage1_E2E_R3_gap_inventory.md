@@ -39,3 +39,13 @@ No new schema/legal owner/runtime is required by the implemented DataFlow path.
 Any newly proven0021 requirement or legal-semantics change triggers escalation.
 L1 is SYNTHETIC_GOVERNED_TEST_DATA, never independently accepted real law.
 Stage2 NOT STARTED; no merge/tag/main update.
+
+## R3 implementation inventory
+
+- Twelve outcome/locale browser journeys: measured 12/12 on the working implementation, zero retries; final-head rerun remains required.
+- Real HTTP scope-safe knowledge-gap expansion and distinct multi-model user resolution: focused evidence established, retained final regression required.
+- Canonical classification/applicability preview access: creator/current access reuse, stage and tenant checks retained; focused positive and negative authorization evidence established.
+- Draft preparation discovery: server-owned read-only DTO hint; no caller-supplied authorization and no new persistence.
+- Dedicated CI and SDK compiler: implemented; exact final-head remote evidence pending.
+- Dataset: synthetic governed fixture pack and independent input/oracle manifests; L2 and production UAT not executed.
+- Diagnostic execution under the default local database found Alembic 0019, not the required 0020. Those failed probes are excluded from acceptance evidence. Final validation uses an explicitly fresh isolated 0020 database. No database was reset or cleaned.

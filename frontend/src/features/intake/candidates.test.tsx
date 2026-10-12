@@ -15,8 +15,8 @@ const version = '00000000-0000-0000-0000-000000000005';
 const trace = '00000000-0000-0000-0000-000000000006';
 const preview = { candidate_preparation_id: preparation, project_version_id: version, status: 'COMPLETED', candidate_universe_digest: 'a'.repeat(64), stale: false, candidate_decision_set_id: null, candidates: [{ preparation_candidate_id: member, candidate_id: candidate, candidate_type: 'BUSINESS_FACT', candidate_origin: 'LLM_STRUCTURED_OUTPUT', candidate_digest: 'b'.repeat(64), requires_confirmation: true, confidence: 1, proposed_payload: { normalized_value_json: 'Original proposal' }, sources: [{ source_trace_ref_id: trace, parse_run_id: trace, document_version_id: trace, section: 'Paragraph 1', source_excerpt: 'Genuine source excerpt' }], decision_status: 'UNRESOLVED', edited_payload: null, llm_provenance: null }] };
 
-function Harness({ dirty = false }: { dirty?: boolean }) {
-  const state = useDocumentCandidates({ project_id: project, version: 3, status: 'DRAFT' } as IntakeView, 'test-user', true);
+function Harness({ dirty = false, prepared = true }: { dirty?: boolean; prepared?: boolean }) {
+  const state = useDocumentCandidates({ project_id: project, version: 3, status: 'DRAFT',candidate_preparation_id:prepared?preparation:null } as IntakeView, 'test-user', true);
   return <CandidateReview state={state} dirty={dirty}/>;
 }
 function host(dirty = false) {
@@ -24,6 +24,15 @@ function host(dirty = false) {
 }
 
 describe('pre-formal candidate consent', () => {
+  it('does not fetch a nonexistent preview and loads actual prepared candidates', async () => {
+    const fetcher=vi.fn().mockResolvedValue(new Response(JSON.stringify(preview)));vi.stubGlobal('fetch',fetcher);
+    render(<QueryClientProvider client={new QueryClient({defaultOptions:{queries:{retry:false}}})}><Harness prepared={false}/></QueryClientProvider>);
+    expect(fetcher).not.toHaveBeenCalled();
+    await userEvent.setup().click(screen.getByRole('button',{name:i18n.t('ui.candidates.prepare')}));
+    expect(await screen.findByRole('combobox')).toHaveValue('UNRESOLVED');
+    expect(fetcher.mock.calls.some(([,request])=>request?.method==='POST')).toBe(true);
+    expect(screen.getByRole('button',{name:i18n.t('ui.candidates.submit')})).toBeDisabled();vi.unstubAllGlobals();
+  });
   it.each(['zh-CN', 'zh-HK', 'en-US'])('requires explicit action despite confidence1 in %s', async locale => {
     await i18n.changeLanguage(locale);
     const fetcher = vi.fn().mockResolvedValue(new Response(JSON.stringify(preview)));

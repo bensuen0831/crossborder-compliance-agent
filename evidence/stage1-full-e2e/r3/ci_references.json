@@ -1,0 +1,207 @@
+{
+  "recovery": {
+    "source_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+    "decision": "PASS",
+    "runs": [
+      {
+        "run_id": 38279412364,
+        "workflow": "M0 Knowledge & Evidence Preview",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "job_id": 114912750639,
+            "job": "frontend",
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "conclusion": "success"
+          },
+          {
+            "job_id": 114912751008,
+            "job": "real-backend-uat",
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "conclusion": "success"
+          }
+        ],
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "run_id": 38279412318,
+        "workflow": "M2A Production Intake",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "job_id": 114912749665,
+            "job": "frontend-real-backend-uat",
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "conclusion": "success"
+          }
+        ],
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "run_id": 38279412302,
+        "workflow": "M1 Intake Analysis Alpha",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "job_id": 114912751392,
+            "job": "frontend-real-backend-uat",
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "conclusion": "success"
+          }
+        ],
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "run_id": 38279412310,
+        "workflow": "M2C Formal Result Workspace",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "job_id": 114912748435,
+            "job": "frontend-real-backend-uat",
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "conclusion": "success"
+          }
+        ],
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "run_id": 38279412306,
+        "workflow": "M2B Production Document Integration",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "job_id": 114912750670,
+            "job": "frontend-real-backend-uat",
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "conclusion": "success"
+          }
+        ],
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "run_id": 38279412340,
+        "workflow": "M2D Governed Human Review",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "job_id": 114912751298,
+            "job": "frontend-real-backend-uat",
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "conclusion": "success"
+          }
+        ],
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "run_id": 38279412385,
+        "workflow": "Stage1 R1 Candidate Governance Recovery",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "job_id": 114912750667,
+            "job": "mandatory-backend",
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "conclusion": "success"
+          },
+          {
+            "job_id": 114912750944,
+            "job": "canonical-frontend-browser",
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "conclusion": "success"
+          }
+        ],
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "run_id": 38279412281,
+        "workflow": "M2E External Agent API Gateway",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "job_id": 114912749243,
+            "job": "mandatory-backend",
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "conclusion": "success"
+          },
+          {
+            "job_id": 114912749655,
+            "job": "canonical-frontend-browser",
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "conclusion": "success"
+          }
+        ],
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "run_id": 38279412304,
+        "workflow": "phase1a-runtime-smoke",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "job_id": 114912749856,
+            "job": "mandatory-runtime-smoke",
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "conclusion": "success"
+          },
+          {
+            "job_id": 114912750243,
+            "job": "contract-tests",
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "conclusion": "success"
+          }
+        ],
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "run_id": 38279412334,
+        "workflow": "Phase1KB Multi-provider LLM Governance",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "job_id": 114912751135,
+            "job": "canonical-frontend-browser",
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "conclusion": "success"
+          },
+          {
+            "job_id": 114912751442,
+            "job": "mandatory-backend",
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "conclusion": "success"
+          }
+        ],
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "final_exact_head": {
+    "decision": "PENDING",
+    "runs": []
+  }
+}

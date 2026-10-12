@@ -8562,6 +8562,18 @@
               }
             ],
             "title": "Retrieval Policy Id"
+          },
+          "candidate_preparation_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Candidate Preparation Id"
           }
         },
         "additionalProperties": false,

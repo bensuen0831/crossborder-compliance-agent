@@ -87,6 +87,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -e ".[dev]"
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Locked compiler for mandatory real TypeScript SDK business acceptance
+        run: bash scripts/stage1_sdk_toolchain.sh
       - name: Run mandatory PostgreSQL-backed LangGraph gate
         run: bash smoke/run_gate.sh
       - name: Publish measured Phase 1G empirical evidence

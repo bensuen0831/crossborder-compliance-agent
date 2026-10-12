@@ -51,7 +51,7 @@ export function Stage1View({ result: r, identity }: { result: Stage1Result; iden
     </Card>
     {r.review_id && <Alert type="warning" title={t('ui.m2c.review')} description={<Link to={`/reviews/${r.review_id}`}>{t('ui.m2d.openReview')}</Link>}/>}
     <div className="stage1-kpis"><Card><Statistic title={t('ui.m2c.dataItems')} value={r.data_items.length}/></Card><Card><Statistic title={t('ui.m2c.documents')} value={r.documents.length}/></Card><Card><Statistic title={t('ui.m2c.evidence')} value={evidence.length}/></Card><Card><Statistic title={t('ui.m2c.requirements')} value={documents.filter(d => d.requirement_level === 'REQUIRED').length}/></Card></div>
-    <div className="stage1-columns"><Card title={t('ui.m2c.workflow')}><Steps direction="vertical" size="small" items={r.steps.map(step => ({ key: step, title: t(`ui.m2c.steps.${step}`, { defaultValue: step }), status: r.completed_steps.includes(step) ? 'finish' : r.current_step === step ? 'process' : 'wait' }))}/></Card>
+    <div className="stage1-columns"><Card title={t('ui.m2c.workflow')}><Steps orientation="vertical" size="small" items={r.steps.map(step => ({ key: step, title: t(`ui.m2c.steps.${step}`, { defaultValue: step }), status: r.completed_steps.includes(step) ? 'finish' : r.current_step === step ? 'process' : 'wait' }))}/></Card>
       <div className="stage1-main">
         <Card title={t('ui.m2c.transferMap')}>
           <p>{t('ui.m2c.mapNotice')}</p>
@@ -63,7 +63,7 @@ export function Stage1View({ result: r, identity }: { result: Stage1Result; iden
           {cross && <><Space wrap><span>{t('ui.m2c.source')}: {cross.source_jurisdiction_ids.map(label).join(' · ')}</span><span>→</span><span>{t('ui.m2c.destination')}: {cross.destination_jurisdiction_ids.map(label).join(' · ')}</span></Space><p>{code(cross.status)}</p><Space wrap>{cross.reason_codes.map(reason => <Tag key={reason}>{codeLabel(reason)}</Tag>)}</Space></>}
         </Card>
         <Card title={t('ui.m2c.risk')}><p>{t('ui.m2c.riskNotice')}</p>{risks.length ? risks.map(risk => <div key={risk.risk_assessment_id}><Space>{code(risk.risk_level)}<span>{risk.score ?? t('notAvailable')}</span></Space>{risk.dimensions.map(d => <div key={d.code}><span>{d.code} · {d.score ?? t('notAvailable')}</span>{d.score !== null && <Progress percent={Number(d.score)} showInfo={false} status="active"/>}</div>)}</div>) : <p>{t('ui.m2c.unassessed')}</p>}</Card>
-        <Card title={t('ui.m2c.path')}><p>{t('ui.m2c.pathNotice')}</p>{final ? <>{code(final.status)}<Steps direction="vertical" size="small" items={final.actions.map(action => ({ key: action.entry_id, title: action.action_code, description: <span>{t('ui.m2c.actionPending')} · {action.conditions.map(c => c.code).join(' · ')}</span>, status: 'wait' }))}/>{final.required_conditions.map(c => <Tag key={c.entry_id}>{c.code} · {c.evaluation}</Tag>)}</> : <p>{t('ui.m2c.unassessed')}</p>}</Card>
+        <Card title={t('ui.m2c.path')}><p>{t('ui.m2c.pathNotice')}</p>{final ? <>{code(final.status)}<Steps orientation="vertical" size="small" items={final.actions.map(action => ({ key: action.entry_id, title: action.action_code, content: <span>{t('ui.m2c.actionPending')} · {action.conditions.map(c => c.code).join(' · ')}</span>, status: 'wait' }))}/>{final.required_conditions.map(c => <Tag key={c.entry_id}>{c.code} · {c.evaluation}</Tag>)}</> : <p>{t('ui.m2c.unassessed')}</p>}</Card>
       </div>
     </div>
     <Card title={t('ui.m2c.inventory')}><Table dataSource={r.data_items} rowKey="data_item_id" scroll={{ x: 1500 }} pagination={{ pageSize: 10 }} columns={[
@@ -89,7 +89,7 @@ export function Stage1View({ result: r, identity }: { result: Stage1Result; iden
       <Space><Button onClick={() => setFinished(true)}>{t('ui.m2c.finish')}</Button><Button onClick={() => setDocumentSelection(true)} disabled={r.status !== 'COMPLETED' || !documents.length || r.document_requirements?.review_required}>{t('ui.m2c.chooseDocuments')}</Button></Space>
       {finished && <Alert type="success" title={t('ui.m2c.finished')}/>}{documentSelection && <Alert type="info" title={t('ui.m2c.stage2Unavailable')}/>}
     </Card>
-    <Drawer open={basisOpen} title={t('ui.m2c.legalEvidence')} onClose={() => setBasisOpen(false)} width={720}>
+    <Drawer open={basisOpen} title={t('ui.m2c.legalEvidence')} onClose={() => setBasisOpen(false)} size={720}>
       <p>{t('ui.m2c.officialNotice')}</p>{r.legal_basis.map(b => <Card key={b.legal_basis_id} title={b.citation_locator}><p>{b.summary}</p><p>{b.official_source}</p><p>{b.legal_basis_id}</p></Card>)}
       <EvidenceTable items={evidence} open={item => setSelectedEvidence(item.evidence_item_id)}/>
     </Drawer>

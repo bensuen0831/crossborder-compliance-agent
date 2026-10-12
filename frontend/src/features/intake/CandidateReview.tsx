@@ -33,7 +33,7 @@ export function CandidateReview({ state, dirty }: { state: ReturnType<typeof use
   return <section aria-label={t('ui.candidates.title')}>
     <h3>{t('ui.candidates.title')}</h3><p>{t('ui.candidates.boundary')}</p>
     <Button disabled={dirty || state.preparation.isPending || state.preview.data?.status === 'PREPARING'} loading={state.preparation.isPending} onClick={() => state.preparation.mutate()}>{t('ui.candidates.prepare')}</Button>
-    {state.preview.isPending && <LoadingState/>}
+    {state.preview.isFetching && <LoadingState/>}
     {[state.preview.error, state.preparation.error, state.resolution.error].map((error, index) => error && <ErrorState key={index} error={error}/>)}
     {state.preview.data?.stale && <Alert type="warning" title={t('ui.candidates.stale')}/>}
     {state.preview.data?.status === 'COMPLETED' && items.length === 0 && <p>{t('ui.candidates.empty')}</p>}

@@ -3,7 +3,7 @@
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, ConfigDict
 
 from crossborder_compliance.application.classification_services import ClassificationService
@@ -145,6 +145,12 @@ def pin_classification(
 @router.get("/classifications/{result_id}")
 def result(result_id: UUID, context: Annotated[RepositoryContext, Depends(get_repository_context)]):
     try:
-        return PostgresFormalClassificationRepository(sessions(), context).get_result(result_id)
+        from crossborder_compliance.infrastructure.intake_composition import owned_result_read_context
+        from crossborder_compliance.infrastructure.persistence.models import ClassificationResultEntity
+        factory=sessions()
+        context=owned_result_read_context(factory,context,ClassificationResultEntity,ClassificationResultEntity.classification_result_id,result_id,"classify")
+        return PostgresFormalClassificationRepository(factory, context).get_result(result_id)
+    except PermissionError as exc:
+        raise HTTPException(status_code=403, detail="classification permission denied") from exc
     except Exception as exc:
         _translate_error(exc)

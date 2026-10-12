@@ -3,7 +3,7 @@ from sqlalchemy import select
 
 from crossborder_compliance.infrastructure.persistence import context_models as c
 from crossborder_compliance.infrastructure.persistence import models as b
-from crossborder_compliance.infrastructure.persistence import document_models as d
+from crossborder_compliance.infrastructure.persistence import document_models as d, metadata_models as m
 from crossborder_compliance.infrastructure.persistence.decision_models import MODELS, PARENTS
 
 def exact_support_union(actual,sources):
@@ -102,3 +102,13 @@ def assert_formal_chain(f, result, record, preview):
             assert detail.parse_run_id == result['documents'][0]['parse_run_id']
             assert any(fact.fact_id in i['source_fact_refs'] for i in classes)
 
+    # Safe measured evidence; source provenance IDs and digests, no raw payload.
+    import hashlib,json,os,subprocess
+    from pathlib import Path
+    source=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+    with f['sf']() as s:
+        pins=s.scalars(select(m.AnalysisSnapshotRegistryPinEntity).where(m.AnalysisSnapshotRegistryPinEntity.analysis_snapshot_id==snapshot)).all()
+        pin_manifest=[dict(pin_type=p.pin_type,object_id=p.object_id,version_id=p.version_id,version_no=p.version_no) for p in pins]
+    payload=dict(runner_checkout_sha=source,tested_source_sha=source,decision='PASS',acceptance_kind='SYNTHETIC_GOVERNED_TEST_DATA',outcome=f['expected'],project_id=project,snapshot_id=snapshot,workflow_run_id=result['workflow_run_id'],review_id=result['review_id'],dataflow=dict(source_jurisdiction_ids=cross['source_jurisdiction_ids'],destination_jurisdiction_ids=cross['destination_jurisdiction_ids'],edge_id=edge['flow_edge_id'],data_item_ids=edge['data_item_ids']),documents=[dict(document_version_id=i['document_version_id'],parse_run_id=i['parse_run_id']) for i in result['documents']],knowledge_versions=sorted({i['knowledge_version_id'] for i in evidence}),evidence_ids=[i['evidence_item_id'] for i in evidence],legal_basis_ids=[i['legal_basis_id'] for i in result['legal_basis']],preparation_id=preview['candidate_preparation_id'],candidate_universe_digest=preview['candidate_universe_digest'],registry_pins=pin_manifest,formal_result_sha256=hashlib.sha256(json.dumps(result,sort_keys=True,separators=(',',':')).encode()).hexdigest(),legal_support_integrity=True,real_regulatory_knowledge='NOT EXECUTED',paid_internet_llm='NOT EXECUTED',production_business_uat='NOT EXECUTED',stage2_started=False)
+    output=Path(os.getenv('EVIDENCE_DIR','artifacts/stage1-r3'))/'business-measured';output.mkdir(parents=True,exist_ok=True)
+    (output/(f['outcome'].lower()+'-'+project+'.json')).write_text(json.dumps(payload,indent=2)+'\n')

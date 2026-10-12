@@ -1167,6 +1167,10 @@ from scripts.stage1_decision_compatibility_architecture import check as check_de
 for name, passed in check_decision_compatibility(ROOT).items():
     add(name, passed, "Approved0020 engine compatibility; immutable historical V2 / corrected V2_1")
 
+from scripts.stage1_business_architecture import check as check_business_acceptance
+for name, passed in check_business_acceptance(ROOT).items():
+    add(name, passed, "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance")
+
 failed = [check for check in checks if not check["pass"]]
 result = {
     "pass": not failed,

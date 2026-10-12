@@ -61,6 +61,22 @@ def project_context(sessions, context, project_id):
     )
 
 
+def owned_result_read_context(sessions, context, entity, primary_key, result_id, grant):
+    """Derive an exact project read grant using existing creator/current-access checks.
+
+    Stage permissions, tenant identity and actor remain unchanged. Explicit
+    legacy project grants retain their existing read path.
+    """
+    with sessions() as session:
+        row = session.scalar(select(entity).where(primary_key == str(result_id), entity.tenant_id == str(context.tenant_id)))
+        if row is None or not row.project_id:
+            raise LookupError("formal result not found")
+        project_id = UUID(row.project_id)
+    if context.permission.system or f"project:{project_id}:{grant}" in context.permission.scopes:
+        return context
+    return project_context(sessions, context, project_id)
+
+
 def prepare_snapshot(
     sessions,
     context,

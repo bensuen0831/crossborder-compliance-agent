@@ -87,10 +87,12 @@ def genuine_docx(project_id, *, conflict=False, semantic_only=False):
 
 
 @contextmanager
-def business_environment(tmp_path, outcome, *, provider_port=0):
+def business_environment(tmp_path, outcome, *, provider_port=0, candidate_values=None):
     f=foundation_i.__wrapped__(fixture.__wrapped__(),SimpleNamespace(param={'no_data':True}))
     f=foundation_j.__wrapped__(f,SimpleNamespace(param={}))
     app,facts=server(f,tmp_path)
+    from crossborder_compliance.interfaces.api.routes.reviews import router as review_router
+    app.include_router(review_router)
     failures=[]
     @app.exception_handler(HTTPException)
     async def bounded_diagnostic(request, exc):
@@ -144,7 +146,8 @@ def business_environment(tmp_path, outcome, *, provider_port=0):
             return {'ok':True}
         node=next(n for n in body['source_nodes'] if 'BUSINESS_DOC_MARKER' in n['text'])
         requests.append(dict(model=payload['model'],source_node_id=node['source_node_id']))
-        return {'facts':[{'source_node_id':node['source_node_id'],'fact_type':'PROCESSING_PURPOSE','value':'service-processing','confidence':1}],
+        proposed=(candidate_values or {}).get(payload['model'],'service-processing')
+        return {'facts':[{'source_node_id':node['source_node_id'],'fact_type':'PROCESSING_PURPOSE','value':proposed,'confidence':1}],
             'items':[{'source_node_id':node['source_node_id'],'name':'Governed Data','confidence':1}],'nodes':[],'edges':[]}
     with ExitStack() as stack:
         url,calls=stack.enter_context(local_provider(('A1','A2'),structured_response=response,port=provider_port))
@@ -162,9 +165,14 @@ def business_environment(tmp_path, outcome, *, provider_port=0):
             'scope_type':'TENANT','default_mode':'INTERNAL_MODEL_ONLY','allowed_operations':['structured_output'],
             'allowed_model_ids':[d['model_id'] for d in deployments],'allowed_provider_ids':[provider['provider_id']],
             'allowed_trust_levels':['APPROVED'],'allowed_data_boundaries':['TENANT']}),True)
+        def refresh_models():
+            for model in deployments:
+                assert ProviderInspection(models,secrets).model_test(UUID(model["deployment_id"]),"chat")["status"]=="HEALTHY"
         def provision_project_models(project_id):
             # Configuration fixture operator publishes a genuine project policy;
             # the business actor receives no policy-admin or system bypass.
+            for model in deployments:
+                assert ProviderInspection(models,secrets).model_test(UUID(model['deployment_id']),'chat')['status']=='HEALTHY'
             definition=metadata.create_definition(kind='MODEL_USAGE_POLICY',code=uuid4().hex,display_name='Published business project models')
             return publish_metadata(metadata,metadata.create_version(definition_id=UUID(definition['definition_id']),payload={
                 'scope_type':'PROJECT','project_id':project_id,'default_mode':'INTERNAL_MODEL_ONLY','allowed_operations':['structured_output'],
@@ -180,5 +188,7 @@ def business_environment(tmp_path, outcome, *, provider_port=0):
         client=stack.enter_context(http_server(app));client.timeout=180
         facts={**facts,'analysis_as_of_date':date.today().isoformat(),'data_volume':'3'}
         yield dict(**f,app=app,client=client,facts=facts,user=user,model_ids=[d['model_id'] for d in deployments],
+            provider_ids=[provider['provider_id']],
+            deployment_ids=[d['deployment_id'] for d in deployments],
             provider_requests=requests,provider_calls=calls,outcome=outcome,expected=OUTCOMES[outcome],metadata=metadata,prompt=prompt,
-            provision_project_models=provision_project_models,failures=failures)
+            provision_project_models=provision_project_models,refresh_models=refresh_models,failures=failures)

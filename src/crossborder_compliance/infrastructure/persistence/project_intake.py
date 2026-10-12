@@ -72,6 +72,14 @@ class ProjectIntakeOperations:
         return row
 
     def _intake_view(self, s, row):
+        preparation_id = None
+        if row.status == "DRAFT":
+            from crossborder_compliance.infrastructure.persistence.candidate_governance_models import CandidatePreparationEntity
+            preparation_id = s.scalar(select(CandidatePreparationEntity.candidate_preparation_id).where(
+                CandidatePreparationEntity.tenant_id == self.tenant_id,
+                CandidatePreparationEntity.project_id == row.project_id,
+                CandidatePreparationEntity.project_version_id == row.project_version_id,
+            ).order_by(CandidatePreparationEntity.created_at.desc(), CandidatePreparationEntity.candidate_preparation_id).limit(1))
         snapshot = s.scalar(
             select(AnalysisSnapshotEntity).where(
                 AnalysisSnapshotEntity.tenant_id == self.tenant_id,
@@ -83,6 +91,7 @@ class ProjectIntakeOperations:
             project_version_id=row.project_version_id,
             version=row.version_no,
             status=row.status,
+            candidate_preparation_id=preparation_id,
             intake=ProjectIntakeContext.model_validate(row.intake_json),
             analysis_snapshot_id=snapshot.analysis_snapshot_id if snapshot else None,
             workflow_run_id=snapshot.provenance_json.get("workflow_run_id") if snapshot else None,

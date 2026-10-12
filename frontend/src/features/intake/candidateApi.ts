@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { request } from '../../api/client';
 import type { components } from '../../api/m2a-generated';
 import type { IntakeView } from './persistence';
@@ -9,9 +9,11 @@ type Receipt = components['schemas']['CandidateDecisionReceipt'];
 const base = (project: string) => `/api/v1/projects/${encodeURIComponent(project)}`;
 
 export function useDocumentCandidates(record: IntakeView | undefined, identity: string, enabled: boolean) {
-  const preview = useQuery({ queryKey: ['candidate-preview', identity, record?.project_id, record?.version], queryFn: ({ signal }) => request<Preview>(base(record!.project_id) + '/candidate-preview', { signal }, 'CandidatePreview'), enabled: enabled && record?.status === 'DRAFT', retry: false, gcTime: 0 });
+  const client=useQueryClient();
+  const previewKey=['candidate-preview',identity,record?.project_id,record?.version];
+  const preview = useQuery({ queryKey: previewKey, queryFn: ({ signal }) => request<Preview>(base(record!.project_id) + '/candidate-preview', { signal }, 'CandidatePreview'), enabled: enabled && record?.status === 'DRAFT' && !!record.candidate_preparation_id, retry: false, gcTime: 0 });
   const key = useRef(crypto.randomUUID());
-  const preparation = useMutation({ mutationFn: () => request<Preview>(base(record!.project_id) + '/candidate-preparation', { method: 'POST', body: JSON.stringify({ expected_version: record!.version, idempotency_key: key.current }) }, 'CandidatePreview'), onSuccess: async () => { await preview.refetch(); key.current = crypto.randomUUID(); }, retry: false });
+  const preparation = useMutation({ mutationFn: () => request<Preview>(base(record!.project_id) + '/candidate-preparation', { method: 'POST', body: JSON.stringify({ expected_version: record!.version, idempotency_key: key.current }) }, 'CandidatePreview'), onSuccess: async data => { client.setQueryData(previewKey,data); await preview.refetch(); key.current = crypto.randomUUID(); }, retry: false });
   const decisionKey = useRef<{ payload: string; key: string } | undefined>(undefined);
   const resolution = useMutation({ mutationFn: (decisions: Decision[]) => {
     const payload = JSON.stringify({ version: record!.version, preparation: preview.data!.candidate_preparation_id, digest: preview.data!.candidate_universe_digest, decisions });

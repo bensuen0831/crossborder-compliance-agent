@@ -1,0 +1,192 @@
+name: Stage1 Full Business E2E Acceptance
+'on':
+  pull_request:
+    paths:
+    - src/**
+    - tests/**
+    - scripts/**
+    - smoke/**
+    - alembic/**
+    - frontend/**
+    - sdk/**
+    - docs/stage1-e2e/**
+    - evidence/stage1-full-e2e/**
+    - .github/workflows/stage1-full-e2e.yml
+  workflow_dispatch: null
+permissions:
+  contents: read
+jobs:
+  business-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_DB: compliance
+          POSTGRES_USER: compliance
+          POSTGRES_PASSWORD: compliance
+        ports:
+        - 5432:5432
+        options: --health-cmd="pg_isready -U compliance -d compliance" --health-interval=5s
+          --health-timeout=5s --health-retries=20
+      redis:
+        image: redis:7-alpine
+        ports:
+        - 6379:6379
+        options: --health-cmd="redis-cli ping" --health-interval=5s --health-timeout=3s
+          --health-retries=20
+    env:
+      APP_ENV: LOCAL_SERVER
+      DATABASE_URL: postgresql+psycopg://compliance:compliance@127.0.0.1:5432/compliance
+      LANGGRAPH_DATABASE_URI: postgresql://compliance:compliance@127.0.0.1:5432/compliance?sslmode=disable
+      REDIS_URL: redis://127.0.0.1:6379/0
+      PYTHONPATH: ${{ github.workspace }}/src:${{ github.workspace }}:${{ github.workspace
+        }}/tests
+      SMOKE_STATE_FILE: /tmp/m2e-smoke.json
+      EVIDENCE_DIR: artifacts/stage1-r3
+      EXPECTED_PR_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        ref: ${{ github.event.pull_request.head.sha || github.sha }}
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - run: python -m pip install -e '.[dev]'
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+    - name: Executed source identity
+      run: 'test "$(git rev-parse HEAD)" = "$EXPECTED_PR_HEAD"
+
+        git rev-parse HEAD'
+    - run: 'npm ci --prefix frontend --no-audit --no-fund
+
+        alembic upgrade head'
+    - name: Full synthetic business fixtures, four outcomes, parity, RAG and successors
+      run: pytest -q --tb=short tests/test_stage1_business_http.py tests/test_stage1_channel_parity.py
+        tests/test_stage1_r3_*.py --junitxml=artifacts/stage1-r3/business.xml
+    - name: Retained candidate governance, historical V2 replay and security contracts
+      run: pytest -q --tb=short tests/test_stage1_candidate_governance_http.py tests/test_stage1_candidate_governance_domain.py
+        tests/test_stage1_support_historical.py tests/test_stage1_decision_versions.py
+        tests/test_stage1_decision_compatibility_migrations.py tests/test_phase1kb_endpoint_security.py
+        tests/test_m2e_http.py --junitxml=artifacts/stage1-r3/owning-regressions.xml
+    - name: Verify complete dedicated coverage and exact source identity
+      run: python scripts/stage1_business_closure.py backend --input artifacts/stage1-r3/business.xml
+        --regression artifacts/stage1-r3/owning-regressions.xml --directory artifacts/stage1-r3
+    - uses: actions/upload-artifact@v4
+      if: success()
+      with:
+        name: stage1-business-backend-${{ github.run_id }}
+        path: artifacts/stage1-r3/stage1_business_backend_measured.json
+        if-no-files-found: error
+  business-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_DB: kb_browser
+          POSTGRES_USER: compliance
+          POSTGRES_PASSWORD: compliance
+        ports:
+        - 5432:5432
+        options: --health-cmd="pg_isready -U compliance -d kb_browser" --health-interval=5s
+          --health-timeout=5s --health-retries=20
+      redis:
+        image: redis:7-alpine
+        ports:
+        - 6379:6379
+        options: --health-cmd="redis-cli ping" --health-interval=5s --health-timeout=3s
+          --health-retries=20
+    env:
+      APP_ENV: LOCAL_SERVER
+      DATABASE_URL: postgresql+psycopg://compliance:compliance@127.0.0.1:5432/kb_browser
+      LANGGRAPH_DATABASE_URI: postgresql://compliance:compliance@127.0.0.1:5432/kb_browser?sslmode=disable
+      REDIS_URL: redis://127.0.0.1:6379/0
+      PYTHONPATH: ${{ github.workspace }}/src:${{ github.workspace }}:${{ github.workspace
+        }}/tests
+      M0_LOCAL_UAT: '1'
+      M2B_LOCAL_UAT: '1'
+      M2D_LOCAL_UAT: '1'
+      PHASE1KB_LOCAL_UAT: '1'
+      M2E_LOCAL_UAT: '1'
+      INTEGRATION_SECRET_STORE_ROOT: /tmp/m2e-northbound-secrets
+      M2E_UAT_KEY_FILE: /tmp/m2e-northbound-key
+      M2B_FILE_POLICY: /tmp/m2e-file-policy.json
+      M2B_BINARY_ROOT: /tmp/m2e-objects
+      M2A_UAT_MANIFEST: /tmp/m2e-personas.json
+      M1_UAT_MANIFEST: /tmp/m2e-personas.json
+      M2D_UAT_MANIFEST: /tmp/m2e-personas.json
+      VITE_M0_DEMO: 'true'
+      VITE_SESSION_PATH: /m0-demo/session
+      EXPECTED_PR_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+      STAGE1_LOCAL_UAT: '1'
+      STAGE1_UAT_MANIFEST: /tmp/stage1-personas.json
+      EVIDENCE_DIR: artifacts/stage1-r3
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        ref: ${{ github.event.pull_request.head.sha || github.sha }}
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+        cache: npm
+        cache-dependency-path: frontend/package-lock.json
+    - run: python -m pip install -e '.[dev]'
+    - name: Executed source identity
+      run: 'test "$(git rev-parse HEAD)" = "$EXPECTED_PR_HEAD"
+
+        git rev-parse HEAD'
+    - name: Real database, genuine documents and four separately governed knowledge
+        universes
+      run: "npm ci --prefix frontend --no-audit --no-fund\nalembic upgrade head\n\
+        python frontend/scripts/stage1/uat.py --manifest /tmp/stage1-personas.json\
+        \ --private-root /tmp/stage1-private > /tmp/stage1-host.log 2>&1 &\nnpm run\
+        \ dev --prefix frontend > /tmp/stage1-vite.log 2>&1 &\ncd frontend\nnpx playwright\
+        \ install --with-deps chromium\nfor attempt in $(seq 1 60); do\n  if curl\
+        \ --fail --silent http://127.0.0.1:5173 > /dev/null && curl --fail --silent\
+        \ http://127.0.0.1:8010/health/live > /dev/null; then exit 0; fi\n  sleep\
+        \ 1\ndone\nexit 1"
+    - name: Twelve fresh business projects, four outcomes × three locales, zero retries
+      run: 'npm run test:e2e --prefix frontend -- stage1-business.spec.ts
+
+        python scripts/stage1_business_closure.py browser --input frontend/test-results/results.json
+        --directory artifacts/stage1-r3'
+    - uses: actions/upload-artifact@v4
+      if: success()
+      with:
+        name: stage1-business-browser-${{ github.run_id }}
+        path: artifacts/stage1-r3/stage1_business_browser_measured.json
+        if-no-files-found: error
+  verified-business-aggregation:
+    needs:
+    - business-contracts
+    - business-browser
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      EXPECTED_PR_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        ref: ${{ github.event.pull_request.head.sha || github.sha }}
+    - uses: actions/download-artifact@v4
+      with:
+        pattern: stage1-business-*-${{ github.run_id }}
+        path: artifacts/stage1-r3
+        merge-multiple: true
+    - run: python scripts/stage1_business_closure.py aggregate --directory artifacts/stage1-r3
+    - uses: actions/upload-artifact@v4
+      with:
+        name: stage1-business-closure-${{ github.run_id }}
+        path: artifacts/stage1-r3/stage1_business_aggregate_measured.json
+        if-no-files-found: error

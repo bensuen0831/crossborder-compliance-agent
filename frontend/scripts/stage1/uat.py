@@ -25,6 +25,7 @@ from crossborder_compliance.interfaces.api.routes.workflow import router as work
 from crossborder_compliance.interfaces.api.routes.reviews import router as review_router
 from crossborder_compliance.interfaces.api.routes.external import router as external_router
 from crossborder_compliance.interfaces.api.routes.integrations import admin_router
+from crossborder_compliance.interfaces.api.routes.country_compliance import router as applicability_router
 
 
 def main():
@@ -42,18 +43,18 @@ def main():
                    for outcome in ('DIRECT','CONDITIONAL','LOCALIZATION','REVIEW')}
         people={}
         for outcome,f in universes.items():
-            common=dict(tenant_id=f['tenant'],tenant_label='Synthetic Stage1 tenant',contexts=[],intake=f['facts'],models=f['model_ids'],expected=f['expected'])
+            common=dict(tenant_id=f['tenant'],tenant_label='Synthetic Stage1 tenant',contexts=[],intake=f['facts'],models=f['model_ids'],deployments=f['deployment_ids'],expected=f['expected'])
             people[outcome]=dict(common,actor_id=f['user'].permission.actor_id,display_name='Business user',permissions=sorted(f['user'].permission.scopes))
             scopes=sorted(_ctx(UUID(f['tenant'])).permission.scopes)
             for role in ('ADMIN','REVIEWER'):
                 people[outcome+'_'+role]=dict(common,actor_id='fixture-'+role.lower(),display_name='Independent configuration '+role,permissions=scopes)
-            people[outcome]['project_policy_payload']=dict(scope_type='PROJECT',default_mode='INTERNAL_MODEL_ONLY',allowed_operations=['structured_output'],allowed_model_ids=f['model_ids'],allowed_trust_levels=['APPROVED'],allowed_data_boundaries=['TENANT'])
+            people[outcome]['project_policy_payload']=dict(scope_type='PROJECT',default_mode='INTERNAL_MODEL_ONLY',allowed_operations=['structured_output'],allowed_model_ids=f['model_ids'],allowed_provider_ids=f['provider_ids'],allowed_trust_levels=['APPROVED'],allowed_data_boundaries=['TENANT'])
         people['A']=people['DIRECT']
         args.manifest.parent.mkdir(parents=True,exist_ok=True)
         args.manifest.write_text(json.dumps(people,indent=2)+'\n')
         app=create_demo_app(args.manifest)
         # Only canonical application routes; no fixture business-result endpoint.
-        for router in (admin_router,intake_router,document_router,workflow_router,review_router,external_router):
+        for router in (admin_router,intake_router,document_router,workflow_router,review_router,external_router,applicability_router):
             previous=len(app.router.routes);app.include_router(router)
             if router is admin_router:app.router.routes=app.router.routes[previous:]+app.router.routes[:previous]
         first=universes['DIRECT']
