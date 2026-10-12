@@ -107,6 +107,15 @@ def business_environment(tmp_path, outcome, *, provider_port=0, candidate_values
     with f['sf']() as s:
         count=s.scalar(select(m.MetadataDefinitionEntity).where(m.MetadataDefinitionEntity.tenant_id==f['tenant'],m.MetadataDefinitionEntity.kind=='BUSINESS_FACT_TYPE',m.MetadataDefinitionEntity.code=='COUNT'))
         count_id=count.definition_id
+    # Bootstrap identities stay stable. Actual acceptance inputs use newly
+    # reviewed/published metadata versions, not seeded ACTIVE configuration.
+    for identity in (f['scenario'],f['a'],count_id):
+        with f['sf']() as session:
+            definition=session.get(m.MetadataDefinitionEntity,identity)
+            payload=copy.deepcopy(session.get(m.MetadataVersionEntity,definition.active_version_id).payload_json)
+        version=metadata.create_version(definition_id=UUID(identity),payload={**payload,'fixture_kind':'SYNTHETIC_GOVERNED_TEST_DATA'})
+        published=publish_metadata(metadata,version,True)
+        assert published['lifecycle_status']=='ACTIVE' and published['version_no']>=2
     extraction_type=count_id
     if outcome=='DIRECT':
         purpose=metadata.create_definition(kind='BUSINESS_FACT_TYPE',code='PROCESSING_PURPOSE',display_name='Document-derived processing purpose')

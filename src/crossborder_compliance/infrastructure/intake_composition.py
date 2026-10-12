@@ -77,6 +77,23 @@ def owned_result_read_context(sessions, context, entity, primary_key, result_id,
     return project_context(sessions, context, project_id)
 
 
+def classification_read_context(sessions, context, result_id):
+    return owned_result_read_context(
+        sessions, context, b.ClassificationResultEntity,
+        b.ClassificationResultEntity.classification_result_id, result_id, "classify",
+    )
+
+
+def applicability_read_context(sessions, context, result_id):
+    from crossborder_compliance.infrastructure.persistence.applicability_models import (
+        RegulationApplicabilityResultEntity,
+    )
+    return owned_result_read_context(
+        sessions, context, RegulationApplicabilityResultEntity,
+        RegulationApplicabilityResultEntity.applicability_result_id, result_id, "comply",
+    )
+
+
 def prepare_snapshot(
     sessions,
     context,
