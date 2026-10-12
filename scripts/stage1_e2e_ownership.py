@@ -15,6 +15,8 @@ BASE = "4c79243bbfa22108f1005c8e92265e2137012d4d"
 FORMAL_BASE = "df3a10923734495d728981f4f319b66afadf8c71"
 RECORD = "evidence/stage1-full-e2e/r2/approved_owner_overlay.json"
 PATHS = frozenset((
+    'tests/test_m2c_architecture.py',
+    'tests/test_m2d_architecture.py',
     'scripts/m1_phase1lb_ownership.py',
     'scripts/phase1kb_ownership.py',
     'ARCHITECTURE_RULES.md',
