@@ -218,4 +218,14 @@ def preserved_v1_contracts(root, expected):
         return False
     for line in additions:
         current = current.replace(line, b"")
+    if (Path(root) / "evidence/stage1-full-e2e/r2/approved_owner_overlay.json").exists():
+        # The authenticated R2 successor permits only this typed intake extension;
+        # removing its exact bounded additions must restore every original byte.
+        import re
+        current, count = re.subn(rb"class StructuredDataFlowInput\(BaseModel\):\n.*?(?=class ProjectIntakeContext)", b"", current, flags=re.S)
+        if count != 1:
+            return False
+        current, count = re.subn(rb"    data_flows: list\[StructuredDataFlowInput\] = Field\(default_factory=list, max_length=32\)\n.*?(?=\nclass ChannelContext)", b"", current, flags=re.S)
+        if count != 1:
+            return False
     return current == expected
