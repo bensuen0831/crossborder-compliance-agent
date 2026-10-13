@@ -1,0 +1,52 @@
+{
+  "acceptance_level": "L1_SYNTHETIC_GOVERNED_TECHNICAL_BUSINESS_E2E",
+  "alembic_head": "0020_stage1_formal_decision_engine_compatibility",
+  "candidate_governance": {
+    "baseline": "df3a10923734495d728981f4f319b66afadf8c71",
+    "exact0018_upgrade": true,
+    "fresh": true,
+    "frozen_migrations_unchanged": true,
+    "head": "0019_stage1_candidate_governance",
+    "historical_snapshot_unchanged": true,
+    "legacy_audit_unchanged": true,
+    "parent": "0018_phase1h_multijurisdiction_classification_identity",
+    "retained_authority_downgrade_refused": true,
+    "safe_downgrade": true,
+    "safe_reupgrade": true,
+    "schema_equivalence": true
+  },
+  "decision": "PASS",
+  "engine_compatibility": {
+    "current_row_digests": {
+      "CANDIDATE_PATH": "1f4eac2b8a915582e7d968d17b2bb09e4b9a3156e71188d02b5f6e8d295e5f9d",
+      "FINAL_PATH": "2fd4ee725e88f773803f875d2fcb7b3664a82d86537af45de9d2f3f319e55e4a",
+      "OBLIGATION": "fcf806e5c250d343c397b6a0d3dde9b1eaca430753f448ee331329f23b130c39",
+      "RECOMMENDATION": "51762c64425b5331d8c7120323ff24afa418b5a8e392f35e5e263b441126d7b0",
+      "RISK": "7c03f435dfd3c4dfcf72a11b77386d892a22275743aa1e13d88e2873d62f447c"
+    },
+    "current_rows_downgrade_refused": true,
+    "empty_and_legacy_safe_downgrade": true,
+    "exact0019_upgrade": true,
+    "fresh": true,
+    "knowledge_fixture_kind": "SYNTHETIC_GOVERNED_TEST_DATA",
+    "legacy_row_digests": {
+      "CANDIDATE_PATH": "488e7652e67314255f4c71e63270ffe65001cf48eb3b3afff2c5a28f6be9878c",
+      "FINAL_PATH": "01b5deb23f9eb6ed19cf24a000f48f9e5ed01a681e84bfc1f9335a0fe1ee8483",
+      "OBLIGATION": "5e6a60a6f0c9c61e021470d53f1d79e5d32292f48426d446c2366e418b094576",
+      "RECOMMENDATION": "d99ea280df5c0b019f4b4e9bf43c3c86f2a666776d85db378585b20026efd96a",
+      "RISK": "2d77414dc0bbd7199b59c841f7a51c8a410538956ca1ffde476f5c9c21efd831"
+    },
+    "legacy_rows_preserved": true,
+    "migration_head": "0020_stage1_formal_decision_engine_compatibility",
+    "no_data_rewritten": true,
+    "parent": "0019_stage1_candidate_governance",
+    "reupgrade": true,
+    "schema_equivalence": true
+  },
+  "frozen_0001_0019": "BYTE IDENTICAL",
+  "measured": true,
+  "new_migration": false,
+  "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "stage2_started": false,
+  "tested_main_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d"
+}
