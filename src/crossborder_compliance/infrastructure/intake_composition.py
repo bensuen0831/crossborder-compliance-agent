@@ -74,7 +74,12 @@ def owned_result_read_context(sessions, context, entity, primary_key, result_id,
         project_id = UUID(row.project_id)
     if context.permission.system or f"project:{project_id}:{grant}" in context.permission.scopes:
         return context
-    return project_context(sessions, context, project_id)
+    try:
+        return project_context(sessions, context, project_id)
+    except PermissionError as exc:
+        # Preserve the result-read contract: unauthorized project existence is
+        # hidden. Stage/action permissions are still checked by the reader.
+        raise LookupError("formal result not found") from exc
 
 
 def classification_read_context(sessions, context, result_id):

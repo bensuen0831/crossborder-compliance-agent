@@ -115,8 +115,16 @@ for (const outcome of ['DIRECT','CONDITIONAL','LOCALIZATION','REVIEW']) {
         await expect(page.getByText(m['ui.m2d.history'],{exact:true})).toBeVisible();
         for(const action of task.allowed_actions)await expect(page.getByRole('button',{name:m[`ui.m2d.codes.${action}` as keyof typeof m],exact:true})).toBeVisible();
       }
-      await page.goto(`/results/${run}`);await page.reload();await expect(page.getByTestId('stage1-snapshot-id')).toHaveText(result.analysis_snapshot_id,{timeout:60000});
-      const reread=await page.request.get(`/api/v1/workflows/${run}/stage1-result`,{timeout:60000});expect(reread.status()).toBe(200);
+      if(outcome==='REVIEW'){
+        await page.goto(`/results/${run}`);
+        await expect(page.getByTestId('stage1-snapshot-id')).toHaveText(result.analysis_snapshot_id,{timeout:60000});
+      }
+      // Observe the real reload request instead of starting another expensive
+      // full historical revalidation concurrently with the workspace reader.
+      const reloading=page.waitForResponse(r=>r.url().endsWith(`/workflows/${run}/stage1-result`)&&r.request().method()==='GET',{timeout:60000});
+      await page.reload();
+      const reread=await reloading;expect(reread.status()).toBe(200);
+      await expect(page.getByTestId('stage1-snapshot-id')).toHaveText(result.analysis_snapshot_id,{timeout:60000});
       expect(await reread.json()).toEqual(result);
       expect(await page.locator('body').innerText()).not.toMatch(/ui\.(?:stage1|candidates|m2c|m2d)\./);
       expect(errors).toEqual([]);

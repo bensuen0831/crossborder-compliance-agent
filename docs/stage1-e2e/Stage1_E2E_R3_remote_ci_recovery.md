@@ -41,3 +41,24 @@ Commit `180ec61bae0546305a69f25a5988e91980c35327`: 10/10 workflows SUCCESS, 15/1
 ## Additive SDK execution environment
 
 The R3 full Python suite now runs a real TypeScript SDK HTTP journey. Four complete backend jobs install Node 24 and only the TypeScript compiler version already locked in frontend/package-lock.json. This avoids rebuilding the whole frontend to provide a compiler. It changes no tests, assertions, browser retries or product dependencies. Dedicated acceptance jobs separately measure business coverage and retained candidate/history/security cases; full regression remains mandatory in the existing workflows.
+
+## R3 exact-head regression diagnosis (a01f19b5)
+
+The four full-backend jobs completed with 1011 PASS and the same one retained
+Phase1H failure: unauthorized classification result reads returned 403 instead
+of the established resource-concealing 404. This is a functional HTTP contract
+regression, not a timeout. The owning project-read adapter now translates only
+project authorization refusal to not-found; the canonical stage reader continues
+to enforce its own action permissions. No test expectation was changed.
+
+Dedicated business-contracts succeeded. The browser job passed the three review
+cases but nine completed-result cases exhausted the 180-second per-test budget
+at the final result reread, after workflow/result/UI assertions had progressed.
+Local identical-source journeys all passed (12/12, 18.2 minutes, retries zero).
+The test previously navigated again to an already open result workspace, reloaded
+immediately, and issued an additional full-result read while the workspace's
+historical revalidation was running. Recovery observes the actual reload HTTP
+response and compares the same complete result JSON, eliminating those duplicate
+reads while retaining reload, UI, provenance, locale and console assertions.
+The test/job budgets and retries remain unchanged. New exact-head evidence is
+required; failed runs are retained and cannot be reported as closure PASS.

@@ -189,5 +189,80 @@
   "ci_log_sha256": {
     "runtime": "c176dda7bbf04e05e73a1156450122fc4e2d0129f3924674e6525082d15c6baa",
     "kb": "669d9115df71497945a9ab3d4b5fffdbdbd5c39b15aa9381b48692956983045e"
+  },
+  "r3_a01_regression": {
+    "source_sha": "a01f19b5f194c2f42ec12bd635d799fc4136e78e",
+    "backend_failures": [
+      {
+        "run_id": 38294035728,
+        "job_id": 114960704835,
+        "job": "mandatory-runtime-smoke",
+        "started": "2026-10-12T18:54:16Z",
+        "completed": "2026-10-12T20:02:04Z",
+        "failed_steps": [
+          "Run mandatory PostgreSQL-backed LangGraph gate"
+        ],
+        "test_failures": [
+          "FAILED tests/test_phase1h_api.py::test_reference_only_request_execution_and_result_read - AssertionError: assert 403 == 404",
+          "1 failed, 1011 passed, 20 warnings in 3943.39s (1:05:43)"
+        ]
+      },
+      {
+        "run_id": 38294035667,
+        "job_id": 114960704551,
+        "job": "mandatory-backend",
+        "started": "2026-10-12T18:54:16Z",
+        "completed": "2026-10-12T20:04:44Z",
+        "failed_steps": [
+          "Full mandatory PostgreSQL runtime, registry, real HTTP providers, security and migration"
+        ],
+        "test_failures": [
+          "FAILED tests/test_phase1h_api.py::test_reference_only_request_execution_and_result_read - AssertionError: assert 403 == 404",
+          "1 failed, 1011 passed, 20 warnings in 4136.38s (1:08:56)"
+        ]
+      },
+      {
+        "run_id": 38294035684,
+        "job_id": 114960704377,
+        "job": "mandatory-backend",
+        "started": "2026-10-12T18:54:16Z",
+        "completed": "2026-10-12T19:55:37Z",
+        "failed_steps": [
+          "Full mandatory PostgreSQL runtime, registry, real HTTP providers, security and migration"
+        ],
+        "test_failures": [
+          "FAILED tests/test_phase1h_api.py::test_reference_only_request_execution_and_result_read - AssertionError: assert 403 == 404",
+          "1 failed, 1011 passed, 20 warnings in 3584.95s (0:59:44)"
+        ]
+      },
+      {
+        "run_id": 38294035548,
+        "job_id": 114960704698,
+        "job": "mandatory-backend",
+        "started": "2026-10-12T18:54:16Z",
+        "completed": "2026-10-12T19:35:02Z",
+        "failed_steps": [
+          "Full mandatory PostgreSQL runtime, registry, real HTTP providers, security and migration"
+        ],
+        "test_failures": [
+          "FAILED tests/test_phase1h_api.py::test_reference_only_request_execution_and_result_read - AssertionError: assert 403 == 404",
+          "1 failed, 1011 passed, 20 warnings in 2370.02s (0:39:30)"
+        ]
+      }
+    ],
+    "browser": {
+      "run_id": 38294035889,
+      "job_id": 114960705338,
+      "passed": 3,
+      "failed": 9,
+      "retries": 0,
+      "per_test_budget_seconds": 180,
+      "failing_operation": "final full-result reread after reload",
+      "local_same_source_passed": 12,
+      "local_elapsed_minutes": 18.2,
+      "recovery": "observe actual workspace reload HTTP response; remove duplicate full reads, retain complete JSON comparison",
+      "timeout_changed": false
+    },
+    "decision": "BLOCKED_PENDING_NEW_EXACT_HEAD"
   }
 }
