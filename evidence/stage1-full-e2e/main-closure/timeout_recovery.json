@@ -1,0 +1,425 @@
+{
+  "actual_runner_checkout_count": 18,
+  "blocked_evidence_preserved": true,
+  "browser_retries": 0,
+  "ci_fix_required": false,
+  "ci_only_pr": null,
+  "clean_backend_job_duration_seconds": 2960,
+  "clean_pytest_duration_seconds": 2799.99,
+  "clean_rerun_attempt": 1,
+  "clean_rerun_measured_artifacts": [
+    {
+      "artifact_id": 11805382769,
+      "artifact_name": "m2e-backend-38380317555",
+      "filename": "backend_measured.json",
+      "run_id": 38380317555,
+      "sha256": "140024d350ccf13794c7de20fcbf7c4141421cd2745f72917135aa1a99e599d7"
+    },
+    {
+      "artifact_id": 11805382769,
+      "artifact_name": "m2e-backend-38380317555",
+      "filename": "migration_validation.json",
+      "run_id": 38380317555,
+      "sha256": "4aafc217b1b9fbd6fa68b29141b438ca7f4a42a2f0d5e11fb6d35859a5bed76c"
+    },
+    {
+      "artifact_id": 11805382769,
+      "artifact_name": "m2e-backend-38380317555",
+      "filename": "pytest_full_summary.json",
+      "run_id": 38380317555,
+      "sha256": "767cc8d5c724b616ce210d60e7258aa97806151149e26ddc74d76c4b99a808b1"
+    },
+    {
+      "artifact_id": 11805382769,
+      "artifact_name": "m2e-backend-38380317555",
+      "filename": "security_validation.json",
+      "run_id": 38380317555,
+      "sha256": "84ec6f558e4ef6b8af7d2d5345a7b6f5e30a1cce3e65cba3d1eb5c5e3cfcea3b"
+    },
+    {
+      "artifact_id": 11805382769,
+      "artifact_name": "m2e-backend-38380317555",
+      "filename": "runtime_verify.json",
+      "run_id": 38380317555,
+      "sha256": "377d561f27b7046ea5926b98df6e15e0d151b8f4a057aff1b7e706d9547a9ccd"
+    },
+    {
+      "artifact_id": 11803453069,
+      "artifact_name": "m2e-frontend-38380317555",
+      "filename": "frontend_measured.json",
+      "run_id": 38380317555,
+      "sha256": "f082a10caf669f9585ab5434ee6d97a340a0be6b23391100dbdcdbd73ffd8bdf"
+    }
+  ],
+  "clean_rerun_run_id": 38380317555,
+  "decision": "PASS",
+  "final_main_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "final_workflow_count": 11,
+  "main_code_change": "NONE",
+  "new_m2e_complete_result": {
+    "clean_retry_limit": 1,
+    "conclusion": "success",
+    "decision": "PASS",
+    "event": "workflow_dispatch",
+    "head_branch": "main",
+    "jobs": [
+      {
+        "annotations": [
+          {
+            "level": "warning",
+            "message": "Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+          },
+          {
+            "level": "notice",
+            "message": "  36 passed (1.6m)"
+          },
+          {
+            "level": "notice",
+            "message": "  24 passed (9.9m)"
+          },
+          {
+            "level": "notice",
+            "message": "\"The ubuntu-latest label will migrate to Ubuntu 26 beginning October 19, 2026. For more information, see https://github.com/actions/runner-images/issues/14748\""
+          }
+        ],
+        "checkout_method": "executed git log -1 --format=%H in actual job checkout log",
+        "completed_at": "2026-10-13T10:14:55Z",
+        "conclusion": "success",
+        "job": "canonical-frontend-browser",
+        "job_id": 115238843868,
+        "log_sha256": "b1a550cb5452fc69419db413969aafbadb46ad6225d9f1ac02eb6e47ac30bba6",
+        "pytest_summaries": [],
+        "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+        "started_at": "2026-10-13T10:00:09Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completed_at": "2026-10-13T10:00:11Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "started_at": "2026-10-13T10:00:10Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:00:34Z",
+            "conclusion": "success",
+            "name": "Initialize containers",
+            "started_at": "2026-10-13T10:00:11Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:00:37Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "started_at": "2026-10-13T10:00:34Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:00:37Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@v5",
+            "started_at": "2026-10-13T10:00:37Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:00:38Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v4",
+            "started_at": "2026-10-13T10:00:37Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:00:56Z",
+            "conclusion": "success",
+            "name": "Run python -m pip install -e '.[dev]'",
+            "started_at": "2026-10-13T10:00:38Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:02:41Z",
+            "conclusion": "success",
+            "name": "Canonical generated contracts, full frontend regression and quality",
+            "started_at": "2026-10-13T10:00:56Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:03:11Z",
+            "conclusion": "success",
+            "name": "Real PostgreSQL and protocol-realistic multi-provider fixtures",
+            "started_at": "2026-10-13T10:02:41Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:13:05Z",
+            "conclusion": "success",
+            "name": "Admin/user three-locale smoke and M2-D/C/B/A/M1 regressions, zero retries",
+            "started_at": "2026-10-13T10:03:11Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:14:51Z",
+            "conclusion": "success",
+            "name": "Original M0 insufficient-evidence fixture and 36-test matrix, zero retries",
+            "started_at": "2026-10-13T10:13:05Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:14:51Z",
+            "conclusion": "success",
+            "name": "Exact-head frontend/browser measurement, no credentials archived",
+            "started_at": "2026-10-13T10:14:51Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:14:52Z",
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@v4",
+            "started_at": "2026-10-13T10:14:51Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:14:52Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@v4",
+            "started_at": "2026-10-13T10:14:52Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:14:52Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@v5",
+            "started_at": "2026-10-13T10:14:52Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:14:52Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "started_at": "2026-10-13T10:14:52Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:14:52Z",
+            "conclusion": "success",
+            "name": "Stop containers",
+            "started_at": "2026-10-13T10:14:52Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:14:52Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "started_at": "2026-10-13T10:14:52Z",
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "annotations": [
+          {
+            "level": "warning",
+            "message": "Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+          },
+          {
+            "level": "notice",
+            "message": "\"The ubuntu-latest label will migrate to Ubuntu 26 beginning October 19, 2026. For more information, see https://github.com/actions/runner-images/issues/14748\""
+          }
+        ],
+        "checkout_method": "executed git log -1 --format=%H in actual job checkout log",
+        "completed_at": "2026-10-13T10:49:30Z",
+        "conclusion": "success",
+        "job": "mandatory-backend",
+        "job_id": 115238844229,
+        "log_sha256": "62e77a4522dc470874e1558cbd9054bb8b48c51d5f607063b8cb3ae7218e291a",
+        "pytest_summaries": [
+          "1012 passed, 20 warnings in 2799.99s (0:46:39)"
+        ],
+        "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+        "started_at": "2026-10-13T10:00:10Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completed_at": "2026-10-13T10:00:12Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "started_at": "2026-10-13T10:00:10Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:00:30Z",
+            "conclusion": "success",
+            "name": "Initialize containers",
+            "started_at": "2026-10-13T10:00:12Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:00:32Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "started_at": "2026-10-13T10:00:30Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:00:33Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@v5",
+            "started_at": "2026-10-13T10:00:32Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:00:55Z",
+            "conclusion": "success",
+            "name": "Run python -m pip install -e '.[dev]'",
+            "started_at": "2026-10-13T10:00:33Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:00:56Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v4",
+            "started_at": "2026-10-13T10:00:55Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:00:57Z",
+            "conclusion": "success",
+            "name": "Locked compiler for mandatory real TypeScript SDK business acceptance",
+            "started_at": "2026-10-13T10:00:56Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:49:18Z",
+            "conclusion": "success",
+            "name": "Full mandatory PostgreSQL runtime, registry, real HTTP providers, security and migration",
+            "started_at": "2026-10-13T10:00:57Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:49:25Z",
+            "conclusion": "success",
+            "name": "All additive architecture authorities and exact-head backend measurement",
+            "started_at": "2026-10-13T10:49:18Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:49:26Z",
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@v4",
+            "started_at": "2026-10-13T10:49:25Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:49:26Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@v4",
+            "started_at": "2026-10-13T10:49:26Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:49:27Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@v5",
+            "started_at": "2026-10-13T10:49:26Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:49:27Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "started_at": "2026-10-13T10:49:27Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:49:27Z",
+            "conclusion": "success",
+            "name": "Stop containers",
+            "started_at": "2026-10-13T10:49:27Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T10:49:27Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "started_at": "2026-10-13T10:49:27Z",
+            "status": "completed"
+          }
+        ]
+      }
+    ],
+    "recovery_path": "A",
+    "run_attempt": 1,
+    "run_id": 38380317555,
+    "source_changes": false,
+    "source_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+    "status": "completed",
+    "timeout_changed": false,
+    "workflow": "M2E External Agent API Gateway"
+  },
+  "original_blocked_evidence_branch": "evidence/stage1-main-closure-060cbb5-blocked",
+  "original_blocked_evidence_commit": "e2d7c5f82930e6161b0bc2596d5e5d7b6ff2f3b9",
+  "original_main_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "original_timeout_diagnosis": {
+    "annotation": [
+      "The job has exceeded the maximum execution time of 1h15m0s",
+      "The operation was canceled."
+    ],
+    "architecture_root_check_observed_elapsed_seconds": 4.162,
+    "architecture_rule_check_observed_start_utc": "2026-10-13T07:54:15.521590Z",
+    "bounded_lock_contention_negative_test": {
+      "contract": "20ms bound raises retryable delivery failure; release then succeeds",
+      "duration_seconds": 1.513,
+      "passed": true,
+      "test_id": "tests.test_phase1l_b_postgres::test_delivery_contention_is_not_a_node_retry_and_releases_on_error"
+    },
+    "classification": "CI_WALL_CLOCK_BUDGET_EXHAUSTION_AFTER_FULL_PYTEST",
+    "conclusion": "cancelled",
+    "confirmed_timeout": true,
+    "database_contention_or_resource_starvation": "NOT ESTABLISHED",
+    "deadlock_detected_occurrences": 0,
+    "extra_m2e_closure_executed": false,
+    "full_pytest_passed": 1012,
+    "job_id": 115165231861,
+    "last_headings": [
+      "2026-10-13T06:41:04.9788719Z === Full test suite; runtime tests are INCLUDED and may not skip ===",
+      "2026-10-13T07:54:04.7365682Z =============================== warnings summary ===============================",
+      "2026-10-13T07:54:15.5215900Z === Architecture rule check ===",
+      "2026-10-13T07:54:19.6832554Z === Additive M2-A boundaries ==="
+    ],
+    "lock_timeout_did_not_prevent_pytest_completion": true,
+    "lock_timeout_interpretation": "consistent with tested bounded delivery contention; no evidence of blocked suite completion or deadlock",
+    "lock_timeout_is_not_proof_of_deadlock": true,
+    "lock_timeout_log_occurrences": 1,
+    "lock_timeout_printed_during_container_cleanup_utc": "2026-10-13T07:55:15.0702174Z",
+    "lock_timeout_service_event_time_utc": "2026-10-13T07:18:53.711Z",
+    "m2a_boundary_completion": "NOT OBSERVED",
+    "m2a_boundary_observed_start_utc": "2026-10-13T07:54:19.683255Z",
+    "m2a_boundary_observed_until_cancellation_seconds": 54.317,
+    "m2a_boundary_reached": true,
+    "m2b_boundary_completion": "NOT EXECUTED",
+    "m2b_boundary_reached": false,
+    "m2e_architecture_and_closure": "SKIPPED AFTER CANCELLATION",
+    "original_full_junit_passed": 1012,
+    "original_full_junit_sha256": "ad5365a8ab9bacd43c587fb2fe4c0e25dec90c4ce834e17a98675dd1d9efcc97",
+    "post_pytest_remaining_budget_seconds": 53.261,
+    "post_test_root_architecture_reached": true,
+    "product_assertion_failure_observed": false,
+    "pytest_duration_seconds": 4367.74,
+    "raw_log_sha256": "1fe0a3452c7c2045da113496fe3232957edf5df19db31e05726b4bbbab294633",
+    "run_id": 38357981677,
+    "source_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d"
+  },
+  "original_timeout_job_id": 115165231861,
+  "original_timeout_run_id": 38357981677,
+  "other_ten_workflows_rerun": false,
+  "paid_internet_llm": "NOT EXECUTED",
+  "production_business_uat": "NOT EXECUTED",
+  "real_regulatory_knowledge": "NOT EXECUTED",
+  "recovery_path": "A",
+  "source_test_fixture_changes": false,
+  "stage2_started": false,
+  "strategy": "ONE SAME-SHA CLEAN M2E EXECUTION",
+  "tag": "v3.7-stage1-e2e-pass",
+  "tag_dereference": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "timeout_changed": false,
+  "timeout_minutes": 75
+}

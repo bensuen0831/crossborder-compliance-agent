@@ -1,0 +1,2746 @@
+{
+  "acceptance_level": "L1_SYNTHETIC_GOVERNED_TECHNICAL_BUSINESS_E2E",
+  "clean_run_id": 38380317555,
+  "decision": "PASS",
+  "final_live_revalidation": {
+    "actual_checkout_match": 18,
+    "checked_at_utc": "2026-10-13T10:50:31.272429+00:00",
+    "decision": "PASS",
+    "mandatory_jobs_success": 18,
+    "source_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+    "success": 11,
+    "workflows": [
+      {
+        "actual_checkout_identity": "MATCH",
+        "mandatory_jobs": 3,
+        "run_id": 38358002892,
+        "workflow": "Stage1 Full Business E2E Acceptance"
+      },
+      {
+        "actual_checkout_identity": "MATCH",
+        "mandatory_jobs": 2,
+        "run_id": 38357996775,
+        "workflow": "Stage1 R1 Candidate Governance Recovery"
+      },
+      {
+        "actual_checkout_identity": "MATCH",
+        "mandatory_jobs": 2,
+        "run_id": 38357990932,
+        "workflow": "Phase1KB Multi-provider LLM Governance"
+      },
+      {
+        "actual_checkout_identity": "MATCH",
+        "mandatory_jobs": 2,
+        "run_id": 38357986507,
+        "workflow": "phase1a-runtime-smoke"
+      },
+      {
+        "actual_checkout_identity": "MATCH",
+        "mandatory_jobs": 1,
+        "run_id": 38357976869,
+        "workflow": "M2D Governed Human Review"
+      },
+      {
+        "actual_checkout_identity": "MATCH",
+        "mandatory_jobs": 1,
+        "run_id": 38357971959,
+        "workflow": "M2C Formal Result Workspace"
+      },
+      {
+        "actual_checkout_identity": "MATCH",
+        "mandatory_jobs": 1,
+        "run_id": 38357967430,
+        "workflow": "M2B Production Document Integration"
+      },
+      {
+        "actual_checkout_identity": "MATCH",
+        "mandatory_jobs": 1,
+        "run_id": 38357961602,
+        "workflow": "M2A Production Intake"
+      },
+      {
+        "actual_checkout_identity": "MATCH",
+        "mandatory_jobs": 1,
+        "run_id": 38357956862,
+        "workflow": "M1 Intake Analysis Alpha"
+      },
+      {
+        "actual_checkout_identity": "MATCH",
+        "mandatory_jobs": 2,
+        "run_id": 38357952092,
+        "workflow": "M0 Knowledge & Evidence Preview"
+      },
+      {
+        "actual_checkout_identity": "MATCH",
+        "mandatory_jobs": 2,
+        "run_id": 38380317555,
+        "workflow": "M2E External Agent API Gateway"
+      }
+    ]
+  },
+  "measured": true,
+  "measured_artifacts": [
+    {
+      "artifact_id": 11794717989,
+      "artifact_name": "stage1-business-closure-38358002892",
+      "filename": "stage1_business_aggregate_measured.json",
+      "run_id": 38358002892,
+      "sha256": "ac4f3ed65d312aae7d7ca933f0a9f5f7d33145cbf35ef2e39069764e0bce7ae2"
+    },
+    {
+      "artifact_id": 11794682994,
+      "artifact_name": "stage1-business-backend-38358002892",
+      "filename": "stage1_business_backend_measured.json",
+      "run_id": 38358002892,
+      "sha256": "1bd920c861c1a2046081352745743655220db29c81fbe8459671cafb8a8545a1"
+    },
+    {
+      "artifact_id": 11794641709,
+      "artifact_name": "stage1-business-browser-38358002892",
+      "filename": "stage1_business_browser_measured.json",
+      "run_id": 38358002892,
+      "sha256": "e52f406bd0dc848c1836b43512446fd304657fde8c6758219a3cff36567042b4"
+    },
+    {
+      "artifact_id": 11796183065,
+      "artifact_name": "r11-backend-38357996775",
+      "filename": "backend_measured.json",
+      "run_id": 38357996775,
+      "sha256": "140024d350ccf13794c7de20fcbf7c4141421cd2745f72917135aa1a99e599d7"
+    },
+    {
+      "artifact_id": 11796183065,
+      "artifact_name": "r11-backend-38357996775",
+      "filename": "candidate_backend_measured.json",
+      "run_id": 38357996775,
+      "sha256": "84e7e007b73288db63d9b2780a25c96060b6740c8ce762f9948545754b31c3a2"
+    },
+    {
+      "artifact_id": 11796183065,
+      "artifact_name": "r11-backend-38357996775",
+      "filename": "pytest_full_summary.json",
+      "run_id": 38357996775,
+      "sha256": "767cc8d5c724b616ce210d60e7258aa97806151149e26ddc74d76c4b99a808b1"
+    },
+    {
+      "artifact_id": 11796183065,
+      "artifact_name": "r11-backend-38357996775",
+      "filename": "runtime_verify.json",
+      "run_id": 38357996775,
+      "sha256": "d4fd2f912c156bb1228aec4c817e06f8ad0f294eb445223a3c52eefbb86ef49a"
+    },
+    {
+      "artifact_id": 11793959570,
+      "artifact_name": "r11-frontend-38357996775",
+      "filename": "frontend_measured.json",
+      "run_id": 38357996775,
+      "sha256": "f082a10caf669f9585ab5434ee6d97a340a0be6b23391100dbdcdbd73ffd8bdf"
+    },
+    {
+      "artifact_id": 11793959570,
+      "artifact_name": "r11-frontend-38357996775",
+      "filename": "candidate_frontend_measured.json",
+      "run_id": 38357996775,
+      "sha256": "9ce4343eb272cfd2de624f75984be5997db57ee4b2babac5afba8e71b5a5b6ad"
+    },
+    {
+      "artifact_id": 11805382769,
+      "artifact_name": "m2e-backend-38380317555",
+      "filename": "backend_measured.json",
+      "run_id": 38380317555,
+      "sha256": "140024d350ccf13794c7de20fcbf7c4141421cd2745f72917135aa1a99e599d7"
+    },
+    {
+      "artifact_id": 11805382769,
+      "artifact_name": "m2e-backend-38380317555",
+      "filename": "migration_validation.json",
+      "run_id": 38380317555,
+      "sha256": "4aafc217b1b9fbd6fa68b29141b438ca7f4a42a2f0d5e11fb6d35859a5bed76c"
+    },
+    {
+      "artifact_id": 11805382769,
+      "artifact_name": "m2e-backend-38380317555",
+      "filename": "pytest_full_summary.json",
+      "run_id": 38380317555,
+      "sha256": "767cc8d5c724b616ce210d60e7258aa97806151149e26ddc74d76c4b99a808b1"
+    },
+    {
+      "artifact_id": 11805382769,
+      "artifact_name": "m2e-backend-38380317555",
+      "filename": "security_validation.json",
+      "run_id": 38380317555,
+      "sha256": "84ec6f558e4ef6b8af7d2d5345a7b6f5e30a1cce3e65cba3d1eb5c5e3cfcea3b"
+    },
+    {
+      "artifact_id": 11805382769,
+      "artifact_name": "m2e-backend-38380317555",
+      "filename": "runtime_verify.json",
+      "run_id": 38380317555,
+      "sha256": "377d561f27b7046ea5926b98df6e15e0d151b8f4a057aff1b7e706d9547a9ccd"
+    },
+    {
+      "artifact_id": 11803453069,
+      "artifact_name": "m2e-frontend-38380317555",
+      "filename": "frontend_measured.json",
+      "run_id": 38380317555,
+      "sha256": "f082a10caf669f9585ab5434ee6d97a340a0be6b23391100dbdcdbd73ffd8bdf"
+    }
+  ],
+  "original_cancelled_run_id": 38357981677,
+  "recovery_path": "A",
+  "retained_ten_rerun": false,
+  "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "runs": [
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "main",
+      "head_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+      "jobs": [
+        {
+          "completed_at": "2026-10-13T07:13:47Z",
+          "conclusion": "success",
+          "coverage_role": "MANDATORY_WORKFLOW_JOB",
+          "job": "business-contracts",
+          "job_id": 115165299099,
+          "log_sha256": "0a3592f24ca064fd8f6541d46716223ff73c48b263c8d7506f0802b59cc5ea47",
+          "method": "executed git log -1 --format=%H in actual job log",
+          "pytest_summaries": [
+            "29 passed in 1685.24s (0:28:05)",
+            "61 passed, 4 warnings in 253.80s (0:04:13)"
+          ],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T06:40:10Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T06:40:12Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T06:40:11Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:29Z",
+              "conclusion": "success",
+              "name": "Initialize containers",
+              "started_at": "2026-10-13T06:40:12Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:31Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:40:29Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:31Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:40:31Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:57Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install -e '.[dev]'",
+              "started_at": "2026-10-13T06:40:31Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:58Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:40:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:58Z",
+              "conclusion": "success",
+              "name": "Executed source identity",
+              "started_at": "2026-10-13T06:40:58Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:12Z",
+              "conclusion": "success",
+              "name": "Run npm ci --prefix frontend --no-audit --no-fund",
+              "started_at": "2026-10-13T06:40:58Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:09:27Z",
+              "conclusion": "success",
+              "name": "Full synthetic business fixtures, four outcomes, parity, RAG and successors",
+              "started_at": "2026-10-13T06:41:12Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:13:44Z",
+              "conclusion": "success",
+              "name": "Retained candidate governance, historical V2 replay and security contracts",
+              "started_at": "2026-10-13T07:09:27Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:13:44Z",
+              "conclusion": "success",
+              "name": "Verify complete dedicated coverage and exact source identity",
+              "started_at": "2026-10-13T07:13:44Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:13:45Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "started_at": "2026-10-13T07:13:44Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:13:45Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "started_at": "2026-10-13T07:13:45Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:13:45Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "started_at": "2026-10-13T07:13:45Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:13:45Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T07:13:45Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:13:46Z",
+              "conclusion": "success",
+              "name": "Stop containers",
+              "started_at": "2026-10-13T07:13:45Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:13:46Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T07:13:46Z",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "completed_at": "2026-10-13T07:06:26Z",
+          "conclusion": "success",
+          "coverage_role": "MANDATORY_WORKFLOW_JOB",
+          "job": "business-browser",
+          "job_id": 115165299362,
+          "log_sha256": "00990fb1b26eeadae2f171f282d33831210a036ea84e669f82501839e0ddd591",
+          "method": "executed git log -1 --format=%H in actual job log",
+          "pytest_summaries": [],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T06:40:11Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T06:40:13Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T06:40:12Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:26Z",
+              "conclusion": "success",
+              "name": "Initialize containers",
+              "started_at": "2026-10-13T06:40:13Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:30Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:40:26Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:30Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:40:30Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:33Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:40:30Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:55Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install -e '.[dev]'",
+              "started_at": "2026-10-13T06:40:33Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:55Z",
+              "conclusion": "success",
+              "name": "Executed source identity",
+              "started_at": "2026-10-13T06:40:55Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:25Z",
+              "conclusion": "success",
+              "name": "Real database, genuine documents and four separately governed knowledge universes",
+              "started_at": "2026-10-13T06:40:55Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:06:21Z",
+              "conclusion": "success",
+              "name": "Twelve fresh business projects, four outcomes \u00d7 three locales, zero retries",
+              "started_at": "2026-10-13T06:41:25Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:06:23Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "started_at": "2026-10-13T07:06:21Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:06:23Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "started_at": "2026-10-13T07:06:23Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:06:23Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "started_at": "2026-10-13T07:06:23Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:06:23Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T07:06:23Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:06:23Z",
+              "conclusion": "success",
+              "name": "Stop containers",
+              "started_at": "2026-10-13T07:06:23Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:06:24Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T07:06:23Z",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "completed_at": "2026-10-13T07:14:01Z",
+          "conclusion": "success",
+          "coverage_role": "MANDATORY_WORKFLOW_JOB",
+          "job": "verified-business-aggregation",
+          "job_id": 115176040680,
+          "log_sha256": "95f90826c124d3952071fc504bab2a53ad6a15356bcc3d01ea54409221024fe3",
+          "method": "executed git log -1 --format=%H in actual job log",
+          "pytest_summaries": [],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T07:13:51Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T07:13:53Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T07:13:52Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:13:55Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T07:13:53Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:13:56Z",
+              "conclusion": "success",
+              "name": "Run actions/download-artifact@v4",
+              "started_at": "2026-10-13T07:13:55Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:13:57Z",
+              "conclusion": "success",
+              "name": "Run python scripts/stage1_business_closure.py aggregate --directory artifacts/stage1-r3",
+              "started_at": "2026-10-13T07:13:56Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:13:58Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "started_at": "2026-10-13T07:13:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:13:58Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T07:13:58Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:13:58Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T07:13:58Z",
+              "status": "completed"
+            }
+          ]
+        }
+      ],
+      "run_attempt": 1,
+      "run_id": 38358002892,
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38358002892",
+      "workflow": "Stage1 Full Business E2E Acceptance"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "main",
+      "head_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+      "jobs": [
+        {
+          "completed_at": "2026-10-13T07:44:18Z",
+          "conclusion": "success",
+          "coverage_role": "MANDATORY_WORKFLOW_JOB",
+          "job": "mandatory-backend",
+          "job_id": 115165310176,
+          "log_sha256": "446126cfc87dfadc5be355663656318ace23ae9b1cfb6a81f5c1db2154a28d66",
+          "method": "executed git log -1 --format=%H in actual job log",
+          "pytest_summaries": [
+            "1012 passed, 20 warnings in 3676.49s (1:01:16)"
+          ],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T06:40:13Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T06:40:15Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T06:40:14Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:33Z",
+              "conclusion": "success",
+              "name": "Initialize containers",
+              "started_at": "2026-10-13T06:40:15Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:36Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:40:33Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:36Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:40:36Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:02Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install -e '.[dev]'",
+              "started_at": "2026-10-13T06:40:36Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:03Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:41:02Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:05Z",
+              "conclusion": "success",
+              "name": "Locked compiler for mandatory real TypeScript SDK business acceptance",
+              "started_at": "2026-10-13T06:41:03Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:44:04Z",
+              "conclusion": "success",
+              "name": "Full mandatory PostgreSQL runtime, registry, real HTTP providers, security and migration",
+              "started_at": "2026-10-13T06:41:05Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:44:13Z",
+              "conclusion": "success",
+              "name": "All additive architecture authorities and exact-head backend measurement",
+              "started_at": "2026-10-13T07:44:04Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:44:14Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "started_at": "2026-10-13T07:44:13Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:44:14Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "started_at": "2026-10-13T07:44:14Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:44:14Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "started_at": "2026-10-13T07:44:14Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:44:14Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T07:44:14Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:44:15Z",
+              "conclusion": "success",
+              "name": "Stop containers",
+              "started_at": "2026-10-13T07:44:14Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:44:15Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T07:44:15Z",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "completed_at": "2026-10-13T07:08:13Z",
+          "conclusion": "success",
+          "coverage_role": "MANDATORY_WORKFLOW_JOB",
+          "job": "canonical-frontend-browser",
+          "job_id": 115165310320,
+          "log_sha256": "f93e962483a815aadfea376c856cba6bf278d9bfbcff2666097708077e104721",
+          "method": "executed git log -1 --format=%H in actual job log",
+          "pytest_summaries": [],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T06:40:12Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T06:40:14Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T06:40:13Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:28Z",
+              "conclusion": "success",
+              "name": "Initialize containers",
+              "started_at": "2026-10-13T06:40:14Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:30Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:40:28Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:30Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:40:30Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:31Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:40:30Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:56Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install -e '.[dev]'",
+              "started_at": "2026-10-13T06:40:31Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:44:12Z",
+              "conclusion": "success",
+              "name": "Canonical generated contracts, full frontend regression and quality",
+              "started_at": "2026-10-13T06:40:56Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:44:49Z",
+              "conclusion": "success",
+              "name": "Real PostgreSQL and protocol-realistic multi-provider fixtures",
+              "started_at": "2026-10-13T06:44:12Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:02:11Z",
+              "conclusion": "success",
+              "name": "Admin/user three-locale smoke and M2-D/C/B/A/M1 regressions, zero retries",
+              "started_at": "2026-10-13T06:44:49Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:05:04Z",
+              "conclusion": "success",
+              "name": "Pre-confirm real DOCX three-locale ACCEPT and REJECT/EDIT, zero retries",
+              "started_at": "2026-10-13T07:02:11Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:08:10Z",
+              "conclusion": "success",
+              "name": "Original M0 insufficient-evidence fixture and 36-test matrix, zero retries",
+              "started_at": "2026-10-13T07:05:04Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:08:10Z",
+              "conclusion": "success",
+              "name": "Exact-head frontend/browser measurement, no credentials archived",
+              "started_at": "2026-10-13T07:08:10Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:08:10Z",
+              "conclusion": "success",
+              "name": "Focused recovery frontend and browser measurement",
+              "started_at": "2026-10-13T07:08:10Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:08:11Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "started_at": "2026-10-13T07:08:10Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:08:11Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "started_at": "2026-10-13T07:08:11Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:08:11Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "started_at": "2026-10-13T07:08:11Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:08:11Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T07:08:11Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:08:11Z",
+              "conclusion": "success",
+              "name": "Stop containers",
+              "started_at": "2026-10-13T07:08:11Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:08:12Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T07:08:11Z",
+              "status": "completed"
+            }
+          ]
+        }
+      ],
+      "run_attempt": 1,
+      "run_id": 38357996775,
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38357996775",
+      "workflow": "Stage1 R1 Candidate Governance Recovery"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "main",
+      "head_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+      "jobs": [
+        {
+          "completed_at": "2026-10-13T07:03:17Z",
+          "conclusion": "success",
+          "coverage_role": "MANDATORY_WORKFLOW_JOB",
+          "job": "canonical-frontend-browser",
+          "job_id": 115165261701,
+          "log_sha256": "3ac0f5d4e16fab7d4ee5d9f7ef181c4b6b736502448069c7bf3bc3cb1a69a644",
+          "method": "executed git log -1 --format=%H in actual job log",
+          "pytest_summaries": [],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T06:40:04Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T06:40:06Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T06:40:05Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:23Z",
+              "conclusion": "success",
+              "name": "Initialize containers",
+              "started_at": "2026-10-13T06:40:06Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:25Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:40:23Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:25Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:40:25Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:27Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:40:25Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:54Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install -e '.[dev]'",
+              "started_at": "2026-10-13T06:40:27Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:43:57Z",
+              "conclusion": "success",
+              "name": "Canonical generated contracts, full frontend regression and quality",
+              "started_at": "2026-10-13T06:40:54Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:44:33Z",
+              "conclusion": "success",
+              "name": "Real PostgreSQL and protocol-realistic multi-provider fixtures",
+              "started_at": "2026-10-13T06:43:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:00:27Z",
+              "conclusion": "success",
+              "name": "Admin/user three-locale smoke and M2-D/C/B/A/M1 regressions, zero retries",
+              "started_at": "2026-10-13T06:44:33Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:03:13Z",
+              "conclusion": "success",
+              "name": "Original M0 insufficient-evidence fixture and 36-test matrix, zero retries",
+              "started_at": "2026-10-13T07:00:27Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:03:13Z",
+              "conclusion": "success",
+              "name": "Exact-head frontend/browser measurement, no credentials archived",
+              "started_at": "2026-10-13T07:03:13Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:03:14Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "started_at": "2026-10-13T07:03:13Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:03:14Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "started_at": "2026-10-13T07:03:14Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:03:15Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "started_at": "2026-10-13T07:03:14Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:03:15Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T07:03:15Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:03:15Z",
+              "conclusion": "success",
+              "name": "Stop containers",
+              "started_at": "2026-10-13T07:03:15Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:03:15Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T07:03:15Z",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "completed_at": "2026-10-13T07:48:22Z",
+          "conclusion": "success",
+          "coverage_role": "MANDATORY_WORKFLOW_JOB",
+          "job": "mandatory-backend",
+          "job_id": 115165261774,
+          "log_sha256": "d7fd6ff2ad1774d6f834b22996b02f31975fc38aad8c7f4816d584af9ee63d9b",
+          "method": "executed git log -1 --format=%H in actual job log",
+          "pytest_summaries": [
+            "1012 passed, 20 warnings in 3944.60s (1:05:44)"
+          ],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T06:40:04Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T06:40:05Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T06:40:04Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:21Z",
+              "conclusion": "success",
+              "name": "Initialize containers",
+              "started_at": "2026-10-13T06:40:05Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:23Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:40:21Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:23Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:40:23Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:44Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install -e '.[dev]'",
+              "started_at": "2026-10-13T06:40:23Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:45Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:40:44Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:47Z",
+              "conclusion": "success",
+              "name": "Locked compiler for mandatory real TypeScript SDK business acceptance",
+              "started_at": "2026-10-13T06:40:45Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:48:13Z",
+              "conclusion": "success",
+              "name": "Full mandatory PostgreSQL runtime, registry, real HTTP providers, security and migration",
+              "started_at": "2026-10-13T06:40:47Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:48:19Z",
+              "conclusion": "success",
+              "name": "All additive architecture authorities and exact-head backend measurement",
+              "started_at": "2026-10-13T07:48:13Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:48:20Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "started_at": "2026-10-13T07:48:19Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:48:20Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "started_at": "2026-10-13T07:48:20Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:48:20Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "started_at": "2026-10-13T07:48:20Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:48:20Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T07:48:20Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:48:21Z",
+              "conclusion": "success",
+              "name": "Stop containers",
+              "started_at": "2026-10-13T07:48:20Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:48:21Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T07:48:21Z",
+              "status": "completed"
+            }
+          ]
+        }
+      ],
+      "run_attempt": 1,
+      "run_id": 38357990932,
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38357990932",
+      "workflow": "Phase1KB Multi-provider LLM Governance"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "main",
+      "head_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+      "jobs": [
+        {
+          "completed_at": "2026-10-13T07:52:20Z",
+          "conclusion": "success",
+          "coverage_role": "MANDATORY_WORKFLOW_JOB",
+          "job": "mandatory-runtime-smoke",
+          "job_id": 115165250570,
+          "log_sha256": "6b9b9fffedb3170754183becab6d6da299900fc5c69860b150b200a08fd778b3",
+          "method": "executed git log -1 --format=%H in actual job log",
+          "pytest_summaries": [
+            "1012 passed, 20 warnings in 4183.12s (1:09:43)"
+          ],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T06:40:02Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T06:40:03Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T06:40:02Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:16Z",
+              "conclusion": "success",
+              "name": "Initialize containers",
+              "started_at": "2026-10-13T06:40:03Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:18Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:40:16Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:20Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:40:18Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:42Z",
+              "conclusion": "success",
+              "name": "Install project runtime and test dependencies",
+              "started_at": "2026-10-13T06:40:20Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:43Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:40:42Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:44Z",
+              "conclusion": "success",
+              "name": "Locked compiler for mandatory real TypeScript SDK business acceptance",
+              "started_at": "2026-10-13T06:40:43Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:52:16Z",
+              "conclusion": "success",
+              "name": "Run mandatory PostgreSQL-backed LangGraph gate",
+              "started_at": "2026-10-13T06:40:44Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:52:16Z",
+              "conclusion": "success",
+              "name": "Publish measured Phase 1G empirical evidence",
+              "started_at": "2026-10-13T07:52:16Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:52:17Z",
+              "conclusion": "success",
+              "name": "Upload empirical Phase 1A.1 evidence",
+              "started_at": "2026-10-13T07:52:16Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:52:17Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "started_at": "2026-10-13T07:52:17Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:52:17Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "started_at": "2026-10-13T07:52:17Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:52:17Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T07:52:17Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:52:18Z",
+              "conclusion": "success",
+              "name": "Stop containers",
+              "started_at": "2026-10-13T07:52:17Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:52:18Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T07:52:18Z",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "completed_at": "2026-10-13T06:44:28Z",
+          "conclusion": "success",
+          "coverage_role": "SUPPLEMENTARY_CONTRACT_SUBSET_NOT_FULL_BACKEND",
+          "job": "contract-tests",
+          "job_id": 115165250890,
+          "log_sha256": "061512dbcc6cb156c250bddd8d2d025a87dd03c6bf2d84c89639fee92efba3c7",
+          "method": "executed git log -1 --format=%H in actual job log",
+          "pytest_summaries": [
+            "535 passed, 7 skipped, 470 deselected, 2 warnings in 232.82s (0:03:52)"
+          ],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T06:40:02Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T06:40:03Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T06:40:02Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:05Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:40:03Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:07Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:40:05Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:08Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install --upgrade pip",
+              "started_at": "2026-10-13T06:40:07Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:26Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install -e \".[dev]\"",
+              "started_at": "2026-10-13T06:40:08Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:44:23Z",
+              "conclusion": "success",
+              "name": "Contract/static test subset",
+              "started_at": "2026-10-13T06:40:26Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:44:26Z",
+              "conclusion": "success",
+              "name": "Architecture rules",
+              "started_at": "2026-10-13T06:44:23Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:44:26Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:44:26Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:44:26Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:44:26Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:44:26Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T06:44:26Z",
+              "status": "completed"
+            }
+          ]
+        }
+      ],
+      "run_attempt": 1,
+      "run_id": 38357986507,
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38357986507",
+      "workflow": "phase1a-runtime-smoke"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "main",
+      "head_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+      "jobs": [
+        {
+          "completed_at": "2026-10-13T07:01:52Z",
+          "conclusion": "success",
+          "coverage_role": "MANDATORY_WORKFLOW_JOB",
+          "job": "frontend-real-backend-uat",
+          "job_id": 115165215356,
+          "log_sha256": "8a535d1d79e02afa4fdac230cc16a54166f4d9c27d581fe9c3f59f5accddb478",
+          "method": "executed git log -1 --format=%H in actual job log",
+          "pytest_summaries": [
+            "36 passed, 3 warnings in 230.31s (0:03:50)"
+          ],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T06:39:55Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T06:39:57Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T06:39:56Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:14Z",
+              "conclusion": "success",
+              "name": "Initialize containers",
+              "started_at": "2026-10-13T06:39:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:16Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:40:14Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:17Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:40:16Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:20Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:40:17Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:44Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install -e '.[dev]'",
+              "started_at": "2026-10-13T06:40:20Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:44Z",
+              "conclusion": "success",
+              "name": "Run python frontend/scripts/m1/boundary_check.py",
+              "started_at": "2026-10-13T06:40:44Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:06Z",
+              "conclusion": "success",
+              "name": "Run python scripts/m1_phase1lb_ownership.py",
+              "started_at": "2026-10-13T06:40:44Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:06Z",
+              "conclusion": "success",
+              "name": "Run python scripts/m2c_architecture_check.py",
+              "started_at": "2026-10-13T06:41:06Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:06Z",
+              "conclusion": "success",
+              "name": "Run python scripts/m2c_projection_architecture.py",
+              "started_at": "2026-10-13T06:41:06Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:09Z",
+              "conclusion": "success",
+              "name": "Run python scripts/m2d_architecture_check.py",
+              "started_at": "2026-10-13T06:41:06Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:43:49Z",
+              "conclusion": "success",
+              "name": "Reproduce canonical frontend and M1 model contracts",
+              "started_at": "2026-10-13T06:41:09Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:47:59Z",
+              "conclusion": "success",
+              "name": "Existing schema and canonical isolated formal workflow fixtures",
+              "started_at": "2026-10-13T06:43:49Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:48:02Z",
+              "conclusion": "success",
+              "name": "Loopback trusted session and canonical workflow bridge and formal read APIs",
+              "started_at": "2026-10-13T06:47:59Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:48:23Z",
+              "conclusion": "success",
+              "name": "Canonical frontend and Chromium",
+              "started_at": "2026-10-13T06:48:02Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:01:47Z",
+              "conclusion": "success",
+              "name": "Three-locale real-backend UAT, zero retries",
+              "started_at": "2026-10-13T06:48:23Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:01:48Z",
+              "conclusion": "success",
+              "name": "Exact-head measured result",
+              "started_at": "2026-10-13T07:01:47Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:01:49Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "started_at": "2026-10-13T07:01:48Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:01:49Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "started_at": "2026-10-13T07:01:49Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:01:50Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "started_at": "2026-10-13T07:01:49Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:01:50Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T07:01:50Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:01:50Z",
+              "conclusion": "success",
+              "name": "Stop containers",
+              "started_at": "2026-10-13T07:01:50Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T07:01:50Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T07:01:50Z",
+              "status": "completed"
+            }
+          ]
+        }
+      ],
+      "run_attempt": 1,
+      "run_id": 38357976869,
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38357976869",
+      "workflow": "M2D Governed Human Review"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "main",
+      "head_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+      "jobs": [
+        {
+          "completed_at": "2026-10-13T06:51:02Z",
+          "conclusion": "success",
+          "coverage_role": "MANDATORY_WORKFLOW_JOB",
+          "job": "frontend-real-backend-uat",
+          "job_id": 115165200355,
+          "log_sha256": "2af0f827ac46e77bff8054723269d28b3d66bdeb7de95633a09f6c53ed2de671",
+          "method": "executed git log -1 --format=%H in actual job log",
+          "pytest_summaries": [],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T06:39:52Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T06:39:54Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T06:39:53Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:10Z",
+              "conclusion": "success",
+              "name": "Initialize containers",
+              "started_at": "2026-10-13T06:39:54Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:13Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:40:10Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:13Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:40:13Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:15Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:40:13Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:35Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install -e '.[dev]'",
+              "started_at": "2026-10-13T06:40:15Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:35Z",
+              "conclusion": "success",
+              "name": "Run python frontend/scripts/m1/boundary_check.py",
+              "started_at": "2026-10-13T06:40:35Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:57Z",
+              "conclusion": "success",
+              "name": "Run python scripts/m1_phase1lb_ownership.py",
+              "started_at": "2026-10-13T06:40:35Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:57Z",
+              "conclusion": "success",
+              "name": "Run python scripts/m2c_architecture_check.py",
+              "started_at": "2026-10-13T06:40:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:57Z",
+              "conclusion": "success",
+              "name": "Run python scripts/m2c_projection_architecture.py",
+              "started_at": "2026-10-13T06:40:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:43:11Z",
+              "conclusion": "success",
+              "name": "Reproduce canonical frontend and M1 model contracts",
+              "started_at": "2026-10-13T06:40:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:43:22Z",
+              "conclusion": "success",
+              "name": "Existing schema and canonical isolated formal workflow fixtures",
+              "started_at": "2026-10-13T06:43:11Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:43:25Z",
+              "conclusion": "success",
+              "name": "Loopback trusted session and canonical workflow bridge and formal read APIs",
+              "started_at": "2026-10-13T06:43:22Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:43:47Z",
+              "conclusion": "success",
+              "name": "Canonical frontend and Chromium",
+              "started_at": "2026-10-13T06:43:25Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:50:57Z",
+              "conclusion": "success",
+              "name": "Three-locale real-backend UAT, zero retries",
+              "started_at": "2026-10-13T06:43:47Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:50:57Z",
+              "conclusion": "success",
+              "name": "Exact-head measured result",
+              "started_at": "2026-10-13T06:50:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:50:59Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "started_at": "2026-10-13T06:50:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:50:59Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:50:59Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:50:59Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:50:59Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:50:59Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:50:59Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:51:00Z",
+              "conclusion": "success",
+              "name": "Stop containers",
+              "started_at": "2026-10-13T06:50:59Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:51:00Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T06:51:00Z",
+              "status": "completed"
+            }
+          ]
+        }
+      ],
+      "run_attempt": 1,
+      "run_id": 38357971959,
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38357971959",
+      "workflow": "M2C Formal Result Workspace"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "main",
+      "head_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+      "jobs": [
+        {
+          "completed_at": "2026-10-13T06:46:09Z",
+          "conclusion": "success",
+          "coverage_role": "MANDATORY_WORKFLOW_JOB",
+          "job": "frontend-real-backend-uat",
+          "job_id": 115165186807,
+          "log_sha256": "65d4c8569a0b1078cf0442c4c3680d63e9b5a42aa8b9bf1bb810665a65fd8d22",
+          "method": "executed git log -1 --format=%H in actual job log",
+          "pytest_summaries": [],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T06:39:49Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T06:39:50Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T06:39:49Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:05Z",
+              "conclusion": "success",
+              "name": "Initialize containers",
+              "started_at": "2026-10-13T06:39:50Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:07Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:40:05Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:07Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:40:07Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:09Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:40:07Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:27Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install -e '.[dev]'",
+              "started_at": "2026-10-13T06:40:09Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:27Z",
+              "conclusion": "success",
+              "name": "Run python frontend/scripts/m1/boundary_check.py",
+              "started_at": "2026-10-13T06:40:27Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:46Z",
+              "conclusion": "success",
+              "name": "Run python scripts/m1_phase1lb_ownership.py",
+              "started_at": "2026-10-13T06:40:27Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:42:24Z",
+              "conclusion": "success",
+              "name": "Reproduce canonical frontend and M1 model contracts",
+              "started_at": "2026-10-13T06:40:46Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:42:33Z",
+              "conclusion": "success",
+              "name": "Existing schema and canonical isolated formal workflow fixtures",
+              "started_at": "2026-10-13T06:42:24Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:42:35Z",
+              "conclusion": "success",
+              "name": "Loopback trusted session and canonical workflow bridge and formal read APIs",
+              "started_at": "2026-10-13T06:42:33Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:42:55Z",
+              "conclusion": "success",
+              "name": "Canonical frontend and Chromium",
+              "started_at": "2026-10-13T06:42:35Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:46:04Z",
+              "conclusion": "success",
+              "name": "Three-locale real-backend UAT, zero retries",
+              "started_at": "2026-10-13T06:42:55Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:46:04Z",
+              "conclusion": "success",
+              "name": "Exact-head measured result",
+              "started_at": "2026-10-13T06:46:04Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:46:06Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "started_at": "2026-10-13T06:46:04Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:46:06Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:46:06Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:46:06Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:46:06Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:46:06Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:46:06Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:46:07Z",
+              "conclusion": "success",
+              "name": "Stop containers",
+              "started_at": "2026-10-13T06:46:06Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:46:07Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T06:46:07Z",
+              "status": "completed"
+            }
+          ]
+        }
+      ],
+      "run_attempt": 1,
+      "run_id": 38357967430,
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38357967430",
+      "workflow": "M2B Production Document Integration"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "main",
+      "head_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+      "jobs": [
+        {
+          "completed_at": "2026-10-13T06:45:48Z",
+          "conclusion": "success",
+          "coverage_role": "MANDATORY_WORKFLOW_JOB",
+          "job": "frontend-real-backend-uat",
+          "job_id": 115165167501,
+          "log_sha256": "4484bffea4031d857c3aba4881c0e5fe4cc99fb2412d613c58d16cc1d41a6f20",
+          "method": "executed git log -1 --format=%H in actual job log",
+          "pytest_summaries": [],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T06:39:46Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T06:39:48Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T06:39:47Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:06Z",
+              "conclusion": "success",
+              "name": "Initialize containers",
+              "started_at": "2026-10-13T06:39:48Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:10Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:40:06Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:10Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:40:10Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:14Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:40:10Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:41Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install -e '.[dev]'",
+              "started_at": "2026-10-13T06:40:14Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:41Z",
+              "conclusion": "success",
+              "name": "Run python frontend/scripts/m1/boundary_check.py",
+              "started_at": "2026-10-13T06:40:41Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:03Z",
+              "conclusion": "success",
+              "name": "Run python scripts/m1_phase1lb_ownership.py",
+              "started_at": "2026-10-13T06:40:41Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:43:18Z",
+              "conclusion": "success",
+              "name": "Reproduce canonical frontend and M1 model contracts",
+              "started_at": "2026-10-13T06:41:03Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:43:35Z",
+              "conclusion": "success",
+              "name": "Existing schema and canonical isolated formal workflow fixtures",
+              "started_at": "2026-10-13T06:43:18Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:43:38Z",
+              "conclusion": "success",
+              "name": "Loopback trusted session and canonical workflow bridge and formal read APIs",
+              "started_at": "2026-10-13T06:43:35Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:44:07Z",
+              "conclusion": "success",
+              "name": "Canonical frontend and Chromium",
+              "started_at": "2026-10-13T06:43:38Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:45:42Z",
+              "conclusion": "success",
+              "name": "Three-locale real-backend UAT, zero retries",
+              "started_at": "2026-10-13T06:44:07Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:45:43Z",
+              "conclusion": "success",
+              "name": "Exact-head measured result",
+              "started_at": "2026-10-13T06:45:42Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:45:44Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "started_at": "2026-10-13T06:45:43Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:45:44Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:45:44Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:45:44Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:45:44Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:45:45Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:45:44Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:45:45Z",
+              "conclusion": "success",
+              "name": "Stop containers",
+              "started_at": "2026-10-13T06:45:45Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:45:45Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T06:45:45Z",
+              "status": "completed"
+            }
+          ]
+        }
+      ],
+      "run_attempt": 1,
+      "run_id": 38357961602,
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38357961602",
+      "workflow": "M2A Production Intake"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "main",
+      "head_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+      "jobs": [
+        {
+          "completed_at": "2026-10-13T06:46:38Z",
+          "conclusion": "success",
+          "coverage_role": "MANDATORY_WORKFLOW_JOB",
+          "job": "frontend-real-backend-uat",
+          "job_id": 115165152252,
+          "log_sha256": "b908efa0588c71d4b2ad36f604c28e72cfa44a47d9c5deb026d09af539df7be7",
+          "method": "executed git log -1 --format=%H in actual job log",
+          "pytest_summaries": [],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T06:39:42Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T06:39:43Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T06:39:43Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:00Z",
+              "conclusion": "success",
+              "name": "Initialize containers",
+              "started_at": "2026-10-13T06:39:43Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:02Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:40:00Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:02Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:40:02Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:03Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:40:02Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:27Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install -e '.[dev]'",
+              "started_at": "2026-10-13T06:40:03Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:27Z",
+              "conclusion": "success",
+              "name": "Run python frontend/scripts/m1/boundary_check.py",
+              "started_at": "2026-10-13T06:40:27Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:52Z",
+              "conclusion": "success",
+              "name": "Run python scripts/m1_phase1lb_ownership.py",
+              "started_at": "2026-10-13T06:40:27Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:43:48Z",
+              "conclusion": "success",
+              "name": "Reproduce canonical frontend and M1 model contracts",
+              "started_at": "2026-10-13T06:40:52Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:44:00Z",
+              "conclusion": "success",
+              "name": "Existing schema and canonical isolated formal workflow fixtures",
+              "started_at": "2026-10-13T06:43:48Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:44:04Z",
+              "conclusion": "success",
+              "name": "Loopback trusted session and canonical workflow bridge and formal read APIs",
+              "started_at": "2026-10-13T06:44:00Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:44:26Z",
+              "conclusion": "success",
+              "name": "Canonical frontend and Chromium",
+              "started_at": "2026-10-13T06:44:04Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:46:34Z",
+              "conclusion": "success",
+              "name": "Three-locale real-backend UAT, zero retries",
+              "started_at": "2026-10-13T06:44:26Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:46:35Z",
+              "conclusion": "success",
+              "name": "Exact-head measured result",
+              "started_at": "2026-10-13T06:46:34Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:46:36Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "started_at": "2026-10-13T06:46:35Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:46:36Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:46:36Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:46:36Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:46:36Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:46:36Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:46:36Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:46:37Z",
+              "conclusion": "success",
+              "name": "Stop containers",
+              "started_at": "2026-10-13T06:46:36Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:46:37Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T06:46:37Z",
+              "status": "completed"
+            }
+          ]
+        }
+      ],
+      "run_attempt": 1,
+      "run_id": 38357956862,
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38357956862",
+      "workflow": "M1 Intake Analysis Alpha"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "main",
+      "head_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+      "jobs": [
+        {
+          "completed_at": "2026-10-13T06:43:26Z",
+          "conclusion": "success",
+          "coverage_role": "MANDATORY_WORKFLOW_JOB",
+          "job": "real-backend-uat",
+          "job_id": 115165137411,
+          "log_sha256": "c4ba4a78253ee625247d5974bb0ac1395b57ee4c13f6f2fedf60ebbc5c5a8e35",
+          "method": "executed git log -1 --format=%H in actual job log",
+          "pytest_summaries": [
+            "8 passed in 5.29s"
+          ],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T06:39:39Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T06:39:41Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T06:39:40Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:39:57Z",
+              "conclusion": "success",
+              "name": "Initialize containers",
+              "started_at": "2026-10-13T06:39:41Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:39:59Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:39:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:03Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:39:59Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:05Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:40:03Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:19Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install -e '.[dev]'",
+              "started_at": "2026-10-13T06:40:05Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:58Z",
+              "conclusion": "success",
+              "name": "Integration ancestry, source preservation, single host and LLM policy",
+              "started_at": "2026-10-13T06:40:19Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:05Z",
+              "conclusion": "success",
+              "name": "Check reproducible frozen API generation",
+              "started_at": "2026-10-13T06:40:58Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:07Z",
+              "conclusion": "success",
+              "name": "Run alembic upgrade head",
+              "started_at": "2026-10-13T06:41:05Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:15Z",
+              "conclusion": "success",
+              "name": "Run pytest -q tests/test_m0_preview_security.py",
+              "started_at": "2026-10-13T06:41:07Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:18Z",
+              "conclusion": "success",
+              "name": "Seed synthetic UAT through existing Phase 1F/G services",
+              "started_at": "2026-10-13T06:41:15Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:20Z",
+              "conclusion": "success",
+              "name": "Start unchanged backend routers behind loopback UAT adapter",
+              "started_at": "2026-10-13T06:41:18Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:41Z",
+              "conclusion": "success",
+              "name": "Fresh frontend and Chromium",
+              "started_at": "2026-10-13T06:41:20Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:43:21Z",
+              "conclusion": "success",
+              "name": "Real browser UAT without retries, three independent executions per scenario",
+              "started_at": "2026-10-13T06:41:41Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:43:22Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "started_at": "2026-10-13T06:43:21Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:43:22Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:43:22Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:43:22Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "started_at": "2026-10-13T06:43:22Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:43:23Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:43:22Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:43:23Z",
+              "conclusion": "success",
+              "name": "Stop containers",
+              "started_at": "2026-10-13T06:43:23Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:43:23Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T06:43:23Z",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "completed_at": "2026-10-13T06:41:23Z",
+          "conclusion": "success",
+          "coverage_role": "MANDATORY_WORKFLOW_JOB",
+          "job": "frontend",
+          "job_id": 115165137739,
+          "log_sha256": "57f79751cf2195f9c1c5e55281f03e4c91e6c500580aa19b8a5d2ebe0d54dbc3",
+          "method": "executed git log -1 --format=%H in actual job log",
+          "pytest_summaries": [],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T06:39:39Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T06:39:41Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T06:39:40Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:39:46Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:39:41Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:39:48Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:39:46Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:39:54Z",
+              "conclusion": "success",
+              "name": "Run npm ci --no-audit --no-fund",
+              "started_at": "2026-10-13T06:39:48Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:39:59Z",
+              "conclusion": "success",
+              "name": "Run npm run typecheck",
+              "started_at": "2026-10-13T06:39:54Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:40:05Z",
+              "conclusion": "success",
+              "name": "Run npm run lint",
+              "started_at": "2026-10-13T06:39:59Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:08Z",
+              "conclusion": "success",
+              "name": "Run npm test",
+              "started_at": "2026-10-13T06:40:05Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:20Z",
+              "conclusion": "success",
+              "name": "Run npm run build",
+              "started_at": "2026-10-13T06:41:08Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:20Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "started_at": "2026-10-13T06:41:20Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:21Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T06:41:20Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T06:41:21Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T06:41:21Z",
+              "status": "completed"
+            }
+          ]
+        }
+      ],
+      "run_attempt": 1,
+      "run_id": 38357952092,
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38357952092",
+      "workflow": "M0 Knowledge & Evidence Preview"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "main",
+      "head_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+      "jobs": [
+        {
+          "annotations": [
+            {
+              "level": "warning",
+              "message": "Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+            },
+            {
+              "level": "notice",
+              "message": "  36 passed (1.6m)"
+            },
+            {
+              "level": "notice",
+              "message": "  24 passed (9.9m)"
+            },
+            {
+              "level": "notice",
+              "message": "\"The ubuntu-latest label will migrate to Ubuntu 26 beginning October 19, 2026. For more information, see https://github.com/actions/runner-images/issues/14748\""
+            }
+          ],
+          "checkout_method": "executed git log -1 --format=%H in actual job checkout log",
+          "completed_at": "2026-10-13T10:14:55Z",
+          "conclusion": "success",
+          "coverage_role": "MANDATORY_WORKFLOW_JOB",
+          "job": "canonical-frontend-browser",
+          "job_id": 115238843868,
+          "log_sha256": "b1a550cb5452fc69419db413969aafbadb46ad6225d9f1ac02eb6e47ac30bba6",
+          "pytest_summaries": [],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T10:00:09Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T10:00:11Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T10:00:10Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:00:34Z",
+              "conclusion": "success",
+              "name": "Initialize containers",
+              "started_at": "2026-10-13T10:00:11Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:00:37Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T10:00:34Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:00:37Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "started_at": "2026-10-13T10:00:37Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:00:38Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "started_at": "2026-10-13T10:00:37Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:00:56Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install -e '.[dev]'",
+              "started_at": "2026-10-13T10:00:38Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:02:41Z",
+              "conclusion": "success",
+              "name": "Canonical generated contracts, full frontend regression and quality",
+              "started_at": "2026-10-13T10:00:56Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:03:11Z",
+              "conclusion": "success",
+              "name": "Real PostgreSQL and protocol-realistic multi-provider fixtures",
+              "started_at": "2026-10-13T10:02:41Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:13:05Z",
+              "conclusion": "success",
+              "name": "Admin/user three-locale smoke and M2-D/C/B/A/M1 regressions, zero retries",
+              "started_at": "2026-10-13T10:03:11Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:14:51Z",
+              "conclusion": "success",
+              "name": "Original M0 insufficient-evidence fixture and 36-test matrix, zero retries",
+              "started_at": "2026-10-13T10:13:05Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:14:51Z",
+              "conclusion": "success",
+              "name": "Exact-head frontend/browser measurement, no credentials archived",
+              "started_at": "2026-10-13T10:14:51Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:14:52Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "started_at": "2026-10-13T10:14:51Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:14:52Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "started_at": "2026-10-13T10:14:52Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:14:52Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "started_at": "2026-10-13T10:14:52Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:14:52Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T10:14:52Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:14:52Z",
+              "conclusion": "success",
+              "name": "Stop containers",
+              "started_at": "2026-10-13T10:14:52Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:14:52Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T10:14:52Z",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "annotations": [
+            {
+              "level": "warning",
+              "message": "Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+            },
+            {
+              "level": "notice",
+              "message": "\"The ubuntu-latest label will migrate to Ubuntu 26 beginning October 19, 2026. For more information, see https://github.com/actions/runner-images/issues/14748\""
+            }
+          ],
+          "checkout_method": "executed git log -1 --format=%H in actual job checkout log",
+          "completed_at": "2026-10-13T10:49:30Z",
+          "conclusion": "success",
+          "coverage_role": "MANDATORY_WORKFLOW_JOB",
+          "job": "mandatory-backend",
+          "job_id": 115238844229,
+          "log_sha256": "62e77a4522dc470874e1558cbd9054bb8b48c51d5f607063b8cb3ae7218e291a",
+          "pytest_summaries": [
+            "1012 passed, 20 warnings in 2799.99s (0:46:39)"
+          ],
+          "runner_checkout_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+          "started_at": "2026-10-13T10:00:10Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completed_at": "2026-10-13T10:00:12Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "started_at": "2026-10-13T10:00:10Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:00:30Z",
+              "conclusion": "success",
+              "name": "Initialize containers",
+              "started_at": "2026-10-13T10:00:12Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:00:32Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "started_at": "2026-10-13T10:00:30Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:00:33Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "started_at": "2026-10-13T10:00:32Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:00:55Z",
+              "conclusion": "success",
+              "name": "Run python -m pip install -e '.[dev]'",
+              "started_at": "2026-10-13T10:00:33Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:00:56Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@v4",
+              "started_at": "2026-10-13T10:00:55Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:00:57Z",
+              "conclusion": "success",
+              "name": "Locked compiler for mandatory real TypeScript SDK business acceptance",
+              "started_at": "2026-10-13T10:00:56Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:49:18Z",
+              "conclusion": "success",
+              "name": "Full mandatory PostgreSQL runtime, registry, real HTTP providers, security and migration",
+              "started_at": "2026-10-13T10:00:57Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:49:25Z",
+              "conclusion": "success",
+              "name": "All additive architecture authorities and exact-head backend measurement",
+              "started_at": "2026-10-13T10:49:18Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:49:26Z",
+              "conclusion": "success",
+              "name": "Run actions/upload-artifact@v4",
+              "started_at": "2026-10-13T10:49:25Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:49:26Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@v4",
+              "started_at": "2026-10-13T10:49:26Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:49:27Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "started_at": "2026-10-13T10:49:26Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:49:27Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "started_at": "2026-10-13T10:49:27Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:49:27Z",
+              "conclusion": "success",
+              "name": "Stop containers",
+              "started_at": "2026-10-13T10:49:27Z",
+              "status": "completed"
+            },
+            {
+              "completed_at": "2026-10-13T10:49:27Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "started_at": "2026-10-13T10:49:27Z",
+              "status": "completed"
+            }
+          ]
+        }
+      ],
+      "run_attempt": 1,
+      "run_id": 38380317555,
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38380317555",
+      "workflow": "M2E External Agent API Gateway"
+    }
+  ],
+  "selected_clean_m2e_run_id": 38380317555,
+  "selection_method": "revalidated original ten same-main SUCCESS workflows plus new complete M2E SUCCESS workflow; no PR head borrowed",
+  "source_changes": false,
+  "source_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "stage2_started": false,
+  "tested_main_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "verified_jobs": 18
+}

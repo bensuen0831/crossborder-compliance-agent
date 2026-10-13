@@ -1,0 +1,228 @@
+{
+  "passed": 142,
+  "tested_main_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "tests": [
+    {
+      "cases": [
+        "frozen API contracts validates a real PostgreSQL-backed retrieval, scope, readiness, evidence and sufficiency",
+        "frozen API contracts fails closed on a malformed session integration response",
+        "frozen API contracts rejects malformed status and fabricated legal evidence at the API boundary",
+        "frozen API contracts posts only typed retrieval fields and uses same-origin cookie authentication",
+        "frozen API contracts preserves safe trace IDs and does not serialize sensitive validation bodies",
+        "frozen API contracts hides raw error strings and unsafe trace IDs on the shared Admin/M0 transport",
+        "frozen API contracts preserves authorization/scoped absence HTTP 401",
+        "frozen API contracts preserves authorization/scoped absence HTTP 403",
+        "frozen API contracts preserves authorization/scoped absence HTTP 404"
+      ],
+      "test_file": "client.test.ts"
+    },
+    {
+      "cases": [
+        "critical presentation behavior renders textual sufficiency status SUFFICIENT",
+        "critical presentation behavior renders textual sufficiency status PARTIALLY_SUFFICIENT",
+        "critical presentation behavior renders textual sufficiency status INSUFFICIENT",
+        "critical presentation behavior renders textual sufficiency status CONFLICTED",
+        "critical presentation behavior renders backend reason codes, missing topics and typed fallback without legal decisions",
+        "critical presentation behavior opens an accessible source drawer with canonical citation, original text and version pins",
+        "critical presentation behavior renders permission-denied status 401 without retry or raw body",
+        "critical presentation behavior renders permission-denied status 403 without retry or raw body",
+        "critical presentation behavior renders loading, empty, error and trace ID states",
+        "critical presentation behavior marks unfinished features as unavailable without fake workflow progress",
+        "critical presentation behavior does not request Admin readiness for an ordinary reader",
+        "critical presentation behavior renders only credential-free HTTPS source links"
+      ],
+      "test_file": "critical.test.tsx"
+    },
+    {
+      "cases": [
+        "zh-CN covers M0 Knowledge, official Evidence, Sufficiency, Runtime and Admin",
+        "zh-CN formats presentation dates/numbers without translating backend metadata or codes",
+        "zh-CN keeps lifecycle/action request codes and optimistic revision language-neutral",
+        "zh-HK covers M0 Knowledge, official Evidence, Sufficiency, Runtime and Admin",
+        "zh-HK formats presentation dates/numbers without translating backend metadata or codes",
+        "zh-HK keeps lifecycle/action request codes and optimistic revision language-neutral",
+        "en-US covers M0 Knowledge, official Evidence, Sufficiency, Runtime and Admin",
+        "en-US formats presentation dates/numbers without translating backend metadata or codes",
+        "en-US keeps lifecycle/action request codes and optimistic revision language-neutral",
+        "reports missing keys and never exposes a raw translation key"
+      ],
+      "test_file": "multilingual.test.tsx"
+    },
+    {
+      "cases": [
+        "build policy rejects multilingual regressions rejects a raw React UI string",
+        "build policy rejects multilingual regressions rejects hard-coded copy inside a React conditional expression",
+        "build policy rejects multilingual regressions rejects a nonexistent key",
+        "build policy rejects multilingual regressions rejects a missing locale entry",
+        "build policy rejects multilingual regressions rejects inconsistent interpolation arguments",
+        "build policy rejects multilingual regressions rejects localization entering a domain-code comparison"
+      ],
+      "test_file": "i18n-policy.test.ts"
+    },
+    {
+      "cases": [
+        "preserves the selected analysis context during background trusted-session refresh"
+      ],
+      "test_file": "session-presentation.test.tsx"
+    },
+    {
+      "cases": [
+        "typed API transport uses optimistic record revision, same-origin credentials and no client identity headers",
+        "typed API transport propagates 401 and hides raw server content",
+        "typed API transport propagates 403 and hides raw server content",
+        "typed API transport propagates 409 and hides raw server content",
+        "typed API transport propagates 422 and hides raw server content",
+        "typed API transport rejects incomplete lifecycle projections",
+        "typed API transport preserves canonical jurisdiction IDs and does not invent missing model version numbers",
+        "lifecycle and contextual grants renders DRAFT from history",
+        "lifecycle and contextual grants renders PENDING_REVIEW from history",
+        "lifecycle and contextual grants renders APPROVED from history",
+        "lifecycle and contextual grants renders ACTIVE from history",
+        "lifecycle and contextual grants renders SUPERSEDED from history",
+        "lifecycle and contextual grants renders EXPIRED from history",
+        "lifecycle and contextual grants renders ARCHIVED from history",
+        "lifecycle and contextual grants requires both effective resource grants and backend scope",
+        "lifecycle and contextual grants hides privileged publish controls from a project user with view access",
+        "lifecycle and contextual grants creates, edits, reviews, approves and publishes using fresh revisions",
+        "lifecycle and contextual grants retains edit text on conflict and disables payload-less external drafts",
+        "lifecycle and contextual grants uses metadata values supplied by the backend for scope controls",
+        "lifecycle and contextual grants disables editing of payload-less versions and compares only available projections",
+        "lifecycle and contextual grants clears selected data when tenant context changes",
+        "lifecycle and contextual grants requires a host login and consumes the Phase 1H Rule inspection contract",
+        "publication evidence renders READY and absent check values honestly",
+        "publication evidence shows a failed materialization without offering invented recovery operations",
+        "Phase 1H Rule integration uses the existing detail and persisted validation endpoints without classification writes"
+      ],
+      "test_file": "admin.test.tsx"
+    },
+    {
+      "cases": [
+        "pre-formal candidate consent does not fetch a nonexistent preview and loads actual prepared candidates",
+        "pre-formal candidate consent requires explicit action despite confidence1 in zh-CN",
+        "pre-formal candidate consent requires explicit action despite confidence1 in zh-HK",
+        "pre-formal candidate consent requires explicit action despite confidence1 in en-US",
+        "pre-formal candidate consent submits REJECT with exact universe, original stays intact",
+        "pre-formal candidate consent submits EDIT with exact universe, original stays intact",
+        "pre-formal candidate consent draft edits invalidate preparation actions"
+      ],
+      "test_file": "candidates.test.tsx"
+    },
+    {
+      "cases": [
+        "M1 presentation and intake four-step structured intake in zh-CN confirms facts without backend writes",
+        "M1 presentation and intake four-step structured intake in zh-HK confirms facts without backend writes",
+        "M1 presentation and intake four-step structured intake in en-US confirms facts without backend writes",
+        "M1 presentation and intake renders canonical APPLICABLE without inferring it",
+        "M1 presentation and intake renders canonical NOT_APPLICABLE without inferring it",
+        "M1 presentation and intake renders canonical CONDITIONALLY_APPLICABLE without inferring it",
+        "M1 presentation and intake renders canonical INSUFFICIENT_EVIDENCE without inferring it",
+        "M1 presentation and intake renders canonical CONFLICTED without inferring it",
+        "M1 presentation and intake renders canonical REVIEW_REQUIRED without inferring it",
+        "M1 presentation and intake incomplete intake cannot confirm facts",
+        "M1 presentation and intake rejects canonical results for a different snapshot before presentation",
+        "M1 presentation and intake rejects evidence-pack/classification mismatches",
+        "M1 presentation and intake remounts intake presentation on a trusted snapshot context change"
+      ],
+      "test_file": "m1.test.tsx"
+    },
+    {
+      "cases": [
+        "M2A existing H5 persistence new session creates and restores a server draft in zh-CN",
+        "M2A existing H5 persistence new session creates and restores a server draft in zh-HK",
+        "M2A existing H5 persistence new session creates and restores a server draft in en-US",
+        "M2A existing H5 persistence restored canonical facts preserve exact manual values without authority fields",
+        "M2A existing H5 persistence restore route reads backend state without creating a second project",
+        "M2A existing H5 persistence typed transport fails closed for malformed stable status"
+      ],
+      "test_file": "m2a.test.tsx"
+    },
+    {
+      "cases": [
+        "M2B existing Step3 integration typed document status and source refs in zh-CN",
+        "M2B existing Step3 integration typed document status and source refs in zh-HK",
+        "M2B existing Step3 integration typed document status and source refs in en-US",
+        "M2B existing Step3 integration dirty browser draft cannot change authoritative attachments",
+        "M2B existing Step3 integration document read rejects mismatched project identity"
+      ],
+      "test_file": "m2b.test.tsx"
+    },
+    {
+      "cases": [
+        "M1 canonical workflow binding starts only canonical workflow and retains identities in zh-CN",
+        "M1 canonical workflow binding starts only canonical workflow and retains identities in zh-HK",
+        "M1 canonical workflow binding starts only canonical workflow and retains identities in en-US",
+        "M1 canonical workflow binding presents server RUNNING without synthesizing approval",
+        "M1 canonical workflow binding presents server COMPLETED without synthesizing approval",
+        "M1 canonical workflow binding presents server REVIEW_REQUIRED without synthesizing approval",
+        "M1 canonical workflow binding presents server WARNING without synthesizing approval",
+        "M1 canonical workflow binding presents server FAILED without synthesizing approval",
+        "M1 canonical workflow binding preserves transport error without fabricating a run",
+        "M1 canonical workflow binding rejects malformed public result references"
+      ],
+      "test_file": "workflow.test.tsx"
+    },
+    {
+      "cases": [
+        "canonical integration Admin control plane does not issue management requests without host permission",
+        "canonical integration Admin control plane rejects secret injection in GET metadata at runtime",
+        "canonical integration Admin control plane server-owned configuration, one-time credential, safe cache/storage zh-CN",
+        "canonical integration Admin control plane server-owned configuration, one-time credential, safe cache/storage zh-HK",
+        "canonical integration Admin control plane server-owned configuration, one-time credential, safe cache/storage en-US"
+      ],
+      "test_file": "integrations.test.tsx"
+    },
+    {
+      "cases": [
+        "canonical model control plane renders owned provider UI in zh-CN without secrets",
+        "canonical model control plane renders owned provider UI in zh-HK without secrets",
+        "canonical model control plane renders owned provider UI in en-US without secrets",
+        "canonical model control plane saves write-only secret once and clears the credential field after success",
+        "canonical model control plane blocks provider administration for an ordinary user",
+        "canonical model control plane runtime-validates views and rejects unexpected secret fields"
+      ],
+      "test_file": "models.test.tsx"
+    },
+    {
+      "cases": [
+        "allowlisted AI preferences supports AUTO/SINGLE/MULTI_MODEL requests in zh-CN",
+        "allowlisted AI preferences supports AUTO/SINGLE/MULTI_MODEL requests in zh-HK",
+        "allowlisted AI preferences supports AUTO/SINGLE/MULTI_MODEL requests in en-US"
+      ],
+      "test_file": "selection.test.tsx"
+    },
+    {
+      "cases": [
+        "Stage 1 authority presentation renders all formal visualizations without a legal write in zh-CN",
+        "Stage 1 authority presentation renders all formal visualizations without a legal write in zh-HK",
+        "Stage 1 authority presentation renders all formal visualizations without a legal write in en-US",
+        "Stage 1 authority presentation preserves an untranslated governed reason code in zh-CN",
+        "Stage 1 authority presentation preserves an untranslated governed reason code in zh-HK",
+        "Stage 1 authority presentation preserves an untranslated governed reason code in en-US",
+        "Stage 1 authority presentation keeps required legal documents when no template is available",
+        "Stage 1 authority presentation renders the owning blocked status independently of conditional implementation path",
+        "Stage 1 authority presentation shows review without fabricating document requirements or future generation",
+        "Stage 1 authority presentation does not assign assessed-subject authority to unassessed inventory",
+        "Stage 1 authority presentation runtime-validates the backend contract and rejects invented status"
+      ],
+      "test_file": "results.test.tsx"
+    },
+    {
+      "cases": [
+        "governed review presentation renders backend-owned review state and actions in zh-CN",
+        "governed review presentation renders backend-owned review state and actions in zh-HK",
+        "governed review presentation renders backend-owned review state and actions in en-US",
+        "governed review presentation shows read-only permission state without fabricating actions",
+        "governed review presentation confirms APPROVE with CAS and no client actor/thread/policy",
+        "governed review presentation confirms REJECT with CAS and no client actor/thread/policy",
+        "governed review presentation confirms REQUEST_CHANGES with CAS and no client actor/thread/policy",
+        "governed review presentation does not offer approval for a formal conflict and submits typed owning correction",
+        "governed review presentation shows stale-version feedback and reload without changing formal inputs",
+        "governed review presentation links immutable original and successor results",
+        "governed review presentation reuses official legal-basis and genuine evidence drawer without translation",
+        "governed review presentation list uses authorized server filtering and pagination",
+        "governed review presentation rejects wrong identities and invented legal editing requests in runtime contracts"
+      ],
+      "test_file": "reviews.test.tsx"
+    }
+  ]
+}
