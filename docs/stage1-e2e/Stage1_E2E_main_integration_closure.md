@@ -88,3 +88,7 @@ Blockers: NONE. Main CI references:
 ## Timeout recovery selection
 
 Path A completed one unchanged M2-E execution, run 38380317555, and revalidated the original ten same-main SUCCESS workflows. The original cancelled run 38357981677 and blocked evidence commit `e2d7c5f82930e6161b0bc2596d5e5d7b6ff2f3b9` remain immutable historical evidence. No CI-only PR or source/timeout change was needed. See `Stage1_E2E_main_timeout_recovery.md` and `timeout_recovery.json`.
+
+## Independent archive identity
+
+Immutable closure payload commit: `136f4577d46490e443046b4317bba7c61ca29f7b` (parent: tested main `060cbb5a20a9f8f70fa88dbefb8b5feb404c460d`). The subsequent evidence-only archival seal records that payload identity and digests; neither evidence commit is the product baseline.
