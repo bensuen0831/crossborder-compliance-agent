@@ -1,0 +1,18 @@
+{
+  "total": 11,
+  "passed": 11,
+  "pass_": true,
+  "checks": {
+    "classification_execution_has_explicit_jurisdiction": true,
+    "multi_jurisdiction_snapshot_has_explicit_classification_bindings": true,
+    "classification_runtime_does_not_infer_jurisdiction_from_context_intersection": true,
+    "single_active_scheme_invariant_preserved": true,
+    "classification_binding_is_governed": true,
+    "classification_binding_is_snapshot_frozen": true,
+    "rule_pins_cover_all_pinned_classification_jurisdictions": true,
+    "classification_result_is_jurisdiction_scoped": true,
+    "applicability_consumes_same_jurisdiction_classification": true,
+    "cross_jurisdiction_rule_hit_leakage_forbidden": true,
+    "historical_classification_does_not_reresolve_active_binding": true
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "stats": {
+    "startTime": "2026-10-12T14:35:18.316Z",
+    "duration": 111935.384,
+    "expected": 5,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "errors": [],
+  "suites": [
+    {
+      "title": "candidate-governance.spec.ts",
+      "file": "candidate-governance.spec.ts",
+      "specs": [
+        {
+          "title": "pre-confirm genuine DOCX ACCEPT and exact input freeze zh-CN",
+          "file": "candidate-governance.spec.ts",
+          "tests": [
+            {
+              "projectName": "",
+              "expectedStatus": "passed",
+              "results": [
+                {
+                  "status": "passed",
+                  "retry": 0,
+                  "duration": 18422
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "pre-confirm genuine DOCX ACCEPT and exact input freeze zh-HK",
+          "file": "candidate-governance.spec.ts",
+          "tests": [
+            {
+              "projectName": "",
+              "expectedStatus": "passed",
+              "results": [
+                {
+                  "status": "passed",
+                  "retry": 0,
+                  "duration": 23108
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "pre-confirm genuine DOCX ACCEPT and exact input freeze en-US",
+          "file": "candidate-governance.spec.ts",
+          "tests": [
+            {
+              "projectName": "",
+              "expectedStatus": "passed",
+              "results": [
+                {
+                  "status": "passed",
+                  "retry": 0,
+                  "duration": 22786
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "pre-confirm genuine DOCX REJECT and exact input freeze en-US",
+          "file": "candidate-governance.spec.ts",
+          "tests": [
+            {
+              "projectName": "",
+              "expectedStatus": "passed",
+              "results": [
+                {
+                  "status": "passed",
+                  "retry": 0,
+                  "duration": 22431
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "pre-confirm genuine DOCX EDIT and exact input freeze en-US",
+          "file": "candidate-governance.spec.ts",
+          "tests": [
+            {
+              "projectName": "",
+              "expectedStatus": "passed",
+              "results": [
+                {
+                  "status": "passed",
+                  "retry": 0,
+                  "duration": 24609
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "suites": []
+    }
+  ]
+}

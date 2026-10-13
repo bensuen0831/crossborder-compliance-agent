@@ -1,0 +1,181 @@
+{
+  "decision": "BLOCKED",
+  "reason": "HISTORICAL_FORMAL_RESULT_REVALIDATION_INCOMPATIBLE_WITH_CORRECTED_HELPER",
+  "original_source_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+  "original_engine_sha256": "234d7194d2558b62882304d4c40fe1f575fa8572a69340d84fcb24c2e07e8a38",
+  "fixed_engine_sha256": "0ca77e3faa529062a551729d3f90d7a6f9820ebb886f436494d024a697c8878a",
+  "fixed_source_sha": null,
+  "fixed_source_is_uncommitted": true,
+  "data_rewritten": false,
+  "authenticated_old_git_algorithm_used_for_read_only_comparison": true,
+  "historical_reads": [
+    {
+      "outcome": "DIRECT_TRANSFER_ALLOWED",
+      "project_id": "422f75c5-e8a4-4404-ad11-84415265135a",
+      "analysis_snapshot_id": "d0357d1f-68fe-5262-91a0-ecbcb375504f",
+      "stage": "OBLIGATION",
+      "result_id": "057bbb7a-a791-55c4-ab3e-394e12b22796",
+      "original_source_read_pass": true,
+      "corrected_helper_read_pass": true,
+      "error": null,
+      "stored_result_sha256": "05723bca5bbf7040963a60c7a4f5e2c6642047e9dcb52546ecb28b81b254ab8c"
+    },
+    {
+      "outcome": "DIRECT_TRANSFER_ALLOWED",
+      "project_id": "422f75c5-e8a4-4404-ad11-84415265135a",
+      "analysis_snapshot_id": "d0357d1f-68fe-5262-91a0-ecbcb375504f",
+      "stage": "CANDIDATE_PATH",
+      "result_id": "2327cbe5-a72c-5f5a-9980-5dc96b33d15e",
+      "original_source_read_pass": true,
+      "corrected_helper_read_pass": false,
+      "error": "saved decision no longer revalidates",
+      "stored_result_sha256": "54b17b27a93e913468602e22996e427114a6ee24c1328894e516afea7f74a0d9"
+    },
+    {
+      "outcome": "DIRECT_TRANSFER_ALLOWED",
+      "project_id": "422f75c5-e8a4-4404-ad11-84415265135a",
+      "analysis_snapshot_id": "d0357d1f-68fe-5262-91a0-ecbcb375504f",
+      "stage": "RISK",
+      "result_id": "f20e7e88-51dd-541b-96d0-6902a9f468cc",
+      "original_source_read_pass": true,
+      "corrected_helper_read_pass": false,
+      "error": "saved decision no longer revalidates",
+      "stored_result_sha256": "eed5bf9c0290d5512c0a4913136b62326acda17fa930a3af5205cb135216a1f4"
+    },
+    {
+      "outcome": "DIRECT_TRANSFER_ALLOWED",
+      "project_id": "422f75c5-e8a4-4404-ad11-84415265135a",
+      "analysis_snapshot_id": "d0357d1f-68fe-5262-91a0-ecbcb375504f",
+      "stage": "RECOMMENDATION",
+      "result_id": "5404e410-3af9-5ba7-996c-c69c09e7c9fc",
+      "original_source_read_pass": true,
+      "corrected_helper_read_pass": false,
+      "error": "saved decision no longer revalidates",
+      "stored_result_sha256": "024816d4443c3c9021502966a7207b2432461cd518890283e95b581ba73da157"
+    },
+    {
+      "outcome": "DIRECT_TRANSFER_ALLOWED",
+      "project_id": "422f75c5-e8a4-4404-ad11-84415265135a",
+      "analysis_snapshot_id": "d0357d1f-68fe-5262-91a0-ecbcb375504f",
+      "stage": "FINAL_PATH",
+      "result_id": "1f7218bf-0306-5621-842f-68e80cc33f2c",
+      "original_source_read_pass": true,
+      "corrected_helper_read_pass": false,
+      "error": "saved decision no longer revalidates",
+      "stored_result_sha256": "53daf9bc1fafb7d72b18bf647ce3baaf443ad05db84f5acea07078f04988171d"
+    },
+    {
+      "outcome": "CONDITIONAL_TRANSFER_ALLOWED",
+      "project_id": "05668557-7200-414b-ae9a-a3464170dfce",
+      "analysis_snapshot_id": "f67016b7-c0cc-5263-8c0e-102faa616c1c",
+      "stage": "OBLIGATION",
+      "result_id": "b7cf95b2-80df-5158-9977-be7c831f6ae5",
+      "original_source_read_pass": true,
+      "corrected_helper_read_pass": true,
+      "error": null,
+      "stored_result_sha256": "dc990d868661e166b014e954dc872f2ed0f1e90dd9f8e447701883634eeb05a1"
+    },
+    {
+      "outcome": "CONDITIONAL_TRANSFER_ALLOWED",
+      "project_id": "05668557-7200-414b-ae9a-a3464170dfce",
+      "analysis_snapshot_id": "f67016b7-c0cc-5263-8c0e-102faa616c1c",
+      "stage": "CANDIDATE_PATH",
+      "result_id": "901b7954-815c-52d1-98d3-01b0c024a419",
+      "original_source_read_pass": true,
+      "corrected_helper_read_pass": false,
+      "error": "saved decision no longer revalidates",
+      "stored_result_sha256": "e29f4e0158f29d7562499fa9889505875efb5ea554f45496768555a1182dae6b"
+    },
+    {
+      "outcome": "CONDITIONAL_TRANSFER_ALLOWED",
+      "project_id": "05668557-7200-414b-ae9a-a3464170dfce",
+      "analysis_snapshot_id": "f67016b7-c0cc-5263-8c0e-102faa616c1c",
+      "stage": "RISK",
+      "result_id": "69f30336-4493-5b3e-8b07-458d4663a5a2",
+      "original_source_read_pass": true,
+      "corrected_helper_read_pass": false,
+      "error": "saved decision no longer revalidates",
+      "stored_result_sha256": "d2b752363a23fdaafa9fb38425d52dec34e42911dd0fc0604259b8c8cd864538"
+    },
+    {
+      "outcome": "CONDITIONAL_TRANSFER_ALLOWED",
+      "project_id": "05668557-7200-414b-ae9a-a3464170dfce",
+      "analysis_snapshot_id": "f67016b7-c0cc-5263-8c0e-102faa616c1c",
+      "stage": "RECOMMENDATION",
+      "result_id": "933ebcd3-69f1-528b-98f0-9326a1d92bc9",
+      "original_source_read_pass": true,
+      "corrected_helper_read_pass": false,
+      "error": "saved decision no longer revalidates",
+      "stored_result_sha256": "7c0621e1e3d945c4287d9e696f3a2a270d73f33589546e0c099c3e2d42d4b773"
+    },
+    {
+      "outcome": "CONDITIONAL_TRANSFER_ALLOWED",
+      "project_id": "05668557-7200-414b-ae9a-a3464170dfce",
+      "analysis_snapshot_id": "f67016b7-c0cc-5263-8c0e-102faa616c1c",
+      "stage": "FINAL_PATH",
+      "result_id": "e48cfece-3a0d-5262-9e15-2e87bb245a76",
+      "original_source_read_pass": true,
+      "corrected_helper_read_pass": false,
+      "error": "saved decision no longer revalidates",
+      "stored_result_sha256": "9e7a865736f34376345a9ee2b00f453754d66fe8409e3ea0d57bc2e57fe976d8"
+    },
+    {
+      "outcome": "TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED",
+      "project_id": "da0915eb-fc58-48ed-8597-bb9083454912",
+      "analysis_snapshot_id": "1494ad40-5189-5813-b981-7c1ecfa53f1a",
+      "stage": "OBLIGATION",
+      "result_id": "0ca7bcf3-a575-5f94-9662-de15c7d82fa8",
+      "original_source_read_pass": true,
+      "corrected_helper_read_pass": true,
+      "error": null,
+      "stored_result_sha256": "d70975bc67181acae14b9f27d7a97c58e82bc6a860fc1686c3abf60bf1527a10"
+    },
+    {
+      "outcome": "TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED",
+      "project_id": "da0915eb-fc58-48ed-8597-bb9083454912",
+      "analysis_snapshot_id": "1494ad40-5189-5813-b981-7c1ecfa53f1a",
+      "stage": "CANDIDATE_PATH",
+      "result_id": "6d633faf-c26a-55ac-bc82-49a9985bc727",
+      "original_source_read_pass": true,
+      "corrected_helper_read_pass": false,
+      "error": "saved decision no longer revalidates",
+      "stored_result_sha256": "ef4cc4e70db8af37b7b529ae13aa83212e429ac58832827e4d0196b12f8dbff0"
+    },
+    {
+      "outcome": "TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED",
+      "project_id": "da0915eb-fc58-48ed-8597-bb9083454912",
+      "analysis_snapshot_id": "1494ad40-5189-5813-b981-7c1ecfa53f1a",
+      "stage": "RISK",
+      "result_id": "3fd3dd40-b347-59b2-9896-70d0707d8d66",
+      "original_source_read_pass": true,
+      "corrected_helper_read_pass": false,
+      "error": "saved decision no longer revalidates",
+      "stored_result_sha256": "231cfb98076807a9bf983091448b5a060b46cde6b7e59d1d81b6825e3128d507"
+    },
+    {
+      "outcome": "TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED",
+      "project_id": "da0915eb-fc58-48ed-8597-bb9083454912",
+      "analysis_snapshot_id": "1494ad40-5189-5813-b981-7c1ecfa53f1a",
+      "stage": "RECOMMENDATION",
+      "result_id": "b0a55ae7-0eb5-5931-acdd-8523141e7de3",
+      "original_source_read_pass": true,
+      "corrected_helper_read_pass": false,
+      "error": "saved decision no longer revalidates",
+      "stored_result_sha256": "543b1e8a5d872fda87bb986221dabdddc5dc79195fc48bf6cf8e928283d0a142"
+    },
+    {
+      "outcome": "TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED",
+      "project_id": "da0915eb-fc58-48ed-8597-bb9083454912",
+      "analysis_snapshot_id": "1494ad40-5189-5813-b981-7c1ecfa53f1a",
+      "stage": "FINAL_PATH",
+      "result_id": "ec219003-5088-507a-9895-46d9025a2920",
+      "original_source_read_pass": true,
+      "corrected_helper_read_pass": false,
+      "error": "saved decision no longer revalidates",
+      "stored_result_sha256": "7bb97a2a71bb214ee73fdb21da5aa06cd40cdb9d24ac6ac664ec967f0cd8e6e2"
+    }
+  ],
+  "knowledge_fixture_kind": "SYNTHETIC_GOVERNED_TEST_DATA",
+  "migration_required": "NOT YET PROVEN",
+  "stage2_started": false
+}

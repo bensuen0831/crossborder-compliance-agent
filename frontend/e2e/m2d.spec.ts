@@ -46,7 +46,18 @@ for(const locale of Object.keys(catalogs) as Locale[]) test(`governed same-snaps
   }
   async function act(action:'APPROVE'|'REQUEST_CHANGES'|'SUBMIT_CORRECTION'){
     await page.getByRole('button',{name:messages[`ui.m2d.codes.${action}`],exact:true}).click();
-    await page.getByRole('button',{name:messages['ui.m2d.confirm'],exact:true}).click();
+    const dialog=page.getByRole('dialog',{name:messages[`ui.m2d.codes.${action}`],exact:true});
+    await expect(dialog).toBeVisible();
+    // AntD opening motion can otherwise consume a confirmation click without
+    // submitting a decision. Wait for the UI boundary, then require its HTTP ack.
+    await dialog.evaluate(async element=>{
+      await Promise.all(element.getAnimations({subtree:true}).map(animation=>animation.finished.catch(()=>undefined)));
+    });
+    const response=page.waitForResponse(r=>r.request().method()==='POST'
+      &&r.url().includes('/api/v1/reviews/')
+      &&r.url().endsWith(action==='SUBMIT_CORRECTION'?'/corrections':'/decisions'));
+    await dialog.getByRole('button',{name:messages['ui.m2d.confirm'],exact:true}).click();
+    expect((await response).status()).toBe(200);
     await expect(page.getByRole('dialog')).toHaveCount(0,{timeout:60000});
   }
   // A: real owner interrupt/approval, same snapshot and run, no browser actor.

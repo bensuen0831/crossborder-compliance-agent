@@ -68,7 +68,12 @@ def verify(root):
         }
 
     from scripts.m2a_ownership import overlay as intake_overlay, owned_delta
-    intake_valid, intake_paths, _ = intake_overlay(root)
+    intake_valid, intake_paths, intake_source = intake_overlay(root)
+    # Later approved owners may legitimately include a formerly forbidden file.
+    # Verify the complete immutable source delta, not just a subset of allowed
+    # filenames; fabricated integration diffs must still fail closed.
+    trusted_delta = set(git("diff-tree", "-r", "--name-only", SYNC, intake_source).decode().splitlines()) if intake_source else set()
+    source_paths = lambda paths: {p for p in paths if not p.startswith(("docs/", "evidence/", "artifacts/"))}
     checks = {
         "approved_m2a_owner": intake_valid,
         "exact_manifest": manifest["base_sha"] == BASE
@@ -81,7 +86,8 @@ def verify(root):
         ),
         "lb_owner_and_historical_overlay": overlay(root)[0],
         "original_m1_owner": all(allowed_m1(p) for p in m1_paths),
-        "integration_exact_path_set": changed <= PATHS | owned_delta(root),
+        "integration_exact_path_set": changed <= PATHS | owned_delta(root)
+        and source_paths(changed) == source_paths(trusted_delta),
         "frozen_domain_migrations_rules": set(git(
             "diff", "--name-only",
             BASE,

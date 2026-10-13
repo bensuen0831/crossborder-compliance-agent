@@ -1,0 +1,279 @@
+{
+  "decision": "BLOCKED",
+  "reason": "FORMAL_DECISION_SUPPORT_ITERATOR_EXHAUSTION",
+  "affected_owner": "FormalDecision / decision_engine.merge_support",
+  "baseline_main_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "committed_pr_head_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+  "working_tree_is_uncommitted_r2_prototype": true,
+  "function_file": "src/crossborder_compliance/domain/decision_engine.py",
+  "function_line": 173,
+  "formal_owner_modified": false,
+  "frozen_owner_sha256": {
+    "df3a10923734495d728981f4f319b66afadf8c71": "234d7194d2558b62882304d4c40fe1f575fa8572a69340d84fcb24c2e07e8a38",
+    "4c79243bbfa22108f1005c8e92265e2137012d4d": "234d7194d2558b62882304d4c40fe1f575fa8572a69340d84fcb24c2e07e8a38"
+  },
+  "reproduction": {
+    "same_support_values": true,
+    "tuple_field_counts": {
+      "applicability_result_ids": 1,
+      "rule_hit_ids": 1,
+      "rule_version_ids": 1,
+      "legal_basis_ids": 1,
+      "evidence_ids": 1,
+      "evidence_pack_ids": 1,
+      "retrieval_run_ids": 1,
+      "knowledge_version_ids": 1,
+      "structure_node_ids": 1,
+      "citation_ids": 1,
+      "citation_locators": 1,
+      "fact_refs": 1
+    },
+    "generator_field_counts": {
+      "applicability_result_ids": 1,
+      "rule_hit_ids": 0,
+      "rule_version_ids": 0,
+      "legal_basis_ids": 0,
+      "evidence_ids": 0,
+      "evidence_pack_ids": 0,
+      "retrieval_run_ids": 0,
+      "knowledge_version_ids": 0,
+      "structure_node_ids": 0,
+      "citation_ids": 0,
+      "citation_locators": 0,
+      "fact_refs": 0
+    }
+  },
+  "measured_business_counterexamples": [
+    {
+      "outcome": "DIRECT_TRANSFER_ALLOWED",
+      "project_id": "422f75c5-e8a4-4404-ad11-84415265135a",
+      "analysis_snapshot_id": "d0357d1f-68fe-5262-91a0-ecbcb375504f",
+      "workflow_run_id": "b89e6909-7ba1-5200-b268-96054f885e84",
+      "source_jurisdiction_ids": [
+        "50e68ebc-2d44-4d3b-912b-6d1d37f249f2"
+      ],
+      "destination_jurisdiction_ids": [
+        "fd43de07-6592-4c91-b567-3b314468f83d"
+      ],
+      "actual_flow_ids": [
+        "fc6dd508-62d5-5ce2-a581-eed58a7e8974"
+      ],
+      "retrieval_evidence_count": 4,
+      "support_field_counts": {
+        "obligation": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4
+          },
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4
+          }
+        ],
+        "candidate_path": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 0,
+            "legal_basis_ids": 0,
+            "evidence_ids": 0
+          }
+        ],
+        "risk": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 0,
+            "legal_basis_ids": 0,
+            "evidence_ids": 0
+          }
+        ],
+        "recommendation": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 0,
+            "legal_basis_ids": 0,
+            "evidence_ids": 0
+          }
+        ],
+        "final_path": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 0,
+            "legal_basis_ids": 0,
+            "evidence_ids": 0
+          }
+        ]
+      },
+      "private_result_sha256": "6b6f0503ab325181ac030ea700a9d2787f5edf9c2d903b6c6f454a1fcc97b97c"
+    },
+    {
+      "outcome": "CONDITIONAL_TRANSFER_ALLOWED",
+      "project_id": "05668557-7200-414b-ae9a-a3464170dfce",
+      "analysis_snapshot_id": "f67016b7-c0cc-5263-8c0e-102faa616c1c",
+      "workflow_run_id": "0096a47e-446c-591c-9ed6-799bef89cc2a",
+      "source_jurisdiction_ids": [
+        "f31704ac-aca8-427d-998d-d4d5cfad2cdf"
+      ],
+      "destination_jurisdiction_ids": [
+        "075e673b-8769-4ff2-ab38-e34ac657b8ee"
+      ],
+      "actual_flow_ids": [
+        "15ba4018-57e8-5652-837a-6d5b6cf14540"
+      ],
+      "retrieval_evidence_count": 4,
+      "support_field_counts": {
+        "obligation": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4
+          },
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4
+          }
+        ],
+        "candidate_path": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 0,
+            "legal_basis_ids": 0,
+            "evidence_ids": 0
+          }
+        ],
+        "risk": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 0,
+            "legal_basis_ids": 0,
+            "evidence_ids": 0
+          }
+        ],
+        "recommendation": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 0,
+            "legal_basis_ids": 0,
+            "evidence_ids": 0
+          }
+        ],
+        "final_path": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 0,
+            "legal_basis_ids": 0,
+            "evidence_ids": 0
+          }
+        ]
+      },
+      "private_result_sha256": "ad9405eb8c9f82a16cab5f6855c7b4f7e4def0ec0b24262ece288812b9f0e2ce"
+    },
+    {
+      "outcome": "TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED",
+      "project_id": "da0915eb-fc58-48ed-8597-bb9083454912",
+      "analysis_snapshot_id": "1494ad40-5189-5813-b981-7c1ecfa53f1a",
+      "workflow_run_id": "41e0b0c3-0795-54b9-b73c-cabeb3f2f5b1",
+      "source_jurisdiction_ids": [
+        "ae8a06b2-fdbd-4827-b2fd-1c8a0df6b0fa"
+      ],
+      "destination_jurisdiction_ids": [
+        "d22c60f0-0a3a-4fd8-8084-19427c7b9da5"
+      ],
+      "actual_flow_ids": [
+        "ee4db013-5386-5257-b705-e179e5d9bb88"
+      ],
+      "retrieval_evidence_count": 4,
+      "support_field_counts": {
+        "obligation": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4
+          },
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 2,
+            "legal_basis_ids": 2,
+            "evidence_ids": 4
+          }
+        ],
+        "candidate_path": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 0,
+            "legal_basis_ids": 0,
+            "evidence_ids": 0
+          }
+        ],
+        "risk": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 0,
+            "legal_basis_ids": 0,
+            "evidence_ids": 0
+          }
+        ],
+        "recommendation": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 0,
+            "legal_basis_ids": 0,
+            "evidence_ids": 0
+          }
+        ],
+        "final_path": [
+          {
+            "applicability_result_ids": 2,
+            "rule_hit_ids": 0,
+            "legal_basis_ids": 0,
+            "evidence_ids": 0
+          }
+        ]
+      },
+      "private_result_sha256": "fb995112351c988a91285b1611aa4dced2a2fa2685b60f130fc93297c29414f7"
+    }
+  ],
+  "migration_required": false,
+  "alembic_head": "0019_stage1_candidate_governance",
+  "paid_internet_llm": "NOT EXECUTED",
+  "main_integration": "PENDING",
+  "stage2_started": false,
+  "focused_regression": {
+    "tuple_control_passed": 1,
+    "generator_regression_failed": 1,
+    "business_full_chain_passed": 1,
+    "business_full_chain_failed": 3,
+    "skipped": 0,
+    "deselected": 0,
+    "xfail": 0,
+    "unit_log_sha256": "327a55520105ea605420c4598b183ced4f093c53566cfaa5cd981f6f8fc0d20a",
+    "business_log_sha256": "e082e96cae0f729b72b6dfdc1d1a14619b906a1eff616771b888381c49540c42"
+  },
+  "minimum_compliant_option": {
+    "requires_separate_formal_owner_authorization": true,
+    "proposed_change": "Materialize supports = tuple(supports) once inside the existing merge_support helper",
+    "new_legal_logic": false,
+    "rewrite_historical_results": false,
+    "new_migration": false,
+    "regression_tests": "Tuple/generator all-field union; H/I/J/formal authority; three terminal full-chain evidence propagation; historical replay; complete R2 closure"
+  },
+  "archive_working_tree_diff_sha256": "faa59db979d8819f8b7510fc4d51d29d6405046dcee42215e9b8b3f34fc9852f",
+  "archive_status": "LOCAL_UNCOMMITTED_REVIEWABLE_BLOCKER_EVIDENCE",
+  "no_r2_commit_or_push": true,
+  "verified_remote_pr": {
+    "number": 28,
+    "state": "OPEN",
+    "is_draft": true,
+    "head_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+    "base": "main",
+    "merged": false
+  },
+  "verified_remote_main_sha": "df3a10923734495d728981f4f319b66afadf8c71"
+}

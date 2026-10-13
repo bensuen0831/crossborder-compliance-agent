@@ -7,7 +7,7 @@ from uuid import UUID
 from pydantic import Field, model_validator
 
 from crossborder_compliance.domain.knowledge import Contract
-from crossborder_compliance.domain.llm_gateway import LLMResult
+from crossborder_compliance.domain.llm_gateway import LLMInvocationScope, LLMResult
 
 LLM_METADATA_KINDS = frozenset(
     {"LLM_INVOCATION_POLICY", "MODEL_USAGE_POLICY", "LLM_PROVIDER_PRESET"}
@@ -105,7 +105,8 @@ class ModelInvocationOutcome(Contract):
 
 class MultiModelInvocationResult(Contract):
     invocation_group_id: UUID
-    analysis_snapshot_id: UUID
+    analysis_snapshot_id: UUID | None
+    invocation_scope: "LLMInvocationScope | None" = None
     purpose: InvocationPurpose
     strategy: ModelSelectionMode
     model_results: tuple[ModelInvocationOutcome, ...]

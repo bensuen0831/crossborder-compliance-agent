@@ -33,10 +33,29 @@ class InputReference(Contract):
     version_id: UUID
 
 
+class SnapshotInvocationScope(Contract):
+    kind: Literal["SNAPSHOT"] = "SNAPSHOT"
+    analysis_snapshot_id: UUID
+
+
+class DraftPreparationInvocationScope(Contract):
+    kind: Literal["DRAFT_PREPARATION"] = "DRAFT_PREPARATION"
+    candidate_preparation_id: UUID
+    project_id: UUID
+    project_version_id: UUID
+    purpose: Literal["DOCUMENT_CANDIDATE_EXTRACTION"] = "DOCUMENT_CANDIDATE_EXTRACTION"
+
+
+LLMInvocationScope = Annotated[
+    SnapshotInvocationScope | DraftPreparationInvocationScope, Field(discriminator="kind")
+]
+
+
 class LLMRequest(Contract):
     request_id: UUID = Field(default_factory=uuid4)
     project_id: UUID
-    analysis_snapshot_id: UUID
+    analysis_snapshot_id: UUID | None = None
+    invocation_scope: LLMInvocationScope | None = None
     operation: ModelOperation
     input_refs: tuple[InputReference, ...] = ()
     prompt_id: UUID | None = None
@@ -48,6 +67,18 @@ class LLMRequest(Contract):
 
     @model_validator(mode="after")
     def shape(self):
+        if isinstance(self.invocation_scope, DraftPreparationInvocationScope):
+            if (
+                self.analysis_snapshot_id is not None
+                or self.project_id != self.invocation_scope.project_id
+                or self.operation != ModelOperation.STRUCTURED_OUTPUT
+            ):
+                raise ValueError("DRAFT_INVOCATION_SCOPE_INVALID")
+        elif self.analysis_snapshot_id is None or (
+            self.invocation_scope is not None
+            and self.invocation_scope.analysis_snapshot_id != self.analysis_snapshot_id
+        ):
+            raise ValueError("SNAPSHOT_INVOCATION_SCOPE_REQUIRED")
         if self.operation != ModelOperation.HEALTH_CHECK and not self.input_refs:
             raise ValueError("INPUT_REFERENCES_REQUIRED")
         if self.operation == ModelOperation.STRUCTURED_OUTPUT and not self.output_schema:
@@ -189,7 +220,8 @@ class LLMResult(Contract):
     model_id: UUID
     deployment_id: UUID
     provider_version_id: UUID
-    analysis_snapshot_id: UUID
+    analysis_snapshot_id: UUID | None
+    invocation_scope: LLMInvocationScope | None = None
     policy: PolicyDecision
     redaction_run_id: UUID | None
     result: ProviderResult
@@ -209,7 +241,8 @@ class GatewayAuditEvent(Contract):
     request_id: UUID
     tenant_id: UUID
     project_id: UUID
-    analysis_snapshot_id: UUID
+    analysis_snapshot_id: UUID | None
+    invocation_scope: LLMInvocationScope | None = None
     operation: ModelOperation
     model_id: UUID | None = None
     provider_id: UUID | None = None

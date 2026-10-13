@@ -11,6 +11,24 @@ from crossborder_compliance.infrastructure.persistence import metadata_models as
 from crossborder_compliance.infrastructure.persistence import models as b
 
 
+def flow_inputs(repo, project_id, intake_version_id, snapshot_id):
+    """Read explicit flow proposals from the existing confirmed intake authority."""
+    if snapshot_id is None:
+        raise ValueError("INTAKE_FLOW_CONFIRMATION_REQUIRED")
+    if not repo._context.permission.system and f"project:{project_id}:comply" not in repo._context.permission.scopes:
+        raise LookupError("structured intake not found")
+    with repo._sessions() as s:
+        version = repo._get(s, b.ProjectVersionEntity, b.ProjectVersionEntity.project_version_id, intake_version_id)
+        snapshot = repo._get(s, b.AnalysisSnapshotEntity, b.AnalysisSnapshotEntity.analysis_snapshot_id, snapshot_id)
+        if not version or not snapshot or version.project_id != str(project_id) or version.status not in {"CONFIRMED", "SUPERSEDED"} or snapshot.project_version_id != version.project_version_id:
+            raise LookupError("exact confirmed intake snapshot required")
+        intake = ProjectIntakeContext.model_validate(version.intake_json)
+        confirmed = snapshot.provenance_json
+        if intake.project_id != project_id or intake.record_version != version.version_no or confirmed.get("intake_version") != version.version_no or not confirmed.get("confirmed_by") or not confirmed.get("confirmed_at"):
+            raise ValueError("confirmed intake audit required")
+        return tuple(intake.data_flows)
+
+
 def inputs(repo, project_id, intake_version_id, snapshot_id):
     tenant = repo.tenant_id
     if (
@@ -52,13 +70,29 @@ def inputs(repo, project_id, intake_version_id, snapshot_id):
         ).all()
         result = []
         for definition in definitions:
-            if not definition.active_version_id:
+            preparation_pin = (
+                s.scalar(
+                    select(m.AnalysisSnapshotRegistryPinEntity).where(
+                        m.AnalysisSnapshotRegistryPinEntity.tenant_id == tenant,
+                        m.AnalysisSnapshotRegistryPinEntity.analysis_snapshot_id
+                        == str(snapshot_id),
+                        m.AnalysisSnapshotRegistryPinEntity.pin_type == "LLM_FACT_TYPE",
+                        m.AnalysisSnapshotRegistryPinEntity.object_id == definition.definition_id,
+                    )
+                )
+                if confirmed.get("candidate_preparation_id")
+                else None
+            )
+            version_id = (
+                preparation_pin.version_id if preparation_pin else definition.active_version_id
+            )
+            if not version_id:
                 continue
             config = repo._get(
                 s,
                 m.MetadataVersionEntity,
                 m.MetadataVersionEntity.version_id,
-                UUID(definition.active_version_id),
+                UUID(version_id),
             )
             if config is None:
                 raise ValueError("structured binding version unavailable")
@@ -66,7 +100,8 @@ def inputs(repo, project_id, intake_version_id, snapshot_id):
             if raw is None:
                 continue
             if (
-                config.lifecycle_status != "ACTIVE"
+                config.lifecycle_status
+                not in ({"ACTIVE", "SUPERSEDED"} if preparation_pin else {"ACTIVE"})
                 or not config.approved_by
                 or not config.published_at
                 or not s.scalar(

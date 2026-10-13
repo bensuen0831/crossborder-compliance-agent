@@ -209,6 +209,172 @@
         }
       }
     },
+    "/api/v1/projects/{project_id}/candidate-preparation": {
+      "post": {
+        "tags": [
+          "project-intake"
+        ],
+        "summary": "Prepare Candidates",
+        "operationId": "prepare_candidates_api_v1_projects__project_id__candidate_preparation_post",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PrepareDocumentCandidates"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CandidatePreview"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{project_id}/candidate-preview": {
+      "get": {
+        "tags": [
+          "project-intake"
+        ],
+        "summary": "Candidate Preview",
+        "operationId": "candidate_preview_api_v1_projects__project_id__candidate_preview_get",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "candidate_preparation_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Candidate Preparation Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CandidatePreview"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{project_id}/candidate-decisions": {
+      "post": {
+        "tags": [
+          "project-intake"
+        ],
+        "summary": "Decide Candidates",
+        "operationId": "decide_candidates_api_v1_projects__project_id__candidate_decisions_post",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResolveDocumentCandidates"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CandidateDecisionReceipt"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/projects/{project_id}/intake/documents": {
       "get": {
         "tags": [
@@ -608,12 +774,339 @@
         ],
         "title": "Body_upload_api_v1_projects__project_id__intake_documents_post"
       },
+      "CandidateDecisionInput": {
+        "properties": {
+          "preparation_candidate_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Preparation Candidate Id"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "ACCEPT",
+              "REJECT",
+              "EDIT"
+            ],
+            "title": "Action"
+          },
+          "edited_payload": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Edited Payload"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "preparation_candidate_id",
+          "action"
+        ],
+        "title": "CandidateDecisionInput"
+      },
+      "CandidateDecisionReceipt": {
+        "properties": {
+          "candidate_decision_set_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Candidate Decision Set Id"
+          },
+          "candidate_preparation_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Candidate Preparation Id"
+          },
+          "submitted_by": {
+            "type": "string",
+            "title": "Submitted By"
+          },
+          "submitted_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Submitted At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "candidate_decision_set_id",
+          "candidate_preparation_id",
+          "submitted_by",
+          "submitted_at"
+        ],
+        "title": "CandidateDecisionReceipt"
+      },
+      "CandidatePreview": {
+        "properties": {
+          "candidate_preparation_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Candidate Preparation Id"
+          },
+          "project_version_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Project Version Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "NOT_PREPARED",
+              "PREPARING",
+              "COMPLETED",
+              "FAILED"
+            ],
+            "title": "Status"
+          },
+          "candidate_universe_digest": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Candidate Universe Digest"
+          },
+          "stale": {
+            "type": "boolean",
+            "title": "Stale",
+            "default": false
+          },
+          "candidates": {
+            "items": {
+              "$ref": "#/components/schemas/CandidatePreviewItem"
+            },
+            "type": "array",
+            "title": "Candidates"
+          },
+          "candidate_decision_set_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Candidate Decision Set Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "candidate_preparation_id",
+          "status",
+          "candidate_universe_digest",
+          "candidates"
+        ],
+        "title": "CandidatePreview"
+      },
+      "CandidatePreviewItem": {
+        "properties": {
+          "preparation_candidate_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Preparation Candidate Id"
+          },
+          "candidate_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Candidate Id"
+          },
+          "candidate_type": {
+            "type": "string",
+            "enum": [
+              "BUSINESS_FACT",
+              "DATA_ITEM",
+              "DATA_FLOW_NODE",
+              "DATA_FLOW_EDGE"
+            ],
+            "title": "Candidate Type"
+          },
+          "candidate_origin": {
+            "type": "string",
+            "enum": [
+              "LLM_STRUCTURED_OUTPUT",
+              "NATIVE_DETERMINISTIC",
+              "DOCUMENT_DERIVED"
+            ],
+            "title": "Candidate Origin"
+          },
+          "candidate_digest": {
+            "type": "string",
+            "title": "Candidate Digest"
+          },
+          "proposed_payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Proposed Payload"
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence"
+          },
+          "requires_confirmation": {
+            "type": "boolean",
+            "title": "Requires Confirmation"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/CandidateSourcePreview"
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "decision_status": {
+            "type": "string",
+            "enum": [
+              "UNRESOLVED",
+              "ACCEPT",
+              "REJECT",
+              "EDIT"
+            ],
+            "title": "Decision Status",
+            "default": "UNRESOLVED"
+          },
+          "edited_payload": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Edited Payload"
+          },
+          "llm_provenance": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Llm Provenance"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "preparation_candidate_id",
+          "candidate_id",
+          "candidate_type",
+          "candidate_origin",
+          "candidate_digest",
+          "proposed_payload",
+          "confidence",
+          "requires_confirmation",
+          "sources"
+        ],
+        "title": "CandidatePreviewItem"
+      },
+      "CandidateSourcePreview": {
+        "properties": {
+          "source_trace_ref_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Source Trace Ref Id"
+          },
+          "parse_run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Parse Run Id"
+          },
+          "document_version_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Document Version Id"
+          },
+          "section": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Section"
+          },
+          "source_excerpt": {
+            "type": "string",
+            "maxLength": 600,
+            "title": "Source Excerpt"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "source_trace_ref_id",
+          "parse_run_id",
+          "document_version_id",
+          "source_excerpt"
+        ],
+        "title": "CandidateSourcePreview"
+      },
       "ConfirmProjectIntake": {
         "properties": {
           "expected_version": {
             "type": "integer",
             "minimum": 1.0,
             "title": "Expected Version"
+          },
+          "candidate_decision_set_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Candidate Decision Set Id"
           }
         },
         "additionalProperties": false,
@@ -1085,6 +1578,14 @@
           },
           "ai_model_preference": {
             "$ref": "#/components/schemas/AIModelPreference"
+          },
+          "data_flows": {
+            "items": {
+              "$ref": "#/components/schemas/StructuredDataFlowInput"
+            },
+            "type": "array",
+            "maxItems": 32,
+            "title": "Data Flows"
           }
         },
         "additionalProperties": false,
@@ -1158,6 +1659,18 @@
               }
             ],
             "title": "Retrieval Policy Id"
+          },
+          "candidate_preparation_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Candidate Preparation Id"
           }
         },
         "additionalProperties": false,
@@ -1188,6 +1701,28 @@
           "MULTI_MODEL"
         ],
         "title": "ModelSelectionMode"
+      },
+      "PrepareDocumentCandidates": {
+        "properties": {
+          "expected_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Version"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_version",
+          "idempotency_key"
+        ],
+        "title": "PrepareDocumentCandidates"
       },
       "ProjectIntakeContext": {
         "properties": {
@@ -1383,6 +1918,14 @@
           },
           "ai_model_preference": {
             "$ref": "#/components/schemas/AIModelPreference"
+          },
+          "data_flows": {
+            "items": {
+              "$ref": "#/components/schemas/StructuredDataFlowInput"
+            },
+            "type": "array",
+            "maxItems": 32,
+            "title": "Data Flows"
           }
         },
         "additionalProperties": false,
@@ -1486,6 +2029,155 @@
           "generated_by"
         ],
         "title": "ProvenanceDTO"
+      },
+      "ResolveDocumentCandidates": {
+        "properties": {
+          "expected_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Version"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          },
+          "candidate_preparation_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Candidate Preparation Id"
+          },
+          "candidate_universe_digest": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Candidate Universe Digest"
+          },
+          "decisions": {
+            "items": {
+              "$ref": "#/components/schemas/CandidateDecisionInput"
+            },
+            "type": "array",
+            "maxItems": 512,
+            "title": "Decisions"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_version",
+          "idempotency_key",
+          "candidate_preparation_id",
+          "candidate_universe_digest",
+          "decisions"
+        ],
+        "title": "ResolveDocumentCandidates"
+      },
+      "StructuredDataFlowInput": {
+        "properties": {
+          "input_key": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Input Key"
+          },
+          "data_item_canonical_name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Data Item Canonical Name"
+          },
+          "source_jurisdiction_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Source Jurisdiction Id"
+          },
+          "destination_jurisdiction_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Destination Jurisdiction Id"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "SOURCE_TO_DESTINATION",
+              "BIDIRECTIONAL"
+            ],
+            "title": "Direction"
+          },
+          "source_name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Source Name"
+          },
+          "destination_name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Destination Name"
+          },
+          "source_party_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Party Id"
+          },
+          "destination_party_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Destination Party Id"
+          },
+          "source_system_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source System Id"
+          },
+          "destination_system_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Destination System Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "input_key",
+          "data_item_canonical_name",
+          "source_jurisdiction_id",
+          "destination_jurisdiction_id",
+          "direction",
+          "source_name",
+          "destination_name"
+        ],
+        "title": "StructuredDataFlowInput",
+        "description": "Explicit draft input, not a candidate or a formal flow/result identity."
       },
       "UpdateIntakeDraft": {
         "properties": {

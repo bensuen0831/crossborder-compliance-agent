@@ -1,0 +1,57 @@
+{
+  "source_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "purpose": "D0 unchanged-source counterexample, not full acceptance",
+  "real_postgresql": true,
+  "real_http": true,
+  "real_docx": true,
+  "real_local_http_llm": true,
+  "system_permission": false,
+  "project_id": "712fac00-b101-48e7-8b88-14db9e686cea",
+  "blank_project_formal_fact_count": 0,
+  "blank_snapshot_id": null,
+  "distinct_jurisdictions": true,
+  "draft_parse_quality": "PASS",
+  "draft_parse_counts": {
+    "pages": 0,
+    "tables": 0,
+    "images": 0
+  },
+  "semantic_requests_before_confirmation": 0,
+  "draft_gateway_denial": "RESOURCE_NOT_FOUND",
+  "confirmation_request_fields": [
+    "expected_version"
+  ],
+  "confirmed_snapshot_id": "5ff0a34b-04a2-5722-af24-d2ddb55d9af6",
+  "workflow_run_id": "7b10264a-df54-5d36-9664-15b1e2da50b4",
+  "document_version_id": "11b26c5d-752a-4177-a440-7e84dd28fb59",
+  "native_parse_run_id": "e30969b8-3e8d-47a6-b0ab-b64836cbe700",
+  "semantic_parse_run_id": "04b7a03f-9c81-405d-9ec0-04d794482e36",
+  "semantic_http_invocations": 1,
+  "candidate_id": "c58c33e7-7103-41f3-b659-76a8be4703ef",
+  "formal_fact_id": "b8146e35-23b1-4599-8a9c-1cd7531c505b",
+  "formal_fact_status": "VALIDATED",
+  "formal_fact_source_trace_ids": [
+    "c90c8350-7b64-4141-9e40-a26174fac5ee"
+  ],
+  "candidate_preview_user_action": null,
+  "per_candidate_user_confirmation": null,
+  "formal_flow_nodes": 0,
+  "formal_flow_edges": 0,
+  "paid_internet_llm": "NOT EXECUTED",
+  "stage2_started": false,
+  "candidate_resolution_action": "ACCEPTED",
+  "candidate_resolution_authority": "POLICY",
+  "candidate_resolution_reviewer_required": false,
+  "provenance_verified": [
+    {
+      "source_trace_ref_id": "c90c8350-7b64-4141-9e40-a26174fac5ee",
+      "document_version_id": "11b26c5d-752a-4177-a440-7e84dd28fb59",
+      "parse_run_id": "04b7a03f-9c81-405d-9ec0-04d794482e36",
+      "structure_node_id": "757d8425-6905-44b7-b2d1-69bbdc087a5b"
+    }
+  ],
+  "postgresql_version": "17.11 (Debian 17.11-0+deb13u1)",
+  "observed_at": "2026-10-10T16:16:25.159602+00:00",
+  "missing_confirmation_gate": true,
+  "interpretation": "The candidate was generated after the sole confirmation request and accepted by POLICY as a formal validated fact; no subsequent user confirmation intervened."
+}

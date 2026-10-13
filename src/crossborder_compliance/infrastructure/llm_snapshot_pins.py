@@ -12,8 +12,16 @@ from crossborder_compliance.application.llm_invocation_policy import (
     DOCUMENT_TRIGGERS,
     QUERY_TRIGGERS,
 )
-from crossborder_compliance.application.llm_model_catalog import SnapshotModelConfigurationQuery
-from crossborder_compliance.domain.llm_gateway import AuthorizedInput, GatewayDenied, InputReference
+from crossborder_compliance.application.llm_model_catalog import (
+    PreparationModelConfigurationQuery,
+    SnapshotModelConfigurationQuery,
+)
+from crossborder_compliance.domain.llm_gateway import (
+    AuthorizedInput,
+    DraftPreparationInvocationScope,
+    GatewayDenied,
+    InputReference,
+)
 from crossborder_compliance.domain.llm_invocation import (
     InvocationPurpose,
     InvocationTrigger,
@@ -120,16 +128,49 @@ def _prompts(config, when, intake, triggers):
     return result
 
 
-def freeze_llm_configuration(sessions, context, intake, snapshot_id, *, source_snapshot_id=None):
-    config = PostgresLLMConfiguration(sessions, context)
-    with sessions() as s:
-        snapshot = s.get(b.AnalysisSnapshotEntity, str(snapshot_id))
-        if snapshot is None or snapshot.tenant_id != config.tenant:
-            raise GatewayDenied("RESOURCE_NOT_FOUND")
-        version_id = UUID(snapshot.project_version_id)
-    request = SnapshotModelConfigurationQuery(
-        project_id=intake.project_id, analysis_snapshot_id=snapshot_id
+def freeze_llm_configuration(
+    sessions,
+    context,
+    intake,
+    snapshot_id,
+    *,
+    source_snapshot_id=None,
+    candidate_preparation_id=None,
+):
+    config = PostgresLLMConfiguration(
+        sessions, context, candidate_preparation_id=candidate_preparation_id
     )
+    if candidate_preparation_id is not None:
+        from crossborder_compliance.infrastructure.persistence.candidate_governance_models import (
+            CandidatePreparationEntity,
+        )
+
+        with sessions() as s:
+            preparation = s.get(CandidatePreparationEntity, str(candidate_preparation_id))
+            if (
+                preparation is None
+                or preparation.tenant_id != config.tenant
+                or preparation.project_id != str(intake.project_id)
+            ):
+                raise GatewayDenied("RESOURCE_NOT_FOUND")
+            version_id = UUID(preparation.project_version_id)
+        request = PreparationModelConfigurationQuery(
+            project_id=intake.project_id,
+            invocation_scope=DraftPreparationInvocationScope(
+                candidate_preparation_id=candidate_preparation_id,
+                project_id=intake.project_id,
+                project_version_id=version_id,
+            ),
+        )
+    else:
+        with sessions() as s:
+            snapshot = s.get(b.AnalysisSnapshotEntity, str(snapshot_id))
+            if snapshot is None or snapshot.tenant_id != config.tenant:
+                raise GatewayDenied("RESOURCE_NOT_FOUND")
+            version_id = UUID(snapshot.project_version_id)
+        request = SnapshotModelConfigurationQuery(
+            project_id=intake.project_id, analysis_snapshot_id=snapshot_id
+        )
     existing = config._saved(request, "LLM_SELECTION")
     if existing:
         return existing[0]["logical_key"]
@@ -181,12 +222,24 @@ def freeze_llm_configuration(sessions, context, intake, snapshot_id, *, source_s
         with sessions() as session:
             for definition_id in policy.candidate_fact_type_ids:
                 definition = session.get(m.MetadataDefinitionEntity, str(definition_id))
-                version = session.get(m.MetadataVersionEntity, definition.active_version_id) if definition and definition.active_version_id else None
-                if (definition is None or version is None or definition.tenant_id != config.tenant
-                        or definition.kind != "BUSINESS_FACT_TYPE" or definition.status != "ACTIVE"
-                        or version.lifecycle_status != "ACTIVE" or not version.published_at
-                        or not version.approved_by or not config._effective(version, intake.analysis_as_of_date)
-                        or not set(version.payload_json.get("permission_scopes", ())) <= context.permission.scopes):
+                version = (
+                    session.get(m.MetadataVersionEntity, definition.active_version_id)
+                    if definition and definition.active_version_id
+                    else None
+                )
+                if (
+                    definition is None
+                    or version is None
+                    or definition.tenant_id != config.tenant
+                    or definition.kind != "BUSINESS_FACT_TYPE"
+                    or definition.status != "ACTIVE"
+                    or version.lifecycle_status != "ACTIVE"
+                    or not version.published_at
+                    or not version.approved_by
+                    or not config._effective(version, intake.analysis_as_of_date)
+                    or not set(version.payload_json.get("permission_scopes", ()))
+                    <= context.permission.scopes
+                ):
                     raise GatewayDenied("CANDIDATE_FACT_TYPE_NOT_GOVERNED")
                 fact_types.append((definition, version))
         if len(preference.selected_model_ids) > policy.max_models:
@@ -218,8 +271,14 @@ def freeze_llm_configuration(sessions, context, intake, snapshot_id, *, source_s
             )
         config.pin_models(request, eligible)
         for definition, version in fact_types:
-            config._pin(request, "LLM_FACT_TYPE", definition.code, definition.definition_id,
-                        version.version_id, version.version_no)
+            config._pin(
+                request,
+                "LLM_FACT_TYPE",
+                definition.code,
+                definition.definition_id,
+                version.version_id,
+                version.version_no,
+            )
         for purpose, prompt in prompts:
             config._pin(
                 request,

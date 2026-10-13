@@ -3,6 +3,7 @@
 import json
 from datetime import date, datetime
 from decimal import Decimal
+from enum import StrEnum
 from hashlib import sha256
 from typing import Annotated, Generic, Literal, TypeVar
 from uuid import UUID
@@ -14,6 +15,10 @@ from crossborder_compliance.domain.localized_metadata import StableDisplayCode, 
 from crossborder_compliance.domain.rules import Contract
 
 StageKind = Literal["OBLIGATION", "CANDIDATE_PATH", "RISK", "RECOMMENDATION", "FINAL_PATH"]
+
+class DecisionEngineVersion(StrEnum):
+    LEGACY = "FORMAL_DECISION_V2"
+    CORRECTED = "FORMAL_DECISION_V2_1"
 Digest = Annotated[str, Field(pattern=r"^[a-f0-9]{64}$")]
 UnitDecimal = Annotated[Decimal, Field(ge=0, le=1, allow_inf_nan=False)]
 Score = Annotated[Decimal, Field(ge=0, le=100, allow_inf_nan=False)]
@@ -81,7 +86,7 @@ class DecisionProvenance(Contract):
     context_fact_refs: tuple[UUID, ...]
     retrieval_run_ids: tuple[UUID, ...]
     pins: tuple[PinRef, ...]
-    engine_version: Literal["FORMAL_DECISION_V2"] = "FORMAL_DECISION_V2"
+    engine_version: DecisionEngineVersion = DecisionEngineVersion.CORRECTED
     schema_version: Literal["2.0"] = "2.0"
     computation_timestamp: datetime
     actor_ref: str
@@ -262,7 +267,7 @@ class DecisionEnvelope(Contract, Generic[Item]):
     pins: tuple[PinRef, ...]
     input_digest: Digest
     pins_digest: Digest
-    engine_version: Literal["FORMAL_DECISION_V2"] = "FORMAL_DECISION_V2"
+    engine_version: DecisionEngineVersion = DecisionEngineVersion.CORRECTED
     provenance: DecisionProvenance
     ordinary_status: StableDisplayCode
 
@@ -278,6 +283,8 @@ class DecisionEnvelope(Contract, Generic[Item]):
 
     @model_validator(mode="after")
     def scope(self):
+        if self.engine_version != self.provenance.engine_version:
+            raise ValueError("FORMAL_DECISION_ENGINE_VERSION_MISMATCH")
         if len(set(self.jurisdiction_ids)) != len(self.jurisdiction_ids):
             raise ValueError("duplicate jurisdiction")
         if any(not set(i.jurisdiction_ids) <= set(self.jurisdiction_ids) for i in self.items):

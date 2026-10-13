@@ -1,0 +1,684 @@
+{
+  "decision": "PASS",
+  "blockers": [],
+  "source_pr": 28,
+  "branch": "milestone-stage1-full-e2e",
+  "base_main_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "base_tag": "v3.7-m2e-pass",
+  "tested_backend_source_sha": "01e801803a0bf573ae232145d4cc10ef8fcead61",
+  "original_algorithm": {
+    "source_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+    "engine_sha256": "234d7194d2558b62882304d4c40fe1f575fa8572a69340d84fcb24c2e07e8a38",
+    "engine_version": "FORMAL_DECISION_V2",
+    "allowed_use": "Historical read revalidation only"
+  },
+  "corrected_algorithm": {
+    "source_sha": "01e801803a0bf573ae232145d4cc10ef8fcead61",
+    "engine_sha256": "a2085b4abcdae5b39a90e4a01a7a6dfdb248b355043900248eadb1e5104a7691",
+    "engine_version": "FORMAL_DECISION_V2_1",
+    "allowed_use": "All new Execute/Save and matching persisted reads"
+  },
+  "contract_version": "2.0",
+  "caller_version_selection_allowed": false,
+  "complete_digest_compared": true,
+  "historical_result_rewriting": false,
+  "historical": {
+    "original_reads": 15,
+    "original_corrected_failures": 12,
+    "recovered_reads": 15,
+    "recovered_failures": 12,
+    "reseeded": false,
+    "stored_columns_unchanged": true
+  },
+  "migration": {
+    "migration_head": "0020_stage1_formal_decision_engine_compatibility",
+    "parent": "0019_stage1_candidate_governance",
+    "knowledge_fixture_kind": "SYNTHETIC_GOVERNED_TEST_DATA",
+    "fresh": true,
+    "exact0019_upgrade": true,
+    "schema_equivalence": true,
+    "legacy_rows_preserved": true,
+    "empty_and_legacy_safe_downgrade": true,
+    "reupgrade": true,
+    "current_rows_downgrade_refused": true,
+    "no_data_rewritten": true,
+    "legacy_row_digests": {
+      "OBLIGATION": "49af23d24fb6d5913b6960517f57317beaa8907f55bc7a6a00a2603dc16bad3e",
+      "CANDIDATE_PATH": "e6e1823aac8d1e80b6753cc042fcce28352733e944ec08d8555daebc72833855",
+      "RISK": "021daedbf5b7dc2ed189bca41a58dc569a94a8d5472f0041d8297d1c286308c3",
+      "RECOMMENDATION": "8ddfcde52f5ad1549e1964383e73bea3fe6e6fdd1e3d46db1e7f02d8d0e49b16",
+      "FINAL_PATH": "1ee67dfb0ac03b87ede16585233d6f129ab8411161f6adb5b07408fa8b75d0a4"
+    },
+    "current_row_digests": {
+      "OBLIGATION": "6695e3d0eafdc4401e1e1b42afeca98370cb1bad5ff453a4eb53b71f6cb9d069",
+      "CANDIDATE_PATH": "9fa5ba23b20e7e46562ce9fa4b3d1ace2c361bef6002b16391d8a33513867ead",
+      "RISK": "95efef667e9b2569a28766c3aad18ae42a208f911703f052eb7c5d32805eadfb",
+      "RECOMMENDATION": "7849cc3a76ab21d3ce20d59e702f81bcff2004f2f981a29be802f6280c56e489",
+      "FINAL_PATH": "8d3e000a976ff27bc1ad4d506fef3ae904dd460163b8952235dec37cea10d6c7"
+    }
+  },
+  "backend": {
+    "passed": 991,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "architecture": {
+    "passed": 339,
+    "total": 339,
+    "existing_checks": 331,
+    "added_checks": 8
+  },
+  "runtime": {
+    "passed": 25,
+    "total": 25,
+    "tested_source_sha": "01e801803a0bf573ae232145d4cc10ef8fcead61"
+  },
+  "frontend": {
+    "passed": 141,
+    "failed": 0,
+    "pending": 0,
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "build": "PASS",
+    "i18n": "PASS",
+    "tested_source_sha": "dfd2d5df16e1054a35e16b7295ebb9467ee3db54",
+    "production_sources_identical_to_backend_source": true
+  },
+  "browser": {
+    "passed": 65,
+    "total": 65,
+    "failed": 0,
+    "skipped": 0,
+    "retries": 0,
+    "groups": {
+      "core": 24,
+      "candidates": 5,
+      "m0": 36
+    },
+    "cases": [
+      {
+        "file": "m1.spec.ts",
+        "title": "four-step intake, canonical results, official citation and locale state invariance",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "m1.spec.ts",
+        "title": "four-step intake, canonical results, official citation and locale state invariance",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "m1.spec.ts",
+        "title": "four-step intake, canonical results, official citation and locale state invariance",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "m2a.spec.ts",
+        "title": "new persisted project, refresh, exact snapshot and canonical START/READ in zh-CN",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "m2a.spec.ts",
+        "title": "new persisted project, refresh, exact snapshot and canonical START/READ in zh-HK",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "m2a.spec.ts",
+        "title": "new persisted project, refresh, exact snapshot and canonical START/READ in en-US",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "m2b.spec.ts",
+        "title": "real binary, pinned documents and canonical workflow in zh-CN",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "m2b.spec.ts",
+        "title": "real binary, pinned documents and canonical workflow in zh-HK",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "m2b.spec.ts",
+        "title": "real binary, pinned documents and canonical workflow in en-US",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "m2c.spec.ts",
+        "title": "Stage 1 formal authorities, visualizations and exact-snapshot reread in zh-CN",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "m2c.spec.ts",
+        "title": "Stage 1 formal authorities, visualizations and exact-snapshot reread in zh-HK",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "m2c.spec.ts",
+        "title": "Stage 1 formal authorities, visualizations and exact-snapshot reread in en-US",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "m2d.spec.ts",
+        "title": "governed same-snapshot approval, request-changes and genuine fact successor in zh-CN",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "m2d.spec.ts",
+        "title": "governed same-snapshot approval, request-changes and genuine fact successor in zh-HK",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "m2d.spec.ts",
+        "title": "governed same-snapshot approval, request-changes and genuine fact successor in en-US",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "m2e.spec.ts",
+        "title": "integration Admin, one-time credentials and signed callback zh-CN",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "m2e.spec.ts",
+        "title": "integration Admin, one-time credentials and signed callback zh-HK",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "m2e.spec.ts",
+        "title": "integration Admin, one-time credentials and signed callback en-US",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "phase1kb.spec.ts",
+        "title": "governed admin providers, write-only secret and real HTTP tests zh-CN",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "phase1kb.spec.ts",
+        "title": "authorized eligible selection, genuine document extraction and exact workflow zh-CN",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "phase1kb.spec.ts",
+        "title": "governed admin providers, write-only secret and real HTTP tests zh-HK",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "phase1kb.spec.ts",
+        "title": "authorized eligible selection, genuine document extraction and exact workflow zh-HK",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "phase1kb.spec.ts",
+        "title": "governed admin providers, write-only secret and real HTTP tests en-US",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "phase1kb.spec.ts",
+        "title": "authorized eligible selection, genuine document extraction and exact workflow en-US",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "candidate-governance.spec.ts",
+        "title": "pre-confirm genuine DOCX ACCEPT and exact input freeze zh-CN",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "candidate-governance.spec.ts",
+        "title": "pre-confirm genuine DOCX ACCEPT and exact input freeze zh-HK",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "candidate-governance.spec.ts",
+        "title": "pre-confirm genuine DOCX ACCEPT and exact input freeze en-US",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "candidate-governance.spec.ts",
+        "title": "pre-confirm genuine DOCX REJECT and exact input freeze en-US",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "candidate-governance.spec.ts",
+        "title": "pre-confirm genuine DOCX EDIT and exact input freeze en-US",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+        "retry": 0,
+        "status": "passed"
+      },
+      {
+        "file": "knowledge.spec.ts",
+        "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+        "retry": 0,
+        "status": "passed"
+      }
+    ],
+    "tested_source_sha": "dfd2d5df16e1054a35e16b7295ebb9467ee3db54",
+    "production_sources_identical_to_backend_source": true
+  },
+  "interrupted_runs": [
+    {
+      "log": "full-backend-v2.log",
+      "reason": "Previous ownership assumptions",
+      "counted_as_pass": false
+    },
+    {
+      "log": "full-backend-v3.log",
+      "passed_before_interrupt": 228,
+      "failed_before_interrupt": 1,
+      "reason": "M2E owner blanket engine prohibition conflicts with approved compatibility extension",
+      "counted_as_pass": false
+    }
+  ],
+  "paid_internet_llm": "NOT EXECUTED",
+  "knowledge_fixture_kind": "SYNTHETIC_GOVERNED_TEST_DATA",
+  "full_stage1_pr_closure": "PENDING",
+  "full_stage1_main_integration": "PENDING",
+  "stage1_full_e2e_resume": "ALLOWED",
+  "stage2_started": false,
+  "full_regression": "PASS",
+  "relevant_regression": "PASS",
+  "pure_support_merger": {
+    "passed": 22,
+    "all_fields": true
+  },
+  "four_outcomes": {
+    "passed": 4,
+    "total": 4,
+    "values": [
+      "DIRECT_TRANSFER_ALLOWED",
+      "CONDITIONAL_TRANSFER_ALLOWED",
+      "TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED",
+      "REVIEW_REQUIRED"
+    ]
+  },
+  "mixed_version_protection": "PASS",
+  "historical_digest_integrity": "PASS",
+  "legal_support_completeness": "PASS",
+  "legacy_v2_read": "PASS",
+  "corrected_v2_1_execution": "PASS",
+  "frozen_migrations_0001_0019": {
+    "0001_phase1a_runtime_tables.py": "d8a3d4c060beaa95ee2daab5658a476854640c24b3100cee6ebd4c44d86d793a",
+    "0002_phase1b_domain_foundation.py": "4fa947ad533c7faeaa5d8893917a7c1fcb9933436be9ec41180524eae4c3b9da",
+    "0003_phase1c_metadata_registry.py": "fb8c17f96cfe83c6cbb9f5d1b71450f1e77ae1ee1a9d9df334f6fefff24d66b1",
+    "0004_phase1d_document_intelligence.py": "9f1bf0b1ad8924d698a66d996571565fe5ffd22808f906d639d04549fa8d48ff",
+    "0005_phase1e_context_resolution.py": "6f524b052b4e13df4d809f9ab85157999df43ed9f819d76f5aff9e52493993e3",
+    "0006_phase1f_knowledge_scope.py": "5c4ffecc8cf1ff7787bb282eaed18699b918ad5e40c44e23f761fefd0eeb6085",
+    "0007_phase1g_retrieval_evidence.py": "47117a332785bb63d7ef6ae3537bce321732e9d570f2afc005051888c8c5d4b4",
+    "0008_phase1h_rule_classification.py": "04ac67c7ffe3445a1d89b633549690d0c59fa12ac978e90ca5514b5902484f77",
+    "0009_phase1i_applicability.py": "e363840390a0cb673aef676d75c02c24ed8ea7002a9c1a03605db80bf30447e8",
+    "0010_phase1j_formal_decisions.py": "cebbe1158f5b98ca0c2a7dd87726111f50e2fc24f1f83f828ac1243d24d0e57f",
+    "0011_m2a_structured_intake.py": "573785cdee48f57d8ff7761b49d73e57cf110befd4a14d3e1fcae031e5a89cf0",
+    "0012_m2b_document_inputs.py": "f732e59b44c6fb54a4880f5ca777140560614a675315f9ec8f94212409b4cb8f",
+    "0013_m2b_context_temporal_contract.py": "79133fdda7aeda64a1c10e164abe1fbde73534dfecb3f7397a0b8f642ad33561",
+    "0014_m2c_formal_result_authority.py": "63f1e8f97587dd52983d51cb632972ef9a9d0a7b83f60f4f32678ba3d29bd266",
+    "0015_m2d_review_governance.py": "e424078407d47b338b722503f61bd4abd5f94e0cc65aeb7440f4e4330e51e02a",
+    "0016_phase1kb_multi_provider_llm_governance.py": "6f375dc1bc9ba86b668160ac28572822ddfe6867d16d2104d7ee5db5d422ee93",
+    "0017_m2e_external_agent_api.py": "25cdb35ebd50c503abd3554fe7cb1da665007a216461022cc8ea6f4f93cdb7de",
+    "0018_phase1h_multijurisdiction_classification_identity.py": "e0aa96fbd00f49e370f66edf3c0e0bb20c97888955e8e3547fab65cffbec8f62",
+    "0019_stage1_candidate_governance.py": "bf95e33f21bcbe3ae7729d57202b5afa5479818e60252246dcf5cadfe5b04878"
+  },
+  "artifact_sha256": {
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/pytest_full_summary.json": "9b4f4c2863d64d223c03686e4cab4d6f5cc4e5486562877aa18f6144fd96fb57",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/runtime_verify.json": "ea74478ffe47454edecbf45e2a878dd7c17b7ea4dd35986e7f04faf8406adf40",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/backend_measured.json": "fbbb4d13baff2dfd84943909ee4c953012872102fd864fa7c9a2b7f07807c731",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/candidate_backend_measured.json": "33198c5a03e6a3bcaa7a557c576202cb52ae66476a27a3f15ddbde5b745ee46b",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/historical_original_records.json": "03f070669be669af9b6d2a8dd4e900408ca24f8978e0a9f47e7feb0f0f6c1678",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/decision_compatibility_migration_measured.json": "b42b0d7a773e2fb58caedc8abc973c7cf6293998aa383d492d8ce2b00a190e3d",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/candidate_governance_migration_measured.json": "790073da8241c31aabbdd1fddc179d41e6c34ad64be4405c9c7cfec9ca2f900a",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/migration_validation.json": "6b76adbc45f638285ad64b62ab329f6cd1e28bbabd2527a0c9b5097fd6cc1e5b",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/integration_migration_measured.json": "2f2df6fa1defcaa669231df1479ac71fbf87099fdadc1bfe76c68eb0103f73f2",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/migration_measured.json": "4d7fc7de900a9d21042d0dbc3bfd68e4eec439085bf923bacace5cf012ff54df",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/architecture_rule_check_stdout.json": "c1468e70c19523f5cc668168b2368a45640cd516aa26900868227d25a36c4cc8",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/m2a_architecture_check.json": "84fdf8fe5eb1f9e083eaf2d455e9708ac134ee57208ea335679013b9a7f1a73d",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/m2b_architecture_check.json": "44d4fa76102b3bf0e83add82220399e079c6b14af3adc256bdcc625d581898e1",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/m2c_architecture.json": "8091a90229011656532964695d2fcd76dc739b8cdcf81a2eaeef3d1152a49268",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/m2c_projection_architecture.json": "83b5ad254b48e2484c90767729ae20c2bb1196500cd0ff8779178cbd725022d9",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/m2d_architecture.json": "d9814f08d95aa56fb1a000da377aad21b1b878da1324667ace735f486acc04a4",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/phase1kb_architecture.json": "542b2dd209e7011ae24e1180339075b5b123ba7578419c9fdb846972729f08bd",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/m2e_r1_architecture.json": "c75cc512cea92854ea5cc2aa92de22c4af4a3f65bd34b60957b9d6d563bf6cd6",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/m2e_architecture.json": "3ac219f75b5f36d400a0c0fab45ad6398f9413569faf90125a1985b9536048ee",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/security_validation.json": "bd82f2ccd8e6e80a65f273e6242a6dcb37a6fb146daf7f5edf9e8b1bc1170392",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/ui_api_parity.json": "958009529dcc7b596097a36bc0e49a4f1ef7d5dccec2ab0e9555c4791504fc7a",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/external_review_validation.json": "fed0e0b510569dde5b4e6aa57e10b3fd83bddbbfc3a9e8ef80d6082b30e6a7f3",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/external_vertical_validation.json": "ef871943e16fca1fe8def095e005a4b041da14898200e7c920717f3be96325ba",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/pytest_full_sanitized.xml": "af87deb5f8715c3473b5e28fcea692269395766643165632b33f49681ccccb69",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/frontend.json": "82ea97505faa25ef9e632d05720f9d3848e633530d6b8f85ca81949ad216d523",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/browser-core.json": "b877d96d8507bf4042d4fcfe8fa067f8f33812b0108c0ae8a7eee3a78eb47dc8",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/browser-candidates.json": "1853f654ff4bab01997a6dc209f86f35f403d2cafcb483e4749e8f4e96d82864",
+    "evidence/stage1-full-e2e/r2/historical-compatibility-measured/browser-m0.json": "7c1f5e8e9272d1a0829a9e3237a7ca02e30f16ca69a8e9d7d0fd3cb13df1b0cd"
+  },
+  "original_junit_sha256": "f9d791bdb353ab79836f6a9455eb6d961fa470c3b3d130d3955db34862190d9d",
+  "ci_runs": [
+    {
+      "conclusion": "success",
+      "databaseId": 38264903731,
+      "headSha": "01e801803a0bf573ae232145d4cc10ef8fcead61",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38264903731",
+      "workflowName": "M2B Production Document Integration"
+    },
+    {
+      "conclusion": "",
+      "databaseId": 38264903485,
+      "headSha": "01e801803a0bf573ae232145d4cc10ef8fcead61",
+      "status": "in_progress",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38264903485",
+      "workflowName": "Phase1KB Multi-provider LLM Governance"
+    },
+    {
+      "conclusion": "",
+      "databaseId": 38264903516,
+      "headSha": "01e801803a0bf573ae232145d4cc10ef8fcead61",
+      "status": "in_progress",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38264903516",
+      "workflowName": "Stage1 R1 Candidate Governance Recovery"
+    },
+    {
+      "conclusion": "",
+      "databaseId": 38264903477,
+      "headSha": "01e801803a0bf573ae232145d4cc10ef8fcead61",
+      "status": "in_progress",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38264903477",
+      "workflowName": "phase1a-runtime-smoke"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38264903546,
+      "headSha": "01e801803a0bf573ae232145d4cc10ef8fcead61",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38264903546",
+      "workflowName": "M0 Knowledge & Evidence Preview"
+    },
+    {
+      "conclusion": "",
+      "databaseId": 38264903678,
+      "headSha": "01e801803a0bf573ae232145d4cc10ef8fcead61",
+      "status": "in_progress",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38264903678",
+      "workflowName": "M2E External Agent API Gateway"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38264903642,
+      "headSha": "01e801803a0bf573ae232145d4cc10ef8fcead61",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38264903642",
+      "workflowName": "M2A Production Intake"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38264903519,
+      "headSha": "01e801803a0bf573ae232145d4cc10ef8fcead61",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38264903519",
+      "workflowName": "M1 Intake Analysis Alpha"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38264903465,
+      "headSha": "01e801803a0bf573ae232145d4cc10ef8fcead61",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38264903465",
+      "workflowName": "M2C Formal Result Workspace"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38264903527,
+      "headSha": "01e801803a0bf573ae232145d4cc10ef8fcead61",
+      "status": "completed",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38264903527",
+      "workflowName": "M2D Governed Human Review"
+    }
+  ],
+  "ci_status": "IN_PROGRESS_NOT_PR_CLOSURE_EVIDENCE",
+  "evidence_commit_only": true
+}

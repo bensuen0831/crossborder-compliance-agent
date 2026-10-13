@@ -1,0 +1,299 @@
+{
+  "decision": "PASS",
+  "r1_remote_exact_head": "PASS",
+  "source_pr": 28,
+  "tested_pr_head_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+  "workflows": 10,
+  "jobs": 15,
+  "all_workflows_success": true,
+  "all_mandatory_jobs_exact_checkout": true,
+  "job_proof": [
+    {
+      "workflow": "M0 Knowledge & Evidence Preview",
+      "run_id": 38192754480,
+      "run_attempt": 1,
+      "event": "pull_request",
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38192754480",
+      "job_id": 114628840427,
+      "job_name": "frontend",
+      "job_conclusion": "success",
+      "runner_checkout_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+      "log_file": "1_frontend.txt",
+      "log_sha256": "b75078269f023b3358bae6c571a9cd49eaacc12d1963efd25f8a216074c97a82",
+      "actual_git_log_proof": [
+        [
+          "2026-10-12T01:39:57.8501824Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-10-12T01:39:57.8523665Z 4c79243bbfa22108f1005c8e92265e2137012d4d"
+        ]
+      ]
+    },
+    {
+      "workflow": "M0 Knowledge & Evidence Preview",
+      "run_id": 38192754480,
+      "run_attempt": 1,
+      "event": "pull_request",
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38192754480",
+      "job_id": 114628840623,
+      "job_name": "real-backend-uat",
+      "job_conclusion": "success",
+      "runner_checkout_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+      "log_file": "0_real-backend-uat.txt",
+      "log_sha256": "496b17274629b716e808183f3edaba548811535b55ca4961b8dbda723dccb7c1",
+      "actual_git_log_proof": [
+        [
+          "2026-10-12T01:40:15.0167247Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-10-12T01:40:15.0197804Z 4c79243bbfa22108f1005c8e92265e2137012d4d"
+        ]
+      ]
+    },
+    {
+      "workflow": "M2A Production Intake",
+      "run_id": 38192754488,
+      "run_attempt": 1,
+      "event": "pull_request",
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38192754488",
+      "job_id": 114628839916,
+      "job_name": "frontend-real-backend-uat",
+      "job_conclusion": "success",
+      "runner_checkout_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+      "log_file": "0_frontend-real-backend-uat.txt",
+      "log_sha256": "bd4a55c795579897a9823bfcd05483eb3d483e412c4fb7416b7191491275fb72",
+      "actual_git_log_proof": [
+        [
+          "2026-10-12T01:40:15.5257209Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-10-12T01:40:15.5289320Z 4c79243bbfa22108f1005c8e92265e2137012d4d"
+        ]
+      ]
+    },
+    {
+      "workflow": "M1 Intake Analysis Alpha",
+      "run_id": 38192754491,
+      "run_attempt": 1,
+      "event": "pull_request",
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38192754491",
+      "job_id": 114628839789,
+      "job_name": "frontend-real-backend-uat",
+      "job_conclusion": "success",
+      "runner_checkout_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+      "log_file": "0_frontend-real-backend-uat.txt",
+      "log_sha256": "28c326f2d2b633fb922ccef9f92be75fbddae6f346162c847ce1b889cdcef8ee",
+      "actual_git_log_proof": [
+        [
+          "2026-10-12T01:40:12.8488982Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-10-12T01:40:12.8519195Z 4c79243bbfa22108f1005c8e92265e2137012d4d"
+        ]
+      ]
+    },
+    {
+      "workflow": "M2B Production Document Integration",
+      "run_id": 38192754502,
+      "run_attempt": 1,
+      "event": "pull_request",
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38192754502",
+      "job_id": 114628840073,
+      "job_name": "frontend-real-backend-uat",
+      "job_conclusion": "success",
+      "runner_checkout_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+      "log_file": "0_frontend-real-backend-uat.txt",
+      "log_sha256": "e151b42f18a3f3bc56894665f6e87414b2b823364bf7bf7653e5b99933fb4145",
+      "actual_git_log_proof": [
+        [
+          "2026-10-12T01:40:14.9752389Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-10-12T01:40:14.9784393Z 4c79243bbfa22108f1005c8e92265e2137012d4d"
+        ]
+      ]
+    },
+    {
+      "workflow": "M2C Formal Result Workspace",
+      "run_id": 38192754467,
+      "run_attempt": 1,
+      "event": "pull_request",
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38192754467",
+      "job_id": 114628839922,
+      "job_name": "frontend-real-backend-uat",
+      "job_conclusion": "success",
+      "runner_checkout_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+      "log_file": "0_frontend-real-backend-uat.txt",
+      "log_sha256": "a931507f8064727005abe9e9b2ff42714cca58b8a42d198ea4f5056381eea383",
+      "actual_git_log_proof": [
+        [
+          "2026-10-12T01:40:15.3271092Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-10-12T01:40:15.3304476Z 4c79243bbfa22108f1005c8e92265e2137012d4d"
+        ]
+      ]
+    },
+    {
+      "workflow": "M2D Governed Human Review",
+      "run_id": 38192754475,
+      "run_attempt": 1,
+      "event": "pull_request",
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38192754475",
+      "job_id": 114628839735,
+      "job_name": "frontend-real-backend-uat",
+      "job_conclusion": "success",
+      "runner_checkout_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+      "log_file": "0_frontend-real-backend-uat.txt",
+      "log_sha256": "e175ae30566dd6d4f25e4dc295bc39ffcba5cbfc4ba69404652289986c14d19d",
+      "actual_git_log_proof": [
+        [
+          "2026-10-12T01:40:15.9229467Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-10-12T01:40:15.9260930Z 4c79243bbfa22108f1005c8e92265e2137012d4d"
+        ]
+      ]
+    },
+    {
+      "workflow": "Stage1 R1 Candidate Governance Recovery",
+      "run_id": 38192754547,
+      "run_attempt": 1,
+      "event": "pull_request",
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38192754547",
+      "job_id": 114628840044,
+      "job_name": "canonical-frontend-browser",
+      "job_conclusion": "success",
+      "runner_checkout_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+      "log_file": "1_canonical-frontend-browser.txt",
+      "log_sha256": "309f3c991b31c7902697e1f5421ba47833e0abe672d0f62c94fe6fd6da634121",
+      "actual_git_log_proof": [
+        [
+          "2026-10-12T01:40:13.0904302Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-10-12T01:40:13.0933834Z 4c79243bbfa22108f1005c8e92265e2137012d4d"
+        ]
+      ]
+    },
+    {
+      "workflow": "Stage1 R1 Candidate Governance Recovery",
+      "run_id": 38192754547,
+      "run_attempt": 1,
+      "event": "pull_request",
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38192754547",
+      "job_id": 114628840250,
+      "job_name": "mandatory-backend",
+      "job_conclusion": "success",
+      "runner_checkout_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+      "log_file": "0_mandatory-backend.txt",
+      "log_sha256": "19c089e6a0f4369b238481ff44d5b05afe83bfe5efd005aaf340d9c69402b358",
+      "actual_git_log_proof": [
+        [
+          "2026-10-12T01:40:18.2683879Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-10-12T01:40:18.2702007Z 4c79243bbfa22108f1005c8e92265e2137012d4d"
+        ]
+      ]
+    },
+    {
+      "workflow": "phase1a-runtime-smoke",
+      "run_id": 38192754516,
+      "run_attempt": 1,
+      "event": "pull_request",
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38192754516",
+      "job_id": 114628840040,
+      "job_name": "mandatory-runtime-smoke",
+      "job_conclusion": "success",
+      "runner_checkout_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+      "log_file": "1_mandatory-runtime-smoke.txt",
+      "log_sha256": "c73e55208dba67859ede83c826a3975ef671c3184c7d00efa44211530b686535",
+      "actual_git_log_proof": [
+        [
+          "2026-10-12T01:40:16.8343352Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-10-12T01:40:16.8368316Z 4c79243bbfa22108f1005c8e92265e2137012d4d"
+        ]
+      ]
+    },
+    {
+      "workflow": "phase1a-runtime-smoke",
+      "run_id": 38192754516,
+      "run_attempt": 1,
+      "event": "pull_request",
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38192754516",
+      "job_id": 114628840183,
+      "job_name": "contract-tests",
+      "job_conclusion": "success",
+      "runner_checkout_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+      "log_file": "0_contract-tests.txt",
+      "log_sha256": "52c86cf9f9fd304ba792a5b1680e71da775138232e3e60389b255ff43db3b052",
+      "actual_git_log_proof": [
+        [
+          "2026-10-12T01:39:56.6376817Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-10-12T01:39:56.6408685Z 4c79243bbfa22108f1005c8e92265e2137012d4d"
+        ]
+      ]
+    },
+    {
+      "workflow": "Phase1KB Multi-provider LLM Governance",
+      "run_id": 38192754521,
+      "run_attempt": 1,
+      "event": "pull_request",
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38192754521",
+      "job_id": 114628839877,
+      "job_name": "canonical-frontend-browser",
+      "job_conclusion": "success",
+      "runner_checkout_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+      "log_file": "1_canonical-frontend-browser.txt",
+      "log_sha256": "5daa60107c21b4568b5145f13b80dc26f6b42c50ae90d6add9b0c2f07f75d86f",
+      "actual_git_log_proof": [
+        [
+          "2026-10-12T01:40:12.3721541Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-10-12T01:40:12.3750031Z 4c79243bbfa22108f1005c8e92265e2137012d4d"
+        ]
+      ]
+    },
+    {
+      "workflow": "Phase1KB Multi-provider LLM Governance",
+      "run_id": 38192754521,
+      "run_attempt": 1,
+      "event": "pull_request",
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38192754521",
+      "job_id": 114628840048,
+      "job_name": "mandatory-backend",
+      "job_conclusion": "success",
+      "runner_checkout_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+      "log_file": "0_mandatory-backend.txt",
+      "log_sha256": "d1dbf630dd5ba21930d44448074c5c6e9fd63220a12d943d45bd1b214b4c7b24",
+      "actual_git_log_proof": [
+        [
+          "2026-10-12T01:40:17.2028341Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-10-12T01:40:17.2056162Z 4c79243bbfa22108f1005c8e92265e2137012d4d"
+        ]
+      ]
+    },
+    {
+      "workflow": "M2E External Agent API Gateway",
+      "run_id": 38192754507,
+      "run_attempt": 1,
+      "event": "pull_request",
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38192754507",
+      "job_id": 114628839998,
+      "job_name": "canonical-frontend-browser",
+      "job_conclusion": "success",
+      "runner_checkout_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+      "log_file": "1_canonical-frontend-browser.txt",
+      "log_sha256": "780db9e719988e3547715036f91e5ab97a1411cd8631110146be839ef5d5471a",
+      "actual_git_log_proof": [
+        [
+          "2026-10-12T01:40:19.4099976Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-10-12T01:40:19.4126483Z 4c79243bbfa22108f1005c8e92265e2137012d4d"
+        ]
+      ]
+    },
+    {
+      "workflow": "M2E External Agent API Gateway",
+      "run_id": 38192754507,
+      "run_attempt": 1,
+      "event": "pull_request",
+      "run_url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38192754507",
+      "job_id": 114628840152,
+      "job_name": "mandatory-backend",
+      "job_conclusion": "success",
+      "runner_checkout_sha": "4c79243bbfa22108f1005c8e92265e2137012d4d",
+      "log_file": "0_mandatory-backend.txt",
+      "log_sha256": "21de16445a41b1fb509b9d4b5202952666a3bb04fd467f841a527b77406b0dad",
+      "actual_git_log_proof": [
+        [
+          "2026-10-12T01:40:14.0912461Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-10-12T01:40:14.0940872Z 4c79243bbfa22108f1005c8e92265e2137012d4d"
+        ]
+      ]
+    }
+  ],
+  "paid_internet_llm": "NOT EXECUTED",
+  "stage2_started": false
+}

@@ -126,7 +126,17 @@ for (const [locale, m] of Object.entries(catalogs)) {
     await expect(page.getByTestId('document-input')).toContainText('semantic-requirement.txt');
     await page.getByRole('button', { name: m['ui.m2b.parse'], exact: true }).click();
     await expect(page.getByTestId('document-input')).toContainText(m['ui.m2b.parsed']);
-    await next(); await page.getByRole('checkbox', { name: m['ui.m1.confirmFacts'] }).check();
+    await next();
+    const preparing = page.waitForResponse(r => r.url().endsWith('/candidate-preparation') && r.request().method() === 'POST');
+    await page.getByRole('button', { name: m['ui.candidates.prepare'], exact: true }).click();
+    expect((await preparing).status()).toBe(200);
+    await expect(page.getByTestId('candidate-review-item').first()).toContainText(m['ui.candidates.aiDerived']);
+    const candidates = page.getByTestId('candidate-review-item');
+    for (const item of await candidates.all()) await item.getByRole('combobox').selectOption('ACCEPT');
+    const deciding = page.waitForResponse(r => r.url().endsWith('/candidate-decisions') && r.request().method() === 'POST');
+    await page.getByRole('button', { name: m['ui.candidates.submit'], exact: true }).click();
+    expect((await deciding).status()).toBe(200);
+    await page.getByRole('checkbox', { name: m['ui.m1.confirmFacts'] }).check();
     await page.getByRole('button', { name: m['ui.m2a.confirmStart'], exact: true }).click();
     await expect(page.getByTestId('workflow-run-id')).toBeVisible({ timeout: 90000 });
     const run = await page.getByTestId('workflow-run-id').innerText();

@@ -396,10 +396,23 @@ class FormalWorkflowStages:
                 update={"idempotency_key": sha256(request.idempotency_key.encode()).hexdigest()}
             )
             response = self.retrieval.retrieve(query)
+            retrieval_refs = [UUID(response["retrieval_run_id"])]
+            if p.subject_type == "DATA_FLOW":
+                # Classification owns exact DataItem evidence, while downstream
+                # applicability owns the flow. Retrieve each linked item's pack
+                # through the same canonical service and pinned scope rather
+                # than relabeling a flow pack as item evidence.
+                for item in p.classification_data_item_ids:
+                    item_query = query.model_copy(update={
+                        "subject_type": "DATA_ITEM", "subject_id": str(item),
+                        "idempotency_key": sha256((request.idempotency_key + ":item:" + str(item)).encode()).hexdigest(),
+                    })
+                    item_response = self.retrieval.retrieve(item_query)
+                    retrieval_refs.append(UUID(item_response["retrieval_run_id"]))
             return self._result(
                 request,
                 StageOutcomeCode.SUCCESS,
-                (UUID(response["retrieval_run_id"]),),
+                tuple(retrieval_refs),
                 ("PERSISTED_RETRIEVAL_RUN",),
             )
         if step == SemanticStep.SUFFICIENCY:

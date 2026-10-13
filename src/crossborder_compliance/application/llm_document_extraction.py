@@ -61,10 +61,11 @@ class DocumentSemanticExtractionService:
                 if fact.fact_type not in self.fact_types:
                     review = True
                     continue
+                identity = uuid4()
                 self.repository.save_fact(
                     run_id,
                     BusinessFactCandidate(
-                        fact_id=uuid4(),
+                        fact_id=identity,
                         fact_type=fact.fact_type,
                         normalized_value=fact.value,
                         original_value=text_by_node[fact.source_node_id],
@@ -74,11 +75,15 @@ class DocumentSemanticExtractionService:
                         validation_status=CandidateValidationStatus.UNVALIDATED,
                     ),
                 )
+                self.repository.record_semantic_candidate_provenance(
+                    run_id, identity, "BUSINESS_FACT", outcome, result.invocation_group_id
+                )
             for item in output.items:
+                identity = uuid4()
                 self.repository.save_candidate_item(
                     run_id,
                     CandidateDataItem(
-                        uuid4(),
+                        identity,
                         item.name,
                         " ".join(item.name.casefold().split()),
                         item.description,
@@ -89,6 +94,9 @@ class DocumentSemanticExtractionService:
                         (by_node[item.source_node_id],),
                         item.confidence,
                     ),
+                )
+                self.repository.record_semantic_candidate_provenance(
+                    run_id, identity, "DATA_ITEM", outcome, result.invocation_group_id
                 )
             keys = [node.key for node in output.nodes]
             if len(set(keys)) != len(keys):
@@ -109,14 +117,18 @@ class DocumentSemanticExtractionService:
                         node.confidence,
                     ),
                 )
+                self.repository.record_semantic_candidate_provenance(
+                    run_id, ids[node.key], "DATA_FLOW_NODE", outcome, result.invocation_group_id
+                )
             for edge in output.edges:
                 if edge.source_key not in ids or edge.destination_key not in ids:
                     review = True
                     continue
+                identity = uuid4()
                 self.repository.save_candidate_flow_edge(
                     run_id,
                     CandidateDataFlowEdge(
-                        uuid4(),
+                        identity,
                         ids[edge.source_key],
                         ids[edge.destination_key],
                         None,
@@ -125,5 +137,8 @@ class DocumentSemanticExtractionService:
                         (by_node[edge.source_node_id],),
                         edge.confidence,
                     ),
+                )
+                self.repository.record_semantic_candidate_provenance(
+                    run_id, identity, "DATA_FLOW_EDGE", outcome, result.invocation_group_id
                 )
         return review

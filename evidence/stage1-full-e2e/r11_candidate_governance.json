@@ -1,0 +1,259 @@
+{
+  "task": "STAGE1-E2E-R1.1",
+  "decision": "PASS",
+  "stage1_e2e_r1_candidate_governance_recovery": "PASS",
+  "source_kind": "LOCAL_FEATURE_COMMIT",
+  "branch": "milestone-stage1-full-e2e",
+  "baseline_main_sha": "df3a10923734495d728981f4f319b66afadf8c71",
+  "baseline_tag": "v3.7-m2e-pass",
+  "tested_source_sha": "5a8dab47c6a9a0bce746367de007b82d122411bb",
+  "runner_checkout_sha": "5a8dab47c6a9a0bce746367de007b82d122411bb",
+  "approved_owner_blob_source_sha": "6ec9adbb9bee199f59d5cb9efa7849be2de2847a",
+  "sealed_at": "2026-10-12T01:38:16.909877+00:00",
+  "migration_head": "0019_stage1_candidate_governance",
+  "migration": {
+    "head": "0019_stage1_candidate_governance",
+    "parent": "0018_phase1h_multijurisdiction_classification_identity",
+    "baseline": "df3a10923734495d728981f4f319b66afadf8c71",
+    "fresh": true,
+    "exact0018_upgrade": true,
+    "schema_equivalence": true,
+    "legacy_audit_unchanged": true,
+    "historical_snapshot_unchanged": true,
+    "safe_downgrade": true,
+    "safe_reupgrade": true,
+    "retained_authority_downgrade_refused": true,
+    "frozen_migrations_unchanged": true
+  },
+  "frozen_migrations_0001_0018": "18/18 byte identity PASS",
+  "backend": {
+    "passed": 945,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "architecture": {
+    "passed": 331,
+    "total": 331,
+    "existing": 307,
+    "additive": 24
+  },
+  "runtime": {
+    "passed": 25,
+    "total": 25
+  },
+  "frontend": {
+    "passed": 141,
+    "failed": 0,
+    "skipped": 0,
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "build": "PASS",
+    "i18n": "PASS"
+  },
+  "browser": {
+    "passed": 65,
+    "total": 65,
+    "existing": 60,
+    "additive": 5,
+    "retries": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "locales": [
+      "zh-CN",
+      "zh-HK",
+      "en-US"
+    ],
+    "original_groups": {
+      "m1.spec.ts": 3,
+      "m2a.spec.ts": 3,
+      "m2b.spec.ts": 3,
+      "m2c.spec.ts": 3,
+      "m2d.spec.ts": 3,
+      "m2e.spec.ts": 3,
+      "phase1kb.spec.ts": 6,
+      "knowledge.spec.ts": 36
+    }
+  },
+  "owning_contracts": {
+    "original_accept_reject_edit_counterexample": {
+      "status": "PASS",
+      "test_ids": [
+        "tests.test_stage1_candidate_governance_http::test_real_docx_candidate_decision_before_formalization_and_no_hidden_http[ACCEPT]",
+        "tests.test_stage1_candidate_governance_http::test_real_docx_candidate_decision_before_formalization_and_no_hidden_http[REJECT]",
+        "tests.test_stage1_candidate_governance_http::test_real_docx_candidate_decision_before_formalization_and_no_hidden_http[EDIT]"
+      ]
+    },
+    "partial_unknown_membership_idempotency": {
+      "status": "PASS",
+      "test_ids": [
+        "tests.test_stage1_candidate_governance_http::test_exact_universe_partial_unknown_and_idempotency"
+      ]
+    },
+    "stale_draft_document_ai_preference": {
+      "status": "PASS",
+      "test_ids": [
+        "tests.test_stage1_candidate_governance_http::test_decision_is_stale_after_input_universe_changes[DRAFT]",
+        "tests.test_stage1_candidate_governance_http::test_decision_is_stale_after_input_universe_changes[DOCUMENT]",
+        "tests.test_stage1_candidate_governance_http::test_decision_is_stale_after_input_universe_changes[AI]"
+      ]
+    },
+    "candidate_decision_audit_append_only": {
+      "status": "PASS",
+      "test_ids": [
+        "tests.test_stage1_candidate_governance_http::test_prepared_candidates_decisions_and_audit_are_append_only"
+      ]
+    },
+    "stale_revoked_config_no_substitution": {
+      "status": "PASS",
+      "test_ids": [
+        "tests.test_stage1_candidate_governance_http::test_revoked_model_configuration_cannot_be_substituted"
+      ]
+    },
+    "external_api_and_python_sdk_shared_owner": {
+      "status": "PASS",
+      "test_ids": [
+        "tests.test_stage1_candidate_governance_http::test_external_channel_uses_same_preparation_decision_and_confirm_owner"
+      ]
+    },
+    "stale_parse_pin": {
+      "status": "PASS",
+      "test_ids": [
+        "tests.test_stage1_candidate_governance_http::test_reparse_without_version_change_invalidates_prepared_document_pins"
+      ]
+    },
+    "successor_historical_snapshot_immutability": {
+      "status": "PASS",
+      "test_ids": [
+        "tests.test_stage1_candidate_governance_http::test_successor_requires_new_preparation_and_leaves_previous_snapshot_and_fact_unchanged"
+      ]
+    },
+    "structured_input_precedence": {
+      "status": "PASS",
+      "test_ids": [
+        "tests.test_stage1_candidate_governance_http::test_explicit_structured_input_is_not_reinferred_by_document_model"
+      ]
+    },
+    "snapshot_exact_fact_type_pin_after_future_publication": {
+      "status": "PASS",
+      "test_ids": [
+        "tests.test_stage1_candidate_governance_http::test_confirm_transfers_prepared_fact_type_version_after_future_publication"
+      ]
+    },
+    "candidate_universe_changed_no_partial_formalization": {
+      "status": "PASS",
+      "test_ids": [
+        "tests.test_stage1_candidate_governance_http::test_candidate_added_after_review_fails_closed_without_partial_formalization"
+      ]
+    },
+    "database_cross_preparation_decision_refused": {
+      "status": "PASS",
+      "test_ids": [
+        "tests.test_stage1_candidate_governance_http::test_database_refuses_decision_candidate_from_other_preparation"
+      ]
+    }
+  },
+  "additive_architecture_checks": {
+    "candidate_preparation_is_pre_snapshot": true,
+    "candidate_preparation_is_bound_to_draft_version": true,
+    "candidate_preparation_has_exact_document_pins": true,
+    "candidate_preparation_has_exact_llm_pins": true,
+    "llm_candidate_has_preparation_identity": true,
+    "llm_candidate_cannot_auto_formalize": true,
+    "policy_cannot_impersonate_user": true,
+    "confidence_cannot_authorize_candidate": true,
+    "decision_set_is_append_only": true,
+    "decision_actor_is_server_owned": true,
+    "decision_set_matches_candidate_universe": true,
+    "rejected_candidate_cannot_formalize": true,
+    "edited_candidate_preserves_original_candidate": true,
+    "confirm_does_not_generate_candidates": true,
+    "confirm_does_not_call_document_llm": true,
+    "confirm_uses_exact_preparation": true,
+    "snapshot_copies_exact_preparation_pins": true,
+    "stale_preparation_cannot_confirm": true,
+    "draft_scope_is_not_fake_snapshot": true,
+    "draft_scope_only_allows_candidate_extraction": true,
+    "candidate_confirmation_is_not_m2d_review": true,
+    "existing_candidate_resolution_remains_formal_mapping": true,
+    "historical_snapshot_does_not_require_0019_governance": true,
+    "stage2_not_started": true
+  },
+  "regressions": {
+    "M2-A": "PASS",
+    "M2-B": "PASS",
+    "M2-C": "PASS",
+    "M2-D": "PASS",
+    "Phase1K-B": "PASS",
+    "M2-E": "PASS"
+  },
+  "historical_diagnostics": [
+    {
+      "kind": "full_backend",
+      "tested_source_sha": "14acf7e4b7d75eb8b0a3690f296fb687b409fe30",
+      "passed": 941,
+      "failed": 4,
+      "cause": "Untracked diagnostic Browser screenshot at repository root invalidated finite ownership checks",
+      "recovery": "Moved generated diagnostic outside repository; unchanged owner assertions 14/14 and full suite 945/945 subsequently passed"
+    },
+    {
+      "kind": "original_core_browser",
+      "passed": 23,
+      "failed": 1,
+      "case": "M2-D en-US REQUEST_CHANGES",
+      "cause": "Click during AntD modal opening motion; trace showed no decision HTTP submission",
+      "recovery": "Await modal animations and require decision HTTP 200; no retry/assertion removal/product change; complete original suite 24/24 subsequently passed"
+    }
+  ],
+  "evidence_sha256": {
+    "evidence/stage1-full-e2e/r11/authority_lineage.json": "56bf10aa3619b199c099f9926386b8408b5f5dd8c9dbccd4aed80229fc16b806",
+    "evidence/stage1-full-e2e/r11/backend_full_summary.json": "7b339180913f5ccaddfc74588987a46fb250f0c92625f7d20c621f0e87fa3778",
+    "evidence/stage1-full-e2e/r11/backend_measurement.json": "7a885f2db25d1d7b2a0980906309fbfa3b20c0cdfd31118e9050db4f26c94faf",
+    "evidence/stage1-full-e2e/r11/backend_test_cases.json": "ea38b5ccf5e52c8ea3e5b4af6872f006a6aa67b692ea26035e2078c7b6bff87f",
+    "evidence/stage1-full-e2e/r11/browser_cases.json": "cdbc9e824b3303ea047564b48e4d81c363c8247bc5d96c5dd7b84e2908702c7b",
+    "evidence/stage1-full-e2e/r11/candidate_frontend_measurement.json": "07587c1441628d7b68e407c78caf2307db2e4b98ee1ed73ceb9e0058b205b752",
+    "evidence/stage1-full-e2e/r11/frontend_measurement.json": "6fb04860b2c299368be9dc1cb74ffffc2d9da745438321de5f1241388a41bc1f",
+    "evidence/stage1-full-e2e/r11/migration_measurement.json": "790073da8241c31aabbdd1fddc179d41e6c34ad64be4405c9c7cfec9ca2f900a",
+    "evidence/stage1-full-e2e/r11/runtime_measurement.json": "fabec9c952d6a673faf8b7f51a91746b56387c758522faef0401d71c34c193dd",
+    "evidence/stage1-full-e2e/r11/tested_owner_digests.json": "362a9ddb4870dd9813ac313614194d9e464d3dc5bb3cc9c79784b1adf72eb72c"
+  },
+  "paid_internet_llm": "NOT EXECUTED",
+  "remote_exact_head_ci": {
+    "status": "NOT EXECUTED at local evidence seal",
+    "runs": [],
+    "pr_closure_claimed": false
+  },
+  "scope_exclusions": [
+    "Full Stage1 four-outcome/three-locale matrix",
+    "Formal legal result owners",
+    "M2-D authority redesign",
+    "Historical user-decision fabrication",
+    "Stage2",
+    "0020",
+    "Main merge",
+    "Release tag"
+  ],
+  "evidence_limits": [
+    "Local PostgreSQL 17.11; GitHub workflow uses PostgreSQL 16 and remains a separate execution",
+    "Actual local HTTP LLM providers; no paid Internet provider acceptance",
+    "R1.1 recovery PASS is not Full Stage1 PR/main/business acceptance PASS"
+  ],
+  "blockers": [],
+  "stage1_full_e2e_resume": "ALLOWED",
+  "stage1_full_e2e_pr_closure": "NOT CLAIMED",
+  "stage1_full_e2e_main_integration": "PENDING",
+  "stage2_started": false
+}

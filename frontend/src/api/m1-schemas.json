@@ -880,6 +880,116 @@
         "title": "ProvenanceDTO",
         "type": "object"
       },
+      "StructuredDataFlowInput": {
+        "additionalProperties": false,
+        "description": "Explicit draft input, not a candidate or a formal flow/result identity.",
+        "properties": {
+          "input_key": {
+            "format": "uuid",
+            "title": "Input Key",
+            "type": "string"
+          },
+          "data_item_canonical_name": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Data Item Canonical Name",
+            "type": "string"
+          },
+          "source_jurisdiction_id": {
+            "format": "uuid",
+            "title": "Source Jurisdiction Id",
+            "type": "string"
+          },
+          "destination_jurisdiction_id": {
+            "format": "uuid",
+            "title": "Destination Jurisdiction Id",
+            "type": "string"
+          },
+          "direction": {
+            "enum": [
+              "SOURCE_TO_DESTINATION",
+              "BIDIRECTIONAL"
+            ],
+            "title": "Direction",
+            "type": "string"
+          },
+          "source_name": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Source Name",
+            "type": "string"
+          },
+          "destination_name": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Destination Name",
+            "type": "string"
+          },
+          "source_party_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Source Party Id"
+          },
+          "destination_party_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Destination Party Id"
+          },
+          "source_system_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Source System Id"
+          },
+          "destination_system_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Destination System Id"
+          }
+        },
+        "required": [
+          "input_key",
+          "data_item_canonical_name",
+          "source_jurisdiction_id",
+          "destination_jurisdiction_id",
+          "direction",
+          "source_name",
+          "destination_name"
+        ],
+        "title": "StructuredDataFlowInput",
+        "type": "object"
+      },
       "ProjectIntakeContext": {
         "additionalProperties": false,
         "properties": {
@@ -1082,6 +1192,14 @@
           },
           "ai_model_preference": {
             "$ref": "#/components/schemas/AIModelPreference"
+          },
+          "data_flows": {
+            "items": {
+              "$ref": "#/components/schemas/StructuredDataFlowInput"
+            },
+            "maxItems": 32,
+            "title": "Data Flows",
+            "type": "array"
           }
         },
         "required": [

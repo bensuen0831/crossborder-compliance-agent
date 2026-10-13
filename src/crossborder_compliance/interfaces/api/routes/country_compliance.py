@@ -101,6 +101,9 @@ def execute(project_id: UUID, request: ApplicabilityExecutionRequest, context: C
 @router.get("/regulation-applicability/{result_id}")
 def read(result_id: UUID, context: Context):
     try:
+        from crossborder_compliance.infrastructure.intake_composition import applicability_read_context
+        factory=build_session_factory(get_settings().database_url)[1]
+        context=applicability_read_context(factory,context,result_id)
         return repository(context).read(result_id)
     except Exception as exc:
         translate(exc)

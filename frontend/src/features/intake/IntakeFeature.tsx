@@ -1,3 +1,5 @@
+import { CandidateReview } from './CandidateReview';
+import { useDocumentCandidates } from './candidateApi';
 import { useState, type CSSProperties } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Alert, Button, Card, Steps, theme } from 'antd';
@@ -8,7 +10,7 @@ import { ErrorState, LoadingState } from '../../components/States';
 import { Stage1Workspace } from '../results/Stage1Workspace';
 import { AnalysisPanel } from '../analysis/AnalysisPanel';
 import { m1Api } from './api';
-import { emptyDraft, optionId, optionLabel, type Draft, type GovernedOption, type WorkflowView } from './contracts';
+import { emptyDraft, optionId, optionLabel, type Draft, type FlowInput, type GovernedOption, type WorkflowView } from './contracts';
 import { restoreDraft, type IntakePersistence } from './persistence';
 import { DocumentInputs } from './DocumentInputs';
 import { AISettings } from '../models/AISettings';
@@ -27,8 +29,9 @@ export function IntakeFeature({ session, context: existingContext, persistence, 
   const [draft, setDraft] = useState(() => persistence ? restoreDraft(persistence.record) : emptyDraft());
   const [confirmed, setConfirmed] = useState(persistence?.record.status === 'CONFIRMED');
   const [workflow, setWorkflow] = useState<WorkflowView>();
+  const candidateState = useDocumentCandidates(persistence?.record, session.identity_key, step === 3);
   const save = useMutation({ mutationFn: async () => { await persistence!.save(draft); setDirty(false); }, retry: false });
-  const execute = useMutation({ mutationFn: async () => { if (persistence) { const value = await persistence.confirm(); if (!value.analysis_snapshot_id || !value.retrieval_policy_id) throw new Error('CONFIRMED_SNAPSHOT_REQUIRED'); return m1Api.workflowStart({ project_id: value.project_id, analysis_snapshot_id: value.analysis_snapshot_id, policy_id: value.retrieval_policy_id, display_name: value.intake.project_name }); } return m1Api.workflowStart(context!); }, onSuccess: setWorkflow, retry: false });
+  const execute = useMutation({ mutationFn: async () => { if (persistence) { const value = await persistence.confirm(candidateState.decisionSetId ?? undefined); if (!value.analysis_snapshot_id || !value.retrieval_policy_id) throw new Error('CONFIRMED_SNAPSHOT_REQUIRED'); return m1Api.workflowStart({ project_id: value.project_id, analysis_snapshot_id: value.analysis_snapshot_id, policy_id: value.retrieval_policy_id, display_name: value.intake.project_name }); } return m1Api.workflowStart(context!); }, onSuccess: setWorkflow, retry: false });
   const refresh = useMutation({ mutationFn: () => m1Api.workflowRead(workflow!.workflow_run_id), onSuccess: setWorkflow, retry: false });
   const workflowStatus: Record<string, string> = { RUNNING: 'ui.m1.workflowRunning', COMPLETED: 'ui.m1.workflowCompleted', REVIEW_REQUIRED: 'ui.m1.reviewRequired', WARNING: 'ui.m1.workflowWarning', FAILED: 'ui.m1.workflowFailed', CANCELLED: 'ui.m1.workflowFailed' };
   const metadata = useQuery({ queryKey: ['m1-metadata', session.identity_key, projectId, locale],
@@ -41,9 +44,9 @@ export function IntakeFeature({ session, context: existingContext, persistence, 
   const select = (key: 'scenario' | 'product', resource: string, label: string) => <label>{t(label)}<select required value={draft[key]} disabled={metadata.isPending || !!metadata.error || persistence?.record.status === 'CONFIRMED'} onChange={event => update(key, event.target.value)}><option value="">{t('ui.m1.choose')}</option>{options(resource)}</select></label>;
   const multi = (key: 'source' | 'destination' | 'processing' | 'storage' | 'categories' | 'dataTypes', resource: string, label: string) => <label>{t(label)}<select multiple value={draft[key]} disabled={persistence?.record.status === 'CONFIRMED' || metadata.isPending || !!metadata.error || !metadata.data?.[resource]?.length || (!!persistence && key === 'dataTypes')} onChange={event => update(key, Array.from(event.target.selectedOptions, option => option.value))}>{options(resource)}</select></label>;
   const party = (key: 'organizations' | 'thirdParties', label: string) => <label>{t(label)}<select multiple value={draft[key]} disabled={persistence?.record.status === 'CONFIRMED' || !parties.data?.length} onChange={event => update(key, Array.from(event.target.selectedOptions, option => option.value))}>{parties.data?.map(row => <option key={row.project_party_id} value={row.project_party_id}>{row.display_name}</option>)}</select></label>;
-  const valid = draft.scenario && draft.product && draft.source.length && draft.destination.length && draft.purpose.trim() && draft.description.trim() && (persistence || (draft.flows.length > 0 && draft.flows.every(row => row.data_item_id && row.source_location && row.destination_location)));
+  const valid = draft.scenario && draft.product && draft.source.length && draft.destination.length && draft.purpose.trim() && draft.description.trim() && (persistence ? draft.flows.every(row => row.data_item_canonical_name?.trim() && row.source_location && row.destination_location && row.source_name?.trim() && row.destination_name?.trim()) : (draft.flows.length > 0 && draft.flows.every(row => row.data_item_id && row.source_location && row.destination_location)));
   const scenario = metadata.data?.scenarios.find(row => optionId(row) === draft.scenario);
-  const summary = Object.entries(draft).filter(([key]) => key !== 'aiModelPreference').map(([key, value]) => <div key={key}><dt>{t(`ui.m1.field.${key}`)}</dt><dd>{typeof value === 'string' ? (Object.values(metadata.data ?? {}).flat().find(row => optionId(row) === value)?.presentation?.display_name ?? Object.values(metadata.data ?? {}).flat().find(row => optionId(row) === value)?.display_name ?? value) || t('notAvailable') : key === 'flows' ? draft.flows.map(row => <p key={row.id}>{row.data_item_id} → {row.source_location} → {row.destination_location}</p>) : (value as string[]).map(id => {
+  const summary = Object.entries(draft).filter(([key]) => key !== 'aiModelPreference').map(([key, value]) => <div key={key}><dt>{t(`ui.m1.field.${key}`)}</dt><dd>{typeof value === 'string' ? (Object.values(metadata.data ?? {}).flat().find(row => optionId(row) === value)?.presentation?.display_name ?? Object.values(metadata.data ?? {}).flat().find(row => optionId(row) === value)?.display_name ?? value) || t('notAvailable') : key === 'flows' ? draft.flows.map(row => <p key={row.id}>{row.data_item_canonical_name ?? row.data_item_id} → {row.source_location} → {row.destination_location}</p>) : (value as string[]).map(id => {
     const metadataRow = Object.values(metadata.data ?? {}).flat().find(row => optionId(row) === id);
     return <span className="m1-value" key={id}>{metadataRow ? optionLabel(metadataRow) : items.data?.find(row => row.data_item_id === id)?.display_name ?? parties.data?.find(row => row.project_party_id === id)?.display_name ?? id}</span>;
   })}</dd></div>);
@@ -63,10 +66,14 @@ export function IntakeFeature({ session, context: existingContext, persistence, 
             {persistence && <><label>{t('ui.m1.field.dataVolume')}<input value={draft.dataVolume} maxLength={256} disabled={persistence.record.status === 'CONFIRMED'} onChange={event => update('dataVolume', event.target.value)}/></label><label>{t('ui.m1.field.flowDescription')}<textarea value={draft.flowDescription} maxLength={4000} disabled={persistence.record.status === 'CONFIRMED'} onChange={event => update('flowDescription', event.target.value)}/></label></>}
             <label>{t('ui.m1.field.purpose')}<textarea value={draft.purpose} maxLength={2000} onChange={event => update('purpose', event.target.value)}/></label>
           </div>
-          <fieldset disabled={!!persistence}><legend>{t('ui.m1.field.flows')}</legend>{draft.flows.map((row, index) => <div className="m1-flow" key={row.id}>
-            {(['data_item_id', 'source_location', 'destination_location'] as const).map(field => <label key={field}>{t(`ui.m1.flow.${field}`)}<select value={row[field]} onChange={event => update('flows', draft.flows.map((value, position) => position === index ? { ...value, [field]: event.target.value } : value))}><option value="">{t('ui.m1.choose')}</option>{field === 'data_item_id' ? items.data?.map(item => <option key={item.data_item_id} value={item.data_item_id}>{item.display_name ?? item.canonical_name ?? item.data_item_id}</option>) : options('jurisdictions')}</select></label>)}
+          <fieldset disabled={persistence?.record.status === 'CONFIRMED'}><legend>{t('ui.m1.field.flows')}</legend>{draft.flows.map((row, index) => <div className="m1-flow" key={row.id}>
+            {persistence && <>
+              {(['data_item_canonical_name', 'source_name', 'destination_name'] as const).map(field => <label key={field}>{t(`ui.stage1.flow.${field}`)}<input maxLength={200} value={row[field] ?? ''} onChange={event => update('flows', draft.flows.map((value, position) => position === index ? { ...value, [field]: event.target.value } : value))}/></label>)}
+              <label>{t('ui.stage1.flow.direction')}<select value={row.direction ?? 'SOURCE_TO_DESTINATION'} onChange={event => update('flows', draft.flows.map((value, position) => position === index ? { ...value, direction: event.target.value as FlowInput['direction'] } : value))}>{(['SOURCE_TO_DESTINATION', 'BIDIRECTIONAL'] as const).map(value => <option key={value} value={value}>{t(`ui.stage1.flow.${value}`)}</option>)}</select></label>
+            </>}
+            {(['data_item_id', 'source_location', 'destination_location'] as const).filter(field => !persistence || field !== 'data_item_id').map(field => <label key={field}>{t(`ui.m1.flow.${field}`)}<select value={row[field]} onChange={event => update('flows', draft.flows.map((value, position) => position === index ? { ...value, [field]: event.target.value } : value))}><option value="">{t('ui.m1.choose')}</option>{field === 'data_item_id' ? items.data?.map(item => <option key={item.data_item_id} value={item.data_item_id}>{item.display_name ?? item.canonical_name ?? item.data_item_id}</option>) : options('jurisdictions')}</select></label>)}
             <Button onClick={() => update('flows', draft.flows.filter(value => value.id !== row.id))}>{t('ui.m1.removeFlow')}</Button>
-          </div>)}<Button onClick={() => update('flows', [...draft.flows, { id: crypto.randomUUID(), data_item_id: '', source_location: '', destination_location: '' }])}>{t('ui.m1.addFlow')}</Button></fieldset>
+          </div>)}<Button onClick={() => update('flows', [...draft.flows, { id: crypto.randomUUID(), data_item_id: '', data_item_canonical_name: '', source_name: '', destination_name: '', direction: 'SOURCE_TO_DESTINATION', source_location: '', destination_location: '' }])}>{t('ui.m1.addFlow')}</Button></fieldset>
           <p>{t('ui.m1.categoryGap')}</p>
           {!parties.data?.length && <p>{t('ui.m1.noParties')}</p>}
         </>}
@@ -76,8 +83,9 @@ export function IntakeFeature({ session, context: existingContext, persistence, 
           {!context ? <p>{t('ui.m1.documentGap')}</p> : documents.isPending ? <LoadingState/> : documents.error ? <ErrorState error={documents.error}/> : <details><summary>{t('ui.m1.documentsSummary')}</summary><pre className="provenance">{JSON.stringify(documents.data, null, 2)}</pre></details>}
           <Alert type="warning" title={t('ui.m1.documentGap')}/><Button disabled>{t('ui.m1.upload')}</Button><p>{t('ui.m1.untrusted')}</p></>}</>}
         {step === 3 && <><dl className="m1-summary">{summary}</dl>{persistence && <DocumentInputs persistence={persistence} identity={session.identity_key} dirty={dirty}/>} {!valid && <Alert type="warning" title={t('ui.m1.missingInputs')}/>}
+          {persistence?.record.status === 'DRAFT' && <CandidateReview state={candidateState} dirty={dirty}/>}
           <label className="m1-confirm"><input type="checkbox" checked={confirmed} disabled={!valid} onChange={event => setConfirmed(event.target.checked)}/>{t('ui.m1.confirmFacts')}</label>
-          {confirmed && <Alert type="info" title={t('ui.m1.factsOnly')}/>}<Button disabled={!confirmed || !valid || !!workflow || (!!persistence && dirty)} loading={execute.isPending} onClick={() => execute.mutate()}>{t(persistence ? 'ui.m2a.confirmStart' : 'ui.m1.execute')}</Button><p>{t('ui.m1.workflowPrepared')}</p></>}
+          {confirmed && <Alert type="info" title={t('ui.m1.factsOnly')}/>}<Button disabled={!confirmed || !valid || !!workflow || (!!persistence && (dirty || candidateState.blocked))} loading={execute.isPending} onClick={() => execute.mutate()}>{t(persistence ? 'ui.m2a.confirmStart' : 'ui.m1.execute')}</Button><p>{t('ui.m1.workflowPrepared')}</p></>}
         <div className="m1-actions">{persistence && <Button disabled={!dirty || persistence.record.status !== 'DRAFT'} loading={save.isPending} onClick={() => save.mutate()}>{t('ui.m2a.save')}</Button>}{step > 0 && <Button onClick={() => setStep(value => value - 1)}>{t('ui.m1.back')}</Button>}{step < 3 && <Button htmlType="submit" disabled={step === 0 && (!draft.scenario || !draft.product)}>{t('ui.m1.next')}</Button>}</div>
       </form>
     </Card>

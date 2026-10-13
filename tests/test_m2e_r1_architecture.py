@@ -32,7 +32,16 @@ def test_recovery_is_exact_committed_finite_successor_owner():
     assert valid and source and source != BASE
     assert paths.keys() == PATHS
     assert not any(p.startswith("frontend/") for p in R1_PATHS)
-    assert "src/crossborder_compliance/domain/decision_engine.py" not in paths
+    engine = "src/crossborder_compliance/domain/decision_engine.py"
+    if engine in paths:
+        # Only the approved compatibility successor can extend this owner.
+        import json, subprocess
+        from scripts.stage1_e2e_ownership import BASE as approved_base, legal_bodies_preserved
+        record = json.loads((ROOT / "evidence/stage1-full-e2e/r2/approved_owner_overlay.json").read_text())
+        assert paths[engine] == record["paths"][engine]
+        assert legal_bodies_preserved(subprocess.check_output(["git", "show", approved_base + ":" + engine], cwd=ROOT), (ROOT / engine).read_bytes())
+    else:
+        assert engine not in paths
     assert "src/crossborder_compliance/infrastructure/persistence/rule_governance.py" not in paths
 
 

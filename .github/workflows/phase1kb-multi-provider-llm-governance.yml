@@ -8,7 +8,7 @@ permissions:
 jobs:
   mandatory-backend:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 75
     services:
       postgres:
         image: pgvector/pgvector:pg16
@@ -34,6 +34,10 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - run: python -m pip install -e '.[dev]'
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Locked compiler for mandatory real TypeScript SDK business acceptance
+        run: bash scripts/stage1_sdk_toolchain.sh
       - name: Full mandatory PostgreSQL runtime, registry, real HTTP providers, security and migration
         run: bash smoke/run_gate.sh
       - name: All additive architecture authorities and exact-head backend measurement

@@ -700,6 +700,14 @@
           },
           "ai_model_preference": {
             "$ref": "#/components/schemas/AIModelPreference"
+          },
+          "data_flows": {
+            "items": {
+              "$ref": "#/components/schemas/StructuredDataFlowInput"
+            },
+            "type": "array",
+            "maxItems": 32,
+            "title": "Data Flows"
           }
         },
         "additionalProperties": false,
@@ -1393,6 +1401,112 @@
           "record_version"
         ],
         "title": "ReviewView"
+      },
+      "StructuredDataFlowInput": {
+        "properties": {
+          "input_key": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Input Key"
+          },
+          "data_item_canonical_name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Data Item Canonical Name"
+          },
+          "source_jurisdiction_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Source Jurisdiction Id"
+          },
+          "destination_jurisdiction_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Destination Jurisdiction Id"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "SOURCE_TO_DESTINATION",
+              "BIDIRECTIONAL"
+            ],
+            "title": "Direction"
+          },
+          "source_name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Source Name"
+          },
+          "destination_name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Destination Name"
+          },
+          "source_party_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Party Id"
+          },
+          "destination_party_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Destination Party Id"
+          },
+          "source_system_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source System Id"
+          },
+          "destination_system_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Destination System Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "input_key",
+          "data_item_canonical_name",
+          "source_jurisdiction_id",
+          "destination_jurisdiction_id",
+          "direction",
+          "source_name",
+          "destination_name"
+        ],
+        "title": "StructuredDataFlowInput",
+        "description": "Explicit draft input, not a candidate or a formal flow/result identity."
       },
       "ValidationError": {
         "properties": {
