@@ -1,207 +1,671 @@
 {
-  "recovery": {
-    "source_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+  "acceptance_level": "L1_SYNTHETIC_GOVERNED_TECHNICAL_BUSINESS_E2E",
+  "decision": "PASS",
+  "draft": true,
+  "final": {
     "decision": "PASS",
+    "measured_artifacts": [
+      {
+        "artifact_id": 11786075164,
+        "artifact_name": "stage1-business-browser-38335791559",
+        "filename": "stage1_business_browser_measured.json",
+        "run_id": 38335791559,
+        "sha256": "9737b357e4d2bd142962f018bd6f9e910026c28e7b7449d984b1014fdc7089f8"
+      },
+      {
+        "artifact_id": 11785489324,
+        "artifact_name": "stage1-business-closure-38335791559",
+        "filename": "stage1_business_aggregate_measured.json",
+        "run_id": 38335791559,
+        "sha256": "cc2c934a3bcdb7016106c84414d3b2aaacf3745873b01d5eb270e7a48cb3679a"
+      },
+      {
+        "artifact_id": 11785058972,
+        "artifact_name": "stage1-business-backend-38335791559",
+        "filename": "stage1_business_backend_measured.json",
+        "run_id": 38335791559,
+        "sha256": "829563065a289ee822635b8b4e6e1b1f0683904bb379bfa342ea7e561e107d38"
+      },
+      {
+        "artifact_id": 11786861137,
+        "artifact_name": "r11-backend-38335791226",
+        "filename": "backend_measured.json",
+        "run_id": 38335791226,
+        "sha256": "101c653b2b07ef53e9ada5fbfab2563ce3dcb4272995802803f00e135c57d3ce"
+      },
+      {
+        "artifact_id": 11786861137,
+        "artifact_name": "r11-backend-38335791226",
+        "filename": "candidate_backend_measured.json",
+        "run_id": 38335791226,
+        "sha256": "fdb89d9dd45c0582a572acf4d30297ce79dd1edb4ff822ca113de0f541d85861"
+      },
+      {
+        "artifact_id": 11786861137,
+        "artifact_name": "r11-backend-38335791226",
+        "filename": "pytest_full_summary.json",
+        "run_id": 38335791226,
+        "sha256": "767cc8d5c724b616ce210d60e7258aa97806151149e26ddc74d76c4b99a808b1"
+      },
+      {
+        "artifact_id": 11786861137,
+        "artifact_name": "r11-backend-38335791226",
+        "filename": "runtime_verify.json",
+        "run_id": 38335791226,
+        "sha256": "ce240d652cd5bb0df3e1c10a40b6c62fac6ea8c5256f22291528aae8f21895c3"
+      },
+      {
+        "artifact_id": 11784783873,
+        "artifact_name": "r11-frontend-38335791226",
+        "filename": "frontend_measured.json",
+        "run_id": 38335791226,
+        "sha256": "be235e0eecff85b81f9cae469f6b5efc539d696b36c4d817b045a69ce1c4230d"
+      },
+      {
+        "artifact_id": 11784783873,
+        "artifact_name": "r11-frontend-38335791226",
+        "filename": "candidate_frontend_measured.json",
+        "run_id": 38335791226,
+        "sha256": "9be58b9b9e103e4cc71a77b99538c1fcf533b56da76123a6679699e4235eb6fb"
+      }
+    ],
     "runs": [
       {
-        "run_id": 38279412364,
-        "workflow": "M0 Knowledge & Evidence Preview",
-        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "conclusion": "success",
+        "head_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
         "jobs": [
           {
-            "job_id": 114912750639,
+            "completed_at": "2026-10-13T02:27:15Z",
+            "conclusion": "success",
+            "coverage_role": "MANDATORY_WORKFLOW_JOB",
+            "failed_steps": [],
+            "job": "frontend-real-backend-uat",
+            "job_id": 115095439287,
+            "log_sha256": "56b0a319b73be5b5ff3ddb3ef8c76c8dce96b7f34daf328784216deaf179bb92",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "pytest_summaries": [],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:12:39Z",
+            "status": "completed"
+          }
+        ],
+        "run_id": 38335791319,
+        "status": "completed",
+        "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38335791319",
+        "workflow": "M2C Formal Result Workspace"
+      },
+      {
+        "conclusion": "success",
+        "head_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+        "jobs": [
+          {
+            "completed_at": "2026-10-13T02:31:06Z",
+            "conclusion": "success",
+            "coverage_role": "MANDATORY_WORKFLOW_JOB",
+            "failed_steps": [],
+            "job": "frontend-real-backend-uat",
+            "job_id": 115095439088,
+            "log_sha256": "d7277525d6388ea4314b452892c6a255f722ba16daa736736616f973db103314",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "pytest_summaries": [
+              "36 passed, 3 warnings in 199.70s (0:03:19)"
+            ],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:12:38Z",
+            "status": "completed"
+          }
+        ],
+        "run_id": 38335791292,
+        "status": "completed",
+        "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38335791292",
+        "workflow": "M2D Governed Human Review"
+      },
+      {
+        "conclusion": "success",
+        "head_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+        "jobs": [
+          {
+            "completed_at": "2026-10-13T02:14:19Z",
+            "conclusion": "success",
+            "coverage_role": "MANDATORY_WORKFLOW_JOB",
+            "failed_steps": [],
             "job": "frontend",
-            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "job_id": 115095439315,
+            "log_sha256": "8a71a26a52fb2cd4224c4d8a005372401f1cd35f33df06561da1faa104e0001b",
             "method": "executed git log -1 --format=%H in checkout log",
-            "conclusion": "success"
+            "pytest_summaries": [],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:12:39Z",
+            "status": "completed"
           },
           {
-            "job_id": 114912751008,
+            "completed_at": "2026-10-13T02:18:07Z",
+            "conclusion": "success",
+            "coverage_role": "MANDATORY_WORKFLOW_JOB",
+            "failed_steps": [],
             "job": "real-backend-uat",
-            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "job_id": 115095439512,
+            "log_sha256": "b50b5ed2f247aae0085f686c0eea12f07d93fd99461febfc47f50afa469a66cf",
             "method": "executed git log -1 --format=%H in checkout log",
-            "conclusion": "success"
+            "pytest_summaries": [
+              "8 passed in 8.75s"
+            ],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:12:38Z",
+            "status": "completed"
           }
         ],
+        "run_id": 38335791371,
         "status": "completed",
-        "conclusion": "success"
+        "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38335791371",
+        "workflow": "M0 Knowledge & Evidence Preview"
       },
       {
-        "run_id": 38279412318,
-        "workflow": "M2A Production Intake",
-        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "conclusion": "success",
+        "head_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
         "jobs": [
           {
-            "job_id": 114912749665,
+            "completed_at": "2026-10-13T02:19:00Z",
+            "conclusion": "success",
+            "coverage_role": "MANDATORY_WORKFLOW_JOB",
+            "failed_steps": [],
             "job": "frontend-real-backend-uat",
-            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "job_id": 115095439381,
+            "log_sha256": "2d5e5e826497d4d83ec14bbfaebe1a2e2b833e5bece38d90f291359613ee1b7e",
             "method": "executed git log -1 --format=%H in checkout log",
-            "conclusion": "success"
+            "pytest_summaries": [],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:12:38Z",
+            "status": "completed"
           }
         ],
+        "run_id": 38335791343,
         "status": "completed",
-        "conclusion": "success"
+        "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38335791343",
+        "workflow": "M2B Production Document Integration"
       },
       {
-        "run_id": 38279412302,
-        "workflow": "M1 Intake Analysis Alpha",
-        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "conclusion": "success",
+        "head_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
         "jobs": [
           {
-            "job_id": 114912751392,
+            "completed_at": "2026-10-13T02:19:16Z",
+            "conclusion": "success",
+            "coverage_role": "MANDATORY_WORKFLOW_JOB",
+            "failed_steps": [],
             "job": "frontend-real-backend-uat",
-            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "job_id": 115095439023,
+            "log_sha256": "bc008ca2c630de08d716e70eacda237bb45a069e6c4888d30174d8479901f623",
             "method": "executed git log -1 --format=%H in checkout log",
-            "conclusion": "success"
+            "pytest_summaries": [],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:12:39Z",
+            "status": "completed"
           }
         ],
+        "run_id": 38335791308,
         "status": "completed",
-        "conclusion": "success"
+        "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38335791308",
+        "workflow": "M2A Production Intake"
       },
       {
-        "run_id": 38279412310,
-        "workflow": "M2C Formal Result Workspace",
-        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "conclusion": "success",
+        "head_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
         "jobs": [
           {
-            "job_id": 114912748435,
+            "completed_at": "2026-10-13T02:20:05Z",
+            "conclusion": "success",
+            "coverage_role": "MANDATORY_WORKFLOW_JOB",
+            "failed_steps": [],
             "job": "frontend-real-backend-uat",
-            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "job_id": 115095439593,
+            "log_sha256": "e23ed63b39d5a7371a19127226211860507c9ec5fad4315c83f2b8b3cb054bf3",
             "method": "executed git log -1 --format=%H in checkout log",
-            "conclusion": "success"
+            "pytest_summaries": [],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:12:38Z",
+            "status": "completed"
           }
         ],
+        "run_id": 38335791305,
         "status": "completed",
-        "conclusion": "success"
+        "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38335791305",
+        "workflow": "M1 Intake Analysis Alpha"
       },
       {
-        "run_id": 38279412306,
-        "workflow": "M2B Production Document Integration",
-        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "conclusion": "success",
+        "head_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
         "jobs": [
           {
-            "job_id": 114912750670,
-            "job": "frontend-real-backend-uat",
-            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
-            "method": "executed git log -1 --format=%H in checkout log",
-            "conclusion": "success"
-          }
-        ],
-        "status": "completed",
-        "conclusion": "success"
-      },
-      {
-        "run_id": 38279412340,
-        "workflow": "M2D Governed Human Review",
-        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
-        "jobs": [
-          {
-            "job_id": 114912751298,
-            "job": "frontend-real-backend-uat",
-            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
-            "method": "executed git log -1 --format=%H in checkout log",
-            "conclusion": "success"
-          }
-        ],
-        "status": "completed",
-        "conclusion": "success"
-      },
-      {
-        "run_id": 38279412385,
-        "workflow": "Stage1 R1 Candidate Governance Recovery",
-        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
-        "jobs": [
-          {
-            "job_id": 114912750667,
+            "completed_at": "2026-10-13T03:08:12Z",
+            "conclusion": "success",
+            "coverage_role": "MANDATORY_WORKFLOW_JOB",
+            "failed_steps": [],
             "job": "mandatory-backend",
-            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "job_id": 115095439400,
+            "log_sha256": "b2e22b4e79059e1742170c735d05b7d35918381ce11e75edf092cf6756d73e74",
             "method": "executed git log -1 --format=%H in checkout log",
-            "conclusion": "success"
+            "pytest_summaries": [
+              "1012 passed, 20 warnings in 3174.83s (0:52:54)"
+            ],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:12:39Z",
+            "status": "completed"
           },
           {
-            "job_id": 114912750944,
+            "completed_at": "2026-10-13T02:32:05Z",
+            "conclusion": "success",
+            "coverage_role": "MANDATORY_WORKFLOW_JOB",
+            "failed_steps": [],
             "job": "canonical-frontend-browser",
-            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "job_id": 115095439690,
+            "log_sha256": "5bdf94f4a35ae6326d5a4f50d5477b2e9c7ded869906ddf25c038eae0ae2280e",
             "method": "executed git log -1 --format=%H in checkout log",
-            "conclusion": "success"
+            "pytest_summaries": [],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:12:38Z",
+            "status": "completed"
           }
         ],
+        "run_id": 38335791342,
         "status": "completed",
-        "conclusion": "success"
+        "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38335791342",
+        "workflow": "Phase1KB Multi-provider LLM Governance"
       },
       {
-        "run_id": 38279412281,
-        "workflow": "M2E External Agent API Gateway",
-        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "conclusion": "success",
+        "head_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
         "jobs": [
           {
-            "job_id": 114912749243,
-            "job": "mandatory-backend",
-            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "completed_at": "2026-10-13T02:32:43Z",
+            "conclusion": "success",
+            "coverage_role": "MANDATORY_WORKFLOW_JOB",
+            "failed_steps": [],
+            "job": "business-contracts",
+            "job_id": 115095440087,
+            "log_sha256": "d465480c388bff3b6797aa5b8e87f22aa03e70edef954e8c7ba08b9927e783e3",
             "method": "executed git log -1 --format=%H in checkout log",
-            "conclusion": "success"
+            "pytest_summaries": [
+              "29 passed in 976.90s (0:16:16)",
+              "61 passed, 4 warnings in 157.22s (0:02:37)"
+            ],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:12:38Z",
+            "status": "completed"
           },
           {
-            "job_id": 114912749655,
-            "job": "canonical-frontend-browser",
-            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "completed_at": "2026-10-13T02:41:02Z",
+            "conclusion": "success",
+            "coverage_role": "MANDATORY_WORKFLOW_JOB",
+            "failed_steps": [],
+            "job": "business-browser",
+            "job_id": 115095440280,
+            "log_sha256": "4a0acc6fd49b4273bc443fd498bd41671a63596eeaa83e4a7e3c3a92160656b6",
             "method": "executed git log -1 --format=%H in checkout log",
-            "conclusion": "success"
+            "pytest_summaries": [],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:12:39Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T02:41:12Z",
+            "conclusion": "success",
+            "coverage_role": "MANDATORY_WORKFLOW_JOB",
+            "failed_steps": [],
+            "job": "verified-business-aggregation",
+            "job_id": 115102534598,
+            "log_sha256": "ad383654011b915f6ee3b20428c133ca55deacb21a6cd772c67885be1547c961",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "pytest_summaries": [],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:41:05Z",
+            "status": "completed"
           }
         ],
+        "run_id": 38335791559,
         "status": "completed",
-        "conclusion": "success"
+        "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38335791559",
+        "workflow": "Stage1 Full Business E2E Acceptance"
       },
       {
-        "run_id": 38279412304,
-        "workflow": "phase1a-runtime-smoke",
-        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "conclusion": "success",
+        "head_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
         "jobs": [
           {
-            "job_id": 114912749856,
+            "completed_at": "2026-10-13T02:34:03Z",
+            "conclusion": "success",
+            "coverage_role": "MANDATORY_WORKFLOW_JOB",
+            "failed_steps": [],
+            "job": "canonical-frontend-browser",
+            "job_id": 115095439076,
+            "log_sha256": "97f36f38762488d73a8de00554dc053003511c8676d54539f098f06844f0ef79",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "pytest_summaries": [],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:12:38Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T03:17:51Z",
+            "conclusion": "success",
+            "coverage_role": "MANDATORY_WORKFLOW_JOB",
+            "failed_steps": [],
+            "job": "mandatory-backend",
+            "job_id": 115095439123,
+            "log_sha256": "256acb312967722b03dc5daac58b686e7fb59223d262575d43458bd925863b8e",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "pytest_summaries": [
+              "1012 passed, 20 warnings in 3758.22s (1:02:38)"
+            ],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:12:38Z",
+            "status": "completed"
+          }
+        ],
+        "run_id": 38335791226,
+        "status": "completed",
+        "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38335791226",
+        "workflow": "Stage1 R1 Candidate Governance Recovery"
+      },
+      {
+        "conclusion": "success",
+        "head_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+        "jobs": [
+          {
+            "completed_at": "2026-10-13T03:25:49Z",
+            "conclusion": "success",
+            "coverage_role": "MANDATORY_WORKFLOW_JOB",
+            "failed_steps": [],
+            "job": "mandatory-backend",
+            "job_id": 115095440223,
+            "log_sha256": "7a8519dc60734878d91e2e3a63b16e5797aad2abb4192fa60bbd2b6ae5edacc2",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "pytest_summaries": [
+              "1012 passed, 20 warnings in 4213.66s (1:10:13)"
+            ],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:12:38Z",
+            "status": "completed"
+          },
+          {
+            "completed_at": "2026-10-13T02:36:14Z",
+            "conclusion": "success",
+            "coverage_role": "MANDATORY_WORKFLOW_JOB",
+            "failed_steps": [],
+            "job": "canonical-frontend-browser",
+            "job_id": 115095440450,
+            "log_sha256": "dae5990d1027faf393c60a0efa6ed0341877100b81147d9387e2109be14ce0e8",
+            "method": "executed git log -1 --format=%H in checkout log",
+            "pytest_summaries": [],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:12:39Z",
+            "status": "completed"
+          }
+        ],
+        "run_id": 38335791610,
+        "status": "completed",
+        "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38335791610",
+        "workflow": "M2E External Agent API Gateway"
+      },
+      {
+        "conclusion": "success",
+        "head_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+        "jobs": [
+          {
+            "completed_at": "2026-10-13T03:26:07Z",
+            "conclusion": "success",
+            "coverage_role": "MANDATORY_WORKFLOW_JOB",
+            "failed_steps": [],
             "job": "mandatory-runtime-smoke",
-            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "job_id": 115095438859,
+            "log_sha256": "6ebd2f2b9216556038857ea647b8fd5ca3c043cecf3563b432b433782ef1894e",
             "method": "executed git log -1 --format=%H in checkout log",
-            "conclusion": "success"
+            "pytest_summaries": [
+              "1012 passed, 20 warnings in 4234.18s (1:10:34)"
+            ],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:12:39Z",
+            "status": "completed"
           },
           {
-            "job_id": 114912750243,
+            "completed_at": "2026-10-13T02:17:55Z",
+            "conclusion": "success",
+            "coverage_role": "SUPPLEMENTARY_CONTRACT_SUBSET_NOT_FULL_BACKEND",
+            "failed_steps": [],
             "job": "contract-tests",
-            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "job_id": 115095439029,
+            "log_sha256": "ca2d7394061c5ded2e2613d46f40af663a387d24d2ae7a41ecc8b9e7cab2adb1",
             "method": "executed git log -1 --format=%H in checkout log",
-            "conclusion": "success"
+            "pytest_summaries": [
+              "535 passed, 7 skipped, 470 deselected, 2 warnings in 274.57s (0:04:34)"
+            ],
+            "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+            "started_at": "2026-10-13T02:12:38Z",
+            "status": "completed"
           }
         ],
+        "run_id": 38335791225,
         "status": "completed",
-        "conclusion": "success"
-      },
-      {
-        "run_id": 38279412334,
-        "workflow": "Phase1KB Multi-provider LLM Governance",
-        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
-        "jobs": [
-          {
-            "job_id": 114912751135,
-            "job": "canonical-frontend-browser",
-            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
-            "method": "executed git log -1 --format=%H in checkout log",
-            "conclusion": "success"
-          },
-          {
-            "job_id": 114912751442,
-            "job": "mandatory-backend",
-            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
-            "method": "executed git log -1 --format=%H in checkout log",
-            "conclusion": "success"
-          }
-        ],
-        "status": "completed",
-        "conclusion": "success"
+        "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38335791225",
+        "workflow": "phase1a-runtime-smoke"
       }
-    ]
+    ],
+    "source_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3"
   },
   "final_exact_head": {
     "decision": "PENDING",
     "runs": []
-  }
+  },
+  "final_pr_head": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+  "main": "df3a10923734495d728981f4f319b66afadf8c71",
+  "main_integration": "PENDING",
+  "measured": true,
+  "paid_internet_llm": "NOT EXECUTED",
+  "production_business_uat": "NOT EXECUTED",
+  "real_regulatory_knowledge": "NOT EXECUTED",
+  "recovery": {
+    "decision": "PASS",
+    "runs": [
+      {
+        "conclusion": "success",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "conclusion": "success",
+            "job": "frontend",
+            "job_id": 114912750639,
+            "method": "executed git log -1 --format=%H in checkout log"
+          },
+          {
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "conclusion": "success",
+            "job": "real-backend-uat",
+            "job_id": 114912751008,
+            "method": "executed git log -1 --format=%H in checkout log"
+          }
+        ],
+        "run_id": 38279412364,
+        "status": "completed",
+        "workflow": "M0 Knowledge & Evidence Preview"
+      },
+      {
+        "conclusion": "success",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "conclusion": "success",
+            "job": "frontend-real-backend-uat",
+            "job_id": 114912749665,
+            "method": "executed git log -1 --format=%H in checkout log"
+          }
+        ],
+        "run_id": 38279412318,
+        "status": "completed",
+        "workflow": "M2A Production Intake"
+      },
+      {
+        "conclusion": "success",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "conclusion": "success",
+            "job": "frontend-real-backend-uat",
+            "job_id": 114912751392,
+            "method": "executed git log -1 --format=%H in checkout log"
+          }
+        ],
+        "run_id": 38279412302,
+        "status": "completed",
+        "workflow": "M1 Intake Analysis Alpha"
+      },
+      {
+        "conclusion": "success",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "conclusion": "success",
+            "job": "frontend-real-backend-uat",
+            "job_id": 114912748435,
+            "method": "executed git log -1 --format=%H in checkout log"
+          }
+        ],
+        "run_id": 38279412310,
+        "status": "completed",
+        "workflow": "M2C Formal Result Workspace"
+      },
+      {
+        "conclusion": "success",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "conclusion": "success",
+            "job": "frontend-real-backend-uat",
+            "job_id": 114912750670,
+            "method": "executed git log -1 --format=%H in checkout log"
+          }
+        ],
+        "run_id": 38279412306,
+        "status": "completed",
+        "workflow": "M2B Production Document Integration"
+      },
+      {
+        "conclusion": "success",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "conclusion": "success",
+            "job": "frontend-real-backend-uat",
+            "job_id": 114912751298,
+            "method": "executed git log -1 --format=%H in checkout log"
+          }
+        ],
+        "run_id": 38279412340,
+        "status": "completed",
+        "workflow": "M2D Governed Human Review"
+      },
+      {
+        "conclusion": "success",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "conclusion": "success",
+            "job": "mandatory-backend",
+            "job_id": 114912750667,
+            "method": "executed git log -1 --format=%H in checkout log"
+          },
+          {
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "conclusion": "success",
+            "job": "canonical-frontend-browser",
+            "job_id": 114912750944,
+            "method": "executed git log -1 --format=%H in checkout log"
+          }
+        ],
+        "run_id": 38279412385,
+        "status": "completed",
+        "workflow": "Stage1 R1 Candidate Governance Recovery"
+      },
+      {
+        "conclusion": "success",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "conclusion": "success",
+            "job": "mandatory-backend",
+            "job_id": 114912749243,
+            "method": "executed git log -1 --format=%H in checkout log"
+          },
+          {
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "conclusion": "success",
+            "job": "canonical-frontend-browser",
+            "job_id": 114912749655,
+            "method": "executed git log -1 --format=%H in checkout log"
+          }
+        ],
+        "run_id": 38279412281,
+        "status": "completed",
+        "workflow": "M2E External Agent API Gateway"
+      },
+      {
+        "conclusion": "success",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "conclusion": "success",
+            "job": "mandatory-runtime-smoke",
+            "job_id": 114912749856,
+            "method": "executed git log -1 --format=%H in checkout log"
+          },
+          {
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "conclusion": "success",
+            "job": "contract-tests",
+            "job_id": 114912750243,
+            "method": "executed git log -1 --format=%H in checkout log"
+          }
+        ],
+        "run_id": 38279412304,
+        "status": "completed",
+        "workflow": "phase1a-runtime-smoke"
+      },
+      {
+        "conclusion": "success",
+        "head_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+        "jobs": [
+          {
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "conclusion": "success",
+            "job": "canonical-frontend-browser",
+            "job_id": 114912751135,
+            "method": "executed git log -1 --format=%H in checkout log"
+          },
+          {
+            "checkout_sha": "180ec61bae0546305a69f25a5988e91980c35327",
+            "conclusion": "success",
+            "job": "mandatory-backend",
+            "job_id": 114912751442,
+            "method": "executed git log -1 --format=%H in checkout log"
+          }
+        ],
+        "run_id": 38279412334,
+        "status": "completed",
+        "workflow": "Phase1KB Multi-provider LLM Governance"
+      }
+    ],
+    "source_sha": "180ec61bae0546305a69f25a5988e91980c35327"
+  },
+  "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+  "source_pr": 28,
+  "stage2_started": false,
+  "tested_pr_head_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3"
 }

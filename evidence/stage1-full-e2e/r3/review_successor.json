@@ -1,12 +1,37 @@
 {
-  "decision": "PENDING",
-  "measured": false,
+  "acceptance_level": "L1_SYNTHETIC_GOVERNED_TECHNICAL_BUSINESS_E2E",
+  "decision": "PASS",
+  "draft": true,
+  "final_pr_head": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+  "main": "df3a10923734495d728981f4f319b66afadf8c71",
+  "main_integration": "PENDING",
+  "measured": true,
+  "paid_internet_llm": "NOT EXECUTED",
+  "production_business_uat": "NOT EXECUTED",
+  "real_regulatory_knowledge": "NOT EXECUTED",
   "required": [
     "same-snapshot owner reexecution",
     "new snapshot for changed input",
     "new candidate consent"
   ],
+  "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+  "same_snapshot_review_test_ids": [
+    "tests.test_stage1_r3_temporal_business::test_blank_document_project_same_snapshot_review_reexecutes_owner"
+  ],
+  "source_pr": 28,
   "stage2_started": false,
-  "real_regulatory_knowledge": "NOT EXECUTED",
-  "production_business_uat": "NOT EXECUTED"
+  "successor_channels": [
+    "web",
+    "external",
+    "external_evidence_gap_negative"
+  ],
+  "test_ids": [
+    "tests.test_stage1_r3_temporal_business::test_blank_document_project_same_snapshot_review_reexecutes_owner",
+    "tests.test_stage1_r3_temporal_business::test_empty_authorized_knowledge_fails_closed_without_allowed_result",
+    "tests.test_stage1_r3_temporal_business::test_future_published_knowledge_rule_model_and_prompt_cannot_change_saved_business",
+    "tests.test_stage1_r3_temporal_business::test_new_successor_requires_new_authorization_and_preserves_completed_result[external]",
+    "tests.test_stage1_r3_temporal_business::test_new_successor_requires_new_authorization_and_preserves_completed_result[external_evidence_gap]",
+    "tests.test_stage1_r3_temporal_business::test_new_successor_requires_new_authorization_and_preserves_completed_result[web]"
+  ],
+  "tested_pr_head_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3"
 }

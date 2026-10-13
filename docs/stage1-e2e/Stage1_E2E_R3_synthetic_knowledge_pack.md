@@ -6,4 +6,4 @@ Reused legacy foundation seeds bootstrap reference identities and an unrelated p
 
 L2 inventory: fixture sources are synthetic; no expert-reviewed official legal corpus or business outcome oracle has been independently accepted. **REAL REGULATORY KNOWLEDGE ACCEPTANCE = NOT EXECUTED**. **PRODUCTION BUSINESS UAT = NOT EXECUTED**. These are separate acceptance categories.
 
-Final exact-head measurements are sealed separately after all gates complete. Current implementation measurements: PENDING.
+Final exact-head measurements: PASS on `25b2cb34be24578c74ea7ed4931f9534ff0289f3`; see `Stage1_E2E_R3_test_result.md` and the adjacent R3 evidence files. Only L1 synthetic governed acceptance is covered.

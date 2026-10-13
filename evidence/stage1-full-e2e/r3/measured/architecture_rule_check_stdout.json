@@ -1,0 +1,1059 @@
+{
+  "checks": [
+    {
+      "check": "domain_has_no_langgraph_import",
+      "evidence": "clean",
+      "pass": true
+    },
+    {
+      "check": "domain_has_no_sqlalchemy_import",
+      "evidence": "clean",
+      "pass": true
+    },
+    {
+      "check": "application_has_no_sqlalchemy_import",
+      "evidence": "clean",
+      "pass": true
+    },
+    {
+      "check": "langgraph_runtime_isolated_to_adapter",
+      "evidence": [
+        "src/crossborder_compliance/workflows/langgraph_adapter.py"
+      ],
+      "pass": true
+    },
+    {
+      "check": "no_eval_exec",
+      "evidence": "clean",
+      "pass": true
+    },
+    {
+      "check": "human_review_node_not_agent",
+      "evidence": "clean",
+      "pass": true
+    },
+    {
+      "check": "classification_results_is_only_formal_classification_source",
+      "evidence": "classification_results present; data_classifications absent",
+      "pass": true
+    },
+    {
+      "check": "workflow_stage_view_not_persisted",
+      "evidence": "no WorkflowStageView persistence model/table",
+      "pass": true
+    },
+    {
+      "check": "regulatory_structure_node_is_canonical_persistence",
+      "evidence": "RegulatoryStructureNodeEntity present",
+      "pass": true
+    },
+    {
+      "check": "stage1_explicit_cross_border_results",
+      "evidence": "Stage1ComplianceResultDTO.cross_border_results",
+      "pass": true
+    },
+    {
+      "check": "legal_basis_rulehit_many_to_many_contract",
+      "evidence": "LegalBasisItemDTO.rule_hit_ids[]",
+      "pass": true
+    },
+    {
+      "check": "legal_basis_rulehit_many_to_many_persistence",
+      "evidence": "association table legal_basis_rule_hit_links",
+      "pass": true
+    },
+    {
+      "check": "domain_migration_does_not_own_checkpointer_schema",
+      "evidence": "no checkpoint internal DDL in Domain Alembic",
+      "pass": true
+    },
+    {
+      "check": "api_workflow_idempotency_separated",
+      "evidence": "separate tables present",
+      "pass": true
+    },
+    {
+      "check": "workflow_state_has_no_runtime_services_or_secrets",
+      "evidence": {
+        "forbidden": [
+          "db_session",
+          "repository",
+          "client",
+          "secret",
+          "api_key",
+          "provider",
+          "document_bytes",
+          "knowledge_chunks"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "check": "durable_postgres_checkpointer_setup_present",
+      "evidence": "PostgresSaver + official setup() path",
+      "pass": true
+    },
+    {
+      "check": "thread_id_backend_bound_to_workflow_run_id",
+      "evidence": "workflow_run_id used as LangGraph thread_id",
+      "pass": true
+    },
+    {
+      "check": "conversation_thread_not_langgraph_thread_id",
+      "evidence": "ConversationThreadEntity has no standalone LangGraph thread_id field",
+      "pass": true
+    },
+    {
+      "check": "interrupt_pre_side_effect_event_idempotent",
+      "evidence": "deterministic event + idempotent review key",
+      "pass": true
+    },
+    {
+      "check": "raw_langgraph_event_not_external_contract",
+      "evidence": "canonical event boundary present",
+      "pass": true
+    },
+    {
+      "check": "api_routes_do_not_return_or_import_orm_models",
+      "evidence": "API layer uses Pydantic/Application DTOs only",
+      "pass": true
+    },
+    {
+      "check": "domain_repositories_are_automatically_tenant_scoped",
+      "evidence": [
+        "PostgresProjectRepository",
+        "PostgresPartyRepository",
+        "PostgresDocumentRepository",
+        "PostgresDataInventoryRepository",
+        "PostgresJurisdictionRepository",
+        "PostgresClassificationRepository",
+        "PostgresEvidenceRepository",
+        "PostgresLegalBasisRepository",
+        "PostgresAnalysisSnapshotRepository",
+        "PostgresWorkflowRunRepository",
+        "PostgresReviewRepository",
+        "PostgresAnalysisStageRepository",
+        "PostgresConversationRepository"
+      ],
+      "pass": true
+    },
+    {
+      "check": "no_second_classification_repository",
+      "evidence": "one ClassificationRepository adapter; no parallel DataClassificationRepository",
+      "pass": true
+    },
+    {
+      "check": "no_country_product_regulation_fixed_business_logic",
+      "evidence": "no fixed country/product/regulatory-document business skills",
+      "pass": true
+    },
+    {
+      "check": "frontend_has_no_business_metadata_enum",
+      "evidence": "no hard-coded frontend business option lists",
+      "pass": true
+    },
+    {
+      "check": "agent_skill_has_no_model_name_or_base_url",
+      "evidence": "no provider/model/base-url binding in agent/skill/workflow code",
+      "pass": true
+    },
+    {
+      "check": "prompt_business_content_not_embedded_in_agent",
+      "evidence": "no embedded business prompt in agent/skill code",
+      "pass": true
+    },
+    {
+      "check": "registry_not_source_of_truth",
+      "evidence": "ProjectionRegistry explicitly identifies itself as non-authoritative projection",
+      "pass": true
+    },
+    {
+      "check": "admin_draft_not_runtime_visible",
+      "evidence": "runtime loaders filter ACTIVE lifecycle versions only",
+      "pass": true
+    },
+    {
+      "check": "model_secret_not_persisted_in_metadata",
+      "evidence": "model metadata stores secret_ref only; no credential-value columns",
+      "pass": true
+    },
+    {
+      "check": "snapshot_not_dynamic_registry_lookup_on_resume",
+      "evidence": "resume adapter does not consult registry; snapshot pins are immutable",
+      "pass": true
+    },
+    {
+      "check": "registry_publish_uses_transactional_outbox",
+      "evidence": "publish and RegistrySyncEvent are written inside the same DB transaction",
+      "pass": true
+    },
+    {
+      "check": "no_country_specific_registry_branch",
+      "evidence": "registry resolution is metadata/binding driven",
+      "pass": true
+    },
+    {
+      "check": "graph_state_has_no_document_binary",
+      "evidence": "LangGraph state contains references only; no document binary fields",
+      "pass": true
+    },
+    {
+      "check": "canonical_document_not_llm_narrative",
+      "evidence": "canonical parser output is structured and parser-driven, not LLM narrative",
+      "pass": true
+    },
+    {
+      "check": "candidate_vision_has_no_legal_result",
+      "evidence": "CandidateDiagramResult contains candidate nodes/edges only",
+      "pass": true
+    },
+    {
+      "check": "extracted_result_has_source_trace",
+      "evidence": "candidate facts/items/flows carry SourceTraceRef and persistence rejects empty provenance",
+      "pass": true
+    },
+    {
+      "check": "spreadsheet_preserves_row_column_provenance",
+      "evidence": "XLSX adapter preserves row/column/header/formula/merged-cell metadata",
+      "pass": true
+    },
+    {
+      "check": "formal_counts_not_llm",
+      "evidence": "DocumentAnalysisSummary is programmatically aggregated from persistence",
+      "pass": true
+    },
+    {
+      "check": "parse_run_is_versioned",
+      "evidence": "Phase 1B parse-run identity + Phase 1D one-to-one detail extension has explicit version and unique tenant/document/version constraint",
+      "pass": true
+    },
+    {
+      "check": "snapshot_can_pin_parse_run",
+      "evidence": "AnalysisSnapshot has immutable parse-run pin persistence",
+      "pass": true
+    },
+    {
+      "check": "parser_provider_is_adapter_only",
+      "evidence": "provider SDKs isolated to infrastructure/document_parsers.py",
+      "pass": true
+    },
+    {
+      "check": "phase1d_has_no_country_product_regulation_logic",
+      "evidence": "Document Intelligence foundation contains no fixed country/product/regulation decisions",
+      "pass": true
+    },
+    {
+      "check": "candidate_not_formal_compliance_input",
+      "evidence": "Candidate \u2192 Resolution \u2192 Formal object boundary is persisted; candidates are retained",
+      "pass": true
+    },
+    {
+      "check": "product_context_is_registry_driven",
+      "evidence": "Product Context resolves ACTIVE metadata definitions and persists registry bindings",
+      "pass": true
+    },
+    {
+      "check": "no_product_search_all_scope",
+      "evidence": "No selection uses document-detected scope or unresolved generic scope; never all products",
+      "pass": true
+    },
+    {
+      "check": "product_conflict_is_explicit",
+      "evidence": "Explicit selection vs detected scope conflict is persisted as PRODUCT_CONTEXT_CONFLICT",
+      "pass": true
+    },
+    {
+      "check": "business_fact_conflict_is_explicit",
+      "evidence": "Conflicting normalized values for one registry fact type create explicit reviewable conflict",
+      "pass": true
+    },
+    {
+      "check": "possible_duplicate_requires_review_conflict",
+      "evidence": "Semantic POSSIBLE_SAME remains candidate-only and enters ContextConflict/review",
+      "pass": true
+    },
+    {
+      "check": "unresolved_party_requires_review_conflict",
+      "evidence": "Unresolved PartyCandidate persists PartyResolution plus explicit reviewable conflict",
+      "pass": true
+    },
+    {
+      "check": "data_item_source_trace_required",
+      "evidence": "Formal data_items retain all candidate and SourceTrace links",
+      "pass": true
+    },
+    {
+      "check": "formal_counts_are_separate",
+      "evidence": "Raw occurrence, normalized DataItem and DataGroup counts are separate programmatic aggregates",
+      "pass": true
+    },
+    {
+      "check": "no_parallel_data_item_source_of_truth",
+      "evidence": "Phase 1B data_items remains authoritative; Phase 1E adds detail/link tables only",
+      "pass": true
+    },
+    {
+      "check": "no_parallel_data_flow_source_of_truth",
+      "evidence": "Phase 1B data_flow_nodes/data_flow_edges/data_item_flow_links remain authoritative",
+      "pass": true
+    },
+    {
+      "check": "data_flow_is_structured",
+      "evidence": "Formal flow uses structured Node/Edge/DataItemFlowLink plus versioned detail",
+      "pass": true
+    },
+    {
+      "check": "jurisdiction_not_regulation_decision",
+      "evidence": "Jurisdiction Context carries location context only; no regulation/cross-border legal decision",
+      "pass": true
+    },
+    {
+      "check": "semantic_resolution_candidate_only",
+      "evidence": "Semantic similarity can create candidate/review evidence but does not directly merge formal DataItems",
+      "pass": true
+    },
+    {
+      "check": "context_snapshot_versioned",
+      "evidence": "AnalysisSnapshot pins immutable versioned Context/DataInventory/DataFlow versions",
+      "pass": true
+    },
+    {
+      "check": "no_country_product_rule_logic",
+      "evidence": "No country/product-code/regulation decision routing, risk, or compliance-path logic",
+      "pass": true
+    },
+    {
+      "check": "knowledge_platform_not_vector_db",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "scope_resolver_has_no_retrieval",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "hard_filter_precedes_similarity",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "unrelated_product_knowledge_excluded",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "unresolved_product_scope_fail_safe",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "knowledge_chunk_has_provenance",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "vector_index_is_derived",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "fts_index_is_derived",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "registry_not_knowledge_source",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "translation_review_boundary",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "knowledge_quality_before_active",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "snapshot_pins_knowledge_version",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "phase1f_uses_phase1e_context",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "no_country_specific_knowledge_branch",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "no_regulation_business_decision",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "controlled_downloader_boundary",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "knowledge_ingestion_no_graph_checkpoints",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "no_parallel_knowledge_source",
+      "evidence": "Phase 1F canonical/domain/service/migration boundary; tests/test_phase1f_* empirical coverage",
+      "pass": true
+    },
+    {
+      "check": "retrieval_consumes_phase1f_scope",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "retrieval_hard_filters_before_similarity",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "retrieval_indexes_are_derived",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "hybrid_merge_deterministic_score_provenance",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "reranker_allowed_candidates_only",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "rerank_scope_revalidation",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "evidence_pack_complete_provenance",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "rag_context_not_legal_source",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "sufficiency_is_policy_driven",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "generic_knowledge_not_jurisdiction_sufficient",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "external_preserves_formal_scope",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "unverified_discovery_not_evidence",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "official_external_validation",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "runtime_external_not_active",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "external_snapshot_reproducible",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "fallback_guidance_nonempty",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "fallback_not_compliance_path",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "retrieval_policy_snapshot_pinned",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "no_country_product_regulation_retrieval_branch",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "retrieval_services_no_provider_sql_graph_sdk",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "wiki_reuses_durable_review",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "wiki_not_official_legal_evidence",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "graph_reviewed_derived_provenance",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "runtime_client_cannot_supply_scope",
+      "evidence": "Rules 115\u2013132, AST/order/SQL/model constraints; tests/test_phase1g_* empirical cases",
+      "pass": true
+    },
+    {
+      "check": "normal_publish_automatic_runtime_sync",
+      "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py",
+      "pass": true
+    },
+    {
+      "check": "publication_reuses_registry_outbox_service",
+      "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py",
+      "pass": true
+    },
+    {
+      "check": "runtime_ready_before_new_retrieval",
+      "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py",
+      "pass": true
+    },
+    {
+      "check": "publication_snapshot_stability",
+      "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py",
+      "pass": true
+    },
+    {
+      "check": "publication_duplicate_retry_safe",
+      "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py",
+      "pass": true
+    },
+    {
+      "check": "publication_failed_build_not_ready",
+      "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py",
+      "pass": true
+    },
+    {
+      "check": "runtime_materialization_no_agent_graph",
+      "evidence": "Final Addendum / Rule 133; tests/test_phase1g_publication_postgres.py",
+      "pass": true
+    },
+    {
+      "check": "rule_runtime_validated_typed_ast",
+      "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence",
+      "pass": true
+    },
+    {
+      "check": "rule_ast_no_unrestricted_calls",
+      "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence",
+      "pass": true
+    },
+    {
+      "check": "rule_domain_no_external_dependencies",
+      "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence",
+      "pass": true
+    },
+    {
+      "check": "formal_classification_versioned_provenance",
+      "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence",
+      "pass": true
+    },
+    {
+      "check": "no_data_typed_outcome",
+      "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence",
+      "pass": true
+    },
+    {
+      "check": "rule_publish_gate_uses_existing_transaction",
+      "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence",
+      "pass": true
+    },
+    {
+      "check": "rule_and_scheme_content_immutable",
+      "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence",
+      "pass": true
+    },
+    {
+      "check": "api_references_only_no_narrative",
+      "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence",
+      "pass": true
+    },
+    {
+      "check": "classification_reuses_scope_checked_evidence",
+      "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence",
+      "pass": true
+    },
+    {
+      "check": "classification_persisted_retry_unique",
+      "evidence": "Phase 1H Rules 134-139; tests/test_phase1h_* include actual PostgreSQL/API evidence",
+      "pass": true
+    },
+    {
+      "check": "applicability_canonical_identity",
+      "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py",
+      "pass": true
+    },
+    {
+      "check": "profile_reuses_metadata_governance",
+      "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py",
+      "pass": true
+    },
+    {
+      "check": "profile_reuses_registry_outbox",
+      "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py",
+      "pass": true
+    },
+    {
+      "check": "scenario_fixed_pipeline_deterministic",
+      "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py",
+      "pass": true
+    },
+    {
+      "check": "scenario_conflicts_typed",
+      "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py",
+      "pass": true
+    },
+    {
+      "check": "generic_country_capabilities_only",
+      "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py",
+      "pass": true
+    },
+    {
+      "check": "generic_skills_pure",
+      "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py",
+      "pass": true
+    },
+    {
+      "check": "applicability_scope_revalidation",
+      "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py",
+      "pass": true
+    },
+    {
+      "check": "applicability_reference_only_api",
+      "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py",
+      "pass": true
+    },
+    {
+      "check": "profile_new_pin_ready_and_historical",
+      "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py",
+      "pass": true
+    },
+    {
+      "check": "applicability_conflicts_and_insufficiency",
+      "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py",
+      "pass": true
+    },
+    {
+      "check": "scenario_no_fake_classification",
+      "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py",
+      "pass": true
+    },
+    {
+      "check": "applicability_immutable_retry_canonical_links",
+      "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py",
+      "pass": true
+    },
+    {
+      "check": "applicability_has_no_country_branch_or_provider",
+      "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py",
+      "pass": true
+    },
+    {
+      "check": "phase1i_migration_frozen_explicit_dual_path",
+      "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py",
+      "pass": true
+    },
+    {
+      "check": "locale_metadata_single_versioned_authority",
+      "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py",
+      "pass": true
+    },
+    {
+      "check": "locale_no_business_translations_in_domain_application",
+      "evidence": "Phase1I Rules140\u2013150; tests/test_phase1i_domain.py, test_phase1i_postgres.py, test_phase1i_migrations.py",
+      "pass": true
+    },
+    {
+      "check": "j_approved_rules_append_only",
+      "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests",
+      "pass": true
+    },
+    {
+      "check": "j_v1_contracts_byte_preserved",
+      "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests",
+      "pass": true
+    },
+    {
+      "check": "j_dependency_order_authority",
+      "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests",
+      "pass": true
+    },
+    {
+      "check": "j_domain_application_pure",
+      "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests",
+      "pass": true
+    },
+    {
+      "check": "j_no_llm_authority",
+      "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests",
+      "pass": true
+    },
+    {
+      "check": "j_legal_stage_excludes_future_risk",
+      "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests",
+      "pass": true
+    },
+    {
+      "check": "j_decimal_risk_governed_examples",
+      "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests",
+      "pass": true
+    },
+    {
+      "check": "j_recommendation_no_tie_choice",
+      "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests",
+      "pass": true
+    },
+    {
+      "check": "j_final_preserves_unresolved",
+      "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests",
+      "pass": true
+    },
+    {
+      "check": "j_reference_only_request",
+      "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests",
+      "pass": true
+    },
+    {
+      "check": "j_existing_registry_policy_governance",
+      "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests",
+      "pass": true
+    },
+    {
+      "check": "j_five_immutable_result_authorities",
+      "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests",
+      "pass": true
+    },
+    {
+      "check": "j_canonical_provenance_refs",
+      "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests",
+      "pass": true
+    },
+    {
+      "check": "j_locale_neutral_canonical_decimal",
+      "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests",
+      "pass": true
+    },
+    {
+      "check": "j_security_idempotency_revalidation",
+      "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests",
+      "pass": true
+    },
+    {
+      "check": "j_migration_dual_path_test",
+      "evidence": "Phase1J Rules152\u2013155; focused contracts/engines/PostgreSQL/migration tests",
+      "pass": true
+    },
+    {
+      "check": "candidate_preparation_is_pre_snapshot",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "candidate_preparation_is_bound_to_draft_version",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "candidate_preparation_has_exact_document_pins",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "candidate_preparation_has_exact_llm_pins",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "llm_candidate_has_preparation_identity",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "llm_candidate_cannot_auto_formalize",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "policy_cannot_impersonate_user",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "confidence_cannot_authorize_candidate",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "decision_set_is_append_only",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "decision_actor_is_server_owned",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "decision_set_matches_candidate_universe",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "rejected_candidate_cannot_formalize",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "edited_candidate_preserves_original_candidate",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "confirm_does_not_generate_candidates",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "confirm_does_not_call_document_llm",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "confirm_uses_exact_preparation",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "snapshot_copies_exact_preparation_pins",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "stale_preparation_cannot_confirm",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "draft_scope_is_not_fake_snapshot",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "draft_scope_only_allows_candidate_extraction",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "candidate_confirmation_is_not_m2d_review",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "existing_candidate_resolution_remains_formal_mapping",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "historical_snapshot_does_not_require_0019_governance",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "stage2_not_started",
+      "evidence": "Approved0019 pre-confirm candidate owning contract; real PostgreSQL/HTTP recovery tests",
+      "pass": true
+    },
+    {
+      "check": "decision_legacy_merger_matches_frozen_source",
+      "evidence": "Approved0020 engine compatibility; immutable historical V2 / corrected V2_1",
+      "pass": true
+    },
+    {
+      "check": "decision_strategy_is_immutable_and_not_global_mutation",
+      "evidence": "Approved0020 engine compatibility; immutable historical V2 / corrected V2_1",
+      "pass": true
+    },
+    {
+      "check": "decision_new_execution_has_no_version_selector",
+      "evidence": "Approved0020 engine compatibility; immutable historical V2 / corrected V2_1",
+      "pass": true
+    },
+    {
+      "check": "decision_verifier_dispatches_explicit_saved_version",
+      "evidence": "Approved0020 engine compatibility; immutable historical V2 / corrected V2_1",
+      "pass": true
+    },
+    {
+      "check": "decision_full_digest_revalidation_is_preserved",
+      "evidence": "Approved0020 engine compatibility; immutable historical V2 / corrected V2_1",
+      "pass": true
+    },
+    {
+      "check": "decision_versions_agree_row_json_provenance",
+      "evidence": "Approved0020 engine compatibility; immutable historical V2 / corrected V2_1",
+      "pass": true
+    },
+    {
+      "check": "decision_legacy_snapshot_cannot_new_execute",
+      "evidence": "Approved0020 engine compatibility; immutable historical V2 / corrected V2_1",
+      "pass": true
+    },
+    {
+      "check": "decision_compatibility_migration_is_bounded_and_refuses_loss",
+      "evidence": "Approved0020 engine compatibility; immutable historical V2 / corrected V2_1",
+      "pass": true
+    },
+    {
+      "check": "stage1_e2e_uses_canonical_workflow",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_e2e_has_real_crossborder_dataflow",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_e2e_document_participates_in_formal_context",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_candidate_is_not_formal_input",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_llm_is_not_formal_legal_authority",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_query_expansion_terms_are_not_evidence",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_rag_scope_cannot_expand_from_llm",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_classification_is_jurisdiction_scoped",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_applicability_same_jurisdiction",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_crossborder_status_not_final_path_status",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_risk_depends_on_candidate_path",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_recommendation_depends_on_risk",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_final_path_depends_on_recommendation",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_required_document_does_not_generate",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_web_api_share_formal_authority",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_locale_does_not_change_formal_semantics",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_historical_snapshot_does_not_resolve_latest",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_successor_does_not_mutate_predecessor",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_case_id_not_used_by_product_logic",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_synthetic_acceptance_not_real_law",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_frozen_migrations_no_new_schema",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    },
+    {
+      "check": "stage1_browser_zero_retry_contract",
+      "evidence": "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance",
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "passed": 205,
+  "total": 205
+}

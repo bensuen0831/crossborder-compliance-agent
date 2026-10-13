@@ -1,10 +1,41 @@
 {
-  "decision": "PENDING",
-  "measured": false,
+  "acceptance_level": "L1_SYNTHETIC_GOVERNED_TECHNICAL_BUSINESS_E2E",
+  "candidate_governance_test_ids": [
+    "tests.test_stage1_candidate_governance_http::test_candidate_added_after_review_fails_closed_without_partial_formalization",
+    "tests.test_stage1_candidate_governance_http::test_confirm_transfers_prepared_fact_type_version_after_future_publication",
+    "tests.test_stage1_candidate_governance_http::test_database_refuses_decision_candidate_from_other_preparation",
+    "tests.test_stage1_candidate_governance_http::test_decision_is_stale_after_input_universe_changes[AI]",
+    "tests.test_stage1_candidate_governance_http::test_decision_is_stale_after_input_universe_changes[DOCUMENT]",
+    "tests.test_stage1_candidate_governance_http::test_decision_is_stale_after_input_universe_changes[DRAFT]",
+    "tests.test_stage1_candidate_governance_http::test_exact_universe_partial_unknown_and_idempotency",
+    "tests.test_stage1_candidate_governance_http::test_explicit_structured_input_is_not_reinferred_by_document_model",
+    "tests.test_stage1_candidate_governance_http::test_external_channel_uses_same_preparation_decision_and_confirm_owner",
+    "tests.test_stage1_candidate_governance_http::test_prepared_candidates_decisions_and_audit_are_append_only",
+    "tests.test_stage1_candidate_governance_http::test_real_docx_candidate_decision_before_formalization_and_no_hidden_http[ACCEPT]",
+    "tests.test_stage1_candidate_governance_http::test_real_docx_candidate_decision_before_formalization_and_no_hidden_http[EDIT]",
+    "tests.test_stage1_candidate_governance_http::test_real_docx_candidate_decision_before_formalization_and_no_hidden_http[REJECT]",
+    "tests.test_stage1_candidate_governance_http::test_reparse_without_version_change_invalidates_prepared_document_pins",
+    "tests.test_stage1_candidate_governance_http::test_revoked_model_configuration_cannot_be_substituted",
+    "tests.test_stage1_candidate_governance_http::test_successor_requires_new_preparation_and_leaves_previous_snapshot_and_fact_unchanged"
+  ],
+  "decision": "PASS",
+  "draft": true,
+  "final_pr_head": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+  "main": "df3a10923734495d728981f4f319b66afadf8c71",
+  "main_integration": "PENDING",
+  "measured": true,
   "paid_internet_llm": "NOT EXECUTED",
+  "production_business_uat": "NOT EXECUTED",
   "provider": "protocol-realistic local HTTP",
-  "scope_expansion_permitted": false,
-  "stage2_started": false,
   "real_regulatory_knowledge": "NOT EXECUTED",
-  "production_business_uat": "NOT EXECUTED"
+  "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+  "safe_provenance_manifest": "measured/audit_and_candidate_provenance.json",
+  "scope_expansion_permitted": false,
+  "source_pr": 28,
+  "stage2_started": false,
+  "test_ids": [
+    "tests.test_stage1_r3_llm_rag::test_blank_project_query_gap_real_http_second_retrieval_cannot_broaden_scope",
+    "tests.test_stage1_r3_llm_rag::test_multi_model_disagreement_is_candidate_only_and_user_selects_input"
+  ],
+  "tested_pr_head_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3"
 }

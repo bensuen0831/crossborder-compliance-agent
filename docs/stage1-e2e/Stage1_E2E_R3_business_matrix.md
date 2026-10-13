@@ -4,4 +4,4 @@ The input/oracle manifests are `tests/e2e/stage1/business_cases/TC-01..04.json`.
 
 Expected transfer status comes from the independent manifest, while actual formal status comes from published metadata and canonical owners. Final path status is independently asserted and never used as the legal transfer oracle. Terminal cases require formal classification/applicability/cross-border/obligation/candidate-path/risk/recommendation/final-path/required-documents, governed evidence and LegalBasis. Review must have a canonical ReviewTask and no fabricated downstream terminal output.
 
-Final exact-head measurements are sealed separately after all gates complete. Current implementation measurements: PENDING.
+Final exact-head measurements: PASS on `25b2cb34be24578c74ea7ed4931f9534ff0289f3`; see `Stage1_E2E_R3_test_result.md` and the adjacent R3 evidence files. Only L1 synthetic governed acceptance is covered.

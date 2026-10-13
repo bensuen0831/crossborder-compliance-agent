@@ -4,4 +4,4 @@
 
 R2 algorithms and persisted version checks remain byte-identical to 292fc6e9. V2 is historical read/verify only; new complete chains use V2_1. Full digest, input/pin authorization, version agreement and mixed-chain guards are retained.
 
-Final exact-head measurements are sealed separately after all gates complete. Current implementation measurements: PENDING.
+Final exact-head measurements: PASS on `25b2cb34be24578c74ea7ed4931f9534ff0289f3`; see `Stage1_E2E_R3_test_result.md` and the adjacent R3 evidence files. Only L1 synthetic governed acceptance is covered.

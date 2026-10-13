@@ -1,12 +1,37 @@
 {
-  "decision": "PENDING",
-  "measured": false,
+  "acceptance_level": "L1_SYNTHETIC_GOVERNED_TECHNICAL_BUSINESS_E2E",
+  "complete_digest_compared": true,
+  "decision": "PASS",
+  "draft": true,
+  "final_pr_head": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+  "main": "df3a10923734495d728981f4f319b66afadf8c71",
+  "main_integration": "PENDING",
+  "measured": true,
+  "original_reads": 15,
+  "original_records": "measured/historical_original_records.json",
+  "paid_internet_llm": "NOT EXECUTED",
+  "production_business_uat": "NOT EXECUTED",
+  "real_regulatory_knowledge": "NOT EXECUTED",
+  "recovered_original_failures": 12,
+  "reseeded": false,
+  "rewrite_permitted": false,
+  "rewritten": false,
+  "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+  "source_pr": 28,
+  "stage2_started": false,
+  "test_ids": [
+    "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[column_provenance]",
+    "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[json_version]",
+    "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[mixed_chain]",
+    "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[row_version]",
+    "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[support]",
+    "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[unknown]",
+    "tests.test_stage1_support_historical::test_prior_source_result_reads_without_rewriting_history_and_cannot_execute_again",
+    "tests.test_stage1_r3_temporal_business::test_future_published_knowledge_rule_model_and_prompt_cannot_change_saved_business"
+  ],
+  "tested_pr_head_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
   "versions": [
     "FORMAL_DECISION_V2",
     "FORMAL_DECISION_V2_1"
-  ],
-  "rewrite_permitted": false,
-  "stage2_started": false,
-  "real_regulatory_knowledge": "NOT EXECUTED",
-  "production_business_uat": "NOT EXECUTED"
+  ]
 }

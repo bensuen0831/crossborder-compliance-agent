@@ -1,15 +1,71 @@
 {
-  "decision": "PENDING",
-  "measured": false,
-  "floors": {
-    "backend": 991,
-    "architecture": 339,
-    "runtime": 25,
-    "frontend": 141,
-    "browser": 77
-  },
+  "acceptance_level": "L1_SYNTHETIC_GOVERNED_TECHNICAL_BUSINESS_E2E",
+  "additive_backend_test_ids": 21,
   "additive_required": true,
-  "stage2_started": false,
+  "architecture": {
+    "passed": 361,
+    "total": 361
+  },
+  "backend": {
+    "deselected": 0,
+    "errors": 0,
+    "failed": 0,
+    "pass": true,
+    "passed": 1012,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "skipped": 0
+  },
+  "browser": {
+    "new": 12,
+    "passed": 77,
+    "retained": 65,
+    "retries": 0,
+    "total": 77
+  },
+  "decision": "PASS",
+  "draft": true,
+  "final_pr_head": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+  "floors": {
+    "architecture": 339,
+    "backend": 991,
+    "browser": 77,
+    "frontend": 141,
+    "runtime": 25
+  },
+  "frontend": {
+    "build": "PASS",
+    "failed": 0,
+    "i18n": "PASS",
+    "lint": "PASS",
+    "passed": 142,
+    "pending": 0,
+    "typecheck": "PASS"
+  },
+  "main": "df3a10923734495d728981f4f319b66afadf8c71",
+  "main_integration": "PENDING",
+  "measured": true,
+  "migration": "PASS",
+  "paid_internet_llm": "NOT EXECUTED",
+  "production_business_uat": "NOT EXECUTED",
   "real_regulatory_knowledge": "NOT EXECUTED",
-  "production_business_uat": "NOT EXECUTED"
+  "retained_backend_test_ids": 991,
+  "runner_checkout_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3",
+  "runtime": {
+    "passed": 25,
+    "total": 25
+  },
+  "single_alembic_head": "0020_stage1_formal_decision_engine_compatibility",
+  "source_pr": 28,
+  "stage2_started": false,
+  "tested_pr_head_sha": "25b2cb34be24578c74ea7ed4931f9534ff0289f3"
 }

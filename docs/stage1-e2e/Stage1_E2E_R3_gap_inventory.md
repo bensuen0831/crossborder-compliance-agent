@@ -49,3 +49,7 @@ Stage2 NOT STARTED; no merge/tag/main update.
 - Dedicated CI and SDK compiler: implemented; exact final-head remote evidence pending.
 - Dataset: synthetic governed fixture pack and independent input/oracle manifests; L2 and production UAT not executed.
 - Diagnostic execution under the default local database found Alembic 0019, not the required 0020. Those failed probes are excluded from acceptance evidence. Final validation uses an explicitly fresh isolated 0020 database. No database was reset or cleaned.
+
+## Final exact-head closure update
+
+The table above records the initial R3 inventory. On `25b2cb34be24578c74ea7ed4931f9534ff0289f3`, all L1 technical/business entries are IMPLEMENTED AND TESTED, the remote CI blocker is resolved, all original 65 browser cases and 991 backend IDs are retained, and the additive acceptance matrix passes. Real regulatory knowledge remains MISSING TEST DATA / NOT EXECUTED; production UAT and paid Internet LLM remain NOT EXECUTED. No new migration, legal owner or runtime was introduced. Final CI references and test IDs are in the adjacent sealed evidence.

@@ -2,7 +2,7 @@
 
 The retained R2 tests recreate original saved V2 data with the authenticated pre-fix Git source, then verify complete historical digests under the version-aware verifier. Historical rows are never rewritten. R3 adds completed blank-project successor journeys through both channels and same-snapshot governed review/resume. A successor requires new preparation/consent and distinct snapshot/run; original result and pins must remain unchanged. Canonical future knowledge/rule/model/prompt publication cannot replace old snapshot pins. Migration 0020 and frozen 0001–0020 remain unchanged.
 
-Final exact-head measurements are sealed separately after all gates complete. Current implementation measurements: PENDING.
+Final exact-head measurements: PASS on `25b2cb34be24578c74ea7ed4931f9534ff0289f3`; see `Stage1_E2E_R3_test_result.md` and the adjacent R3 evidence files. Only L1 synthetic governed acceptance is covered.
 
 ## Scoped successor evidence
 

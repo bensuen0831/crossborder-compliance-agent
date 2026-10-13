@@ -4,4 +4,4 @@ Four independent Web and OAuth External API projects consume equivalent governed
 
 Python SDK executes authenticated blank-project/DOCX/candidate/confirm/async-workflow/result/SSE journeys. TypeScript SDK executes the same production contract over actual HTTP. Credentials remain private stdin/runtime data; evidence contains only safe result identities/digests.
 
-Final exact-head measurements are sealed separately after all gates complete. Current implementation measurements: PENDING.
+Final exact-head measurements: PASS on `25b2cb34be24578c74ea7ed4931f9534ff0289f3`; see `Stage1_E2E_R3_test_result.md` and the adjacent R3 evidence files. Only L1 synthetic governed acceptance is covered.
