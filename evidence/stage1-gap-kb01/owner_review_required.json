@@ -1,16 +1,25 @@
 {
   "alternative": "B — generalize canonical Document owner with explicit project/knowledge scope",
+  "authority": "user KB01-MASTER V2.0 sections19/23",
   "blockers": [
     "DOCUMENT_KNOWLEDGE_SOURCE_SCOPE_CONTRACT_REVIEW_REQUIRED",
     "FINITE_KB_SOURCE_OWNERSHIP_SUCCESSOR_REQUIRED"
   ],
-  "decision": "BLOCKED",
+  "decision": "V2_ADDITIVE_IMPLEMENTATION_IN_PROGRESS",
   "fake_project_or_version": "FORBIDDEN",
   "formal_schema_head": "0020_stage1_formal_decision_engine_compatibility",
   "historical_source_files_changed": false,
+  "initial_d0_decision": "BLOCKED",
   "new_knowledge_authority": false,
   "real_manifest_available": false,
   "recommended_option": "A — existing Knowledge version/ingestion identity and explicit neutral parser source scope; preserve Project document FK contracts",
+  "recommended_option_selected": "A, only if backward compatible with unchanged Project source contracts",
+  "remaining_stop_conditions": [
+    "destructive cross-owner change",
+    "irreversible migration",
+    "second canonical authority",
+    "external authorization dependency"
+  ],
   "source_identity_check_failure": "j_v1_contracts_byte_preserved",
   "stage2_started": false
 }

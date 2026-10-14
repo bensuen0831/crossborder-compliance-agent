@@ -1,0 +1,5 @@
+# KB01-F — independent real legal L2
+
+Use existing Formal Context/Scope/Classification/Applicability/Obligation/LegalBasis/CrossBorder/Risk/Path/RequiredDocument owners with governed genuine sources, exact effective dates and document versions. Legal effect taxonomy is governed data, not country branches. AI may propose source-backed obligation candidates, never write legal conclusions. Country, sub-jurisdiction, source/destination/processing/storage scope must remain distinct. Never broaden federal law to special legal regimes by geographic association. Preserve existing multi-subject workflow capability gaps.
+
+Legal L2 currently NOT_EXECUTED: authorized actual source dataset and independent expert-reviewed Gold Standard are not available. Drive sign-in page is not access. Source verification, representative English/Chinese/Arabic/other languages, exact clauses/official source/effectiveness, scoped retrieval and expected formal conclusions all need real evidence. Technical generated files may exercise parsers/storage but must not be claimed as real regulatory validation. Production Business UAT NOT_EXECUTED; Paid Internet LLM NOT_EXECUTED; Stage2 NOT_STARTED.

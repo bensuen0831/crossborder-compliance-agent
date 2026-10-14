@@ -1,3 +1,7 @@
+# V2.0 continuation decision
+
+The user's KB01-MASTER V2.0 supersedes the earlier broad D0 pause below. Ordinary additive, backward-compatible extensions are authorized. Continue independent KB01-A work now; choose preferred optionA while preserving existing Project DTO/FK/API semantics. Stop only if implementation actually requires destructive cross-owner changes, a second authority, irreversible migration or external authorization. The observed source-ownership failure remains recorded; implement an explicit finite committed-blob KB successor without weakening historical checks. No additional approval is inferred for PR merge or destructive changes.
+
 # KB01 architecture / explicit owner review
 
 ## Concrete counterexample

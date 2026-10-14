@@ -1,6 +1,6 @@
 # KB01-D0 — requirement / owner audit
 
-D0 inventory is COMPLETE. KB01-A through KB01-E are NOT COMPLETE. Implementation is stopped at OWNER CONTRACT REVIEW, not at migration-number selection. Main/tag remain the validated 060cbb5 baseline. No release acceptance is claimed.
+D0 inventory is COMPLETE. KB01-A through KB01-E are NOT COMPLETE. V2.0 authorizes continuing independent compatible work; source-scope compatibility is a tracked B/C dependency, not a blanket stop. Main/tag remain the validated 060cbb5 baseline. No release acceptance is claimed.
 
 Authoritative sources inspected: Master V3.7 (general principles, production/browser, research knowledge and input requirements), Phase0 Parts20/20A/20B/20C/21/29/29A, ARCHITECTURE_RULES.md, current Knowledge/Document/Metadata/Scope repositories, APIs, parsers, Admin and intake UI, worker and original/reconciled Admin gaps. Master in this checkout ends at Part9A ProjectParty (999 lines); the requested later storage/operations parts are in Phase0. Neither document was modified. All findings describe implementation at the tagged source, not the old f563e50 gap report alone.
 
