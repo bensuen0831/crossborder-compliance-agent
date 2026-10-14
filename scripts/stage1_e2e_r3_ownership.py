@@ -59,6 +59,9 @@ PATHS = frozenset((
 
 def overlay(root):
     root = Path(root).resolve()
+    if (root / "evidence/stage1-gap-kb01/approved_owner_overlay.json").exists():
+        from scripts.kb01_ownership import overlay as kb01_overlay
+        return kb01_overlay(root)
     def git(*args):
         return subprocess.check_output(["git", "-c", "core.quotepath=false", *args], cwd=root, stderr=subprocess.DEVNULL)
     def ancestor(a, b):

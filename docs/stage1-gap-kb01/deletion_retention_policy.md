@@ -1,3 +1,7 @@
-# Deletion/retention proposal
+# Deletion and retention
 
-No new delete endpoint yet. Draft removal requires permission/reason/CAS, ingestion/lease cancellation, reference and hold checks plus audit. Published/approved or cited/pinned versions retain bytes and immutable metadata, using expire/archive/supersede to stop new retrieval while authorized historical pins remain valid. Never cascade-delete project-bound traces to implement tenant-wide Knowledge deletion. Physical purge is a separate policy-authorized operation after retention/hold/reference validation and durable audit; missing policy fails closed. Batch operations return per-item outcomes; restore does not resurrect legally invalid publication without governance.
+Package A implements reference impact, reason/CAS/idempotency, operation grants and policy-authorized eligible draft deletion. Missing/ambiguous/unreviewed management policy fails closed. Knowledge metadata labels are owned by unpublished versions; every other FK reference and snapshot pin protects deletion. Approved/published/ingested versions remain protected. Deletion leaves an immutable receipt/tombstone under canonical AdminChangeSet.
+
+Active holds protect archival in both the original knowledge channel and the new management channel. Release is a server-actor-owned, one-time CAS transition. Released hold history remains; its FK still protects physical deletion, preserving audit evidence. Use lifecycle archive/expiry instead of discarding retained history. No binary object is purged merely because an administrative draft is removed.
+
+Publication, expiry, supersession and archive reuse the original knowledge lifecycle. Archived versions remain available to authorized exact historical pins. No project trace is cascade-deleted. Durable batch cancellation/leases, object retention cleanup and per-item bulk mutation reports remain B/E work, and are not claimed complete by the A focused tests.

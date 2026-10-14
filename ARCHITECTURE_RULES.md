@@ -217,3 +217,23 @@ version or history rewrite is permitted. Legacy snapshots containing legacy
 decision authority are read-only; a new analysis requires a new Snapshot.
 Migration 0020 changes only the five engine CHECK constraints and refuses
 downgrade if corrected authority exists. Stage 2 remains NOT STARTED.
+# KB01 V2 — canonical knowledge management constraints
+
+KB01 extends the existing KnowledgeDocument/KnowledgeDocumentVersion and
+MetadataDefinition/MetadataVersion authorities. Classification labels pin exact
+canonical metadata versions; they do not become formal legal scope bindings.
+Published labels and historical legal decisions remain immutable. Taxonomy
+merges are reviewed aliases and never retarget historical jurisdiction identity.
+
+Management mutations require current operation-specific grants, tenant scope,
+actor identity from RepositoryContext, CAS and payload-bound idempotency. Missing
+retention policy fails closed. Eligible draft deletion checks all references;
+operation receipts and retention-hold history cannot be rewritten or deleted.
+Unsafe downgrade refuses to discard administration evidence or classification
+pins. Historical migrations 0001–0020 remain byte-identical.
+
+The additive executable checks are in scripts/kb01_architecture_check.py. The
+finite committed-blob successor preserves every previous source manifest and
+all source outside the explicit KB01 management paths. Candidate confirmation,
+formal legal algorithms, canonical review/runtime and Stage 2 boundaries remain
+under their existing owners.

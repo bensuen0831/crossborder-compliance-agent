@@ -193,6 +193,10 @@ class PostgresAdminMetadataRepository(_TenantScopedMetadataRepository):
                 if existing.lifecycle_status != GovernanceStatus.DRAFT.value:
                     raise MetadataLifecycleError("only DRAFT metadata can be updated")
                 raise MetadataOptimisticConcurrencyError("metadata version changed")
+            from crossborder_compliance.infrastructure.persistence.taxonomy_governance import is_managed_taxonomy
+            if definition is not None and is_managed_taxonomy(definition.kind, payload):
+                definition.record_version += 1
+                definition.updated_at = utcnow()
         return self.get_version(version_id)
 
     def transition(
@@ -204,98 +208,120 @@ class PostgresAdminMetadataRepository(_TenantScopedMetadataRepository):
         expected_record_version: int,
     ) -> dict[str, object]:
         with self._sessions() as session, session.begin():
-            row = self._scoped(
-                session, MetadataVersionEntity, MetadataVersionEntity.version_id, version_id
+            return self._transition_in_session(
+                session, version_id, target_status=target_status, actor_id=actor_id,
+                expected_record_version=expected_record_version,
             )
-            if row is None:
-                raise LookupError("metadata version not found in tenant scope")
-            row = transition_validation(session, row, actor_id, target_status)
-            if row.record_version != expected_record_version:
-                raise MetadataOptimisticConcurrencyError("metadata version changed")
-            current = row.lifecycle_status
-            if not lifecycle_transition_allowed(current, target_status):
-                raise MetadataLifecycleError(f"invalid lifecycle transition: {current} -> {target_status}")
-            if (
-                target_status == GovernanceStatus.APPROVED.value
-                and actor_id == row.created_by
-                and "metadata:self-review" not in self._context.permission.scopes
-                and not self._context.permission.system
-            ):
-                raise MetadataLifecycleError("reviewer separation requires a different actor")
 
-            row.lifecycle_status = target_status
-            row.record_version += 1
-            row.updated_at = utcnow()
+    def _transition_in_session(
+        self, session, version_id: UUID, *, target_status: str, actor_id: str,
+        expected_record_version: int,
+    ) -> dict[str, object]:
+        """Same canonical lifecycle calculation inside a caller-owned unit of work.
 
-            if target_status == GovernanceStatus.APPROVED.value:
-                row.approved_by = actor_id
-                row.approved_at = utcnow()
+        Infrastructure-only composition enables atomic management audit/idempotency;
+        this method does not grant permissions or select a different lifecycle.
+        """
+        row = self._scoped(
+            session, MetadataVersionEntity, MetadataVersionEntity.version_id, version_id
+        )
+        if row is None:
+            raise LookupError("metadata version not found in tenant scope")
+        row = transition_validation(session, row, actor_id, target_status)
+        if row.record_version != expected_record_version:
+            raise MetadataOptimisticConcurrencyError("metadata version changed")
+        definition = self._scoped(session, MetadataDefinitionEntity, MetadataDefinitionEntity.definition_id, UUID(row.definition_id))
+        from crossborder_compliance.infrastructure.persistence.taxonomy_governance import is_managed_taxonomy
+        managed = definition is not None and (is_managed_taxonomy(definition.kind, row.payload_json) or definition.kind == "KNOWLEDGE_MANAGEMENT_POLICY")
+        if managed and target_status == GovernanceStatus.APPROVED.value and (actor_id == row.created_by or self._context.permission.system):
+            raise MetadataLifecycleError("independent human review required")
+        current = row.lifecycle_status
+        if not lifecycle_transition_allowed(current, target_status):
+            raise MetadataLifecycleError(f"invalid lifecycle transition: {current} -> {target_status}")
+        if (
+            target_status == GovernanceStatus.APPROVED.value
+            and actor_id == row.created_by
+            and "metadata:self-review" not in self._context.permission.scopes
+            and not self._context.permission.system
+        ):
+            raise MetadataLifecycleError("reviewer separation requires a different actor")
 
-            if target_status == GovernanceStatus.ACTIVE.value:
-                definition = self._scoped(
-                    session,
-                    MetadataDefinitionEntity,
-                    MetadataDefinitionEntity.definition_id,
-                    UUID(row.definition_id),
-                )
-                if definition is None:
-                    raise LookupError("metadata definition not found")
-                if definition.active_version_id and definition.active_version_id != row.version_id:
-                    prior = session.scalar(
-                        select(MetadataVersionEntity).where(
-                            MetadataVersionEntity.version_id == definition.active_version_id,
-                            MetadataVersionEntity.tenant_id == self.tenant_id,
-                        )
+        row.lifecycle_status = target_status
+        row.record_version += 1
+        row.updated_at = utcnow()
+
+        if target_status == GovernanceStatus.APPROVED.value:
+            row.approved_by = actor_id
+            row.approved_at = utcnow()
+
+        if target_status == GovernanceStatus.ACTIVE.value:
+            definition = self._scoped(
+                session,
+                MetadataDefinitionEntity,
+                MetadataDefinitionEntity.definition_id,
+                UUID(row.definition_id),
+            )
+            if definition is None:
+                raise LookupError("metadata definition not found")
+            if definition.active_version_id and definition.active_version_id != row.version_id:
+                prior = session.scalar(
+                    select(MetadataVersionEntity).where(
+                        MetadataVersionEntity.version_id == definition.active_version_id,
+                        MetadataVersionEntity.tenant_id == self.tenant_id,
                     )
-                    if prior and prior.lifecycle_status == GovernanceStatus.ACTIVE.value:
-                        prior.lifecycle_status = GovernanceStatus.SUPERSEDED.value
-                        prior.record_version += 1
-                        prior.updated_at = utcnow()
-                definition.active_version_id = row.version_id
-                definition.record_version += 1
-                definition.updated_at = utcnow()
-                row.published_at = utcnow()
-                publish = AdminPublishRecordEntity(
-                    publish_record_id=str(uuid4()),
+                )
+                if prior and prior.lifecycle_status == GovernanceStatus.ACTIVE.value:
+                    prior.lifecycle_status = GovernanceStatus.SUPERSEDED.value
+                    prior.record_version += 1
+                    prior.updated_at = utcnow()
+            definition.active_version_id = row.version_id
+            definition.record_version += 1
+            definition.updated_at = utcnow()
+            row.published_at = utcnow()
+            publish = AdminPublishRecordEntity(
+                publish_record_id=str(uuid4()),
+                tenant_id=self.tenant_id,
+                object_kind=definition.kind,
+                version_id=row.version_id,
+                published_by=actor_id,
+                published_at=utcnow(),
+                status="ACTIVE",
+            )
+            session.add(publish)
+            session.add(
+                RegistrySyncEventEntity(
+                    registry_sync_event_id=str(uuid4()),
                     tenant_id=self.tenant_id,
                     object_kind=definition.kind,
+                    object_id=definition.definition_id,
                     version_id=row.version_id,
-                    published_by=actor_id,
-                    published_at=utcnow(),
-                    status="ACTIVE",
+                    event_version=row.version_no,
+                    attempts=0,
+                    status="PENDING",
                 )
-                session.add(publish)
-                session.add(
-                    RegistrySyncEventEntity(
-                        registry_sync_event_id=str(uuid4()),
-                        tenant_id=self.tenant_id,
-                        object_kind=definition.kind,
-                        object_id=definition.definition_id,
-                        version_id=row.version_id,
-                        event_version=row.version_no,
-                        attempts=0,
-                        status="PENDING",
-                    )
-                )
+            )
 
-            if target_status in {
-                GovernanceStatus.SUPERSEDED.value,
-                GovernanceStatus.EXPIRED.value,
-                GovernanceStatus.ARCHIVED.value,
-            }:
-                definition = session.scalar(
-                    select(MetadataDefinitionEntity).where(
-                        MetadataDefinitionEntity.definition_id == row.definition_id,
-                        MetadataDefinitionEntity.tenant_id == self.tenant_id,
-                    )
+        if target_status in {
+            GovernanceStatus.SUPERSEDED.value,
+            GovernanceStatus.EXPIRED.value,
+            GovernanceStatus.ARCHIVED.value,
+        }:
+            definition = session.scalar(
+                select(MetadataDefinitionEntity).where(
+                    MetadataDefinitionEntity.definition_id == row.definition_id,
+                    MetadataDefinitionEntity.tenant_id == self.tenant_id,
                 )
-                if definition and definition.active_version_id == row.version_id:
-                    definition.active_version_id = None
-                    definition.record_version += 1
-                    definition.updated_at = utcnow()
+            )
+            if definition and definition.active_version_id == row.version_id:
+                definition.active_version_id = None
+                definition.record_version += 1
+                definition.updated_at = utcnow()
 
-            session.flush()
-            return self._version_dict(row)
+        if managed and target_status not in {GovernanceStatus.ACTIVE.value, GovernanceStatus.SUPERSEDED.value, GovernanceStatus.EXPIRED.value, GovernanceStatus.ARCHIVED.value}:
+            definition.record_version += 1
+            definition.updated_at = utcnow()
+        session.flush()
+        return self._version_dict(row)
 
     def get_version(self, version_id: UUID) -> dict[str, object]:
         with self._sessions() as session:
@@ -410,6 +436,8 @@ class PostgresRegistrySourceRepository(_TenantScopedMetadataRepository):
                     version_no = row.record_version
                     payload = dict(row.metadata_json or {})
                     config_definition_id = None
+                if payload.get("management_schema") == "KB01_TAXONOMY_V1" and not payload.get("enabled", True):
+                    continue
                 result.append(
                     {
                         "definition_id": row.jurisdiction_id,
@@ -449,9 +477,10 @@ class PostgresRegistrySourceRepository(_TenantScopedMetadataRepository):
             return [
                 self._project(definition, version)
                 for definition, version in rows
-                if self._context.permission.system
+                if (self._context.permission.system
                 or set((version.payload_json or {}).get("permission_scopes") or ())
-                <= self._context.permission.scopes
+                <= self._context.permission.scopes)
+                and not ((version.payload_json or {}).get("management_schema") == "KB01_TAXONOMY_V1" and not (version.payload_json or {}).get("enabled", True))
             ]
 
     def load_active_version(self, kind: str, definition_id: UUID) -> dict[str, object] | None:
@@ -872,6 +901,8 @@ class PostgresConfigRegistrySourceRepository(_TenantScopedMetadataRepository):
                     version_id = row.jurisdiction_id
                     version_no = row.record_version
                     payload = dict(row.metadata_json or {})
+                if payload.get("management_schema") == "KB01_TAXONOMY_V1" and not payload.get("enabled", True):
+                    continue
                 result.append(
                     {
                         "definition_id": row.jurisdiction_id,

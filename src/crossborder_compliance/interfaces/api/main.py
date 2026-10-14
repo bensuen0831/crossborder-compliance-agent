@@ -26,6 +26,8 @@ from crossborder_compliance.interfaces.api.routes.decisions import router as dec
 from crossborder_compliance.interfaces.api.routes.documents import router as documents_router
 from crossborder_compliance.interfaces.api.routes.health import router as health_router
 from crossborder_compliance.interfaces.api.routes.knowledge import router as knowledge_router
+from crossborder_compliance.interfaces.api.routes.knowledge_management import router as knowledge_management_router
+from crossborder_compliance.interfaces.api.routes.knowledge_document_management import router as knowledge_document_management_router
 from crossborder_compliance.interfaces.api.routes.llm_models import router as llm_models_router
 from crossborder_compliance.interfaces.api.routes.metadata import router as metadata_router
 from crossborder_compliance.interfaces.api.routes.model_providers import bindings_router
@@ -93,5 +95,7 @@ app.include_router(model_providers_router)
 app.include_router(bindings_router)
 app.include_router(llm_models_router)
 app.include_router(knowledge_router)
+app.include_router(knowledge_management_router)
+app.include_router(knowledge_document_management_router)
 
 app.include_router(retrieval_router)

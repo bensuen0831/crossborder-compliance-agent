@@ -258,3 +258,27 @@ def test_multilingual_label_uses_explicit_backend_mapping():
     refs = {**p.metadata, "language": {ROW[2]: ("language-a", "language-b")}}
     result = preview_manifest(document([ROW]), kind="CSV", policy=replace(p, metadata=refs))
     assert dict(result.records[0].metadata_refs)["language"] == ("language-a", "language-b")
+
+
+def test_optional_eight_column_manifest_does_not_require_sample_sequence_header():
+    p = replace(
+        policy(),
+        columns={f: h for f, h in policy().columns.items() if f != "sequence"},
+        required_fields=("title", "jurisdiction", "category", "relative_path"),
+    )
+    result = preview_manifest(document([ROW[1:]], headers=HEADERS[1:]), kind="CSV", policy=p)
+    assert result.records[0].status == "MANIFEST_IMPORTED"
+    assert dict(result.records[0].values)["sequence"] == ""
+
+
+def test_minimal_optional_catalogue_defers_unprovided_metadata():
+    p = replace(
+        policy(),
+        columns={"title": "Name", "relative_path": "Path"},
+        required_fields=("title", "relative_path"),
+    )
+    result = preview_manifest(
+        document([("Source", "folder/a.pdf")], headers=("Name", "Path")), kind="CSV", policy=p
+    )
+    assert result.records[0].status == "MANIFEST_IMPORTED"
+    assert result.records[0].metadata_refs == ()

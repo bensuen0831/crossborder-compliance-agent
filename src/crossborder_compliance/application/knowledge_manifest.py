@@ -34,6 +34,7 @@ class ManifestError(ValueError):
 class ManifestPolicy:
     columns: Mapping[str, str]
     metadata: Mapping[str, Mapping[str, tuple[str, ...]]]
+    required_fields: tuple[str, ...] = FIELDS
     max_bytes: int = 32 * 1024 * 1024
     max_expanded_bytes: int = 128 * 1024 * 1024
     max_entries: int = 10000
@@ -45,9 +46,11 @@ class ManifestPolicy:
 
     def __post_init__(self):
         if (
-            set(self.columns) != set(FIELDS)
+            not set(self.columns).issubset(FIELDS)
+            or not {"title", "relative_path"}.issubset(self.columns)
+            or not set(self.required_fields).issubset(self.columns)
             or any(not isinstance(v, str) or not v.strip() for v in self.columns.values())
-            or len(set(self.columns.values())) != len(FIELDS)
+            or len(set(self.columns.values())) != len(self.columns)
         ):
             raise ManifestError("INVALID_COLUMN_MAPPING")
         if (
@@ -138,22 +141,29 @@ def preview_manifest(
             continue
         if len(proposals) >= policy.max_rows:
             raise ManifestError("MANIFEST_ROW_LIMIT")
-        values = {
-            f: str(cells[i]).strip() if i < len(cells) and cells[i] is not None else ""
-            for f, i in positions.items()
-        }
+        values = dict.fromkeys(FIELDS, "")
+        values.update(
+            {
+                f: str(cells[i]).strip() if i < len(cells) and cells[i] is not None else ""
+                for f, i in positions.items()
+            }
+        )
         issues = [
             ManifestIssue(number, f, "FORMULA_NOT_ALLOWED")
             for f, i in positions.items()
             if i in formula_indices
         ]
         issues += [
-            ManifestIssue(number, f, "REQUIRED_FIELD_MISSING") for f, v in values.items() if not v
+            ManifestIssue(number, f, "REQUIRED_FIELD_MISSING")
+            for f in policy.required_fields
+            if not values[f]
         ]
-        if not re.fullmatch(r"[1-9][0-9]*", values["sequence"]):
+        if values["sequence"] and not re.fullmatch(r"[1-9][0-9]*", values["sequence"]):
             issues.append(ManifestIssue(number, "sequence", "INVALID_SEQUENCE"))
         refs = []
         for dimension in DIMENSIONS:
+            if not values[dimension] and dimension not in policy.required_fields:
+                continue
             matched = policy.metadata.get(dimension, {}).get(values[dimension])
             if not matched:
                 issues.append(ManifestIssue(number, dimension, "METADATA_MAPPING_REQUIRED"))
@@ -167,6 +177,8 @@ def preview_manifest(
         except ManifestError:
             issues.append(ManifestIssue(number, "relative_path", "INVALID_RELATIVE_PATH"))
         fmt = values["format"].upper()
+        if not fmt and "format" not in policy.required_fields and path:
+            fmt = PurePosixPath(path).suffix[1:].upper()
         if fmt not in FORMATS:
             issues.append(ManifestIssue(number, "format", "UNSUPPORTED_FORMAT"))
         elif path and PurePosixPath(path).suffix[1:].upper() != fmt:

@@ -32,7 +32,10 @@ def fingerprint(url,record):
 
 def test_frozen_0001_0019_and_exact_single_head():
     script=ScriptDirectory.from_config(Config(str(ROOT/'alembic.ini')))
-    assert script.get_heads()==[HEAD]
+    from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after
+    heads = script.get_heads()
+    assert len(heads) == 1
+    assert revision_at_or_after(heads[0], "0020_stage1_formal_decision_engine_compatibility")
     assert script.get_revision(HEAD).down_revision==PARENT
     for path in (ROOT/'alembic/versions').glob('*.py'):
         if path.name[:4].isdigit() and int(path.name[:4])<=19:

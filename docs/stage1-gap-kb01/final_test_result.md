@@ -1,7 +1,9 @@
-# D0 + focused manifest result (not full KB01 closure)
+# KB01 V2 implementation status — not release closure
 
-KB01-D0 inventory/design = COMPLETE; cross-owner design review REQUIRED. Manifest parser foundation =33 PASS,0failed/errors/skipped/deselected; ruff PASS. Fresh isolated PostgreSQL ->0020 PASS. Frozen0001–0020 byte-identical. Root architecture204/205; j_v1_contracts_byte_preserved fails because the existing finite R3 ownership contract excludes new KB parser paths. No historical formal decision/source file was changed. The original architecture check is retained and its failure is disclosed; no new approved overlay or bypass was fabricated.
+D0 is complete and V2 authorizes compatible A–E work. Package A canonical taxonomy/document management is implemented and focused PostgreSQL validation measures 121 PASS, 0 failed/errors/skipped/deselected. This includes native manifest 35 PASS, metadata/taxonomy/document tests, existing Phase1C/Phase1F regressions, and the 0021 migration safety matrix. It is a focused suite, not full backend regression.
 
-KB01-A/B/C/D/E = PENDING. STAGE1-GAP-KB01 = BLOCKED, owner source-scope contract review required. Full regression, six-format end-to-end, production identity, actual XLSX1026, S3, >500MB, RAR >1GB, UI/statistics/review/RAG and mandatory exact-head CI are NOT EXECUTED/NOT COMPLETE. These are not replaced by parser unit results or prior release counts. No migration, main update, tag update or Stage2 work.
+Formal main/tag remain 060cbb5 / v3.7-stage1-e2e-pass / 0020. Working migration is 0021_kb01_taxonomy_operations; frozen 0001–0020 are unchanged. Before the committed-source successor is sealed, root architecture measures 222/225: three source/migration-scope proof failures remain explicitly disclosed. They are not product-result failures or waived tests.
 
-Request design-owner approval for architecture_design.md optionA and its bounded source-ownership successor, then implement A–E in dependency order. All documents marked proposed describe work still to do, not accepted capabilities.
+KB01-A final exit is IN PROGRESS. B/C/D/E/F are pending. No full backend/runtime/frontend/browser or remote exact-head CI claim is made. Large upload/archive/worker, six formats, production identity, UI/statistics, and expert-reviewed real legal acceptance are unfinished. Actual reference XLSX/Drive source files are unavailable to this environment (Drive returned sign-in HTML), not synthesized.
+
+Paid Internet LLM, real regulatory knowledge acceptance and production business UAT are NOT EXECUTED. No main update, release tag, PR merge or Stage 2 work.

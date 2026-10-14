@@ -41,7 +41,10 @@ def test_frozen_migration_bytes_and_single_lineage():
     from alembic.script import ScriptDirectory
 
     scripts = ScriptDirectory.from_config(Config(str(ROOT / "alembic.ini")))
-    assert scripts.get_heads() == ["0020_stage1_formal_decision_engine_compatibility"]
+    from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after
+    heads = scripts.get_heads()
+    assert len(heads) == 1
+    assert revision_at_or_after(heads[0], "0020_stage1_formal_decision_engine_compatibility")
     assert scripts.get_revision(HEAD).down_revision == OLD
     for path in (ROOT / "alembic/versions").glob("*.py"):
         if path.name[:4].isdigit() and int(path.name[:4]) <= 18:
