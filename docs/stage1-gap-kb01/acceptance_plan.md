@@ -1,0 +1,9 @@
+# Acceptance plan / mandatory test identities
+
+D0 measured only: fresh PostgreSQL0020 and schema/FK inspection; native Manifest suite33 PASS; ruff PASS. Root architecture204/205, one finite source-ownership gate blocked. No full backend/frontend/browser/runtime regression or new CI is claimed. Prior tagged release1012/361/25/142/77 and11workflows18jobs are floors, not this branch's test results.
+
+A: schema fresh/exact0020/equivalence/old rows safe downgrade/reupgrade/refusal, tenant/RBAC/idempotency/CAS, dynamic metadata/mapping and SQL reconciliation. B: real S3 multipart single/multi/folder, true >500MB original and >1GB RAR4/5, ZIP, resume/retry/cancel/expiry/checksum, malicious archive/link/bomb/nesting, crash/recovery/partial failure, scanner and quotas. C: each of six formats complete canonical provenance/review/publish/retrieval, real failed parse and OCR behavior, immutable historical versions. D: three-locale CRUD/search/filter/pagination/batch errors/history/statistics/deletion/holds and permission counts. E: source verification, author!=approver, scope/date/product retrieval, existing Snapshot replay and full old mandatory IDs retained.
+
+Add Regulatory Knowledge Management Acceptance plus Large Archive Batch Import Acceptance workflows with real PostgreSQL/S3/Redis/worker/scanner/extractor/Chromium; adequate isolated resource budget. Each job records actual checkout, coverage IDs/counts and safe digests. Final head reruns all11 existing mandatory workflows as well as new workflows. Do not skip/deselect/xfail or borrow tagged release evidence; no merge/tag authorization.
+
+Real资料汇总清单.xlsx and actual source archive are pending user provision. Real1,026-row dataset acceptance NOT EXECUTED. Production law correctness and business UAT are separate from technical ingestion acceptance.

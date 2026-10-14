@@ -1,0 +1,5 @@
+# SQL statistics / reconciliation contract
+
+Counts distinguish manifest rows, distinct canonical documents, immutable versions, uploaded physical artifacts, uploaded bytes, missing files, parse successes/failures, pending reviews and active/expired/archived versions. Never equate Excel records with actual uploaded sources or distinct regulations. Query authorized tenant/resource set first, then aggregate; enforce identical filters for lists and counts. Stable pagination and explicit reporting cutoff avoid cross-page races.
+
+Group by governed jurisdiction/category/topic/language/format/state and requested combined dimensions. M:N dimensions use COUNT(DISTINCT canonical identity) per group; group totals are not blindly summed as global totals. Technical batch status and legal publication lifecycle are separate columns. Deletion/archive/retry/version publication update counts transactionally or via verified rebuildable projection; compare SQL base data against API after each mutation. No1026/24/884 production constants.

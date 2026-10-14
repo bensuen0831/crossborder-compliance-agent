@@ -1,0 +1,3 @@
+# Deletion/retention proposal
+
+No new delete endpoint yet. Draft removal requires permission/reason/CAS, ingestion/lease cancellation, reference and hold checks plus audit. Published/approved or cited/pinned versions retain bytes and immutable metadata, using expire/archive/supersede to stop new retrieval while authorized historical pins remain valid. Never cascade-delete project-bound traces to implement tenant-wide Knowledge deletion. Physical purge is a separate policy-authorized operation after retention/hold/reference validation and durable audit; missing policy fails closed. Batch operations return per-item outcomes; restore does not resurrect legally invalid publication without governance.

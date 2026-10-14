@@ -1,0 +1,5 @@
+# Six-format parser work
+
+PDF: existing pypdf Project adapter; Knowledge streaming/locator projection missing; OCR fallback not configured. DOCX: existing python-docx Project adapter; Knowledge source scope/table/section projection missing. TXT: existing UTF8 Project adapter; governed encoding/Knowledge clause projection missing. DOC: isolated conversion adapter/deployment/license absent. HTML: safe DOM parser absent. XHTML: secure XML adapter absent.
+
+Use approved neutral source contract to reuse parser algorithms without fake Project/version IDs. Original artifact immutable; parser profile/version/run/source locators exact. No scripts/macros/XXE/external resources/network fetch. Preserve paragraphs/tables/page/DOM locators and official clause numbers only when supported; uncertain segmentation REVIEW_REQUIRED. Feed existing Knowledge complete_ingestion, RegulatoryStructureNode/Chunk/Citation and quality/review/publication; source evidence never becomes ACTIVE just after upload. Six-format upload->storage->parse->structure->DB->citation->independent review->publish->scope-first retrieval requires real tests.
