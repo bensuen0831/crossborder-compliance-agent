@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.kb01_ownership import RECORD, overlay
+from scripts.kb01_ownership import RECORD, SUCCESSOR_RECORD, authenticated_paths, overlay
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -24,6 +24,7 @@ def test_kb01_ownership_authenticates_committed_source():
         "evidence/stage1-full-e2e/r3/approved_owner_overlay.json",
         "src/crossborder_compliance/domain/knowledge_management.py",
         "src/crossborder_compliance/application/unapproved_kb_shortcut.py",
+        RECORD,
     ],
 )
 def test_kb01_ownership_rejects_uncommitted_tampering(tmp_path, path):
@@ -40,7 +41,14 @@ def test_kb01_ownership_rejects_uncommitted_tampering(tmp_path, path):
 def test_kb01_ownership_rejects_live_hash_self_certification(tmp_path):
     copy = tmp_path / "repo"
     subprocess.run(["git", "clone", "--no-hardlinks", "--quiet", str(ROOT), str(copy)], check=True)
-    data = json.loads((copy / RECORD).read_text())
+    data = json.loads((copy / SUCCESSOR_RECORD).read_text())
     data["paths"]["src/crossborder_compliance/domain/knowledge_management.py"] = "0" * 64
-    (copy / RECORD).write_text(json.dumps(data))
+    (copy / SUCCESSOR_RECORD).write_text(json.dumps(data))
     assert not overlay(copy)[0]
+
+
+def test_kb01_successor_bounds_require_matching_source():
+    valid, paths, source = overlay(ROOT)
+    assert valid and authenticated_paths(ROOT, source) == paths.keys()
+    with pytest.raises(ValueError, match="does not authenticate"):
+        authenticated_paths(ROOT, "0" * 40)

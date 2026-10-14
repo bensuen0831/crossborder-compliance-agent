@@ -13,14 +13,21 @@ from pathlib import Path
 
 BASE = "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d"
 RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay.json"
+SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v2.json"
+FIRST_SEAL = "a95d5f05f46566d7e58417a8c9cb2214c6d028f0"
+FIRST_SOURCE = "6f0f448fbe5d72494d2756bca30a3f74437e1f63"
 PREVIOUS = "evidence/stage1-full-e2e/r3/approved_owner_overlay.json"
 PATHS = frozenset(
     (
         "scripts/stage1_business_architecture.py",
+        "scripts/m2a_ownership.py",
         "ARCHITECTURE_RULES.md",
         "scripts/kb01_architecture_check.py",
         "scripts/architecture_rule_check.py",
         "tests/test_kb01_architecture.py",
+        "tests/test_m2d_architecture.py",
+        "tests/test_m2e_r1_architecture.py",
+        "tests/test_phase1kb_architecture.py",
         "alembic/env.py",
         "alembic/versions/0021_kb01_taxonomy_operations.py",
         "scripts/kb01_ownership.py",
@@ -95,7 +102,19 @@ def overlay(root):
             for path, digest in previous["paths"].items()
         ):
             return False, {}, None
-        record = json.loads((root / RECORD).read_text())
+        first_bytes = git("show", FIRST_SEAL + ":" + RECORD)
+        if (root / RECORD).read_bytes() != first_bytes or not ancestor(FIRST_SEAL, "HEAD"):
+            return False, {}, None
+        first = json.loads(first_bytes)
+        if first["source_sha"] != FIRST_SOURCE or first["base_sha"] != BASE:
+            return False, {}, None
+        first_blobs = blobs(FIRST_SOURCE, first["paths"])
+        if any(
+            hashlib.sha256(first_blobs[path]).hexdigest() != digest
+            for path, digest in first["paths"].items()
+        ):
+            return False, {}, None
+        record = json.loads((root / SUCCESSOR_RECORD).read_text())
         expected = set(previous["paths"]) | PATHS
         source = record["source_sha"]
         if (
@@ -103,6 +122,7 @@ def overlay(root):
             or record["scope"] != "STAGE1-GAP-KB01-MASTER_V2.0"
             or set(record["paths"]) != expected
             or not ancestor(BASE, source)
+            or not ancestor(FIRST_SEAL, source)
             or not ancestor(source, "HEAD")
         ):
             return False, {}, None
@@ -141,3 +161,11 @@ def overlay(root):
         return True, record["paths"], source
     except (OSError, KeyError, ValueError, TypeError, subprocess.CalledProcessError):
         return False, {}, None
+
+
+def authenticated_paths(root, source):
+    """Extend a prior owner's finite bounds only with this exact proven successor."""
+    valid, paths, successor_source = overlay(root)
+    if not valid or successor_source != source:
+        raise ValueError("KB01 successor source does not authenticate")
+    return frozenset(paths)
