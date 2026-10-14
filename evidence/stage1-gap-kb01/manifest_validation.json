@@ -6,7 +6,7 @@
   "digest_role": "test source identity only; NOT source-owner approval",
   "errors": 0,
   "failed": 0,
-  "junit_sha256": "55933341d27b08f9d5afc24b49ffdc0e28a9cd2337b2b2e4a26e3408ac4c6390",
+  "junit_sha256": "c2cb8c8b32f55102202b1cf64b0d88455a76fcde374f09fdbc111ec3c2c8ae1e",
   "passed": 35,
   "real_1026_manifest": "NOT PROVIDED / NOT EXECUTED",
   "skipped": 0,
@@ -44,12 +44,17 @@
     "tests.test_knowledge_manifest::test_column_bound_is_enforced_before_building_record[CSV]",
     "tests.test_knowledge_manifest::test_column_bound_is_enforced_before_building_record[XLSX]",
     "tests.test_knowledge_manifest::test_utf16_entity_declaration_cannot_bypass_xml_guard",
-    "tests.test_knowledge_manifest::test_multilingual_label_uses_explicit_backend_mapping"
+    "tests.test_knowledge_manifest::test_multilingual_label_uses_explicit_backend_mapping",
+    "tests.test_knowledge_manifest::test_optional_eight_column_manifest_does_not_require_sample_sequence_header",
+    "tests.test_knowledge_manifest::test_minimal_optional_catalogue_defers_unprovided_metadata"
   ],
   "tested_file_digests": {
-    "src/crossborder_compliance/application/knowledge_manifest.py": "397110ee4add994dc392ae6bbd05405af27b88ccd58b2d6308188b0a2fd56113",
+    "src/crossborder_compliance/application/knowledge_manifest.py": "e6a43a803676567c3d4e5ad542243884dbcb90fd016ad01bc48d89c9bcabc071",
     "src/crossborder_compliance/infrastructure/knowledge_manifest_parser.py": "04f6d88f3a38ec275c00010943b91f581d2354ceb6dc8b15afd85bb15157415e",
-    "tests/test_knowledge_manifest.py": "222f19ea5a5e6d7c5f3766cd37b05eb78f7482551802a19e03f8b8d55fef1255"
+    "tests/test_knowledge_manifest.py": "a5948e2f41bd0157d1bde739c235625423adbc25460615fbe35db37a725b71b2"
   },
-  "source_identity": "WORKING_TREE_PENDING_COMMIT_PROOF"
+  "source_identity": "COMMITTED_GIT_BLOBS",
+  "source_sha": "6f0f448fbe5d72494d2756bca30a3f74437e1f63",
+  "tested_head_sha": "a95d5f05f46566d7e58417a8c9cb2214c6d028f0",
+  "junit_role": "35 manifest tests in the measured 133-test combined sealed focused suite"
 }

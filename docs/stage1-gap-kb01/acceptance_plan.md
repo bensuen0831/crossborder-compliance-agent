@@ -6,4 +6,4 @@ A: schema fresh/exact0020/equivalence/old rows safe downgrade/reupgrade/refusal,
 
 Add Regulatory Knowledge Management Acceptance plus Large Archive Batch Import Acceptance workflows with real PostgreSQL/S3/Redis/worker/scanner/extractor/Chromium; adequate isolated resource budget. Each job records actual checkout, coverage IDs/counts and safe digests. Final head reruns all11 existing mandatory workflows as well as new workflows. Do not skip/deselect/xfail or borrow tagged release evidence; no merge/tag authorization.
 
-Real资料汇总清单.xlsx and actual source archive are pending user provision. Real1,026-row dataset acceptance NOT EXECUTED. Production law correctness and business UAT are separate from technical ingestion acceptance.
+Reference Drive/Excel is optional and is not a runtime or acceptance prerequisite for A–E. Authorized real originals will be delivered through the formal frontend when upload is ready. KB01-F0 readiness remains required. KB01-F1 = BLOCKED — EXTERNAL_EVIDENCE_PENDING: independently approved Gold Standard and expert review records have not been provided. Real regulatory legal acceptance and production business UAT are NOT EXECUTED.
