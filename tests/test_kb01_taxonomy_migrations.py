@@ -35,7 +35,11 @@ PARENT = "0020_stage1_formal_decision_engine_compatibility"
 
 def test_kb01_single_head_and_frozen_0001_0020():
     script = ScriptDirectory.from_config(Config(str(ROOT / "alembic.ini")))
-    assert script.get_heads() == ["0022_kb01_binary_transport"]
+    assert script.get_heads() == ["0023_kb01_evidence_source_reference"]
+    assert (
+        script.get_revision("0023_kb01_evidence_source_reference").down_revision
+        == "0022_kb01_binary_transport"
+    )
     assert script.get_revision("0022_kb01_binary_transport").down_revision == HEAD
     assert script.get_revision(HEAD).down_revision == PARENT
     paths = [
@@ -81,6 +85,9 @@ def row_digest(sf, identity):
 
 
 def test_kb01_fresh_exact0020_equivalence_safe_down_up_and_audit_refusal(tmp_path):
+    from kb01_historical_schema import historical_bootstrap_source
+
+    bootstrap = historical_bootstrap_source(tmp_path / "historical0021", HEAD)
     source = tmp_path / "exact-release"
     source.mkdir()
     archive = tmp_path / "release.tar"
@@ -98,7 +105,7 @@ def test_kb01_fresh_exact0020_equivalence_safe_down_up_and_audit_refusal(tmp_pat
         with admin.connect() as conn:
             for name in names:
                 conn.execute(text('CREATE DATABASE "' + name + '"'))
-        fresh = migrate(ROOT, urls[0], "upgrade", HEAD)
+        fresh = migrate(bootstrap, urls[0], "upgrade", HEAD)
         assert fresh.returncode == 0, fresh.stderr
         previous = migrate(source, urls[1], "upgrade", "head")
         assert previous.returncode == 0, previous.stderr

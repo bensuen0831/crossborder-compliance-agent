@@ -42,6 +42,8 @@ def test_frozen_0001_0019_and_exact_single_head():
             assert path.read_bytes()==subprocess.check_output(['git','show',SOURCE+':'+str(path.relative_to(ROOT))],cwd=ROOT)
 
 def test_fresh_exact0019_equivalence_preservation_downgrade_and_reupgrade(tmp_path):
+    from kb01_historical_schema import historical_bootstrap_source
+    bootstrap=historical_bootstrap_source(tmp_path/'historical0020',HEAD)
     base=make_url(get_settings().database_url)
     admin=create_engine(base.set(database='postgres'),isolation_level='AUTOCOMMIT')
     names=['compat20_'+uuid4().hex for _ in range(2)]
@@ -50,7 +52,7 @@ def test_fresh_exact0019_equivalence_preservation_downgrade_and_reupgrade(tmp_pa
     try:
         with admin.connect() as c:
             for name in names:c.execute(text('CREATE DATABASE "'+name+'"'))
-        assert migrate(ROOT,urls[0],'upgrade',HEAD).returncode==0
+        assert migrate(bootstrap,urls[0],'upgrade',HEAD).returncode==0
         original=prior_source(tmp_path/'frozen0019')
         assert migrate(original,urls[1],'upgrade','head').returncode==0
         legacy=produce_decisions(original,database_url=urls[1]);assert legacy['engine_version']=='FORMAL_DECISION_V2'

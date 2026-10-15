@@ -300,10 +300,29 @@ class PostgresKnowledgeRepository:
             s.flush()
             return self.binding(row)
 
+    def _ingestion_access(self):
+        if not self.context.permission.system and not (
+            {"knowledge:admin", "knowledge:document:ingest"} & self.context.permission.scopes
+        ):
+            raise PermissionError("knowledge ingestion permission required")
+
+    def _authorize_ingestion_payload(self, payload):
+        if payload.get("binary_scope") or payload.get("binary_upload_session_id"):
+            from crossborder_compliance.domain.knowledge_management import require_management_permission
+            require_management_permission(self.context, "document:ingest")
+        else:
+            self.admin()
+
     def schedule_ingestion(self, version_id, payload):
-        self.admin()
-        if bool(payload.get("nodes")) == bool(payload.get("url")):
+        self._authorize_ingestion_payload(payload)
+        binary = bool(payload.get("binary_upload_session_id"))
+        if sum(bool(payload.get(key)) for key in ("nodes", "url", "binary_upload_session_id")) != 1:
             raise ValueError("canonical upload or approved URL required")
+        if binary:
+            from crossborder_compliance.domain.knowledge_management import require_management_permission
+            require_management_permission(self.context, "document:ingest")
+            if payload.get("bindings") and "knowledge:admin" not in self.context.permission.scopes:
+                require_management_permission(self.context, "document:bind")
         with self.sessions() as s, s.begin():
             version = self.version(s, version_id)
             previous = self.rows(
@@ -318,6 +337,36 @@ class PostgresKnowledgeRepository:
                     return result(run)
             if version.lifecycle != "DRAFT" or previous:
                 raise ValueError("version already ingested or scheduled")
+            pinned_payload = payload
+            if binary:
+                from crossborder_compliance.domain.knowledge_management import KnowledgeManagementPolicy
+                from crossborder_compliance.infrastructure.persistence.knowledge_upload_models import (
+                    KnowledgeBinaryAttachmentEntity, KnowledgeUploadSessionEntity,
+                )
+                if version.record_version != payload["expected_record_version"]:
+                    raise OptimisticConcurrencyError("stale knowledge version")
+                attachment = s.scalar(select(KnowledgeBinaryAttachmentEntity).where(
+                    KnowledgeBinaryAttachmentEntity.tenant_id == self.tenant_id,
+                    KnowledgeBinaryAttachmentEntity.knowledge_version_id == version_id,
+                    KnowledgeBinaryAttachmentEntity.upload_session_id == payload["binary_upload_session_id"],
+                ))
+                if attachment is None:
+                    raise ValueError("KNOWLEDGE_BINARY_ATTACHMENT_REQUIRED")
+                upload = self.get(s, KnowledgeUploadSessionEntity, attachment.upload_session_id)
+                if upload.status != "VERIFIED" or not upload.object_version:
+                    raise ValueError("KNOWLEDGE_BINARY_NOT_VERIFIED")
+                pinned_policy = KnowledgeManagementPolicy.model_validate(upload.policy_json).native_parser
+                pinned_payload = {**payload, "binary_scope": {
+                    "upload_session_id": upload.upload_session_id,
+                    "object_key": upload.object_key, "object_version": upload.object_version,
+                    "declared_format": upload.declared_format,
+                    "declared_bytes": upload.declared_bytes, "content_sha256": upload.content_sha256,
+                    "artifact_ref": version.original_artifact_ref,
+                    "policy_definition_id": upload.policy_definition_id,
+                    "policy_version_id": upload.policy_version_id,
+                    "policy_payload_digest": hash_value(upload.policy_json),
+                    "parser_policy": pinned_policy.model_dump(mode="json"),
+                }}
             doc = self.get(s, k.KnowledgeDocumentEntity, version.document_id)
             source = self.get(s, m.KnowledgeSourceDefinitionEntity, doc.source_id)
             if payload.get("url") and payload["url"] != source.config_json.get("canonical_url"):
@@ -344,7 +393,7 @@ class PostgresKnowledgeRepository:
                 knowledge_version_id=version_id,
                 idempotency_key=payload["idempotency_key"],
                 request_hash=hash_value(payload),
-                input_json=payload,
+                input_json=pinned_payload,
                 audit_json={},
                 status="PENDING",
                 outbox_event_id=event_id,
@@ -354,13 +403,14 @@ class PostgresKnowledgeRepository:
             return result(row)
 
     def ingestion_input(self, run_id):
-        self.admin()
+        self._ingestion_access()
         with self.sessions() as s:
             run = self.get(s, k.KnowledgeIngestionRunEntity, run_id)
+            self._authorize_ingestion_payload(run.input_json)
             version = self.get(s, k.KnowledgeDocumentVersionEntity, run.knowledge_version_id)
             doc = self.get(s, k.KnowledgeDocumentEntity, version.document_id)
             source = self.get(s, m.KnowledgeSourceDefinitionEntity, doc.source_id)
-            return dict(
+            data = dict(
                 status=run.status,
                 run=result(run),
                 input=run.input_json,
@@ -372,20 +422,49 @@ class PostgresKnowledgeRepository:
                 document_id=doc.document_id,
                 official_source=source.config_json.get("canonical_url") or source.code,
             )
+            if run.input_json.get("binary_scope"):
+                from crossborder_compliance.domain.knowledge_management import require_management_permission
+                from crossborder_compliance.infrastructure.persistence.knowledge_upload_models import (
+                    KnowledgeBinaryAttachmentEntity, KnowledgeUploadSessionEntity,
+                )
+                require_management_permission(self.context, "document:ingest")
+                pinned = run.input_json["binary_scope"]
+                upload = self.get(s, KnowledgeUploadSessionEntity, pinned["upload_session_id"])
+                from crossborder_compliance.domain.knowledge_management import KnowledgeManagementPolicy
+                expected_parser = KnowledgeManagementPolicy.model_validate(upload.policy_json).native_parser
+                attachment = s.scalar(select(KnowledgeBinaryAttachmentEntity).where(
+                    KnowledgeBinaryAttachmentEntity.tenant_id == self.tenant_id,
+                    KnowledgeBinaryAttachmentEntity.knowledge_version_id == version.knowledge_version_id,
+                    KnowledgeBinaryAttachmentEntity.upload_session_id == upload.upload_session_id,
+                ))
+                if (attachment is None or upload.status != "VERIFIED" or
+                    upload.object_version != pinned["object_version"] or
+                    upload.object_key != pinned["object_key"] or
+                    upload.content_sha256 != pinned["content_sha256"] or
+                    upload.policy_version_id != pinned["policy_version_id"] or
+                    expected_parser.model_dump(mode="json") != pinned["parser_policy"] or
+                    hash_value(upload.policy_json) != pinned["policy_payload_digest"] or
+                    version.original_artifact_ref != pinned["artifact_ref"] or
+                    version.content_hash != pinned["content_sha256"]):
+                    raise ValueError("KNOWLEDGE_BINARY_PIN_MISMATCH")
+                data["binary_source"] = pinned
+            return data
 
     def fail_ingestion(self, run_id):
-        self.admin()
+        self._ingestion_access()
         with self.sessions() as s, s.begin():
             row = self.get(s, k.KnowledgeIngestionRunEntity, run_id, True)
+            self._authorize_ingestion_payload(row.input_json)
             if row.status != "COMPLETED":
                 row.status = "FAILED"
                 row.error_code = "INGESTION_FAILED"
                 row.record_version += 1
 
     def complete_ingestion(self, run_id, nodes, chunks, audit):
-        self.admin()
+        self._ingestion_access()
         with self.sessions() as s, s.begin():
             run = self.get(s, k.KnowledgeIngestionRunEntity, run_id, True)
+            self._authorize_ingestion_payload(run.input_json)
             if run.status == "COMPLETED":
                 return result(run)
             version = self.version(s, run.knowledge_version_id)
@@ -563,6 +642,18 @@ class PostgresKnowledgeRepository:
             provenance_completeness=bool(version.provenance_json and version.original_artifact_ref)
             and all(n.source_trace_json and n.provenance_json for n in nodes),
         )
+        binary_run = s.scalar(select(k.KnowledgeIngestionRunEntity).where(
+            k.KnowledgeIngestionRunEntity.tenant_id == self.tenant_id,
+            k.KnowledgeIngestionRunEntity.knowledge_version_id == version.knowledge_version_id,
+            k.KnowledgeIngestionRunEntity.status == "COMPLETED",
+        ))
+        if binary_run is not None and binary_run.input_json.get("binary_scope"):
+            parser_audit = binary_run.audit_json.get("native_parser", {})
+            checks["native_extraction_quality"] = (
+                parser_audit.get("blocks", 0) > 0
+                and parser_audit.get("needs_manual_review") is False
+                and parser_audit.get("needs_ocr") is False
+            )
         existing = self.rows(
             s,
             k.KnowledgeQualityResultEntity,
@@ -798,11 +889,14 @@ class PostgresKnowledgeRepository:
             return result(self.get(s, k.KnowledgeDocumentVersionEntity, version_id))
 
     def get_run(self, run_id):
-        self.admin()
+        self._ingestion_access()
         with self.sessions() as s:
+            run = self.get(s, k.KnowledgeIngestionRunEntity, run_id)
+            if not self.context.permission.system and "knowledge:admin" not in self.context.permission.scopes:
+                self._authorize_ingestion_payload(run.input_json)
             return {
                 key: value
-                for key, value in result(self.get(s, k.KnowledgeIngestionRunEntity, run_id)).items()
+                for key, value in result(run).items()
                 if key not in {"input_json", "audit_json"}
             }
 

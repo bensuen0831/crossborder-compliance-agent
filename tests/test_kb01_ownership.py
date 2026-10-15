@@ -10,6 +10,7 @@ from scripts.kb01_ownership import (
     RECORD,
     SECOND_RECORD,
     SUCCESSOR_RECORD,
+    THIRD_RECORD,
     authenticated_paths,
     overlay,
 )
@@ -32,6 +33,9 @@ def test_kb01_ownership_authenticates_committed_source():
         "src/crossborder_compliance/application/unapproved_kb_shortcut.py",
         RECORD,
         SECOND_RECORD,
+        THIRD_RECORD,
+        "alembic/versions/0022_kb01_binary_transport.py",
+        THIRD_RECORD,
         "alembic/versions/0021_kb01_taxonomy_operations.py",
         "src/crossborder_compliance/infrastructure/knowledge_import_worker.py",
     ],

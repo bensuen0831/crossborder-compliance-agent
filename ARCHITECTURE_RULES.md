@@ -253,3 +253,22 @@ and bounded recovery preserve immutable originals, manifests and audit receipts.
 Historical migrations 0001–0021 remain byte-identical; unsafe0022 downgrade
 refuses when any binary/batch/receipt evidence would be lost. The12 binary checks
 are additive to the preceding20 KB01 management checks.
+
+KB01 C maps identity-free native source blocks through the existing
+KnowledgeIngestionRun/KnowledgeStructureNode/KnowledgeChunk/Citation/Evidence
+owners. The existing DocumentParserPort may adapt the same streaming native
+core using a real Project DocumentVersion; no Knowledge ID is disguised as a
+Project, DocumentVersion or AnalysisSnapshot. Original binary hash/version/ref
+remain immutable when native text is ingested. Parser output, exact technical
+policy pins, OCR page/bbox/confidence and language proposals are auditable.
+Language detection and OCR confidence cannot substitute for source review or
+become legal authority. Current scoped technical worker identities cannot
+approve or publish; system-context impersonation is rejected.
+
+Compatible0023 widens only the existing Evidence source reference, preserves
+all historical values and refuses a downgrade that would truncate references.
+Its fixed-width non-unique index is an accelerator, never Evidence identity or
+digest authority. Frozen0001–0022 bytes remain unchanged. Historical fresh-schema
+fixtures explicitly use committed historical bootstrap metadata because frozen
+0002 loads its runtime ORM; current fresh→0023 remains independently required.
+The10 native checks are additive; no earlier check is removed.

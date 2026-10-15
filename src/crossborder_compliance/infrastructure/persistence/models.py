@@ -16,6 +16,7 @@ from sqlalchemy import (
     String,
     Text,
     UniqueConstraint,
+    text,
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
@@ -547,10 +548,13 @@ class ClassificationResultCategoryEntity(TenantAuditMixin, Base):
 
 class EvidenceReferenceEntity(TenantAuditMixin, Base):
     __tablename__ = "evidence_references"
-    __table_args__ = (Index("ix_evidence_source", "tenant_id", "source_ref"),)
+    __table_args__ = (
+        Index("ix_evidence_source", "tenant_id", text("md5(source_ref)")),
+        CheckConstraint("octet_length(source_ref) <= 32768", name="ck_evidence_source_reference_bytes"),
+    )
     evidence_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     evidence_type: Mapped[str] = mapped_column(String(100), nullable=False)
-    source_ref: Mapped[str] = mapped_column(String(500), nullable=False)
+    source_ref: Mapped[str] = mapped_column(Text, nullable=False)
     source_trace_ref_id: Mapped[str | None] = mapped_column(
         ForeignKey("source_trace_refs.source_trace_ref_id", ondelete="SET NULL"), nullable=True
     )

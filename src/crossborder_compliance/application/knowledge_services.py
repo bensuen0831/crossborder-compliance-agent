@@ -9,6 +9,7 @@ from crossborder_compliance.application.knowledge_ports import (
     ChunkingStrategyPort,
     ControlledDownloaderPort,
     EmbeddingPort,
+    KnowledgeBinarySourceExtractorPort,
     KnowledgeRepositoryPort,
 )
 from crossborder_compliance.domain.knowledge import (
@@ -76,6 +77,7 @@ class KnowledgeIngestionService:
         storage: ObjectStoragePort | None = None,
         downloader: ControlledDownloaderPort | None = None,
         chunker: ChunkingStrategyPort | None = None,
+        binary_extractor: KnowledgeBinarySourceExtractorPort | None = None,
     ):
         self.repository, self.queue, self.storage, self.downloader = (
             repository,
@@ -84,6 +86,7 @@ class KnowledgeIngestionService:
             downloader,
         )
         self.chunker = chunker or StructureAwareChunkingStrategy()
+        self.binary_extractor = binary_extractor
 
     def ingest(self, version_id: str, payload: dict) -> dict:
         run = self.repository.schedule_ingestion(version_id, payload)
@@ -101,11 +104,23 @@ class KnowledgeIngestionService:
         if data["status"] == "COMPLETED":
             return data["run"]
         try:
-            if self.storage is None:
-                raise ValueError("OBJECT_STORAGE_NOT_CONFIGURED")
             payload = data["input"]
+            binary_source = data.get("binary_source")
+            if self.storage is None and binary_source is None:
+                raise ValueError("OBJECT_STORAGE_NOT_CONFIGURED")
             audit = {}
-            if payload.get("url"):
+            if binary_source is not None:
+                if self.binary_extractor is None:
+                    raise ValueError("BINARY_SOURCE_EXTRACTOR_NOT_CONFIGURED")
+                inputs, audit = self.binary_extractor.extract(binary_source)
+                content_hash, artifact = (
+                    binary_source["content_sha256"],
+                    binary_source["artifact_ref"],
+                )
+                # The exact original remains the canonical version's pointer/hash;
+                # native text is persisted by the existing structure/chunk owner.
+                audit.update(content_hash=content_hash, artifact_ref=artifact)
+            elif payload.get("url"):
                 if self.downloader is None:
                     raise ValueError("CONTROLLED_DOWNLOADER_NOT_CONFIGURED")
                 raw, audit = self.downloader.download(payload["url"])
@@ -113,17 +128,21 @@ class KnowledgeIngestionService:
             else:
                 content = {"nodes": payload["nodes"]}
                 raw = json.dumps(content, sort_keys=True, ensure_ascii=False).encode()
-            if len(raw) > 10_000_000:
-                raise ValueError("maximum upload size exceeded")
-            content_hash = digest(raw)
-            artifact = self.storage.put(
-                object_key=f"knowledge/{data['tenant_id']}/{data['version_id']}/{content_hash}.json",
-                content=raw,
-                content_type="application/json",
+            if binary_source is None:
+                if len(raw) > 10_000_000:
+                    raise ValueError("maximum upload size exceeded")
+                content_hash = digest(raw)
+                artifact = self.storage.put(
+                    object_key=f"knowledge/{data['tenant_id']}/{data['version_id']}/{content_hash}.json",
+                    content=raw,
+                    content_type="application/json",
+                )
+                audit.update(content_hash=content_hash, artifact_ref=artifact)
+                inputs = content["nodes"]
+            maximum = (
+                binary_source["parser_policy"]["max_native_blocks"] if binary_source else 10000
             )
-            audit.update(content_hash=content_hash, artifact_ref=artifact)
-            inputs = content["nodes"]
-            if not inputs or len(inputs) > 10000:
+            if not inputs or len(inputs) > maximum:
                 raise ValueError("invalid canonical structure size")
             ids = {n["canonical_locator"]: str(uuid4()) for n in inputs}
             if len(ids) != len(inputs):
@@ -144,19 +163,48 @@ class KnowledgeIngestionService:
                         official_number=n.get("official_number"),
                         heading=n.get("heading", ""),
                         original_text=n["original_text"],
-                        normalized_text=" ".join(n["original_text"].split()),
+                        normalized_text=n["normalized_text"]
+                        if binary_source
+                        else " ".join(n["original_text"].split()),
                         language=data["language"],
                         effective_date=data["effective_from"],
                         source_trace={
                             "artifact_ref": artifact,
                             "content_hash": content_hash,
                             "locator": n["canonical_locator"],
+                            **(
+                                {
+                                    "native_source_locator": n["source_locator"],
+                                    "upload_session_id": binary_source["upload_session_id"],
+                                    "object_version": binary_source["object_version"],
+                                }
+                                if binary_source is not None
+                                else {}
+                            ),
                         },
                         provenance={
                             "source_id": data["source_id"],
                             "document_id": data["document_id"],
                             "official_source": data["official_source"],
                             "content_hash": content_hash,
+                            **(
+                                {
+                                    "native_parser_ref": {
+                                        "ingestion_run_id": run_id,
+                                        "manifest_sha256": audit["native_parser"][
+                                            "manifest_sha256"
+                                        ],
+                                        "profile": audit["native_parser"]["profile"],
+                                        "parser_image_id": audit["native_parser"][
+                                            "parser_image_id"
+                                        ],
+                                        "policy_version_id": binary_source["policy_version_id"],
+                                    },
+                                    "language_hints": n["language_hints"],
+                                }
+                                if binary_source
+                                else {}
+                            ),
                         },
                         citation_id=str(uuid4()),
                     )

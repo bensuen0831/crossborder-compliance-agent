@@ -29,6 +29,13 @@ def check(root):
     uploads = read(prefix + "knowledge_uploads.py")
     worker = read("src/crossborder_compliance/infrastructure/knowledge_import_worker.py")
     binary_migration = read("alembic/versions/0022_kb01_binary_transport.py")
+    ingestion = read("src/crossborder_compliance/application/knowledge_services.py")
+    extraction = read("src/crossborder_compliance/infrastructure/knowledge_binary_extraction.py")
+    native = read("src/crossborder_compliance/infrastructure/native_document_extraction.py")
+    native_host = read("src/crossborder_compliance/infrastructure/knowledge_native_parser.py")
+    native_worker = read("src/crossborder_compliance/infrastructure/knowledge_management_worker.py")
+    native_repo = read(prefix + "knowledge_repositories.py")
+    source_migration = read("alembic/versions/0023_kb01_evidence_source_reference.py")
 
     def unchanged(path):
         return (root / path).read_bytes() == subprocess.check_output(
@@ -40,6 +47,10 @@ def check(root):
     enabled_check = 'payload.get("management_schema") == "KB01_TAXONOMY_V1"' in metadata
     canonical_batch_create = "self.documents.create_in_session(s, document)" in batches
     binary_downgrade_refuses = "KB01_BINARY_TRANSPORT_DOWNGRADE_REFUSED" in binary_migration
+    source_downgrade_refuses = "KB01_EVIDENCE_REFERENCE_DOWNGRADE_REFUSED" in source_migration
+    shared_native_alias = (
+        "IsolatedNativeKnowledgeParser = IsolatedNativeDocumentParser" in native_host
+    )
     return {
         "kb01_reuses_canonical_metadata_lifecycle": "self.lifecycle._transition_in_session("
         in taxonomy,
@@ -143,4 +154,36 @@ def check(root):
         ),
         "kb01_binary_downgrade_preserves_operational_receipts": binary_downgrade_refuses
         and "admin_operation_receipts WHERE operation" in binary_migration,
+        "kb01_native_source_uses_existing_ingestion_owner": "self.repository.complete_ingestion("
+        in ingestion
+        and "binary_extractor.extract(binary_source)" in ingestion,
+        "kb01_native_original_is_not_replaced_by_parse_json": 'binary_source["artifact_ref"]'
+        in ingestion
+        and "if binary_source is None:" in ingestion,
+        "kb01_native_source_has_no_fake_project_snapshot": all(
+            value not in extraction + native + native_host
+            for value in (
+                "ProjectEntity",
+                "AnalysisSnapshotEntity",
+                "create_snapshot",
+                "WorkflowRun",
+            )
+        ),
+        "kb01_native_config_and_original_pins_are_revalidated": "KNOWLEDGE_BINARY_PIN_MISMATCH"
+        in native_repo
+        and "expected_parser.model_dump" in native_repo,
+        "kb01_native_extract_is_offline_and_bounded": "max_native_output_bytes" in native_host
+        and "KNOWLEDGE_PROCESS_DISK_BUDGET_EXHAUSTED" in native_host,
+        "kb01_source_xml_refuses_external_entities": "NATIVE_XML_DECLARATION_REFUSED" in native,
+        "kb01_native_ocr_has_page_confidence_and_quality_gate": "ocr_minimum_measured_confidence"
+        in native
+        and 'checks["native_extraction_quality"]' in native_repo,
+        "kb01_import_service_uses_scoped_identity": "KNOWLEDGE_WORKER_REQUIRES_SCOPED_IDENTITY"
+        in native_worker
+        and "RepositoryContext.system" not in native_worker,
+        "kb01_source_reference_widening_does_not_rewrite_rows": source_downgrade_refuses
+        and "UPDATE evidence_references" not in source_migration,
+        "kb01_parser_ports_share_identity_free_native_core": shared_native_alias
+        and "StreamNativeDocumentParserPort"
+        in read("src/crossborder_compliance/application/document_ports.py"),
     }

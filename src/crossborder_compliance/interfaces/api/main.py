@@ -30,6 +30,7 @@ from crossborder_compliance.interfaces.api.routes.knowledge_management import ro
 from crossborder_compliance.interfaces.api.routes.knowledge_document_management import router as knowledge_document_management_router
 from crossborder_compliance.interfaces.api.routes.knowledge_uploads import router as knowledge_upload_router
 from crossborder_compliance.interfaces.api.routes.knowledge_batches import router as knowledge_batch_router
+from crossborder_compliance.interfaces.api.routes.knowledge_binary_ingestion import router as knowledge_binary_ingestion_router
 from crossborder_compliance.interfaces.api.routes.llm_models import router as llm_models_router
 from crossborder_compliance.interfaces.api.routes.metadata import router as metadata_router
 from crossborder_compliance.interfaces.api.routes.model_providers import bindings_router
@@ -68,9 +69,16 @@ async def lifespan(app):
     integration_worker = IntegrationDeliveryWorker(app)
     app.state.integration_delivery_worker = integration_worker
     integration_worker.start()
+    # Deployment supplies real configured ports and a current-role context
+    # provider. There is no default system/tenant impersonation or clean stub.
+    knowledge_management_worker = getattr(app.state,"knowledge_management_worker",None)
+    if knowledge_management_worker is not None:
+        knowledge_management_worker.start()
     try:
         yield
     finally:
+        if knowledge_management_worker is not None:
+            knowledge_management_worker.stop()
         integration_worker.stop()
         profile_worker.stop()
         worker.stop()
@@ -84,6 +92,7 @@ app = FastAPI(lifespan=lifespan, title="Cross-border Compliance Agent", version=
 app.include_router(health_router)
 app.include_router(knowledge_upload_router)
 app.include_router(knowledge_batch_router)
+app.include_router(knowledge_binary_ingestion_router)
 app.include_router(metadata_router)
 from crossborder_compliance.interfaces.api.routes.integrations import admin_router as integration_admin_router
 app.include_router(integration_admin_router)

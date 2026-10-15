@@ -7,6 +7,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from crossborder_compliance.domain.knowledge_native_parsing import KnowledgeNativeParsingPolicy
 from crossborder_compliance.domain.localized_metadata import (
     LocalizedDisplayMetadata,
     StableMetadataCode,
@@ -165,6 +166,9 @@ class KnowledgeManagementPolicy(ManagementRequest):
     max_active_upload_sessions: int = Field(default=64, ge=1, le=10000)
     signed_part_expiry_seconds: int = Field(default=900, ge=60, le=3600)
     scanner_timeout_seconds: int = Field(default=3600, ge=1, le=14400)
+    native_parser: KnowledgeNativeParsingPolicy = Field(
+        default_factory=KnowledgeNativeParsingPolicy
+    )
 
 
 class KnowledgeManagementPermissionError(PermissionError):

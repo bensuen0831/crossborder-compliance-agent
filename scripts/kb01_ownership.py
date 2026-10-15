@@ -15,12 +15,40 @@ BASE = "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d"
 RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay.json"
 SECOND_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v2.json"
 SECOND_SEAL = "61676b02689c407cfcc6e6c91b8a6b553de6d616"
-SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v3.json"
+THIRD_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v3.json"
+THIRD_SEAL = "e012d2a35c68e1c1ad9ccec879d78e5a45ffc208"
+THIRD_SOURCE = "76e4f0dd6a5797060b88b917d52b5bceb624bc19"
+SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v4.json"
 FIRST_SEAL = "a95d5f05f46566d7e58417a8c9cb2214c6d028f0"
 FIRST_SOURCE = "6f0f448fbe5d72494d2756bca30a3f74437e1f63"
 PREVIOUS = "evidence/stage1-full-e2e/r3/approved_owner_overlay.json"
 PATHS = frozenset(
     (
+        "pyproject.toml",
+        "alembic/versions/0023_kb01_evidence_source_reference.py",
+        "src/crossborder_compliance/application/document_ports.py",
+        "src/crossborder_compliance/application/knowledge_ports.py",
+        "src/crossborder_compliance/application/knowledge_services.py",
+        "src/crossborder_compliance/domain/document_text.py",
+        "src/crossborder_compliance/domain/knowledge_native_parsing.py",
+        "src/crossborder_compliance/domain/native_structure.py",
+        "src/crossborder_compliance/infrastructure/document_parsers.py",
+        "src/crossborder_compliance/infrastructure/knowledge_batch_ingestion_worker.py",
+        "src/crossborder_compliance/infrastructure/knowledge_binary_extraction.py",
+        "src/crossborder_compliance/infrastructure/knowledge_management_worker.py",
+        "src/crossborder_compliance/infrastructure/knowledge_native_parser.py",
+        "src/crossborder_compliance/infrastructure/knowledge_native_process.py",
+        "src/crossborder_compliance/infrastructure/native_document_extraction.py",
+        "src/crossborder_compliance/infrastructure/native_language.py",
+        "src/crossborder_compliance/infrastructure/persistence/models.py",
+        "src/crossborder_compliance/interfaces/api/knowledge_binary_ingestion_schemas.py",
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_binary_ingestion.py",
+        "tests/kb01_historical_schema.py",
+        "tests/kb01_native_fixtures.py",
+        "tests/test_kb01_binary_ingestion_postgres.py",
+        "tests/test_kb01_evidence_reference_migrations.py",
+        "tests/test_kb01_native_isolation.py",
+        "tests/test_kb01_native_structure.py",
         "alembic/versions/0022_kb01_binary_transport.py",
         "src/crossborder_compliance/application/knowledge_binary_ports.py",
         "src/crossborder_compliance/application/knowledge_uploads.py",
@@ -119,6 +147,29 @@ def overlay(root):
     try:
         baseline_paths = git("ls-tree", "-r", "--name-only", BASE).decode().splitlines()
         originals = blobs(BASE, baseline_paths)
+        # The existing domain model is shared with every formal owner. KB01 C
+        # permits only the byte-preserving Evidence reference schema extension.
+        model_path = "src/crossborder_compliance/infrastructure/persistence/models.py"
+        expected_model = (
+            originals[model_path]
+            .decode()
+            .replace("    UniqueConstraint,\n", "    UniqueConstraint,\n    text,\n", 1)
+        )
+        expected_model = expected_model.replace(
+            '    __table_args__ = (Index("ix_evidence_source", "tenant_id", "source_ref"),)',
+            "    __table_args__ = (\n"
+            '        Index("ix_evidence_source", "tenant_id", text("md5(source_ref)")),\n'
+            '        CheckConstraint("octet_length(source_ref) <= 32768", '
+            'name="ck_evidence_source_reference_bytes"),\n    )',
+            1,
+        )
+        expected_model = expected_model.replace(
+            "    source_ref: Mapped[str] = mapped_column(String(500), nullable=False)",
+            "    source_ref: Mapped[str] = mapped_column(Text, nullable=False)",
+            1,
+        )
+        if (root / model_path).read_bytes() != expected_model.encode():
+            return False, {}, None
         previous = json.loads(originals[PREVIOUS])
         if (root / PREVIOUS).read_bytes() != originals[PREVIOUS] or not ancestor(
             previous["source_sha"], BASE
@@ -158,6 +209,21 @@ def overlay(root):
         migration21 = "alembic/versions/0021_kb01_taxonomy_operations.py"
         if (root / migration21).read_bytes() != first_blobs[migration21]:
             return False, {}, None
+        third_bytes = git("show", THIRD_SEAL + ":" + THIRD_RECORD)
+        if (root / THIRD_RECORD).read_bytes() != third_bytes or not ancestor(THIRD_SEAL, "HEAD"):
+            return False, {}, None
+        third = json.loads(third_bytes)
+        if third["source_sha"] != THIRD_SOURCE or third["base_sha"] != BASE:
+            return False, {}, None
+        third_blobs = blobs(THIRD_SOURCE, third["paths"])
+        if any(
+            hashlib.sha256(third_blobs[path]).hexdigest() != digest
+            for path, digest in third["paths"].items()
+        ):
+            return False, {}, None
+        migration22 = "alembic/versions/0022_kb01_binary_transport.py"
+        if (root / migration22).read_bytes() != third_blobs[migration22]:
+            return False, {}, None
         record = json.loads((root / SUCCESSOR_RECORD).read_text())
         expected = set(previous["paths"]) | PATHS
         source = record["source_sha"]
@@ -166,7 +232,7 @@ def overlay(root):
             or record["scope"] != "STAGE1-GAP-KB01-MASTER_V2.0"
             or set(record["paths"]) != expected
             or not ancestor(BASE, source)
-            or not ancestor(SECOND_SEAL, source)
+            or not ancestor(THIRD_SEAL, source)
             or not ancestor(source, "HEAD")
         ):
             return False, {}, None

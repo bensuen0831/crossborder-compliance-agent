@@ -28,3 +28,14 @@ production antivirus acceptance, final exact-head full regression or remote CI.
 Durable large-batch ingestion, six-format parsing/OCR, UI, security/deployment
 integration, final full regression/CI and F0 implementation remain outstanding.
 KB01-F1 remains BLOCKED — EXTERNAL_EVIDENCE_PENDING.
+
+
+KB01-C checkpoint remains IN PROGRESS. Real six-format originals, native/OCR,
+scoped canonical ingestion, durable batch/standalone work and restart/cancellation
+are implemented. Compatible0023 preserves complete canonical Evidence source
+references without rewriting any historical value or legal result. Current
+migration matrix passed; the prior6 historical setup/head-identity failures and
+recovered10-test matrix remain archived. Official FreshClam client subsequently
+downloaded and verified3 CVD databases, and isolated clean/EICAR scans passed.
+Earlier EICAR-only capacity evidence is retained with its original limitation.
+No final C/A–E/full-regression/remote-CI/real-regulatory PASS is claimed here.
