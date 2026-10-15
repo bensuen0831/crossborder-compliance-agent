@@ -7,6 +7,8 @@ from crossborder_compliance.domain.knowledge_management import ManagementRequest
 
 
 class KnowledgeBatchItemView(ManagementRequest):
+    attempts: int
+    technical_retry_available: bool
     item_id: UUID
     upload_session_id: UUID
     relative_path: str
@@ -43,3 +45,21 @@ class KnowledgeBatchView(ManagementRequest):
     page: int | None = None
     page_size: int | None = None
     items: list[KnowledgeBatchItemView] | None = None
+
+
+class KnowledgeBatchFailure(ManagementRequest):
+    item_id: UUID
+    relative_path: str
+    status: Literal["FAILED"]
+    error_code: str | None
+    record_version: int
+    attempts: int
+    technical_retry_available: bool
+
+
+class KnowledgeBatchFailurePage(ManagementRequest):
+    batch_id: UUID
+    total: int
+    page: int
+    page_size: int
+    items: list[KnowledgeBatchFailure]

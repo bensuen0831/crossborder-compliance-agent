@@ -39,3 +39,7 @@ class ConfirmKnowledgeBatchItems(KnowledgeUploadMutation):
         if len({item.item_id for item in values}) != len(values):
             raise ValueError("DUPLICATE_BATCH_MAPPING")
         return values
+
+
+class RetryKnowledgeBatchItem(KnowledgeUploadMutation):
+    expected_item_record_version: int = Field(ge=1)

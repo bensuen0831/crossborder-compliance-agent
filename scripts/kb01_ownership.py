@@ -18,12 +18,39 @@ SECOND_SEAL = "61676b02689c407cfcc6e6c91b8a6b553de6d616"
 THIRD_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v3.json"
 THIRD_SEAL = "e012d2a35c68e1c1ad9ccec879d78e5a45ffc208"
 THIRD_SOURCE = "76e4f0dd6a5797060b88b917d52b5bceb624bc19"
-SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v4.json"
+FOURTH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v4.json"
+FOURTH_SEAL = "0deff721aa52d848def1eb32f579220017b13f40"
+FOURTH_SOURCE = "cfe7f9e4ad47c9695b9097344b1ef2a9abf7ba69"
+SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v5.json"
 FIRST_SEAL = "a95d5f05f46566d7e58417a8c9cb2214c6d028f0"
 FIRST_SOURCE = "6f0f448fbe5d72494d2756bca30a3f74437e1f63"
 PREVIOUS = "evidence/stage1-full-e2e/r3/approved_owner_overlay.json"
 PATHS = frozenset(
     (
+        "frontend/eslint.config.js",
+        "frontend/package.json",
+        "frontend/package-lock.json",
+        "frontend/src/features/admin/AdminFeature.tsx",
+        "frontend/src/features/admin/admin.css",
+        "frontend/src/features/admin/resources.ts",
+        "frontend/src/locales/en-US.json",
+        "frontend/src/locales/zh-CN.json",
+        "frontend/src/locales/zh-HK.json",
+        "frontend/src/api/kb01-generated.ts",
+        "frontend/src/api/kb01-openapi.json",
+        "scripts/kb01_export_contracts.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_statistics.py",
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_statistics.py",
+        "tests/test_kb01_statistics_postgres.py",
+        "tests/test_kb01_batch_recovery_postgres.py",
+        "frontend/src/features/knowledge-management/KnowledgeManagement.tsx",
+        "frontend/src/features/knowledge-management/TaxonomyEditor.tsx",
+        "frontend/src/features/knowledge-management/client.ts",
+        "frontend/src/features/knowledge-management/hash.worker.ts",
+        "frontend/src/features/knowledge-management/management.test.tsx",
+        "frontend/src/features/knowledge-management/streamDigest.test.ts",
+        "frontend/src/features/knowledge-management/streamDigest.ts",
+        "frontend/src/features/knowledge-management/uploads.ts",
         "pyproject.toml",
         "alembic/versions/0023_kb01_evidence_source_reference.py",
         "src/crossborder_compliance/application/document_ports.py",
@@ -158,9 +185,13 @@ def overlay(root):
         expected_model = expected_model.replace(
             '    __table_args__ = (Index("ix_evidence_source", "tenant_id", "source_ref"),)',
             "    __table_args__ = (\n"
-            '        Index("ix_evidence_source", "tenant_id", text("md5(source_ref)")),\n'
-            '        CheckConstraint("octet_length(source_ref) <= 32768", '
-            'name="ck_evidence_source_reference_bytes"),\n    )',
+            '        Index("ix_evidence_source", "tenant_id", text("md5(source_ref)")).ddl_if(\n'
+            '            dialect="postgresql"\n'
+            "        ),\n"
+            "        CheckConstraint(\n"
+            '            "octet_length(source_ref) <= 32768", '
+            'name="ck_evidence_source_reference_bytes"\n'
+            '        ).ddl_if(dialect="postgresql"),\n    )',
             1,
         )
         expected_model = expected_model.replace(
@@ -224,6 +255,21 @@ def overlay(root):
         migration22 = "alembic/versions/0022_kb01_binary_transport.py"
         if (root / migration22).read_bytes() != third_blobs[migration22]:
             return False, {}, None
+        fourth_bytes = git("show", FOURTH_SEAL + ":" + FOURTH_RECORD)
+        if (root / FOURTH_RECORD).read_bytes() != fourth_bytes or not ancestor(FOURTH_SEAL, "HEAD"):
+            return False, {}, None
+        fourth = json.loads(fourth_bytes)
+        if fourth["source_sha"] != FOURTH_SOURCE or fourth["base_sha"] != BASE:
+            return False, {}, None
+        fourth_blobs = blobs(FOURTH_SOURCE, fourth["paths"])
+        if any(
+            hashlib.sha256(fourth_blobs[path]).hexdigest() != digest
+            for path, digest in fourth["paths"].items()
+        ):
+            return False, {}, None
+        migration23 = "alembic/versions/0023_kb01_evidence_source_reference.py"
+        if (root / migration23).read_bytes() != fourth_blobs[migration23]:
+            return False, {}, None
         record = json.loads((root / SUCCESSOR_RECORD).read_text())
         expected = set(previous["paths"]) | PATHS
         source = record["source_sha"]
@@ -232,7 +278,7 @@ def overlay(root):
             or record["scope"] != "STAGE1-GAP-KB01-MASTER_V2.0"
             or set(record["paths"]) != expected
             or not ancestor(BASE, source)
-            or not ancestor(THIRD_SEAL, source)
+            or not ancestor(FOURTH_SEAL, source)
             or not ancestor(source, "HEAD")
         ):
             return False, {}, None

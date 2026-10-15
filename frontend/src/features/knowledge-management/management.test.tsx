@@ -1,0 +1,231 @@
+import { describe, it, expect, vi } from "vitest";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import i18n from "../../i18n";
+import { AdminClient } from "../admin/client";
+import type { AdminSession, FetchPort } from "../admin/contracts";
+import { KnowledgeManagement } from "./KnowledgeManagement";
+
+const session: AdminSession = {
+  tenantId: "tenant",
+  actorId: "author",
+  roles: [],
+  backendScopes: ["knowledge:admin"],
+  grants: {},
+};
+const response = (data: unknown, status = 200) =>
+  new Response(JSON.stringify(data), {
+    status,
+    headers: { "Content-Type": "application/json" },
+  });
+const originalLabel = {
+  kind: "REGULATION_CATEGORY",
+  definition_id: "older-category",
+  version_id: "pinned-old-version",
+};
+const document = {
+  document_id: "document-1",
+  source_id: "source-1",
+  display_name: "Original regulation",
+  record_version: 1,
+  status: "ACTIVE",
+  created_at: "2026-10-15T00:00:00Z",
+  updated_at: "2026-10-15T00:00:00Z",
+};
+const version = {
+  knowledge_version_id: "version-1",
+  document_id: document.document_id,
+  version: 1,
+  record_version: 8,
+  lifecycle: "DRAFT",
+  language: "ar",
+  metadata: { title: document.display_name, labels: [originalLabel] },
+  file_available: false,
+  content_hash: null,
+  effective_from: null,
+  effective_to: null,
+};
+function transport(operations: string[]) {
+  return vi.fn<FetchPort>().mockImplementation(async (path, options) => {
+    const url = String(path);
+    if (url.endsWith("/capabilities"))
+      return response({
+        operations,
+        publication_requires_independent_review: true,
+      });
+    if (url.includes("/taxonomy?"))
+      return response({ items: [], total: 0, page: 1, page_size: 100 });
+    if (url.includes("/documents?"))
+      return response({ items: [document], total: 1, page: 1, page_size: 25 });
+    if (url.includes("/statistics?"))
+      return response({
+        documents: 1,
+        versions: 1,
+        attached_originals: 0,
+        attached_bytes: 0,
+        by_classification: [],
+        as_of: "2026-10-15T00:00:00Z",
+      });
+    if (url.endsWith("/documents/document-1"))
+      return response({ ...document, versions: [version] });
+    if (options?.method === "PATCH")
+      return response({ ...version, record_version: 9 });
+    throw new Error(`Unexpected transport request: ${url}`);
+  });
+}
+
+describe("governed knowledge management UI", () => {
+  it.each(["zh-CN", "zh-HK", "en-US"])(
+    "renders actual scoped counts and source metadata in %s",
+    async (locale) => {
+      await i18n.changeLanguage(locale);
+      const fetcher = transport(["document:read", "statistics:read"]);
+      render(
+        <KnowledgeManagement
+          client={new AdminClient(fetcher)}
+          session={session}
+        />,
+      );
+      await screen.findByRole("button", { name: /Original regulation/ });
+      expect(
+        screen.getByRole("region", { name: i18n.t("ui.kb01.statistics") }),
+      ).toHaveTextContent("0");
+      expect(
+        fetcher.mock.calls.some(([url]) =>
+          String(url).includes("/statistics?"),
+        ),
+      ).toBe(true);
+      await userEvent.click(
+        screen.getByRole("button", { name: /Original regulation/ }),
+      );
+      await screen.findByText("document-1");
+      expect(
+        screen.getByRole("button", { name: i18n.t("ui.kb01.deleteDraft") }),
+      ).toBeDisabled();
+    },
+  );
+  it("does not infer operation permission from a legacy coarse admin scope", async () => {
+    const fetcher = transport([]);
+    render(
+      <KnowledgeManagement
+        client={new AdminClient(fetcher)}
+        session={session}
+      />,
+    );
+    await waitFor(() => expect(fetcher).toHaveBeenCalled());
+    expect(
+      screen.getByRole("button", { name: i18n.t("ui.kb01.createDocument") }),
+    ).toBeDisabled();
+    expect(
+      fetcher.mock.calls.some(([url]) => String(url).includes("/documents?")),
+    ).toBe(false);
+  });
+  it("edits metadata with CAS and preserves exact labels absent from the first options page", async () => {
+    const fetcher = transport(["document:read", "document:write"]);
+    render(
+      <KnowledgeManagement
+        client={new AdminClient(fetcher)}
+        session={session}
+      />,
+    );
+    await userEvent.click(
+      await screen.findByRole("button", { name: /Original regulation/ }),
+    );
+    await userEvent.type(
+      screen.getByLabelText(i18n.t("ui.kb01.reason")),
+      "Correct display title",
+    );
+    await userEvent.click(
+      await screen.findByRole("button", {
+        name: i18n.t("ui.kb01.editMetadata"),
+      }),
+    );
+    const title = screen.getByLabelText(i18n.t("ui.kb01.title"));
+    await userEvent.clear(title);
+    await userEvent.type(title, "Corrected display title");
+    await userEvent.click(
+      screen.getByRole("button", { name: i18n.t("ui.kb01.saveMetadata") }),
+    );
+    await waitFor(() =>
+      expect(
+        fetcher.mock.calls.some(([, init]) => init?.method === "PATCH"),
+      ).toBe(true),
+    );
+    const [, options] = fetcher.mock.calls.find(
+      ([, init]) => init?.method === "PATCH",
+    )!;
+    const body = JSON.parse(String(options?.body));
+    expect(body.expected_record_version).toBe(8);
+    expect(body.metadata.labels).toEqual([originalLabel]);
+    expect(body.metadata.title).toBe("Corrected display title");
+    expect(body).not.toHaveProperty("actor_id");
+    expect(body).not.toHaveProperty("tenant_id");
+  });
+});
+
+it("submits the selected taxonomy version CAS rather than the definition revision", async () => {
+  const row = {
+    definition_id: "category",
+    kind: "REGULATION_CATEGORY",
+    code: "CAT",
+    display_name: "Versioned category",
+    record_version: 9,
+    version_id: "tax-version",
+    active_version_id: null,
+    lifecycle: "PENDING_REVIEW",
+    enabled: true,
+    payload: {},
+  };
+  const fetcher = vi.fn<FetchPort>().mockImplementation(async (path, init) => {
+    const url = String(path);
+    if (url.endsWith("/capabilities"))
+      return response({ operations: ["taxonomy:read", "taxonomy:approve"] });
+    if (url.includes("/taxonomy?"))
+      return response({ items: [row], total: 1, page: 1, page_size: 100 });
+    if (url.endsWith("/taxonomy/category"))
+      return response({
+        ...row,
+        versions: [
+          {
+            version_id: "tax-version",
+            record_version: 3,
+            lifecycle_status: "PENDING_REVIEW",
+            version_no: 1,
+            created_by: "other-author",
+            approved_by: null,
+            payload: {},
+          },
+        ],
+      });
+    if (init?.method === "POST") return response({});
+    throw new Error(url);
+  });
+  render(
+    <KnowledgeManagement client={new AdminClient(fetcher)} session={session} />,
+  );
+  await userEvent.click(
+    screen.getByRole("button", { name: i18n.t("ui.kb01.taxonomy") }),
+  );
+  await userEvent.click(
+    await screen.findByRole("button", { name: /Versioned category/ }),
+  );
+  await userEvent.type(
+    screen.getByLabelText(i18n.t("ui.kb01.reason")),
+    "Independent review",
+  );
+  await userEvent.click(
+    await screen.findByRole("button", {
+      name: i18n.t("ui.kb01.action.approve"),
+    }),
+  );
+  await waitFor(() =>
+    expect(fetcher.mock.calls.some(([, init]) => init?.method === "POST")).toBe(
+      true,
+    ),
+  );
+  const [url, init] = fetcher.mock.calls.find(
+    ([, init]) => init?.method === "POST",
+  )!;
+  expect(url).toContain("/taxonomy/versions/tax-version/approve");
+  expect(JSON.parse(String(init?.body)).expected_record_version).toBe(3);
+});

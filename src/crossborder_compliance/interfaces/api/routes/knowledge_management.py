@@ -29,6 +29,7 @@ from crossborder_compliance.interfaces.api.knowledge_management_schemas import (
     KnowledgeAuditPage,
     KnowledgeHoldMutation,
     KnowledgeHoldView,
+    KnowledgeManagementCapabilities,
     TaxonomyAliases,
     TaxonomyDetail,
     TaxonomyImpact,
@@ -202,3 +203,16 @@ for path, operation in {"deactivate": "DEACTIVATE", "reactivate": "REACTIVATE"}.
         name="kb_taxonomy_" + path,
         response_model=TaxonomyMutationResult,
     )
+
+
+@router.get("/capabilities", response_model=KnowledgeManagementCapabilities)
+def capabilities(context: Context):
+    # Presentation hints only. Every command rechecks the current server context.
+    operations = sorted(
+        scope.removeprefix("knowledge:")
+        for scope in context.permission.scopes
+        if scope.startswith("knowledge:") and scope != "knowledge:admin"
+    )
+    if not operations:
+        raise HTTPException(403, {"code": "KNOWLEDGE_OPERATION_NOT_AUTHORIZED"})
+    return {"operations": operations}

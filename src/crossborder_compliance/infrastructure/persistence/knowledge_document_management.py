@@ -104,6 +104,129 @@ class PostgresKnowledgeDocumentManagement:
                 "versions": [self._version_view(s, doc, v) for v in versions],
             }
 
+    def original(self, identity):
+        require_management_permission(self.context, "document:read")
+        require_management_permission(self.context, "document:download")
+        from crossborder_compliance.infrastructure.persistence.knowledge_upload_models import (
+            KnowledgeBinaryAttachmentEntity as Attachment,
+        )
+        from crossborder_compliance.infrastructure.persistence.knowledge_upload_models import (
+            KnowledgeUploadSessionEntity as Upload,
+        )
+
+        with self.sessions() as s:
+            version = self.owner.get(s, k.KnowledgeDocumentVersionEntity, identity)
+            row = s.scalar(
+                select(Upload)
+                .join(
+                    Attachment,
+                    (Attachment.tenant_id == Upload.tenant_id)
+                    & (Attachment.upload_session_id == Upload.upload_session_id),
+                )
+                .where(
+                    Attachment.tenant_id == self.tenant_id,
+                    Attachment.knowledge_version_id == version.knowledge_version_id,
+                )
+            )
+            if row is None or row.status != "VERIFIED":
+                raise LookupError("verified original not found")
+            if version.content_hash != row.content_sha256 or not version.original_artifact_ref:
+                raise KnowledgeManagementConflict("KNOWLEDGE_ORIGINAL_PIN_MISMATCH")
+            return {
+                "object_key": row.object_key,
+                "object_version": row.object_version,
+                "byte_size": row.declared_bytes,
+                "relative_path": row.relative_path,
+                "artifact_ref": version.original_artifact_ref,
+            }
+
+    def preview(self, identity, *, page=1, page_size=50):
+        require_management_permission(self.context, "document:read")
+        if page < 1 or not 1 <= page_size <= 100:
+            raise ValueError("INVALID_PREVIEW_PAGE")
+        with self.sessions() as s:
+            version = self.owner.get(s, k.KnowledgeDocumentVersionEntity, identity)
+            q = select(k.KnowledgeStructureNodeEntity).where(
+                k.KnowledgeStructureNodeEntity.tenant_id == self.tenant_id,
+                k.KnowledgeStructureNodeEntity.knowledge_version_id == version.knowledge_version_id,
+            )
+            total = s.scalar(select(func.count()).select_from(q.subquery()))
+            nodes = s.scalars(
+                q.order_by(
+                    k.KnowledgeStructureNodeEntity.sequence,
+                    k.KnowledgeStructureNodeEntity.structure_node_id,
+                )
+                .offset((page - 1) * page_size)
+                .limit(page_size)
+            ).all()
+            return {
+                "knowledge_version_id": version.knowledge_version_id,
+                "total": total,
+                "page": page,
+                "page_size": page_size,
+                "items": [
+                    {
+                        "structure_node_id": n.structure_node_id,
+                        "parent_node_id": n.parent_node_id,
+                        "node_type": n.node_type,
+                        "sequence": n.sequence,
+                        "canonical_locator": n.canonical_locator,
+                        "official_number": n.official_number,
+                        "heading": n.heading[:500],
+                        "original_excerpt": n.original_text[:4000],
+                        "normalized_excerpt": n.normalized_text[:4000],
+                        "excerpt_truncated": len(n.original_text) > 4000
+                        or len(n.normalized_text) > 4000,
+                        "language": n.language,
+                        "citation_id": n.citation_id,
+                    }
+                    for n in nodes
+                ],
+            }
+
+    def scoped_query(self, *, query="", label_id=None, lifecycle=None, language=None):
+        """One SQL resource scope for both list rows and aggregate counts."""
+        d, v, label = (
+            k.KnowledgeDocumentEntity,
+            k.KnowledgeDocumentVersionEntity,
+            KnowledgeDocumentLabelEntity,
+        )
+        q = select(d).where(d.tenant_id == self.tenant_id)
+        if query:
+            q = q.where(d.display_name.ilike(f"%{query}%"))
+        filters = [v.tenant_id == self.tenant_id, v.document_id == d.document_id]
+        candidate = aliased(k.KnowledgeDocumentVersionEntity)
+        selection = (
+            select(candidate.knowledge_version_id)
+            .where(
+                candidate.tenant_id == self.tenant_id,
+                candidate.document_id == d.document_id,
+                *([candidate.lifecycle == lifecycle] if lifecycle else []),
+            )
+            .order_by(case((candidate.lifecycle == "ACTIVE", 0), else_=1), candidate.version.desc())
+            .limit(1)
+            .correlate(d)
+            .scalar_subquery()
+        )
+        filters.append(v.knowledge_version_id == selection)
+        if lifecycle:
+            filters.append(v.lifecycle == lifecycle)
+        if language:
+            filters.append(v.language == language)
+        if label_id:
+            filters.append(
+                select(label.label_id)
+                .where(
+                    label.tenant_id == self.tenant_id,
+                    label.knowledge_version_id == v.knowledge_version_id,
+                    label.definition_id == str(label_id),
+                )
+                .exists()
+            )
+        if lifecycle or language or label_id:
+            q = q.where(select(v.knowledge_version_id).where(*filters).exists())
+        return q, selection
+
     def list(
         self,
         *,
@@ -118,48 +241,11 @@ class PostgresKnowledgeDocumentManagement:
         require_management_permission(self.context, "document:read")
         if page < 1 or not 1 <= page_size <= 100:
             raise ValueError("INVALID_PAGINATION")
-        d, v, label = (
-            k.KnowledgeDocumentEntity,
-            k.KnowledgeDocumentVersionEntity,
-            KnowledgeDocumentLabelEntity,
-        )
+        d = k.KnowledgeDocumentEntity
         with self.sessions() as s:
-            q = select(d).where(d.tenant_id == self.tenant_id)
-            if query:
-                q = q.where(d.display_name.ilike(f"%{query}%"))
-            filters = [v.tenant_id == self.tenant_id, v.document_id == d.document_id]
-            candidate = aliased(k.KnowledgeDocumentVersionEntity)
-            selection = (
-                select(candidate.knowledge_version_id)
-                .where(
-                    candidate.tenant_id == self.tenant_id,
-                    candidate.document_id == d.document_id,
-                    *([candidate.lifecycle == lifecycle] if lifecycle else []),
-                )
-                .order_by(
-                    case((candidate.lifecycle == "ACTIVE", 0), else_=1), candidate.version.desc()
-                )
-                .limit(1)
-                .correlate(d)
-                .scalar_subquery()
+            q, _ = self.scoped_query(
+                query=query, label_id=label_id, lifecycle=lifecycle, language=language
             )
-            filters.append(v.knowledge_version_id == selection)
-            if lifecycle:
-                filters.append(v.lifecycle == lifecycle)
-            if language:
-                filters.append(v.language == language)
-            if label_id:
-                filters.append(
-                    select(label.label_id)
-                    .where(
-                        label.tenant_id == self.tenant_id,
-                        label.knowledge_version_id == v.knowledge_version_id,
-                        label.definition_id == str(label_id),
-                    )
-                    .exists()
-                )
-            if lifecycle or language or label_id:
-                q = q.where(select(v.knowledge_version_id).where(*filters).exists())
             total = s.scalar(select(func.count()).select_from(q.subquery()))
             ordering = {
                 "updated_desc": d.updated_at.desc(),

@@ -1,0 +1,50 @@
+{
+  "decision": "FAIL",
+  "checkout_sha": "0deff721aa52d848def1eb32f579220017b13f40",
+  "production_source_sha": "cfe7f9e4ad47c9695b9097344b1ef2a9abf7ba69",
+  "backend": {
+    "passed": 1209,
+    "failed": 5,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 0,
+    "elapsed_seconds": 3611.49
+  },
+  "runtime": {
+    "passed": 25,
+    "total": 25
+  },
+  "failures": [
+    {
+      "test_id": "tests.test_interrupt_side_effect_idempotency::test_deterministic_canonical_event_is_idempotent_across_interrupt_replay",
+      "category": "repository_sqlite_dialect_compatibility",
+      "recovery": "LIMIT_POSTGRES_SPECIFIC_DDL_TO_POSTGRES"
+    },
+    {
+      "test_id": "tests.test_interrupt_side_effect_idempotency::test_review_task_and_status_transitions_are_reentrant",
+      "category": "repository_sqlite_dialect_compatibility",
+      "recovery": "LIMIT_POSTGRES_SPECIFIC_DDL_TO_POSTGRES"
+    },
+    {
+      "test_id": "tests.test_persistence_boundaries::test_idempotency_tables_separate_and_no_langgraph_tables_in_domain_metadata",
+      "category": "repository_sqlite_dialect_compatibility",
+      "recovery": "LIMIT_POSTGRES_SPECIFIC_DDL_TO_POSTGRES"
+    },
+    {
+      "test_id": "tests.test_resume_idempotency_boundary::test_completed_resume_retry_returns_existing_without_langgraph_dependency",
+      "category": "repository_sqlite_dialect_compatibility",
+      "recovery": "LIMIT_POSTGRES_SPECIFIC_DDL_TO_POSTGRES"
+    },
+    {
+      "test_id": "tests.test_stage1_r3_sdk_business::test_typescript_sdk_real_oauth_docx_candidates_async_conditional_business",
+      "category": "setup_missing_checkout_typescript_toolchain",
+      "recovery": "INSTALL_EXACT_CHECKOUT_LOCK"
+    }
+  ],
+  "test_ids_sha256": "5e0f6c4c9d75ed1ba8578977ab8bb91391bcb4673f5a50193da2b308f2d3f390",
+  "junit_sha256": "ec8d361e46803058449e7bf2891d025e06f4ba4a57304a1ee6e14c5346fee602",
+  "complete_log_sha256": "5ec389bc44abc28a5332bceb51ddd1aeef6204ffb9580329b1fddc831f488a40",
+  "architecture": "NOT_EXECUTED_AFTER_PYTEST_FAILURE",
+  "final_package_acceptance": "PENDING",
+  "stage2_started": false
+}

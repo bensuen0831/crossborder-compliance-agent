@@ -37,6 +37,13 @@ def check(root):
     native_repo = read(prefix + "knowledge_repositories.py")
     source_migration = read("alembic/versions/0023_kb01_evidence_source_reference.py")
 
+    statistics = read(prefix + "knowledge_statistics.py")
+    management_ui = read("frontend/src/features/knowledge-management/KnowledgeManagement.tsx")
+    browser_upload = read("frontend/src/features/knowledge-management/uploads.ts")
+    hash_worker = read("frontend/src/features/knowledge-management/hash.worker.ts")
+    hash_stream = read("frontend/src/features/knowledge-management/streamDigest.ts")
+    capabilities = read("src/crossborder_compliance/interfaces/api/routes/knowledge_management.py")
+
     def unchanged(path):
         return (root / path).read_bytes() == subprocess.check_output(
             ["git", "show", BASE + ":" + path], cwd=root
@@ -52,6 +59,34 @@ def check(root):
         "IsolatedNativeKnowledgeParser = IsolatedNativeDocumentParser" in native_host
     )
     return {
+        "kb01_statistics_shares_authorized_document_scope": "self.documents.scoped_query("
+        in statistics,
+        "kb01_statistics_uses_sql_distinct_document_counts": (
+            "func.count(func.distinct(v.document_id))" in statistics
+        ),
+        "kb01_statistics_requires_both_current_grants": all(
+            x in statistics for x in ('"statistics:read"', '"document:read"')
+        ),
+        "kb01_admin_uses_existing_authenticated_shell": "KnowledgeManagement"
+        in read("frontend/src/features/admin/AdminFeature.tsx")
+        and "KnowledgeManagementClient(admin)" in management_ui,
+        "kb01_admin_capabilities_are_server_owned": "context.permission.scopes" in capabilities
+        and 'scope != "knowledge:admin"' in capabilities,
+        "kb01_browser_hashes_in_worker_and_bounded_chunks": "new Worker(" in browser_upload
+        and "digestStream(data.stream())" in hash_worker
+        and "stream.getReader()" in hash_stream
+        and "file.slice(" in browser_upload,
+        "kb01_signed_transfer_omits_application_credentials": 'credentials: "omit"'
+        in browser_upload
+        and 'redirect: "error"' in browser_upload,
+        "kb01_clause_preview_is_exact_version_and_paged": "version.knowledge_version_id" in document
+        and "original_excerpt" in document
+        and '"citation_id": n.citation_id' in document,
+        "kb01_item_retry_preserves_canonical_version": "KNOWLEDGE_BATCH_ITEM_SOURCE_IMMUTABLE"
+        in batches
+        and "expected_item_record_version" in batches,
+        "kb01_failure_export_requires_own_grant": '"batch:export"' in batches
+        and "technical_retry_available" in batches,
         "kb01_reuses_canonical_metadata_lifecycle": "self.lifecycle._transition_in_session("
         in taxonomy,
         "kb01_reuses_canonical_knowledge_lifecycle": "self.owner._governance_in_session("

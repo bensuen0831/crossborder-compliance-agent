@@ -1,6 +1,7 @@
 """Public management projections; persisted raw configuration is not leaked."""
 
 from datetime import date, datetime
+from typing import Literal
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict
@@ -175,3 +176,79 @@ class ManagedKnowledgeDocumentDeletion(Projection):
     impact: ManagedKnowledgeDocumentImpact
     receipt_id: UUID
     operation: str
+
+
+KnowledgeLifecycle = Literal[
+    "DRAFT",
+    "INGESTED",
+    "VALIDATED",
+    "PENDING_REVIEW",
+    "APPROVED",
+    "ACTIVE",
+    "SUPERSEDED",
+    "EXPIRED",
+    "ARCHIVED",
+]
+
+
+class KnowledgeStatisticsGroup(Projection):
+    key: str
+    documents: int
+
+
+class KnowledgeClassificationCount(Projection):
+    kind: str
+    definition_id: UUID
+    code: str
+    documents: int
+
+
+class KnowledgeStatisticsScope(Projection):
+    query: str
+    label_id: UUID | None
+    lifecycle: KnowledgeLifecycle | None
+    language: str | None
+
+
+class KnowledgeStatisticsView(Projection):
+    as_of: datetime
+    documents: int
+    versions: int
+    attached_originals: int
+    attached_bytes: int
+    parse_status: dict[str, int]
+    by_lifecycle: list[KnowledgeStatisticsGroup]
+    by_language: list[KnowledgeStatisticsGroup]
+    by_classification: list[KnowledgeClassificationCount]
+    classification_groups_truncated: bool
+    representative_version: Literal["ACTIVE_ELSE_LATEST_MATCHING_LIST"]
+    many_to_many_group_totals_are_not_global_totals: Literal[True]
+    scope: KnowledgeStatisticsScope
+
+
+class KnowledgeManagementCapabilities(Projection):
+    operations: list[str]
+    publication_requires_independent_review: Literal[True] = True
+
+
+class KnowledgePreviewNode(Projection):
+    structure_node_id: UUID
+    parent_node_id: UUID | None
+    node_type: str
+    sequence: int
+    canonical_locator: str
+    official_number: str | None
+    heading: str
+    original_excerpt: str
+    normalized_excerpt: str
+    excerpt_truncated: bool
+    language: str
+    citation_id: UUID
+
+
+class KnowledgeDocumentPreview(Projection):
+    knowledge_version_id: UUID
+    total: int
+    page: int
+    page_size: int
+    items: list[KnowledgePreviewNode]

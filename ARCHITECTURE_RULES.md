@@ -272,3 +272,19 @@ digest authority. Frozen0001–0022 bytes remain unchanged. Historical fresh-sch
 fixtures explicitly use committed historical bootstrap metadata because frozen
 0002 loads its runtime ORM; current fresh→0023 remains independently required.
 The10 native checks are additive; no earlier check is removed.
+
+
+### KB01 management channel and recovery boundaries
+
+Statistics share the authorized canonical document list scope and SQL distinct
+counts. Classification groups are many-to-many; their sum is not a document total.
+The existing AdminShell uses current server operation capabilities. Coarse legacy
+admin permission does not supply new grants. Browser transfer hashes raw bytes
+incrementally in a Worker and sends bounded signed parts without application
+credentials. Clause previews read exact canonical KnowledgeVersion nodes and
+citations with pagination; rendered source excerpts are plain text. A technical
+item retry retains the original and one canonical ingestion run, checks parent
+and item CAS, respects the attempt bound, and cannot retry permanent parse refusal.
+Failure exports require an explicit scoped export grant. PostgreSQL-specific
+reference DDL remains enforced on PostgreSQL; SQLite-only runtime fixtures do not
+emit PostgreSQL functions. Frozen migrations 0001–0023 remain unchanged.

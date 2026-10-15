@@ -549,8 +549,12 @@ class ClassificationResultCategoryEntity(TenantAuditMixin, Base):
 class EvidenceReferenceEntity(TenantAuditMixin, Base):
     __tablename__ = "evidence_references"
     __table_args__ = (
-        Index("ix_evidence_source", "tenant_id", text("md5(source_ref)")),
-        CheckConstraint("octet_length(source_ref) <= 32768", name="ck_evidence_source_reference_bytes"),
+        Index("ix_evidence_source", "tenant_id", text("md5(source_ref)")).ddl_if(
+            dialect="postgresql"
+        ),
+        CheckConstraint(
+            "octet_length(source_ref) <= 32768", name="ck_evidence_source_reference_bytes"
+        ).ddl_if(dialect="postgresql"),
     )
     evidence_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     evidence_type: Mapped[str] = mapped_column(String(100), nullable=False)

@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from scripts.kb01_ownership import (
+    FOURTH_RECORD,
     RECORD,
     SECOND_RECORD,
     SUCCESSOR_RECORD,
@@ -35,7 +36,8 @@ def test_kb01_ownership_authenticates_committed_source():
         SECOND_RECORD,
         THIRD_RECORD,
         "alembic/versions/0022_kb01_binary_transport.py",
-        THIRD_RECORD,
+        FOURTH_RECORD,
+        "alembic/versions/0023_kb01_evidence_source_reference.py",
         "alembic/versions/0021_kb01_taxonomy_operations.py",
         "src/crossborder_compliance/infrastructure/knowledge_import_worker.py",
     ],

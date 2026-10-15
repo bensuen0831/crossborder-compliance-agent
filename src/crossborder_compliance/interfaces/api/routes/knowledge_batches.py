@@ -7,12 +7,16 @@ from fastapi import APIRouter, Query, Request
 from crossborder_compliance.domain.knowledge_batches import (
     ConfirmKnowledgeBatchItems,
     CreateKnowledgeImportBatch,
+    RetryKnowledgeBatchItem,
 )
 from crossborder_compliance.domain.knowledge_upload import KnowledgeUploadMutation
 from crossborder_compliance.infrastructure.persistence.knowledge_batches import (
     PostgresKnowledgeImportBatches,
 )
-from crossborder_compliance.interfaces.api.knowledge_batch_schemas import KnowledgeBatchView
+from crossborder_compliance.interfaces.api.knowledge_batch_schemas import (
+    KnowledgeBatchFailurePage,
+    KnowledgeBatchView,
+)
 from crossborder_compliance.interfaces.api.routes.knowledge_management import Context, invoke
 from crossborder_compliance.interfaces.api.routes.workflow import sessions
 
@@ -55,3 +59,27 @@ def cancel(identity: UUID, body: KnowledgeUploadMutation, request: Request, cont
 @router.post("/import-batches/{identity}/retry", response_model=KnowledgeBatchView)
 def retry(identity: UUID, body: KnowledgeUploadMutation, request: Request, context: Context):
     return invoke(lambda: repository(request, context).retry(identity, body))
+
+
+@router.get("/import-batches/{identity}/failures", response_model=KnowledgeBatchFailurePage)
+def failures(
+    identity: UUID,
+    request: Request,
+    context: Context,
+    page: int = Query(default=1, ge=1),
+    page_size: int = Query(default=100, ge=1, le=100),
+):
+    return invoke(
+        lambda: repository(request, context).failures(identity, page=page, page_size=page_size)
+    )
+
+
+@router.post("/import-batches/{identity}/items/{item_id}/retry", response_model=KnowledgeBatchView)
+def retry_item(
+    identity: UUID,
+    item_id: UUID,
+    body: RetryKnowledgeBatchItem,
+    request: Request,
+    context: Context,
+):
+    return invoke(lambda: repository(request, context).retry_item(identity, item_id, body))

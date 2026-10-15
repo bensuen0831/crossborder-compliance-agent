@@ -203,6 +203,8 @@ class PostgresKnowledgeImportBatches:
                 "items": [
                     {
                         "item_id": item.item_id,
+                        "attempts": item.attempts,
+                        "technical_retry_available": self._technical_retry(item),
                         "upload_session_id": item.upload_session_id,
                         "relative_path": item.relative_path,
                         "knowledge_version_id": item.knowledge_version_id,
@@ -513,6 +515,96 @@ class PostgresKnowledgeImportBatches:
             row.record_version += 1
             return self._audit(
                 s, "BATCH_RETRY", row, idem, "Retry bounded technical transport failure"
+            )
+
+    @staticmethod
+    def _technical_retry(item):
+        return (
+            item.status == "FAILED"
+            and item.attempts < 3
+            and item.error_code
+            in {
+                "BINARY_SOURCE_UNAVAILABLE",
+                "KNOWLEDGE_INGESTION_FAILED",
+            }
+        )
+
+    def failures(self, identity, *, page=1, page_size=100):
+        require_management_permission(self.context, "batch:read")
+        require_management_permission(self.context, "batch:export")
+        if page < 1 or not 1 <= page_size <= 100:
+            raise ValueError("INVALID_FAILURE_EXPORT_PAGE")
+        with self.sessions() as s:
+            batch = self._get(s, identity)
+            q = self._items(batch.batch_id).where(Item.status == "FAILED")
+            total = s.scalar(select(func.count()).select_from(q.subquery()))
+            return {
+                "batch_id": batch.batch_id,
+                "total": total,
+                "page": page,
+                "page_size": page_size,
+                "items": [
+                    {
+                        "item_id": i.item_id,
+                        "relative_path": i.relative_path,
+                        "status": i.status,
+                        "error_code": i.error_code,
+                        "record_version": i.record_version,
+                        "attempts": i.attempts,
+                        "technical_retry_available": self._technical_retry(i),
+                    }
+                    for i in s.scalars(
+                        q.order_by(Item.relative_path, Item.item_id)
+                        .offset((page - 1) * page_size)
+                        .limit(page_size)
+                    )
+                ],
+            }
+
+    def retry_item(self, identity, item_id, request):
+        require_management_permission(self.context, "batch:retry")
+        with self.sessions() as s, s.begin():
+            batch = self._get(s, identity, True)
+            idem, cached = self.management._key(
+                s,
+                "BATCH_RETRY",
+                request.idempotency_key,
+                {
+                    "batch_id": batch.batch_id,
+                    "item_id": str(item_id),
+                    "request": request.model_dump(mode="json"),
+                },
+            )
+            if cached is not None:
+                return cached
+            self._cas(batch, request.expected_record_version)
+            item = s.scalar(
+                self._items(batch.batch_id).where(Item.item_id == str(item_id)).with_for_update()
+            )
+            if item is None:
+                raise LookupError("batch item not found")
+            if item.record_version != request.expected_item_record_version:
+                raise KnowledgeManagementConflict("KNOWLEDGE_BATCH_ITEM_VERSION_CONFLICT")
+            if batch.status not in {"PARTIAL_FAILURE", "PROCESSING"} or not self._technical_retry(
+                item
+            ):
+                raise KnowledgeManagementConflict("KNOWLEDGE_BATCH_ITEM_NOT_RETRYABLE")
+            version = self.uploads.owner.get(
+                s, k.KnowledgeDocumentVersionEntity, item.knowledge_version_id, True
+            )
+            if version.lifecycle != "DRAFT":
+                raise KnowledgeManagementConflict("KNOWLEDGE_BATCH_ITEM_SOURCE_IMMUTABLE")
+            item.status, item.error_code = "READY", None
+            item.lease_token = item.lease_expires_at = None
+            item.record_version += 1
+            batch.status = "PROCESSING"
+            batch.record_version += 1
+            return self._audit(
+                s,
+                "BATCH_RETRY",
+                batch,
+                idem,
+                "Bounded retry of existing canonical ingestion item " + item.item_id,
             )
 
     def ingestion_claim(self):

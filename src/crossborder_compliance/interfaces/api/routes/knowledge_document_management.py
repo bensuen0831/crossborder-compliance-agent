@@ -4,6 +4,7 @@ from typing import Literal
 from uuid import UUID
 
 from fastapi import APIRouter, Query, Request
+from fastapi.responses import StreamingResponse
 
 from crossborder_compliance.application.knowledge_document_management import (
     KnowledgeDocumentManagementService,
@@ -18,6 +19,7 @@ from crossborder_compliance.infrastructure.persistence.knowledge_document_manage
     PostgresKnowledgeDocumentManagement,
 )
 from crossborder_compliance.interfaces.api.knowledge_management_schemas import (
+    KnowledgeDocumentPreview,
     ManagedKnowledgeDocumentDeletion,
     ManagedKnowledgeDocumentDetail,
     ManagedKnowledgeDocumentImpact,
@@ -131,4 +133,60 @@ for path, operation in {
         methods=["POST"],
         response_model=ManagedKnowledgeVersionMutation,
         name="kb_document_" + path,
+    )
+
+
+@router.get("/documents/versions/{version_id}/preview", response_model=KnowledgeDocumentPreview)
+def document_preview(
+    version_id: UUID,
+    request: Request,
+    context: Context,
+    page: int = Query(default=1, ge=1),
+    page_size: int = Query(default=50, ge=1, le=100),
+):
+    return invoke(
+        service(request, context).repository.preview, version_id, page=page, page_size=page_size
+    )
+
+
+@router.get("/documents/versions/{version_id}/original", response_class=StreamingResponse)
+def document_original(version_id: UUID, request: Request, context: Context):
+    from pathlib import PurePosixPath
+    from urllib.parse import quote
+
+    from crossborder_compliance.interfaces.api.routes.knowledge_uploads import service as uploads
+
+    def open_original():
+        original = service(request, context).repository.original(version_id)
+        storage = uploads(request, context).storage
+        if original["artifact_ref"] != f"s3://{storage.bucket}/{original['object_key']}":
+            raise ValueError("KNOWLEDGE_ORIGINAL_PIN_MISMATCH")
+        body = storage.client.get_object(
+            Bucket=storage.bucket, Key=original["object_key"], VersionId=original["object_version"]
+        )
+        if body["ContentLength"] != original["byte_size"]:
+            body["Body"].close()
+            raise ValueError("KNOWLEDGE_ORIGINAL_SIZE_MISMATCH")
+        return original, body["Body"]
+
+    original, body = invoke(open_original)
+
+    def chunks():
+        try:
+            while chunk := body.read(1024 * 1024):
+                yield chunk
+        finally:
+            body.close()
+
+    name = quote(PurePosixPath(original["relative_path"]).name, safe="")
+    return StreamingResponse(
+        chunks(),
+        media_type="application/octet-stream",
+        headers={
+            "Content-Length": str(original["byte_size"]),
+            "Content-Disposition": "attachment; filename*=UTF-8''" + name,
+            "Cache-Control": "no-store",
+            "X-Content-Type-Options": "nosniff",
+            "Content-Security-Policy": "sandbox",
+        },
     )

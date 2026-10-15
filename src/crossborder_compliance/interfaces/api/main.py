@@ -31,6 +31,7 @@ from crossborder_compliance.interfaces.api.routes.knowledge_document_management 
 from crossborder_compliance.interfaces.api.routes.knowledge_uploads import router as knowledge_upload_router
 from crossborder_compliance.interfaces.api.routes.knowledge_batches import router as knowledge_batch_router
 from crossborder_compliance.interfaces.api.routes.knowledge_binary_ingestion import router as knowledge_binary_ingestion_router
+from crossborder_compliance.interfaces.api.routes.knowledge_statistics import router as knowledge_statistics_router
 from crossborder_compliance.interfaces.api.routes.llm_models import router as llm_models_router
 from crossborder_compliance.interfaces.api.routes.metadata import router as metadata_router
 from crossborder_compliance.interfaces.api.routes.model_providers import bindings_router
@@ -93,6 +94,7 @@ app.include_router(health_router)
 app.include_router(knowledge_upload_router)
 app.include_router(knowledge_batch_router)
 app.include_router(knowledge_binary_ingestion_router)
+app.include_router(knowledge_statistics_router)
 app.include_router(metadata_router)
 from crossborder_compliance.interfaces.api.routes.integrations import admin_router as integration_admin_router
 app.include_router(integration_admin_router)
