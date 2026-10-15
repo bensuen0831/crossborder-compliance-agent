@@ -73,3 +73,13 @@ The current focused combined PostgreSQL run (64 tests) also retains existing
 classification/document management regressions. F1 remains
 `BLOCKED_EXTERNAL_EVIDENCE_PENDING`; no real regulatory or production business
 acceptance has been executed.
+
+### Exact identity naming compatibility
+
+The readiness reader's internal parameter is `case_version_id`: it loads an
+explicit canonical MetadataVersion, not a synthetic business fixture `case_id`.
+No route, persistence identity, payload, decision or algorithm changed. The
+original Stage1 ban on product fixture `case_id` logic remains intact, with no
+checker exception or legal-owner whitelist. The initial v6 architecture failure
+is retained in the private diagnostics; source is corrected and resealed before
+full regression.

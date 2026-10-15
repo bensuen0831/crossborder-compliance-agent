@@ -77,9 +77,9 @@ class PostgresRegulatoryAcceptance:
         function(UUID(str(identity)), expected_record_version=expected)
         return self.read(identity)
 
-    def readiness(self, case_id, gold_review_id=None):
+    def readiness(self, case_version_id, gold_review_id=None):
         require_management_permission(self.context, "acceptance:read")
-        case = self.read(case_id)
+        case = self.read(case_version_id)
         if case["kind"] != "REGULATORY_ACCEPTANCE_CASE":
             raise LookupError("ACCEPTANCE_CASE_NOT_FOUND")
         technical = case["payload"]["dataset_kind"] == "L1_SYNTHETIC_GOVERNED"
@@ -97,7 +97,7 @@ class PostgresRegulatoryAcceptance:
                 definition = scoped(s, m.MetadataDefinitionEntity, gold.definition_id, self.tenant)
                 if definition.kind != "REGULATORY_GOLD_REVIEW" or gold.payload_json.get(
                     "case_version_id"
-                ) != str(case_id):
+                ) != str(case_version_id):
                     raise ValueError("ACCEPTANCE_GOLD_CASE_IDENTITY_MISMATCH")
                 if gold.lifecycle_status not in {"APPROVED", "ACTIVE"} or not gold.approved_by:
                     reasons.append("EXPERT_GOLD_APPROVAL_PENDING")
@@ -112,7 +112,7 @@ class PostgresRegulatoryAcceptance:
                     else "SYNTHETIC_REVIEW_RECORD_PENDING"
                 )
         return {
-            "case_version_id": str(case_id),
+            "case_version_id": str(case_version_id),
             "gold_review_version_id": str(gold_review_id) if gold_review_id else None,
             "dataset_kind": case["payload"]["dataset_kind"],
             "checks": checks,

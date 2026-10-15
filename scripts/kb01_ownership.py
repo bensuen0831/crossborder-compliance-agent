@@ -24,7 +24,10 @@ FOURTH_SOURCE = "cfe7f9e4ad47c9695b9097344b1ef2a9abf7ba69"
 FIFTH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v5.json"
 FIFTH_SEAL = "e01b8923a00d3c26c34c1d99d789d6e327c1e88a"
 FIFTH_SOURCE = "2918e4290a7f66bdf892ab74971d8ad3addcb1d3"
-SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v6.json"
+SIXTH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v6.json"
+SIXTH_SEAL = "2a1010570248dee3e9539e26f64a254b2d7fea91"
+SIXTH_SOURCE = "f5bc2a6ef5e8fd3210720f0e0753c9fb5b35b310"
+SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v7.json"
 FIRST_SEAL = "a95d5f05f46566d7e58417a8c9cb2214c6d028f0"
 FIRST_SOURCE = "6f0f448fbe5d72494d2756bca30a3f74437e1f63"
 PREVIOUS = "evidence/stage1-full-e2e/r3/approved_owner_overlay.json"
@@ -308,6 +311,18 @@ def overlay(root):
             for path, digest in fifth["paths"].items()
         ):
             return False, {}, None
+        sixth_bytes = git("show", SIXTH_SEAL + ":" + SIXTH_RECORD)
+        if (root / SIXTH_RECORD).read_bytes() != sixth_bytes or not ancestor(SIXTH_SEAL, "HEAD"):
+            return False, {}, None
+        sixth = json.loads(sixth_bytes)
+        if sixth["source_sha"] != SIXTH_SOURCE or sixth["base_sha"] != BASE:
+            return False, {}, None
+        sixth_blobs = blobs(SIXTH_SOURCE, sixth["paths"])
+        if any(
+            hashlib.sha256(sixth_blobs[path]).hexdigest() != digest
+            for path, digest in sixth["paths"].items()
+        ):
+            return False, {}, None
         record = json.loads((root / SUCCESSOR_RECORD).read_text())
         expected = set(previous["paths"]) | PATHS
         source = record["source_sha"]
@@ -316,7 +331,7 @@ def overlay(root):
             or record["scope"] != "STAGE1-GAP-KB01-MASTER_V2.0"
             or set(record["paths"]) != expected
             or not ancestor(BASE, source)
-            or not ancestor(FIFTH_SEAL, source)
+            or not ancestor(SIXTH_SEAL, source)
             or not ancestor(source, "HEAD")
         ):
             return False, {}, None
