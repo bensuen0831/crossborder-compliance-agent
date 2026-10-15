@@ -360,6 +360,31 @@ def test_document_management_reuses_full_review_publication_and_hold_guard(knowl
     assert archived["metadata"]["labels"] == made["metadata"]["labels"]
 
 
+@pytest.mark.parametrize("reviewer", ["document-author", "metadata-editor"])
+def test_content_contributor_cannot_self_review_through_a_different_submitter(knowledge, reviewer):
+    f = knowledge
+    made = make(f)
+    identity = UUID(made["knowledge_version_id"])
+    if reviewer == "metadata-editor":
+        service(f, reviewer).mutate(
+            "EDIT_DRAFT",
+            identity,
+            EditManagedKnowledgeVersion(
+                **mutation(made["record_version"]).model_dump(),
+                metadata=KnowledgeDocumentMetadata(title="Contributed draft metadata"),
+            ),
+        )
+    ingest(f, made, inputs(f))
+    for operation in ("VALIDATE", "SUBMIT_REVIEW"):
+        current = f["repo"].get_version(str(identity))
+        service(f, "proxy-submitter").mutate(
+            operation, identity, mutation(current["record_version"])
+        )
+    pending = f["repo"].get_version(str(identity))
+    with pytest.raises(ValueError, match="independent human reviewer required"):
+        service(f, reviewer).mutate("APPROVE", identity, mutation(pending["record_version"]))
+
+
 def test_document_http_uses_trusted_context_and_public_typed_projection(knowledge):
     from fastapi import FastAPI
     from fastapi.testclient import TestClient

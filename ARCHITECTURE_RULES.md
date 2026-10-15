@@ -237,3 +237,19 @@ finite committed-blob successor preserves every previous source manifest and
 all source outside the explicit KB01 management paths. Candidate confirmation,
 formal legal algorithms, canonical review/runtime and Stage 2 boundaries remain
 under their existing owners.
+
+KB01 binary transport uses provider-versioned multipart objects and independent
+streamed whole-file/part digests. Immutable binary receipts attach the exact
+original to the existing KnowledgeDocumentVersion. Archive and scanner tools run
+offline with bounded CPU, RAM, PID, diagnostic, disk and scratch budgets. Genuine
+RAR4/RAR5/ZIP decoding reuses the strict relative-path policy; links, traversal,
+collisions and nested archives fail closed.
+
+ImportBatch/BatchItem are durable operational work, not Knowledge, Registry or
+Workflow authorities. Explicit user metadata mapping creates canonical drafts
+through the existing owner in the same transaction as verified original
+attachment. Workers cannot publish, approve or create legal results. Cancellation
+and bounded recovery preserve immutable originals, manifests and audit receipts.
+Historical migrations 0001–0021 remain byte-identical; unsafe0022 downgrade
+refuses when any binary/batch/receipt evidence would be lost. The12 binary checks
+are additive to the preceding20 KB01 management checks.

@@ -286,6 +286,46 @@ class PostgresKnowledgeDocumentManagement:
         with self.sessions() as s:
             return self._impact(s, self.owner.get(s, k.KnowledgeDocumentEntity, identity))
 
+    def create_in_session(self, s, request):
+        """Same canonical document/version owner, shared by atomic import mapping."""
+        require_management_permission(self.context, "document:write")
+        idem, cached = self.management._key(
+            s,
+            "DOCUMENT_CREATE",
+            request.idempotency_key,
+            {"identity": None, "request": request.model_dump(mode="json")},
+        )
+        if cached is not None:
+            return cached
+        created = self.owner._create_document_in_session(
+            s, {"source_id": str(request.source_id), "display_name": request.metadata.title}
+        )
+        doc = self.owner.get(s, k.KnowledgeDocumentEntity, created["document_id"], True)
+        made = self.owner._create_version_in_session(
+            s,
+            doc.document_id,
+            {
+                "collection_version_id": str(request.collection_version_id),
+                "language": request.language,
+                "effective_from": request.effective_from,
+                "effective_to": request.effective_to,
+                "provenance": {"kb01_actor": self.context.permission.actor_id},
+            },
+        )
+        version = self.owner.get(s, k.KnowledgeDocumentVersionEntity, made["knowledge_version_id"])
+        self._set_metadata(s, doc, version, request.metadata)
+        doc.record_version += 1
+        doc.updated_at = datetime.now(UTC)
+        s.flush()
+        return self.management._audit(
+            s,
+            "DOCUMENT_CREATE",
+            SimpleNamespace(kind="KNOWLEDGE_DOCUMENT", definition_id=doc.document_id),
+            "CREATE",
+            idem,
+            self._version_view(s, doc, version),
+        )
+
     def mutate(self, operation, identity, request):
         require_management_permission(self.context, DOCUMENT_OPERATIONS[operation])
         action = "DOCUMENT_" + operation
@@ -295,6 +335,8 @@ class PostgresKnowledgeDocumentManagement:
                 text("SELECT pg_advisory_xact_lock(hashtextextended(:key,0))"),
                 {"key": f"kb01:taxonomy-mutations:{self.tenant_id}"},
             )
+            if operation == "CREATE":
+                return self.create_in_session(s, request)
             idem, cached = self.management._key(
                 s,
                 action,
@@ -306,12 +348,7 @@ class PostgresKnowledgeDocumentManagement:
             )
             if cached is not None:
                 return cached
-            if operation == "CREATE":
-                created = self.owner._create_document_in_session(
-                    s, {"source_id": str(request.source_id), "display_name": request.metadata.title}
-                )
-                doc = self.owner.get(s, k.KnowledgeDocumentEntity, created["document_id"], True)
-            elif operation in {"NEW_VERSION", "DELETE_DRAFT"}:
+            if operation in {"NEW_VERSION", "DELETE_DRAFT"}:
                 doc = self.owner.get(s, k.KnowledgeDocumentEntity, identity, True)
                 if doc.record_version != request.expected_record_version:
                     raise KnowledgeManagementConflict("KNOWLEDGE_DOCUMENT_VERSION_CONFLICT")
@@ -321,7 +358,7 @@ class PostgresKnowledgeDocumentManagement:
                 version = self.owner.version(s, identity)
                 if version.record_version != request.expected_record_version:
                     raise KnowledgeManagementConflict("KNOWLEDGE_VERSION_CONFLICT")
-            if operation in {"CREATE", "NEW_VERSION"}:
+            if operation == "NEW_VERSION":
                 payload = {
                     "collection_version_id": str(request.collection_version_id),
                     "language": request.language,

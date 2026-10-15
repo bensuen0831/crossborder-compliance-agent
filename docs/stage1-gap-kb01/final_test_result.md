@@ -9,3 +9,22 @@ KB01-A final exit is IN PROGRESS. B/C/D/E/F are pending. The first full PostgreS
 Paid Internet LLM, real regulatory knowledge acceptance and production business UAT are NOT EXECUTED. No main update, release tag, PR merge or Stage 2 work.
 
 The finite successor scope recovery measures 24/24 PASS on 61676b0, including the four formerly failing positive gates and original negative checks. Its source is 27fa3aa235b221eb3cafa62b26a553abbd778d92, with 41 finite KB paths and 225 authenticated paths. The initial KB manifest remains byte-preserved; no legal engine or frozen migration scope is expanded. Full A regression will rerun from an isolated committed-source checkout; its outcome remains pending.
+
+Package A isolated local full gate now measures 1100/1100 PASS, zero failed/errors/skipped/deselected, Runtime 25/25 and all nine architecture groups 381/381 on 28bd4203ec54d81f54e140b652a85401d87deeec. B transport implementation is uncommitted and is not included in that source or measurement. Global KB01 Technical Acceptance and remote CI remain incomplete.
+
+
+KB01-B development checkpoint: the focused PostgreSQL/S3/isolated archive,
+canonical batch mapping, cancellation/lease recovery and0022 migration bundle
+measured57 passed with0 failed/errors/skipped/deselected. An initial batch test
+used a nonexistent ORM creator attribute and was corrected to assert the actual
+canonical provenance actor; the diagnostic is retained. Single-file transport
+measured540,006,868 bytes in17 real multipart parts. Genuine RAR4/RAR5/ZIP each
+exceeded1GiB, transferred in33 parts, and isolated extraction preserved both
+original540,006,868-byte PDFs exactly. The initial ZIP scanner failed because
+its128MiB tmpfs filled; bounded owned disk scratch restored actual scanning and
+extraction. All capacity fixtures are synthetic and the scanner database is
+EICAR-only. These measurements are development evidence, not KB01-B package PASS,
+production antivirus acceptance, final exact-head full regression or remote CI.
+Durable large-batch ingestion, six-format parsing/OCR, UI, security/deployment
+integration, final full regression/CI and F0 implementation remain outstanding.
+KB01-F1 remains BLOCKED — EXTERNAL_EVIDENCE_PENDING.

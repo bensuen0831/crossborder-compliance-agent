@@ -156,11 +156,15 @@ class KnowledgeManagementPolicy(ManagementRequest):
     max_archive_bytes: int = Field(default=10 * 1024**3, gt=1_000_000_000)
     max_expanded_bytes: int = Field(default=50 * 1024**3, gt=0)
     max_archive_entries: int = Field(default=20000, ge=1)
-    multipart_chunk_bytes: int = Field(default=32 * 1024**2, ge=5 * 1024**2)
+    multipart_chunk_bytes: int = Field(default=32 * 1024**2, ge=5 * 1024**2, le=5 * 1024**3)
     upload_expiry_seconds: int = Field(default=86400, ge=60, le=604800)
     scan_required: bool = True
     extraction_timeout_seconds: int = Field(default=3600, ge=1, le=14400)
     nested_archives_allowed: bool = False
+    tenant_storage_quota_bytes: int = Field(default=100 * 1024**3, gt=0, le=2**63 - 1)
+    max_active_upload_sessions: int = Field(default=64, ge=1, le=10000)
+    signed_part_expiry_seconds: int = Field(default=900, ge=60, le=3600)
+    scanner_timeout_seconds: int = Field(default=3600, ge=1, le=14400)
 
 
 class KnowledgeManagementPermissionError(PermissionError):

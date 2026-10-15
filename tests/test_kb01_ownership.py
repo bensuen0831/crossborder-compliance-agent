@@ -6,7 +6,13 @@ from pathlib import Path
 
 import pytest
 
-from scripts.kb01_ownership import RECORD, SUCCESSOR_RECORD, authenticated_paths, overlay
+from scripts.kb01_ownership import (
+    RECORD,
+    SECOND_RECORD,
+    SUCCESSOR_RECORD,
+    authenticated_paths,
+    overlay,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -25,6 +31,9 @@ def test_kb01_ownership_authenticates_committed_source():
         "src/crossborder_compliance/domain/knowledge_management.py",
         "src/crossborder_compliance/application/unapproved_kb_shortcut.py",
         RECORD,
+        SECOND_RECORD,
+        "alembic/versions/0021_kb01_taxonomy_operations.py",
+        "src/crossborder_compliance/infrastructure/knowledge_import_worker.py",
     ],
 )
 def test_kb01_ownership_rejects_uncommitted_tampering(tmp_path, path):

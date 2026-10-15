@@ -13,12 +13,40 @@ from pathlib import Path
 
 BASE = "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d"
 RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay.json"
-SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v2.json"
+SECOND_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v2.json"
+SECOND_SEAL = "61676b02689c407cfcc6e6c91b8a6b553de6d616"
+SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v3.json"
 FIRST_SEAL = "a95d5f05f46566d7e58417a8c9cb2214c6d028f0"
 FIRST_SOURCE = "6f0f448fbe5d72494d2756bca30a3f74437e1f63"
 PREVIOUS = "evidence/stage1-full-e2e/r3/approved_owner_overlay.json"
 PATHS = frozenset(
     (
+        "alembic/versions/0022_kb01_binary_transport.py",
+        "src/crossborder_compliance/application/knowledge_binary_ports.py",
+        "src/crossborder_compliance/application/knowledge_uploads.py",
+        "src/crossborder_compliance/domain/knowledge_batches.py",
+        "src/crossborder_compliance/domain/knowledge_paths.py",
+        "src/crossborder_compliance/domain/knowledge_upload.py",
+        "src/crossborder_compliance/infrastructure/knowledge_archive_extractor.py",
+        "src/crossborder_compliance/infrastructure/knowledge_archive_process.py",
+        "src/crossborder_compliance/infrastructure/knowledge_binary_storage.py",
+        "src/crossborder_compliance/infrastructure/knowledge_import_worker.py",
+        "src/crossborder_compliance/infrastructure/knowledge_process_sandbox.py",
+        "src/crossborder_compliance/infrastructure/knowledge_upload_worker.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_batches.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_upload_models.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_uploads.py",
+        "src/crossborder_compliance/interfaces/api/knowledge_batch_schemas.py",
+        "src/crossborder_compliance/interfaces/api/knowledge_upload_schemas.py",
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_batches.py",
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_uploads.py",
+        "tests/kb01_archive_fixtures.py",
+        "tests/kb01_large_fixtures.py",
+        "tests/test_kb01_archive_isolation.py",
+        "tests/test_kb01_batches_postgres.py",
+        "tests/test_kb01_binary_migrations.py",
+        "tests/test_kb01_upload_contracts.py",
+        "tests/test_kb01_upload_postgres.py",
         "scripts/stage1_business_architecture.py",
         "scripts/m2a_ownership.py",
         "ARCHITECTURE_RULES.md",
@@ -114,6 +142,22 @@ def overlay(root):
             for path, digest in first["paths"].items()
         ):
             return False, {}, None
+        second_bytes = git("show", SECOND_SEAL + ":" + SECOND_RECORD)
+        if (root / SECOND_RECORD).read_bytes() != second_bytes or not ancestor(SECOND_SEAL, "HEAD"):
+            return False, {}, None
+        second = json.loads(second_bytes)
+        if second["base_sha"] != BASE or not ancestor(FIRST_SEAL, second["source_sha"]):
+            return False, {}, None
+        second_blobs = blobs(second["source_sha"], second["paths"])
+        if any(
+            hashlib.sha256(second_blobs[path]).hexdigest() != digest
+            for path, digest in second["paths"].items()
+        ):
+            return False, {}, None
+        # The first completed KB migration is frozen as well as release 0001–0020.
+        migration21 = "alembic/versions/0021_kb01_taxonomy_operations.py"
+        if (root / migration21).read_bytes() != first_blobs[migration21]:
+            return False, {}, None
         record = json.loads((root / SUCCESSOR_RECORD).read_text())
         expected = set(previous["paths"]) | PATHS
         source = record["source_sha"]
@@ -122,7 +166,7 @@ def overlay(root):
             or record["scope"] != "STAGE1-GAP-KB01-MASTER_V2.0"
             or set(record["paths"]) != expected
             or not ancestor(BASE, source)
-            or not ancestor(FIRST_SEAL, source)
+            or not ancestor(SECOND_SEAL, source)
             or not ancestor(source, "HEAD")
         ):
             return False, {}, None

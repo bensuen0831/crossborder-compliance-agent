@@ -651,7 +651,29 @@ class PostgresKnowledgeRepository:
         if action == "approve":
             task = self.get(s, m.AdminReviewTaskEntity, version.review_task_id, True)
             change = self.get(s, m.AdminChangeSetEntity, task.change_set_id)
-            if self.context.permission.system or change.actor_id == actor:
+            contributor = False
+            if version.provenance_json.get("kb01_metadata") or version.provenance_json.get(
+                "kb01_binary_transport"
+            ):
+                from crossborder_compliance.infrastructure.persistence.knowledge_management_models import (
+                    AdminOperationReceiptEntity,
+                )
+                contributor = actor == version.provenance_json.get("created_by") or bool(
+                    s.scalar(select(AdminOperationReceiptEntity.receipt_id)
+                    .join(m.AdminChangeSetEntity,
+                        (m.AdminChangeSetEntity.tenant_id == AdminOperationReceiptEntity.tenant_id)
+                        & (m.AdminChangeSetEntity.change_set_id
+                           == AdminOperationReceiptEntity.change_set_id))
+                    .where(AdminOperationReceiptEntity.tenant_id == self.tenant_id,
+                           AdminOperationReceiptEntity.operation.in_((
+                               "DOCUMENT_CREATE", "DOCUMENT_NEW_VERSION",
+                               "DOCUMENT_EDIT_DRAFT", "UPLOAD_ATTACH",
+                           )),
+                           AdminOperationReceiptEntity.result_json["knowledge_version_id"].as_string()
+                           == version_id,
+                           m.AdminChangeSetEntity.actor_id == actor).limit(1))
+                )
+            if self.context.permission.system or change.actor_id == actor or contributor:
                 raise ValueError("independent human reviewer required")
             task.review_status = "APPROVED"
             task.reviewer_id = actor
