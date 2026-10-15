@@ -35,6 +35,7 @@ from crossborder_compliance.interfaces.api.knowledge_management_schemas import (
     TaxonomyImpact,
     TaxonomyMutationResult,
     TaxonomyPage,
+    TaxonomyTreePage,
 )
 from crossborder_compliance.interfaces.api.routes.workflow import sessions
 
@@ -118,6 +119,26 @@ def taxonomy_list(
         page_size=page_size,
         locale=locale,
         enabled=enabled,
+    )
+
+
+@router.get("/taxonomy-tree", response_model=TaxonomyTreePage)
+def taxonomy_tree(
+    request: Request,
+    context: Context,
+    kind: TaxonomyKind = "JURISDICTION_CONFIG",
+    parent_definition_id: UUID | None = None,
+    page: int = Query(default=1, ge=1),
+    page_size: int = Query(default=50, ge=1, le=100),
+    locale: Literal["zh-CN", "zh-HK", "en-US"] = "en-US",
+):
+    return invoke(
+        service(request, context).tree,
+        kind=kind,
+        parent_definition_id=parent_definition_id,
+        page=page,
+        page_size=page_size,
+        locale=locale,
     )
 
 

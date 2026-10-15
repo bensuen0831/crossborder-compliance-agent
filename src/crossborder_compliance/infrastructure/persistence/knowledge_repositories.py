@@ -954,6 +954,8 @@ class PostgresKnowledgeRepository:
 
     def create_translation(self, version_id, payload):
         self.admin()
+        if payload.get("provenance", {}).get("schema") == "KB01_CLAUSE_TRANSLATION_ALIGNMENT_V1":
+            raise ValueError("USE_TYPED_TRANSLATION_ALIGNMENT_OWNER")
         translation = KnowledgeTranslation.model_validate(
             dict(payload, translation_id=str(uuid4()), knowledge_version_id=version_id)
         )
@@ -982,6 +984,8 @@ class PostgresKnowledgeRepository:
         self.admin()
         with self.sessions() as s, s.begin():
             row = self.get(s, k.KnowledgeTranslationEntity, translation_id, True)
+            if row.provenance_json.get("schema") == "KB01_CLAUSE_TRANSLATION_ALIGNMENT_V1":
+                raise ValueError("USE_TYPED_TRANSLATION_ALIGNMENT_REVIEW")
             if row.record_version != expected:
                 raise OptimisticConcurrencyError("stale translation")
             if (

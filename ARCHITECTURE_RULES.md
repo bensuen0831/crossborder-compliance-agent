@@ -270,7 +270,7 @@ all historical values and refuses a downgrade that would truncate references.
 Its fixed-width non-unique index is an accelerator, never Evidence identity or
 digest authority. Frozen0001–0022 bytes remain unchanged. Historical fresh-schema
 fixtures explicitly use committed historical bootstrap metadata because frozen
-0002 loads its runtime ORM; current fresh→0023 remains independently required.
+`0002` loads its runtime ORM; current fresh→0023 remains independently required.
 The10 native checks are additive; no earlier check is removed.
 
 

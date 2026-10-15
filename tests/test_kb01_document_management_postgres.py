@@ -77,7 +77,7 @@ def make(f, metadata=None):
     )
 
 
-def published_label(f, kind="REGULATION_CATEGORY"):
+def published_label(f, kind="REGULATION_CATEGORY", payload=None):
     def owner(actor):
         ctx = context(f, actor, {"knowledge:" + op for op in OPERATIONS.values()})
         return PostgresKnowledgeTaxonomyRepository(f["sf"], ctx)
@@ -89,7 +89,7 @@ def published_label(f, kind="REGULATION_CATEGORY"):
             kind=kind,
             code="LABEL-" + uuid4().hex,
             display_name="Technical classification label",
-            payload=TaxonomyPayload(),
+            payload=payload or TaxonomyPayload(),
             idempotency_key=str(uuid4()),
         ),
     )

@@ -17,6 +17,7 @@ from crossborder_compliance.domain.security import RepositoryContext
 
 class KnowledgeTaxonomyPort(Protocol):
     def list(self, **query) -> dict: ...
+    def tree(self, **query) -> dict: ...
     def detail(self, definition_id: UUID) -> dict: ...
     def impact(self, definition_id: UUID) -> dict: ...
     def aliases(self, definition_id: UUID) -> dict: ...
@@ -50,6 +51,10 @@ class KnowledgeTaxonomyService:
     def list(self, **query):
         require_management_permission(self.context, "taxonomy:read")
         return self.repository.list(**query)
+
+    def tree(self, **query):
+        require_management_permission(self.context, "taxonomy:read")
+        return self.repository.tree(**query)
 
     def detail(self, definition_id: UUID):
         require_management_permission(self.context, "taxonomy:read")

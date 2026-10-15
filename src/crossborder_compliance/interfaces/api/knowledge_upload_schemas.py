@@ -69,3 +69,19 @@ class KnowledgeSignedPart(ManagementRequest):
     url: str
     headers: dict[str, str]
     byte_size: int
+
+
+class KnowledgeUploadPolicyView(ManagementRequest):
+    policy_definition_id: UUID
+    policy_version_id: UUID
+    max_single_bytes: int
+    max_archive_bytes: int
+    max_expanded_bytes: int
+    max_archive_entries: int
+    multipart_chunk_bytes: int
+    upload_expiry_seconds: int
+    tenant_storage_quota_bytes: int
+    max_active_upload_sessions: int
+    scan_required: bool
+    allowed_document_formats: list[KnowledgeBinaryFormat]
+    allowed_archive_formats: list[KnowledgeBinaryFormat]

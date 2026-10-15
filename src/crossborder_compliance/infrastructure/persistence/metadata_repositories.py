@@ -21,6 +21,7 @@ from crossborder_compliance.domain.metadata import (
     validate_endpoint_config,
 )
 from crossborder_compliance.domain.security import RepositoryContext
+from crossborder_compliance.domain.regulatory_acceptance import REGULATORY_ACCEPTANCE_KINDS
 from crossborder_compliance.domain.compliance_profiles import PHASE1I_CONFIG_KINDS
 from crossborder_compliance.domain.decision_policies import PHASE1J_POLICY_KINDS
 from crossborder_compliance.domain.formal_result_policies import FORMAL_RESULT_POLICY_KINDS
@@ -232,7 +233,7 @@ class PostgresAdminMetadataRepository(_TenantScopedMetadataRepository):
             raise MetadataOptimisticConcurrencyError("metadata version changed")
         definition = self._scoped(session, MetadataDefinitionEntity, MetadataDefinitionEntity.definition_id, UUID(row.definition_id))
         from crossborder_compliance.infrastructure.persistence.taxonomy_governance import is_managed_taxonomy
-        managed = definition is not None and (is_managed_taxonomy(definition.kind, row.payload_json) or definition.kind == "KNOWLEDGE_MANAGEMENT_POLICY")
+        managed = definition is not None and (is_managed_taxonomy(definition.kind, row.payload_json) or definition.kind == "KNOWLEDGE_MANAGEMENT_POLICY" or definition.kind in REGULATORY_ACCEPTANCE_KINDS)
         if managed and target_status == GovernanceStatus.APPROVED.value and (actor_id == row.created_by or self._context.permission.system):
             raise MetadataLifecycleError("independent human review required")
         current = row.lifecycle_status

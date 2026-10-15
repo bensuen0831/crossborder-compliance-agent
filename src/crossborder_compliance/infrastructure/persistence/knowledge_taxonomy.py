@@ -292,6 +292,99 @@ class PostgresKnowledgeTaxonomyRepository:
             "updated_by": updated_by,
         }
 
+    def tree(
+        self,
+        *,
+        kind="JURISDICTION_CONFIG",
+        parent_definition_id=None,
+        page=1,
+        page_size=50,
+        locale="en-US",
+    ):
+        """Paged children of the published canonical hierarchy, never a draft proposal."""
+        require_management_permission(self.context, "taxonomy:read")
+        if kind not in TAXONOMY_KINDS or page < 1 or not 1 <= page_size <= 100:
+            raise ValueError("INVALID_TAXONOMY_TREE_QUERY")
+        definition, version = m.MetadataDefinitionEntity, m.MetadataVersionEntity
+
+        def visible(d, v):
+            return (
+                d.tenant_id == self.tenant_id,
+                d.kind == kind,
+                v.tenant_id == self.tenant_id,
+                v.lifecycle_status == "ACTIVE",
+                cast(v.payload_json, JSONB)["enabled"].as_boolean().is_not(False),
+            )
+
+        with self.sessions() as s:
+            if parent_definition_id is not None:
+                parent = s.scalar(
+                    select(definition)
+                    .join(version, version.version_id == definition.active_version_id)
+                    .where(
+                        *visible(definition, version),
+                        definition.definition_id == str(parent_definition_id),
+                    )
+                )
+                if parent is None:
+                    raise LookupError("published taxonomy parent not found")
+            child, child_version = aliased(definition), aliased(version)
+            children = (
+                select(func.count())
+                .select_from(child)
+                .join(child_version, child_version.version_id == child.active_version_id)
+                .where(
+                    *visible(child, child_version),
+                    child.parent_definition_id == definition.definition_id,
+                )
+                .correlate(definition)
+                .scalar_subquery()
+            )
+            query = (
+                select(definition, version, children.label("child_count"))
+                .join(version, version.version_id == definition.active_version_id)
+                .where(
+                    *visible(definition, version),
+                    definition.parent_definition_id == str(parent_definition_id)
+                    if parent_definition_id is not None
+                    else definition.parent_definition_id.is_(None),
+                )
+            )
+            total = s.scalar(select(func.count()).select_from(query.subquery()))
+            rows = s.execute(
+                query.order_by(definition.code, definition.definition_id)
+                .offset((page - 1) * page_size)
+                .limit(page_size)
+            ).all()
+            items = []
+            for row, active, count in rows:
+                display = resolve_display(
+                    row.code,
+                    row.display_name,
+                    LocalizedDisplayMetadata.model_validate(
+                        active.payload_json.get("localized_display", {})
+                    ),
+                    locale,
+                )
+                items.append(
+                    {
+                        "definition_id": row.definition_id,
+                        "version_id": active.version_id,
+                        "parent_definition_id": row.parent_definition_id,
+                        "kind": row.kind,
+                        "code": row.code,
+                        "display_name": display.display_name,
+                        "child_count": count,
+                    }
+                )
+            return {
+                "parent_definition_id": parent_definition_id,
+                "total": total,
+                "page": page,
+                "page_size": page_size,
+                "items": items,
+            }
+
     def list(self, *, kind=None, query="", page=1, page_size=50, locale="en-US", enabled=None):
         require_management_permission(self.context, "taxonomy:read")
         if not 1 <= page_size <= 100 or page < 1:

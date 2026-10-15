@@ -35,6 +35,13 @@ def check(root):
     native_host = read("src/crossborder_compliance/infrastructure/knowledge_native_parser.py")
     native_worker = read("src/crossborder_compliance/infrastructure/knowledge_management_worker.py")
     native_repo = read(prefix + "knowledge_repositories.py")
+    alignment = read(prefix + "knowledge_translation_alignment.py")
+    alignment_contract = read(
+        "src/crossborder_compliance/domain/knowledge_translation_alignment.py"
+    )
+    readiness = read(prefix + "regulatory_acceptance.py")
+    gold_governance = read(prefix + "regulatory_acceptance_governance.py")
+    gold_contract = read("src/crossborder_compliance/domain/regulatory_acceptance.py")
     source_migration = read("alembic/versions/0023_kb01_evidence_source_reference.py")
 
     statistics = read(prefix + "knowledge_statistics.py")
@@ -59,6 +66,62 @@ def check(root):
         "IsolatedNativeKnowledgeParser = IsolatedNativeDocumentParser" in native_host
     )
     return {
+        "kb01_tree_projects_published_canonical_parents": all(
+            x in taxonomy
+            for x in (
+                "child.parent_definition_id",
+                'v.lifecycle_status == "ACTIVE"',
+                "version.version_id == definition.active_version_id",
+            )
+        ),
+        "kb01_tree_does_not_publish_draft_parent_proposals": "query.order_by(definition.code"
+        in taxonomy
+        and "def tree(" in permissions,
+        "kb01_upload_limits_come_from_governed_policy_api": "def policy_view(" in uploads
+        and '"/upload-policy"' in browser_upload,
+        "kb01_body_abort_is_not_converted_to_success": "AbortError"
+        in read("frontend/src/api/client.ts"),
+        "kb01_alignment_reuses_canonical_translation_store": "k.KnowledgeTranslationEntity("
+        in alignment
+        and "__tablename__" not in alignment,
+        "kb01_alignment_pins_exact_clause_citation_and_text": all(
+            x in alignment
+            for x in (
+                "source_content_hash",
+                "target_content_hash",
+                "source_citation_id",
+                "target_citation_id",
+                "source_text_sha256",
+                "target_text_sha256",
+            )
+        ),
+        "kb01_alignment_is_independently_reviewed_with_cas": all(
+            x in alignment
+            for x in (
+                "INDEPENDENT_TRANSLATION_REVIEW_REQUIRED",
+                "TRANSLATION_REVIEW_VERSION_CONFLICT",
+                "self.context.permission.actor_id",
+            )
+        ),
+        "kb01_alignment_cannot_claim_official_legal_authority": '"official_evidence": False'
+        in alignment
+        and 'Literal["HUMAN"]' in alignment_contract,
+        "kb01_alignment_generic_legacy_review_cannot_bypass_owner": "USE_TYPED_TRANSLATION_ALIGNMENT_REVIEW"
+        in native_repo,
+        "kb01_f0_records_reuse_metadata_lifecycle": "MetadataLifecycleService" in readiness
+        and "PostgresAdminMetadataRepository" in readiness,
+        "kb01_f0_has_no_schema_or_formal_result_owner": "__tablename__"
+        not in readiness + gold_contract
+        and "FormalResultEntity(" not in readiness,
+        "kb01_f0_synthetic_data_cannot_be_real_acceptance": "SYNTHETIC_GOVERNED_TEST_DATA"
+        in gold_contract
+        and "ENGINEERING_READINESS_ONLY" in readiness,
+        "kb01_f0_l2_requires_verified_original_source": "VERIFIED" in gold_governance
+        and "KnowledgeBinaryAttachmentEntity" in gold_governance,
+        "kb01_f0_approval_is_independent_and_actor_bound": "actor_id" in gold_governance
+        and "REGULATORY_EXPERT_AUTHORIZATION" in gold_contract,
+        "kb01_f0_readiness_does_not_claim_f1_execution": "NOT_EXECUTED" in readiness
+        and "READY_FOR_INDEPENDENT_ACCEPTANCE" in readiness,
         "kb01_statistics_shares_authorized_document_scope": "self.documents.scoped_query("
         in statistics,
         "kb01_statistics_uses_sql_distinct_document_counts": (

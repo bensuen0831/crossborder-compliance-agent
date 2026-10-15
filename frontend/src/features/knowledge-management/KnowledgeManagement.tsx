@@ -6,6 +6,8 @@ import { idempotencyKey, KnowledgeManagementClient, mutation } from "./client";
 import type { Schema } from "./client";
 import { transferFile } from "./uploads";
 import { TaxonomyEditor } from "./TaxonomyEditor";
+import { TaxonomyTree } from "./TaxonomyTree";
+import { TranslationAlignment } from "./TranslationAlignment";
 
 type Document = Schema<"ManagedKnowledgeDocumentView">;
 type Detail = Schema<"ManagedKnowledgeDocumentDetail">;
@@ -58,10 +60,19 @@ export function KnowledgeManagement({
   const [language, setLanguage] = useState("");
   const [lifecycle, setLifecycle] = useState("");
   const [label, setLabel] = useState("");
+  const [countryFilters, setCountryFilters] = useState<string[]>([]);
+  const [categoryFilters, setCategoryFilters] = useState<string[]>([]);
+  const [classificationSearch, setClassificationSearch] = useState("");
+  const [classificationPage, setClassificationPage] = useState(1);
+  const [knownLabels, setKnownLabels] = useState<Record<string, Taxonomy>>({});
+  const [selectedLabelPins, setSelectedLabelPins] = useState<
+    Record<string, Schema<"KnowledgeDocumentLabel">>
+  >({});
   const [kind, setKind] = useState("");
   const [page, setPage] = useState(1);
   const [detail, setDetail] = useState<Detail>();
   const [preview, setPreview] = useState<Schema<"KnowledgeDocumentPreview">>();
+  const [alignmentSource, setAlignmentSource] = useState<Version>();
   const [history, setHistory] = useState<Schema<"KnowledgeAuditPage">>();
   const [selectedTaxonomy, setSelectedTaxonomy] =
     useState<Schema<"TaxonomyDetail">>();
@@ -72,9 +83,16 @@ export function KnowledgeManagement({
   const [batchPage, setBatchPage] = useState(1);
   const [batchId, setBatchId] = useState("");
   const [progress, setProgress] = useState("");
+  const [uploadPolicy, setUploadPolicy] =
+    useState<Schema<"KnowledgeUploadPolicyView">>();
   const controller = useRef<AbortController | null>(null);
   const folder = useRef<HTMLInputElement | null>(null);
   const [source, setSource] = useState("");
+  const [sources, setSources] = useState<Schema<"KnowledgeSourceOptionPage">>();
+  const [sourceSearch, setSourceSearch] = useState("");
+  const [sourcePage, setSourcePage] = useState(1);
+  const [collectionOptions, setCollectionOptions] =
+    useState<Schema<"KnowledgeCollectionVersionOptions">>();
   const [collection, setCollection] = useState("");
   const [documentLanguage, setDocumentLanguage] = useState("en");
   const [title, setTitle] = useState("");
@@ -88,6 +106,7 @@ export function KnowledgeManagement({
     "REGULATION_CATEGORY",
   );
   const [aliases, setAliases] = useState("");
+  const [jurisdictionType, setJurisdictionType] = useState("COUNTRY");
   const [localized, setLocalized] = useState<Record<string, string>>({
     "zh-CN": "",
     "zh-HK": "",
@@ -116,7 +135,13 @@ export function KnowledgeManagement({
         "/capabilities",
         abort.signal,
       )
-      .then((value) => setCapabilities(value.operations))
+      .then((value) =>
+        setCapabilities((previous) =>
+          previous.join("\0") === value.operations.join("\0")
+            ? previous
+            : value.operations,
+        ),
+      )
       .catch((e) => {
         if (!abort.signal.aborted) {
           setCapabilities([]);
@@ -143,6 +168,8 @@ export function KnowledgeManagement({
     if (language) filters.set("language", language);
     if (lifecycle) filters.set("lifecycle", lifecycle);
     if (label) filters.set("label_id", label);
+    for (const identity of [...countryFilters, ...categoryFilters])
+      filters.append("label_ids", identity);
     const fail = (e: unknown) => {
       if (!abort.signal.aborted) setError(String(e));
     };
@@ -163,10 +190,28 @@ export function KnowledgeManagement({
     if (can("taxonomy:read"))
       client
         .get<Schema<"TaxonomyPage">>(
-          `/taxonomy?${new URLSearchParams({ query: tab === "taxonomy" ? query : "", page: String(tab === "taxonomy" ? page : 1), page_size: "100", locale: i18n.language, ...(kind && tab === "taxonomy" ? { kind } : {}) })}`,
+          `/taxonomy?${new URLSearchParams({ query: tab === "taxonomy" ? query : classificationSearch, page: String(tab === "taxonomy" ? page : classificationPage), page_size: "100", locale: i18n.language, ...(kind && tab === "taxonomy" ? { kind } : {}) })}`,
           abort.signal,
         )
-        .then(setTaxonomy)
+        .then((value) => {
+          setTaxonomy(value);
+          setKnownLabels((previous) => {
+            const keep = new Set([
+              ...selectedLabels,
+              ...countryFilters,
+              ...categoryFilters,
+              label,
+            ]);
+            return {
+              ...Object.fromEntries(
+                Object.entries(previous).filter(([key]) => keep.has(key)),
+              ),
+              ...Object.fromEntries(
+                value.items.map((row) => [row.definition_id, row]),
+              ),
+            };
+          });
+        })
         .catch(fail);
     return () => abort.abort();
   }, [
@@ -176,22 +221,67 @@ export function KnowledgeManagement({
     language,
     lifecycle,
     label,
+    countryFilters,
+    categoryFilters,
+    classificationSearch,
+    classificationPage,
+    selectedLabels,
     kind,
     page,
     tab,
     revision,
     i18n.language,
   ]);
+  useEffect(() => {
+    if (!can("document:read")) return;
+    const abort = new AbortController();
+    client
+      .get<Schema<"KnowledgeSourceOptionPage">>(
+        `/sources?${new URLSearchParams({ query: sourceSearch, page: String(sourcePage), page_size: "50" })}`,
+        abort.signal,
+      )
+      .then(setSources)
+      .catch((e) => {
+        if (!abort.signal.aborted) setError(String(e));
+      });
+    return () => abort.abort();
+  }, [client, can, sourceSearch, sourcePage]);
+  useEffect(() => {
+    if (!source || !can("document:read")) return;
+    const abort = new AbortController();
+    client
+      .get<Schema<"KnowledgeCollectionVersionOptions">>(
+        `/sources/${source}/collection-versions`,
+        abort.signal,
+      )
+      .then(setCollectionOptions)
+      .catch((e) => {
+        if (!abort.signal.aborted) setError(String(e));
+      });
+    return () => abort.abort();
+  }, [client, can, source]);
+  useEffect(() => {
+    if (!can("upload:read")) return;
+    const abort = new AbortController();
+    client
+      .get<Schema<"KnowledgeUploadPolicyView">>("/upload-policy", abort.signal)
+      .then(setUploadPolicy)
+      .catch((e) => {
+        if (!abort.signal.aborted) setError(String(e));
+      });
+    return () => abort.abort();
+  }, [client, can, revision]);
   const metadata = () => ({
     ...(editing?.metadata ?? {}),
     title,
     official_source_url: officialSource || null,
     labels: selectedLabels.map((identity) => {
+      if (selectedLabelPins[identity]) return selectedLabelPins[identity];
       const original = editing?.metadata.labels?.find(
         (label) => label.definition_id === identity,
       );
       if (original) return original;
-      const row = taxonomy?.items.find((row) => row.definition_id === identity);
+      const row = knownLabels[identity];
       if (!row?.active_version_id)
         throw new Error("CLASSIFICATION_VERSION_REQUIRED");
       return {
@@ -347,18 +437,21 @@ export function KnowledgeManagement({
         </p>
       )}
       <div className="actions">
-        {(["documents", "taxonomy", "uploads"] as const).map((name) => (
-          <button
-            key={name}
-            aria-pressed={tab === name}
-            onClick={() => {
-              setTab(name);
-              setPage(1);
-            }}
-          >
-            {t(`ui.kb01.${name}`)}
-          </button>
-        ))}
+        <div role="tablist" aria-label={t("ui.kb01.workspace")}>
+          {(["documents", "taxonomy", "uploads"] as const).map((name) => (
+            <button
+              key={name}
+              role="tab"
+              aria-selected={tab === name}
+              onClick={() => {
+                setTab(name);
+                setPage(1);
+              }}
+            >
+              {t(`ui.kb01.${name}`)}
+            </button>
+          ))}
+        </div>
         <button onClick={() => setRevision((v) => v + 1)}>
           {t("ui.kb01.refresh")}
         </button>
@@ -449,6 +542,66 @@ export function KnowledgeManagement({
       )}
       {tab === "documents" && (
         <>
+          {can("taxonomy:read") && <section className="panel" aria-label={t("ui.kb01.jurisdictionTree")}>
+            <h3>{t("ui.kb01.jurisdictionTree")}</h3>
+            <p>{t("ui.kb01.publishedHierarchy")}</p>
+            <TaxonomyTree key={revision} client={client} selected={countryFilters}
+              onSelect={(node) => {
+                setCountryFilters((old) => old.includes(node.definition_id)
+                  ? old.filter((id) => id !== node.definition_id) : [...old, node.definition_id]);
+                setPage(1);
+              }} />
+          </section>}
+          <div className="kb-filters">
+            <label>
+              {t("ui.kb01.countryFilter")}
+              <select
+                multiple
+                value={countryFilters}
+                onChange={(e) => {
+                  setCountryFilters(
+                    Array.from(
+                      e.target.selectedOptions,
+                      (option) => option.value,
+                    ),
+                  );
+                  setPage(1);
+                }}
+              >
+                {Object.values(knownLabels)
+                  .filter((row) => row.kind === "JURISDICTION_CONFIG")
+                  .map((row) => (
+                    <option key={row.definition_id} value={row.definition_id}>
+                      {row.display_name}
+                    </option>
+                  ))}
+              </select>
+            </label>
+            <label>
+              {t("ui.kb01.categoryFilter")}
+              <select
+                multiple
+                value={categoryFilters}
+                onChange={(e) => {
+                  setCategoryFilters(
+                    Array.from(
+                      e.target.selectedOptions,
+                      (option) => option.value,
+                    ),
+                  );
+                  setPage(1);
+                }}
+              >
+                {Object.values(knownLabels)
+                  .filter((row) => row.kind === "REGULATION_CATEGORY")
+                  .map((row) => (
+                    <option key={row.definition_id} value={row.definition_id}>
+                      {row.display_name}
+                    </option>
+                  ))}
+              </select>
+            </label>
+          </div>
           {stats && (
             <section className="panel" aria-label={t("ui.kb01.statistics")}>
               <h3>{t("ui.kb01.statistics")}</h3>
@@ -481,7 +634,10 @@ export function KnowledgeManagement({
           <ul className="resource-list">
             {documents?.items.map((row) => (
               <li key={row.document_id}>
-                <button onClick={() => void perform(() => openDocument(row))}>
+                <button
+                  data-document-id={row.document_id}
+                  onClick={() => void perform(() => openDocument(row))}
+                >
                   {row.display_name} · {row.status}
                 </button>
               </li>
@@ -527,6 +683,8 @@ export function KnowledgeManagement({
                   </h4>
                   <p>{version.metadata.title}</p>
                   <div className="actions">
+                    {can("translation:read") && version.content_hash && !["DRAFT", "ARCHIVED"].includes(version.lifecycle) && <button
+                      onClick={() => setAlignmentSource(version)}>{t("ui.kb01.translationAlignment")}</button>}
                     <button
                       onClick={() =>
                         void perform(async () =>
@@ -612,6 +770,8 @@ export function KnowledgeManagement({
                   ))}
                 </ol>
               )}
+              {alignmentSource && <TranslationAlignment
+                key={alignmentSource.knowledge_version_id} client={client} source={alignmentSource} can={can} />}
               {preview && (
                 <section aria-label={t("ui.kb01.preview")}>
                   <p>{t("ui.kb01.total", { count: preview.total })}</p>
@@ -767,6 +927,9 @@ export function KnowledgeManagement({
                   code: taxonomyCode,
                   display_name: taxonomyName,
                   payload: {
+                    ...(taxonomyKind === "JURISDICTION_CONFIG"
+                      ? { jurisdiction_type: jurisdictionType }
+                      : {}),
                     aliases: aliases
                       .split("\n")
                       .map((value) => value.trim())
@@ -799,6 +962,25 @@ export function KnowledgeManagement({
                 ))}
               </select>
             </label>
+            {taxonomyKind === "JURISDICTION_CONFIG" && (
+              <label>
+                {t("ui.kb01.jurisdictionType")}
+                <select
+                  value={jurisdictionType}
+                  onChange={(e) => setJurisdictionType(e.target.value)}
+                >
+                  {[
+                    "COUNTRY",
+                    "TERRITORY",
+                    "SUPRANATIONAL",
+                    "SUBJURISDICTION",
+                    "SPECIAL_REGIME",
+                  ].map((value) => (
+                    <option key={value}>{value}</option>
+                  ))}
+                </select>
+              </label>
+            )}
             <label>
               {t("ui.kb01.code")}
               <input
@@ -868,12 +1050,36 @@ export function KnowledgeManagement({
             </button>
           </form>
           <p>{t("ui.kb01.uploadHint")}</p>
+          {uploadPolicy && (
+            <p>
+              {t("ui.kb01.uploadLimits", {
+                document: uploadPolicy.max_single_bytes.toLocaleString(
+                  i18n.language,
+                ),
+                archive: uploadPolicy.max_archive_bytes.toLocaleString(
+                  i18n.language,
+                ),
+                chunk: uploadPolicy.multipart_chunk_bytes.toLocaleString(
+                  i18n.language,
+                ),
+              })}
+            </p>
+          )}
           <label>
             {t("ui.kb01.files")}
             <input
               type="file"
               multiple
-              accept=".doc,.docx,.html,.pdf,.txt,.xhtml,.rar,.zip"
+              accept={
+                uploadPolicy
+                  ? [
+                      ...uploadPolicy.allowed_document_formats,
+                      ...uploadPolicy.allowed_archive_formats,
+                    ]
+                      .map((format) => "." + format.toLowerCase())
+                      .join(",")
+                  : undefined
+              }
               onChange={(e) => setFiles(Array.from(e.target.files ?? []))}
             />
           </label>
@@ -898,6 +1104,7 @@ export function KnowledgeManagement({
             disabled={
               pending ||
               !files.length ||
+              !uploadPolicy ||
               !can("upload:create") ||
               !can("upload:write") ||
               !can("upload:complete")
@@ -1193,6 +1400,35 @@ export function KnowledgeManagement({
         </section>
       )}
       {(tab === "documents" || tab === "uploads") && (
+        <section className="panel">
+          <label>
+            {t("ui.kb01.findClassification")}
+            <input
+              value={classificationSearch}
+              onChange={(e) => {
+                setClassificationSearch(e.target.value);
+                setClassificationPage(1);
+              }}
+            />
+          </label>
+          <div className="actions">
+            <button
+              disabled={classificationPage <= 1}
+              onClick={() => setClassificationPage((value) => value - 1)}
+            >
+              {t("ui.kb01.previous")}
+            </button>
+            <span>{classificationPage}</span>
+            <button
+              disabled={classificationPage * 100 >= (taxonomy?.total ?? 0)}
+              onClick={() => setClassificationPage((value) => value + 1)}
+            >
+              {t("ui.kb01.next")}
+            </button>
+          </div>
+        </section>
+      )}
+      {(tab === "documents" || tab === "uploads") && (
         <form
           className="panel"
           onSubmit={(e) => {
@@ -1228,20 +1464,68 @@ export function KnowledgeManagement({
         >
           <h3>{t("ui.kb01.documentMetadata")}</h3>
           <label>
-            {t("ui.kb01.sourceId")}
+            {t("ui.kb01.sourceSearch")}
             <input
-              value={source}
-              onChange={(e) => setSource(e.target.value)}
-              required={!editing && !newVersionDocument}
+              value={sourceSearch}
+              onChange={(e) => {
+                setSourceSearch(e.target.value);
+                setSourcePage(1);
+              }}
             />
           </label>
           <label>
+            {t("ui.kb01.sourceId")}
+            <select
+              value={source}
+              onChange={(e) => {
+                setSource(e.target.value);
+                setCollection("");
+                setCollectionOptions(undefined);
+              }}
+              required={!editing || !!newVersionDocument}
+            >
+              <option value="">{t("ui.kb01.select")}</option>
+              {sources?.items.map((item) => (
+                <option key={item.source_id} value={item.source_id}>
+                  {item.code} · {item.collection_name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <div className="actions">
+            <button
+              type="button"
+              disabled={sourcePage <= 1}
+              onClick={() => setSourcePage((value) => value - 1)}
+            >
+              {t("ui.kb01.previous")}
+            </button>
+            <span>{sourcePage}</span>
+            <button
+              type="button"
+              disabled={sourcePage * 50 >= (sources?.total ?? 0)}
+              onClick={() => setSourcePage((value) => value + 1)}
+            >
+              {t("ui.kb01.next")}
+            </button>
+          </div>
+          <label>
             {t("ui.kb01.collectionVersion")}
-            <input
+            <select
               value={collection}
               onChange={(e) => setCollection(e.target.value)}
               required={!editing || !!newVersionDocument}
-            />
+            >
+              <option value="">{t("ui.kb01.select")}</option>
+              {collectionOptions?.items.map((item) => (
+                <option
+                  key={item.collection_version_id}
+                  value={item.collection_version_id}
+                >
+                  {item.display_name} · {item.version_no}
+                </option>
+              ))}
+            </select>
           </label>
           <label>
             {t("ui.kb01.title")}
@@ -1273,16 +1557,43 @@ export function KnowledgeManagement({
             <select
               multiple
               value={selectedLabels}
-              onChange={(e) =>
-                setSelectedLabels(
-                  Array.from(
-                    e.target.selectedOptions,
-                    (option) => option.value,
+              onChange={(e) => {
+                const ids = Array.from(
+                  e.target.selectedOptions,
+                  (option) => option.value,
+                );
+                setSelectedLabels(ids);
+                setSelectedLabelPins((previous) =>
+                  Object.fromEntries(
+                    ids.map((id) => {
+                      const row = knownLabels[id];
+                      const original = selectedLabels.includes(id)
+                        ? editing?.metadata.labels?.find(
+                            (label) => label.definition_id === id,
+                          )
+                        : undefined;
+                      return [
+                        id,
+                        previous[id] ??
+                          original ?? {
+                            kind: row.kind,
+                            definition_id: id,
+                            version_id: row.active_version_id!,
+                          },
+                      ];
+                    }),
                   ),
-                )
-              }
+                );
+              }}
             >
-              {taxonomy?.items
+              {selectedLabels
+                .filter((id) => !knownLabels[id])
+                .map((id) => (
+                  <option key={id} value={id}>
+                    {id}
+                  </option>
+                ))}
+              {Object.values(knownLabels)
                 .filter((row) => row.active_version_id && row.enabled)
                 .map((row) => (
                   <option key={row.definition_id} value={row.definition_id}>

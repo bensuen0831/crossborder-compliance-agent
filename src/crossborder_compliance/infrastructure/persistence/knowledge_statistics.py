@@ -25,14 +25,18 @@ class PostgresKnowledgeStatistics:
         self.tenant = str(context.tenant_id)
         self.documents = PostgresKnowledgeDocumentManagement(sessions, context)
 
-    def summary(self, *, query="", label_id=None, lifecycle=None, language=None):
+    def summary(self, *, query="", label_id=None, label_ids=(), lifecycle=None, language=None):
         require_management_permission(self.context, "statistics:read")
         require_management_permission(self.context, "document:read")
         if len(query) > 250 or language and len(language) > 80:
             raise ValueError("INVALID_STATISTICS_FILTER")
         d, v = k.KnowledgeDocumentEntity, k.KnowledgeDocumentVersionEntity
         scoped, selection = self.documents.scoped_query(
-            query=query, label_id=label_id, lifecycle=lifecycle, language=language
+            query=query,
+            label_id=label_id,
+            label_ids=label_ids,
+            lifecycle=lifecycle,
+            language=language,
         )
         ids = scoped.with_only_columns(d.document_id)
         representative = scoped.with_only_columns(
@@ -127,6 +131,7 @@ class PostgresKnowledgeStatistics:
                 "scope": {
                     "query": query,
                     "label_id": str(label_id) if label_id else None,
+                    "label_ids": sorted(set(map(str, label_ids))),
                     "lifecycle": lifecycle,
                     "language": language,
                 },

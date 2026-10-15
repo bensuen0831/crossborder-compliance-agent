@@ -104,6 +104,78 @@ class PostgresKnowledgeDocumentManagement:
                 "versions": [self._version_view(s, doc, v) for v in versions],
             }
 
+    def sources(self, *, query="", page=1, page_size=50):
+        require_management_permission(self.context, "document:read")
+        if page < 1 or not 1 <= page_size <= 100 or len(query) > 250:
+            raise ValueError("INVALID_SOURCE_OPTIONS_PAGE")
+        source, collection = m.KnowledgeSourceDefinitionEntity, m.KnowledgeCollectionEntity
+        q = select(source, collection.display_name).join(
+            collection,
+            (collection.tenant_id == source.tenant_id)
+            & (collection.knowledge_collection_id == source.knowledge_collection_id),
+        )
+        q = q.where(
+            source.tenant_id == self.tenant_id,
+            source.status == "ACTIVE",
+            collection.status == "ACTIVE",
+        )
+        if query:
+            q = q.where(
+                or_(source.code.ilike(f"%{query}%"), collection.display_name.ilike(f"%{query}%"))
+            )
+        with self.sessions() as s:
+            return {
+                "total": s.scalar(select(func.count()).select_from(q.subquery())),
+                "page": page,
+                "page_size": page_size,
+                "items": [
+                    {
+                        "source_id": row.knowledge_source_definition_id,
+                        "code": row.code,
+                        "source_type": row.source_type,
+                        "collection_id": row.knowledge_collection_id,
+                        "collection_name": name,
+                    }
+                    for row, name in s.execute(
+                        q.order_by(source.code, source.knowledge_source_definition_id)
+                        .offset((page - 1) * page_size)
+                        .limit(page_size)
+                    )
+                ],
+            }
+
+    def collection_options(self, source_id):
+        require_management_permission(self.context, "document:read")
+        with self.sessions() as s:
+            source = self.owner.get(s, m.KnowledgeSourceDefinitionEntity, source_id)
+            collection = self.owner.get(
+                s, m.KnowledgeCollectionEntity, source.knowledge_collection_id
+            )
+            if source.status != "ACTIVE" or collection.status != "ACTIVE":
+                return {"items": []}
+            rows = s.scalars(
+                select(m.KnowledgeCollectionVersionEntity)
+                .where(
+                    m.KnowledgeCollectionVersionEntity.tenant_id == self.tenant_id,
+                    m.KnowledgeCollectionVersionEntity.knowledge_collection_id
+                    == source.knowledge_collection_id,
+                    m.KnowledgeCollectionVersionEntity.lifecycle_status == "ACTIVE",
+                )
+                .order_by(m.KnowledgeCollectionVersionEntity.version_no.desc())
+                .limit(100)
+            ).all()
+            return {
+                "items": [
+                    {
+                        "collection_version_id": v.knowledge_collection_version_id,
+                        "collection_id": v.knowledge_collection_id,
+                        "version_no": v.version_no,
+                        "display_name": collection.display_name,
+                    }
+                    for v in rows
+                ]
+            }
+
     def original(self, identity):
         require_management_permission(self.context, "document:read")
         require_management_permission(self.context, "document:download")
@@ -184,7 +256,7 @@ class PostgresKnowledgeDocumentManagement:
                 ],
             }
 
-    def scoped_query(self, *, query="", label_id=None, lifecycle=None, language=None):
+    def scoped_query(self, *, query="", label_id=None, label_ids=(), lifecycle=None, language=None):
         """One SQL resource scope for both list rows and aggregate counts."""
         d, v, label = (
             k.KnowledgeDocumentEntity,
@@ -213,17 +285,20 @@ class PostgresKnowledgeDocumentManagement:
             filters.append(v.lifecycle == lifecycle)
         if language:
             filters.append(v.language == language)
-        if label_id:
+        selected_labels = set(map(str, label_ids)) | ({str(label_id)} if label_id else set())
+        if len(selected_labels) > 64:
+            raise ValueError("TOO_MANY_CLASSIFICATION_FILTERS")
+        for identity in sorted(selected_labels):
             filters.append(
                 select(label.label_id)
                 .where(
                     label.tenant_id == self.tenant_id,
                     label.knowledge_version_id == v.knowledge_version_id,
-                    label.definition_id == str(label_id),
+                    label.definition_id == identity,
                 )
                 .exists()
             )
-        if lifecycle or language or label_id:
+        if lifecycle or language or selected_labels:
             q = q.where(select(v.knowledge_version_id).where(*filters).exists())
         return q, selection
 
@@ -232,6 +307,7 @@ class PostgresKnowledgeDocumentManagement:
         *,
         query="",
         label_id=None,
+        label_ids=(),
         lifecycle=None,
         language=None,
         page=1,
@@ -244,7 +320,11 @@ class PostgresKnowledgeDocumentManagement:
         d = k.KnowledgeDocumentEntity
         with self.sessions() as s:
             q, _ = self.scoped_query(
-                query=query, label_id=label_id, lifecycle=lifecycle, language=language
+                query=query,
+                label_id=label_id,
+                label_ids=label_ids,
+                lifecycle=lifecycle,
+                language=language,
             )
             total = s.scalar(select(func.count()).select_from(q.subquery()))
             ordering = {

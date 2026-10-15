@@ -44,15 +44,25 @@ export async function transferFile(
   ) => void,
 ): Promise<Upload> {
   update(null, "hashing", 0);
-  const digest = await hashFile(file, signal);
   const relativePath = file.webkitRelativePath || file.name;
   const format = relativePath.split(".").at(-1)?.toUpperCase();
+  const policy = await client.get<Schema<"KnowledgeUploadPolicyView">>(
+    "/upload-policy",
+    signal,
+  );
+  const archive = policy.allowed_archive_formats.some(
+    (value) => value === format,
+  );
   if (
-    !["DOC", "DOCX", "HTML", "PDF", "TXT", "XHTML", "RAR", "ZIP"].includes(
-      format ?? "",
-    )
+    !archive &&
+    !policy.allowed_document_formats.some((value) => value === format)
   )
     throw new Error("UNSUPPORTED_KNOWLEDGE_FORMAT");
+  if (
+    file.size > (archive ? policy.max_archive_bytes : policy.max_single_bytes)
+  )
+    throw new Error("KNOWLEDGE_UPLOAD_POLICY_SIZE_LIMIT");
+  const digest = await hashFile(file, signal);
   // Only an opaque identity is retained. Signed URLs, secrets and file content never are.
   const resumeKey = `kb01:${identityScope}:${digest}:${relativePath}`;
   const prior = sessionStorage.getItem(resumeKey);

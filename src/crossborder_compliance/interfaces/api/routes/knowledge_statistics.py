@@ -23,6 +23,7 @@ def summary(
     context: Context,
     query: str = Query(default="", max_length=250),
     label_id: UUID | None = None,
+    label_ids: list[UUID] = Query(default=[], max_length=64),
     lifecycle: KnowledgeLifecycle | None = None,
     language: str | None = Query(default=None, max_length=80),
 ):
@@ -31,6 +32,7 @@ def summary(
         PostgresKnowledgeStatistics(factory, context).summary,
         query=query,
         label_id=label_id,
+        label_ids=label_ids,
         lifecycle=lifecycle,
         language=language,
     )

@@ -9,6 +9,7 @@ from test_kb01_document_management_postgres import make, published_label, servic
 from crossborder_compliance.domain.knowledge_management import (
     KnowledgeDocumentMetadata,
     KnowledgeManagementPermissionError,
+    TaxonomyPayload,
 )
 from crossborder_compliance.domain.security import RepositoryContext
 from crossborder_compliance.infrastructure.persistence.knowledge_statistics import (
@@ -163,3 +164,79 @@ def test_statistics_and_capabilities_http_trust_server_context_only(knowledge):
         assert reply.json()["operations"] == ["document:read", "statistics:read"]
         assert client.get(prefix + "/statistics").json()["documents"] == 1
         assert client.get(prefix + "/statistics?lifecycle=MADE_UP").status_code == 422
+
+
+def test_source_options_use_canonical_tenant_rows_without_returning_configuration(knowledge):
+    from crossborder_compliance.infrastructure.persistence.knowledge_document_management import (
+        PostgresKnowledgeDocumentManagement,
+    )
+
+    f = knowledge
+    owner = PostgresKnowledgeDocumentManagement(f["sf"], statistics(f).context)
+    page = owner.sources(page_size=1)
+    assert page["total"] == 1 and len(page["items"]) == 1
+    source = page["items"][0]
+    assert source["source_id"] == f["source"] and source["collection_id"] == f["col"]
+    assert set(source) == {"source_id", "code", "source_type", "collection_id", "collection_name"}
+    options = owner.collection_options(f["source"])
+    assert [v["collection_version_id"] for v in options["items"]] == [f["cv"]]
+    from test_phase1f_postgres import fixture
+
+    other = fixture.__wrapped__()
+    with pytest.raises(LookupError):
+        owner.collection_options(other["source"])
+    assert owner.sources(query="No matching source")["total"] == 0
+    assert owner.sources(page=2, page_size=1)["items"] == []
+
+
+def test_production_route_order_does_not_parse_management_resource_as_metadata_uuid(knowledge):
+    from fastapi import FastAPI
+    from fastapi.testclient import TestClient
+
+    from crossborder_compliance.interfaces.api.main import app as production
+
+    f = knowledge
+    make(f)
+    app = FastAPI()
+    # Same ordered route objects as production, fresh trusted deployment host.
+    app.router.routes = list(production.router.routes)
+    app.state.knowledge_session_factory = f["sf"]
+
+    @app.middleware("http")
+    async def trusted_host(request, call_next):
+        request.state.repository_context = statistics(
+            f,
+            {
+                "knowledge:statistics:read",
+                "knowledge:document:read",
+                "knowledge:taxonomy:read",
+            },
+        ).context
+        return await call_next(request)
+
+    with TestClient(app) as client:
+        prefix = "/api/v1/admin/knowledge-management"
+        for endpoint in ("/capabilities", "/documents", "/taxonomy", "/statistics", "/sources"):
+            result = client.get(prefix + endpoint)
+            assert result.status_code == 200, (endpoint, result.text[:300])
+        assert client.get(prefix + "/statistics").json()["documents"] == 1
+
+
+def test_conjunctive_country_and_category_filters_share_exact_version_sql_scope(knowledge):
+    f = knowledge
+    country = published_label(
+        f, "JURISDICTION_CONFIG", TaxonomyPayload(jurisdiction_type="COUNTRY")
+    )
+    category = published_label(f, "REGULATION_CATEGORY")
+    make(f, KnowledgeDocumentMetadata(title="Both labels", labels=(country, category)))
+    make(f, KnowledgeDocumentMetadata(title="Country only", labels=(country,)))
+    make(f, KnowledgeDocumentMetadata(title="Category only", labels=(category,)))
+    filters = {"label_ids": [country.definition_id, category.definition_id]}
+    assert service(f).list(**filters)["total"] == 1
+    assert statistics(f).summary(**filters)["documents"] == 1
+    assert statistics(f).summary(label_ids=[country.definition_id])["documents"] == 2
+    assert statistics(f).summary(label_ids=[category.definition_id])["documents"] == 2
+    assert (
+        statistics(f).summary(label_ids=[country.definition_id, country.definition_id])["documents"]
+        == 2
+    )

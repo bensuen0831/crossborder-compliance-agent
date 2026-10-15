@@ -212,6 +212,81 @@ def test_cross_tenant_list_detail_and_impact_fail_closed(env):
         outsider.impact(UUID(created["definition_id"]))
 
 
+def test_published_tree_keeps_drafts_out_and_paginates_canonical_children(env):
+    sf, _, context, service = env
+    root = create(
+        service(),
+        "JURISDICTION_CONFIG",
+        TaxonomyPayload(
+            jurisdiction_type="SUPRANATIONAL",
+            localized_display={"localized_display_names": {"zh-HK": "合成地區"}},
+        ),
+    )
+    repository = PostgresKnowledgeTaxonomyRepository(sf, context())
+    assert repository.tree()["total"] == 0
+    publish(env, root)
+    children = []
+    for _ in range(3):
+        child = create(
+            service(),
+            "JURISDICTION_CONFIG",
+            TaxonomyPayload(
+                jurisdiction_type="COUNTRY",
+                parent_definition_id=root["definition_id"],
+            ),
+        )
+        children.append(child)
+    publish(env, children[0])
+    publish(env, children[1])
+    # The third child is still a proposal; no tree node/count may disclose it as active.
+    tree = repository.tree(locale="zh-HK")
+    assert tree["total"] == 1
+    assert tree["items"][0]["display_name"] == "合成地區"
+    assert tree["items"][0]["child_count"] == 2
+    first = repository.tree(parent_definition_id=root["definition_id"], page_size=1)
+    second = repository.tree(parent_definition_id=root["definition_id"], page_size=1, page=2)
+    assert first["total"] == second["total"] == 2
+    assert first["items"][0]["definition_id"] != second["items"][0]["definition_id"]
+    assert first["items"][0]["parent_definition_id"] == root["definition_id"]
+    # A draft reparenting proposal must not change the published hierarchy.
+    detail = repository.detail(UUID(children[0]["definition_id"]))
+    service().mutate(
+        "NEW_VERSION",
+        UUID(children[0]["definition_id"]),
+        EditTaxonomy(
+            **mutation(detail["record_version"]).model_dump(),
+            payload=TaxonomyPayload(jurisdiction_type="COUNTRY"),
+        ),
+    )
+    assert repository.tree()["total"] == 1
+    assert repository.tree(parent_definition_id=root["definition_id"])["total"] == 2
+
+
+def test_tree_requires_current_read_scope_and_scoped_published_parent(env):
+    sf, _, context, service = env
+    root = create(service(), "JURISDICTION_CONFIG")
+    repository = PostgresKnowledgeTaxonomyRepository(sf, context())
+    with pytest.raises(LookupError):
+        repository.tree(parent_definition_id=root["definition_id"])
+    publish(env, root)
+    foreign = PostgresKnowledgeTaxonomyRepository(
+        sf,
+        RepositoryContext.user(
+            uuid4(),
+            "foreign",
+            {"knowledge:taxonomy:read"},
+        ),
+    )
+    assert foreign.tree()["total"] == 0
+    with pytest.raises(LookupError):
+        foreign.tree(parent_definition_id=root["definition_id"])
+    revoked = PostgresKnowledgeTaxonomyRepository(sf, context(grants={"knowledge:admin"}))
+    with pytest.raises(KnowledgeManagementPermissionError):
+        revoked.tree()
+    with pytest.raises(LookupError):
+        repository.tree(kind="REGULATION_CATEGORY", parent_definition_id=root["definition_id"])
+
+
 def test_draft_edit_cas_and_parent_cycle_are_rejected(env):
     _, _, _, service = env
     row = create(service())

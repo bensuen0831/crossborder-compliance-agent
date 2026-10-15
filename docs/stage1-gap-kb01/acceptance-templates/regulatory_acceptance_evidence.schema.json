@@ -1,0 +1,140 @@
+{
+  "$defs": {
+    "RegulatorySourcePin": {
+      "additionalProperties": false,
+      "properties": {
+        "knowledge_version_id": {
+          "format": "uuid",
+          "title": "Knowledge Version Id",
+          "type": "string"
+        },
+        "content_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Content Sha256",
+          "type": "string"
+        },
+        "structure_node_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "maxItems": 1000,
+          "minItems": 1,
+          "title": "Structure Node Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "knowledge_version_id",
+        "content_sha256",
+        "structure_node_ids"
+      ],
+      "title": "RegulatorySourcePin",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "KB01_F0_ACCEPTANCE_EVIDENCE_V1",
+      "default": "KB01_F0_ACCEPTANCE_EVIDENCE_V1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "dataset_kind": {
+      "enum": [
+        "L1_SYNTHETIC_GOVERNED",
+        "L2_REAL_REGULATORY"
+      ],
+      "title": "Dataset Kind",
+      "type": "string"
+    },
+    "case_version_id": {
+      "format": "uuid",
+      "title": "Case Version Id",
+      "type": "string"
+    },
+    "gold_review_version_id": {
+      "format": "uuid",
+      "title": "Gold Review Version Id",
+      "type": "string"
+    },
+    "tested_source_sha": {
+      "pattern": "^[0-9a-f]{40}$",
+      "title": "Tested Source Sha",
+      "type": "string"
+    },
+    "workflow_run_id": {
+      "format": "uuid",
+      "title": "Workflow Run Id",
+      "type": "string"
+    },
+    "analysis_snapshot_id": {
+      "format": "uuid",
+      "title": "Analysis Snapshot Id",
+      "type": "string"
+    },
+    "observed_semantics_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Observed Semantics Sha256",
+      "type": "string"
+    },
+    "expected_semantics_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Expected Semantics Sha256",
+      "type": "string"
+    },
+    "exact_source_pins": {
+      "items": {
+        "$ref": "#/$defs/RegulatorySourcePin"
+      },
+      "maxItems": 1000,
+      "minItems": 1,
+      "title": "Exact Source Pins",
+      "type": "array"
+    },
+    "reconciliation": {
+      "enum": [
+        "RECONCILIATION_MATCH",
+        "RECONCILIATION_MISMATCH"
+      ],
+      "title": "Reconciliation",
+      "type": "string"
+    },
+    "real_regulatory_legal_acceptance": {
+      "enum": [
+        "NOT_EXECUTED",
+        "PENDING_INDEPENDENT_ACCEPTANCE"
+      ],
+      "title": "Real Regulatory Legal Acceptance",
+      "type": "string"
+    },
+    "production_business_uat": {
+      "const": "NOT_EXECUTED",
+      "default": "NOT_EXECUTED",
+      "title": "Production Business Uat",
+      "type": "string"
+    },
+    "stage2_started": {
+      "const": false,
+      "default": false,
+      "title": "Stage2 Started",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "dataset_kind",
+    "case_version_id",
+    "gold_review_version_id",
+    "tested_source_sha",
+    "workflow_run_id",
+    "analysis_snapshot_id",
+    "observed_semantics_sha256",
+    "expected_semantics_sha256",
+    "exact_source_pins",
+    "reconciliation",
+    "real_regulatory_legal_acceptance"
+  ],
+  "title": "RegulatoryAcceptanceEvidence",
+  "type": "object"
+}

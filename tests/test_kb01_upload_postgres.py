@@ -427,3 +427,23 @@ def test_attached_original_cannot_be_replaced_even_while_version_is_draft(env):
         with repo.sessions() as s, s.begin():
             canonical = s.get(k.KnowledgeDocumentVersionEntity, version["knowledge_version_id"])
             canonical.content_hash = "0" * 64
+
+
+def test_upload_policy_view_comes_from_the_governed_tenant_version(env):
+    f, repo, _, _ = env
+    policy = repo.policy_view()
+    assert policy["max_single_bytes"] >= 500_000_000
+    assert policy["max_archive_bytes"] > 1_000_000_000
+    assert set(policy["allowed_document_formats"]) == {"DOC", "DOCX", "HTML", "PDF", "TXT", "XHTML"}
+    assert set(policy["allowed_archive_formats"]) == {"RAR", "ZIP"}
+    with f["sf"]() as session:
+        from crossborder_compliance.infrastructure.persistence import metadata_models as m
+
+        stored = session.get(m.MetadataVersionEntity, policy["policy_version_id"])
+        assert stored.tenant_id == f["tenant"] and stored.lifecycle_status == "ACTIVE"
+        assert stored.payload_json["max_single_bytes"] == policy["max_single_bytes"]
+    restricted = PostgresKnowledgeUploads(
+        f["sf"], RepositoryContext.user(UUID(f["tenant"]), "coarse-only", {"knowledge:admin"})
+    )
+    with pytest.raises(PermissionError):
+        restricted.policy_view()

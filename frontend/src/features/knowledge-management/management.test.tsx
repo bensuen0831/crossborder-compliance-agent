@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import i18n from "../../i18n";
 import { AdminClient } from "../admin/client";
@@ -55,6 +55,10 @@ function transport(operations: string[]) {
       });
     if (url.includes("/taxonomy?"))
       return response({ items: [], total: 0, page: 1, page_size: 100 });
+    if (url.includes("/taxonomy-tree?"))
+      return response({ items: [], total: 0, page: 1, page_size: 25, parent_definition_id: null });
+    if (url.includes("/sources?"))
+      return response({ items: [], total: 0, page: 1, page_size: 50 });
     if (url.includes("/documents?"))
       return response({ items: [document], total: 1, page: 1, page_size: 25 });
     if (url.includes("/statistics?"))
@@ -204,7 +208,7 @@ it("submits the selected taxonomy version CAS rather than the definition revisio
     <KnowledgeManagement client={new AdminClient(fetcher)} session={session} />,
   );
   await userEvent.click(
-    screen.getByRole("button", { name: i18n.t("ui.kb01.taxonomy") }),
+    screen.getByRole("tab", { name: i18n.t("ui.kb01.taxonomy") }),
   );
   await userEvent.click(
     await screen.findByRole("button", { name: /Versioned category/ }),
@@ -228,4 +232,67 @@ it("submits the selected taxonomy version CAS rather than the definition revisio
   )!;
   expect(url).toContain("/taxonomy/versions/tax-version/approve");
   expect(JSON.parse(String(init?.body)).expected_record_version).toBe(3);
+});
+
+it("sends country and category together to both list and SQL statistics", async () => {
+  const country = {
+    definition_id: "country-definition",
+    kind: "JURISDICTION_CONFIG",
+    code: "SYNTHETIC-J",
+    display_name: "Synthetic jurisdiction",
+    active_version_id: "country-version",
+    enabled: true,
+  };
+  const category = {
+    definition_id: "category-definition",
+    kind: "REGULATION_CATEGORY",
+    code: "SYNTHETIC-C",
+    display_name: "Synthetic category",
+    active_version_id: "category-version",
+    enabled: true,
+  };
+  const base = transport(["document:read", "statistics:read", "taxonomy:read"]);
+  const fetcher = vi
+    .fn<FetchPort>()
+    .mockImplementation((path, init) =>
+      String(path).includes("/taxonomy?")
+        ? Promise.resolve(
+            response({
+              items: [country, category],
+              total: 2,
+              page: 1,
+              page_size: 100,
+            }),
+          )
+        : base(path, init),
+    );
+  render(
+    <KnowledgeManagement client={new AdminClient(fetcher)} session={session} />,
+  );
+  await within(screen.getByRole('listbox', { name: i18n.t('ui.kb01.countryFilter') })).findByRole('option', { name: 'Synthetic jurisdiction' });
+  await userEvent.selectOptions(
+    screen.getByRole("listbox", { name: i18n.t("ui.kb01.countryFilter") }),
+    country.definition_id,
+  );
+  await userEvent.selectOptions(
+    screen.getByRole("listbox", { name: i18n.t("ui.kb01.categoryFilter") }),
+    category.definition_id,
+  );
+  await waitFor(() => {
+    for (const path of ["/documents?", "/statistics?"]) {
+      expect(
+        base.mock.calls.some(([url]) => {
+          const target = String(url);
+          return (
+            target.includes(path) &&
+            new URL(target, "http://test.invalid").searchParams
+              .getAll("label_ids")
+              .sort()
+              .join(",") ===
+              ["category-definition", "country-definition"].join(",")
+          );
+        }),
+      ).toBe(true);
+    }
+  });
 });

@@ -21,12 +21,38 @@ THIRD_SOURCE = "76e4f0dd6a5797060b88b917d52b5bceb624bc19"
 FOURTH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v4.json"
 FOURTH_SEAL = "0deff721aa52d848def1eb32f579220017b13f40"
 FOURTH_SOURCE = "cfe7f9e4ad47c9695b9097344b1ef2a9abf7ba69"
-SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v5.json"
+FIFTH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v5.json"
+FIFTH_SEAL = "e01b8923a00d3c26c34c1d99d789d6e327c1e88a"
+FIFTH_SOURCE = "2918e4290a7f66bdf892ab74971d8ad3addcb1d3"
+SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v6.json"
 FIRST_SEAL = "a95d5f05f46566d7e58417a8c9cb2214c6d028f0"
 FIRST_SOURCE = "6f0f448fbe5d72494d2756bca30a3f74437e1f63"
 PREVIOUS = "evidence/stage1-full-e2e/r3/approved_owner_overlay.json"
 PATHS = frozenset(
     (
+        "frontend/vite.config.ts",
+        "frontend/src/api/client.ts",
+        "frontend/src/api/client.test.ts",
+        "frontend/e2e/kb01-management.spec.ts",
+        "frontend/src/features/knowledge-management/TaxonomyTree.tsx",
+        "frontend/src/features/knowledge-management/TaxonomyTree.test.tsx",
+        "frontend/src/features/knowledge-management/TranslationAlignment.tsx",
+        "frontend/src/features/knowledge-management/TranslationAlignment.test.tsx",
+        "scripts/kb01/export_acceptance_templates.py",
+        "scripts/kb01/generate_fixtures.py",
+        "scripts/kb01/uat.py",
+        "src/crossborder_compliance/application/regulatory_acceptance.py",
+        "src/crossborder_compliance/domain/knowledge_translation_alignment.py",
+        "src/crossborder_compliance/domain/regulatory_acceptance.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_translation_alignment.py",
+        "src/crossborder_compliance/infrastructure/persistence/regulatory_acceptance.py",
+        "src/crossborder_compliance/infrastructure/persistence/regulatory_acceptance_governance.py",
+        "src/crossborder_compliance/interfaces/api/regulatory_acceptance_schemas.py",
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_translation_alignment.py",
+        "src/crossborder_compliance/interfaces/api/routes/regulatory_acceptance.py",
+        "tests/test_kb01_acceptance_readiness.py",
+        "tests/test_kb01_acceptance_readiness_postgres.py",
+        "tests/test_kb01_translation_alignment_postgres.py",
         "frontend/eslint.config.js",
         "frontend/package.json",
         "frontend/package-lock.json",
@@ -270,6 +296,18 @@ def overlay(root):
         migration23 = "alembic/versions/0023_kb01_evidence_source_reference.py"
         if (root / migration23).read_bytes() != fourth_blobs[migration23]:
             return False, {}, None
+        fifth_bytes = git("show", FIFTH_SEAL + ":" + FIFTH_RECORD)
+        if (root / FIFTH_RECORD).read_bytes() != fifth_bytes or not ancestor(FIFTH_SEAL, "HEAD"):
+            return False, {}, None
+        fifth = json.loads(fifth_bytes)
+        if fifth["source_sha"] != FIFTH_SOURCE or fifth["base_sha"] != BASE:
+            return False, {}, None
+        fifth_blobs = blobs(FIFTH_SOURCE, fifth["paths"])
+        if any(
+            hashlib.sha256(fifth_blobs[path]).hexdigest() != digest
+            for path, digest in fifth["paths"].items()
+        ):
+            return False, {}, None
         record = json.loads((root / SUCCESSOR_RECORD).read_text())
         expected = set(previous["paths"]) | PATHS
         source = record["source_sha"]
@@ -278,7 +316,7 @@ def overlay(root):
             or record["scope"] != "STAGE1-GAP-KB01-MASTER_V2.0"
             or set(record["paths"]) != expected
             or not ancestor(BASE, source)
-            or not ancestor(FOURTH_SEAL, source)
+            or not ancestor(FIFTH_SEAL, source)
             or not ancestor(source, "HEAD")
         ):
             return False, {}, None

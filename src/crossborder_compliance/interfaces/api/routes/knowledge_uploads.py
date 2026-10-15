@@ -24,6 +24,7 @@ from crossborder_compliance.infrastructure.persistence.knowledge_uploads import 
 )
 from crossborder_compliance.interfaces.api.knowledge_upload_schemas import (
     KnowledgeSignedPart,
+    KnowledgeUploadPolicyView,
     KnowledgeUploadView,
 )
 from crossborder_compliance.interfaces.api.routes.knowledge_management import Context, invoke
@@ -127,3 +128,9 @@ def attach(identity: UUID, body: AttachKnowledgeUpload, request: Request, contex
         body.expected_record_version,
         body.idempotency_key,
     )
+
+
+@router.get("/upload-policy", response_model=KnowledgeUploadPolicyView)
+def upload_policy(request: Request, context: Context):
+    factory = getattr(request.app.state, "knowledge_session_factory", None) or sessions(request)
+    return invoke(PostgresKnowledgeUploads(factory, context).policy_view)

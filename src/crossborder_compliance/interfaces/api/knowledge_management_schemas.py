@@ -54,6 +54,24 @@ class TaxonomyPage(Projection):
     items: list[TaxonomyView]
 
 
+class TaxonomyTreeNode(Projection):
+    definition_id: UUID
+    version_id: UUID
+    parent_definition_id: UUID | None
+    kind: TaxonomyKind
+    code: str
+    display_name: str
+    child_count: int
+
+
+class TaxonomyTreePage(Projection):
+    parent_definition_id: UUID | None
+    total: int
+    page: int
+    page_size: int
+    items: list[TaxonomyTreeNode]
+
+
 class TaxonomyAliases(Projection):
     source_definition_id: UUID
     display_only: bool
@@ -204,6 +222,7 @@ class KnowledgeClassificationCount(Projection):
 
 
 class KnowledgeStatisticsScope(Projection):
+    label_ids: list[UUID] = []
     query: str
     label_id: UUID | None
     lifecycle: KnowledgeLifecycle | None
@@ -252,3 +271,68 @@ class KnowledgeDocumentPreview(Projection):
     page: int
     page_size: int
     items: list[KnowledgePreviewNode]
+
+
+class TranslationAlignmentPairView(Projection):
+    source_node_id: UUID
+    target_node_id: UUID
+    source_citation_id: UUID
+    target_citation_id: UUID
+    source_locator: str
+    target_locator: str
+    source_text_sha256: str
+    target_text_sha256: str
+
+
+class TranslationAlignmentView(Projection):
+    translation_id: UUID
+    source_version_id: UUID
+    target_version_id: UUID
+    source_language: str
+    target_language: str
+    source_content_hash: str
+    target_content_hash: str
+    pairs: list[TranslationAlignmentPairView]
+    translation_method: Literal["HUMAN"]
+    review_status: Literal["PENDING", "APPROVED", "REJECTED"]
+    record_version: int
+    submitted_by: str
+    submitted_at: datetime
+    reviewer: str | None
+    reviewed_at: datetime | None
+    reason: str
+    review_reason: str | None
+    official_evidence: Literal[False]
+
+
+class TranslationAlignmentPage(Projection):
+    total: int
+    page: int
+    page_size: int
+    items: list[TranslationAlignmentView]
+
+
+class KnowledgeSourceOption(Projection):
+    source_id: UUID
+    code: str
+    source_type: str
+    collection_id: UUID
+    collection_name: str
+
+
+class KnowledgeSourceOptionPage(Projection):
+    total: int
+    page: int
+    page_size: int
+    items: list[KnowledgeSourceOption]
+
+
+class KnowledgeCollectionVersionOption(Projection):
+    collection_version_id: UUID
+    collection_id: UUID
+    version_no: int
+    display_name: str
+
+
+class KnowledgeCollectionVersionOptions(Projection):
+    items: list[KnowledgeCollectionVersionOption]

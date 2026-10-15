@@ -88,6 +88,28 @@ class PostgresKnowledgeUploads:
         )
         return roots[0], version, policy
 
+    def policy_view(self):
+        require_management_permission(self.context, "upload:read")
+        from crossborder_compliance.domain.knowledge_upload import ARCHIVE_FORMATS, DOCUMENT_FORMATS
+
+        with self.sessions() as s, s.begin():
+            root, version, policy = self._policy(s)
+            return {
+                "policy_definition_id": root.definition_id,
+                "policy_version_id": version.version_id,
+                "max_single_bytes": policy.max_single_bytes,
+                "max_archive_bytes": policy.max_archive_bytes,
+                "max_expanded_bytes": policy.max_expanded_bytes,
+                "max_archive_entries": policy.max_archive_entries,
+                "multipart_chunk_bytes": policy.multipart_chunk_bytes,
+                "upload_expiry_seconds": policy.upload_expiry_seconds,
+                "tenant_storage_quota_bytes": policy.tenant_storage_quota_bytes,
+                "max_active_upload_sessions": policy.max_active_upload_sessions,
+                "scan_required": policy.scan_required,
+                "allowed_document_formats": sorted(DOCUMENT_FORMATS),
+                "allowed_archive_formats": sorted(ARCHIVE_FORMATS),
+            }
+
     @staticmethod
     def _view(row):
         return {

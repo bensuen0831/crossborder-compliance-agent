@@ -5,18 +5,37 @@
     "version": "0.7.0-phase1g"
   },
   "paths": {
-    "/api/v1/admin/knowledge-management/upload-sessions": {
+    "/api/v1/admin/knowledge-management/acceptance/templates": {
+      "get": {
+        "tags": [
+          "regulatory-acceptance-readiness"
+        ],
+        "summary": "Templates",
+        "operationId": "templates_api_v1_admin_knowledge_management_acceptance_templates_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/acceptance/records": {
       "post": {
         "tags": [
-          "knowledge-management"
+          "regulatory-acceptance-readiness"
         ],
-        "summary": "Create",
-        "operationId": "create_api_v1_admin_knowledge_management_upload_sessions_post",
+        "summary": "Import Draft",
+        "operationId": "import_draft_api_v1_admin_knowledge_management_acceptance_records_post",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StartKnowledgeUpload"
+                "$ref": "#/components/schemas/ImportAcceptanceDraft"
               }
             }
           },
@@ -28,7 +47,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/KnowledgeUploadView"
+                  "$ref": "#/components/schemas/AcceptanceRecordView"
                 }
               }
             }
@@ -46,13 +65,13 @@
         }
       }
     },
-    "/api/v1/admin/knowledge-management/upload-sessions/{identity}": {
+    "/api/v1/admin/knowledge-management/acceptance/records/{identity}": {
       "get": {
         "tags": [
-          "knowledge-management"
+          "regulatory-acceptance-readiness"
         ],
-        "summary": "Detail",
-        "operationId": "detail_api_v1_admin_knowledge_management_upload_sessions__identity__get",
+        "summary": "Read",
+        "operationId": "read_api_v1_admin_knowledge_management_acceptance_records__identity__get",
         "parameters": [
           {
             "name": "identity",
@@ -71,7 +90,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/KnowledgeUploadView"
+                  "$ref": "#/components/schemas/AcceptanceRecordView"
                 }
               }
             }
@@ -89,13 +108,13 @@
         }
       }
     },
-    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/part-url": {
+    "/api/v1/admin/knowledge-management/acceptance/records/{identity}/{action}": {
       "post": {
         "tags": [
-          "knowledge-management"
+          "regulatory-acceptance-readiness"
         ],
-        "summary": "Part Url",
-        "operationId": "part_url_api_v1_admin_knowledge_management_upload_sessions__identity__part_url_post",
+        "summary": "Transition",
+        "operationId": "transition_api_v1_admin_knowledge_management_acceptance_records__identity___action__post",
         "parameters": [
           {
             "name": "identity",
@@ -105,6 +124,21 @@
               "type": "string",
               "format": "uuid",
               "title": "Identity"
+            }
+          },
+          {
+            "name": "action",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "submit-review",
+                "approve",
+                "reject",
+                "publish"
+              ],
+              "type": "string",
+              "title": "Action"
             }
           }
         ],
@@ -113,7 +147,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/KnowledgeUploadPartRequest"
+                "$ref": "#/components/schemas/AcceptanceTransition"
               }
             }
           }
@@ -124,7 +158,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/KnowledgeSignedPart"
+                  "$ref": "#/components/schemas/AcceptanceRecordView"
                 }
               }
             }
@@ -142,319 +176,13 @@
         }
       }
     },
-    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/parts": {
-      "post": {
-        "tags": [
-          "knowledge-management"
-        ],
-        "summary": "Acknowledge",
-        "operationId": "acknowledge_api_v1_admin_knowledge_management_upload_sessions__identity__parts_post",
-        "parameters": [
-          {
-            "name": "identity",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Identity"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/KnowledgeUploadPartReceipt"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/KnowledgeUploadView"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/complete": {
-      "post": {
-        "tags": [
-          "knowledge-management"
-        ],
-        "summary": "Complete",
-        "operationId": "complete_api_v1_admin_knowledge_management_upload_sessions__identity__complete_post",
-        "parameters": [
-          {
-            "name": "identity",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Identity"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/KnowledgeUploadMutation"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/KnowledgeUploadView"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/cancel": {
-      "post": {
-        "tags": [
-          "knowledge-management"
-        ],
-        "summary": "Cancel",
-        "operationId": "cancel_api_v1_admin_knowledge_management_upload_sessions__identity__cancel_post",
-        "parameters": [
-          {
-            "name": "identity",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Identity"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/KnowledgeUploadMutation"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/KnowledgeUploadView"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/retry": {
-      "post": {
-        "tags": [
-          "knowledge-management"
-        ],
-        "summary": "Retry",
-        "operationId": "retry_api_v1_admin_knowledge_management_upload_sessions__identity__retry_post",
-        "parameters": [
-          {
-            "name": "identity",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Identity"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/KnowledgeUploadMutation"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/KnowledgeUploadView"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/attach": {
-      "post": {
-        "tags": [
-          "knowledge-management"
-        ],
-        "summary": "Attach",
-        "operationId": "attach_api_v1_admin_knowledge_management_upload_sessions__identity__attach_post",
-        "parameters": [
-          {
-            "name": "identity",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Identity"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AttachKnowledgeUpload"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/KnowledgeUploadView"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/admin/knowledge-management/import-batches": {
-      "post": {
-        "tags": [
-          "knowledge-management"
-        ],
-        "summary": "Create",
-        "operationId": "create_api_v1_admin_knowledge_management_import_batches_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateKnowledgeImportBatch"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/KnowledgeBatchView"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/admin/knowledge-management/import-batches/{identity}": {
+    "/api/v1/admin/knowledge-management/acceptance/cases/{identity}/readiness": {
       "get": {
         "tags": [
-          "knowledge-management"
+          "regulatory-acceptance-readiness"
         ],
-        "summary": "Detail",
-        "operationId": "detail_api_v1_admin_knowledge_management_import_batches__identity__get",
+        "summary": "Readiness",
+        "operationId": "readiness_api_v1_admin_knowledge_management_acceptance_cases__identity__readiness_get",
         "parameters": [
           {
             "name": "identity",
@@ -467,415 +195,7 @@
             }
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "default": 1,
-              "title": "Page"
-            }
-          },
-          {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "maximum": 100,
-              "minimum": 1,
-              "default": 50,
-              "title": "Page Size"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/KnowledgeBatchView"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/admin/knowledge-management/import-batches/{identity}/confirm-items": {
-      "post": {
-        "tags": [
-          "knowledge-management"
-        ],
-        "summary": "Confirm",
-        "operationId": "confirm_api_v1_admin_knowledge_management_import_batches__identity__confirm_items_post",
-        "parameters": [
-          {
-            "name": "identity",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Identity"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ConfirmKnowledgeBatchItems"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/KnowledgeBatchView"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/admin/knowledge-management/import-batches/{identity}/cancel": {
-      "post": {
-        "tags": [
-          "knowledge-management"
-        ],
-        "summary": "Cancel",
-        "operationId": "cancel_api_v1_admin_knowledge_management_import_batches__identity__cancel_post",
-        "parameters": [
-          {
-            "name": "identity",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Identity"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/KnowledgeUploadMutation"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/KnowledgeBatchView"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/admin/knowledge-management/import-batches/{identity}/retry": {
-      "post": {
-        "tags": [
-          "knowledge-management"
-        ],
-        "summary": "Retry",
-        "operationId": "retry_api_v1_admin_knowledge_management_import_batches__identity__retry_post",
-        "parameters": [
-          {
-            "name": "identity",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Identity"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/KnowledgeUploadMutation"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/KnowledgeBatchView"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/admin/knowledge-management/import-batches/{identity}/failures": {
-      "get": {
-        "tags": [
-          "knowledge-management"
-        ],
-        "summary": "Failures",
-        "operationId": "failures_api_v1_admin_knowledge_management_import_batches__identity__failures_get",
-        "parameters": [
-          {
-            "name": "identity",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Identity"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "default": 1,
-              "title": "Page"
-            }
-          },
-          {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "maximum": 100,
-              "minimum": 1,
-              "default": 100,
-              "title": "Page Size"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/KnowledgeBatchFailurePage"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/admin/knowledge-management/import-batches/{identity}/items/{item_id}/retry": {
-      "post": {
-        "tags": [
-          "knowledge-management"
-        ],
-        "summary": "Retry Item",
-        "operationId": "retry_item_api_v1_admin_knowledge_management_import_batches__identity__items__item_id__retry_post",
-        "parameters": [
-          {
-            "name": "identity",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Identity"
-            }
-          },
-          {
-            "name": "item_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Item Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RetryKnowledgeBatchItem"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/KnowledgeBatchView"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/admin/knowledge-management/versions/{identity}/binary-ingestion": {
-      "post": {
-        "tags": [
-          "knowledge-management"
-        ],
-        "summary": "Ingest",
-        "operationId": "ingest_api_v1_admin_knowledge_management_versions__identity__binary_ingestion_post",
-        "parameters": [
-          {
-            "name": "identity",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Identity"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/KnowledgeBinaryIngestionRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/KnowledgeBinaryIngestionView"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/admin/knowledge-management/statistics": {
-      "get": {
-        "tags": [
-          "knowledge-management"
-        ],
-        "summary": "Summary",
-        "operationId": "summary_api_v1_admin_knowledge_management_statistics_get",
-        "parameters": [
-          {
-            "name": "query",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "maxLength": 250,
-              "default": "",
-              "title": "Query"
-            }
-          },
-          {
-            "name": "label_id",
+            "name": "gold_review_version_id",
             "in": "query",
             "required": false,
             "schema": {
@@ -888,51 +208,7 @@
                   "type": "null"
                 }
               ],
-              "title": "Label Id"
-            }
-          },
-          {
-            "name": "lifecycle",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "enum": [
-                    "DRAFT",
-                    "INGESTED",
-                    "VALIDATED",
-                    "PENDING_REVIEW",
-                    "APPROVED",
-                    "ACTIVE",
-                    "SUPERSEDED",
-                    "EXPIRED",
-                    "ARCHIVED"
-                  ],
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Lifecycle"
-            }
-          },
-          {
-            "name": "language",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "maxLength": 80
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Language"
+              "title": "Gold Review Version Id"
             }
           }
         ],
@@ -942,7 +218,167 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/KnowledgeStatisticsView"
+                  "$ref": "#/components/schemas/AcceptanceReadinessView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/translation-alignments": {
+      "post": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Create",
+        "operationId": "create_api_v1_admin_knowledge_management_translation_alignments_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTranslationAlignment"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranslationAlignmentView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/documents/versions/{version_id}/translation-alignments": {
+      "get": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "List Alignments",
+        "operationId": "list_alignments_api_v1_admin_knowledge_management_documents_versions__version_id__translation_alignments_get",
+        "parameters": [
+          {
+            "name": "version_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Version Id"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 25,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranslationAlignmentPage"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/translation-alignments/{translation_id}/review": {
+      "post": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Review",
+        "operationId": "review_api_v1_admin_knowledge_management_translation_alignments__translation_id__review_post",
+        "parameters": [
+          {
+            "name": "translation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Translation Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewTranslationAlignment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranslationAlignmentView"
                 }
               }
             }
@@ -1325,6 +761,113 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/TaxonomyMutationResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/taxonomy-tree": {
+      "get": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Taxonomy Tree",
+        "operationId": "taxonomy_tree_api_v1_admin_knowledge_management_taxonomy_tree_get",
+        "parameters": [
+          {
+            "name": "kind",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "JURISDICTION_CONFIG",
+                "REGULATION_CATEGORY",
+                "RESEARCH_TOPIC",
+                "LANGUAGE",
+                "ISSUING_AUTHORITY",
+                "KNOWLEDGE_SOURCE_TYPE",
+                "LEGAL_EFFECT"
+              ],
+              "type": "string",
+              "default": "JURISDICTION_CONFIG",
+              "title": "Kind"
+            }
+          },
+          {
+            "name": "parent_definition_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Parent Definition Id"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Page Size"
+            }
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "zh-CN",
+                "zh-HK",
+                "en-US"
+              ],
+              "type": "string",
+              "default": "en-US",
+              "title": "Locale"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaxonomyTreePage"
                 }
               }
             }
@@ -2107,6 +1650,21 @@
                 }
               ],
               "title": "Label Id"
+            }
+          },
+          {
+            "name": "label_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "maxItems": 64,
+              "default": [],
+              "title": "Label Ids"
             }
           },
           {
@@ -2970,172 +2528,1187 @@
           }
         }
       }
+    },
+    "/api/v1/admin/knowledge-management/sources": {
+      "get": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Source Options",
+        "operationId": "source_options_api_v1_admin_knowledge_management_sources_get",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 250,
+              "default": "",
+              "title": "Query"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeSourceOptionPage"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/sources/{source_id}/collection-versions": {
+      "get": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Collection Options",
+        "operationId": "collection_options_api_v1_admin_knowledge_management_sources__source_id__collection_versions_get",
+        "parameters": [
+          {
+            "name": "source_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Source Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeCollectionVersionOptions"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/upload-sessions": {
+      "post": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Create",
+        "operationId": "create_api_v1_admin_knowledge_management_upload_sessions_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StartKnowledgeUpload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeUploadView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/upload-sessions/{identity}": {
+      "get": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Detail",
+        "operationId": "detail_api_v1_admin_knowledge_management_upload_sessions__identity__get",
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identity"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeUploadView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/part-url": {
+      "post": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Part Url",
+        "operationId": "part_url_api_v1_admin_knowledge_management_upload_sessions__identity__part_url_post",
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identity"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnowledgeUploadPartRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeSignedPart"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/parts": {
+      "post": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Acknowledge",
+        "operationId": "acknowledge_api_v1_admin_knowledge_management_upload_sessions__identity__parts_post",
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identity"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnowledgeUploadPartReceipt"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeUploadView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/complete": {
+      "post": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Complete",
+        "operationId": "complete_api_v1_admin_knowledge_management_upload_sessions__identity__complete_post",
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identity"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnowledgeUploadMutation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeUploadView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/cancel": {
+      "post": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Cancel",
+        "operationId": "cancel_api_v1_admin_knowledge_management_upload_sessions__identity__cancel_post",
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identity"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnowledgeUploadMutation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeUploadView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/retry": {
+      "post": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Retry",
+        "operationId": "retry_api_v1_admin_knowledge_management_upload_sessions__identity__retry_post",
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identity"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnowledgeUploadMutation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeUploadView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/attach": {
+      "post": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Attach",
+        "operationId": "attach_api_v1_admin_knowledge_management_upload_sessions__identity__attach_post",
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identity"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttachKnowledgeUpload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeUploadView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/upload-policy": {
+      "get": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Upload Policy",
+        "operationId": "upload_policy_api_v1_admin_knowledge_management_upload_policy_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeUploadPolicyView"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/import-batches": {
+      "post": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Create",
+        "operationId": "create_api_v1_admin_knowledge_management_import_batches_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateKnowledgeImportBatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeBatchView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/import-batches/{identity}": {
+      "get": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Detail",
+        "operationId": "detail_api_v1_admin_knowledge_management_import_batches__identity__get",
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identity"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeBatchView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/import-batches/{identity}/confirm-items": {
+      "post": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Confirm",
+        "operationId": "confirm_api_v1_admin_knowledge_management_import_batches__identity__confirm_items_post",
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identity"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmKnowledgeBatchItems"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeBatchView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/import-batches/{identity}/cancel": {
+      "post": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Cancel",
+        "operationId": "cancel_api_v1_admin_knowledge_management_import_batches__identity__cancel_post",
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identity"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnowledgeUploadMutation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeBatchView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/import-batches/{identity}/retry": {
+      "post": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Retry",
+        "operationId": "retry_api_v1_admin_knowledge_management_import_batches__identity__retry_post",
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identity"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnowledgeUploadMutation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeBatchView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/import-batches/{identity}/failures": {
+      "get": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Failures",
+        "operationId": "failures_api_v1_admin_knowledge_management_import_batches__identity__failures_get",
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identity"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 100,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeBatchFailurePage"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/import-batches/{identity}/items/{item_id}/retry": {
+      "post": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Retry Item",
+        "operationId": "retry_item_api_v1_admin_knowledge_management_import_batches__identity__items__item_id__retry_post",
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identity"
+            }
+          },
+          {
+            "name": "item_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Item Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RetryKnowledgeBatchItem"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeBatchView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/versions/{identity}/binary-ingestion": {
+      "post": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Ingest",
+        "operationId": "ingest_api_v1_admin_knowledge_management_versions__identity__binary_ingestion_post",
+        "parameters": [
+          {
+            "name": "identity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identity"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnowledgeBinaryIngestionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeBinaryIngestionView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/statistics": {
+      "get": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Summary",
+        "operationId": "summary_api_v1_admin_knowledge_management_statistics_get",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 250,
+              "default": "",
+              "title": "Query"
+            }
+          },
+          {
+            "name": "label_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Label Id"
+            }
+          },
+          {
+            "name": "label_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "maxItems": 64,
+              "default": [],
+              "title": "Label Ids"
+            }
+          },
+          {
+            "name": "lifecycle",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "DRAFT",
+                    "INGESTED",
+                    "VALIDATED",
+                    "PENDING_REVIEW",
+                    "APPROVED",
+                    "ACTIVE",
+                    "SUPERSEDED",
+                    "EXPIRED",
+                    "ARCHIVED"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lifecycle"
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 80
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Language"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeStatisticsView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
-      "StartKnowledgeUpload": {
+      "ImportAcceptanceDraft": {
         "properties": {
-          "knowledge_version_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Knowledge Version Id"
-          },
-          "expected_record_version": {
-            "anyOf": [
-              {
-                "type": "integer",
-                "minimum": 1.0
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Expected Record Version"
-          },
-          "relative_path": {
-            "type": "string",
-            "maxLength": 1024,
-            "minLength": 1,
-            "title": "Relative Path"
-          },
-          "declared_format": {
+          "kind": {
             "type": "string",
             "enum": [
-              "DOC",
-              "DOCX",
-              "HTML",
-              "PDF",
-              "TXT",
-              "XHTML",
-              "RAR",
-              "ZIP"
+              "REGULATORY_ACCEPTANCE_CASE",
+              "REGULATORY_EXPERT_AUTHORIZATION",
+              "REGULATORY_SOURCE_VERIFICATION",
+              "REGULATORY_GOLD_REVIEW"
             ],
-            "title": "Declared Format"
+            "title": "Kind"
           },
-          "declared_bytes": {
-            "type": "integer",
-            "maximum": 5497558138880.0,
-            "exclusiveMinimum": 0.0,
-            "title": "Declared Bytes"
-          },
-          "content_sha256": {
+          "code": {
             "type": "string",
-            "title": "Content Sha256"
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$",
+            "title": "Code"
           },
-          "idempotency_key": {
+          "display_name": {
             "type": "string",
-            "maxLength": 128,
+            "maxLength": 200,
             "minLength": 1,
-            "title": "Idempotency Key"
+            "title": "Display Name"
+          },
+          "payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Payload"
           }
         },
         "additionalProperties": false,
         "type": "object",
         "required": [
-          "relative_path",
-          "declared_format",
-          "declared_bytes",
-          "content_sha256",
-          "idempotency_key"
+          "kind",
+          "code",
+          "display_name",
+          "payload"
         ],
-        "title": "StartKnowledgeUpload"
+        "title": "ImportAcceptanceDraft"
       },
-      "KnowledgeUploadView": {
+      "AcceptanceRecordView": {
         "properties": {
-          "upload_session_id": {
+          "definition_id": {
             "type": "string",
             "format": "uuid",
-            "title": "Upload Session Id"
+            "title": "Definition Id"
           },
-          "knowledge_version_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Knowledge Version Id"
-          },
-          "relative_path": {
+          "version_id": {
             "type": "string",
-            "title": "Relative Path"
+            "format": "uuid",
+            "title": "Version Id"
           },
-          "declared_format": {
+          "kind": {
             "type": "string",
-            "enum": [
-              "DOC",
-              "DOCX",
-              "HTML",
-              "PDF",
-              "TXT",
-              "XHTML",
-              "RAR",
-              "ZIP"
-            ],
-            "title": "Declared Format"
+            "title": "Kind"
           },
-          "declared_bytes": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "version_no": {
             "type": "integer",
-            "title": "Declared Bytes"
-          },
-          "content_sha256": {
-            "type": "string",
-            "title": "Content Sha256"
-          },
-          "part_bytes": {
-            "type": "integer",
-            "title": "Part Bytes"
-          },
-          "part_count": {
-            "type": "integer",
-            "title": "Part Count"
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "CREATING",
-              "UPLOADING",
-              "FINALIZING",
-              "QUEUED_SCAN",
-              "SCANNING",
-              "VERIFIED",
-              "QUARANTINED",
-              "FAILED",
-              "CANCELLING",
-              "CANCELLED",
-              "EXPIRED"
-            ],
-            "title": "Status"
+            "title": "Version No"
           },
           "record_version": {
             "type": "integer",
             "title": "Record Version"
           },
-          "expires_at": {
+          "lifecycle": {
             "type": "string",
-            "format": "date-time",
-            "title": "Expires At"
+            "title": "Lifecycle"
           },
           "created_by": {
             "type": "string",
             "title": "Created By"
           },
-          "attempts": {
-            "type": "integer",
-            "title": "Attempts"
-          },
-          "error_code": {
+          "approved_by": {
             "anyOf": [
               {
                 "type": "string"
@@ -3144,196 +3717,60 @@
                 "type": "null"
               }
             ],
-            "title": "Error Code"
+            "title": "Approved By"
           },
-          "scan": {
-            "$ref": "#/components/schemas/KnowledgeScanView"
-          },
-          "receipt_id": {
+          "approved_at": {
             "anyOf": [
               {
                 "type": "string",
-                "format": "uuid"
+                "format": "date-time"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Receipt Id"
+            "title": "Approved At"
           },
-          "operation": {
+          "published_at": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "format": "date-time"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Operation"
+            "title": "Published At"
           },
-          "received_parts": {
-            "anyOf": [
-              {
-                "items": {
-                  "$ref": "#/components/schemas/KnowledgeReceivedPart"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Received Parts"
+          "payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Payload"
           },
-          "received_bytes": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Received Bytes"
+          "payload_sha256": {
+            "type": "string",
+            "title": "Payload Sha256"
           }
         },
         "additionalProperties": false,
         "type": "object",
         "required": [
-          "upload_session_id",
-          "knowledge_version_id",
-          "relative_path",
-          "declared_format",
-          "declared_bytes",
-          "content_sha256",
-          "part_bytes",
-          "part_count",
-          "status",
+          "definition_id",
+          "version_id",
+          "kind",
+          "code",
+          "version_no",
           "record_version",
-          "expires_at",
+          "lifecycle",
           "created_by",
-          "attempts",
-          "error_code",
-          "scan"
+          "approved_by",
+          "approved_at",
+          "published_at",
+          "payload",
+          "payload_sha256"
         ],
-        "title": "KnowledgeUploadView"
-      },
-      "KnowledgeScanView": {
-        "properties": {
-          "byte_size": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Byte Size"
-          },
-          "content_sha256": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Content Sha256"
-          },
-          "detected_format": {
-            "anyOf": [
-              {
-                "type": "string",
-                "enum": [
-                  "DOC",
-                  "DOCX",
-                  "HTML",
-                  "PDF",
-                  "TXT",
-                  "XHTML",
-                  "RAR",
-                  "ZIP"
-                ]
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Detected Format"
-          },
-          "scanner": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/KnowledgeScannerView"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "title": "KnowledgeScanView"
-      },
-      "KnowledgeScannerView": {
-        "properties": {
-          "clean": {
-            "type": "boolean",
-            "title": "Clean"
-          },
-          "engine": {
-            "type": "string",
-            "maxLength": 80,
-            "title": "Engine"
-          },
-          "database_identity": {
-            "type": "string",
-            "maxLength": 250,
-            "title": "Database Identity"
-          },
-          "image_id": {
-            "type": "string",
-            "maxLength": 80,
-            "title": "Image Id"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "clean",
-          "engine",
-          "database_identity",
-          "image_id"
-        ],
-        "title": "KnowledgeScannerView"
-      },
-      "KnowledgeReceivedPart": {
-        "properties": {
-          "part_number": {
-            "type": "integer",
-            "title": "Part Number"
-          },
-          "byte_size": {
-            "type": "integer",
-            "title": "Byte Size"
-          },
-          "content_sha256": {
-            "type": "string",
-            "title": "Content Sha256"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "part_number",
-          "byte_size",
-          "content_sha256"
-        ],
-        "title": "KnowledgeReceivedPart"
+        "title": "AcceptanceRecordView"
       },
       "HTTPValidationError": {
         "properties": {
@@ -3388,220 +3825,241 @@
         ],
         "title": "ValidationError"
       },
-      "KnowledgeUploadPartRequest": {
+      "AcceptanceTransition": {
         "properties": {
-          "part_number": {
+          "expected_record_version": {
             "type": "integer",
-            "maximum": 10000.0,
             "minimum": 1.0,
-            "title": "Part Number"
-          },
-          "content_sha256": {
-            "type": "string",
-            "title": "Content Sha256"
+            "title": "Expected Record Version"
           }
         },
         "additionalProperties": false,
         "type": "object",
         "required": [
-          "part_number",
-          "content_sha256"
+          "expected_record_version"
         ],
-        "title": "KnowledgeUploadPartRequest"
+        "title": "AcceptanceTransition"
       },
-      "KnowledgeSignedPart": {
+      "AcceptanceReadinessView": {
         "properties": {
-          "url": {
+          "case_version_id": {
             "type": "string",
-            "title": "Url"
+            "format": "uuid",
+            "title": "Case Version Id"
           },
-          "headers": {
+          "gold_review_version_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gold Review Version Id"
+          },
+          "dataset_kind": {
+            "type": "string",
+            "enum": [
+              "L1_SYNTHETIC_GOVERNED",
+              "L2_REAL_REGULATORY"
+            ],
+            "title": "Dataset Kind"
+          },
+          "checks": {
             "additionalProperties": {
-              "type": "string"
+              "type": "boolean"
             },
             "type": "object",
-            "title": "Headers"
+            "title": "Checks"
           },
-          "byte_size": {
-            "type": "integer",
-            "title": "Byte Size"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "url",
-          "headers",
-          "byte_size"
-        ],
-        "title": "KnowledgeSignedPart"
-      },
-      "KnowledgeUploadPartReceipt": {
-        "properties": {
-          "part_number": {
-            "type": "integer",
-            "maximum": 10000.0,
-            "minimum": 1.0,
-            "title": "Part Number"
-          },
-          "content_sha256": {
+          "decision": {
             "type": "string",
-            "title": "Content Sha256"
-          },
-          "expected_record_version": {
-            "type": "integer",
-            "minimum": 1.0,
-            "title": "Expected Record Version"
-          },
-          "idempotency_key": {
-            "type": "string",
-            "maxLength": 128,
-            "minLength": 1,
-            "title": "Idempotency Key"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "part_number",
-          "content_sha256",
-          "expected_record_version",
-          "idempotency_key"
-        ],
-        "title": "KnowledgeUploadPartReceipt"
-      },
-      "KnowledgeUploadMutation": {
-        "properties": {
-          "expected_record_version": {
-            "type": "integer",
-            "minimum": 1.0,
-            "title": "Expected Record Version"
-          },
-          "idempotency_key": {
-            "type": "string",
-            "maxLength": 128,
-            "minLength": 1,
-            "title": "Idempotency Key"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "expected_record_version",
-          "idempotency_key"
-        ],
-        "title": "KnowledgeUploadMutation"
-      },
-      "AttachKnowledgeUpload": {
-        "properties": {
-          "knowledge_version_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Knowledge Version Id"
-          },
-          "expected_record_version": {
-            "type": "integer",
-            "minimum": 1.0,
-            "title": "Expected Record Version"
-          },
-          "idempotency_key": {
-            "type": "string",
-            "maxLength": 128,
-            "minLength": 1,
-            "title": "Idempotency Key"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "knowledge_version_id",
-          "expected_record_version",
-          "idempotency_key"
-        ],
-        "title": "AttachKnowledgeUpload"
-      },
-      "CreateKnowledgeImportBatch": {
-        "properties": {
-          "archive_upload_session_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
+            "enum": [
+              "ENGINEERING_READINESS_ONLY",
+              "READY_FOR_INDEPENDENT_ACCEPTANCE",
+              "BLOCKED_EXTERNAL_EVIDENCE_PENDING"
             ],
-            "title": "Archive Upload Session Id"
+            "title": "Decision"
           },
-          "upload_session_ids": {
+          "reason_codes": {
             "items": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             },
             "type": "array",
-            "maxItems": 20000,
-            "title": "Upload Session Ids",
-            "default": []
+            "title": "Reason Codes"
           },
-          "idempotency_key": {
+          "real_regulatory_legal_acceptance": {
             "type": "string",
-            "maxLength": 128,
-            "minLength": 1,
-            "title": "Idempotency Key"
+            "const": "NOT_EXECUTED",
+            "title": "Real Regulatory Legal Acceptance"
+          },
+          "production_business_uat": {
+            "type": "string",
+            "const": "NOT_EXECUTED",
+            "title": "Production Business Uat"
           }
         },
         "additionalProperties": false,
         "type": "object",
         "required": [
-          "idempotency_key"
+          "case_version_id",
+          "gold_review_version_id",
+          "dataset_kind",
+          "checks",
+          "decision",
+          "reason_codes",
+          "real_regulatory_legal_acceptance",
+          "production_business_uat"
         ],
-        "title": "CreateKnowledgeImportBatch"
+        "title": "AcceptanceReadinessView"
       },
-      "KnowledgeBatchView": {
+      "CreateTranslationAlignment": {
         "properties": {
-          "batch_id": {
+          "source_version_id": {
             "type": "string",
             "format": "uuid",
-            "title": "Batch Id"
+            "title": "Source Version Id"
           },
-          "archive_upload_session_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Archive Upload Session Id"
-          },
-          "created_by": {
+          "target_version_id": {
             "type": "string",
-            "title": "Created By"
+            "format": "uuid",
+            "title": "Target Version Id"
           },
-          "status": {
+          "expected_source_record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Source Record Version"
+          },
+          "expected_target_record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Target Record Version"
+          },
+          "translation_method": {
+            "type": "string",
+            "const": "HUMAN",
+            "title": "Translation Method",
+            "default": "HUMAN"
+          },
+          "pairs": {
+            "items": {
+              "$ref": "#/components/schemas/ClauseTranslationPair"
+            },
+            "type": "array",
+            "maxItems": 500,
+            "minItems": 1,
+            "title": "Pairs"
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 2048,
+            "minLength": 1,
+            "title": "Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "source_version_id",
+          "target_version_id",
+          "expected_source_record_version",
+          "expected_target_record_version",
+          "pairs",
+          "reason"
+        ],
+        "title": "CreateTranslationAlignment"
+      },
+      "ClauseTranslationPair": {
+        "properties": {
+          "source_node_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Source Node Id"
+          },
+          "target_node_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Target Node Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "source_node_id",
+          "target_node_id"
+        ],
+        "title": "ClauseTranslationPair"
+      },
+      "TranslationAlignmentView": {
+        "properties": {
+          "translation_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Translation Id"
+          },
+          "source_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Source Version Id"
+          },
+          "target_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Target Version Id"
+          },
+          "source_language": {
+            "type": "string",
+            "title": "Source Language"
+          },
+          "target_language": {
+            "type": "string",
+            "title": "Target Language"
+          },
+          "source_content_hash": {
+            "type": "string",
+            "title": "Source Content Hash"
+          },
+          "target_content_hash": {
+            "type": "string",
+            "title": "Target Content Hash"
+          },
+          "pairs": {
+            "items": {
+              "$ref": "#/components/schemas/TranslationAlignmentPairView"
+            },
+            "type": "array",
+            "title": "Pairs"
+          },
+          "translation_method": {
+            "type": "string",
+            "const": "HUMAN",
+            "title": "Translation Method"
+          },
+          "review_status": {
             "type": "string",
             "enum": [
               "PENDING",
-              "EXTRACTING",
-              "PREVIEW",
-              "CONFIRMED",
-              "PROCESSING",
-              "COMPLETED",
-              "PARTIAL_FAILURE",
-              "FAILED",
-              "CANCELLING",
-              "CANCELLED"
+              "APPROVED",
+              "REJECTED"
             ],
-            "title": "Status"
+            "title": "Review Status"
           },
           "record_version": {
             "type": "integer",
             "title": "Record Version"
           },
-          "manifest_digest": {
+          "submitted_by": {
+            "type": "string",
+            "title": "Submitted By"
+          },
+          "submitted_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Submitted At"
+          },
+          "reviewer": {
             "anyOf": [
               {
                 "type": "string"
@@ -3610,36 +4068,25 @@
                 "type": "null"
               }
             ],
-            "title": "Manifest Digest"
+            "title": "Reviewer"
           },
-          "attempts": {
-            "type": "integer",
-            "title": "Attempts"
-          },
-          "error_code": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Error Code"
-          },
-          "receipt_id": {
+          "reviewed_at": {
             "anyOf": [
               {
                 "type": "string",
-                "format": "uuid"
+                "format": "date-time"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Receipt Id"
+            "title": "Reviewed At"
           },
-          "operation": {
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "review_reason": {
             "anyOf": [
               {
                 "type": "string"
@@ -3648,374 +4095,93 @@
                 "type": "null"
               }
             ],
-            "title": "Operation"
+            "title": "Review Reason"
           },
-          "counts": {
-            "anyOf": [
-              {
-                "additionalProperties": {
-                  "type": "integer"
-                },
-                "type": "object"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Counts"
-          },
-          "total": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Total"
-          },
-          "page": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Page"
-          },
-          "page_size": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Page Size"
-          },
-          "items": {
-            "anyOf": [
-              {
-                "items": {
-                  "$ref": "#/components/schemas/KnowledgeBatchItemView"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Items"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "batch_id",
-          "archive_upload_session_id",
-          "created_by",
-          "status",
-          "record_version",
-          "manifest_digest",
-          "attempts",
-          "error_code"
-        ],
-        "title": "KnowledgeBatchView"
-      },
-      "KnowledgeBatchItemView": {
-        "properties": {
-          "attempts": {
-            "type": "integer",
-            "title": "Attempts"
-          },
-          "technical_retry_available": {
+          "official_evidence": {
             "type": "boolean",
-            "title": "Technical Retry Available"
-          },
-          "item_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Item Id"
-          },
-          "upload_session_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Upload Session Id"
-          },
-          "relative_path": {
-            "type": "string",
-            "title": "Relative Path"
-          },
-          "knowledge_version_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Knowledge Version Id"
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "UNMAPPED",
-              "READY",
-              "PROCESSING",
-              "COMPLETED",
-              "FAILED",
-              "CANCELLED"
-            ],
-            "title": "Status"
-          },
-          "record_version": {
-            "type": "integer",
-            "title": "Record Version"
-          },
-          "error_code": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Error Code"
+            "const": false,
+            "title": "Official Evidence"
           }
         },
         "additionalProperties": false,
         "type": "object",
         "required": [
-          "attempts",
-          "technical_retry_available",
-          "item_id",
-          "upload_session_id",
-          "relative_path",
-          "knowledge_version_id",
-          "status",
+          "translation_id",
+          "source_version_id",
+          "target_version_id",
+          "source_language",
+          "target_language",
+          "source_content_hash",
+          "target_content_hash",
+          "pairs",
+          "translation_method",
+          "review_status",
           "record_version",
-          "error_code"
+          "submitted_by",
+          "submitted_at",
+          "reviewer",
+          "reviewed_at",
+          "reason",
+          "review_reason",
+          "official_evidence"
         ],
-        "title": "KnowledgeBatchItemView"
+        "title": "TranslationAlignmentView"
       },
-      "ConfirmKnowledgeBatchItems": {
+      "TranslationAlignmentPairView": {
         "properties": {
-          "expected_record_version": {
-            "type": "integer",
-            "minimum": 1.0,
-            "title": "Expected Record Version"
-          },
-          "idempotency_key": {
+          "source_node_id": {
             "type": "string",
-            "maxLength": 128,
-            "minLength": 1,
-            "title": "Idempotency Key"
+            "format": "uuid",
+            "title": "Source Node Id"
           },
-          "mappings": {
-            "items": {
-              "$ref": "#/components/schemas/KnowledgeBatchMapping"
-            },
-            "type": "array",
-            "maxItems": 100,
-            "minItems": 1,
-            "title": "Mappings"
+          "target_node_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Target Node Id"
+          },
+          "source_citation_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Source Citation Id"
+          },
+          "target_citation_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Target Citation Id"
+          },
+          "source_locator": {
+            "type": "string",
+            "title": "Source Locator"
+          },
+          "target_locator": {
+            "type": "string",
+            "title": "Target Locator"
+          },
+          "source_text_sha256": {
+            "type": "string",
+            "title": "Source Text Sha256"
+          },
+          "target_text_sha256": {
+            "type": "string",
+            "title": "Target Text Sha256"
           }
         },
         "additionalProperties": false,
         "type": "object",
         "required": [
-          "expected_record_version",
-          "idempotency_key",
-          "mappings"
+          "source_node_id",
+          "target_node_id",
+          "source_citation_id",
+          "target_citation_id",
+          "source_locator",
+          "target_locator",
+          "source_text_sha256",
+          "target_text_sha256"
         ],
-        "title": "ConfirmKnowledgeBatchItems"
+        "title": "TranslationAlignmentPairView"
       },
-      "KnowledgeBatchMapping": {
+      "TranslationAlignmentPage": {
         "properties": {
-          "item_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Item Id"
-          },
-          "document": {
-            "$ref": "#/components/schemas/CreateManagedKnowledgeDocument"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "item_id",
-          "document"
-        ],
-        "title": "KnowledgeBatchMapping"
-      },
-      "CreateManagedKnowledgeDocument": {
-        "properties": {
-          "source_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Source Id"
-          },
-          "collection_version_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Collection Version Id"
-          },
-          "language": {
-            "type": "string",
-            "maxLength": 80,
-            "minLength": 1,
-            "title": "Language"
-          },
-          "effective_from": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Effective From"
-          },
-          "effective_to": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Effective To"
-          },
-          "metadata": {
-            "$ref": "#/components/schemas/KnowledgeDocumentMetadata"
-          },
-          "idempotency_key": {
-            "type": "string",
-            "maxLength": 128,
-            "minLength": 1,
-            "title": "Idempotency Key"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "source_id",
-          "collection_version_id",
-          "language",
-          "metadata",
-          "idempotency_key"
-        ],
-        "title": "CreateManagedKnowledgeDocument"
-      },
-      "KnowledgeDocumentMetadata": {
-        "properties": {
-          "title": {
-            "type": "string",
-            "maxLength": 250,
-            "minLength": 1,
-            "title": "Title"
-          },
-          "local_title": {
-            "anyOf": [
-              {
-                "type": "string",
-                "maxLength": 250
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Local Title"
-          },
-          "description": {
-            "type": "string",
-            "maxLength": 4096,
-            "title": "Description",
-            "default": ""
-          },
-          "official_source_url": {
-            "anyOf": [
-              {
-                "type": "string",
-                "maxLength": 2048
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Official Source Url"
-          },
-          "labels": {
-            "items": {
-              "$ref": "#/components/schemas/KnowledgeDocumentLabel"
-            },
-            "type": "array",
-            "maxItems": 128,
-            "title": "Labels",
-            "default": []
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "title"
-        ],
-        "title": "KnowledgeDocumentMetadata"
-      },
-      "KnowledgeDocumentLabel": {
-        "properties": {
-          "kind": {
-            "type": "string",
-            "enum": [
-              "JURISDICTION_CONFIG",
-              "REGULATION_CATEGORY",
-              "RESEARCH_TOPIC",
-              "LANGUAGE",
-              "ISSUING_AUTHORITY",
-              "KNOWLEDGE_SOURCE_TYPE",
-              "LEGAL_EFFECT"
-            ],
-            "title": "Kind"
-          },
-          "definition_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Definition Id"
-          },
-          "version_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Version Id"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "kind",
-          "definition_id",
-          "version_id"
-        ],
-        "title": "KnowledgeDocumentLabel"
-      },
-      "KnowledgeBatchFailurePage": {
-        "properties": {
-          "batch_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Batch Id"
-          },
           "total": {
             "type": "integer",
             "title": "Total"
@@ -4030,7 +4196,7 @@
           },
           "items": {
             "items": {
-              "$ref": "#/components/schemas/KnowledgeBatchFailure"
+              "$ref": "#/components/schemas/TranslationAlignmentView"
             },
             "type": "array",
             "title": "Items"
@@ -4039,492 +4205,43 @@
         "additionalProperties": false,
         "type": "object",
         "required": [
-          "batch_id",
           "total",
           "page",
           "page_size",
           "items"
         ],
-        "title": "KnowledgeBatchFailurePage"
+        "title": "TranslationAlignmentPage"
       },
-      "KnowledgeBatchFailure": {
-        "properties": {
-          "item_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Item Id"
-          },
-          "relative_path": {
-            "type": "string",
-            "title": "Relative Path"
-          },
-          "status": {
-            "type": "string",
-            "const": "FAILED",
-            "title": "Status"
-          },
-          "error_code": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Error Code"
-          },
-          "record_version": {
-            "type": "integer",
-            "title": "Record Version"
-          },
-          "attempts": {
-            "type": "integer",
-            "title": "Attempts"
-          },
-          "technical_retry_available": {
-            "type": "boolean",
-            "title": "Technical Retry Available"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "item_id",
-          "relative_path",
-          "status",
-          "error_code",
-          "record_version",
-          "attempts",
-          "technical_retry_available"
-        ],
-        "title": "KnowledgeBatchFailure"
-      },
-      "RetryKnowledgeBatchItem": {
+      "ReviewTranslationAlignment": {
         "properties": {
           "expected_record_version": {
             "type": "integer",
             "minimum": 1.0,
             "title": "Expected Record Version"
           },
-          "idempotency_key": {
+          "action": {
             "type": "string",
-            "maxLength": 128,
-            "minLength": 1,
-            "title": "Idempotency Key"
+            "enum": [
+              "APPROVE",
+              "REJECT"
+            ],
+            "title": "Action"
           },
-          "expected_item_record_version": {
-            "type": "integer",
-            "minimum": 1.0,
-            "title": "Expected Item Record Version"
+          "reason": {
+            "type": "string",
+            "maxLength": 2048,
+            "minLength": 1,
+            "title": "Reason"
           }
         },
         "additionalProperties": false,
         "type": "object",
         "required": [
           "expected_record_version",
-          "idempotency_key",
-          "expected_item_record_version"
+          "action",
+          "reason"
         ],
-        "title": "RetryKnowledgeBatchItem"
-      },
-      "KnowledgeBinaryIngestionRequest": {
-        "properties": {
-          "binary_upload_session_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Binary Upload Session Id"
-          },
-          "expected_record_version": {
-            "type": "integer",
-            "minimum": 1.0,
-            "title": "Expected Record Version"
-          },
-          "idempotency_key": {
-            "type": "string",
-            "maxLength": 128,
-            "minLength": 1,
-            "title": "Idempotency Key"
-          },
-          "bindings": {
-            "items": {
-              "$ref": "#/components/schemas/BindingRequestDTO"
-            },
-            "type": "array",
-            "maxItems": 1000,
-            "title": "Bindings",
-            "default": []
-          },
-          "strategy": {
-            "type": "string",
-            "enum": [
-              "STRUCTURE_AWARE",
-              "ARTICLE",
-              "SECTION",
-              "PARAGRAPH",
-              "TABLE",
-              "SLIDING_WINDOW"
-            ],
-            "title": "Strategy",
-            "default": "STRUCTURE_AWARE"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "binary_upload_session_id",
-          "expected_record_version",
-          "idempotency_key"
-        ],
-        "title": "KnowledgeBinaryIngestionRequest"
-      },
-      "BindingRequestDTO": {
-        "properties": {
-          "scope_type": {
-            "type": "string",
-            "enum": [
-              "PRODUCT_SPECIFIC",
-              "DOMAIN_SHARED",
-              "CROSS_PRODUCT",
-              "GLOBAL"
-            ],
-            "title": "Scope Type"
-          },
-          "dimensions": {
-            "additionalProperties": {
-              "items": {
-                "type": "string",
-                "format": "uuid"
-              },
-              "type": "array"
-            },
-            "type": "object",
-            "title": "Dimensions"
-          },
-          "permission_scopes": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Permission Scopes"
-          },
-          "effective_from": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Effective From"
-          },
-          "effective_to": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Effective To"
-          },
-          "provenance": {
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Provenance"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "scope_type",
-          "provenance"
-        ],
-        "title": "BindingRequestDTO"
-      },
-      "KnowledgeBinaryIngestionView": {
-        "properties": {
-          "tenant_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Tenant Id"
-          },
-          "record_version": {
-            "type": "integer",
-            "title": "Record Version"
-          },
-          "status": {
-            "type": "string",
-            "title": "Status"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          },
-          "ingestion_run_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Ingestion Run Id"
-          },
-          "knowledge_version_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Knowledge Version Id"
-          },
-          "idempotency_key": {
-            "type": "string",
-            "title": "Idempotency Key"
-          },
-          "request_hash": {
-            "type": "string",
-            "title": "Request Hash"
-          },
-          "error_code": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Error Code"
-          },
-          "outbox_event_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Outbox Event Id"
-          },
-          "batch_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Batch Id"
-          }
-        },
-        "type": "object",
-        "required": [
-          "tenant_id",
-          "record_version",
-          "status",
-          "created_at",
-          "updated_at",
-          "ingestion_run_id",
-          "knowledge_version_id",
-          "idempotency_key",
-          "request_hash",
-          "outbox_event_id",
-          "batch_id"
-        ],
-        "title": "KnowledgeBinaryIngestionView"
-      },
-      "KnowledgeStatisticsView": {
-        "properties": {
-          "as_of": {
-            "type": "string",
-            "format": "date-time",
-            "title": "As Of"
-          },
-          "documents": {
-            "type": "integer",
-            "title": "Documents"
-          },
-          "versions": {
-            "type": "integer",
-            "title": "Versions"
-          },
-          "attached_originals": {
-            "type": "integer",
-            "title": "Attached Originals"
-          },
-          "attached_bytes": {
-            "type": "integer",
-            "title": "Attached Bytes"
-          },
-          "parse_status": {
-            "additionalProperties": {
-              "type": "integer"
-            },
-            "type": "object",
-            "title": "Parse Status"
-          },
-          "by_lifecycle": {
-            "items": {
-              "$ref": "#/components/schemas/KnowledgeStatisticsGroup"
-            },
-            "type": "array",
-            "title": "By Lifecycle"
-          },
-          "by_language": {
-            "items": {
-              "$ref": "#/components/schemas/KnowledgeStatisticsGroup"
-            },
-            "type": "array",
-            "title": "By Language"
-          },
-          "by_classification": {
-            "items": {
-              "$ref": "#/components/schemas/KnowledgeClassificationCount"
-            },
-            "type": "array",
-            "title": "By Classification"
-          },
-          "classification_groups_truncated": {
-            "type": "boolean",
-            "title": "Classification Groups Truncated"
-          },
-          "representative_version": {
-            "type": "string",
-            "const": "ACTIVE_ELSE_LATEST_MATCHING_LIST",
-            "title": "Representative Version"
-          },
-          "many_to_many_group_totals_are_not_global_totals": {
-            "type": "boolean",
-            "const": true,
-            "title": "Many To Many Group Totals Are Not Global Totals"
-          },
-          "scope": {
-            "$ref": "#/components/schemas/KnowledgeStatisticsScope"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "as_of",
-          "documents",
-          "versions",
-          "attached_originals",
-          "attached_bytes",
-          "parse_status",
-          "by_lifecycle",
-          "by_language",
-          "by_classification",
-          "classification_groups_truncated",
-          "representative_version",
-          "many_to_many_group_totals_are_not_global_totals",
-          "scope"
-        ],
-        "title": "KnowledgeStatisticsView"
-      },
-      "KnowledgeStatisticsGroup": {
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "Key"
-          },
-          "documents": {
-            "type": "integer",
-            "title": "Documents"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "key",
-          "documents"
-        ],
-        "title": "KnowledgeStatisticsGroup"
-      },
-      "KnowledgeClassificationCount": {
-        "properties": {
-          "kind": {
-            "type": "string",
-            "title": "Kind"
-          },
-          "definition_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Definition Id"
-          },
-          "code": {
-            "type": "string",
-            "title": "Code"
-          },
-          "documents": {
-            "type": "integer",
-            "title": "Documents"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "kind",
-          "definition_id",
-          "code",
-          "documents"
-        ],
-        "title": "KnowledgeClassificationCount"
-      },
-      "KnowledgeStatisticsScope": {
-        "properties": {
-          "query": {
-            "type": "string",
-            "title": "Query"
-          },
-          "label_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Label Id"
-          },
-          "lifecycle": {
-            "anyOf": [
-              {
-                "type": "string",
-                "enum": [
-                  "DRAFT",
-                  "INGESTED",
-                  "VALIDATED",
-                  "PENDING_REVIEW",
-                  "APPROVED",
-                  "ACTIVE",
-                  "SUPERSEDED",
-                  "EXPIRED",
-                  "ARCHIVED"
-                ]
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Lifecycle"
-          },
-          "language": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Language"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "query",
-          "label_id",
-          "lifecycle",
-          "language"
-        ],
-        "title": "KnowledgeStatisticsScope"
+        "title": "ReviewTranslationAlignment"
       },
       "KnowledgeAuditPage": {
         "properties": {
@@ -5415,6 +5132,114 @@
         ],
         "title": "TaxonomyImpact"
       },
+      "TaxonomyTreePage": {
+        "properties": {
+          "parent_definition_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent Definition Id"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "page_size": {
+            "type": "integer",
+            "title": "Page Size"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/TaxonomyTreeNode"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "parent_definition_id",
+          "total",
+          "page",
+          "page_size",
+          "items"
+        ],
+        "title": "TaxonomyTreePage"
+      },
+      "TaxonomyTreeNode": {
+        "properties": {
+          "definition_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Definition Id"
+          },
+          "version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Version Id"
+          },
+          "parent_definition_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent Definition Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "JURISDICTION_CONFIG",
+              "REGULATION_CATEGORY",
+              "RESEARCH_TOPIC",
+              "LANGUAGE",
+              "ISSUING_AUTHORITY",
+              "KNOWLEDGE_SOURCE_TYPE",
+              "LEGAL_EFFECT"
+            ],
+            "title": "Kind"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "child_count": {
+            "type": "integer",
+            "title": "Child Count"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "definition_id",
+          "version_id",
+          "parent_definition_id",
+          "kind",
+          "code",
+          "display_name",
+          "child_count"
+        ],
+        "title": "TaxonomyTreeNode"
+      },
       "TaxonomyDetail": {
         "properties": {
           "definition_id": {
@@ -5830,6 +5655,159 @@
           "updated_at"
         ],
         "title": "ManagedKnowledgeDocumentView"
+      },
+      "CreateManagedKnowledgeDocument": {
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Source Id"
+          },
+          "collection_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Collection Version Id"
+          },
+          "language": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Language"
+          },
+          "effective_from": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective From"
+          },
+          "effective_to": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective To"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/KnowledgeDocumentMetadata"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "source_id",
+          "collection_version_id",
+          "language",
+          "metadata",
+          "idempotency_key"
+        ],
+        "title": "CreateManagedKnowledgeDocument"
+      },
+      "KnowledgeDocumentMetadata": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 250,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "local_title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 250
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Local Title"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 4096,
+            "title": "Description",
+            "default": ""
+          },
+          "official_source_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2048
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Official Source Url"
+          },
+          "labels": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeDocumentLabel"
+            },
+            "type": "array",
+            "maxItems": 128,
+            "title": "Labels",
+            "default": []
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "title": "KnowledgeDocumentMetadata"
+      },
+      "KnowledgeDocumentLabel": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "JURISDICTION_CONFIG",
+              "REGULATION_CATEGORY",
+              "RESEARCH_TOPIC",
+              "LANGUAGE",
+              "ISSUING_AUTHORITY",
+              "KNOWLEDGE_SOURCE_TYPE",
+              "LEGAL_EFFECT"
+            ],
+            "title": "Kind"
+          },
+          "definition_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Definition Id"
+          },
+          "version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Version Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "definition_id",
+          "version_id"
+        ],
+        "title": "KnowledgeDocumentLabel"
       },
       "ManagedKnowledgeVersionMutation": {
         "properties": {
@@ -6368,6 +6346,1579 @@
           "citation_id"
         ],
         "title": "KnowledgePreviewNode"
+      },
+      "KnowledgeSourceOptionPage": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "page_size": {
+            "type": "integer",
+            "title": "Page Size"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeSourceOption"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "total",
+          "page",
+          "page_size",
+          "items"
+        ],
+        "title": "KnowledgeSourceOptionPage"
+      },
+      "KnowledgeSourceOption": {
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Source Id"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "source_type": {
+            "type": "string",
+            "title": "Source Type"
+          },
+          "collection_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Collection Id"
+          },
+          "collection_name": {
+            "type": "string",
+            "title": "Collection Name"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "source_id",
+          "code",
+          "source_type",
+          "collection_id",
+          "collection_name"
+        ],
+        "title": "KnowledgeSourceOption"
+      },
+      "KnowledgeCollectionVersionOptions": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeCollectionVersionOption"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "title": "KnowledgeCollectionVersionOptions"
+      },
+      "KnowledgeCollectionVersionOption": {
+        "properties": {
+          "collection_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Collection Version Id"
+          },
+          "collection_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Collection Id"
+          },
+          "version_no": {
+            "type": "integer",
+            "title": "Version No"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "collection_version_id",
+          "collection_id",
+          "version_no",
+          "display_name"
+        ],
+        "title": "KnowledgeCollectionVersionOption"
+      },
+      "StartKnowledgeUpload": {
+        "properties": {
+          "knowledge_version_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Knowledge Version Id"
+          },
+          "expected_record_version": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Record Version"
+          },
+          "relative_path": {
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "title": "Relative Path"
+          },
+          "declared_format": {
+            "type": "string",
+            "enum": [
+              "DOC",
+              "DOCX",
+              "HTML",
+              "PDF",
+              "TXT",
+              "XHTML",
+              "RAR",
+              "ZIP"
+            ],
+            "title": "Declared Format"
+          },
+          "declared_bytes": {
+            "type": "integer",
+            "maximum": 5497558138880.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Declared Bytes"
+          },
+          "content_sha256": {
+            "type": "string",
+            "title": "Content Sha256"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "relative_path",
+          "declared_format",
+          "declared_bytes",
+          "content_sha256",
+          "idempotency_key"
+        ],
+        "title": "StartKnowledgeUpload"
+      },
+      "KnowledgeUploadView": {
+        "properties": {
+          "upload_session_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Upload Session Id"
+          },
+          "knowledge_version_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Knowledge Version Id"
+          },
+          "relative_path": {
+            "type": "string",
+            "title": "Relative Path"
+          },
+          "declared_format": {
+            "type": "string",
+            "enum": [
+              "DOC",
+              "DOCX",
+              "HTML",
+              "PDF",
+              "TXT",
+              "XHTML",
+              "RAR",
+              "ZIP"
+            ],
+            "title": "Declared Format"
+          },
+          "declared_bytes": {
+            "type": "integer",
+            "title": "Declared Bytes"
+          },
+          "content_sha256": {
+            "type": "string",
+            "title": "Content Sha256"
+          },
+          "part_bytes": {
+            "type": "integer",
+            "title": "Part Bytes"
+          },
+          "part_count": {
+            "type": "integer",
+            "title": "Part Count"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "CREATING",
+              "UPLOADING",
+              "FINALIZING",
+              "QUEUED_SCAN",
+              "SCANNING",
+              "VERIFIED",
+              "QUARANTINED",
+              "FAILED",
+              "CANCELLING",
+              "CANCELLED",
+              "EXPIRED"
+            ],
+            "title": "Status"
+          },
+          "record_version": {
+            "type": "integer",
+            "title": "Record Version"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Expires At"
+          },
+          "created_by": {
+            "type": "string",
+            "title": "Created By"
+          },
+          "attempts": {
+            "type": "integer",
+            "title": "Attempts"
+          },
+          "error_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Code"
+          },
+          "scan": {
+            "$ref": "#/components/schemas/KnowledgeScanView"
+          },
+          "receipt_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Receipt Id"
+          },
+          "operation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Operation"
+          },
+          "received_parts": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/KnowledgeReceivedPart"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Received Parts"
+          },
+          "received_bytes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Received Bytes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "upload_session_id",
+          "knowledge_version_id",
+          "relative_path",
+          "declared_format",
+          "declared_bytes",
+          "content_sha256",
+          "part_bytes",
+          "part_count",
+          "status",
+          "record_version",
+          "expires_at",
+          "created_by",
+          "attempts",
+          "error_code",
+          "scan"
+        ],
+        "title": "KnowledgeUploadView"
+      },
+      "KnowledgeScanView": {
+        "properties": {
+          "byte_size": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Byte Size"
+          },
+          "content_sha256": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Sha256"
+          },
+          "detected_format": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "DOC",
+                  "DOCX",
+                  "HTML",
+                  "PDF",
+                  "TXT",
+                  "XHTML",
+                  "RAR",
+                  "ZIP"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detected Format"
+          },
+          "scanner": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/KnowledgeScannerView"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "KnowledgeScanView"
+      },
+      "KnowledgeScannerView": {
+        "properties": {
+          "clean": {
+            "type": "boolean",
+            "title": "Clean"
+          },
+          "engine": {
+            "type": "string",
+            "maxLength": 80,
+            "title": "Engine"
+          },
+          "database_identity": {
+            "type": "string",
+            "maxLength": 250,
+            "title": "Database Identity"
+          },
+          "image_id": {
+            "type": "string",
+            "maxLength": 80,
+            "title": "Image Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "clean",
+          "engine",
+          "database_identity",
+          "image_id"
+        ],
+        "title": "KnowledgeScannerView"
+      },
+      "KnowledgeReceivedPart": {
+        "properties": {
+          "part_number": {
+            "type": "integer",
+            "title": "Part Number"
+          },
+          "byte_size": {
+            "type": "integer",
+            "title": "Byte Size"
+          },
+          "content_sha256": {
+            "type": "string",
+            "title": "Content Sha256"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "part_number",
+          "byte_size",
+          "content_sha256"
+        ],
+        "title": "KnowledgeReceivedPart"
+      },
+      "KnowledgeUploadPartRequest": {
+        "properties": {
+          "part_number": {
+            "type": "integer",
+            "maximum": 10000.0,
+            "minimum": 1.0,
+            "title": "Part Number"
+          },
+          "content_sha256": {
+            "type": "string",
+            "title": "Content Sha256"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "part_number",
+          "content_sha256"
+        ],
+        "title": "KnowledgeUploadPartRequest"
+      },
+      "KnowledgeSignedPart": {
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "headers": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Headers"
+          },
+          "byte_size": {
+            "type": "integer",
+            "title": "Byte Size"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "url",
+          "headers",
+          "byte_size"
+        ],
+        "title": "KnowledgeSignedPart"
+      },
+      "KnowledgeUploadPartReceipt": {
+        "properties": {
+          "part_number": {
+            "type": "integer",
+            "maximum": 10000.0,
+            "minimum": 1.0,
+            "title": "Part Number"
+          },
+          "content_sha256": {
+            "type": "string",
+            "title": "Content Sha256"
+          },
+          "expected_record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Record Version"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "part_number",
+          "content_sha256",
+          "expected_record_version",
+          "idempotency_key"
+        ],
+        "title": "KnowledgeUploadPartReceipt"
+      },
+      "KnowledgeUploadMutation": {
+        "properties": {
+          "expected_record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Record Version"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_record_version",
+          "idempotency_key"
+        ],
+        "title": "KnowledgeUploadMutation"
+      },
+      "AttachKnowledgeUpload": {
+        "properties": {
+          "knowledge_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Knowledge Version Id"
+          },
+          "expected_record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Record Version"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "knowledge_version_id",
+          "expected_record_version",
+          "idempotency_key"
+        ],
+        "title": "AttachKnowledgeUpload"
+      },
+      "KnowledgeUploadPolicyView": {
+        "properties": {
+          "policy_definition_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Policy Definition Id"
+          },
+          "policy_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Policy Version Id"
+          },
+          "max_single_bytes": {
+            "type": "integer",
+            "title": "Max Single Bytes"
+          },
+          "max_archive_bytes": {
+            "type": "integer",
+            "title": "Max Archive Bytes"
+          },
+          "max_expanded_bytes": {
+            "type": "integer",
+            "title": "Max Expanded Bytes"
+          },
+          "max_archive_entries": {
+            "type": "integer",
+            "title": "Max Archive Entries"
+          },
+          "multipart_chunk_bytes": {
+            "type": "integer",
+            "title": "Multipart Chunk Bytes"
+          },
+          "upload_expiry_seconds": {
+            "type": "integer",
+            "title": "Upload Expiry Seconds"
+          },
+          "tenant_storage_quota_bytes": {
+            "type": "integer",
+            "title": "Tenant Storage Quota Bytes"
+          },
+          "max_active_upload_sessions": {
+            "type": "integer",
+            "title": "Max Active Upload Sessions"
+          },
+          "scan_required": {
+            "type": "boolean",
+            "title": "Scan Required"
+          },
+          "allowed_document_formats": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "DOC",
+                "DOCX",
+                "HTML",
+                "PDF",
+                "TXT",
+                "XHTML",
+                "RAR",
+                "ZIP"
+              ]
+            },
+            "type": "array",
+            "title": "Allowed Document Formats"
+          },
+          "allowed_archive_formats": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "DOC",
+                "DOCX",
+                "HTML",
+                "PDF",
+                "TXT",
+                "XHTML",
+                "RAR",
+                "ZIP"
+              ]
+            },
+            "type": "array",
+            "title": "Allowed Archive Formats"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "policy_definition_id",
+          "policy_version_id",
+          "max_single_bytes",
+          "max_archive_bytes",
+          "max_expanded_bytes",
+          "max_archive_entries",
+          "multipart_chunk_bytes",
+          "upload_expiry_seconds",
+          "tenant_storage_quota_bytes",
+          "max_active_upload_sessions",
+          "scan_required",
+          "allowed_document_formats",
+          "allowed_archive_formats"
+        ],
+        "title": "KnowledgeUploadPolicyView"
+      },
+      "CreateKnowledgeImportBatch": {
+        "properties": {
+          "archive_upload_session_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archive Upload Session Id"
+          },
+          "upload_session_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "maxItems": 20000,
+            "title": "Upload Session Ids",
+            "default": []
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "idempotency_key"
+        ],
+        "title": "CreateKnowledgeImportBatch"
+      },
+      "KnowledgeBatchView": {
+        "properties": {
+          "batch_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Batch Id"
+          },
+          "archive_upload_session_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archive Upload Session Id"
+          },
+          "created_by": {
+            "type": "string",
+            "title": "Created By"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "EXTRACTING",
+              "PREVIEW",
+              "CONFIRMED",
+              "PROCESSING",
+              "COMPLETED",
+              "PARTIAL_FAILURE",
+              "FAILED",
+              "CANCELLING",
+              "CANCELLED"
+            ],
+            "title": "Status"
+          },
+          "record_version": {
+            "type": "integer",
+            "title": "Record Version"
+          },
+          "manifest_digest": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Manifest Digest"
+          },
+          "attempts": {
+            "type": "integer",
+            "title": "Attempts"
+          },
+          "error_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Code"
+          },
+          "receipt_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Receipt Id"
+          },
+          "operation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Operation"
+          },
+          "counts": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "integer"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Counts"
+          },
+          "total": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total"
+          },
+          "page": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Page"
+          },
+          "page_size": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Page Size"
+          },
+          "items": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/KnowledgeBatchItemView"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "batch_id",
+          "archive_upload_session_id",
+          "created_by",
+          "status",
+          "record_version",
+          "manifest_digest",
+          "attempts",
+          "error_code"
+        ],
+        "title": "KnowledgeBatchView"
+      },
+      "KnowledgeBatchItemView": {
+        "properties": {
+          "attempts": {
+            "type": "integer",
+            "title": "Attempts"
+          },
+          "technical_retry_available": {
+            "type": "boolean",
+            "title": "Technical Retry Available"
+          },
+          "item_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Item Id"
+          },
+          "upload_session_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Upload Session Id"
+          },
+          "relative_path": {
+            "type": "string",
+            "title": "Relative Path"
+          },
+          "knowledge_version_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Knowledge Version Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "UNMAPPED",
+              "READY",
+              "PROCESSING",
+              "COMPLETED",
+              "FAILED",
+              "CANCELLED"
+            ],
+            "title": "Status"
+          },
+          "record_version": {
+            "type": "integer",
+            "title": "Record Version"
+          },
+          "error_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Code"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "attempts",
+          "technical_retry_available",
+          "item_id",
+          "upload_session_id",
+          "relative_path",
+          "knowledge_version_id",
+          "status",
+          "record_version",
+          "error_code"
+        ],
+        "title": "KnowledgeBatchItemView"
+      },
+      "ConfirmKnowledgeBatchItems": {
+        "properties": {
+          "expected_record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Record Version"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          },
+          "mappings": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeBatchMapping"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "minItems": 1,
+            "title": "Mappings"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_record_version",
+          "idempotency_key",
+          "mappings"
+        ],
+        "title": "ConfirmKnowledgeBatchItems"
+      },
+      "KnowledgeBatchMapping": {
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Item Id"
+          },
+          "document": {
+            "$ref": "#/components/schemas/CreateManagedKnowledgeDocument"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "item_id",
+          "document"
+        ],
+        "title": "KnowledgeBatchMapping"
+      },
+      "KnowledgeBatchFailurePage": {
+        "properties": {
+          "batch_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Batch Id"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "page_size": {
+            "type": "integer",
+            "title": "Page Size"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeBatchFailure"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "batch_id",
+          "total",
+          "page",
+          "page_size",
+          "items"
+        ],
+        "title": "KnowledgeBatchFailurePage"
+      },
+      "KnowledgeBatchFailure": {
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Item Id"
+          },
+          "relative_path": {
+            "type": "string",
+            "title": "Relative Path"
+          },
+          "status": {
+            "type": "string",
+            "const": "FAILED",
+            "title": "Status"
+          },
+          "error_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Code"
+          },
+          "record_version": {
+            "type": "integer",
+            "title": "Record Version"
+          },
+          "attempts": {
+            "type": "integer",
+            "title": "Attempts"
+          },
+          "technical_retry_available": {
+            "type": "boolean",
+            "title": "Technical Retry Available"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "item_id",
+          "relative_path",
+          "status",
+          "error_code",
+          "record_version",
+          "attempts",
+          "technical_retry_available"
+        ],
+        "title": "KnowledgeBatchFailure"
+      },
+      "RetryKnowledgeBatchItem": {
+        "properties": {
+          "expected_record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Record Version"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          },
+          "expected_item_record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Item Record Version"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_record_version",
+          "idempotency_key",
+          "expected_item_record_version"
+        ],
+        "title": "RetryKnowledgeBatchItem"
+      },
+      "KnowledgeBinaryIngestionRequest": {
+        "properties": {
+          "binary_upload_session_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Binary Upload Session Id"
+          },
+          "expected_record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Record Version"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          },
+          "bindings": {
+            "items": {
+              "$ref": "#/components/schemas/BindingRequestDTO"
+            },
+            "type": "array",
+            "maxItems": 1000,
+            "title": "Bindings",
+            "default": []
+          },
+          "strategy": {
+            "type": "string",
+            "enum": [
+              "STRUCTURE_AWARE",
+              "ARTICLE",
+              "SECTION",
+              "PARAGRAPH",
+              "TABLE",
+              "SLIDING_WINDOW"
+            ],
+            "title": "Strategy",
+            "default": "STRUCTURE_AWARE"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "binary_upload_session_id",
+          "expected_record_version",
+          "idempotency_key"
+        ],
+        "title": "KnowledgeBinaryIngestionRequest"
+      },
+      "BindingRequestDTO": {
+        "properties": {
+          "scope_type": {
+            "type": "string",
+            "enum": [
+              "PRODUCT_SPECIFIC",
+              "DOMAIN_SHARED",
+              "CROSS_PRODUCT",
+              "GLOBAL"
+            ],
+            "title": "Scope Type"
+          },
+          "dimensions": {
+            "additionalProperties": {
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Dimensions"
+          },
+          "permission_scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Permission Scopes"
+          },
+          "effective_from": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective From"
+          },
+          "effective_to": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective To"
+          },
+          "provenance": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Provenance"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "scope_type",
+          "provenance"
+        ],
+        "title": "BindingRequestDTO"
+      },
+      "KnowledgeBinaryIngestionView": {
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Tenant Id"
+          },
+          "record_version": {
+            "type": "integer",
+            "title": "Record Version"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "ingestion_run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Ingestion Run Id"
+          },
+          "knowledge_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Knowledge Version Id"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "title": "Idempotency Key"
+          },
+          "request_hash": {
+            "type": "string",
+            "title": "Request Hash"
+          },
+          "error_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Code"
+          },
+          "outbox_event_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Outbox Event Id"
+          },
+          "batch_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Batch Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tenant_id",
+          "record_version",
+          "status",
+          "created_at",
+          "updated_at",
+          "ingestion_run_id",
+          "knowledge_version_id",
+          "idempotency_key",
+          "request_hash",
+          "outbox_event_id",
+          "batch_id"
+        ],
+        "title": "KnowledgeBinaryIngestionView"
+      },
+      "KnowledgeStatisticsView": {
+        "properties": {
+          "as_of": {
+            "type": "string",
+            "format": "date-time",
+            "title": "As Of"
+          },
+          "documents": {
+            "type": "integer",
+            "title": "Documents"
+          },
+          "versions": {
+            "type": "integer",
+            "title": "Versions"
+          },
+          "attached_originals": {
+            "type": "integer",
+            "title": "Attached Originals"
+          },
+          "attached_bytes": {
+            "type": "integer",
+            "title": "Attached Bytes"
+          },
+          "parse_status": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Parse Status"
+          },
+          "by_lifecycle": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeStatisticsGroup"
+            },
+            "type": "array",
+            "title": "By Lifecycle"
+          },
+          "by_language": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeStatisticsGroup"
+            },
+            "type": "array",
+            "title": "By Language"
+          },
+          "by_classification": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeClassificationCount"
+            },
+            "type": "array",
+            "title": "By Classification"
+          },
+          "classification_groups_truncated": {
+            "type": "boolean",
+            "title": "Classification Groups Truncated"
+          },
+          "representative_version": {
+            "type": "string",
+            "const": "ACTIVE_ELSE_LATEST_MATCHING_LIST",
+            "title": "Representative Version"
+          },
+          "many_to_many_group_totals_are_not_global_totals": {
+            "type": "boolean",
+            "const": true,
+            "title": "Many To Many Group Totals Are Not Global Totals"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/KnowledgeStatisticsScope"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "as_of",
+          "documents",
+          "versions",
+          "attached_originals",
+          "attached_bytes",
+          "parse_status",
+          "by_lifecycle",
+          "by_language",
+          "by_classification",
+          "classification_groups_truncated",
+          "representative_version",
+          "many_to_many_group_totals_are_not_global_totals",
+          "scope"
+        ],
+        "title": "KnowledgeStatisticsView"
+      },
+      "KnowledgeStatisticsGroup": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "documents": {
+            "type": "integer",
+            "title": "Documents"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "key",
+          "documents"
+        ],
+        "title": "KnowledgeStatisticsGroup"
+      },
+      "KnowledgeClassificationCount": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "title": "Kind"
+          },
+          "definition_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Definition Id"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "documents": {
+            "type": "integer",
+            "title": "Documents"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "definition_id",
+          "code",
+          "documents"
+        ],
+        "title": "KnowledgeClassificationCount"
+      },
+      "KnowledgeStatisticsScope": {
+        "properties": {
+          "label_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Label Ids",
+            "default": []
+          },
+          "query": {
+            "type": "string",
+            "title": "Query"
+          },
+          "label_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Label Id"
+          },
+          "lifecycle": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "DRAFT",
+                  "INGESTED",
+                  "VALIDATED",
+                  "PENDING_REVIEW",
+                  "APPROVED",
+                  "ACTIVE",
+                  "SUPERSEDED",
+                  "EXPIRED",
+                  "ARCHIVED"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lifecycle"
+          },
+          "language": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Language"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "query",
+          "label_id",
+          "lifecycle",
+          "language"
+        ],
+        "title": "KnowledgeStatisticsScope"
       }
     }
   }

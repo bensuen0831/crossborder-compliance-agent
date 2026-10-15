@@ -4,7 +4,92 @@
  */
 
 export interface paths {
-    "/api/v1/admin/knowledge-management/upload-sessions": {
+    "/api/v1/admin/knowledge-management/acceptance/templates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Templates */
+        get: operations["templates_api_v1_admin_knowledge_management_acceptance_templates_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/acceptance/records": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Import Draft */
+        post: operations["import_draft_api_v1_admin_knowledge_management_acceptance_records_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/acceptance/records/{identity}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Read */
+        get: operations["read_api_v1_admin_knowledge_management_acceptance_records__identity__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/acceptance/records/{identity}/{action}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Transition */
+        post: operations["transition_api_v1_admin_knowledge_management_acceptance_records__identity___action__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/acceptance/cases/{identity}/readiness": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Readiness */
+        get: operations["readiness_api_v1_admin_knowledge_management_acceptance_cases__identity__readiness_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/translation-alignments": {
         parameters: {
             query?: never;
             header?: never;
@@ -14,22 +99,22 @@ export interface paths {
         get?: never;
         put?: never;
         /** Create */
-        post: operations["create_api_v1_admin_knowledge_management_upload_sessions_post"];
+        post: operations["create_api_v1_admin_knowledge_management_translation_alignments_post"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/knowledge-management/upload-sessions/{identity}": {
+    "/api/v1/admin/knowledge-management/documents/versions/{version_id}/translation-alignments": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Detail */
-        get: operations["detail_api_v1_admin_knowledge_management_upload_sessions__identity__get"];
+        /** List Alignments */
+        get: operations["list_alignments_api_v1_admin_knowledge_management_documents_versions__version_id__translation_alignments_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -38,7 +123,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/part-url": {
+    "/api/v1/admin/knowledge-management/translation-alignments/{translation_id}/review": {
         parameters: {
             query?: never;
             header?: never;
@@ -47,246 +132,8 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Part Url */
-        post: operations["part_url_api_v1_admin_knowledge_management_upload_sessions__identity__part_url_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/parts": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Acknowledge */
-        post: operations["acknowledge_api_v1_admin_knowledge_management_upload_sessions__identity__parts_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/complete": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Complete */
-        post: operations["complete_api_v1_admin_knowledge_management_upload_sessions__identity__complete_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/cancel": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Cancel */
-        post: operations["cancel_api_v1_admin_knowledge_management_upload_sessions__identity__cancel_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/retry": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Retry */
-        post: operations["retry_api_v1_admin_knowledge_management_upload_sessions__identity__retry_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/attach": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Attach */
-        post: operations["attach_api_v1_admin_knowledge_management_upload_sessions__identity__attach_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/knowledge-management/import-batches": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Create */
-        post: operations["create_api_v1_admin_knowledge_management_import_batches_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/knowledge-management/import-batches/{identity}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Detail */
-        get: operations["detail_api_v1_admin_knowledge_management_import_batches__identity__get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/knowledge-management/import-batches/{identity}/confirm-items": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Confirm */
-        post: operations["confirm_api_v1_admin_knowledge_management_import_batches__identity__confirm_items_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/knowledge-management/import-batches/{identity}/cancel": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Cancel */
-        post: operations["cancel_api_v1_admin_knowledge_management_import_batches__identity__cancel_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/knowledge-management/import-batches/{identity}/retry": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Retry */
-        post: operations["retry_api_v1_admin_knowledge_management_import_batches__identity__retry_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/knowledge-management/import-batches/{identity}/failures": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Failures */
-        get: operations["failures_api_v1_admin_knowledge_management_import_batches__identity__failures_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/knowledge-management/import-batches/{identity}/items/{item_id}/retry": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Retry Item */
-        post: operations["retry_item_api_v1_admin_knowledge_management_import_batches__identity__items__item_id__retry_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/knowledge-management/versions/{identity}/binary-ingestion": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Ingest */
-        post: operations["ingest_api_v1_admin_knowledge_management_versions__identity__binary_ingestion_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/admin/knowledge-management/statistics": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Summary */
-        get: operations["summary_api_v1_admin_knowledge_management_statistics_get"];
-        put?: never;
-        post?: never;
+        /** Review */
+        post: operations["review_api_v1_admin_knowledge_management_translation_alignments__translation_id__review_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -373,6 +220,23 @@ export interface paths {
         put?: never;
         /** Taxonomy Create */
         post: operations["taxonomy_create_api_v1_admin_knowledge_management_taxonomy_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/taxonomy-tree": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Taxonomy Tree */
+        get: operations["taxonomy_tree_api_v1_admin_knowledge_management_taxonomy_tree_get"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -858,111 +722,402 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/knowledge-management/sources": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Source Options */
+        get: operations["source_options_api_v1_admin_knowledge_management_sources_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/sources/{source_id}/collection-versions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Collection Options */
+        get: operations["collection_options_api_v1_admin_knowledge_management_sources__source_id__collection_versions_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/upload-sessions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create */
+        post: operations["create_api_v1_admin_knowledge_management_upload_sessions_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/upload-sessions/{identity}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Detail */
+        get: operations["detail_api_v1_admin_knowledge_management_upload_sessions__identity__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/part-url": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Part Url */
+        post: operations["part_url_api_v1_admin_knowledge_management_upload_sessions__identity__part_url_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/parts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Acknowledge */
+        post: operations["acknowledge_api_v1_admin_knowledge_management_upload_sessions__identity__parts_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/complete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Complete */
+        post: operations["complete_api_v1_admin_knowledge_management_upload_sessions__identity__complete_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Cancel */
+        post: operations["cancel_api_v1_admin_knowledge_management_upload_sessions__identity__cancel_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/retry": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Retry */
+        post: operations["retry_api_v1_admin_knowledge_management_upload_sessions__identity__retry_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/upload-sessions/{identity}/attach": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Attach */
+        post: operations["attach_api_v1_admin_knowledge_management_upload_sessions__identity__attach_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/upload-policy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Upload Policy */
+        get: operations["upload_policy_api_v1_admin_knowledge_management_upload_policy_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/import-batches": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create */
+        post: operations["create_api_v1_admin_knowledge_management_import_batches_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/import-batches/{identity}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Detail */
+        get: operations["detail_api_v1_admin_knowledge_management_import_batches__identity__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/import-batches/{identity}/confirm-items": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Confirm */
+        post: operations["confirm_api_v1_admin_knowledge_management_import_batches__identity__confirm_items_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/import-batches/{identity}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Cancel */
+        post: operations["cancel_api_v1_admin_knowledge_management_import_batches__identity__cancel_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/import-batches/{identity}/retry": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Retry */
+        post: operations["retry_api_v1_admin_knowledge_management_import_batches__identity__retry_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/import-batches/{identity}/failures": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Failures */
+        get: operations["failures_api_v1_admin_knowledge_management_import_batches__identity__failures_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/import-batches/{identity}/items/{item_id}/retry": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Retry Item */
+        post: operations["retry_item_api_v1_admin_knowledge_management_import_batches__identity__items__item_id__retry_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/versions/{identity}/binary-ingestion": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Ingest */
+        post: operations["ingest_api_v1_admin_knowledge_management_versions__identity__binary_ingestion_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/statistics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Summary */
+        get: operations["summary_api_v1_admin_knowledge_management_statistics_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        /** StartKnowledgeUpload */
-        StartKnowledgeUpload: {
-            /** Knowledge Version Id */
-            knowledge_version_id?: string | null;
-            /** Expected Record Version */
-            expected_record_version?: number | null;
-            /** Relative Path */
-            relative_path: string;
+        /** ImportAcceptanceDraft */
+        ImportAcceptanceDraft: {
             /**
-             * Declared Format
+             * Kind
              * @enum {string}
              */
-            declared_format: "DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP";
-            /** Declared Bytes */
-            declared_bytes: number;
-            /** Content Sha256 */
-            content_sha256: string;
-            /** Idempotency Key */
-            idempotency_key: string;
+            kind: "REGULATORY_ACCEPTANCE_CASE" | "REGULATORY_EXPERT_AUTHORIZATION" | "REGULATORY_SOURCE_VERIFICATION" | "REGULATORY_GOLD_REVIEW";
+            /** Code */
+            code: string;
+            /** Display Name */
+            display_name: string;
+            /** Payload */
+            payload: {
+                [key: string]: unknown;
+            };
         };
-        /** KnowledgeUploadView */
-        KnowledgeUploadView: {
+        /** AcceptanceRecordView */
+        AcceptanceRecordView: {
             /**
-             * Upload Session Id
+             * Definition Id
              * Format: uuid
              */
-            upload_session_id: string;
-            /** Knowledge Version Id */
-            knowledge_version_id: string | null;
-            /** Relative Path */
-            relative_path: string;
+            definition_id: string;
             /**
-             * Declared Format
-             * @enum {string}
+             * Version Id
+             * Format: uuid
              */
-            declared_format: "DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP";
-            /** Declared Bytes */
-            declared_bytes: number;
-            /** Content Sha256 */
-            content_sha256: string;
-            /** Part Bytes */
-            part_bytes: number;
-            /** Part Count */
-            part_count: number;
-            /**
-             * Status
-             * @enum {string}
-             */
-            status: "CREATING" | "UPLOADING" | "FINALIZING" | "QUEUED_SCAN" | "SCANNING" | "VERIFIED" | "QUARANTINED" | "FAILED" | "CANCELLING" | "CANCELLED" | "EXPIRED";
+            version_id: string;
+            /** Kind */
+            kind: string;
+            /** Code */
+            code: string;
+            /** Version No */
+            version_no: number;
             /** Record Version */
             record_version: number;
-            /**
-             * Expires At
-             * Format: date-time
-             */
-            expires_at: string;
+            /** Lifecycle */
+            lifecycle: string;
             /** Created By */
             created_by: string;
-            /** Attempts */
-            attempts: number;
-            /** Error Code */
-            error_code: string | null;
-            scan: components["schemas"]["KnowledgeScanView"];
-            /** Receipt Id */
-            receipt_id?: string | null;
-            /** Operation */
-            operation?: string | null;
-            /** Received Parts */
-            received_parts?: components["schemas"]["KnowledgeReceivedPart"][] | null;
-            /** Received Bytes */
-            received_bytes?: number | null;
-        };
-        /** KnowledgeScanView */
-        KnowledgeScanView: {
-            /** Byte Size */
-            byte_size?: number | null;
-            /** Content Sha256 */
-            content_sha256?: string | null;
-            /** Detected Format */
-            detected_format?: ("DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP") | null;
-            scanner?: components["schemas"]["KnowledgeScannerView"] | null;
-        };
-        /** KnowledgeScannerView */
-        KnowledgeScannerView: {
-            /** Clean */
-            clean: boolean;
-            /** Engine */
-            engine: string;
-            /** Database Identity */
-            database_identity: string;
-            /** Image Id */
-            image_id: string;
-        };
-        /** KnowledgeReceivedPart */
-        KnowledgeReceivedPart: {
-            /** Part Number */
-            part_number: number;
-            /** Byte Size */
-            byte_size: number;
-            /** Content Sha256 */
-            content_sha256: string;
+            /** Approved By */
+            approved_by: string | null;
+            /** Approved At */
+            approved_at: string | null;
+            /** Published At */
+            published_at: string | null;
+            /** Payload */
+            payload: {
+                [key: string]: unknown;
+            };
+            /** Payload Sha256 */
+            payload_sha256: string;
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -982,221 +1137,180 @@ export interface components {
             /** Context */
             ctx?: Record<string, never>;
         };
-        /** KnowledgeUploadPartRequest */
-        KnowledgeUploadPartRequest: {
-            /** Part Number */
-            part_number: number;
-            /** Content Sha256 */
-            content_sha256: string;
+        /** AcceptanceTransition */
+        AcceptanceTransition: {
+            /** Expected Record Version */
+            expected_record_version: number;
         };
-        /** KnowledgeSignedPart */
-        KnowledgeSignedPart: {
-            /** Url */
-            url: string;
-            /** Headers */
-            headers: {
-                [key: string]: string;
+        /** AcceptanceReadinessView */
+        AcceptanceReadinessView: {
+            /**
+             * Case Version Id
+             * Format: uuid
+             */
+            case_version_id: string;
+            /** Gold Review Version Id */
+            gold_review_version_id: string | null;
+            /**
+             * Dataset Kind
+             * @enum {string}
+             */
+            dataset_kind: "L1_SYNTHETIC_GOVERNED" | "L2_REAL_REGULATORY";
+            /** Checks */
+            checks: {
+                [key: string]: boolean;
             };
-            /** Byte Size */
-            byte_size: number;
-        };
-        /** KnowledgeUploadPartReceipt */
-        KnowledgeUploadPartReceipt: {
-            /** Part Number */
-            part_number: number;
-            /** Content Sha256 */
-            content_sha256: string;
-            /** Expected Record Version */
-            expected_record_version: number;
-            /** Idempotency Key */
-            idempotency_key: string;
-        };
-        /** KnowledgeUploadMutation */
-        KnowledgeUploadMutation: {
-            /** Expected Record Version */
-            expected_record_version: number;
-            /** Idempotency Key */
-            idempotency_key: string;
-        };
-        /** AttachKnowledgeUpload */
-        AttachKnowledgeUpload: {
             /**
-             * Knowledge Version Id
-             * Format: uuid
-             */
-            knowledge_version_id: string;
-            /** Expected Record Version */
-            expected_record_version: number;
-            /** Idempotency Key */
-            idempotency_key: string;
-        };
-        /** CreateKnowledgeImportBatch */
-        CreateKnowledgeImportBatch: {
-            /** Archive Upload Session Id */
-            archive_upload_session_id?: string | null;
-            /**
-             * Upload Session Ids
-             * @default []
-             */
-            upload_session_ids: string[];
-            /** Idempotency Key */
-            idempotency_key: string;
-        };
-        /** KnowledgeBatchView */
-        KnowledgeBatchView: {
-            /**
-             * Batch Id
-             * Format: uuid
-             */
-            batch_id: string;
-            /** Archive Upload Session Id */
-            archive_upload_session_id: string | null;
-            /** Created By */
-            created_by: string;
-            /**
-             * Status
+             * Decision
              * @enum {string}
              */
-            status: "PENDING" | "EXTRACTING" | "PREVIEW" | "CONFIRMED" | "PROCESSING" | "COMPLETED" | "PARTIAL_FAILURE" | "FAILED" | "CANCELLING" | "CANCELLED";
+            decision: "ENGINEERING_READINESS_ONLY" | "READY_FOR_INDEPENDENT_ACCEPTANCE" | "BLOCKED_EXTERNAL_EVIDENCE_PENDING";
+            /** Reason Codes */
+            reason_codes: string[];
+            /**
+             * Real Regulatory Legal Acceptance
+             * @constant
+             */
+            real_regulatory_legal_acceptance: "NOT_EXECUTED";
+            /**
+             * Production Business Uat
+             * @constant
+             */
+            production_business_uat: "NOT_EXECUTED";
+        };
+        /** CreateTranslationAlignment */
+        CreateTranslationAlignment: {
+            /**
+             * Source Version Id
+             * Format: uuid
+             */
+            source_version_id: string;
+            /**
+             * Target Version Id
+             * Format: uuid
+             */
+            target_version_id: string;
+            /** Expected Source Record Version */
+            expected_source_record_version: number;
+            /** Expected Target Record Version */
+            expected_target_record_version: number;
+            /**
+             * Translation Method
+             * @default HUMAN
+             * @constant
+             */
+            translation_method: "HUMAN";
+            /** Pairs */
+            pairs: components["schemas"]["ClauseTranslationPair"][];
+            /** Reason */
+            reason: string;
+        };
+        /** ClauseTranslationPair */
+        ClauseTranslationPair: {
+            /**
+             * Source Node Id
+             * Format: uuid
+             */
+            source_node_id: string;
+            /**
+             * Target Node Id
+             * Format: uuid
+             */
+            target_node_id: string;
+        };
+        /** TranslationAlignmentView */
+        TranslationAlignmentView: {
+            /**
+             * Translation Id
+             * Format: uuid
+             */
+            translation_id: string;
+            /**
+             * Source Version Id
+             * Format: uuid
+             */
+            source_version_id: string;
+            /**
+             * Target Version Id
+             * Format: uuid
+             */
+            target_version_id: string;
+            /** Source Language */
+            source_language: string;
+            /** Target Language */
+            target_language: string;
+            /** Source Content Hash */
+            source_content_hash: string;
+            /** Target Content Hash */
+            target_content_hash: string;
+            /** Pairs */
+            pairs: components["schemas"]["TranslationAlignmentPairView"][];
+            /**
+             * Translation Method
+             * @constant
+             */
+            translation_method: "HUMAN";
+            /**
+             * Review Status
+             * @enum {string}
+             */
+            review_status: "PENDING" | "APPROVED" | "REJECTED";
             /** Record Version */
             record_version: number;
-            /** Manifest Digest */
-            manifest_digest: string | null;
-            /** Attempts */
-            attempts: number;
-            /** Error Code */
-            error_code: string | null;
-            /** Receipt Id */
-            receipt_id?: string | null;
-            /** Operation */
-            operation?: string | null;
-            /** Counts */
-            counts?: {
-                [key: string]: number;
-            } | null;
-            /** Total */
-            total?: number | null;
-            /** Page */
-            page?: number | null;
-            /** Page Size */
-            page_size?: number | null;
-            /** Items */
-            items?: components["schemas"]["KnowledgeBatchItemView"][] | null;
+            /** Submitted By */
+            submitted_by: string;
+            /**
+             * Submitted At
+             * Format: date-time
+             */
+            submitted_at: string;
+            /** Reviewer */
+            reviewer: string | null;
+            /** Reviewed At */
+            reviewed_at: string | null;
+            /** Reason */
+            reason: string;
+            /** Review Reason */
+            review_reason: string | null;
+            /**
+             * Official Evidence
+             * @constant
+             */
+            official_evidence: false;
         };
-        /** KnowledgeBatchItemView */
-        KnowledgeBatchItemView: {
-            /** Attempts */
-            attempts: number;
-            /** Technical Retry Available */
-            technical_retry_available: boolean;
+        /** TranslationAlignmentPairView */
+        TranslationAlignmentPairView: {
             /**
-             * Item Id
+             * Source Node Id
              * Format: uuid
              */
-            item_id: string;
+            source_node_id: string;
             /**
-             * Upload Session Id
+             * Target Node Id
              * Format: uuid
              */
-            upload_session_id: string;
-            /** Relative Path */
-            relative_path: string;
-            /** Knowledge Version Id */
-            knowledge_version_id: string | null;
+            target_node_id: string;
             /**
-             * Status
-             * @enum {string}
+             * Source Citation Id
+             * Format: uuid
              */
-            status: "UNMAPPED" | "READY" | "PROCESSING" | "COMPLETED" | "FAILED" | "CANCELLED";
-            /** Record Version */
-            record_version: number;
-            /** Error Code */
-            error_code: string | null;
+            source_citation_id: string;
+            /**
+             * Target Citation Id
+             * Format: uuid
+             */
+            target_citation_id: string;
+            /** Source Locator */
+            source_locator: string;
+            /** Target Locator */
+            target_locator: string;
+            /** Source Text Sha256 */
+            source_text_sha256: string;
+            /** Target Text Sha256 */
+            target_text_sha256: string;
         };
-        /** ConfirmKnowledgeBatchItems */
-        ConfirmKnowledgeBatchItems: {
-            /** Expected Record Version */
-            expected_record_version: number;
-            /** Idempotency Key */
-            idempotency_key: string;
-            /** Mappings */
-            mappings: components["schemas"]["KnowledgeBatchMapping"][];
-        };
-        /** KnowledgeBatchMapping */
-        KnowledgeBatchMapping: {
-            /**
-             * Item Id
-             * Format: uuid
-             */
-            item_id: string;
-            document: components["schemas"]["CreateManagedKnowledgeDocument"];
-        };
-        /** CreateManagedKnowledgeDocument */
-        CreateManagedKnowledgeDocument: {
-            /**
-             * Source Id
-             * Format: uuid
-             */
-            source_id: string;
-            /**
-             * Collection Version Id
-             * Format: uuid
-             */
-            collection_version_id: string;
-            /** Language */
-            language: string;
-            /** Effective From */
-            effective_from?: string | null;
-            /** Effective To */
-            effective_to?: string | null;
-            metadata: components["schemas"]["KnowledgeDocumentMetadata"];
-            /** Idempotency Key */
-            idempotency_key: string;
-        };
-        /** KnowledgeDocumentMetadata */
-        KnowledgeDocumentMetadata: {
-            /** Title */
-            title: string;
-            /** Local Title */
-            local_title?: string | null;
-            /**
-             * Description
-             * @default
-             */
-            description: string;
-            /** Official Source Url */
-            official_source_url?: string | null;
-            /**
-             * Labels
-             * @default []
-             */
-            labels: components["schemas"]["KnowledgeDocumentLabel"][];
-        };
-        /** KnowledgeDocumentLabel */
-        KnowledgeDocumentLabel: {
-            /**
-             * Kind
-             * @enum {string}
-             */
-            kind: "JURISDICTION_CONFIG" | "REGULATION_CATEGORY" | "RESEARCH_TOPIC" | "LANGUAGE" | "ISSUING_AUTHORITY" | "KNOWLEDGE_SOURCE_TYPE" | "LEGAL_EFFECT";
-            /**
-             * Definition Id
-             * Format: uuid
-             */
-            definition_id: string;
-            /**
-             * Version Id
-             * Format: uuid
-             */
-            version_id: string;
-        };
-        /** KnowledgeBatchFailurePage */
-        KnowledgeBatchFailurePage: {
-            /**
-             * Batch Id
-             * Format: uuid
-             */
-            batch_id: string;
+        /** TranslationAlignmentPage */
+        TranslationAlignmentPage: {
             /** Total */
             total: number;
             /** Page */
@@ -1204,203 +1318,19 @@ export interface components {
             /** Page Size */
             page_size: number;
             /** Items */
-            items: components["schemas"]["KnowledgeBatchFailure"][];
+            items: components["schemas"]["TranslationAlignmentView"][];
         };
-        /** KnowledgeBatchFailure */
-        KnowledgeBatchFailure: {
-            /**
-             * Item Id
-             * Format: uuid
-             */
-            item_id: string;
-            /** Relative Path */
-            relative_path: string;
-            /**
-             * Status
-             * @constant
-             */
-            status: "FAILED";
-            /** Error Code */
-            error_code: string | null;
-            /** Record Version */
-            record_version: number;
-            /** Attempts */
-            attempts: number;
-            /** Technical Retry Available */
-            technical_retry_available: boolean;
-        };
-        /** RetryKnowledgeBatchItem */
-        RetryKnowledgeBatchItem: {
+        /** ReviewTranslationAlignment */
+        ReviewTranslationAlignment: {
             /** Expected Record Version */
             expected_record_version: number;
-            /** Idempotency Key */
-            idempotency_key: string;
-            /** Expected Item Record Version */
-            expected_item_record_version: number;
-        };
-        /** KnowledgeBinaryIngestionRequest */
-        KnowledgeBinaryIngestionRequest: {
             /**
-             * Binary Upload Session Id
-             * Format: uuid
-             */
-            binary_upload_session_id: string;
-            /** Expected Record Version */
-            expected_record_version: number;
-            /** Idempotency Key */
-            idempotency_key: string;
-            /**
-             * Bindings
-             * @default []
-             */
-            bindings: components["schemas"]["BindingRequestDTO"][];
-            /**
-             * Strategy
-             * @default STRUCTURE_AWARE
+             * Action
              * @enum {string}
              */
-            strategy: "STRUCTURE_AWARE" | "ARTICLE" | "SECTION" | "PARAGRAPH" | "TABLE" | "SLIDING_WINDOW";
-        };
-        /** BindingRequestDTO */
-        BindingRequestDTO: {
-            /**
-             * Scope Type
-             * @enum {string}
-             */
-            scope_type: "PRODUCT_SPECIFIC" | "DOMAIN_SHARED" | "CROSS_PRODUCT" | "GLOBAL";
-            /** Dimensions */
-            dimensions?: {
-                [key: string]: string[];
-            };
-            /** Permission Scopes */
-            permission_scopes?: string[];
-            /** Effective From */
-            effective_from?: string | null;
-            /** Effective To */
-            effective_to?: string | null;
-            /** Provenance */
-            provenance: {
-                [key: string]: unknown;
-            };
-        };
-        /** KnowledgeBinaryIngestionView */
-        KnowledgeBinaryIngestionView: {
-            /**
-             * Tenant Id
-             * Format: uuid
-             */
-            tenant_id: string;
-            /** Record Version */
-            record_version: number;
-            /** Status */
-            status: string;
-            /**
-             * Created At
-             * Format: date-time
-             */
-            created_at: string;
-            /**
-             * Updated At
-             * Format: date-time
-             */
-            updated_at: string;
-            /**
-             * Ingestion Run Id
-             * Format: uuid
-             */
-            ingestion_run_id: string;
-            /**
-             * Knowledge Version Id
-             * Format: uuid
-             */
-            knowledge_version_id: string;
-            /** Idempotency Key */
-            idempotency_key: string;
-            /** Request Hash */
-            request_hash: string;
-            /** Error Code */
-            error_code?: string | null;
-            /**
-             * Outbox Event Id
-             * Format: uuid
-             */
-            outbox_event_id: string;
-            /**
-             * Batch Id
-             * Format: uuid
-             */
-            batch_id: string;
-        };
-        /** KnowledgeStatisticsView */
-        KnowledgeStatisticsView: {
-            /**
-             * As Of
-             * Format: date-time
-             */
-            as_of: string;
-            /** Documents */
-            documents: number;
-            /** Versions */
-            versions: number;
-            /** Attached Originals */
-            attached_originals: number;
-            /** Attached Bytes */
-            attached_bytes: number;
-            /** Parse Status */
-            parse_status: {
-                [key: string]: number;
-            };
-            /** By Lifecycle */
-            by_lifecycle: components["schemas"]["KnowledgeStatisticsGroup"][];
-            /** By Language */
-            by_language: components["schemas"]["KnowledgeStatisticsGroup"][];
-            /** By Classification */
-            by_classification: components["schemas"]["KnowledgeClassificationCount"][];
-            /** Classification Groups Truncated */
-            classification_groups_truncated: boolean;
-            /**
-             * Representative Version
-             * @constant
-             */
-            representative_version: "ACTIVE_ELSE_LATEST_MATCHING_LIST";
-            /**
-             * Many To Many Group Totals Are Not Global Totals
-             * @constant
-             */
-            many_to_many_group_totals_are_not_global_totals: true;
-            scope: components["schemas"]["KnowledgeStatisticsScope"];
-        };
-        /** KnowledgeStatisticsGroup */
-        KnowledgeStatisticsGroup: {
-            /** Key */
-            key: string;
-            /** Documents */
-            documents: number;
-        };
-        /** KnowledgeClassificationCount */
-        KnowledgeClassificationCount: {
-            /** Kind */
-            kind: string;
-            /**
-             * Definition Id
-             * Format: uuid
-             */
-            definition_id: string;
-            /** Code */
-            code: string;
-            /** Documents */
-            documents: number;
-        };
-        /** KnowledgeStatisticsScope */
-        KnowledgeStatisticsScope: {
-            /** Query */
-            query: string;
-            /** Label Id */
-            label_id: string | null;
-            /** Lifecycle */
-            lifecycle: ("DRAFT" | "INGESTED" | "VALIDATED" | "PENDING_REVIEW" | "APPROVED" | "ACTIVE" | "SUPERSEDED" | "EXPIRED" | "ARCHIVED") | null;
-            /** Language */
-            language: string | null;
+            action: "APPROVE" | "REJECT";
+            /** Reason */
+            reason: string;
         };
         /** KnowledgeAuditPage */
         KnowledgeAuditPage: {
@@ -1739,6 +1669,45 @@ export interface components {
             /** Eligible Draft */
             eligible_draft: boolean;
         };
+        /** TaxonomyTreePage */
+        TaxonomyTreePage: {
+            /** Parent Definition Id */
+            parent_definition_id: string | null;
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+            /** Items */
+            items: components["schemas"]["TaxonomyTreeNode"][];
+        };
+        /** TaxonomyTreeNode */
+        TaxonomyTreeNode: {
+            /**
+             * Definition Id
+             * Format: uuid
+             */
+            definition_id: string;
+            /**
+             * Version Id
+             * Format: uuid
+             */
+            version_id: string;
+            /** Parent Definition Id */
+            parent_definition_id: string | null;
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "JURISDICTION_CONFIG" | "REGULATION_CATEGORY" | "RESEARCH_TOPIC" | "LANGUAGE" | "ISSUING_AUTHORITY" | "KNOWLEDGE_SOURCE_TYPE" | "LEGAL_EFFECT";
+            /** Code */
+            code: string;
+            /** Display Name */
+            display_name: string;
+            /** Child Count */
+            child_count: number;
+        };
         /** TaxonomyDetail */
         TaxonomyDetail: {
             /**
@@ -1906,6 +1875,65 @@ export interface components {
              * Format: date-time
              */
             updated_at: string;
+        };
+        /** CreateManagedKnowledgeDocument */
+        CreateManagedKnowledgeDocument: {
+            /**
+             * Source Id
+             * Format: uuid
+             */
+            source_id: string;
+            /**
+             * Collection Version Id
+             * Format: uuid
+             */
+            collection_version_id: string;
+            /** Language */
+            language: string;
+            /** Effective From */
+            effective_from?: string | null;
+            /** Effective To */
+            effective_to?: string | null;
+            metadata: components["schemas"]["KnowledgeDocumentMetadata"];
+            /** Idempotency Key */
+            idempotency_key: string;
+        };
+        /** KnowledgeDocumentMetadata */
+        KnowledgeDocumentMetadata: {
+            /** Title */
+            title: string;
+            /** Local Title */
+            local_title?: string | null;
+            /**
+             * Description
+             * @default
+             */
+            description: string;
+            /** Official Source Url */
+            official_source_url?: string | null;
+            /**
+             * Labels
+             * @default []
+             */
+            labels: components["schemas"]["KnowledgeDocumentLabel"][];
+        };
+        /** KnowledgeDocumentLabel */
+        KnowledgeDocumentLabel: {
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "JURISDICTION_CONFIG" | "REGULATION_CATEGORY" | "RESEARCH_TOPIC" | "LANGUAGE" | "ISSUING_AUTHORITY" | "KNOWLEDGE_SOURCE_TYPE" | "LEGAL_EFFECT";
+            /**
+             * Definition Id
+             * Format: uuid
+             */
+            definition_id: string;
+            /**
+             * Version Id
+             * Format: uuid
+             */
+            version_id: string;
         };
         /** ManagedKnowledgeVersionMutation */
         ManagedKnowledgeVersionMutation: {
@@ -2119,6 +2147,561 @@ export interface components {
              */
             citation_id: string;
         };
+        /** KnowledgeSourceOptionPage */
+        KnowledgeSourceOptionPage: {
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+            /** Items */
+            items: components["schemas"]["KnowledgeSourceOption"][];
+        };
+        /** KnowledgeSourceOption */
+        KnowledgeSourceOption: {
+            /**
+             * Source Id
+             * Format: uuid
+             */
+            source_id: string;
+            /** Code */
+            code: string;
+            /** Source Type */
+            source_type: string;
+            /**
+             * Collection Id
+             * Format: uuid
+             */
+            collection_id: string;
+            /** Collection Name */
+            collection_name: string;
+        };
+        /** KnowledgeCollectionVersionOptions */
+        KnowledgeCollectionVersionOptions: {
+            /** Items */
+            items: components["schemas"]["KnowledgeCollectionVersionOption"][];
+        };
+        /** KnowledgeCollectionVersionOption */
+        KnowledgeCollectionVersionOption: {
+            /**
+             * Collection Version Id
+             * Format: uuid
+             */
+            collection_version_id: string;
+            /**
+             * Collection Id
+             * Format: uuid
+             */
+            collection_id: string;
+            /** Version No */
+            version_no: number;
+            /** Display Name */
+            display_name: string;
+        };
+        /** StartKnowledgeUpload */
+        StartKnowledgeUpload: {
+            /** Knowledge Version Id */
+            knowledge_version_id?: string | null;
+            /** Expected Record Version */
+            expected_record_version?: number | null;
+            /** Relative Path */
+            relative_path: string;
+            /**
+             * Declared Format
+             * @enum {string}
+             */
+            declared_format: "DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP";
+            /** Declared Bytes */
+            declared_bytes: number;
+            /** Content Sha256 */
+            content_sha256: string;
+            /** Idempotency Key */
+            idempotency_key: string;
+        };
+        /** KnowledgeUploadView */
+        KnowledgeUploadView: {
+            /**
+             * Upload Session Id
+             * Format: uuid
+             */
+            upload_session_id: string;
+            /** Knowledge Version Id */
+            knowledge_version_id: string | null;
+            /** Relative Path */
+            relative_path: string;
+            /**
+             * Declared Format
+             * @enum {string}
+             */
+            declared_format: "DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP";
+            /** Declared Bytes */
+            declared_bytes: number;
+            /** Content Sha256 */
+            content_sha256: string;
+            /** Part Bytes */
+            part_bytes: number;
+            /** Part Count */
+            part_count: number;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "CREATING" | "UPLOADING" | "FINALIZING" | "QUEUED_SCAN" | "SCANNING" | "VERIFIED" | "QUARANTINED" | "FAILED" | "CANCELLING" | "CANCELLED" | "EXPIRED";
+            /** Record Version */
+            record_version: number;
+            /**
+             * Expires At
+             * Format: date-time
+             */
+            expires_at: string;
+            /** Created By */
+            created_by: string;
+            /** Attempts */
+            attempts: number;
+            /** Error Code */
+            error_code: string | null;
+            scan: components["schemas"]["KnowledgeScanView"];
+            /** Receipt Id */
+            receipt_id?: string | null;
+            /** Operation */
+            operation?: string | null;
+            /** Received Parts */
+            received_parts?: components["schemas"]["KnowledgeReceivedPart"][] | null;
+            /** Received Bytes */
+            received_bytes?: number | null;
+        };
+        /** KnowledgeScanView */
+        KnowledgeScanView: {
+            /** Byte Size */
+            byte_size?: number | null;
+            /** Content Sha256 */
+            content_sha256?: string | null;
+            /** Detected Format */
+            detected_format?: ("DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP") | null;
+            scanner?: components["schemas"]["KnowledgeScannerView"] | null;
+        };
+        /** KnowledgeScannerView */
+        KnowledgeScannerView: {
+            /** Clean */
+            clean: boolean;
+            /** Engine */
+            engine: string;
+            /** Database Identity */
+            database_identity: string;
+            /** Image Id */
+            image_id: string;
+        };
+        /** KnowledgeReceivedPart */
+        KnowledgeReceivedPart: {
+            /** Part Number */
+            part_number: number;
+            /** Byte Size */
+            byte_size: number;
+            /** Content Sha256 */
+            content_sha256: string;
+        };
+        /** KnowledgeUploadPartRequest */
+        KnowledgeUploadPartRequest: {
+            /** Part Number */
+            part_number: number;
+            /** Content Sha256 */
+            content_sha256: string;
+        };
+        /** KnowledgeSignedPart */
+        KnowledgeSignedPart: {
+            /** Url */
+            url: string;
+            /** Headers */
+            headers: {
+                [key: string]: string;
+            };
+            /** Byte Size */
+            byte_size: number;
+        };
+        /** KnowledgeUploadPartReceipt */
+        KnowledgeUploadPartReceipt: {
+            /** Part Number */
+            part_number: number;
+            /** Content Sha256 */
+            content_sha256: string;
+            /** Expected Record Version */
+            expected_record_version: number;
+            /** Idempotency Key */
+            idempotency_key: string;
+        };
+        /** KnowledgeUploadMutation */
+        KnowledgeUploadMutation: {
+            /** Expected Record Version */
+            expected_record_version: number;
+            /** Idempotency Key */
+            idempotency_key: string;
+        };
+        /** AttachKnowledgeUpload */
+        AttachKnowledgeUpload: {
+            /**
+             * Knowledge Version Id
+             * Format: uuid
+             */
+            knowledge_version_id: string;
+            /** Expected Record Version */
+            expected_record_version: number;
+            /** Idempotency Key */
+            idempotency_key: string;
+        };
+        /** KnowledgeUploadPolicyView */
+        KnowledgeUploadPolicyView: {
+            /**
+             * Policy Definition Id
+             * Format: uuid
+             */
+            policy_definition_id: string;
+            /**
+             * Policy Version Id
+             * Format: uuid
+             */
+            policy_version_id: string;
+            /** Max Single Bytes */
+            max_single_bytes: number;
+            /** Max Archive Bytes */
+            max_archive_bytes: number;
+            /** Max Expanded Bytes */
+            max_expanded_bytes: number;
+            /** Max Archive Entries */
+            max_archive_entries: number;
+            /** Multipart Chunk Bytes */
+            multipart_chunk_bytes: number;
+            /** Upload Expiry Seconds */
+            upload_expiry_seconds: number;
+            /** Tenant Storage Quota Bytes */
+            tenant_storage_quota_bytes: number;
+            /** Max Active Upload Sessions */
+            max_active_upload_sessions: number;
+            /** Scan Required */
+            scan_required: boolean;
+            /** Allowed Document Formats */
+            allowed_document_formats: ("DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP")[];
+            /** Allowed Archive Formats */
+            allowed_archive_formats: ("DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP")[];
+        };
+        /** CreateKnowledgeImportBatch */
+        CreateKnowledgeImportBatch: {
+            /** Archive Upload Session Id */
+            archive_upload_session_id?: string | null;
+            /**
+             * Upload Session Ids
+             * @default []
+             */
+            upload_session_ids: string[];
+            /** Idempotency Key */
+            idempotency_key: string;
+        };
+        /** KnowledgeBatchView */
+        KnowledgeBatchView: {
+            /**
+             * Batch Id
+             * Format: uuid
+             */
+            batch_id: string;
+            /** Archive Upload Session Id */
+            archive_upload_session_id: string | null;
+            /** Created By */
+            created_by: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "PENDING" | "EXTRACTING" | "PREVIEW" | "CONFIRMED" | "PROCESSING" | "COMPLETED" | "PARTIAL_FAILURE" | "FAILED" | "CANCELLING" | "CANCELLED";
+            /** Record Version */
+            record_version: number;
+            /** Manifest Digest */
+            manifest_digest: string | null;
+            /** Attempts */
+            attempts: number;
+            /** Error Code */
+            error_code: string | null;
+            /** Receipt Id */
+            receipt_id?: string | null;
+            /** Operation */
+            operation?: string | null;
+            /** Counts */
+            counts?: {
+                [key: string]: number;
+            } | null;
+            /** Total */
+            total?: number | null;
+            /** Page */
+            page?: number | null;
+            /** Page Size */
+            page_size?: number | null;
+            /** Items */
+            items?: components["schemas"]["KnowledgeBatchItemView"][] | null;
+        };
+        /** KnowledgeBatchItemView */
+        KnowledgeBatchItemView: {
+            /** Attempts */
+            attempts: number;
+            /** Technical Retry Available */
+            technical_retry_available: boolean;
+            /**
+             * Item Id
+             * Format: uuid
+             */
+            item_id: string;
+            /**
+             * Upload Session Id
+             * Format: uuid
+             */
+            upload_session_id: string;
+            /** Relative Path */
+            relative_path: string;
+            /** Knowledge Version Id */
+            knowledge_version_id: string | null;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "UNMAPPED" | "READY" | "PROCESSING" | "COMPLETED" | "FAILED" | "CANCELLED";
+            /** Record Version */
+            record_version: number;
+            /** Error Code */
+            error_code: string | null;
+        };
+        /** ConfirmKnowledgeBatchItems */
+        ConfirmKnowledgeBatchItems: {
+            /** Expected Record Version */
+            expected_record_version: number;
+            /** Idempotency Key */
+            idempotency_key: string;
+            /** Mappings */
+            mappings: components["schemas"]["KnowledgeBatchMapping"][];
+        };
+        /** KnowledgeBatchMapping */
+        KnowledgeBatchMapping: {
+            /**
+             * Item Id
+             * Format: uuid
+             */
+            item_id: string;
+            document: components["schemas"]["CreateManagedKnowledgeDocument"];
+        };
+        /** KnowledgeBatchFailurePage */
+        KnowledgeBatchFailurePage: {
+            /**
+             * Batch Id
+             * Format: uuid
+             */
+            batch_id: string;
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+            /** Items */
+            items: components["schemas"]["KnowledgeBatchFailure"][];
+        };
+        /** KnowledgeBatchFailure */
+        KnowledgeBatchFailure: {
+            /**
+             * Item Id
+             * Format: uuid
+             */
+            item_id: string;
+            /** Relative Path */
+            relative_path: string;
+            /**
+             * Status
+             * @constant
+             */
+            status: "FAILED";
+            /** Error Code */
+            error_code: string | null;
+            /** Record Version */
+            record_version: number;
+            /** Attempts */
+            attempts: number;
+            /** Technical Retry Available */
+            technical_retry_available: boolean;
+        };
+        /** RetryKnowledgeBatchItem */
+        RetryKnowledgeBatchItem: {
+            /** Expected Record Version */
+            expected_record_version: number;
+            /** Idempotency Key */
+            idempotency_key: string;
+            /** Expected Item Record Version */
+            expected_item_record_version: number;
+        };
+        /** KnowledgeBinaryIngestionRequest */
+        KnowledgeBinaryIngestionRequest: {
+            /**
+             * Binary Upload Session Id
+             * Format: uuid
+             */
+            binary_upload_session_id: string;
+            /** Expected Record Version */
+            expected_record_version: number;
+            /** Idempotency Key */
+            idempotency_key: string;
+            /**
+             * Bindings
+             * @default []
+             */
+            bindings: components["schemas"]["BindingRequestDTO"][];
+            /**
+             * Strategy
+             * @default STRUCTURE_AWARE
+             * @enum {string}
+             */
+            strategy: "STRUCTURE_AWARE" | "ARTICLE" | "SECTION" | "PARAGRAPH" | "TABLE" | "SLIDING_WINDOW";
+        };
+        /** BindingRequestDTO */
+        BindingRequestDTO: {
+            /**
+             * Scope Type
+             * @enum {string}
+             */
+            scope_type: "PRODUCT_SPECIFIC" | "DOMAIN_SHARED" | "CROSS_PRODUCT" | "GLOBAL";
+            /** Dimensions */
+            dimensions?: {
+                [key: string]: string[];
+            };
+            /** Permission Scopes */
+            permission_scopes?: string[];
+            /** Effective From */
+            effective_from?: string | null;
+            /** Effective To */
+            effective_to?: string | null;
+            /** Provenance */
+            provenance: {
+                [key: string]: unknown;
+            };
+        };
+        /** KnowledgeBinaryIngestionView */
+        KnowledgeBinaryIngestionView: {
+            /**
+             * Tenant Id
+             * Format: uuid
+             */
+            tenant_id: string;
+            /** Record Version */
+            record_version: number;
+            /** Status */
+            status: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /**
+             * Ingestion Run Id
+             * Format: uuid
+             */
+            ingestion_run_id: string;
+            /**
+             * Knowledge Version Id
+             * Format: uuid
+             */
+            knowledge_version_id: string;
+            /** Idempotency Key */
+            idempotency_key: string;
+            /** Request Hash */
+            request_hash: string;
+            /** Error Code */
+            error_code?: string | null;
+            /**
+             * Outbox Event Id
+             * Format: uuid
+             */
+            outbox_event_id: string;
+            /**
+             * Batch Id
+             * Format: uuid
+             */
+            batch_id: string;
+        };
+        /** KnowledgeStatisticsView */
+        KnowledgeStatisticsView: {
+            /**
+             * As Of
+             * Format: date-time
+             */
+            as_of: string;
+            /** Documents */
+            documents: number;
+            /** Versions */
+            versions: number;
+            /** Attached Originals */
+            attached_originals: number;
+            /** Attached Bytes */
+            attached_bytes: number;
+            /** Parse Status */
+            parse_status: {
+                [key: string]: number;
+            };
+            /** By Lifecycle */
+            by_lifecycle: components["schemas"]["KnowledgeStatisticsGroup"][];
+            /** By Language */
+            by_language: components["schemas"]["KnowledgeStatisticsGroup"][];
+            /** By Classification */
+            by_classification: components["schemas"]["KnowledgeClassificationCount"][];
+            /** Classification Groups Truncated */
+            classification_groups_truncated: boolean;
+            /**
+             * Representative Version
+             * @constant
+             */
+            representative_version: "ACTIVE_ELSE_LATEST_MATCHING_LIST";
+            /**
+             * Many To Many Group Totals Are Not Global Totals
+             * @constant
+             */
+            many_to_many_group_totals_are_not_global_totals: true;
+            scope: components["schemas"]["KnowledgeStatisticsScope"];
+        };
+        /** KnowledgeStatisticsGroup */
+        KnowledgeStatisticsGroup: {
+            /** Key */
+            key: string;
+            /** Documents */
+            documents: number;
+        };
+        /** KnowledgeClassificationCount */
+        KnowledgeClassificationCount: {
+            /** Kind */
+            kind: string;
+            /**
+             * Definition Id
+             * Format: uuid
+             */
+            definition_id: string;
+            /** Code */
+            code: string;
+            /** Documents */
+            documents: number;
+        };
+        /** KnowledgeStatisticsScope */
+        KnowledgeStatisticsScope: {
+            /**
+             * Label Ids
+             * @default []
+             */
+            label_ids: string[];
+            /** Query */
+            query: string;
+            /** Label Id */
+            label_id: string | null;
+            /** Lifecycle */
+            lifecycle: ("DRAFT" | "INGESTED" | "VALIDATED" | "PENDING_REVIEW" | "APPROVED" | "ACTIVE" | "SUPERSEDED" | "EXPIRED" | "ARCHIVED") | null;
+            /** Language */
+            language: string | null;
+        };
     };
     responses: never;
     parameters: never;
@@ -2128,7 +2711,27 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    create_api_v1_admin_knowledge_management_upload_sessions_post: {
+    templates_api_v1_admin_knowledge_management_acceptance_templates_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+        };
+    };
+    import_draft_api_v1_admin_knowledge_management_acceptance_records_post: {
         parameters: {
             query?: never;
             header?: never;
@@ -2137,7 +2740,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["StartKnowledgeUpload"];
+                "application/json": components["schemas"]["ImportAcceptanceDraft"];
             };
         };
         responses: {
@@ -2147,7 +2750,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnowledgeUploadView"];
+                    "application/json": components["schemas"]["AcceptanceRecordView"];
                 };
             };
             /** @description Validation Error */
@@ -2161,7 +2764,7 @@ export interface operations {
             };
         };
     };
-    detail_api_v1_admin_knowledge_management_upload_sessions__identity__get: {
+    read_api_v1_admin_knowledge_management_acceptance_records__identity__get: {
         parameters: {
             query?: never;
             header?: never;
@@ -2178,7 +2781,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnowledgeUploadView"];
+                    "application/json": components["schemas"]["AcceptanceRecordView"];
                 };
             };
             /** @description Validation Error */
@@ -2192,18 +2795,19 @@ export interface operations {
             };
         };
     };
-    part_url_api_v1_admin_knowledge_management_upload_sessions__identity__part_url_post: {
+    transition_api_v1_admin_knowledge_management_acceptance_records__identity___action__post: {
         parameters: {
             query?: never;
             header?: never;
             path: {
                 identity: string;
+                action: "submit-review" | "approve" | "reject" | "publish";
             };
             cookie?: never;
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["KnowledgeUploadPartRequest"];
+                "application/json": components["schemas"]["AcceptanceTransition"];
             };
         };
         responses: {
@@ -2213,7 +2817,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnowledgeSignedPart"];
+                    "application/json": components["schemas"]["AcceptanceRecordView"];
                 };
             };
             /** @description Validation Error */
@@ -2227,20 +2831,18 @@ export interface operations {
             };
         };
     };
-    acknowledge_api_v1_admin_knowledge_management_upload_sessions__identity__parts_post: {
+    readiness_api_v1_admin_knowledge_management_acceptance_cases__identity__readiness_get: {
         parameters: {
-            query?: never;
+            query?: {
+                gold_review_version_id?: string | null;
+            };
             header?: never;
             path: {
                 identity: string;
             };
             cookie?: never;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["KnowledgeUploadPartReceipt"];
-            };
-        };
+        requestBody?: never;
         responses: {
             /** @description Successful Response */
             200: {
@@ -2248,7 +2850,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnowledgeUploadView"];
+                    "application/json": components["schemas"]["AcceptanceReadinessView"];
                 };
             };
             /** @description Validation Error */
@@ -2262,147 +2864,7 @@ export interface operations {
             };
         };
     };
-    complete_api_v1_admin_knowledge_management_upload_sessions__identity__complete_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                identity: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["KnowledgeUploadMutation"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KnowledgeUploadView"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    cancel_api_v1_admin_knowledge_management_upload_sessions__identity__cancel_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                identity: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["KnowledgeUploadMutation"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KnowledgeUploadView"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    retry_api_v1_admin_knowledge_management_upload_sessions__identity__retry_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                identity: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["KnowledgeUploadMutation"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KnowledgeUploadView"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    attach_api_v1_admin_knowledge_management_upload_sessions__identity__attach_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                identity: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["AttachKnowledgeUpload"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KnowledgeUploadView"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    create_api_v1_admin_knowledge_management_import_batches_post: {
+    create_api_v1_admin_knowledge_management_translation_alignments_post: {
         parameters: {
             query?: never;
             header?: never;
@@ -2411,7 +2873,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["CreateKnowledgeImportBatch"];
+                "application/json": components["schemas"]["CreateTranslationAlignment"];
             };
         };
         responses: {
@@ -2421,7 +2883,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnowledgeBatchView"];
+                    "application/json": components["schemas"]["TranslationAlignmentView"];
                 };
             };
             /** @description Validation Error */
@@ -2435,7 +2897,7 @@ export interface operations {
             };
         };
     };
-    detail_api_v1_admin_knowledge_management_import_batches__identity__get: {
+    list_alignments_api_v1_admin_knowledge_management_documents_versions__version_id__translation_alignments_get: {
         parameters: {
             query?: {
                 page?: number;
@@ -2443,7 +2905,7 @@ export interface operations {
             };
             header?: never;
             path: {
-                identity: string;
+                version_id: string;
             };
             cookie?: never;
         };
@@ -2455,7 +2917,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnowledgeBatchView"];
+                    "application/json": components["schemas"]["TranslationAlignmentPage"];
                 };
             };
             /** @description Validation Error */
@@ -2469,18 +2931,18 @@ export interface operations {
             };
         };
     };
-    confirm_api_v1_admin_knowledge_management_import_batches__identity__confirm_items_post: {
+    review_api_v1_admin_knowledge_management_translation_alignments__translation_id__review_post: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                identity: string;
+                translation_id: string;
             };
             cookie?: never;
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ConfirmKnowledgeBatchItems"];
+                "application/json": components["schemas"]["ReviewTranslationAlignment"];
             };
         };
         responses: {
@@ -2490,216 +2952,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnowledgeBatchView"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    cancel_api_v1_admin_knowledge_management_import_batches__identity__cancel_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                identity: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["KnowledgeUploadMutation"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KnowledgeBatchView"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    retry_api_v1_admin_knowledge_management_import_batches__identity__retry_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                identity: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["KnowledgeUploadMutation"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KnowledgeBatchView"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    failures_api_v1_admin_knowledge_management_import_batches__identity__failures_get: {
-        parameters: {
-            query?: {
-                page?: number;
-                page_size?: number;
-            };
-            header?: never;
-            path: {
-                identity: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KnowledgeBatchFailurePage"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    retry_item_api_v1_admin_knowledge_management_import_batches__identity__items__item_id__retry_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                identity: string;
-                item_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["RetryKnowledgeBatchItem"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KnowledgeBatchView"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    ingest_api_v1_admin_knowledge_management_versions__identity__binary_ingestion_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                identity: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["KnowledgeBinaryIngestionRequest"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            202: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KnowledgeBinaryIngestionView"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    summary_api_v1_admin_knowledge_management_statistics_get: {
-        parameters: {
-            query?: {
-                query?: string;
-                label_id?: string | null;
-                lifecycle?: ("DRAFT" | "INGESTED" | "VALIDATED" | "PENDING_REVIEW" | "APPROVED" | "ACTIVE" | "SUPERSEDED" | "EXPIRED" | "ARCHIVED") | null;
-                language?: string | null;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["KnowledgeStatisticsView"];
+                    "application/json": components["schemas"]["TranslationAlignmentView"];
                 };
             };
             /** @description Validation Error */
@@ -2903,6 +3156,41 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["TaxonomyMutationResult"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    taxonomy_tree_api_v1_admin_knowledge_management_taxonomy_tree_get: {
+        parameters: {
+            query?: {
+                kind?: "JURISDICTION_CONFIG" | "REGULATION_CATEGORY" | "RESEARCH_TOPIC" | "LANGUAGE" | "ISSUING_AUTHORITY" | "KNOWLEDGE_SOURCE_TYPE" | "LEGAL_EFFECT";
+                parent_definition_id?: string | null;
+                page?: number;
+                page_size?: number;
+                locale?: "zh-CN" | "zh-HK" | "en-US";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TaxonomyTreePage"];
                 };
             };
             /** @description Validation Error */
@@ -3419,6 +3707,7 @@ export interface operations {
             query?: {
                 query?: string;
                 label_id?: string | null;
+                label_ids?: string[];
                 lifecycle?: ("DRAFT" | "INGESTED" | "VALIDATED" | "PENDING_REVIEW" | "APPROVED" | "ACTIVE" | "SUPERSEDED" | "EXPIRED" | "ARCHIVED") | null;
                 language?: string | null;
                 page?: number;
@@ -3947,6 +4236,676 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    source_options_api_v1_admin_knowledge_management_sources_get: {
+        parameters: {
+            query?: {
+                query?: string;
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeSourceOptionPage"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    collection_options_api_v1_admin_knowledge_management_sources__source_id__collection_versions_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                source_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeCollectionVersionOptions"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_api_v1_admin_knowledge_management_upload_sessions_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StartKnowledgeUpload"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeUploadView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    detail_api_v1_admin_knowledge_management_upload_sessions__identity__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identity: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeUploadView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    part_url_api_v1_admin_knowledge_management_upload_sessions__identity__part_url_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identity: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["KnowledgeUploadPartRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeSignedPart"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    acknowledge_api_v1_admin_knowledge_management_upload_sessions__identity__parts_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identity: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["KnowledgeUploadPartReceipt"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeUploadView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    complete_api_v1_admin_knowledge_management_upload_sessions__identity__complete_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identity: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["KnowledgeUploadMutation"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeUploadView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    cancel_api_v1_admin_knowledge_management_upload_sessions__identity__cancel_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identity: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["KnowledgeUploadMutation"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeUploadView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    retry_api_v1_admin_knowledge_management_upload_sessions__identity__retry_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identity: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["KnowledgeUploadMutation"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeUploadView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    attach_api_v1_admin_knowledge_management_upload_sessions__identity__attach_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identity: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AttachKnowledgeUpload"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeUploadView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    upload_policy_api_v1_admin_knowledge_management_upload_policy_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeUploadPolicyView"];
+                };
+            };
+        };
+    };
+    create_api_v1_admin_knowledge_management_import_batches_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateKnowledgeImportBatch"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeBatchView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    detail_api_v1_admin_knowledge_management_import_batches__identity__get: {
+        parameters: {
+            query?: {
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path: {
+                identity: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeBatchView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    confirm_api_v1_admin_knowledge_management_import_batches__identity__confirm_items_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identity: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ConfirmKnowledgeBatchItems"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeBatchView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    cancel_api_v1_admin_knowledge_management_import_batches__identity__cancel_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identity: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["KnowledgeUploadMutation"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeBatchView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    retry_api_v1_admin_knowledge_management_import_batches__identity__retry_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identity: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["KnowledgeUploadMutation"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeBatchView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    failures_api_v1_admin_knowledge_management_import_batches__identity__failures_get: {
+        parameters: {
+            query?: {
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path: {
+                identity: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeBatchFailurePage"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    retry_item_api_v1_admin_knowledge_management_import_batches__identity__items__item_id__retry_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identity: string;
+                item_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RetryKnowledgeBatchItem"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeBatchView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    ingest_api_v1_admin_knowledge_management_versions__identity__binary_ingestion_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                identity: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["KnowledgeBinaryIngestionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeBinaryIngestionView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    summary_api_v1_admin_knowledge_management_statistics_get: {
+        parameters: {
+            query?: {
+                query?: string;
+                label_id?: string | null;
+                label_ids?: string[];
+                lifecycle?: ("DRAFT" | "INGESTED" | "VALIDATED" | "PENDING_REVIEW" | "APPROVED" | "ACTIVE" | "SUPERSEDED" | "EXPIRED" | "ARCHIVED") | null;
+                language?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeStatisticsView"];
+                };
             };
             /** @description Validation Error */
             422: {

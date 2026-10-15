@@ -14,8 +14,9 @@ from crossborder_compliance.domain.formal_result_policies import FORMAL_RESULT_P
 from crossborder_compliance.domain.llm_invocation import LLM_METADATA_KINDS
 
 from crossborder_compliance.domain.knowledge_management import TAXONOMY_KINDS
+from crossborder_compliance.domain.regulatory_acceptance import REGULATORY_ACCEPTANCE_KINDS
 
-OWNED_CONFIG_KINDS = (TAXONOMY_KINDS - {"JURISDICTION_CONFIG"}) | {"KNOWLEDGE_MANAGEMENT_POLICY"} | PHASE1I_CONFIG_KINDS | PHASE1J_POLICY_KINDS | FORMAL_RESULT_POLICY_KINDS | LLM_METADATA_KINDS
+OWNED_CONFIG_KINDS = REGULATORY_ACCEPTANCE_KINDS | (TAXONOMY_KINDS - {"JURISDICTION_CONFIG"}) | {"KNOWLEDGE_MANAGEMENT_POLICY"} | PHASE1I_CONFIG_KINDS | PHASE1J_POLICY_KINDS | FORMAL_RESULT_POLICY_KINDS | LLM_METADATA_KINDS
 
 
 def validate_decision_policy(session, definition, payload):
@@ -96,6 +97,10 @@ def metadata_ref(session, ident, tenant, kind):
 
 def validate_payload(session, definition, payload):
     validate_localized_payload(payload)
+    if definition.kind in REGULATORY_ACCEPTANCE_KINDS:
+        from crossborder_compliance.infrastructure.persistence.regulatory_acceptance_governance import validate_acceptance_payload
+        validate_acceptance_payload(session, definition, payload)
+        return {}
     if definition.kind == "KNOWLEDGE_MANAGEMENT_POLICY":
         from crossborder_compliance.domain.knowledge_management import KnowledgeManagementPolicy
         KnowledgeManagementPolicy.model_validate(payload)
@@ -232,6 +237,9 @@ def transition_validation(session, row, actor, target):
     )
     if target in {"PENDING_REVIEW", "APPROVED", "ACTIVE"}:
         validate_payload(session, definition, row.payload_json)
+    if definition.kind in REGULATORY_ACCEPTANCE_KINDS:
+        from crossborder_compliance.infrastructure.persistence.regulatory_acceptance_governance import validate_acceptance_transition
+        validate_acceptance_transition(session, definition, row, actor, target)
     if target == "APPROVED" and actor == row.created_by:
         raise ValueError("independent Phase1I configuration review required")
     if target == "ACTIVE" and not row.approved_by:

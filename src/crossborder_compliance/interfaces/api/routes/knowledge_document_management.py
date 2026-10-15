@@ -19,7 +19,9 @@ from crossborder_compliance.infrastructure.persistence.knowledge_document_manage
     PostgresKnowledgeDocumentManagement,
 )
 from crossborder_compliance.interfaces.api.knowledge_management_schemas import (
+    KnowledgeCollectionVersionOptions,
     KnowledgeDocumentPreview,
+    KnowledgeSourceOptionPage,
     ManagedKnowledgeDocumentDeletion,
     ManagedKnowledgeDocumentDetail,
     ManagedKnowledgeDocumentImpact,
@@ -44,6 +46,7 @@ def document_list(
     context: Context,
     query: str = Query(default="", max_length=250),
     label_id: UUID | None = None,
+    label_ids: list[UUID] = Query(default=[], max_length=64),
     lifecycle: Literal[
         "DRAFT",
         "INGESTED",
@@ -65,6 +68,7 @@ def document_list(
         service(request, context).list,
         query=query,
         label_id=label_id,
+        label_ids=label_ids,
         lifecycle=lifecycle,
         language=language,
         page=page,
@@ -190,3 +194,23 @@ def document_original(version_id: UUID, request: Request, context: Context):
             "Content-Security-Policy": "sandbox",
         },
     )
+
+
+@router.get("/sources", response_model=KnowledgeSourceOptionPage)
+def source_options(
+    request: Request,
+    context: Context,
+    query: str = Query(default="", max_length=250),
+    page: int = Query(default=1, ge=1),
+    page_size: int = Query(default=50, ge=1, le=100),
+):
+    return invoke(
+        service(request, context).repository.sources, query=query, page=page, page_size=page_size
+    )
+
+
+@router.get(
+    "/sources/{source_id}/collection-versions", response_model=KnowledgeCollectionVersionOptions
+)
+def collection_options(source_id: UUID, request: Request, context: Context):
+    return invoke(service(request, context).repository.collection_options, source_id)

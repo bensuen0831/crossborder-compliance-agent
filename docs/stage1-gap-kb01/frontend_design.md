@@ -38,3 +38,34 @@ PostgreSQL-specific DDL to that dialect, preserving PostgreSQL constraints and
 frozen0023. The fifth was absent TypeScript tooling in the isolated checkout;
 its exact lock was installed and the existing real TypeScript SDK business test
 then passed. Original failures remain archived and are not overwritten.
+
+## Published hierarchy, governed capacity, and clause translation follow-up
+
+The jurisdiction browser projects `MetadataDefinition.parent_definition_id` and
+its exact ACTIVE MetadataVersion. Draft reparenting/enablement proposals never
+become published tree nodes. Each level is separately paged; selecting a label
+filters the authorized document list and its SQL statistics. Multiple selected
+classification IDs currently use an ALL/AND intersection, consistently in both
+queries. This is a management filter, not a legal applicability determination.
+
+The upload channel reads the published management policy through `/upload-policy`
+before hashing or transfer. Single/archive/expanded limits, part size and supported
+formats are backend-owned. The endpoint returns no storage credentials.
+
+Clause translation alignment uses `knowledge_translations`, not another content
+store. Source/target KnowledgeVersions, structure nodes, Citation identities and
+text/content digests are exact. This channel links already imported HUMAN
+translation; it does not generate AI translation or certify official legal
+accuracy. A distinct human reviewer approves/rejects with CAS. Reviewed alignment
+remains `official_evidence=false`. Original source text/citations are unchanged.
+Legacy translation records and their existing review contract remain readable;
+reserved typed alignment records cannot bypass their owner through legacy review.
+The three-locale management form selects imported documents/versions/clauses and
+shows original excerpts and Citation IDs before submission.
+
+Focused follow-up measurements: taxonomy 30 PASS; combined F0/taxonomy/statistics/
+document/alignment PostgreSQL suite 64 PASS; frontend full 157 PASS. These are
+worktree focused measurements, not final exact-head remote closure. Independent
+D checkpoint full regression is recorded separately in
+`evidence/stage1-gap-kb01/d_full_regression_initial.json` (1224 backend PASS,
+25 runtime PASS, architecture document-format failure retained).
