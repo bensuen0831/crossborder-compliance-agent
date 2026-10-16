@@ -1,0 +1,36 @@
+{
+  "artifact_kind": "HISTORICAL_MEASURED_TEST_ID_INDEX",
+  "decision": "PENDING_FINAL_HEAD_VALIDATION",
+  "historical_source_sha": "876f5a3a7312c45b104978c5ab41def02633f447",
+  "historical_full_suite_junit_sha256": "8bba4baa49349975a0d613bf26ac0ca1bd2d34a1bd119e710deb0ddf11b3b1d7",
+  "historical_passed": 23,
+  "historical_test_ids": [
+    "tests.test_kb01_batch_recovery_postgres::test_retry_recovers_real_native_ingestion_without_new_run_or_original",
+    "tests.test_kb01_batch_recovery_postgres::test_failed_export_is_scoped_and_permanent_refusal_cannot_retry",
+    "tests.test_kb01_batch_recovery_postgres::test_retry_rejects_stale_item_revision_and_unknown_membership",
+    "tests.test_kb01_batch_recovery_postgres::test_original_download_streams_exact_verified_version_as_safe_attachment",
+    "tests.test_kb01_batches_postgres::test_batch_uses_canonical_drafts_only_after_explicit_mapping",
+    "tests.test_kb01_batches_postgres::test_foreign_item_rolls_back_all_canonical_mapping",
+    "tests.test_kb01_batches_postgres::test_batch_tenant_grants_cas_and_cancel_preserve_original",
+    "tests.test_kb01_batches_postgres::test_durable_archive_worker_creates_verified_originals_not_legal_results[ZIP]",
+    "tests.test_kb01_batches_postgres::test_durable_archive_worker_creates_verified_originals_not_legal_results[RAR4]",
+    "tests.test_kb01_batches_postgres::test_durable_archive_worker_creates_verified_originals_not_legal_results[RAR5]",
+    "tests.test_kb01_batches_postgres::test_archive_batch_unsupported_member_fails_without_fabricated_draft",
+    "tests.test_kb01_batches_postgres::test_import_transport_recovery_reuses_completed_child_after_lost_receipt",
+    "tests.test_kb01_batches_postgres::test_import_cancellation_rejects_late_worker_and_preserves_history",
+    "tests.test_kb01_batches_postgres::test_batch_manifest_and_member_identity_are_database_immutable",
+    "tests.test_kb01_manifest_imports_postgres::test_real_catalogue_preview_matches_full_path_and_survives_new_owner_without_publishing[CSV]",
+    "tests.test_kb01_manifest_imports_postgres::test_real_catalogue_preview_matches_full_path_and_survives_new_owner_without_publishing[XLSX]",
+    "tests.test_kb01_manifest_imports_postgres::test_catalogue_duplicate_missing_and_unlisted_records_are_not_fabricated_files",
+    "tests.test_kb01_manifest_imports_postgres::test_formula_is_a_review_issue_and_never_evaluated",
+    "tests.test_kb01_manifest_imports_postgres::test_bad_columns_persist_failed_preview_without_partial_proposals",
+    "tests.test_kb01_manifest_imports_postgres::test_catalogue_receipts_are_immutable_and_not_attachable_as_legal_documents",
+    "tests.test_kb01_manifest_imports_postgres::test_catalogue_scope_revocation_and_cross_tenant_are_fail_closed",
+    "tests.test_kb01_manifest_imports_postgres::test_explicit_batch_confirmation_retains_exact_catalogue_provenance",
+    "tests.test_kb01_manifest_imports_postgres::test_existing_genuine_catalogue_evidence_causes_atomic_downgrade_refusal"
+  ],
+  "limitations": [
+    "This is an index into the actual1271-pass historical suite, not current-head acceptance",
+    "Final technical closure requires all mandatory final-head workflows and actual checkout identities"
+  ]
+}

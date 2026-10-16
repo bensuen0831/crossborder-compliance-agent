@@ -19,6 +19,8 @@ from scripts.kb01_ownership import (
     SUCCESSOR_RECORD,
     TENTH_RECORD,
     THIRD_RECORD,
+    TWELFTH_RECORD,
+    authenticated_dependency_successor,
     authenticated_paths,
     overlay,
 )
@@ -42,9 +44,10 @@ def test_kb01_ownership_authenticates_committed_source():
         RECORD,
         SECOND_RECORD,
         THIRD_RECORD,
+        TWELFTH_RECORD,
         "alembic/versions/0022_kb01_binary_transport.py",
         FOURTH_RECORD,
-    NINTH_RECORD,
+        NINTH_RECORD,
         FIFTH_RECORD,
         SIXTH_RECORD,
         SEVENTH_RECORD,
@@ -52,11 +55,14 @@ def test_kb01_ownership_authenticates_committed_source():
         ELEVENTH_RECORD,
         NINTH_RECORD,
         TENTH_RECORD,
+        TWELFTH_RECORD,
         "frontend/e2e/kb01-safe-evidence.ts",
         "src/crossborder_compliance/infrastructure/persistence/knowledge_manifest_models.py",
         "scripts/stage1_alpha_integrity.py",
         ".github/workflows/kb01-knowledge-management.yml",
         "frontend/package-lock.json",
+        "frontend/package.json",
+        "frontend/scripts/m1/boundary_check.py",
         "alembic/versions/0023_kb01_evidence_source_reference.py",
         "alembic/versions/0021_kb01_taxonomy_operations.py",
         "src/crossborder_compliance/infrastructure/knowledge_import_worker.py",
@@ -89,3 +95,41 @@ def test_kb01_successor_bounds_require_matching_source():
     assert valid and authenticated_paths(ROOT, source) == paths.keys()
     with pytest.raises(ValueError, match="does not authenticate"):
         authenticated_paths(ROOT, "0" * 40)
+
+
+def test_kb01_dependency_successor_preserves_exact_m1_package_contract():
+    assert authenticated_dependency_successor(ROOT, "f1353372a1d8894535dc71765e3cd62597619fd5")
+    assert not authenticated_dependency_successor(ROOT, "not-an-approved-baseline")
+
+
+def test_m1_boundary_retains_every_original_check_with_authenticated_dependency():
+    import ast
+
+    legacy = subprocess.check_output(
+        [
+            "git",
+            "show",
+            "5b1aaf5df05de458a65ead497536b323ecb16ce9:frontend/scripts/m1/boundary_check.py",
+        ],
+        cwd=ROOT,
+        text=True,
+    )
+    original_keys = next(
+        {key.value for key in node.value.keys}
+        for node in ast.parse(legacy).body
+        if isinstance(node, ast.Assign)
+        and any(isinstance(target, ast.Name) and target.id == "checks" for target in node.targets)
+    )
+    result = json.loads(
+        subprocess.check_output(
+            [
+                "python",
+                "frontend/scripts/m1/boundary_check.py",
+            ],
+            cwd=ROOT,
+            text=True,
+        )
+    )
+    assert result["status"] == "PASS"
+    assert set(result["checks"]) == original_keys
+    assert all(result["checks"].values())

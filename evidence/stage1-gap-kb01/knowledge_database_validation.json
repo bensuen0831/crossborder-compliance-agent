@@ -1,0 +1,17 @@
+{
+  "artifact_kind": "HISTORICAL_MEASURED_TEST_ID_INDEX",
+  "decision": "PENDING_FINAL_HEAD_VALIDATION",
+  "historical_source_sha": "876f5a3a7312c45b104978c5ab41def02633f447",
+  "historical_full_suite_junit_sha256": "8bba4baa49349975a0d613bf26ac0ca1bd2d34a1bd119e710deb0ddf11b3b1d7",
+  "historical_passed": 4,
+  "historical_test_ids": [
+    "tests.test_kb01_binary_migrations::test_kb01_binary_single_head_and_frozen_0001_0021",
+    "tests.test_kb01_binary_migrations::test_binary_fresh_exact0021_equivalence_preservation_and_refusal",
+    "tests.test_kb01_manifest_migrations::test_manifest_single_head_and_frozen_0001_0023",
+    "tests.test_kb01_manifest_migrations::test_manifest_fresh_exact0023_schema_preservation_safe_downgrade_and_new_format_refusal"
+  ],
+  "limitations": [
+    "This is an index into the actual1271-pass historical suite, not current-head acceptance",
+    "Final technical closure requires all mandatory final-head workflows and actual checkout identities"
+  ]
+}

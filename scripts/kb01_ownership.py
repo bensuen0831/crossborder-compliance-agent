@@ -42,7 +42,10 @@ TENTH_SOURCE = "65556e5fc4e99df5f8cd69e5dff676a492995231"
 ELEVENTH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v11.json"
 ELEVENTH_SEAL = "18fdbe705dc109fba5002f2bcebbdec81273f664"
 ELEVENTH_SOURCE = "2e8e17b344f2c4fd16684af0f6a45336b4820fbe"
-SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v12.json"
+TWELFTH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v12.json"
+TWELFTH_SEAL = "b1c644c33ac81827b95d966f47ea08ce5c2b8fca"
+TWELFTH_SOURCE = "a5e665e90e6040a4ddad7548c708ee12736f2549"
+SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v13.json"
 FIRST_SEAL = "a95d5f05f46566d7e58417a8c9cb2214c6d028f0"
 FIRST_SOURCE = "6f0f448fbe5d72494d2756bca30a3f74437e1f63"
 PREVIOUS = "evidence/stage1-full-e2e/r3/approved_owner_overlay.json"
@@ -50,6 +53,7 @@ PATHS = frozenset(
     (
         "frontend/e2e/kb01-safe-evidence.ts",
         "frontend/e2e/kb01-taxonomy.spec.ts",
+        "frontend/scripts/m1/boundary_check.py",
         "frontend/src/test/kb01-evidence.test.ts",
         "frontend/e2e/kb01-capacity.spec.ts",
         "frontend/e2e/kb01-manifest.spec.ts",
@@ -426,9 +430,8 @@ def overlay(root):
         ):
             return False, {}, None
         eleventh_bytes = git("show", ELEVENTH_SEAL + ":" + ELEVENTH_RECORD)
-        if (
-            (root / ELEVENTH_RECORD).read_bytes() != eleventh_bytes
-            or not ancestor(ELEVENTH_SEAL, "HEAD")
+        if (root / ELEVENTH_RECORD).read_bytes() != eleventh_bytes or not ancestor(
+            ELEVENTH_SEAL, "HEAD"
         ):
             return False, {}, None
         eleventh = json.loads(eleventh_bytes)
@@ -440,6 +443,20 @@ def overlay(root):
             for path, digest in eleventh["paths"].items()
         ):
             return False, {}, None
+        twelfth_bytes = git("show", TWELFTH_SEAL + ":" + TWELFTH_RECORD)
+        if (root / TWELFTH_RECORD).read_bytes() != twelfth_bytes or not ancestor(
+            TWELFTH_SEAL, "HEAD"
+        ):
+            return False, {}, None
+        twelfth = json.loads(twelfth_bytes)
+        if twelfth["source_sha"] != TWELFTH_SOURCE or twelfth["base_sha"] != BASE:
+            return False, {}, None
+        twelfth_blobs = blobs(TWELFTH_SOURCE, twelfth["paths"])
+        if any(
+            hashlib.sha256(twelfth_blobs[path]).hexdigest() != digest
+            for path, digest in twelfth["paths"].items()
+        ):
+            return False, {}, None
         record = json.loads((root / SUCCESSOR_RECORD).read_text())
         expected = set(previous["paths"]) | PATHS
         source = record["source_sha"]
@@ -448,7 +465,7 @@ def overlay(root):
             or record["scope"] != "STAGE1-GAP-KB01-MASTER_V2.0"
             or set(record["paths"]) != expected
             or not ancestor(BASE, source)
-            or not ancestor(ELEVENTH_SEAL, source)
+            or not ancestor(TWELFTH_SEAL, source)
             or not ancestor(source, "HEAD")
         ):
             return False, {}, None
@@ -495,3 +512,34 @@ def authenticated_paths(root, source):
     if not valid or successor_source != source:
         raise ValueError("KB01 successor source does not authenticate")
     return frozenset(paths)
+
+
+def authenticated_dependency_successor(root, baseline_source):
+    """One finite hashing addition, with the original package and exact Git lock."""
+    valid, paths, source = overlay(root)
+    required = {"frontend/package.json", "frontend/package-lock.json"}
+    if not valid or not required <= paths.keys():
+        return False
+    try:
+        original = json.loads(
+            subprocess.check_output(
+                ["git", "show", baseline_source + ":frontend/package.json"],
+                cwd=root,
+                stderr=subprocess.DEVNULL,
+            )
+        )
+        integrated = json.loads((root / "frontend/package.json").read_text())
+        expected = {
+            **original,
+            "dependencies": {**original["dependencies"], "@noble/hashes": "^2.0.1"},
+        }
+        return integrated == expected and all(
+            (root / path).read_bytes()
+            == subprocess.check_output(
+                ["git", "show", source + ":" + path],
+                cwd=root,
+            )
+            for path in required
+        )
+    except (OSError, KeyError, ValueError, TypeError, subprocess.CalledProcessError):
+        return False

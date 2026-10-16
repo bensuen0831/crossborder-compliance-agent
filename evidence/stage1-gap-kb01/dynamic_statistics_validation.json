@@ -1,0 +1,21 @@
+{
+  "artifact_kind": "HISTORICAL_MEASURED_TEST_ID_INDEX",
+  "decision": "PENDING_FINAL_HEAD_VALIDATION",
+  "historical_source_sha": "876f5a3a7312c45b104978c5ab41def02633f447",
+  "historical_full_suite_junit_sha256": "8bba4baa49349975a0d613bf26ac0ca1bd2d34a1bd119e710deb0ddf11b3b1d7",
+  "historical_passed": 8,
+  "historical_test_ids": [
+    "tests.test_kb01_statistics_postgres::test_sql_statistics_reconciles_list_scope_and_many_to_many_labels",
+    "tests.test_kb01_statistics_postgres::test_statistics_requires_current_read_and_statistics_grants",
+    "tests.test_kb01_statistics_postgres::test_statistics_does_not_include_another_tenant",
+    "tests.test_kb01_statistics_postgres::test_clause_preview_uses_exact_version_and_preserves_source_identity",
+    "tests.test_kb01_statistics_postgres::test_statistics_and_capabilities_http_trust_server_context_only",
+    "tests.test_kb01_statistics_postgres::test_source_options_use_canonical_tenant_rows_without_returning_configuration",
+    "tests.test_kb01_statistics_postgres::test_production_route_order_does_not_parse_management_resource_as_metadata_uuid",
+    "tests.test_kb01_statistics_postgres::test_conjunctive_country_and_category_filters_share_exact_version_sql_scope"
+  ],
+  "limitations": [
+    "This is an index into the actual1271-pass historical suite, not current-head acceptance",
+    "Final technical closure requires all mandatory final-head workflows and actual checkout identities"
+  ]
+}
