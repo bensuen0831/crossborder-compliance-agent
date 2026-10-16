@@ -3,8 +3,8 @@
 import argparse
 import json
 import os
-import sys
 import shutil
+import sys
 import tempfile
 from pathlib import Path
 
@@ -29,7 +29,9 @@ def generate(folder):
             name = f"kb01-{locale}-{format.lower()}"
             text = f"Article 1. SYNTHETIC_GOVERNED_TEST_DATA. KB01_BROWSER_{locale}_{format}."
             target = folder / (name + "." + format.lower())
-            with tempfile.TemporaryDirectory(prefix="browser-fixture-", dir=sandbox.working_root) as work:
+            with tempfile.TemporaryDirectory(
+                prefix="browser-fixture-", dir=sandbox.working_root
+            ) as work:
                 directory = Path(work)
                 directory.chmod(0o755)
                 path = native_original(format, text, directory, sandbox)

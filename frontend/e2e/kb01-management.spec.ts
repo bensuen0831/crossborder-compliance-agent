@@ -32,7 +32,9 @@ for (const locale of Object.keys(catalogs) as (keyof typeof catalogs)[]) {
     const fixtures = originals.filter((row) => row.locale === locale);
     expect(fixtures).toHaveLength(6);
     await page.addInitScript(
-      (value) => localStorage.setItem("stage1-alpha.ui-locale", value),
+      (value) => {
+        if (["http:", "https:"].includes(location.protocol)) localStorage.setItem("stage1-alpha.ui-locale", value);
+      },
       locale,
     );
     expect(
@@ -84,7 +86,7 @@ for (const locale of Object.keys(catalogs) as (keyof typeof catalogs)[]) {
         exact: true,
       })
       .selectOption(versions.items[0].collection_version_id);
-    await page
+    await page.locator("form").filter({ has: page.getByRole("heading", { name: t("ui.kb01.documentMetadata"), exact: true }) })
       .getByRole("textbox", { name: t("ui.kb01.language"), exact: true })
       .fill("en");
     const mapped = page.waitForResponse(
@@ -163,13 +165,99 @@ for (const locale of Object.keys(catalogs) as (keyof typeof catalogs)[]) {
     const hash = (file: string) =>
       crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
     expect(hash(output!)).toBe(hash(docx.path));
+    // The management channel must be able to reach the existing quality,
+    // independent review, publication and runtime barrier without a seed result.
+    const jurisdictionOptions = await (await page.request.get(`${prefix}/scope-options?dimension=jurisdiction`)).json();
+    expect(jurisdictionOptions.items.length).toBeGreaterThan(0);
+    const jurisdictionId = jurisdictionOptions.items[0].object_id;
+    const docxId = ids.get(path.basename(docx.path))!;
+    await page.getByRole("button", { name: t("ui.kb01.scopeBindings"), exact: true }).click();
+    const scopePanel = page.getByRole("region", { name: t("ui.kb01.scopeBindings"), exact: true });
+    await expect(scopePanel.getByLabel(t("ui.kb01.scopeType"))).toHaveValue("");
+    await scopePanel.getByLabel(t("ui.kb01.scopeType")).selectOption("GLOBAL");
+    await expect(scopePanel.getByLabel(t("ui.kb01.scopeReferences")).locator(`option[value="${jurisdictionId}"]`)).toHaveCount(1);
+    await scopePanel.getByLabel(t("ui.kb01.scopeReferences")).selectOption(jurisdictionId);
+    await scopePanel.getByLabel(t("ui.kb01.reason")).fill("SYNTHETIC_GOVERNED_TEST_DATA explicit knowledge scope");
+    const bound = page.waitForResponse((response) => response.request().method() === "POST" && response.url().endsWith(`/documents/versions/${docxId}/scope-bindings`));
+    await scopePanel.getByRole("button", { name: t("ui.kb01.addScopeBinding") }).click();
+    expect((await bound).status()).toBe(201);
+    await expect(scopePanel.getByLabel(t("ui.kb01.scopeType"))).toHaveValue("");
+    await page.getByRole("textbox", { name: t("ui.kb01.reason"), exact: true }).first().fill("SYNTHETIC_GOVERNED_TEST_DATA source publication");
+    const pending = new Map<string, number>();
+    for (const action of ["validate", "submit-review"] as const) {
+      const response = page.waitForResponse((value) => value.request().method() === "POST" && value.url().endsWith(`/documents/versions/${docxId}/${action}`));
+      await page.getByRole("button", { name: t(`ui.kb01.action.${action}`), exact: true }).click();
+      const actual = await response;
+      expect(actual.status()).toBe(200);
+      const state = await actual.json();
+      expect(state.lifecycle).toBe(action === "validate" ? "VALIDATED" : "PENDING_REVIEW");
+      pending.set(docxId, state.record_version);
+    }
+    await expect(page.getByRole("button", { name: t("ui.kb01.action.approve"), exact: true })).toBeDisabled();
+    for (const id of ids.values()) {
+      if (id === docxId) continue;
+      const v = await (await page.request.get(`/api/v1/admin/knowledge-versions/${id}`)).json();
+      const binding = await page.request.post(`${prefix}/documents/versions/${id}/scope-bindings`, { data: {
+        expected_record_version: v.record_version, idempotency_key: crypto.randomUUID(),
+        reason: "SYNTHETIC_GOVERNED_TEST_DATA explicit scope", scope_type: "GLOBAL",
+        dimensions: { jurisdiction: [jurisdictionId] },
+      } });
+      expect(binding.status()).toBe(201);
+      let revision = (await binding.json()).record_version;
+      for (const action of ["validate", "submit-review"]) {
+        const changed = await page.request.post(`${prefix}/documents/versions/${id}/${action}`, { data: {
+          expected_record_version: revision, idempotency_key: crypto.randomUUID(), reason: "Synthetic governed publication review",
+        } });
+        expect(changed.status()).toBe(200);
+        const state = await changed.json();
+        expect(state.lifecycle).toBe(action === "validate" ? "VALIDATED" : "PENDING_REVIEW");
+        revision = state.record_version;
+      }
+      pending.set(id, revision);
+    }
+    const workspaceUrl = page.url();
+    for (const [persona, action, expected] of [["REVIEWER", "approve", "APPROVED"], ["PUBLISHER", "publish", "ACTIVE"]] as const) {
+      // Dispose the previous actor's polling page before changing its session.
+      await page.goto("about:blank");
+      expect((await page.request.post("/m0-demo/login", { data: { persona } })).status()).toBe(200);
+      await page.goto(workspaceUrl);
+      await page.locator(`button[data-document-id="${currentVersion.document_id}"]`).click();
+      await page.getByRole("textbox", { name: t("ui.kb01.reason"), exact: true }).first().fill("SYNTHETIC_GOVERNED_TEST_DATA independent governed publication");
+      const response = page.waitForResponse((value) => value.request().method() === "POST" && value.url().endsWith(`/documents/versions/${docxId}/${action}`));
+      await page.getByRole("button", { name: t(`ui.kb01.action.${action}`), exact: true }).click();
+      const actual = await response;
+      expect(actual.status()).toBe(200);
+      const state = await actual.json();
+      expect(state.lifecycle).toBe(expected);
+      pending.set(docxId, state.record_version);
+      for (const id of ids.values()) {
+        if (id === docxId) continue;
+        const changed = await page.request.post(`${prefix}/documents/versions/${id}/${action}`, { data: {
+          expected_record_version: pending.get(id), idempotency_key: crypto.randomUUID(), reason: "Synthetic independent review and publication",
+        } });
+        expect(changed.status()).toBe(200);
+        const result = await changed.json();
+        expect(result.lifecycle).toBe(expected);
+        pending.set(id, result.record_version);
+      }
+    }
+    for (const id of ids.values()) {
+      await expect.poll(async () => (await (await page.request.get(`${prefix}/documents/versions/${id}/scope-bindings`)).json()).runtime_readiness?.status,
+        { timeout: 60_000, intervals: [1000] }).toBe("READY");
+    }
+    // Publication authority does not grant transport-history authority.
+    await page.goto("about:blank");
+    const publisherBatch = await page.request.get(`${prefix}/import-batches/${batch.batch_id}`);
+    expect(publisherBatch.status()).toBe(403);
+    expect((await page.request.post("/m0-demo/login", { data: { persona: "A" } })).status()).toBe(200);
+    await page.goto(workspaceUrl);
     await page.reload();
     await expect(
       page.getByRole("heading", { name: t("ui.kb01.workspace"), exact: true }),
     ).toBeVisible();
-    const saved = await (
-      await page.request.get(`${prefix}/import-batches/${batch.batch_id}`)
-    ).json();
+    const savedResponse = await page.request.get(`${prefix}/import-batches/${batch.batch_id}`);
+    expect(savedResponse.status()).toBe(200);
+    const saved = await savedResponse.json();
     expect(
       saved.items
         .map(

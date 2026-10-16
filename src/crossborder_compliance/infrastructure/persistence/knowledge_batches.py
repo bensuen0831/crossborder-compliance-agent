@@ -10,6 +10,7 @@ from sqlalchemy import func, select, text
 
 from crossborder_compliance.domain.knowledge_management import require_management_permission
 from crossborder_compliance.domain.knowledge_paths import safe_relative_path
+from crossborder_compliance.domain.knowledge_upload import DOCUMENT_FORMATS
 from crossborder_compliance.infrastructure.persistence import knowledge_models as k
 from crossborder_compliance.infrastructure.persistence.knowledge_document_management import (
     PostgresKnowledgeDocumentManagement,
@@ -25,6 +26,9 @@ from crossborder_compliance.infrastructure.persistence.knowledge_upload_models i
 )
 from crossborder_compliance.infrastructure.persistence.knowledge_upload_models import (
     KnowledgeImportBatchEntity as Batch,
+)
+from crossborder_compliance.infrastructure.persistence.knowledge_upload_models import (
+    KnowledgeUploadSessionEntity as Upload,
 )
 from crossborder_compliance.infrastructure.persistence.knowledge_uploads import (
     PostgresKnowledgeUploads,
@@ -160,7 +164,10 @@ class PostgresKnowledgeImportBatches:
                 paths = set()
                 for identity in sorted(request.upload_session_ids, key=str):
                     upload = self.uploads._get(s, identity, True)
-                    if upload.status != "VERIFIED" or upload.declared_format in {"RAR", "ZIP"}:
+                    if (
+                        upload.status != "VERIFIED"
+                        or upload.declared_format not in DOCUMENT_FORMATS
+                    ):
                         raise KnowledgeManagementConflict("KNOWLEDGE_BATCH_UPLOAD_NOT_VERIFIED")
                     if upload.relative_path.casefold() in paths:
                         raise KnowledgeManagementConflict("KNOWLEDGE_BATCH_PATH_COLLISION")
@@ -194,6 +201,15 @@ class PostgresKnowledgeImportBatches:
                 .offset((page - 1) * page_size)
                 .limit(page_size)
             ).all()
+            transports = {
+                upload.upload_session_id: upload
+                for upload in s.scalars(
+                    select(Upload).where(
+                        Upload.tenant_id == self.tenant,
+                        Upload.upload_session_id.in_([item.upload_session_id for item in rows]),
+                    )
+                ).all()
+            }
             return {
                 **self._view(batch),
                 "counts": dict(counts),
@@ -208,6 +224,20 @@ class PostgresKnowledgeImportBatches:
                         "upload_session_id": item.upload_session_id,
                         "relative_path": item.relative_path,
                         "knowledge_version_id": item.knowledge_version_id,
+                        "manifest_record_id": item.manifest_record_id,
+                        "mapping_available": item.status == "UNMAPPED"
+                        and transports[item.upload_session_id].status == "VERIFIED",
+                        "transport_pending": transports[item.upload_session_id].status
+                        in {
+                            "CREATING",
+                            "UPLOADING",
+                            "FINALIZING",
+                            "QUEUED_SCAN",
+                            "SCANNING",
+                            "CANCELLING",
+                        },
+                        "upload_status": transports[item.upload_session_id].status,
+                        "transport_error_code": transports[item.upload_session_id].error_code,
                         "status": item.status,
                         "record_version": item.record_version,
                         "error_code": item.error_code,
@@ -409,6 +439,27 @@ class PostgresKnowledgeImportBatches:
                 )
                 if item is None or item.status != "UNMAPPED":
                     raise KnowledgeManagementConflict("KNOWLEDGE_BATCH_ITEM_NOT_CONFIRMABLE")
+                manifest_record = None
+                if mapping.manifest_record_id is not None:
+                    require_management_permission(self.context, "batch:manifest-read")
+                    from crossborder_compliance.infrastructure.persistence.knowledge_manifest_models import (
+                        KnowledgeManifestRecordEntity,
+                    )
+
+                    manifest_record = s.scalar(
+                        select(KnowledgeManifestRecordEntity).where(
+                            KnowledgeManifestRecordEntity.tenant_id == self.tenant,
+                            KnowledgeManifestRecordEntity.batch_id == row.batch_id,
+                            KnowledgeManifestRecordEntity.manifest_record_id
+                            == str(mapping.manifest_record_id),
+                            KnowledgeManifestRecordEntity.matched_item_id == item.item_id,
+                            KnowledgeManifestRecordEntity.status == "FILE_MATCHED",
+                        )
+                    )
+                    if manifest_record is None:
+                        raise KnowledgeManagementConflict(
+                            "KNOWLEDGE_MANIFEST_ITEM_CONFIRMATION_MISMATCH"
+                        )
                 upload = self.uploads._get(s, item.upload_session_id, True)
                 if upload.status != "VERIFIED":
                     raise KnowledgeManagementConflict("KNOWLEDGE_BATCH_UPLOAD_NOT_VERIFIED")
@@ -416,6 +467,16 @@ class PostgresKnowledgeImportBatches:
                     update={"idempotency_key": "batch:" + row.batch_id + ":" + item.item_id}
                 )
                 created = self.documents.create_in_session(s, document)
+                if manifest_record is not None:
+                    item.manifest_record_id = manifest_record.manifest_record_id
+                    version = self.documents.owner.get(
+                        s, k.KnowledgeDocumentVersionEntity, created["knowledge_version_id"]
+                    )
+                    version.provenance_json = {
+                        **version.provenance_json,
+                        "kb01_manifest_record_id": manifest_record.manifest_record_id,
+                        "kb01_manifest_id": manifest_record.manifest_id,
+                    }
                 attach_idem, attached = self.management._key(
                     s,
                     "UPLOAD_ATTACH",

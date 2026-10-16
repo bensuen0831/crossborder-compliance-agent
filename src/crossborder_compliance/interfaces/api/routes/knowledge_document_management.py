@@ -1,6 +1,6 @@
 """Document management channel; the knowledge lifecycle and content owner are reused."""
 
-from typing import Literal
+from typing import Annotated, Literal
 from uuid import UUID
 
 from fastapi import APIRouter, Query, Request
@@ -10,6 +10,7 @@ from crossborder_compliance.application.knowledge_document_management import (
     KnowledgeDocumentManagementService,
 )
 from crossborder_compliance.domain.knowledge_management import (
+    CreateManagedKnowledgeBinding,
     CreateManagedKnowledgeDocument,
     CreateManagedKnowledgeVersion,
     EditManagedKnowledgeVersion,
@@ -21,7 +22,10 @@ from crossborder_compliance.infrastructure.persistence.knowledge_document_manage
 from crossborder_compliance.interfaces.api.knowledge_management_schemas import (
     KnowledgeCollectionVersionOptions,
     KnowledgeDocumentPreview,
+    KnowledgeScopeOptions,
     KnowledgeSourceOptionPage,
+    ManagedKnowledgeBindingMutation,
+    ManagedKnowledgeBindings,
     ManagedKnowledgeDocumentDeletion,
     ManagedKnowledgeDocumentDetail,
     ManagedKnowledgeDocumentImpact,
@@ -40,13 +44,49 @@ def service(request, context):
     )
 
 
+@router.get("/scope-options", response_model=KnowledgeScopeOptions)
+def scope_options(
+    request: Request,
+    context: Context,
+    dimension: str = Query(min_length=1, max_length=80),
+    query: str = Query(default="", max_length=250),
+    page: int = Query(default=1, ge=1),
+    page_size: int = Query(default=50, ge=1, le=100),
+):
+    return invoke(
+        service(request, context).scope_options,
+        dimension=dimension,
+        query=query,
+        page=page,
+        page_size=page_size,
+    )
+
+
+@router.get(
+    "/documents/versions/{version_id}/scope-bindings", response_model=ManagedKnowledgeBindings
+)
+def scope_bindings(version_id: UUID, request: Request, context: Context):
+    return invoke(service(request, context).scope_bindings, version_id)
+
+
+@router.post(
+    "/documents/versions/{version_id}/scope-bindings",
+    status_code=201,
+    response_model=ManagedKnowledgeBindingMutation,
+)
+def create_scope_binding(
+    version_id: UUID, body: CreateManagedKnowledgeBinding, request: Request, context: Context
+):
+    return invoke(service(request, context).bind, version_id, body)
+
+
 @router.get("/documents", response_model=ManagedKnowledgeDocumentPage)
 def document_list(
     request: Request,
     context: Context,
     query: str = Query(default="", max_length=250),
     label_id: UUID | None = None,
-    label_ids: list[UUID] = Query(default=[], max_length=64),
+    label_ids: Annotated[list[UUID] | None, Query(max_length=64)] = None,
     lifecycle: Literal[
         "DRAFT",
         "INGESTED",
@@ -68,7 +108,7 @@ def document_list(
         service(request, context).list,
         query=query,
         label_id=label_id,
-        label_ids=label_ids,
+        label_ids=label_ids or (),
         lifecycle=lifecycle,
         language=language,
         page=page,

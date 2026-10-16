@@ -36,7 +36,11 @@ PARENT = "0021_kb01_taxonomy_operations"
 
 def test_kb01_binary_single_head_and_frozen_0001_0021():
     scripts = ScriptDirectory.from_config(Config(str(ROOT / "alembic.ini")))
-    assert scripts.get_heads() == ["0023_kb01_evidence_source_reference"]
+    assert scripts.get_heads() == ["0024_kb01_import_manifest_records"]
+    assert (
+        scripts.get_revision("0024_kb01_import_manifest_records").down_revision
+        == "0023_kb01_evidence_source_reference"
+    )
     assert scripts.get_revision("0023_kb01_evidence_source_reference").down_revision == HEAD
     assert scripts.get_revision(HEAD).down_revision == PARENT
     protected = [

@@ -218,6 +218,9 @@ def test_durable_archive_worker_creates_verified_originals_not_legal_results(
     assert worker.run_once()
     preview = owner.detail(batch["batch_id"])
     assert preview["status"] == "PREVIEW" and preview["total"] == 1
+    assert preview["items"][0]["mapping_available"] is False
+    assert preview["items"][0]["transport_pending"] is True
+    assert preview["items"][0]["upload_status"] == "QUEUED_SCAN"
     assert count_versions(f) == before
     command = create_documents(f, preview["items"], preview["record_version"])
     with pytest.raises(KnowledgeManagementConflict, match="UPLOAD_NOT_VERIFIED"):
@@ -225,6 +228,9 @@ def test_durable_archive_worker_creates_verified_originals_not_legal_results(
     assert scanner.run_once()
     child = repo.detail(preview["items"][0]["upload_session_id"])
     assert child["status"] == "VERIFIED"
+    ready = owner.detail(batch["batch_id"])["items"][0]
+    assert ready["mapping_available"] is True and ready["transport_pending"] is False
+    assert ready["upload_status"] == "VERIFIED"
     owner.confirm_items(batch["batch_id"], command)
     assert count_versions(f) == before + 1
     assert worker.run_once() is False

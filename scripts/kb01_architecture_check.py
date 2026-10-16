@@ -65,7 +65,38 @@ def check(root):
     shared_native_alias = (
         "IsolatedNativeKnowledgeParser = IsolatedNativeDocumentParser" in native_host
     )
+    manifests = read(prefix + "knowledge_manifest_imports.py")
+    manifest_ddl = read("alembic/versions/0024_kb01_import_manifest_records.py")
+    manifest_models = read(prefix + "knowledge_manifest_models.py")
+    binary_upload = read("src/crossborder_compliance/domain/knowledge_upload.py")
     return {
+        "kb01_archive_members_require_actual_verified_upload_before_mapping": (
+            'upload.status != "VERIFIED"' in batches and '"mapping_available"' in batches
+        ),
+        "kb01_browser_uses_backend_owned_scan_pending_projection": "pendingBatchTransport"
+        in management_ui
+        and "item.transport_pending" in management_ui
+        and "item.mapping_available" in management_ui,
+        "kb01_manifest_is_scoped_to_existing_import_batch": "knowledge_import_batches"
+        in manifest_models,
+        "kb01_manifest_and_rows_are_append_only": "BEFORE UPDATE OR DELETE" in manifest_ddl,
+        "kb01_manifest_actor_is_server_owned": "created_by=self.context.permission.actor_id"
+        in manifests,
+        "kb01_manifest_verifies_original_digest": "MANIFEST_ORIGINAL_DIGEST_MISMATCH" in manifests,
+        "kb01_manifest_limits_are_governed": "policy.manifest" in manifests,
+        "kb01_manifest_does_not_create_knowledge": "KnowledgeVersionEntity(" not in manifests,
+        "kb01_confirmed_catalogue_row_has_relational_identity": "manifest_record_id" in batches
+        and "ForeignKeyConstraint" in manifest_ddl,
+        "kb01_catalogues_are_not_legal_original_formats": "MANIFEST_FORMATS" in binary_upload
+        and "DOCUMENT_FORMATS" in binary_upload,
+        "kb01_scope_management_reuses_knowledge_binding_owner": "self.owner.add_binding"
+        in document,
+        "kb01_scope_actor_is_server_owned": '"submitted_by": self.context.permission.actor_id'
+        in document,
+        "kb01_quality_and_readiness_are_canonical_projections": "runtime_readiness(" in document
+        and "KnowledgeQualityResultEntity" in document,
+        "kb01_binding_contributor_cannot_self_approve": '"DOCUMENT_BIND"' in native_repo
+        and "submitted_by" in native_repo,
         "kb01_tree_projects_published_canonical_parents": all(
             x in taxonomy
             for x in (
@@ -106,8 +137,9 @@ def check(root):
         "kb01_alignment_cannot_claim_official_legal_authority": '"official_evidence": False'
         in alignment
         and 'Literal["HUMAN"]' in alignment_contract,
-        "kb01_alignment_generic_legacy_review_cannot_bypass_owner": "USE_TYPED_TRANSLATION_ALIGNMENT_REVIEW"
-        in native_repo,
+        "kb01_alignment_generic_legacy_review_cannot_bypass_owner": (
+            "USE_TYPED_TRANSLATION_ALIGNMENT_REVIEW" in native_repo
+        ),
         "kb01_f0_records_reuse_metadata_lifecycle": "MetadataLifecycleService" in readiness
         and "PostgresAdminMetadataRepository" in readiness,
         "kb01_f0_has_no_schema_or_formal_result_owner": "__tablename__"

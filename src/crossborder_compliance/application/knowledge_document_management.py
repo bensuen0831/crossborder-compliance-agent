@@ -26,6 +26,9 @@ class KnowledgeDocumentManagementPort(Protocol):
     def detail(self, identity: UUID) -> dict: ...
     def impact(self, identity: UUID) -> dict: ...
     def mutate(self, operation: str, identity: UUID | None, request) -> dict: ...
+    def scope_options(self, **query) -> dict: ...
+    def scope_bindings(self, identity: UUID) -> dict: ...
+    def bind(self, identity: UUID, request) -> dict: ...
 
 
 class KnowledgeDocumentManagementService:
@@ -43,6 +46,18 @@ class KnowledgeDocumentManagementService:
     def impact(self, identity):
         require_management_permission(self.context, "document:read")
         return self.repository.impact(identity)
+
+    def scope_options(self, **query):
+        require_management_permission(self.context, "document:bind")
+        return self.repository.scope_options(**query)
+
+    def scope_bindings(self, identity):
+        require_management_permission(self.context, "document:read")
+        return self.repository.scope_bindings(identity)
+
+    def bind(self, identity, request):
+        require_management_permission(self.context, "document:bind")
+        return self.repository.bind(identity, request)
 
     def mutate(self, operation, identity, request):
         require_management_permission(self.context, DOCUMENT_OPERATIONS[operation])

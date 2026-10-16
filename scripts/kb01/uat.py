@@ -36,6 +36,8 @@ def seed(path):
             "validate",
             "submit-review",
             "archive",
+            "bind",
+            "ingest",
         )
     } | {
         "knowledge:upload:" + name
@@ -51,6 +53,11 @@ def seed(path):
     }
     author |= {"knowledge:upload:attach", "knowledge:statistics:read", "knowledge:audit:read"}
     author |= {"knowledge:translation:read", "knowledge:translation:write"}
+    author |= {
+        "knowledge:batch:manifest-import",
+        "knowledge:batch:manifest-read",
+        "knowledge:batch:manifest-export",
+    }
     for name in ("A", "B"):
         deletion_policy((sf, UUID(people[name]["tenant_id"]), None, None))
         people[name]["permissions"] = sorted(set(people[name]["permissions"]) | author)
@@ -116,6 +123,7 @@ def host(path):
     previous = len(app.router.routes)
     for router in (
         main.knowledge_management_router,
+        main.knowledge_manifests_router,
         main.knowledge_translation_alignment_router,
         main.regulatory_acceptance_router,
         main.knowledge_document_management_router,

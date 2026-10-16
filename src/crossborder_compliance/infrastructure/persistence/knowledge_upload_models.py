@@ -48,7 +48,7 @@ class KnowledgeUploadSessionEntity(TenantAuditMixin, Base):
             name="ck_kb_upload_status",
         ),
         CheckConstraint(
-            "declared_format IN ('DOC','DOCX','HTML','PDF','TXT','XHTML','RAR','ZIP')",
+            "declared_format IN ('DOC','DOCX','HTML','PDF','TXT','XHTML','RAR','ZIP','CSV','XLSX')",
             name="ck_kb_upload_format",
         ),
         Index("ix_kb_upload_worker", "status", "lease_expires_at", "created_at"),
@@ -157,6 +157,17 @@ class KnowledgeImportBatchEntity(TenantAuditMixin, Base):
 class KnowledgeBatchItemEntity(TenantAuditMixin, Base):
     __tablename__ = "knowledge_batch_items"
     __table_args__ = (
+        UniqueConstraint("tenant_id", "batch_id", "item_id", name="uq_kb_batch_item_scope"),
+        ForeignKeyConstraint(
+            ["tenant_id", "batch_id", "manifest_record_id"],
+            [
+                "knowledge_manifest_records.tenant_id",
+                "knowledge_manifest_records.batch_id",
+                "knowledge_manifest_records.manifest_record_id",
+            ],
+            name="fk_kb_batch_confirmed_manifest",
+            ondelete="RESTRICT",
+        ),
         UniqueConstraint("tenant_id", "batch_id", "relative_path", name="uq_kb_batch_path"),
         ForeignKeyConstraint(
             ["tenant_id", "batch_id"],
@@ -189,9 +200,18 @@ class KnowledgeBatchItemEntity(TenantAuditMixin, Base):
     upload_session_id = mapped_column(String(36), nullable=False)
     relative_path = mapped_column(String(1024), nullable=False)
     knowledge_version_id = mapped_column(String(36), nullable=True)
+    manifest_record_id = mapped_column(String(36), nullable=True)
     # Bounded user-proposed mapping, never an expected legal outcome.
     proposed_metadata_json = mapped_column(JSON, nullable=False, default=dict)
     lease_token = mapped_column(String(36), nullable=True)
     lease_expires_at = mapped_column(DateTime(timezone=True), nullable=True)
     attempts = mapped_column(Integer, nullable=False, default=0)
     error_code = mapped_column(String(80), nullable=True)
+
+
+# BatchItem's optional catalogue FK belongs to this same canonical Base. Load
+# its target for independently imported upload/batch owners, without depending
+# on API-router or pytest collection order.
+from crossborder_compliance.infrastructure.persistence import (
+    knowledge_manifest_models as _knowledge_manifest_models,
+)  # noqa: E402,F401

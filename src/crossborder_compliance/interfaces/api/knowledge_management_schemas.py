@@ -6,11 +6,13 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict
 
+from crossborder_compliance.domain.knowledge import KnowledgeBinding, KnowledgeQualityResult
 from crossborder_compliance.domain.knowledge_management import (
     KnowledgeDocumentMetadata,
     TaxonomyKind,
 )
 from crossborder_compliance.domain.localized_metadata import ResolvedDisplayMetadata
+from crossborder_compliance.domain.retrieval import KnowledgeRuntimeReadinessResult
 
 
 class Projection(BaseModel):
@@ -153,6 +155,36 @@ class ManagedKnowledgeVersionView(Projection):
     metadata: KnowledgeDocumentMetadata
     content_hash: str | None
     file_available: bool
+    binary_upload_session_id: UUID | None = None
+
+
+class KnowledgeScopeOption(Projection):
+    object_id: UUID
+    display_name: str
+    code: str
+
+
+class KnowledgeScopeOptions(Projection):
+    dimension: str
+    total: int
+    page: int
+    page_size: int
+    items: list[KnowledgeScopeOption]
+
+
+class ManagedKnowledgeBindings(Projection):
+    knowledge_version_id: UUID
+    bindings: list[KnowledgeBinding]
+    quality: KnowledgeQualityResult | None = None
+    runtime_readiness: KnowledgeRuntimeReadinessResult | None = None
+
+
+class ManagedKnowledgeBindingMutation(Projection):
+    knowledge_version_id: UUID
+    record_version: int
+    binding: KnowledgeBinding
+    receipt_id: UUID
+    operation: str
 
 
 class ManagedKnowledgeDocumentView(Projection):

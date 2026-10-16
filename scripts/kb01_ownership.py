@@ -27,12 +27,46 @@ FIFTH_SOURCE = "2918e4290a7f66bdf892ab74971d8ad3addcb1d3"
 SIXTH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v6.json"
 SIXTH_SEAL = "2a1010570248dee3e9539e26f64a254b2d7fea91"
 SIXTH_SOURCE = "f5bc2a6ef5e8fd3210720f0e0753c9fb5b35b310"
-SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v7.json"
+SEVENTH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v7.json"
+SEVENTH_SEAL = "2e4acdc3f355ed28a1d3e4792f9cbbb9cbbff098"
+SEVENTH_SOURCE = "84806fe67801568116c2b98fb281685a27959213"
+SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v8.json"
 FIRST_SEAL = "a95d5f05f46566d7e58417a8c9cb2214c6d028f0"
 FIRST_SOURCE = "6f0f448fbe5d72494d2756bca30a3f74437e1f63"
 PREVIOUS = "evidence/stage1-full-e2e/r3/approved_owner_overlay.json"
 PATHS = frozenset(
     (
+        "frontend/e2e/kb01-capacity.spec.ts",
+        "frontend/e2e/kb01-manifest.spec.ts",
+        "scripts/kb01/generate_capacity.py",
+        "scripts/kb01/verify_ci.py",
+        "tests/test_kb01_ci_evidence.py",
+        ".github/actions/kb01-tools/action.yml",
+        ".github/workflows/kb01-knowledge-management.yml",
+        ".github/workflows/m2e-external-agent-api.yml",
+        ".github/workflows/phase1a-runtime-smoke.yml",
+        ".github/workflows/phase1kb-multi-provider-llm-governance.yml",
+        ".github/workflows/stage1-candidate-governance.yml",
+        "alembic/versions/0024_kb01_import_manifest_records.py",
+        "frontend/src/features/knowledge-management/KnowledgeScopeControls.test.tsx",
+        "frontend/src/features/knowledge-management/KnowledgeScopeControls.tsx",
+        "frontend/src/features/knowledge-management/ManifestPanel.test.tsx",
+        "frontend/src/features/knowledge-management/ManifestPanel.tsx",
+        "scripts/kb01/Containerfile",
+        "scripts/kb01/build_tools.py",
+        "scripts/kb01/ci_services.py",
+        "scripts/kb01/official_signatures.py",
+        "scripts/stage1_alpha_integrity.py",
+        "src/crossborder_compliance/application/knowledge_manifest_imports.py",
+        "src/crossborder_compliance/domain/knowledge_manifest_governance.py",
+        "src/crossborder_compliance/domain/knowledge_manifest_policy.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_manifest_imports.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_manifest_models.py",
+        "src/crossborder_compliance/interfaces/api/knowledge_manifest_schemas.py",
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_manifests.py",
+        "tests/test_kb01_manifest_imports_postgres.py",
+        "tests/test_kb01_manifest_migrations.py",
+        "tests/test_kb01_scope_management_postgres.py",
         "frontend/vite.config.ts",
         "frontend/src/api/client.ts",
         "frontend/src/api/client.test.ts",
@@ -323,6 +357,20 @@ def overlay(root):
             for path, digest in sixth["paths"].items()
         ):
             return False, {}, None
+        seventh_bytes = git("show", SEVENTH_SEAL + ":" + SEVENTH_RECORD)
+        if (root / SEVENTH_RECORD).read_bytes() != seventh_bytes or not ancestor(
+            SEVENTH_SEAL, "HEAD"
+        ):
+            return False, {}, None
+        seventh = json.loads(seventh_bytes)
+        if seventh["source_sha"] != SEVENTH_SOURCE or seventh["base_sha"] != BASE:
+            return False, {}, None
+        seventh_blobs = blobs(SEVENTH_SOURCE, seventh["paths"])
+        if any(
+            hashlib.sha256(seventh_blobs[path]).hexdigest() != digest
+            for path, digest in seventh["paths"].items()
+        ):
+            return False, {}, None
         record = json.loads((root / SUCCESSOR_RECORD).read_text())
         expected = set(previous["paths"]) | PATHS
         source = record["source_sha"]
@@ -331,7 +379,7 @@ def overlay(root):
             or record["scope"] != "STAGE1-GAP-KB01-MASTER_V2.0"
             or set(record["paths"]) != expected
             or not ancestor(BASE, source)
-            or not ancestor(SIXTH_SEAL, source)
+            or not ancestor(SEVENTH_SEAL, source)
             or not ancestor(source, "HEAD")
         ):
             return False, {}, None

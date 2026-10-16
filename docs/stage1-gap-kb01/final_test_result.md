@@ -39,3 +39,45 @@ recovered10-test matrix remain archived. Official FreshClam client subsequently
 downloaded and verified3 CVD databases, and isolated clean/EICAR scans passed.
 Earlier EICAR-only capacity evidence is retained with its original limitation.
 No final C/A–E/full-regression/remote-CI/real-regulatory PASS is claimed here.
+
+
+## Management/F0 and operational catalogue continuation — not final acceptance
+
+The E initial full regression on isolated checkout
+`2e4acdc3f355ed28a1d3e4792f9cbbb9cbbff098` (source
+`84806fe67801568116c2b98fb281685a27959213`) measured **1245 PASS**, zero
+failed/errors/skipped/deselected, durable runtime **25/25 PASS**, and root
+architecture **272/272 PASS**. Its overall gate remained blocked by the inherited
+Stage1-alpha dependency identity check. `e_full_regression_initial.json` preserves
+all test IDs and artifact hashes. This is historical source-specific evidence,
+not evidence for subsequent source changes.
+
+The compatible 0024 development extension adds immutable optional CSV/XLSX
+Manifest previews/rows and exact confirmed-row provenance under existing batch
+and upload owners. It also audits explicit KnowledgeBinding edits through the
+existing admin receipt owner. Scope binding is user-selected, never silently
+GLOBAL; actual quality/publication/runtime-readiness remain canonical projections.
+The new binding contributor cannot approve their own contribution.
+
+Measured focused development suites: Manifest/native catalogue **44 PASS**;
+combined Manifest/scope/historical migration subset **85 PASS**; latest scope
+projection/publication/authorization subset **4 PASS**. Frontend full **163 PASS**
+was measured before the latest Browser-spec continuation. None replaces the
+required final committed-source full backend, original Browser or remote CI.
+
+The six-format × three-locale Browser publication extension preserves all prior
+assertions and adds explicit scope binding, validation, separate reviewer approval,
+separate publication and actual runtime READY. Initial failures are retained:
+ambiguous Language locator; Publisher correctly denied batch-read; and local disk
+budget exhaustion during CI-tool provisioning. Browser retries remain zero.
+Corrected fresh executions must pass before acceptance is claimed.
+
+New reproducible signed-package tool and loopback versioned-S3 setup is being
+validated for the four existing full-backend CI jobs and dedicated KB01 workflow.
+The bounded full-backend job budget changes from 75 to 90 minutes to include real
+tool provisioning; the prior complete suite measured 3849.61 seconds. No tests,
+assertions, locale coverage or Browser retry policy are removed or weakened.
+
+**A–E/F0 technical closure remains IN PROGRESS. Remote exact-head CI PENDING.**
+**F1 BLOCKED — EXTERNAL_EVIDENCE_PENDING.** Paid Internet LLM, real regulatory legal
+acceptance and production business UAT remain NOT EXECUTED. Stage 2 NOT STARTED.

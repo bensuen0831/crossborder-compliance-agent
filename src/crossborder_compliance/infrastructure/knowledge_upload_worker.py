@@ -32,19 +32,21 @@ def verify_binary_container(path, declared_format, sandbox, timeout):
         "ZIP": (b"PK\x03\x04", b"PK\x05\x06"),
         "RAR": (b"Rar!\x1a\x07\x00", b"Rar!\x1a\x07\x01\x00"),
         "DOCX": (b"PK\x03\x04",),
+        "XLSX": (b"PK\x03\x04",),
     }
     if declared_format in signatures:
         if not header.startswith(signatures[declared_format]):
             raise ValueError("UNSUPPORTED_BINARY_FORMAT")
-        if declared_format == "DOCX":
+        if declared_format in {"DOCX", "XLSX"}:
             listing = sandbox.run(
                 "/usr/bin/bsdtar", ["-tf", "/input/original"], {"/input/original": path}, timeout
             )
             members = set(listing["stdout"].splitlines())
-            if (
-                listing["exit_code"] != 0
-                or not {"[Content_Types].xml", "word/document.xml"} <= members
-            ):
+            required = {
+                "[Content_Types].xml",
+                "word/document.xml" if declared_format == "DOCX" else "xl/workbook.xml",
+            }
+            if listing["exit_code"] != 0 or not required <= members:
                 raise ValueError("UNSUPPORTED_BINARY_FORMAT")
         return declared_format
     encoding = "utf-16" if header.startswith((b"\xff\xfe", b"\xfe\xff")) else "utf-8-sig"
@@ -92,11 +94,22 @@ class KnowledgeUploadWorker:
                 verify_received_parts(
                     path, self.repository.verification_parts(row["upload_session_id"])
                 )
+                manifest = (
+                    row["policy"].get("manifest")
+                    if row["declared_format"] in {"CSV", "XLSX"}
+                    else None
+                )
                 result = self.scanner.scan(
                     path,
                     row["policy"]["scanner_timeout_seconds"],
-                    max_expanded_bytes=row["policy"]["max_expanded_bytes"],
-                    max_entries=row["policy"]["max_archive_entries"],
+                    max_expanded_bytes=min(
+                        row["policy"]["max_expanded_bytes"], manifest["max_expanded_bytes"]
+                    )
+                    if manifest
+                    else row["policy"]["max_expanded_bytes"],
+                    max_entries=min(row["policy"]["max_archive_entries"], manifest["max_entries"])
+                    if manifest
+                    else row["policy"]["max_archive_entries"],
                 )
                 if type(result.get("clean")) is not bool:
                     raise ValueError("SCANNER_UNAVAILABLE")

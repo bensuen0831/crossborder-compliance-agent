@@ -396,6 +396,275 @@
         }
       }
     },
+    "/api/v1/admin/knowledge-management/import-batches/{batch_id}/manifests": {
+      "post": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Prepare",
+        "operationId": "prepare_api_v1_admin_knowledge_management_import_batches__batch_id__manifests_post",
+        "parameters": [
+          {
+            "name": "batch_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Batch Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PrepareKnowledgeManifest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeManifestView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "List Manifests",
+        "operationId": "list_manifests_api_v1_admin_knowledge_management_import_batches__batch_id__manifests_get",
+        "parameters": [
+          {
+            "name": "batch_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Batch Id"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 25,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeManifestPage"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/import-batches/{batch_id}/manifests/{manifest_id}": {
+      "get": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Detail",
+        "operationId": "detail_api_v1_admin_knowledge_management_import_batches__batch_id__manifests__manifest_id__get",
+        "parameters": [
+          {
+            "name": "batch_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Batch Id"
+            }
+          },
+          {
+            "name": "manifest_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Manifest Id"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 25,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeManifestDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/import-batches/{batch_id}/manifests/{manifest_id}/missing-files": {
+      "get": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Missing Files",
+        "operationId": "missing_files_api_v1_admin_knowledge_management_import_batches__batch_id__manifests__manifest_id__missing_files_get",
+        "parameters": [
+          {
+            "name": "batch_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Batch Id"
+            }
+          },
+          {
+            "name": "manifest_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Manifest Id"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 100,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeManifestMissingFiles"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/admin/knowledge-management/audit/{resource_id}": {
       "get": {
         "tags": [
@@ -1616,6 +1885,178 @@
         }
       }
     },
+    "/api/v1/admin/knowledge-management/scope-options": {
+      "get": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Scope Options",
+        "operationId": "scope_options_api_v1_admin_knowledge_management_scope_options_get",
+        "parameters": [
+          {
+            "name": "dimension",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80,
+              "title": "Dimension"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 250,
+              "default": "",
+              "title": "Query"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeScopeOptions"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/knowledge-management/documents/versions/{version_id}/scope-bindings": {
+      "get": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Scope Bindings",
+        "operationId": "scope_bindings_api_v1_admin_knowledge_management_documents_versions__version_id__scope_bindings_get",
+        "parameters": [
+          {
+            "name": "version_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Version Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedKnowledgeBindings"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Create Scope Binding",
+        "operationId": "create_scope_binding_api_v1_admin_knowledge_management_documents_versions__version_id__scope_bindings_post",
+        "parameters": [
+          {
+            "name": "version_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Version Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateManagedKnowledgeBinding"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedKnowledgeBindingMutation"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/admin/knowledge-management/documents": {
       "get": {
         "tags": [
@@ -1657,13 +2098,19 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "format": "uuid"
-              },
-              "maxItems": 64,
-              "default": [],
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "maxItems": 64
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Label Ids"
             }
           },
@@ -3551,13 +3998,19 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "format": "uuid"
-              },
-              "maxItems": 64,
-              "default": [],
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "maxItems": 64
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Label Ids"
             }
           },
@@ -4242,6 +4695,623 @@
           "reason"
         ],
         "title": "ReviewTranslationAlignment"
+      },
+      "PrepareKnowledgeManifest": {
+        "properties": {
+          "upload_session_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Upload Session Id"
+          },
+          "expected_record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Record Version"
+          },
+          "columns": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "propertyNames": {
+              "enum": [
+                "sequence",
+                "title",
+                "language",
+                "category",
+                "jurisdiction",
+                "topic",
+                "issuer",
+                "format",
+                "relative_path"
+              ]
+            },
+            "type": "object",
+            "maxProperties": 9,
+            "minProperties": 2,
+            "title": "Columns"
+          },
+          "required_fields": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "sequence",
+                "title",
+                "language",
+                "category",
+                "jurisdiction",
+                "topic",
+                "issuer",
+                "format",
+                "relative_path"
+              ]
+            },
+            "type": "array",
+            "title": "Required Fields",
+            "default": [
+              "title",
+              "relative_path"
+            ]
+          },
+          "metadata_mappings": {
+            "items": {
+              "$ref": "#/components/schemas/ManifestMetadataMapping"
+            },
+            "type": "array",
+            "maxItems": 1000,
+            "title": "Metadata Mappings",
+            "default": []
+          },
+          "sheet_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 128,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sheet Name"
+          },
+          "csv_encoding": {
+            "type": "string",
+            "enum": [
+              "utf-8-sig",
+              "utf-8",
+              "utf-16",
+              "gb18030"
+            ],
+            "title": "Csv Encoding",
+            "default": "utf-8-sig"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "upload_session_id",
+          "expected_record_version",
+          "columns",
+          "idempotency_key"
+        ],
+        "title": "PrepareKnowledgeManifest"
+      },
+      "ManifestMetadataMapping": {
+        "properties": {
+          "dimension": {
+            "type": "string",
+            "enum": [
+              "language",
+              "category",
+              "jurisdiction",
+              "topic",
+              "issuer"
+            ],
+            "title": "Dimension"
+          },
+          "source_value": {
+            "type": "string",
+            "maxLength": 4096,
+            "minLength": 1,
+            "title": "Source Value"
+          },
+          "labels": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeDocumentLabel"
+            },
+            "type": "array",
+            "maxItems": 128,
+            "minItems": 1,
+            "title": "Labels"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "dimension",
+          "source_value",
+          "labels"
+        ],
+        "title": "ManifestMetadataMapping"
+      },
+      "KnowledgeDocumentLabel": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "JURISDICTION_CONFIG",
+              "REGULATION_CATEGORY",
+              "RESEARCH_TOPIC",
+              "LANGUAGE",
+              "ISSUING_AUTHORITY",
+              "KNOWLEDGE_SOURCE_TYPE",
+              "LEGAL_EFFECT"
+            ],
+            "title": "Kind"
+          },
+          "definition_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Definition Id"
+          },
+          "version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Version Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "definition_id",
+          "version_id"
+        ],
+        "title": "KnowledgeDocumentLabel"
+      },
+      "KnowledgeManifestView": {
+        "properties": {
+          "manifest_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Manifest Id"
+          },
+          "batch_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Batch Id"
+          },
+          "upload_session_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Upload Session Id"
+          },
+          "inventory_digest": {
+            "type": "string",
+            "title": "Inventory Digest"
+          },
+          "content_sha256": {
+            "type": "string",
+            "title": "Content Sha256"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "COMPLETED",
+              "FAILED"
+            ],
+            "title": "Status"
+          },
+          "error_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Code"
+          },
+          "record_count": {
+            "type": "integer",
+            "title": "Record Count"
+          },
+          "created_by": {
+            "type": "string",
+            "title": "Created By"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "proposal_only": {
+            "type": "boolean",
+            "const": true,
+            "title": "Proposal Only",
+            "default": true
+          },
+          "receipt_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Receipt Id"
+          },
+          "operation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Operation"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "manifest_id",
+          "batch_id",
+          "upload_session_id",
+          "inventory_digest",
+          "content_sha256",
+          "status",
+          "error_code",
+          "record_count",
+          "created_by",
+          "created_at"
+        ],
+        "title": "KnowledgeManifestView"
+      },
+      "KnowledgeManifestPage": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "page_size": {
+            "type": "integer",
+            "title": "Page Size"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeManifestView"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "total",
+          "page",
+          "page_size",
+          "items"
+        ],
+        "title": "KnowledgeManifestPage"
+      },
+      "KnowledgeManifestDetail": {
+        "properties": {
+          "manifest_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Manifest Id"
+          },
+          "batch_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Batch Id"
+          },
+          "upload_session_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Upload Session Id"
+          },
+          "inventory_digest": {
+            "type": "string",
+            "title": "Inventory Digest"
+          },
+          "content_sha256": {
+            "type": "string",
+            "title": "Content Sha256"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "COMPLETED",
+              "FAILED"
+            ],
+            "title": "Status"
+          },
+          "error_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Code"
+          },
+          "record_count": {
+            "type": "integer",
+            "title": "Record Count"
+          },
+          "created_by": {
+            "type": "string",
+            "title": "Created By"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "proposal_only": {
+            "type": "boolean",
+            "const": true,
+            "title": "Proposal Only",
+            "default": true
+          },
+          "receipt_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Receipt Id"
+          },
+          "operation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Operation"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "page_size": {
+            "type": "integer",
+            "title": "Page Size"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeManifestRecordView"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "manifest_id",
+          "batch_id",
+          "upload_session_id",
+          "inventory_digest",
+          "content_sha256",
+          "status",
+          "error_code",
+          "record_count",
+          "created_by",
+          "created_at",
+          "total",
+          "page",
+          "page_size",
+          "items"
+        ],
+        "title": "KnowledgeManifestDetail"
+      },
+      "KnowledgeManifestRecordView": {
+        "properties": {
+          "manifest_record_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Manifest Record Id"
+          },
+          "row_number": {
+            "type": "integer",
+            "title": "Row Number"
+          },
+          "canonical_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Canonical Path"
+          },
+          "matched_item_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Matched Item Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "MAPPING_REQUIRED",
+              "FILE_MATCHED",
+              "FILE_MISSING"
+            ],
+            "title": "Status"
+          },
+          "proposed_values": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Proposed Values"
+          },
+          "metadata_refs": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/KnowledgeDocumentLabel"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Metadata Refs"
+          },
+          "issues": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeManifestIssue"
+            },
+            "type": "array",
+            "title": "Issues"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "manifest_record_id",
+          "row_number",
+          "canonical_path",
+          "matched_item_id",
+          "status",
+          "proposed_values",
+          "metadata_refs",
+          "issues"
+        ],
+        "title": "KnowledgeManifestRecordView"
+      },
+      "KnowledgeManifestIssue": {
+        "properties": {
+          "row": {
+            "type": "integer",
+            "title": "Row"
+          },
+          "field": {
+            "type": "string",
+            "title": "Field"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "row",
+          "field",
+          "code"
+        ],
+        "title": "KnowledgeManifestIssue"
+      },
+      "KnowledgeManifestMissingFiles": {
+        "properties": {
+          "manifest_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Manifest Id"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "page_size": {
+            "type": "integer",
+            "title": "Page Size"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeManifestRecordView"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "unlisted_total": {
+            "type": "integer",
+            "title": "Unlisted Total"
+          },
+          "unlisted_files": {
+            "items": {
+              "$ref": "#/components/schemas/UnlistedKnowledgeFile"
+            },
+            "type": "array",
+            "title": "Unlisted Files"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "manifest_id",
+          "total",
+          "page",
+          "page_size",
+          "items",
+          "unlisted_total",
+          "unlisted_files"
+        ],
+        "title": "KnowledgeManifestMissingFiles"
+      },
+      "UnlistedKnowledgeFile": {
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Item Id"
+          },
+          "relative_path": {
+            "type": "string",
+            "title": "Relative Path"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "item_id",
+          "relative_path"
+        ],
+        "title": "UnlistedKnowledgeFile"
       },
       "KnowledgeAuditPage": {
         "properties": {
@@ -5576,6 +6646,476 @@
         ],
         "title": "KnowledgeManagementCapabilities"
       },
+      "KnowledgeScopeOptions": {
+        "properties": {
+          "dimension": {
+            "type": "string",
+            "title": "Dimension"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "page_size": {
+            "type": "integer",
+            "title": "Page Size"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeScopeOption"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "dimension",
+          "total",
+          "page",
+          "page_size",
+          "items"
+        ],
+        "title": "KnowledgeScopeOptions"
+      },
+      "KnowledgeScopeOption": {
+        "properties": {
+          "object_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Object Id"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "object_id",
+          "display_name",
+          "code"
+        ],
+        "title": "KnowledgeScopeOption"
+      },
+      "ManagedKnowledgeBindings": {
+        "properties": {
+          "knowledge_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Knowledge Version Id"
+          },
+          "bindings": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeBinding"
+            },
+            "type": "array",
+            "title": "Bindings"
+          },
+          "quality": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/KnowledgeQualityResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "runtime_readiness": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/KnowledgeRuntimeReadinessResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "knowledge_version_id",
+          "bindings"
+        ],
+        "title": "ManagedKnowledgeBindings"
+      },
+      "KnowledgeBinding": {
+        "properties": {
+          "binding_id": {
+            "type": "string",
+            "title": "Binding Id"
+          },
+          "tenant_id": {
+            "type": "string",
+            "title": "Tenant Id"
+          },
+          "knowledge_version_id": {
+            "type": "string",
+            "title": "Knowledge Version Id"
+          },
+          "scope_type": {
+            "type": "string",
+            "title": "Scope Type"
+          },
+          "dimensions": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Dimensions"
+          },
+          "permission_scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Permission Scopes",
+            "default": []
+          },
+          "effective_from": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective From"
+          },
+          "effective_to": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective To"
+          },
+          "provenance": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Provenance"
+          },
+          "review_status": {
+            "type": "string",
+            "title": "Review Status",
+            "default": "PENDING"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version",
+            "default": 1
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "binding_id",
+          "tenant_id",
+          "knowledge_version_id",
+          "scope_type",
+          "provenance"
+        ],
+        "title": "KnowledgeBinding"
+      },
+      "KnowledgeQualityResult": {
+        "properties": {
+          "knowledge_version_id": {
+            "type": "string",
+            "title": "Knowledge Version Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PASS",
+              "WARNING",
+              "REVIEW_REQUIRED",
+              "FAILED"
+            ],
+            "title": "Status"
+          },
+          "checks": {
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "type": "object",
+            "title": "Checks"
+          },
+          "reason_codes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reason Codes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "knowledge_version_id",
+          "status",
+          "checks",
+          "reason_codes"
+        ],
+        "title": "KnowledgeQualityResult"
+      },
+      "KnowledgeRuntimeReadinessResult": {
+        "properties": {
+          "knowledge_version_id": {
+            "type": "string",
+            "title": "Knowledge Version Id"
+          },
+          "tenant_id": {
+            "type": "string",
+            "title": "Tenant Id"
+          },
+          "publication_event_id": {
+            "type": "string",
+            "title": "Publication Event Id"
+          },
+          "event_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Event Version"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "BUILDING",
+              "READY",
+              "FAILED"
+            ],
+            "title": "Status"
+          },
+          "index_version_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Index Version Id"
+          },
+          "embedding_config_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Embedding Config Id"
+          },
+          "registry_projection_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registry Projection Version"
+          },
+          "cache_generation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cache Generation"
+          },
+          "checks": {
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "type": "object",
+            "title": "Checks"
+          },
+          "reason_codes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reason Codes",
+            "default": []
+          },
+          "assets": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Assets"
+          },
+          "record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Record Version"
+          },
+          "derived": {
+            "type": "boolean",
+            "const": true,
+            "title": "Derived",
+            "default": true
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "knowledge_version_id",
+          "tenant_id",
+          "publication_event_id",
+          "event_version",
+          "status",
+          "record_version"
+        ],
+        "title": "KnowledgeRuntimeReadinessResult"
+      },
+      "CreateManagedKnowledgeBinding": {
+        "properties": {
+          "expected_record_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Record Version"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 2048,
+            "minLength": 1,
+            "title": "Reason"
+          },
+          "scope_type": {
+            "type": "string",
+            "enum": [
+              "PRODUCT_SPECIFIC",
+              "DOMAIN_SHARED",
+              "CROSS_PRODUCT",
+              "GLOBAL"
+            ],
+            "title": "Scope Type"
+          },
+          "dimensions": {
+            "additionalProperties": {
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "maxProperties": 10,
+            "title": "Dimensions"
+          },
+          "permission_scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 128,
+            "title": "Permission Scopes",
+            "default": []
+          },
+          "effective_from": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective From"
+          },
+          "effective_to": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective To"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_record_version",
+          "idempotency_key",
+          "reason",
+          "scope_type"
+        ],
+        "title": "CreateManagedKnowledgeBinding"
+      },
+      "ManagedKnowledgeBindingMutation": {
+        "properties": {
+          "knowledge_version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Knowledge Version Id"
+          },
+          "record_version": {
+            "type": "integer",
+            "title": "Record Version"
+          },
+          "binding": {
+            "$ref": "#/components/schemas/KnowledgeBinding"
+          },
+          "receipt_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Receipt Id"
+          },
+          "operation": {
+            "type": "string",
+            "title": "Operation"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "knowledge_version_id",
+          "record_version",
+          "binding",
+          "receipt_id",
+          "operation"
+        ],
+        "title": "ManagedKnowledgeBindingMutation"
+      },
       "ManagedKnowledgeDocumentPage": {
         "properties": {
           "total": {
@@ -5774,41 +7314,6 @@
         ],
         "title": "KnowledgeDocumentMetadata"
       },
-      "KnowledgeDocumentLabel": {
-        "properties": {
-          "kind": {
-            "type": "string",
-            "enum": [
-              "JURISDICTION_CONFIG",
-              "REGULATION_CATEGORY",
-              "RESEARCH_TOPIC",
-              "LANGUAGE",
-              "ISSUING_AUTHORITY",
-              "KNOWLEDGE_SOURCE_TYPE",
-              "LEGAL_EFFECT"
-            ],
-            "title": "Kind"
-          },
-          "definition_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Definition Id"
-          },
-          "version_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Version Id"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "kind",
-          "definition_id",
-          "version_id"
-        ],
-        "title": "KnowledgeDocumentLabel"
-      },
       "ManagedKnowledgeVersionMutation": {
         "properties": {
           "knowledge_version_id": {
@@ -5878,6 +7383,18 @@
           "file_available": {
             "type": "boolean",
             "title": "File Available"
+          },
+          "binary_upload_session_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Binary Upload Session Id"
           },
           "receipt_id": {
             "type": "string",
@@ -6033,6 +7550,18 @@
           "file_available": {
             "type": "boolean",
             "title": "File Available"
+          },
+          "binary_upload_session_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Binary Upload Session Id"
           }
         },
         "additionalProperties": false,
@@ -6505,7 +8034,9 @@
               "TXT",
               "XHTML",
               "RAR",
-              "ZIP"
+              "ZIP",
+              "CSV",
+              "XLSX"
             ],
             "title": "Declared Format"
           },
@@ -6570,7 +8101,9 @@
               "TXT",
               "XHTML",
               "RAR",
-              "ZIP"
+              "ZIP",
+              "CSV",
+              "XLSX"
             ],
             "title": "Declared Format"
           },
@@ -6744,7 +8277,9 @@
                   "TXT",
                   "XHTML",
                   "RAR",
-                  "ZIP"
+                  "ZIP",
+                  "CSV",
+                  "XLSX"
                 ]
               },
               {
@@ -7015,7 +8550,9 @@
                 "TXT",
                 "XHTML",
                 "RAR",
-                "ZIP"
+                "ZIP",
+                "CSV",
+                "XLSX"
               ]
             },
             "type": "array",
@@ -7032,11 +8569,35 @@
                 "TXT",
                 "XHTML",
                 "RAR",
-                "ZIP"
+                "ZIP",
+                "CSV",
+                "XLSX"
               ]
             },
             "type": "array",
             "title": "Allowed Archive Formats"
+          },
+          "allowed_manifest_formats": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "DOC",
+                "DOCX",
+                "HTML",
+                "PDF",
+                "TXT",
+                "XHTML",
+                "RAR",
+                "ZIP",
+                "CSV",
+                "XLSX"
+              ]
+            },
+            "type": "array",
+            "title": "Allowed Manifest Formats"
+          },
+          "manifest_limits": {
+            "$ref": "#/components/schemas/KnowledgeManifestLimits"
           }
         },
         "additionalProperties": false,
@@ -7054,9 +8615,58 @@
           "max_active_upload_sessions",
           "scan_required",
           "allowed_document_formats",
-          "allowed_archive_formats"
+          "allowed_archive_formats",
+          "allowed_manifest_formats",
+          "manifest_limits"
         ],
         "title": "KnowledgeUploadPolicyView"
+      },
+      "KnowledgeManifestLimits": {
+        "properties": {
+          "max_bytes": {
+            "type": "integer",
+            "maximum": 134217728.0,
+            "minimum": 1.0,
+            "title": "Max Bytes",
+            "default": 33554432
+          },
+          "max_expanded_bytes": {
+            "type": "integer",
+            "maximum": 1073741824.0,
+            "minimum": 1.0,
+            "title": "Max Expanded Bytes",
+            "default": 134217728
+          },
+          "max_entries": {
+            "type": "integer",
+            "maximum": 100000.0,
+            "minimum": 1.0,
+            "title": "Max Entries",
+            "default": 10000
+          },
+          "max_rows": {
+            "type": "integer",
+            "maximum": 100000.0,
+            "minimum": 1.0,
+            "title": "Max Rows",
+            "default": 20000
+          },
+          "max_columns": {
+            "type": "integer",
+            "maximum": 4096.0,
+            "minimum": 2.0,
+            "title": "Max Columns",
+            "default": 256
+          },
+          "case_sensitive_paths": {
+            "type": "boolean",
+            "title": "Case Sensitive Paths",
+            "default": true
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "KnowledgeManifestLimits"
       },
       "CreateKnowledgeImportBatch": {
         "properties": {
@@ -7284,6 +8894,29 @@
             "format": "uuid",
             "title": "Upload Session Id"
           },
+          "mapping_available": {
+            "type": "boolean",
+            "title": "Mapping Available"
+          },
+          "transport_pending": {
+            "type": "boolean",
+            "title": "Transport Pending"
+          },
+          "upload_status": {
+            "type": "string",
+            "title": "Upload Status"
+          },
+          "transport_error_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transport Error Code"
+          },
           "relative_path": {
             "type": "string",
             "title": "Relative Path"
@@ -7299,6 +8932,18 @@
               }
             ],
             "title": "Knowledge Version Id"
+          },
+          "manifest_record_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Manifest Record Id"
           },
           "status": {
             "type": "string",
@@ -7335,6 +8980,10 @@
           "technical_retry_available",
           "item_id",
           "upload_session_id",
+          "mapping_available",
+          "transport_pending",
+          "upload_status",
+          "transport_error_code",
           "relative_path",
           "knowledge_version_id",
           "status",
@@ -7384,6 +9033,18 @@
           },
           "document": {
             "$ref": "#/components/schemas/CreateManagedKnowledgeDocument"
+          },
+          "manifest_record_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Manifest Record Id"
           }
         },
         "additionalProperties": false,

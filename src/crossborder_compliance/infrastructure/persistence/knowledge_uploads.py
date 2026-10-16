@@ -8,6 +8,7 @@ from uuid import uuid4
 from sqlalchemy import func, select, text
 
 from crossborder_compliance.domain.knowledge_management import require_management_permission
+from crossborder_compliance.domain.knowledge_upload import DOCUMENT_FORMATS, MANIFEST_FORMATS
 from crossborder_compliance.infrastructure.persistence import knowledge_models as k
 from crossborder_compliance.infrastructure.persistence import metadata_models as m
 from crossborder_compliance.infrastructure.persistence.knowledge_repositories import (
@@ -108,6 +109,8 @@ class PostgresKnowledgeUploads:
                 "scan_required": policy.scan_required,
                 "allowed_document_formats": sorted(DOCUMENT_FORMATS),
                 "allowed_archive_formats": sorted(ARCHIVE_FORMATS),
+                "allowed_manifest_formats": sorted(MANIFEST_FORMATS),
+                "manifest_limits": policy.manifest.model_dump(mode="json"),
             }
 
     @staticmethod
@@ -166,7 +169,9 @@ class PostgresKnowledgeUploads:
                 return self._view(self._get(s, cached["upload_session_id"]))
             root, version, policy = self._policy(s)
             ceiling = (
-                policy.max_archive_bytes
+                policy.manifest.max_bytes
+                if request.declared_format in MANIFEST_FORMATS
+                else policy.max_archive_bytes
                 if request.declared_format in {"RAR", "ZIP"}
                 else policy.max_single_bytes
             )
@@ -699,7 +704,7 @@ class PostgresKnowledgeUploads:
         require_management_permission(self.context, "document:write")
         version = self._target(s, version_id, expected)
         row = self._get(s, identity, True)
-        if row.status != "VERIFIED" or row.declared_format in {"RAR", "ZIP"}:
+        if row.status != "VERIFIED" or row.declared_format not in DOCUMENT_FORMATS:
             raise KnowledgeManagementConflict("KNOWLEDGE_BINARY_NOT_ATTACHABLE")
         if row.knowledge_version_id and row.knowledge_version_id != str(version_id):
             raise KnowledgeManagementConflict("KNOWLEDGE_UPLOAD_TARGET_MISMATCH")

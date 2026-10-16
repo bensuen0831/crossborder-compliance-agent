@@ -35,7 +35,11 @@ PARENT = "0020_stage1_formal_decision_engine_compatibility"
 
 def test_kb01_single_head_and_frozen_0001_0020():
     script = ScriptDirectory.from_config(Config(str(ROOT / "alembic.ini")))
-    assert script.get_heads() == ["0023_kb01_evidence_source_reference"]
+    assert script.get_heads() == ["0024_kb01_import_manifest_records"]
+    assert (
+        script.get_revision("0024_kb01_import_manifest_records").down_revision
+        == "0023_kb01_evidence_source_reference"
+    )
     assert (
         script.get_revision("0023_kb01_evidence_source_reference").down_revision
         == "0022_kb01_binary_transport"

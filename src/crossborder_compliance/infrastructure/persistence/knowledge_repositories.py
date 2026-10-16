@@ -281,7 +281,7 @@ class PostgresKnowledgeRepository:
             binding_version=binding.version,
             dimensions_json={key: list(values) for key, values in binding.dimensions.items()},
             permission_scopes_json=list(binding.permission_scopes),
-            provenance_json=binding.provenance,
+            provenance_json=dict(binding.provenance, submitted_by=self.context.permission.actor_id),
             review_status="PENDING",
             effective_from=binding.effective_from,
             effective_to=binding.effective_to,
@@ -745,7 +745,7 @@ class PostgresKnowledgeRepository:
             contributor = False
             if version.provenance_json.get("kb01_metadata") or version.provenance_json.get(
                 "kb01_binary_transport"
-            ):
+            ) or version.provenance_json.get("kb01_scope_management"):
                 from crossborder_compliance.infrastructure.persistence.knowledge_management_models import (
                     AdminOperationReceiptEntity,
                 )
@@ -758,12 +758,19 @@ class PostgresKnowledgeRepository:
                     .where(AdminOperationReceiptEntity.tenant_id == self.tenant_id,
                            AdminOperationReceiptEntity.operation.in_((
                                "DOCUMENT_CREATE", "DOCUMENT_NEW_VERSION",
-                               "DOCUMENT_EDIT_DRAFT", "UPLOAD_ATTACH",
+                               "DOCUMENT_EDIT_DRAFT", "UPLOAD_ATTACH", "DOCUMENT_BIND",
                            )),
                            AdminOperationReceiptEntity.result_json["knowledge_version_id"].as_string()
                            == version_id,
                            m.AdminChangeSetEntity.actor_id == actor).limit(1))
                 )
+                contributor = contributor or bool(s.scalar(
+                    select(m.KnowledgeBindingEntity.knowledge_binding_id).where(
+                        m.KnowledgeBindingEntity.tenant_id == self.tenant_id,
+                        m.KnowledgeBindingEntity.knowledge_version_id == version_id,
+                        m.KnowledgeBindingEntity.provenance_json["submitted_by"].as_string() == actor,
+                    ).limit(1)
+                ))
             if self.context.permission.system or change.actor_id == actor or contributor:
                 raise ValueError("independent human reviewer required")
             task.review_status = "APPROVED"

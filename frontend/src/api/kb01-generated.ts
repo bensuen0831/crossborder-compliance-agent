@@ -140,6 +140,58 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/knowledge-management/import-batches/{batch_id}/manifests": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Manifests */
+        get: operations["list_manifests_api_v1_admin_knowledge_management_import_batches__batch_id__manifests_get"];
+        put?: never;
+        /** Prepare */
+        post: operations["prepare_api_v1_admin_knowledge_management_import_batches__batch_id__manifests_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/import-batches/{batch_id}/manifests/{manifest_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Detail */
+        get: operations["detail_api_v1_admin_knowledge_management_import_batches__batch_id__manifests__manifest_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/import-batches/{batch_id}/manifests/{manifest_id}/missing-files": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Missing Files */
+        get: operations["missing_files_api_v1_admin_knowledge_management_import_batches__batch_id__manifests__manifest_id__missing_files_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/admin/knowledge-management/audit/{resource_id}": {
         parameters: {
             query?: never;
@@ -476,6 +528,41 @@ export interface paths {
         get: operations["capabilities_api_v1_admin_knowledge_management_capabilities_get"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/scope-options": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Scope Options */
+        get: operations["scope_options_api_v1_admin_knowledge_management_scope_options_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/knowledge-management/documents/versions/{version_id}/scope-bindings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Scope Bindings */
+        get: operations["scope_bindings_api_v1_admin_knowledge_management_documents_versions__version_id__scope_bindings_get"];
+        put?: never;
+        /** Create Scope Binding */
+        post: operations["create_scope_binding_api_v1_admin_knowledge_management_documents_versions__version_id__scope_bindings_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1332,6 +1419,256 @@ export interface components {
             /** Reason */
             reason: string;
         };
+        /** PrepareKnowledgeManifest */
+        PrepareKnowledgeManifest: {
+            /**
+             * Upload Session Id
+             * Format: uuid
+             */
+            upload_session_id: string;
+            /** Expected Record Version */
+            expected_record_version: number;
+            /** Columns */
+            columns: {
+                [key: string]: string;
+            };
+            /**
+             * Required Fields
+             * @default [
+             *       "title",
+             *       "relative_path"
+             *     ]
+             */
+            required_fields: ("sequence" | "title" | "language" | "category" | "jurisdiction" | "topic" | "issuer" | "format" | "relative_path")[];
+            /**
+             * Metadata Mappings
+             * @default []
+             */
+            metadata_mappings: components["schemas"]["ManifestMetadataMapping"][];
+            /** Sheet Name */
+            sheet_name?: string | null;
+            /**
+             * Csv Encoding
+             * @default utf-8-sig
+             * @enum {string}
+             */
+            csv_encoding: "utf-8-sig" | "utf-8" | "utf-16" | "gb18030";
+            /** Idempotency Key */
+            idempotency_key: string;
+        };
+        /** ManifestMetadataMapping */
+        ManifestMetadataMapping: {
+            /**
+             * Dimension
+             * @enum {string}
+             */
+            dimension: "language" | "category" | "jurisdiction" | "topic" | "issuer";
+            /** Source Value */
+            source_value: string;
+            /** Labels */
+            labels: components["schemas"]["KnowledgeDocumentLabel"][];
+        };
+        /** KnowledgeDocumentLabel */
+        KnowledgeDocumentLabel: {
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "JURISDICTION_CONFIG" | "REGULATION_CATEGORY" | "RESEARCH_TOPIC" | "LANGUAGE" | "ISSUING_AUTHORITY" | "KNOWLEDGE_SOURCE_TYPE" | "LEGAL_EFFECT";
+            /**
+             * Definition Id
+             * Format: uuid
+             */
+            definition_id: string;
+            /**
+             * Version Id
+             * Format: uuid
+             */
+            version_id: string;
+        };
+        /** KnowledgeManifestView */
+        KnowledgeManifestView: {
+            /**
+             * Manifest Id
+             * Format: uuid
+             */
+            manifest_id: string;
+            /**
+             * Batch Id
+             * Format: uuid
+             */
+            batch_id: string;
+            /**
+             * Upload Session Id
+             * Format: uuid
+             */
+            upload_session_id: string;
+            /** Inventory Digest */
+            inventory_digest: string;
+            /** Content Sha256 */
+            content_sha256: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "COMPLETED" | "FAILED";
+            /** Error Code */
+            error_code: string | null;
+            /** Record Count */
+            record_count: number;
+            /** Created By */
+            created_by: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Proposal Only
+             * @default true
+             * @constant
+             */
+            proposal_only: true;
+            /** Receipt Id */
+            receipt_id?: string | null;
+            /** Operation */
+            operation?: string | null;
+        };
+        /** KnowledgeManifestPage */
+        KnowledgeManifestPage: {
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+            /** Items */
+            items: components["schemas"]["KnowledgeManifestView"][];
+        };
+        /** KnowledgeManifestDetail */
+        KnowledgeManifestDetail: {
+            /**
+             * Manifest Id
+             * Format: uuid
+             */
+            manifest_id: string;
+            /**
+             * Batch Id
+             * Format: uuid
+             */
+            batch_id: string;
+            /**
+             * Upload Session Id
+             * Format: uuid
+             */
+            upload_session_id: string;
+            /** Inventory Digest */
+            inventory_digest: string;
+            /** Content Sha256 */
+            content_sha256: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "COMPLETED" | "FAILED";
+            /** Error Code */
+            error_code: string | null;
+            /** Record Count */
+            record_count: number;
+            /** Created By */
+            created_by: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Proposal Only
+             * @default true
+             * @constant
+             */
+            proposal_only: true;
+            /** Receipt Id */
+            receipt_id?: string | null;
+            /** Operation */
+            operation?: string | null;
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+            /** Items */
+            items: components["schemas"]["KnowledgeManifestRecordView"][];
+        };
+        /** KnowledgeManifestRecordView */
+        KnowledgeManifestRecordView: {
+            /**
+             * Manifest Record Id
+             * Format: uuid
+             */
+            manifest_record_id: string;
+            /** Row Number */
+            row_number: number;
+            /** Canonical Path */
+            canonical_path: string | null;
+            /** Matched Item Id */
+            matched_item_id: string | null;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "MAPPING_REQUIRED" | "FILE_MATCHED" | "FILE_MISSING";
+            /** Proposed Values */
+            proposed_values: {
+                [key: string]: string;
+            };
+            /** Metadata Refs */
+            metadata_refs: {
+                [key: string]: components["schemas"]["KnowledgeDocumentLabel"][];
+            };
+            /** Issues */
+            issues: components["schemas"]["KnowledgeManifestIssue"][];
+        };
+        /** KnowledgeManifestIssue */
+        KnowledgeManifestIssue: {
+            /** Row */
+            row: number;
+            /** Field */
+            field: string;
+            /** Code */
+            code: string;
+        };
+        /** KnowledgeManifestMissingFiles */
+        KnowledgeManifestMissingFiles: {
+            /**
+             * Manifest Id
+             * Format: uuid
+             */
+            manifest_id: string;
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+            /** Items */
+            items: components["schemas"]["KnowledgeManifestRecordView"][];
+            /** Unlisted Total */
+            unlisted_total: number;
+            /** Unlisted Files */
+            unlisted_files: components["schemas"]["UnlistedKnowledgeFile"][];
+        };
+        /** UnlistedKnowledgeFile */
+        UnlistedKnowledgeFile: {
+            /**
+             * Item Id
+             * Format: uuid
+             */
+            item_id: string;
+            /** Relative Path */
+            relative_path: string;
+        };
         /** KnowledgeAuditPage */
         KnowledgeAuditPage: {
             /** Total */
@@ -1836,6 +2173,187 @@ export interface components {
              */
             publication_requires_independent_review: true;
         };
+        /** KnowledgeScopeOptions */
+        KnowledgeScopeOptions: {
+            /** Dimension */
+            dimension: string;
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+            /** Items */
+            items: components["schemas"]["KnowledgeScopeOption"][];
+        };
+        /** KnowledgeScopeOption */
+        KnowledgeScopeOption: {
+            /**
+             * Object Id
+             * Format: uuid
+             */
+            object_id: string;
+            /** Display Name */
+            display_name: string;
+            /** Code */
+            code: string;
+        };
+        /** ManagedKnowledgeBindings */
+        ManagedKnowledgeBindings: {
+            /**
+             * Knowledge Version Id
+             * Format: uuid
+             */
+            knowledge_version_id: string;
+            /** Bindings */
+            bindings: components["schemas"]["KnowledgeBinding"][];
+            quality?: components["schemas"]["KnowledgeQualityResult"] | null;
+            runtime_readiness?: components["schemas"]["KnowledgeRuntimeReadinessResult"] | null;
+        };
+        /** KnowledgeBinding */
+        KnowledgeBinding: {
+            /** Binding Id */
+            binding_id: string;
+            /** Tenant Id */
+            tenant_id: string;
+            /** Knowledge Version Id */
+            knowledge_version_id: string;
+            /** Scope Type */
+            scope_type: string;
+            /** Dimensions */
+            dimensions?: {
+                [key: string]: string[];
+            };
+            /**
+             * Permission Scopes
+             * @default []
+             */
+            permission_scopes: string[];
+            /** Effective From */
+            effective_from?: string | null;
+            /** Effective To */
+            effective_to?: string | null;
+            /** Provenance */
+            provenance: {
+                [key: string]: unknown;
+            };
+            /**
+             * Review Status
+             * @default PENDING
+             */
+            review_status: string;
+            /**
+             * Version
+             * @default 1
+             */
+            version: number;
+        };
+        /** KnowledgeQualityResult */
+        KnowledgeQualityResult: {
+            /** Knowledge Version Id */
+            knowledge_version_id: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "PASS" | "WARNING" | "REVIEW_REQUIRED" | "FAILED";
+            /** Checks */
+            checks: {
+                [key: string]: boolean;
+            };
+            /** Reason Codes */
+            reason_codes: string[];
+        };
+        /** KnowledgeRuntimeReadinessResult */
+        KnowledgeRuntimeReadinessResult: {
+            /** Knowledge Version Id */
+            knowledge_version_id: string;
+            /** Tenant Id */
+            tenant_id: string;
+            /** Publication Event Id */
+            publication_event_id: string;
+            /** Event Version */
+            event_version: number;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "PENDING" | "BUILDING" | "READY" | "FAILED";
+            /** Index Version Id */
+            index_version_id?: string | null;
+            /** Embedding Config Id */
+            embedding_config_id?: string | null;
+            /** Registry Projection Version */
+            registry_projection_version?: string | null;
+            /** Cache Generation */
+            cache_generation?: string | null;
+            /** Checks */
+            checks?: {
+                [key: string]: boolean;
+            };
+            /**
+             * Reason Codes
+             * @default []
+             */
+            reason_codes: string[];
+            /** Assets */
+            assets?: {
+                [key: string]: unknown;
+            };
+            /** Record Version */
+            record_version: number;
+            /**
+             * Derived
+             * @default true
+             * @constant
+             */
+            derived: true;
+        };
+        /** CreateManagedKnowledgeBinding */
+        CreateManagedKnowledgeBinding: {
+            /** Expected Record Version */
+            expected_record_version: number;
+            /** Idempotency Key */
+            idempotency_key: string;
+            /** Reason */
+            reason: string;
+            /**
+             * Scope Type
+             * @enum {string}
+             */
+            scope_type: "PRODUCT_SPECIFIC" | "DOMAIN_SHARED" | "CROSS_PRODUCT" | "GLOBAL";
+            /** Dimensions */
+            dimensions?: {
+                [key: string]: string[];
+            };
+            /**
+             * Permission Scopes
+             * @default []
+             */
+            permission_scopes: string[];
+            /** Effective From */
+            effective_from?: string | null;
+            /** Effective To */
+            effective_to?: string | null;
+        };
+        /** ManagedKnowledgeBindingMutation */
+        ManagedKnowledgeBindingMutation: {
+            /**
+             * Knowledge Version Id
+             * Format: uuid
+             */
+            knowledge_version_id: string;
+            /** Record Version */
+            record_version: number;
+            binding: components["schemas"]["KnowledgeBinding"];
+            /**
+             * Receipt Id
+             * Format: uuid
+             */
+            receipt_id: string;
+            /** Operation */
+            operation: string;
+        };
         /** ManagedKnowledgeDocumentPage */
         ManagedKnowledgeDocumentPage: {
             /** Total */
@@ -1917,24 +2435,6 @@ export interface components {
              */
             labels: components["schemas"]["KnowledgeDocumentLabel"][];
         };
-        /** KnowledgeDocumentLabel */
-        KnowledgeDocumentLabel: {
-            /**
-             * Kind
-             * @enum {string}
-             */
-            kind: "JURISDICTION_CONFIG" | "REGULATION_CATEGORY" | "RESEARCH_TOPIC" | "LANGUAGE" | "ISSUING_AUTHORITY" | "KNOWLEDGE_SOURCE_TYPE" | "LEGAL_EFFECT";
-            /**
-             * Definition Id
-             * Format: uuid
-             */
-            definition_id: string;
-            /**
-             * Version Id
-             * Format: uuid
-             */
-            version_id: string;
-        };
         /** ManagedKnowledgeVersionMutation */
         ManagedKnowledgeVersionMutation: {
             /**
@@ -1964,6 +2464,8 @@ export interface components {
             content_hash: string | null;
             /** File Available */
             file_available: boolean;
+            /** Binary Upload Session Id */
+            binary_upload_session_id?: string | null;
             /**
              * Receipt Id
              * Format: uuid
@@ -2032,6 +2534,8 @@ export interface components {
             content_hash: string | null;
             /** File Available */
             file_available: boolean;
+            /** Binary Upload Session Id */
+            binary_upload_session_id?: string | null;
         };
         /** ManagedKnowledgeDocumentDeletion */
         ManagedKnowledgeDocumentDeletion: {
@@ -2211,7 +2715,7 @@ export interface components {
              * Declared Format
              * @enum {string}
              */
-            declared_format: "DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP";
+            declared_format: "DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP" | "CSV" | "XLSX";
             /** Declared Bytes */
             declared_bytes: number;
             /** Content Sha256 */
@@ -2234,7 +2738,7 @@ export interface components {
              * Declared Format
              * @enum {string}
              */
-            declared_format: "DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP";
+            declared_format: "DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP" | "CSV" | "XLSX";
             /** Declared Bytes */
             declared_bytes: number;
             /** Content Sha256 */
@@ -2278,7 +2782,7 @@ export interface components {
             /** Content Sha256 */
             content_sha256?: string | null;
             /** Detected Format */
-            detected_format?: ("DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP") | null;
+            detected_format?: ("DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP" | "CSV" | "XLSX") | null;
             scanner?: components["schemas"]["KnowledgeScannerView"] | null;
         };
         /** KnowledgeScannerView */
@@ -2380,9 +2884,45 @@ export interface components {
             /** Scan Required */
             scan_required: boolean;
             /** Allowed Document Formats */
-            allowed_document_formats: ("DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP")[];
+            allowed_document_formats: ("DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP" | "CSV" | "XLSX")[];
             /** Allowed Archive Formats */
-            allowed_archive_formats: ("DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP")[];
+            allowed_archive_formats: ("DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP" | "CSV" | "XLSX")[];
+            /** Allowed Manifest Formats */
+            allowed_manifest_formats: ("DOC" | "DOCX" | "HTML" | "PDF" | "TXT" | "XHTML" | "RAR" | "ZIP" | "CSV" | "XLSX")[];
+            manifest_limits: components["schemas"]["KnowledgeManifestLimits"];
+        };
+        /** KnowledgeManifestLimits */
+        KnowledgeManifestLimits: {
+            /**
+             * Max Bytes
+             * @default 33554432
+             */
+            max_bytes: number;
+            /**
+             * Max Expanded Bytes
+             * @default 134217728
+             */
+            max_expanded_bytes: number;
+            /**
+             * Max Entries
+             * @default 10000
+             */
+            max_entries: number;
+            /**
+             * Max Rows
+             * @default 20000
+             */
+            max_rows: number;
+            /**
+             * Max Columns
+             * @default 256
+             */
+            max_columns: number;
+            /**
+             * Case Sensitive Paths
+             * @default true
+             */
+            case_sensitive_paths: boolean;
         };
         /** CreateKnowledgeImportBatch */
         CreateKnowledgeImportBatch: {
@@ -2453,10 +2993,20 @@ export interface components {
              * Format: uuid
              */
             upload_session_id: string;
+            /** Mapping Available */
+            mapping_available: boolean;
+            /** Transport Pending */
+            transport_pending: boolean;
+            /** Upload Status */
+            upload_status: string;
+            /** Transport Error Code */
+            transport_error_code: string | null;
             /** Relative Path */
             relative_path: string;
             /** Knowledge Version Id */
             knowledge_version_id: string | null;
+            /** Manifest Record Id */
+            manifest_record_id?: string | null;
             /**
              * Status
              * @enum {string}
@@ -2484,6 +3034,8 @@ export interface components {
              */
             item_id: string;
             document: components["schemas"]["CreateManagedKnowledgeDocument"];
+            /** Manifest Record Id */
+            manifest_record_id?: string | null;
         };
         /** KnowledgeBatchFailurePage */
         KnowledgeBatchFailurePage: {
@@ -2953,6 +3505,145 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["TranslationAlignmentView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_manifests_api_v1_admin_knowledge_management_import_batches__batch_id__manifests_get: {
+        parameters: {
+            query?: {
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path: {
+                batch_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeManifestPage"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    prepare_api_v1_admin_knowledge_management_import_batches__batch_id__manifests_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                batch_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PrepareKnowledgeManifest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeManifestView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    detail_api_v1_admin_knowledge_management_import_batches__batch_id__manifests__manifest_id__get: {
+        parameters: {
+            query?: {
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path: {
+                batch_id: string;
+                manifest_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeManifestDetail"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    missing_files_api_v1_admin_knowledge_management_import_batches__batch_id__manifests__manifest_id__missing_files_get: {
+        parameters: {
+            query?: {
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path: {
+                batch_id: string;
+                manifest_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeManifestMissingFiles"];
                 };
             };
             /** @description Validation Error */
@@ -3702,12 +4393,112 @@ export interface operations {
             };
         };
     };
+    scope_options_api_v1_admin_knowledge_management_scope_options_get: {
+        parameters: {
+            query: {
+                dimension: string;
+                query?: string;
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeScopeOptions"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    scope_bindings_api_v1_admin_knowledge_management_documents_versions__version_id__scope_bindings_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                version_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedKnowledgeBindings"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_scope_binding_api_v1_admin_knowledge_management_documents_versions__version_id__scope_bindings_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                version_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateManagedKnowledgeBinding"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedKnowledgeBindingMutation"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     document_list_api_v1_admin_knowledge_management_documents_get: {
         parameters: {
             query?: {
                 query?: string;
                 label_id?: string | null;
-                label_ids?: string[];
+                label_ids?: string[] | null;
                 lifecycle?: ("DRAFT" | "INGESTED" | "VALIDATED" | "PENDING_REVIEW" | "APPROVED" | "ACTIVE" | "SUPERSEDED" | "EXPIRED" | "ARCHIVED") | null;
                 language?: string | null;
                 page?: number;
@@ -4888,7 +5679,7 @@ export interface operations {
             query?: {
                 query?: string;
                 label_id?: string | null;
-                label_ids?: string[];
+                label_ids?: string[] | null;
                 lifecycle?: ("DRAFT" | "INGESTED" | "VALIDATED" | "PENDING_REVIEW" | "APPROVED" | "ACTIVE" | "SUPERSEDED" | "EXPIRED" | "ARCHIVED") | null;
                 language?: string | null;
             };

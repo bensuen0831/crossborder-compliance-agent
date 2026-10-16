@@ -53,13 +53,14 @@ export async function transferFile(
   const archive = policy.allowed_archive_formats.some(
     (value) => value === format,
   );
+  const manifest = policy.allowed_manifest_formats.some((value) => value === format);
   if (
-    !archive &&
+    !archive && !manifest &&
     !policy.allowed_document_formats.some((value) => value === format)
   )
     throw new Error("UNSUPPORTED_KNOWLEDGE_FORMAT");
   if (
-    file.size > (archive ? policy.max_archive_bytes : policy.max_single_bytes)
+    file.size > (manifest ? policy.manifest_limits.max_bytes : archive ? policy.max_archive_bytes : policy.max_single_bytes)
   )
     throw new Error("KNOWLEDGE_UPLOAD_POLICY_SIZE_LIMIT");
   const digest = await hashFile(file, signal);

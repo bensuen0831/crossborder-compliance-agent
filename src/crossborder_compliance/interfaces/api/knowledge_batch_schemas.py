@@ -11,8 +11,13 @@ class KnowledgeBatchItemView(ManagementRequest):
     technical_retry_available: bool
     item_id: UUID
     upload_session_id: UUID
+    mapping_available: bool
+    transport_pending: bool
+    upload_status: str
+    transport_error_code: str | None
     relative_path: str
     knowledge_version_id: UUID | None
+    manifest_record_id: UUID | None = None
     status: Literal["UNMAPPED", "READY", "PROCESSING", "COMPLETED", "FAILED", "CANCELLED"]
     record_version: int
     error_code: str | None

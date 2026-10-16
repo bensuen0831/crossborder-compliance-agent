@@ -41,7 +41,7 @@ jobs:
   mandatory-runtime-smoke:
     runs-on: ubuntu-latest
     # Full PostgreSQL suite includes governed-review successor/restart scenarios.
-    timeout-minutes: 75
+    timeout-minutes: 90
     services:
       postgres:
         image: pgvector/pgvector:pg16
@@ -91,6 +91,7 @@ jobs:
         with: {node-version: '24'}
       - name: Locked compiler for mandatory real TypeScript SDK business acceptance
         run: bash scripts/stage1_sdk_toolchain.sh
+      - uses: ./.github/actions/kb01-tools
       - name: Run mandatory PostgreSQL-backed LangGraph gate
         run: bash smoke/run_gate.sh
       - name: Publish measured Phase 1G empirical evidence

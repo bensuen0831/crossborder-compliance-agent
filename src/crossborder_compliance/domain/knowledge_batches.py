@@ -28,6 +28,7 @@ class CreateKnowledgeImportBatch(ManagementRequest):
 class KnowledgeBatchMapping(ManagementRequest):
     item_id: UUID
     document: CreateManagedKnowledgeDocument
+    manifest_record_id: UUID | None = None
 
 
 class ConfirmKnowledgeBatchItems(KnowledgeUploadMutation):

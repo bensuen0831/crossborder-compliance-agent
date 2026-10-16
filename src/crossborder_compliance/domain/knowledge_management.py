@@ -7,6 +7,8 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from crossborder_compliance.domain.knowledge import DIMENSIONS
+from crossborder_compliance.domain.knowledge_manifest_policy import KnowledgeManifestLimits
 from crossborder_compliance.domain.knowledge_native_parsing import KnowledgeNativeParsingPolicy
 from crossborder_compliance.domain.localized_metadata import (
     LocalizedDisplayMetadata,
@@ -148,6 +150,24 @@ class EditManagedKnowledgeVersion(MutateTaxonomy):
     metadata: KnowledgeDocumentMetadata
 
 
+class CreateManagedKnowledgeBinding(MutateTaxonomy):
+    scope_type: Literal["PRODUCT_SPECIFIC", "DOMAIN_SHARED", "CROSS_PRODUCT", "GLOBAL"]
+    dimensions: dict[str, tuple[UUID, ...]] = Field(default_factory=dict, max_length=10)
+    permission_scopes: tuple[str, ...] = Field(default=(), max_length=128)
+    effective_from: date | None = None
+    effective_to: date | None = None
+
+    @model_validator(mode="after")
+    def bounded_scope(self):
+        if set(self.dimensions) - set(DIMENSIONS) or sum(map(len, self.dimensions.values())) > 1000:
+            raise ValueError("INVALID_KNOWLEDGE_SCOPE_DIMENSIONS")
+        if any(not refs or len(refs) != len(set(refs)) for refs in self.dimensions.values()):
+            raise ValueError("INVALID_KNOWLEDGE_SCOPE_REFERENCES")
+        if any(not value or len(value) > 160 for value in self.permission_scopes):
+            raise ValueError("INVALID_KNOWLEDGE_PERMISSION_SCOPE")
+        return self
+
+
 class KnowledgeManagementPolicy(ManagementRequest):
     """Technical management policy on existing governed MetadataVersion."""
 
@@ -160,6 +180,7 @@ class KnowledgeManagementPolicy(ManagementRequest):
     multipart_chunk_bytes: int = Field(default=32 * 1024**2, ge=5 * 1024**2, le=5 * 1024**3)
     upload_expiry_seconds: int = Field(default=86400, ge=60, le=604800)
     scan_required: bool = True
+    manifest: KnowledgeManifestLimits = Field(default_factory=KnowledgeManifestLimits)
     extraction_timeout_seconds: int = Field(default=3600, ge=1, le=14400)
     nested_archives_allowed: bool = False
     tenant_storage_quota_bytes: int = Field(default=100 * 1024**3, gt=0, le=2**63 - 1)

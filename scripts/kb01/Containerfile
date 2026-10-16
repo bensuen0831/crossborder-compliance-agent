@@ -1,0 +1,19 @@
+# Trusted tool installation; untrusted documents run later with network=none.
+FROM debian:trixie-slim
+RUN --mount=type=secret,id=system_ca,required=false \
+    if [ -s /run/secrets/system_ca ]; then \
+      printf 'Acquire::https::CaInfo "/run/secrets/system_ca";\n' > /etc/apt/apt.conf.d/99-session-ca; \
+    fi; \
+    apt-get update && apt-get install -y --no-install-recommends \
+      python3.13 libreoffice-writer poppler-utils libarchive-tools \
+      clamav clamav-freshclam ca-certificates \
+      tesseract-ocr tesseract-ocr-eng tesseract-ocr-chi-sim tesseract-ocr-chi-tra \
+      tesseract-ocr-ara tesseract-ocr-heb tesseract-ocr-osd \
+      fonts-dejavu-core fonts-noto-core fonts-noto-cjk \
+    && rm -rf /var/lib/apt/lists/* /etc/apt/apt.conf.d/99-session-ca
+COPY crossborder_compliance /opt/knowledge-src/crossborder_compliance
+RUN chmod -R a+rX /opt/knowledge-src
+ENV PYTHONPATH=/opt/knowledge-src LANG=C.UTF-8 LC_ALL=C.UTF-8
+WORKDIR /tmp
+USER 1000
+CMD ["/usr/bin/python3.13", "--version"]

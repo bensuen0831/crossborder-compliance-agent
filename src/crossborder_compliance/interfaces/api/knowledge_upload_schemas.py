@@ -7,6 +7,7 @@ from uuid import UUID
 from pydantic import Field
 
 from crossborder_compliance.domain.knowledge_management import ManagementRequest
+from crossborder_compliance.domain.knowledge_manifest_policy import KnowledgeManifestLimits
 from crossborder_compliance.domain.knowledge_upload import KnowledgeBinaryFormat
 
 
@@ -85,3 +86,5 @@ class KnowledgeUploadPolicyView(ManagementRequest):
     scan_required: bool
     allowed_document_formats: list[KnowledgeBinaryFormat]
     allowed_archive_formats: list[KnowledgeBinaryFormat]
+    allowed_manifest_formats: list[KnowledgeBinaryFormat]
+    manifest_limits: KnowledgeManifestLimits

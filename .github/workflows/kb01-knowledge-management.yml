@@ -1,0 +1,245 @@
+name: KB01 Regulatory Knowledge Management
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  EXPECTED_PR_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+  APP_ENV: LOCAL_SERVER
+  DATABASE_URL: postgresql+psycopg://compliance:compliance@127.0.0.1:5432/kb01
+  LANGGRAPH_DATABASE_URI: postgresql://compliance:compliance@127.0.0.1:5432/kb01?sslmode=disable
+  REDIS_URL: redis://127.0.0.1:6379/0
+jobs:
+  focused-postgres:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env: {POSTGRES_DB: kb01, POSTGRES_USER: compliance, POSTGRES_PASSWORD: compliance}
+        ports: ['5432:5432']
+        options: --health-cmd="pg_isready -U compliance -d kb01" --health-interval=5s --health-timeout=5s --health-retries=20
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0, ref: '${{ github.event.pull_request.head.sha || github.sha }}'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install -e '.[dev]'
+      - uses: ./.github/actions/kb01-tools
+      - name: Exact source and complete additive KB PostgreSQL, migration and security suites
+        run: |
+          set -Eeuo pipefail
+          mkdir -p artifacts/kb01/backend
+          test "$(git rev-parse HEAD)" = "$EXPECTED_PR_HEAD"
+          git rev-parse HEAD > artifacts/kb01/backend/runner_checkout_sha.txt
+          alembic upgrade head
+          python -m pytest tests/test_kb01*.py --collect-only -q > artifacts/kb01/backend/collected.txt
+          python -m pytest tests/test_kb01*.py -q --junitxml=artifacts/kb01/backend/pytest.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kb01-focused-postgres-${{ github.run_id }}
+          path: artifacts/kb01/backend
+          if-no-files-found: error
+  management-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env: {POSTGRES_DB: kb01, POSTGRES_USER: compliance, POSTGRES_PASSWORD: compliance}
+        ports: ['5432:5432']
+        options: --health-cmd="pg_isready -U compliance -d kb01" --health-interval=5s --health-timeout=5s --health-retries=20
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+    env:
+      M0_LOCAL_UAT: '1'
+      KB01_LOCAL_UAT: '1'
+      KB01_TEST_SCAN_IDENTITY: OFFICIAL_CLAMAV_VERIFIED_CVD_MAIN_DAILY_BYTECODE
+      VITE_M0_DEMO: 'true'
+      VITE_SESSION_PATH: /m0-demo/session
+      M0_API_TARGET: http://127.0.0.1:18010
+      M0_FRONTEND_URL: http://127.0.0.1:15173
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0, ref: '${{ github.event.pull_request.head.sha || github.sha }}'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm, cache-dependency-path: frontend/package-lock.json}
+      - run: python -m pip install -e '.[dev]'
+      - uses: ./.github/actions/kb01-tools
+      - name: Canonical frontend regression and zero-missing-key quality gates
+        run: |
+          set -Eeuo pipefail
+          mkdir -p artifacts/kb01/frontend
+          test "$(git rev-parse HEAD)" = "$EXPECTED_PR_HEAD"
+          git rev-parse HEAD > artifacts/kb01/frontend/runner_checkout_sha.txt
+          npm ci --prefix frontend
+          npm --prefix frontend test -- --reporter=default --reporter=json --outputFile=../artifacts/kb01/frontend/unit.json
+          npm --prefix frontend run typecheck
+          npm --prefix frontend run lint
+          npm --prefix frontend run build
+          npm --prefix frontend exec -- playwright install --with-deps chromium
+      - name: Genuine originals, official antivirus signatures and canonical HTTP workers
+        run: |
+          set -Eeuo pipefail
+          image=$(python -c 'import json,os; print(json.load(open(os.environ["RUNNER_TEMP"]+"/kb01-tool-image.json"))["image_id"])')
+          python scripts/kb01/official_signatures.py --root "$KB01_TEST_WORK_ROOT/official-signatures" \
+            --image "$image" --evidence artifacts/kb01/frontend/official-signatures.json
+          echo "KB01_TEST_SCAN_DATABASE=$KB01_TEST_WORK_ROOT/official-signatures" >> "$GITHUB_ENV"
+          python scripts/kb01/generate_fixtures.py --output "$RUNNER_TEMP/kb01-originals"
+          echo "KB01_BROWSER_FIXTURES=$RUNNER_TEMP/kb01-originals/originals.json" >> "$GITHUB_ENV"
+          alembic upgrade head
+          python scripts/kb01/uat.py --manifest "$RUNNER_TEMP/kb01-personas.json" --seed
+      - name: Three-locale six-format human-reviewed publication and reload invariance
+        run: |
+          set -Eeuo pipefail
+          python scripts/kb01/uat.py --manifest "$RUNNER_TEMP/kb01-personas.json" --port 18010 > "$RUNNER_TEMP/kb01-http.log" 2>&1 &
+          backend_pid=$!
+          npm --prefix frontend run dev -- --port 15173 > "$RUNNER_TEMP/kb01-vite.log" 2>&1 &
+          frontend_pid=$!
+          trap 'kill "$backend_pid" "$frontend_pid" 2>/dev/null || true' EXIT
+          python - <<'PY'
+          import time,urllib.request
+          for address in ('http://127.0.0.1:18010/health/live','http://127.0.0.1:15173'):
+              for attempt in range(60):
+                  try:
+                      with urllib.request.urlopen(address,timeout=2) as response:
+                          assert response.status==200
+                      break
+                  except Exception:
+                      if attempt==59: raise
+                      time.sleep(1)
+          PY
+          PLAYWRIGHT_JSON_OUTPUT_NAME="$GITHUB_WORKSPACE/artifacts/kb01/frontend/browser.json" \
+            npm --prefix frontend run test:e2e -- kb01-management.spec.ts kb01-manifest.spec.ts \
+            --output="$GITHUB_WORKSPACE/artifacts/kb01/frontend/browser-artifacts" --reporter=line,json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kb01-management-browser-${{ github.run_id }}
+          path: artifacts/kb01/frontend
+          if-no-files-found: error
+  capacity-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env: {POSTGRES_DB: kb01, POSTGRES_USER: compliance, POSTGRES_PASSWORD: compliance}
+        ports: ['5432:5432']
+        options: --health-cmd="pg_isready -U compliance -d kb01" --health-interval=5s --health-timeout=5s --health-retries=20
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+    env:
+      M0_LOCAL_UAT: '1'
+      KB01_LOCAL_UAT: '1'
+      KB01_TEST_SCAN_IDENTITY: OFFICIAL_CLAMAV_VERIFIED_CVD_MAIN_DAILY_BYTECODE
+      VITE_M0_DEMO: 'true'
+      VITE_SESSION_PATH: /m0-demo/session
+      M0_API_TARGET: http://127.0.0.1:18010
+      M0_FRONTEND_URL: http://127.0.0.1:15173
+      KB01_CAPACITY_ROOT: ${{ runner.temp }}/kb01-capacity-originals
+      KB01_CAPACITY_EVIDENCE: ${{ github.workspace }}/artifacts/kb01/capacity/measured
+      KB01_CAPACITY_DISPOSE_GENERATED: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0, ref: '${{ github.event.pull_request.head.sha || github.sha }}'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm, cache-dependency-path: frontend/package-lock.json}
+      - run: python -m pip install -e '.[dev]'
+      - uses: ./.github/actions/kb01-tools
+      - name: Canonical frontend regression and zero-missing-key quality gates
+        run: |
+          set -Eeuo pipefail
+          mkdir -p artifacts/kb01/capacity
+          test "$(git rev-parse HEAD)" = "$EXPECTED_PR_HEAD"
+          git rev-parse HEAD > artifacts/kb01/capacity/runner_checkout_sha.txt
+          npm ci --prefix frontend
+          npm --prefix frontend test -- --reporter=default --reporter=json --outputFile=../artifacts/kb01/capacity/unit.json
+          npm --prefix frontend run typecheck
+          npm --prefix frontend run lint
+          npm --prefix frontend run build
+          npm --prefix frontend exec -- playwright install --with-deps chromium
+      - name: Genuine originals, official antivirus signatures and canonical HTTP workers
+        run: |
+          set -Eeuo pipefail
+          image=$(python -c 'import json,os; print(json.load(open(os.environ["RUNNER_TEMP"]+"/kb01-tool-image.json"))["image_id"])')
+          python scripts/kb01/official_signatures.py --root "$KB01_TEST_WORK_ROOT/official-signatures" \
+            --image "$image" --evidence artifacts/kb01/capacity/official-signatures.json
+          echo "KB01_TEST_SCAN_DATABASE=$KB01_TEST_WORK_ROOT/official-signatures" >> "$GITHUB_ENV"
+          python scripts/kb01/generate_fixtures.py --output "$RUNNER_TEMP/kb01-originals"
+          echo "KB01_BROWSER_FIXTURES=$RUNNER_TEMP/kb01-originals/originals.json" >> "$GITHUB_ENV"
+          alembic upgrade head
+          python scripts/kb01/uat.py --manifest "$RUNNER_TEMP/kb01-personas.json" --seed
+      - name: Genuine 500MiB original and GiB RAR4/RAR5/ZIP canonical publication
+        run: |
+          set -Eeuo pipefail
+          python scripts/kb01/uat.py --manifest "$RUNNER_TEMP/kb01-personas.json" --port 18010 > "$RUNNER_TEMP/kb01-http.log" 2>&1 &
+          backend_pid=$!
+          npm --prefix frontend run dev -- --port 15173 > "$RUNNER_TEMP/kb01-vite.log" 2>&1 &
+          frontend_pid=$!
+          trap 'kill "$backend_pid" "$frontend_pid" 2>/dev/null || true' EXIT
+          python - <<'PY'
+          import time,urllib.request
+          for address in ('http://127.0.0.1:18010/health/live','http://127.0.0.1:15173'):
+              for attempt in range(60):
+                  try:
+                      with urllib.request.urlopen(address,timeout=2) as response:
+                          assert response.status==200
+                      break
+                  except Exception:
+                      if attempt==59: raise
+                      time.sleep(1)
+          PY
+          PLAYWRIGHT_JSON_OUTPUT_NAME="$GITHUB_WORKSPACE/artifacts/kb01/capacity/browser.json" \
+            npm --prefix frontend run test:e2e -- kb01-capacity.spec.ts \
+            --output="$GITHUB_WORKSPACE/artifacts/kb01/capacity/browser-artifacts" --reporter=line,json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kb01-capacity-browser-${{ github.run_id }}
+          path: artifacts/kb01/capacity
+          if-no-files-found: error
+  acceptance-complete:
+    runs-on: ubuntu-latest
+    needs: [focused-postgres, management-browser, capacity-browser]
+    if: always()
+    steps:
+      - name: Require all complete jobs; historical eleven workflows remain mandatory
+        env:
+          BACKEND: ${{ needs.focused-postgres.result }}
+          FRONTEND: ${{ needs.management-browser.result }}
+          CAPACITY: ${{ needs.capacity-browser.result }}
+        run: |
+          test "$BACKEND" = success
+          test "$FRONTEND" = success
+          test "$CAPACITY" = success
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0, ref: '${{ github.event.pull_request.head.sha || github.sha }}'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: kb01-*
+          path: artifacts/kb01/downloaded
+      - name: Verify every collected test, source, locale and large-capacity identity
+        run: |
+          set -Eeuo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_PR_HEAD"
+          python scripts/kb01/verify_ci.py --artifacts artifacts/kb01/downloaded \
+            --expected-sha "$EXPECTED_PR_HEAD" --output artifacts/kb01/complete.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kb01-verified-acceptance-${{ github.run_id }}
+          path: artifacts/kb01/complete.json
+          if-no-files-found: error

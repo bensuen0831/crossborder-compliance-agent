@@ -8,11 +8,13 @@ from sqlalchemy import case, delete, func, or_, select, text
 from sqlalchemy.orm import aliased
 
 from crossborder_compliance.application.knowledge_document_management import DOCUMENT_OPERATIONS
+from crossborder_compliance.domain.knowledge import DIMENSIONS
 from crossborder_compliance.domain.knowledge_management import (
     KnowledgeDocumentMetadata,
     require_management_permission,
 )
 from crossborder_compliance.infrastructure.persistence import knowledge_models as k
+from crossborder_compliance.infrastructure.persistence import knowledge_runtime_repository
 from crossborder_compliance.infrastructure.persistence import metadata_models as m
 from crossborder_compliance.infrastructure.persistence import models as b
 from crossborder_compliance.infrastructure.persistence.knowledge_management_models import (
@@ -56,6 +58,17 @@ class PostgresKnowledgeDocumentManagement:
         ]
 
     def _version_view(self, s, doc, version):
+        from crossborder_compliance.infrastructure.persistence.knowledge_upload_models import (
+            KnowledgeBinaryAttachmentEntity,
+        )
+
+        attachment = s.scalar(
+            select(KnowledgeBinaryAttachmentEntity).where(
+                KnowledgeBinaryAttachmentEntity.tenant_id == self.tenant_id,
+                KnowledgeBinaryAttachmentEntity.knowledge_version_id
+                == version.knowledge_version_id,
+            )
+        )
         metadata = {
             **version.provenance_json.get("kb01_metadata", {"title": doc.display_name}),
             "labels": self._labels(s, version),
@@ -74,7 +87,152 @@ class PostgresKnowledgeDocumentManagement:
             "metadata": metadata,
             "content_hash": version.content_hash,
             "file_available": bool(version.original_artifact_ref),
+            "binary_upload_session_id": attachment.upload_session_id if attachment else None,
         }
+
+    def scope_options(self, *, dimension, query="", page=1, page_size=50):
+        require_management_permission(self.context, "document:bind")
+        if dimension not in DIMENSIONS or page < 1 or not 1 <= page_size <= 100:
+            raise ValueError("INVALID_KNOWLEDGE_SCOPE_QUERY")
+        with self.sessions() as s:
+            if dimension == "jurisdiction":
+                definition = b.JurisdictionEntity
+                identity, name, code = definition.jurisdiction_id, definition.name, definition.code
+                q = select(identity.label("id"), name.label("name"), code.label("code")).where(
+                    definition.tenant_id == self.tenant_id,
+                    definition.status == "ACTIVE",
+                )
+            else:
+                definition = m.MetadataDefinitionEntity
+                identity, name, code = (
+                    definition.definition_id,
+                    definition.display_name,
+                    definition.code,
+                )
+                q = (
+                    select(identity.label("id"), name.label("name"), code.label("code"))
+                    .join(
+                        m.MetadataVersionEntity,
+                        m.MetadataVersionEntity.version_id == definition.active_version_id,
+                    )
+                    .where(
+                        definition.tenant_id == self.tenant_id,
+                        definition.kind == dimension.upper(),
+                        definition.status == "ACTIVE",
+                        m.MetadataVersionEntity.tenant_id == self.tenant_id,
+                        m.MetadataVersionEntity.lifecycle_status == "ACTIVE",
+                    )
+                )
+            if query:
+                q = q.where(or_(name.ilike(f"%{query}%"), code.ilike(f"%{query}%")))
+            total = s.scalar(select(func.count()).select_from(q.subquery()))
+            rows = s.execute(
+                q.order_by(code, identity).offset((page - 1) * page_size).limit(page_size)
+            ).all()
+            return {
+                "dimension": dimension,
+                "total": total,
+                "page": page,
+                "page_size": page_size,
+                "items": [
+                    {"object_id": row.id, "display_name": row.name, "code": row.code}
+                    for row in rows
+                ],
+            }
+
+    def scope_bindings(self, identity):
+        require_management_permission(self.context, "document:read")
+        with self.sessions() as s:
+            self.owner.get(s, k.KnowledgeDocumentVersionEntity, identity)
+            rows = s.scalars(
+                select(m.KnowledgeBindingEntity)
+                .where(
+                    m.KnowledgeBindingEntity.tenant_id == self.tenant_id,
+                    m.KnowledgeBindingEntity.knowledge_version_id == str(identity),
+                )
+                .order_by(m.KnowledgeBindingEntity.knowledge_binding_id)
+            ).all()
+            quality = s.scalar(
+                select(k.KnowledgeQualityResultEntity).where(
+                    k.KnowledgeQualityResultEntity.tenant_id == self.tenant_id,
+                    k.KnowledgeQualityResultEntity.knowledge_version_id == str(identity),
+                )
+            )
+            from crossborder_compliance.infrastructure.persistence import retrieval_models as g
+
+            publication = s.get(g.KnowledgeRuntimePublicationEntity, str(identity))
+            readiness = None
+            if publication is not None and publication.tenant_id == self.tenant_id:
+                readiness = (
+                    knowledge_runtime_repository.KnowledgeRuntimeRepository(
+                        self.sessions, self.context
+                    )
+                    .runtime_readiness(str(identity))
+                    .model_dump(mode="json")
+                )
+            return {
+                "knowledge_version_id": str(identity),
+                "bindings": [self.owner.binding(row) for row in rows],
+                "quality": {
+                    "knowledge_version_id": str(identity),
+                    "status": quality.status,
+                    "checks": quality.checks_json,
+                    "reason_codes": quality.reason_codes_json,
+                }
+                if quality
+                else None,
+                "runtime_readiness": readiness,
+            }
+
+    def bind(self, identity, request):
+        require_management_permission(self.context, "document:bind")
+        with self.sessions() as s, s.begin():
+            version = self.owner.get(s, k.KnowledgeDocumentVersionEntity, identity)
+            self.owner.get(s, k.KnowledgeDocumentEntity, version.document_id, True)
+            version = self.owner.version(s, identity)
+            idem, cached = self.management._key(
+                s,
+                "DOCUMENT_BIND",
+                request.idempotency_key,
+                {"knowledge_version_id": str(identity), "request": request.model_dump(mode="json")},
+            )
+            if cached is not None:
+                return cached
+            if version.record_version != request.expected_record_version:
+                raise KnowledgeManagementConflict("KNOWLEDGE_VERSION_CONFLICT")
+            if version.lifecycle not in {"DRAFT", "INGESTED"}:
+                raise KnowledgeManagementConflict("REVIEWED_KNOWLEDGE_BINDING_IMMUTABLE")
+            for jurisdiction in request.dimensions.get("jurisdiction", ()):
+                row = self.owner.get(s, b.JurisdictionEntity, jurisdiction)
+                if row.status != "ACTIVE":
+                    raise ValueError("KNOWLEDGE_JURISDICTION_NOT_ACTIVE")
+            payload = request.model_dump(
+                mode="json", exclude={"expected_record_version", "idempotency_key", "reason"}
+            )
+            payload["provenance"] = {
+                "submitted_by": self.context.permission.actor_id,
+                "submitted_at": datetime.now(UTC).isoformat(),
+                "reason": request.reason,
+                "channel": "KB01_KNOWLEDGE_SCOPE_MANAGEMENT",
+            }
+            binding = self.owner.add_binding(s, version, payload)
+            version.provenance_json = {**version.provenance_json, "kb01_scope_management": True}
+            version.record_version += 1
+            s.flush()
+            return self.management._audit(
+                s,
+                "DOCUMENT_BIND",
+                SimpleNamespace(
+                    kind="KNOWLEDGE_DOCUMENT_VERSION", definition_id=version.knowledge_version_id
+                ),
+                request.reason,
+                idem,
+                {
+                    "knowledge_version_id": version.knowledge_version_id,
+                    "record_version": version.record_version,
+                    "binding": self.owner.binding(binding),
+                },
+            )
 
     def _view(self, s, doc):
         return {
@@ -346,10 +504,10 @@ class PostgresKnowledgeDocumentManagement:
                 "items": [self._view(s, row) for row in rows],
             }
 
-    def _set_metadata(self, s, doc, version, metadata):
-        value = KnowledgeDocumentMetadata.model_validate(metadata)
+    def validated_label_pins(self, s, labels):
+        """The same canonical active-label checks for document and catalogue proposals."""
         pins = []
-        for label in value.labels:
+        for label in labels:
             definition = self.owner.get(s, m.MetadataDefinitionEntity, label.definition_id)
             pin = self.owner.get(s, m.MetadataVersionEntity, label.version_id)
             if (
@@ -363,6 +521,11 @@ class PostgresKnowledgeDocumentManagement:
                     "DOCUMENT_CLASSIFICATION_NOT_ACTIVE_OR_MISMATCHED"
                 )
             pins.append((label, pin))
+        return pins
+
+    def _set_metadata(self, s, doc, version, metadata):
+        value = KnowledgeDocumentMetadata.model_validate(metadata)
+        pins = self.validated_label_pins(s, value.labels)
         s.execute(
             delete(KnowledgeDocumentLabelEntity).where(
                 KnowledgeDocumentLabelEntity.tenant_id == self.tenant_id,

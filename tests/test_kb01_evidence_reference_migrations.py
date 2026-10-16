@@ -31,7 +31,8 @@ INSERT_EVIDENCE = (
 
 def test_evidence_source_reference_has_single_head_and_frozen_0001_0022():
     scripts = ScriptDirectory.from_config(Config(str(ROOT / "alembic.ini")))
-    assert scripts.get_heads() == [HEAD]
+    assert scripts.get_heads() == ["0024_kb01_import_manifest_records"]
+    assert scripts.get_revision("0024_kb01_import_manifest_records").down_revision == HEAD
     assert scripts.get_revision(HEAD).down_revision == PARENT
     for path in sorted((ROOT / "alembic/versions").glob("*.py")):
         if path.name[:4].isdigit() and int(path.name[:4]) <= 22:

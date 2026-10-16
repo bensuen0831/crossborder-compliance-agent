@@ -10,9 +10,12 @@ from pydantic import Field, field_validator, model_validator
 from crossborder_compliance.domain.knowledge_management import ManagementRequest
 from crossborder_compliance.domain.knowledge_paths import safe_relative_path
 
-KnowledgeBinaryFormat = Literal["DOC", "DOCX", "HTML", "PDF", "TXT", "XHTML", "RAR", "ZIP"]
+KnowledgeBinaryFormat = Literal[
+    "DOC", "DOCX", "HTML", "PDF", "TXT", "XHTML", "RAR", "ZIP", "CSV", "XLSX"
+]
 DOCUMENT_FORMATS = frozenset({"DOC", "DOCX", "HTML", "PDF", "TXT", "XHTML"})
 ARCHIVE_FORMATS = frozenset({"RAR", "ZIP"})
+MANIFEST_FORMATS = frozenset({"CSV", "XLSX"})
 SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 
 
@@ -38,7 +41,7 @@ class StartKnowledgeUpload(ManagementRequest):
     def target_contract(self):
         if (self.knowledge_version_id is None) != (self.expected_record_version is None):
             raise ValueError("KNOWLEDGE_UPLOAD_TARGET_CAS_REQUIRED")
-        if self.declared_format in ARCHIVE_FORMATS and self.knowledge_version_id is not None:
+        if self.declared_format not in DOCUMENT_FORMATS and self.knowledge_version_id is not None:
             raise ValueError("ARCHIVE_IS_NOT_A_KNOWLEDGE_DOCUMENT_VERSION")
         suffix = PurePosixPath(self.relative_path).suffix.lower()
         if suffix != "." + self.declared_format.lower():

@@ -1,0 +1,33 @@
+name: KB01 isolated native, archive, scanner and versioned S3 tools
+description: Fail-closed real-tool prerequisites for the complete PostgreSQL suite
+runs:
+  using: composite
+  steps:
+    - name: Build bounded parser image from explicit source files
+      shell: bash
+      run: |
+        set -Eeuo pipefail
+        python scripts/kb01/build_tools.py --output "$RUNNER_TEMP/kb01-tool-image.json"
+    - name: Start ephemeral versioned S3 and synthetic antivirus regression database
+      shell: bash
+      run: |
+        set -Eeuo pipefail
+        python scripts/kb01/ci_services.py \
+          --root "$RUNNER_TEMP/kb01-services" \
+          --tool-evidence "$RUNNER_TEMP/kb01-tool-image.json"
+    - name: Record actual source checkout and non-secret tool evidence
+      env:
+        EXPECTED_PR_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+      shell: bash
+      run: |
+        set -Eeuo pipefail
+        mkdir -p artifacts/kb01-prerequisites
+        git rev-parse HEAD > artifacts/kb01-prerequisites/runner_checkout_sha.txt
+        test "$(git rev-parse HEAD)" = "${EXPECTED_PR_HEAD:?exact source is required}"
+        cp "$RUNNER_TEMP/kb01-tool-image.json" artifacts/kb01-prerequisites/
+        cp "$RUNNER_TEMP/kb01-services/service-evidence.json" artifacts/kb01-prerequisites/
+    - uses: actions/upload-artifact@v4
+      with:
+        name: kb01-tools-${{ github.job }}-${{ github.run_id }}-${{ github.run_attempt }}
+        path: artifacts/kb01-prerequisites
+        if-no-files-found: error

@@ -38,6 +38,9 @@ from crossborder_compliance.interfaces.api.routes.knowledge_document_management 
 from crossborder_compliance.interfaces.api.routes.knowledge_management import (
     router as knowledge_management_router,
 )
+from crossborder_compliance.interfaces.api.routes.knowledge_manifests import (
+    router as knowledge_manifests_router,
+)
 from crossborder_compliance.interfaces.api.routes.knowledge_statistics import (
     router as knowledge_statistics_router,
 )
@@ -110,6 +113,7 @@ async def lifespan(app):
 app = FastAPI(lifespan=lifespan, title="Cross-border Compliance Agent", version="0.7.0-phase1g")
 app.include_router(regulatory_acceptance_router)
 app.include_router(knowledge_translation_alignment_router)
+app.include_router(knowledge_manifests_router)
 app.include_router(health_router)
 app.include_router(knowledge_management_router)
 app.include_router(knowledge_document_management_router)

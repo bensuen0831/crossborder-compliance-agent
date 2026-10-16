@@ -8,6 +8,8 @@ import { transferFile } from "./uploads";
 import { TaxonomyEditor } from "./TaxonomyEditor";
 import { TaxonomyTree } from "./TaxonomyTree";
 import { TranslationAlignment } from "./TranslationAlignment";
+import { ManifestPanel } from "./ManifestPanel";
+import { KnowledgeScopeControls } from "./KnowledgeScopeControls";
 
 type Document = Schema<"ManagedKnowledgeDocumentView">;
 type Detail = Schema<"ManagedKnowledgeDocumentDetail">;
@@ -73,6 +75,7 @@ export function KnowledgeManagement({
   const [detail, setDetail] = useState<Detail>();
   const [preview, setPreview] = useState<Schema<"KnowledgeDocumentPreview">>();
   const [alignmentSource, setAlignmentSource] = useState<Version>();
+  const [scopeVersion, setScopeVersion] = useState<Version>();
   const [history, setHistory] = useState<Schema<"KnowledgeAuditPage">>();
   const [selectedTaxonomy, setSelectedTaxonomy] =
     useState<Schema<"TaxonomyDetail">>();
@@ -82,6 +85,7 @@ export function KnowledgeManagement({
   const [batch, setBatch] = useState<Batch>();
   const [batchPage, setBatchPage] = useState(1);
   const [batchId, setBatchId] = useState("");
+  const [manifestSelections, setManifestSelections] = useState<Record<string, Schema<"KnowledgeManifestRecordView">>>({});
   const [progress, setProgress] = useState("");
   const [uploadPolicy, setUploadPolicy] =
     useState<Schema<"KnowledgeUploadPolicyView">>();
@@ -304,9 +308,12 @@ export function KnowledgeManagement({
     setDetail(await client.get<Detail>(`/documents/${row.document_id}`));
     setPreview(undefined);
     setHistory(undefined);
+    setScopeVersion(undefined);
+    setAlignmentSource(undefined);
   };
   const batchIdentity = batch?.batch_id;
   const batchStatus = batch?.status;
+  const pendingBatchTransport = batch?.items?.some((item) => item.transport_pending) ?? false;
   useEffect(() => {
     if (!batchIdentity || !can("batch:read")) return;
     const abort = new AbortController();
@@ -327,13 +334,13 @@ export function KnowledgeManagement({
       "CONFIRMED",
       "PROCESSING",
       "CANCELLING",
-    ].includes(batchStatus ?? "");
+    ].includes(batchStatus ?? "") || pendingBatchTransport;
     const interval = active ? setInterval(() => void read(), 3000) : undefined;
     return () => {
       abort.abort();
       if (interval) clearInterval(interval);
     };
-  }, [client, can, batchIdentity, batchStatus, batchPage]);
+  }, [client, can, batchIdentity, batchStatus, batchPage, pendingBatchTransport]);
   const activeUploads = uploads
     .filter((row) =>
       ["QUEUED_SCAN", "SCANNING", "FINALIZING", "CANCELLING"].includes(
@@ -683,6 +690,7 @@ export function KnowledgeManagement({
                   </h4>
                   <p>{version.metadata.title}</p>
                   <div className="actions">
+                    <button onClick={() => setScopeVersion(version)}>{t("ui.kb01.scopeBindings")}</button>
                     {can("translation:read") && version.content_hash && !["DRAFT", "ARCHIVED"].includes(version.lifecycle) && <button
                       onClick={() => setAlignmentSource(version)}>{t("ui.kb01.translationAlignment")}</button>}
                     <button
@@ -772,6 +780,13 @@ export function KnowledgeManagement({
               )}
               {alignmentSource && <TranslationAlignment
                 key={alignmentSource.knowledge_version_id} client={client} source={alignmentSource} can={can} />}
+              {scopeVersion && <KnowledgeScopeControls key={`${scopeVersion.knowledge_version_id}:${scopeVersion.record_version}`}
+                client={client} version={scopeVersion} can={can} refreshed={async () => {
+                  const refreshed = await client.get<Detail>(`/documents/${detail.document_id}`);
+                  setDetail(refreshed); setScopeVersion(refreshed.versions.find((version) => version.knowledge_version_id === scopeVersion.knowledge_version_id));
+                }} onQueued={async (identity) => {
+                  setBatch(await client.get<Batch>(`/import-batches/${identity}`)); setTab("uploads");
+                }} />}
               {preview && (
                 <section aria-label={t("ui.kb01.preview")}>
                   <p>{t("ui.kb01.total", { count: preview.total })}</p>
@@ -1232,6 +1247,9 @@ export function KnowledgeManagement({
           </button>
           {batch && (
             <section>
+              {can("batch:manifest-read") && <ManifestPanel key={batch.batch_id} client={client} batch={batch}
+                labels={Object.values(knownLabels)} can={can} scope={`${session.tenantId}:${session.actorId}:manifest`}
+                onUse={(row) => { if (row.matched_item_id) setManifestSelections((old) => ({ ...old, [row.matched_item_id!]: row })); }} />}
               <h4>
                 {t("ui.kb01.batch")} · {batch.status}
               </h4>
@@ -1329,6 +1347,11 @@ export function KnowledgeManagement({
                 {batch.items?.map((item) => (
                   <li key={item.item_id}>
                     {item.relative_path} · {item.status} · {item.error_code}
+                    {manifestSelections[item.item_id] && <label>{t("ui.kb01.manifestSelectedProposal")}<input
+                      value={manifestSelections[item.item_id].proposed_values.title}
+                      onChange={(e) => setManifestSelections((old) => ({ ...old, [item.item_id]: {
+                        ...old[item.item_id], proposed_values: { ...old[item.item_id].proposed_values, title: e.target.value },
+                      } }))} maxLength={250} /></label>}
                     {item.technical_retry_available && (
                       <button
                         disabled={pending || !can("batch:retry")}
@@ -1355,7 +1378,9 @@ export function KnowledgeManagement({
               </ul>
               <button
                 disabled={
-                  pending || !can("batch:confirm") || !source || !collection
+                  pending || !can("batch:confirm") || !source || !collection ||
+                  batch.status !== "PREVIEW" || !batch.items?.some((item) => item.mapping_available) ||
+                  batch.items.some((item) => item.status === "UNMAPPED" && !item.mapping_available)
                 }
                 onClick={() =>
                   void perform(async () => {
@@ -1366,12 +1391,15 @@ export function KnowledgeManagement({
                         idempotency_key: idempotencyKey(),
                         mappings: batch.items
                           ?.filter((item) => item.status === "UNMAPPED")
-                          .map((item) => ({
-                            item_id: item.item_id,
-                            document: documentInput(
-                              item.relative_path.split("/").at(-1)!,
-                            ),
-                          })),
+                          .map((item) => {
+                            const proposal = manifestSelections[item.item_id];
+                            const document = documentInput(proposal?.proposed_values.title ?? item.relative_path.split("/").at(-1)!);
+                            if (proposal) document.metadata.labels = Array.from(new Map([
+                              ...document.metadata.labels, ...Object.values(proposal.metadata_refs).flat(),
+                            ].map((label) => [label.definition_id, label])).values());
+                            return { item_id: item.item_id, document,
+                              ...(proposal ? { manifest_record_id: proposal.manifest_record_id } : {}) };
+                          }),
                       },
                     );
                     await refreshBatch();
