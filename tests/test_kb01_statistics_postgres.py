@@ -240,3 +240,36 @@ def test_conjunctive_country_and_category_filters_share_exact_version_sql_scope(
         statistics(f).summary(label_ids=[country.definition_id, country.definition_id])["documents"]
         == 2
     )
+
+
+def test_delete_reconciles_live_country_category_and_filtered_sql_counts(knowledge):
+    from test_kb01_taxonomy_postgres import deletion_policy, mutation
+
+    f = knowledge
+    country = published_label(
+        f, "JURISDICTION_CONFIG", TaxonomyPayload(jurisdiction_type="COUNTRY")
+    )
+    category = published_label(f)
+    labels = (country, category)
+    deleted = make(f, KnowledgeDocumentMetadata(title="Delete scoped original", labels=labels))
+    kept = make(f, KnowledgeDocumentMetadata(title="Keep scoped original", labels=labels))
+    deletion_policy((f["sf"], UUID(f["tenant"]), None, None))
+    filters = [
+        {},
+        {"label_id": country.definition_id},
+        {"label_id": category.definition_id},
+        {"label_ids": (country.definition_id, category.definition_id)},
+        {"query": "scoped"},
+    ]
+    for query in filters:
+        before = statistics(f).summary(**query)
+        assert before["documents"] == before["versions"] == service(f).list(**query)["total"] == 2
+    current = service(f).detail(UUID(deleted["document_id"]))
+    assert service(f).mutate(
+        "DELETE_DRAFT", UUID(deleted["document_id"]), mutation(current["record_version"])
+    )["deleted"]
+    for query in filters:
+        after = statistics(f).summary(**query)
+        assert after["documents"] == after["versions"] == service(f).list(**query)["total"] == 1
+        assert after["attached_originals"] == after["attached_bytes"] == 0
+    assert service(f).detail(UUID(kept["document_id"]))["document_id"] == kept["document_id"]

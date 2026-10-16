@@ -43,8 +43,25 @@ def artifacts(tmp_path):
     put(
         frontend / "browser.json",
         browser(
-            ["management " + locale for locale in ("zh-CN", "zh-HK", "en-US")]
-            + ["catalogue explicit human mapping", "governed country and category lifecycle"]
+            [
+                "KB01 genuine six-format local batch, scoped SQL counts, source and download in "
+                + locale
+                for locale in ("zh-CN", "zh-HK", "en-US")
+            ]
+            + [
+                (
+                    "KB01 optional CSV catalogue remains an immutable proposal until "
+                    "explicit file mapping"
+                ),
+                (
+                    "KB01 country and regulation-category UI preserves governed "
+                    "versions, tree and protected deletion"
+                ),
+                (
+                    "KB01 real directory upload preserves duplicate basenames, native "
+                    "citations and exact originals without Excel"
+                ),
+            ]
         ),
     )
     put(
@@ -70,7 +87,9 @@ def test_ci_aggregation_requires_complete_exact_source_evidence(artifacts):
     assert verify(root, "a" * 40)["decision"] == "PASS"
 
 
-@pytest.mark.parametrize("tamper", ["source", "skipped", "missing_test", "retry", "small_archive"])
+@pytest.mark.parametrize(
+    "tamper", ["source", "skipped", "missing_test", "retry", "small_archive", "wrong_browser_case"]
+)
 def test_ci_aggregation_rejects_green_but_incomplete_or_wrong_source(artifacts, tamper):
     root, backend, frontend, capacity = artifacts
     if tamper == "source":
@@ -81,6 +100,11 @@ def test_ci_aggregation_rejects_green_but_incomplete_or_wrong_source(artifacts, 
     elif tamper == "missing_test":
         with (backend / "collected.txt").open("a") as output:
             output.write("tests/test_boundary.py::test_also_required\n")
+    elif tamper == "wrong_browser_case":
+        path = frontend / "browser.json"
+        value = json.loads(path.read_text())
+        value["suites"][0]["specs"][-1]["title"] = "Unrelated green test"
+        put(path, value)
     else:
         path = capacity / "measured/RAR5.json"
         value = copy.deepcopy(json.loads(path.read_text()))

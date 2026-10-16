@@ -6,4 +6,6 @@ The workspace supports governed taxonomy CRUD/history/impact, local files/folder
 
 zh-CN/zh-HK/en-US share formal codes and canonical identities. Frontend tests retain all original suites; new genuine Browser tests cover six formats in three locales, optional catalogue mapping, country/category lifecycle and four large capacity kinds. Console/HTTP errors remain asserted, with signed credential query data redacted from public evidence. Browser retries stay0.
 
-See [frontend design](frontend_design.md), [statistics contract](statistics_contract.md) and the four frontend/e2e/kb01-*.spec.ts suites. Technical closure requires original77 Browser cases and all new cases at the exact final PR SHA.
+See [frontend design](frontend_design.md), [statistics contract](statistics_contract.md) and the five frontend/e2e/kb01-*.spec.ts suites. Technical closure requires original77 Browser cases and all new cases at the exact final PR SHA.
+
+The explicit directory-chooser journey preserves duplicate basenames under distinct subdirectories, uses no catalogue, and verifies native Citation and exact original download hashes for both files. Together the dedicated management Browser job contains six required cases; capacity contributes four more. The original77 executions remain independently mandatory (canonical total87).

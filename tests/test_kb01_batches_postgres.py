@@ -389,3 +389,69 @@ def test_batch_manifest_and_member_identity_are_database_immutable(env):
         with pytest.raises(DBAPIError, match="IMMUTABLE"):
             with f["sf"]() as s, s.begin():
                 setattr(s.get(entity, identity), field, value)
+
+
+def test_one_batch_preserves_distinct_governed_countries_per_file_without_manifest(env):
+    from test_kb01_document_management_postgres import published_label
+    from test_kb01_statistics_postgres import statistics
+
+    from crossborder_compliance.domain.knowledge_management import TaxonomyPayload
+    from crossborder_compliance.infrastructure.persistence.knowledge_management_models import (
+        KnowledgeDocumentLabelEntity,
+    )
+
+    f, _, _, _ = env
+    countries = tuple(
+        published_label(f, "JURISDICTION_CONFIG", TaxonomyPayload(jurisdiction_type="COUNTRY"))
+        for _ in range(2)
+    )
+    owner = batches(f)
+    batch = owner.create(
+        CreateKnowledgeImportBatch(
+            upload_session_ids=tuple(
+                UUID(verified(env, path)) for path in ("country-a/same.txt", "country-b/same.txt")
+            ),
+            idempotency_key=str(uuid4()),
+        )
+    )
+    items = owner.detail(batch["batch_id"])["items"]
+    command = create_documents(f, items, batch["record_version"])
+    command = command.model_copy(
+        update={
+            "mappings": tuple(
+                mapping.model_copy(
+                    update={
+                        "document": mapping.document.model_copy(
+                            update={
+                                "metadata": mapping.document.metadata.model_copy(
+                                    update={"labels": (country,)}
+                                )
+                            }
+                        )
+                    }
+                )
+                for mapping, country in zip(command.mappings, countries, strict=True)
+            )
+        }
+    )
+    owner.confirm_items(batch["batch_id"], command)
+    saved = {item["item_id"]: item for item in owner.detail(batch["batch_id"])["items"]}
+    for mapping, country in zip(command.mappings, countries, strict=True):
+        item = saved[str(mapping.item_id)]
+        assert item["manifest_record_id"] is None and item["status"] == "READY"
+        with f["sf"]() as session:
+            labels = session.scalars(
+                select(KnowledgeDocumentLabelEntity).where(
+                    KnowledgeDocumentLabelEntity.tenant_id == f["tenant"],
+                    KnowledgeDocumentLabelEntity.knowledge_version_id
+                    == item["knowledge_version_id"],
+                )
+            ).all()
+            assert {(row.definition_id, row.metadata_version_id) for row in labels} == {
+                (str(country.definition_id), str(country.version_id))
+            }
+        assert statistics(f).summary(label_id=country.definition_id)["documents"] == 1
+    assert {item["relative_path"] for item in saved.values()} == {
+        "country-a/same.txt",
+        "country-b/same.txt",
+    }

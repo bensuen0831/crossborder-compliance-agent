@@ -150,3 +150,24 @@ collections, with no writable capacity collection volumes. The task-owned servic
 was stopped gracefully and restarted with its existing directory plus a bounded
 additional directory (40 total slots); no canonical original/version was deleted.
 These are separate environment failures, not clean scan or business PASS evidence.
+
+
+## Final explicit acceptance-matrix coverage continuation
+
+A genuine Chromium directory chooser uploaded two TXT originals with identical
+basenames in different subdirectories, with no spreadsheet/catalogue. Exact
+relative paths, independent native Citation/markers, both original-download
+hashes and reload persisted:1PASS in36.7s (test body35.8s),zero retries.
+
+Two additional real PostgreSQL/S3/ClamAV tests measured2PASS in18.67s: one batch
+pins distinct governed country versions per file without a Manifest; actual safe
+draft deletion reconciles country/category/conjunctive/list/global SQL counts.
+The initial batch assertion used a nonexistent generic ORM version_id attribute;
+it was corrected to assert the actual metadata_version_id relation, preserving
+the complete exact-pin assertion. Original1FAIL/1PASS remains retained.
+
+Dedicated Browser aggregation now requires all six management case identities,
+not merely a green count; a substituted unrelated case is rejected. Twelve
+focused aggregator/origin tests passed. Four capacity cases remain mandatory,
+and original77 Browser executions remain required separately (expected total87).
+These additive tests require a new exact-head run before technical acceptance.

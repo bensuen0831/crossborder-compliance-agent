@@ -48,7 +48,10 @@ TWELFTH_SOURCE = "a5e665e90e6040a4ddad7548c708ee12736f2549"
 THIRTEENTH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v13.json"
 THIRTEENTH_SEAL = "34a78c57cfe37730779db570bd0524b48e58299c"
 THIRTEENTH_SOURCE = "fe6d0dc5de5477b35de6adc6f0fe194d911e6222"
-SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v14.json"
+FOURTEENTH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v14.json"
+FOURTEENTH_SEAL = "2a550f2b30a05aa5d70ef32243c0ca3c552b428c"
+FOURTEENTH_SOURCE = "73ad64fd8221c56cc614fa4d0632085fba1728dd"
+SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v15.json"
 FIRST_SEAL = "a95d5f05f46566d7e58417a8c9cb2214c6d028f0"
 FIRST_SOURCE = "6f0f448fbe5d72494d2756bca30a3f74437e1f63"
 PREVIOUS = "evidence/stage1-full-e2e/r3/approved_owner_overlay.json"
@@ -56,6 +59,7 @@ PATHS = frozenset(
     (
         "frontend/e2e/kb01-safe-evidence.ts",
         "frontend/e2e/kb01-taxonomy.spec.ts",
+        "frontend/e2e/kb01-folder.spec.ts",
         "frontend/scripts/m1/boundary_check.py",
         "frontend/src/test/kb01-evidence.test.ts",
         "frontend/e2e/kb01-capacity.spec.ts",
@@ -474,6 +478,20 @@ def overlay(root):
             for path, digest in thirteenth["paths"].items()
         ):
             return False, {}, None
+        fourteenth_bytes = git("show", FOURTEENTH_SEAL + ":" + FOURTEENTH_RECORD)
+        if (root / FOURTEENTH_RECORD).read_bytes() != fourteenth_bytes or not ancestor(
+            FOURTEENTH_SEAL, "HEAD"
+        ):
+            return False, {}, None
+        fourteenth = json.loads(fourteenth_bytes)
+        if fourteenth["source_sha"] != FOURTEENTH_SOURCE or fourteenth["base_sha"] != BASE:
+            return False, {}, None
+        fourteenth_blobs = blobs(FOURTEENTH_SOURCE, fourteenth["paths"])
+        if any(
+            hashlib.sha256(fourteenth_blobs[path]).hexdigest() != digest
+            for path, digest in fourteenth["paths"].items()
+        ):
+            return False, {}, None
         record = json.loads((root / SUCCESSOR_RECORD).read_text())
         expected = set(previous["paths"]) | PATHS
         source = record["source_sha"]
@@ -482,7 +500,7 @@ def overlay(root):
             or record["scope"] != "STAGE1-GAP-KB01-MASTER_V2.0"
             or set(record["paths"]) != expected
             or not ancestor(BASE, source)
-            or not ancestor(THIRTEENTH_SEAL, source)
+            or not ancestor(FOURTEENTH_SEAL, source)
             or not ancestor(source, "HEAD")
         ):
             return False, {}, None

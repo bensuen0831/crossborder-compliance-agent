@@ -75,11 +75,29 @@ def verify(root, expected):
         or frontend["numTotalTests"] != frontend["numPassedTests"]
     ):
         raise ValueError("KB01_FRONTEND_NONPASS_OR_REDUCED")
-    locale_cases = browser(one(roots["frontend"], "browser.json"), 5)
+    locale_cases = browser(one(roots["frontend"], "browser.json"), 6)
     if not all(
         any(locale in title for title in locale_cases) for locale in ("zh-CN", "zh-HK", "en-US")
     ):
         raise ValueError("KB01_LOCALE_COVERAGE_MISSING")
+    expected_management_cases = {
+        *(
+            "KB01 genuine six-format local batch, scoped SQL counts, source and download in "
+            + locale
+            for locale in ("zh-CN", "zh-HK", "en-US")
+        ),
+        "KB01 optional CSV catalogue remains an immutable proposal until explicit file mapping",
+        (
+            "KB01 country and regulation-category UI preserves governed "
+            "versions, tree and protected deletion"
+        ),
+        (
+            "KB01 real directory upload preserves duplicate basenames, native "
+            "citations and exact originals without Excel"
+        ),
+    }
+    if set(locale_cases) != expected_management_cases:
+        raise ValueError("KB01_REQUIRED_BROWSER_CASE_MISMATCH")
     capacity_cases = browser(one(roots["capacity"], "browser.json"), 4)
     capacity = {}
     for kind in ("SINGLE", "RAR4", "RAR5", "ZIP"):
