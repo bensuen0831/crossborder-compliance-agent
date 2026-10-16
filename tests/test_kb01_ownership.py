@@ -8,6 +8,7 @@ import pytest
 
 from scripts.kb01_ownership import (
     EIGHTH_RECORD,
+    ELEVENTH_RECORD,
     FIFTH_RECORD,
     FOURTH_RECORD,
     NINTH_RECORD,
@@ -48,6 +49,7 @@ def test_kb01_ownership_authenticates_committed_source():
         SIXTH_RECORD,
         SEVENTH_RECORD,
         EIGHTH_RECORD,
+        ELEVENTH_RECORD,
         NINTH_RECORD,
         TENTH_RECORD,
         "frontend/e2e/kb01-safe-evidence.ts",
