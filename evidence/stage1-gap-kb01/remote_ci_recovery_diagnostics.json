@@ -34,6 +34,30 @@
       "category": "CLOSURE_AGGREGATOR_FROZEN_PARENT_HEAD",
       "error": "All backend tests passed; R1 closure aggregator expected exact0020 despite authorized operational0021–0024 successor",
       "recovery": "Require authenticated complete committed migration tree, exact single0024head and0024→0020lineage; independently retain all0019/0020 safety assertions. No test or migration changed."
+    },
+    {
+      "run_id": 38924072434,
+      "sha": "001592bfc8dabd599a65f03caea62f110dd45a08",
+      "job_id": 117051016859,
+      "job": "capacity-browser",
+      "step": "Genuine 500MiB original and GiB RAR4/RAR5/ZIP canonical publication",
+      "classification": "CAPACITY_STALL_REMOTE_ROOT_CAUSE_NOT_YET_OBSERVABLE",
+      "measured": {
+        "SINGLE": "PASS",
+        "RAR4": "PASS",
+        "RAR5": "CREATE_BATCH_DISABLED_AFTER_240_SECONDS",
+        "ZIP": "CREATE_BATCH_DISABLED_AFTER_240_SECONDS",
+        "browser_retries": 0,
+        "focused_postgres": "SUCCESS",
+        "management_browser": "SUCCESS"
+      },
+      "known_local_counterexample": {
+        "old_volume_slots": 20,
+        "symptom": "signed PUT part16 HTTP500; zero available collection volume slots",
+        "recovery": "preserve data and extend bounded owned pool to40",
+        "new_observed_slots_used": 27
+      },
+      "recovery": "Provision and verify40 bounded CI volume slots and collect safe upload-state/topology/disk/error-marker diagnostics on EXIT. Exact remote root cause remains a limitation until actual measurements; no assertions, retry policy, test count, AV policy or timeout weakened."
     }
   ],
   "local_contract_checkpoint": {

@@ -95,7 +95,7 @@ def main():
                 "-s3.port.iceberg=0",
                 f"-s3.port={19000 + args.port_offset}",
                 f"-s3.config={root / 'identities.json'}",
-                "-volume.max=20",
+                "-volume.max=40",
             ],
             stdout=log,
             stderr=subprocess.STDOUT,
@@ -119,6 +119,18 @@ def main():
             if attempt == 59:
                 raise RuntimeError("KB01_LOCAL_S3_NOT_READY") from None
             time.sleep(1)
+    # A writable S3 port is not proof that the bounded volume pool registered.
+    for attempt in range(60):
+        try:
+            with urllib.request.urlopen(f"http://127.0.0.1:{19333 + args.port_offset}/dir/status", timeout=3) as response:
+                topology = json.load(response)["Topology"]
+            if topology["Max"] == 40:
+                break
+        except Exception:
+            pass
+        if attempt == 59:
+            raise RuntimeError("KB01_LOCAL_S3_VOLUME_CAPACITY_NOT_READY")
+        time.sleep(1)
     store.client.create_bucket(Bucket=store.bucket)
     store.client.put_bucket_versioning(
         Bucket=store.bucket, VersioningConfiguration={"Status": "Enabled"}
@@ -170,6 +182,9 @@ def main():
         json.dumps(
             {
                 "s3_versioning": "Enabled",
+                "bounded_volume_slots": 40,
+                "observed_volume_slots": topology["Max"],
+                "observed_free_volume_slots": topology["Free"],
                 "tool_image": image,
                 "scanner_database": "SYNTHETIC_SECURITY_SIGNATURES:EICAR_ONLY",
                 "seaweedfs_release_sha256": WEED_SHA256,

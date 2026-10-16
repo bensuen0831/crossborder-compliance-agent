@@ -191,7 +191,7 @@ jobs:
           backend_pid=$!
           npm --prefix frontend run dev -- --port 15173 > "$RUNNER_TEMP/kb01-vite.log" 2>&1 &
           frontend_pid=$!
-          trap 'kill "$backend_pid" "$frontend_pid" 2>/dev/null || true' EXIT
+          trap 'result=$?; python scripts/kb01/diagnose_ci.py --services-root "$RUNNER_TEMP/kb01-services" --output artifacts/kb01/capacity/service-state.json || true; kill "$backend_pid" "$frontend_pid" 2>/dev/null || true; exit "$result"' EXIT
           python - <<'PY'
           import time,urllib.request
           for address in ('http://127.0.0.1:18010/health/live','http://127.0.0.1:15173'):

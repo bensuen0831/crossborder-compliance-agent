@@ -70,3 +70,9 @@ may reset their own loopback CORS. Browser capacity acceptance must have a separ
 bucket, isolated PostgreSQL database, exact frontend origin and owned tool scratch.
 Allocate actual staging and versioned-object capacity; do not discard originals,
 failed governance evidence or another suite's state to make a case pass.
+
+## Bounded CI object-storage reservation and safe diagnostics
+
+The final-source attempt001592b capacity job passed SINGLE/RAR4 but RAR5/ZIP could not reach verified-upload readiness within240seconds. Earlier artifacts did not retain upload status or storage topology, so the exact remote cause is not claimed as proven. A retained local counterexample independently showed the20-slot three-collection SeaweedFS pool exhausted (signed PUT part16 returned500); preserving data and extending the owned pool to40 restored progress. The retained topology subsequently used27slots, exceeding the old bound.
+
+CI provisioning now reserves a bounded40slots and requires the actual master topology to register all40 before declaring readiness. This changes ephemeral CI capacity, not product upload/AV policy, test assertions, retry count or timeouts. The capacity step's EXIT trap preserves its original exit status and writes a bounded safe diagnostic: actual volume/free slots, available disk, exact upload IDs/states/error codes/attempts/frozen scanner budget and error-marker counts. It excludes raw logs, signed URLs, object names, credentials and original document bodies. Successful future execution and all mandatory exact-head gates are still required; the hypothesis must be revised if diagnostics demonstrate another cause.
