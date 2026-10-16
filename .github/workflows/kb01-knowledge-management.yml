@@ -148,7 +148,6 @@ jobs:
       VITE_SESSION_PATH: /m0-demo/session
       M0_API_TARGET: http://127.0.0.1:18010
       M0_FRONTEND_URL: http://127.0.0.1:15173
-      KB01_CAPACITY_ROOT: ${{ runner.temp }}/kb01-capacity-originals
       KB01_CAPACITY_EVIDENCE: ${{ github.workspace }}/artifacts/kb01/capacity/measured
       KB01_CAPACITY_DISPOSE_GENERATED: '1'
     steps:
@@ -164,6 +163,7 @@ jobs:
         run: |
           set -Eeuo pipefail
           mkdir -p artifacts/kb01/capacity
+          echo "KB01_CAPACITY_ROOT=$RUNNER_TEMP/kb01-capacity-originals" >> "$GITHUB_ENV"
           test "$(git rev-parse HEAD)" = "$EXPECTED_PR_HEAD"
           git rev-parse HEAD > artifacts/kb01/capacity/runner_checkout_sha.txt
           npm ci --prefix frontend

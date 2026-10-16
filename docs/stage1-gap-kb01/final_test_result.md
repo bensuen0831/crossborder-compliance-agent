@@ -129,3 +129,24 @@ A–E/F0 Technical Acceptance = IN PROGRESS.
 F1 = BLOCKED — EXTERNAL_EVIDENCE_PENDING.
 Paid Internet LLM / Real Regulatory Knowledge / Production Business UAT = NOT EXECUTED.
 Stage2 = NOT STARTED. Main and v3.7-stage1-e2e-pass remain unchanged.
+
+
+## Initial Draft CI dispatch diagnostic
+
+Draft PR#29 was created atc905538. The eleven inherited workflows started; the
+new workflow was rejected before any test job because `runner.temp` is not an
+allowed job-level env expression context. Official checksum-verified actionlint
+v1.7.12 independently reproduced this exact error. The path is now exported from
+an actual runner step using RUNNER_TEMP; all workflow files pass actionlint's
+workflow/context validation. No test assertion, budget or coverage changes.
+Superseded in-flight executions are cancelled explicitly to avoid duplicate
+resource use; their metadata and original configuration failure remain retained.
+Every mandatory workflow must execute again on the successor source.
+
+The first corrected-memory local ZIP attempt was blocked before scanning by an
+old fixed UAT CORS origin; the second reached part16 and received an S3 provider500.
+Actual master topology confirmed all20 volume slots allocated across three local
+collections, with no writable capacity collection volumes. The task-owned service
+was stopped gracefully and restarted with its existing directory plus a bounded
+additional directory (40 total slots); no canonical original/version was deleted.
+These are separate environment failures, not clean scan or business PASS evidence.
