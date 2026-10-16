@@ -1,0 +1,35 @@
+{
+  "decision": "PASS_DEVELOPMENT_CHECKPOINT_NOT_FINAL_HEAD",
+  "worktree_parent": "e2306a72b1bf042385f2b1217d6edfe963b1a889",
+  "postgres": {
+    "passed": 13,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 0,
+    "elapsed_seconds": 45.73,
+    "junit_sha256": "05c89afb5debaab7889f30d76922cdf261fe24f403d312cad54a8495e6f93b34"
+  },
+  "browser": {
+    "passed": 2,
+    "retries": 0,
+    "elapsed_seconds": 49.1,
+    "includes": [
+      "genuine folder native parse/citation/original persistence",
+      "independent publication and bulk expiry/archive",
+      "SQL cross-tab displayed in actual UI",
+      "two eligible draft bulk deletions and count/audit reconciliation"
+    ]
+  },
+  "dimensions": [
+    "category",
+    "topic",
+    "language",
+    "format",
+    "status",
+    "source"
+  ],
+  "scope": "same authorized representative-version list query; distinct document cells; bounded pagination",
+  "import_inventory": "separate tenant operational unfiltered counts with current batch/manifest/upload read grants; nullable when not authorized",
+  "new_migration": false
+}

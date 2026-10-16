@@ -70,7 +70,20 @@ def check(root):
     manifest_ddl = read("alembic/versions/0024_kb01_import_manifest_records.py")
     manifest_models = read(prefix + "knowledge_manifest_models.py")
     binary_upload = read("src/crossborder_compliance/domain/knowledge_upload.py")
+    bulk_ui = read("frontend/src/features/knowledge-management/BulkDocumentActions.tsx")
     return {
+        "kb01_cross_tab_reuses_authorized_list_scope": "self.documents.scoped_query(**filters)" in statistics,
+        "kb01_cross_tab_counts_distinct_documents_in_sql": 'func.count(func.distinct(v.document_id))' in statistics and "def cross_tab(" in statistics,
+        "kb01_import_inventory_has_additional_grant_boundary": '"knowledge:batch:manifest-read", "knowledge:upload:read"' in statistics and "TENANT_OPERATIONAL_UNFILTERED" in statistics,
+        "kb01_dashboard_uses_server_statistics_projection": 'statistics.import_inventory' in read("frontend/src/features/knowledge-management/KnowledgeStatistics.tsx"),
+        "kb01_schema_successor_requires_complete_sealed_tree": "authenticated_migration_successor" in read("scripts/stage1_candidate_closure.py") and 'graph.get_heads() != [head]' in read("scripts/kb01_ownership.py"),
+        "kb01_bulk_actions_reuse_canonical_document_commands": "client.mutate(command.path, command.body, command.method)" in bulk_ui,
+        "kb01_bulk_preview_is_bounded": "selected.length > 100" in bulk_ui and "documents.slice(0, 100)" in bulk_ui,
+        "kb01_bulk_lifecycle_requires_explicit_exact_version": "versions[detail.document_id] ??" in bulk_ui and "version!.record_version" in bulk_ui,
+        "kb01_bulk_delete_previews_backend_references": "/impact`" in bulk_ui and "!impact.eligible_draft" in bulk_ui,
+        "kb01_bulk_retry_keeps_exact_idempotency_commands": "commands.current = prepared" in bulk_ui and "completed.current.has(command.documentId)" in bulk_ui,
+        "kb01_bulk_operation_grants_are_distinct": '"document:delete" : "document:archive"' in bulk_ui,
+        "kb01_document_sort_uses_canonical_query": 'const [sort, setSort]' in management_ui and 'sort,' in management_ui and '"title_asc"' in document,
         "kb01_archive_members_require_actual_verified_upload_before_mapping": (
             'upload.status != "VERIFIED"' in batches and '"mapping_available"' in batches
         ),

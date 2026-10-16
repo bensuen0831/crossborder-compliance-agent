@@ -455,3 +455,8 @@ def test_one_batch_preserves_distinct_governed_countries_per_file_without_manife
         "country-a/same.txt",
         "country-b/same.txt",
     }
+
+    cross_tab = statistics(f).cross_tab(dimension="format")
+    assert cross_tab["total"] == 2
+    assert {(row["value"], row["documents"]) for row in cross_tab["items"]} == {("TXT", 1)}
+    assert {row["jurisdiction_id"] for row in cross_tab["items"]} == {str(country.definition_id) for country in countries}

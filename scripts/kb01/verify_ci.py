@@ -68,19 +68,20 @@ def verify(root, expected):
         raise ValueError("KB01_BACKEND_COLLECTED_EXECUTED_MISMATCH")
     frontend = json.loads(one(roots["frontend"], "unit.json").read_text())
     if (
-        frontend["numPassedTests"] < 165
+        frontend["numPassedTests"] < 177
         or any(
             frontend.get(key, 0) for key in ("numFailedTests", "numPendingTests", "numTodoTests")
         )
         or frontend["numTotalTests"] != frontend["numPassedTests"]
     ):
         raise ValueError("KB01_FRONTEND_NONPASS_OR_REDUCED")
-    locale_cases = browser(one(roots["frontend"], "browser.json"), 6)
+    locale_cases = browser(one(roots["frontend"], "browser.json"), 7)
     if not all(
         any(locale in title for title in locale_cases) for locale in ("zh-CN", "zh-HK", "en-US")
     ):
         raise ValueError("KB01_LOCALE_COVERAGE_MISSING")
     expected_management_cases = {
+        "KB01 bounded batch deletion previews references, uses canonical commands and reconciles SQL counts",
         *(
             "KB01 genuine six-format local batch, scoped SQL counts, source and download in "
             + locale

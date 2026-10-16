@@ -51,13 +51,22 @@ THIRTEENTH_SOURCE = "fe6d0dc5de5477b35de6adc6f0fe194d911e6222"
 FOURTEENTH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v14.json"
 FOURTEENTH_SEAL = "2a550f2b30a05aa5d70ef32243c0ca3c552b428c"
 FOURTEENTH_SOURCE = "73ad64fd8221c56cc614fa4d0632085fba1728dd"
-SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v15.json"
+FIFTEENTH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v15.json"
+FIFTEENTH_SEAL = "e2306a72b1bf042385f2b1217d6edfe963b1a889"
+FIFTEENTH_SOURCE = "86c254753aede04a1dd2fb219baacc91460dee19"
+SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v16.json"
 FIRST_SEAL = "a95d5f05f46566d7e58417a8c9cb2214c6d028f0"
 FIRST_SOURCE = "6f0f448fbe5d72494d2756bca30a3f74437e1f63"
 PREVIOUS = "evidence/stage1-full-e2e/r3/approved_owner_overlay.json"
 PATHS = frozenset(
     (
         "frontend/e2e/kb01-safe-evidence.ts",
+        "frontend/e2e/kb01-bulk.spec.ts",
+        "frontend/src/features/knowledge-management/KnowledgeStatistics.tsx",
+        "frontend/src/features/knowledge-management/KnowledgeStatistics.test.tsx",
+        "frontend/src/features/knowledge-management/BulkDocumentActions.tsx",
+        "frontend/src/features/knowledge-management/BulkDocumentActions.test.tsx",
+        "scripts/stage1_candidate_closure.py",
         "frontend/e2e/kb01-taxonomy.spec.ts",
         "frontend/e2e/kb01-folder.spec.ts",
         "frontend/scripts/m1/boundary_check.py",
@@ -492,6 +501,20 @@ def overlay(root):
             for path, digest in fourteenth["paths"].items()
         ):
             return False, {}, None
+        fifteenth_bytes = git("show", FIFTEENTH_SEAL + ":" + FIFTEENTH_RECORD)
+        if (root / FIFTEENTH_RECORD).read_bytes() != fifteenth_bytes or not ancestor(
+            FIFTEENTH_SEAL, "HEAD"
+        ):
+            return False, {}, None
+        fifteenth = json.loads(fifteenth_bytes)
+        if fifteenth["source_sha"] != FIFTEENTH_SOURCE or fifteenth["base_sha"] != BASE:
+            return False, {}, None
+        fifteenth_blobs = blobs(FIFTEENTH_SOURCE, fifteenth["paths"])
+        if any(
+            hashlib.sha256(fifteenth_blobs[path]).hexdigest() != digest
+            for path, digest in fifteenth["paths"].items()
+        ):
+            return False, {}, None
         record = json.loads((root / SUCCESSOR_RECORD).read_text())
         expected = set(previous["paths"]) | PATHS
         source = record["source_sha"]
@@ -500,7 +523,7 @@ def overlay(root):
             or record["scope"] != "STAGE1-GAP-KB01-MASTER_V2.0"
             or set(record["paths"]) != expected
             or not ancestor(BASE, source)
-            or not ancestor(FOURTEENTH_SEAL, source)
+            or not ancestor(FIFTEENTH_SEAL, source)
             or not ancestor(source, "HEAD")
         ):
             return False, {}, None
@@ -578,3 +601,38 @@ def authenticated_dependency_successor(root, baseline_source):
         )
     except (OSError, KeyError, ValueError, TypeError, subprocess.CalledProcessError):
         return False
+
+
+def authenticated_migration_successor(root, head):
+    """Only the sealed KB01 operational successor may extend R1's schema gate."""
+    from alembic.script import ScriptDirectory
+
+    expected = (
+        "0024_kb01_import_manifest_records",
+        "0023_kb01_evidence_source_reference",
+        "0022_kb01_binary_transport",
+        "0021_kb01_taxonomy_operations",
+        "0020_stage1_formal_decision_engine_compatibility",
+    )
+    if head != expected[0]:
+        return False
+    valid, _, source = overlay(root)
+    if not valid:
+        return False
+    root = Path(root)
+    graph = ScriptDirectory(str(root / "alembic"))
+    if graph.get_heads() != [head]:
+        return False
+    for current, parent in zip(expected, expected[1:]):
+        if graph.get_revision(current).down_revision != parent:
+            return False
+    paths = subprocess.check_output(
+        ["git", "ls-tree", "-r", "--name-only", source, "alembic/versions"], cwd=root,
+        text=True,
+    ).splitlines()
+    paths = {path for path in paths if path.endswith(".py")}
+    if paths != {path.relative_to(root).as_posix() for path in (root / "alembic/versions").glob("*.py")}:
+        return False
+    return all((root / path).read_bytes() == subprocess.check_output(
+        ["git", "show", source + ":" + path], cwd=root,
+    ) for path in paths)

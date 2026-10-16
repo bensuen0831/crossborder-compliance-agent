@@ -75,6 +75,58 @@ test("KB01 real directory upload preserves duplicate basenames, native citations
     expect(hash(file!)).toBe(hash(originals.get(relative)!));
     await download.delete();
   }
+  // Independent canonical scope/review/publish precedes lifecycle commands.
+  const jurisdiction = (await (await page.request.get(`${prefix}/scope-options?dimension=jurisdiction`)).json()).items[0].object_id;
+  for (const item of completed.items) {
+    const id = item.knowledge_version_id;
+    const v = await (await page.request.get(`/api/v1/admin/knowledge-versions/${id}`)).json();
+    const bound = await page.request.post(`${prefix}/documents/versions/${id}/scope-bindings`, { data: {
+      expected_record_version: v.record_version, idempotency_key: crypto.randomUUID(), reason: "Synthetic explicit scope",
+      scope_type: "GLOBAL", dimensions: { jurisdiction: [jurisdiction] },
+    } });
+    expect(bound.status()).toBe(201);
+    for (const action of ["validate", "submit-review"]) {
+      const exact = await (await page.request.get(`/api/v1/admin/knowledge-versions/${id}`)).json();
+      expect((await page.request.post(`${prefix}/documents/versions/${id}/${action}`, { data: {
+        expected_record_version: exact.record_version, idempotency_key: crypto.randomUUID(), reason: "Synthetic source quality and review",
+      } })).status()).toBe(200);
+    }
+  }
+  for (const [persona, action] of [["REVIEWER", "approve"], ["PUBLISHER", "publish"]]) {
+    await page.goto("about:blank");
+    expect((await page.request.post("/m0-demo/login", { data: { persona } })).status()).toBe(200);
+    for (const item of completed.items) {
+      const v = await (await page.request.get(`/api/v1/admin/knowledge-versions/${item.knowledge_version_id}`)).json();
+      expect((await page.request.post(`${prefix}/documents/versions/${item.knowledge_version_id}/${action}`, { data: {
+        expected_record_version: v.record_version, idempotency_key: crypto.randomUUID(), reason: "Synthetic independent authorization",
+      } })).status()).toBe(200);
+    }
+  }
+  await page.goto("about:blank");
+  expect((await page.request.post("/m0-demo/login", { data: { persona: "A" } })).status()).toBe(200);
+  await page.goto(workspace);
+  for (const action of ["expire", "archive"]) {
+    const bulk = page.getByRole("region", { name: t("ui.kb01.bulkActions"), exact: true });
+    for (const item of completed.items) {
+      const v = await (await page.request.get(`/api/v1/admin/knowledge-versions/${item.knowledge_version_id}`)).json();
+      await bulk.locator(`input[data-bulk-document-id="${v.document_id}"]`).check();
+    }
+    await bulk.getByLabel(t("ui.kb01.bulkOperation")).selectOption(action);
+    await bulk.getByLabel(t("ui.kb01.reason")).fill("Synthetic explicit batch lifecycle authorization");
+    await bulk.getByRole("button", { name: t("ui.kb01.bulkPreview") }).click();
+    await expect(bulk.locator("article[data-bulk-preview-id]")).toHaveCount(2);
+    for (const item of completed.items) {
+      const v = await (await page.request.get(`/api/v1/admin/knowledge-versions/${item.knowledge_version_id}`)).json();
+      await bulk.locator(`article[data-bulk-preview-id="${v.document_id}"]`).getByLabel(t("ui.kb01.bulkChooseVersion")).selectOption(item.knowledge_version_id);
+    }
+    await bulk.getByRole("button", { name: t("ui.kb01.bulkConfirm") }).click();
+    await expect(bulk.getByText(t("ui.kb01.bulkSuccess"), { exact: true })).toHaveCount(2);
+    for (const item of completed.items) {
+      const v = await (await page.request.get(`/api/v1/admin/knowledge-versions/${item.knowledge_version_id}`)).json();
+      expect(v.lifecycle).toBe(action === "expire" ? "EXPIRED" : "ARCHIVED");
+    }
+    await page.reload();
+  }
   await page.reload();
   const restored = await (await page.request.get(`${prefix}/import-batches/${batch.batch_id}`)).json();
   expect(restored.status).toBe("COMPLETED");

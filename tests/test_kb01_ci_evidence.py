@@ -25,7 +25,7 @@ def artifacts(tmp_path):
     (backend / "pytest.xml").write_text(
         '<testsuite><testcase classname="tests.test_boundary" name="test_scope"/></testsuite>'
     )
-    put(frontend / "unit.json", {"numPassedTests": 165, "numTotalTests": 165})
+    put(frontend / "unit.json", {"numPassedTests": 177, "numTotalTests": 177})
 
     def browser(names):
         return {
@@ -49,6 +49,7 @@ def artifacts(tmp_path):
                 for locale in ("zh-CN", "zh-HK", "en-US")
             ]
             + [
+                "KB01 bounded batch deletion previews references, uses canonical commands and reconciles SQL counts",
                 (
                     "KB01 optional CSV catalogue remains an immutable proposal until "
                     "explicit file mapping"

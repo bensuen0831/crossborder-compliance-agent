@@ -4082,6 +4082,172 @@
           }
         }
       }
+    },
+    "/api/v1/admin/knowledge-management/statistics/cross-tab": {
+      "get": {
+        "tags": [
+          "knowledge-management"
+        ],
+        "summary": "Cross Tab",
+        "operationId": "cross_tab_api_v1_admin_knowledge_management_statistics_cross_tab_get",
+        "parameters": [
+          {
+            "name": "dimension",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "enum": [
+                "category",
+                "topic",
+                "language",
+                "format",
+                "status",
+                "source"
+              ],
+              "type": "string",
+              "title": "Dimension"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 250,
+              "default": "",
+              "title": "Query"
+            }
+          },
+          {
+            "name": "label_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Label Id"
+            }
+          },
+          {
+            "name": "label_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "maxItems": 64
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Label Ids"
+            }
+          },
+          {
+            "name": "lifecycle",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "DRAFT",
+                    "INGESTED",
+                    "VALIDATED",
+                    "PENDING_REVIEW",
+                    "APPROVED",
+                    "ACTIVE",
+                    "SUPERSEDED",
+                    "EXPIRED",
+                    "ARCHIVED"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lifecycle"
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 80
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Language"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeCrossTabView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -9375,6 +9541,30 @@
       },
       "KnowledgeStatisticsView": {
         "properties": {
+          "version_lifecycle_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Version Lifecycle Counts"
+          },
+          "import_inventory": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/KnowledgeImportInventory"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "by_format": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeStatisticsGroup"
+            },
+            "type": "array",
+            "title": "By Format"
+          },
           "as_of": {
             "type": "string",
             "format": "date-time",
@@ -9445,6 +9635,9 @@
         "additionalProperties": false,
         "type": "object",
         "required": [
+          "version_lifecycle_counts",
+          "import_inventory",
+          "by_format",
           "as_of",
           "documents",
           "versions",
@@ -9460,6 +9653,41 @@
           "scope"
         ],
         "title": "KnowledgeStatisticsView"
+      },
+      "KnowledgeImportInventory": {
+        "properties": {
+          "scope": {
+            "type": "string",
+            "const": "TENANT_OPERATIONAL_UNFILTERED",
+            "title": "Scope"
+          },
+          "manifest_records": {
+            "type": "integer",
+            "title": "Manifest Records"
+          },
+          "missing_manifest_files": {
+            "type": "integer",
+            "title": "Missing Manifest Files"
+          },
+          "verified_uploads": {
+            "type": "integer",
+            "title": "Verified Uploads"
+          },
+          "verified_upload_bytes": {
+            "type": "integer",
+            "title": "Verified Upload Bytes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "scope",
+          "manifest_records",
+          "missing_manifest_files",
+          "verified_uploads",
+          "verified_upload_bytes"
+        ],
+        "title": "KnowledgeImportInventory"
       },
       "KnowledgeStatisticsGroup": {
         "properties": {
@@ -9580,6 +9808,103 @@
           "language"
         ],
         "title": "KnowledgeStatisticsScope"
+      },
+      "KnowledgeCrossTabView": {
+        "properties": {
+          "as_of": {
+            "type": "string",
+            "format": "date-time",
+            "title": "As Of"
+          },
+          "dimension": {
+            "type": "string",
+            "enum": [
+              "category",
+              "topic",
+              "language",
+              "format",
+              "status",
+              "source"
+            ],
+            "title": "Dimension"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "page_size": {
+            "type": "integer",
+            "title": "Page Size"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeCrossTabCell"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/KnowledgeStatisticsScope"
+          },
+          "missing_dimension_values_excluded": {
+            "type": "boolean",
+            "const": true,
+            "title": "Missing Dimension Values Excluded"
+          },
+          "group_totals_are_not_global_totals": {
+            "type": "boolean",
+            "const": true,
+            "title": "Group Totals Are Not Global Totals"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "as_of",
+          "dimension",
+          "total",
+          "page",
+          "page_size",
+          "items",
+          "scope",
+          "missing_dimension_values_excluded",
+          "group_totals_are_not_global_totals"
+        ],
+        "title": "KnowledgeCrossTabView"
+      },
+      "KnowledgeCrossTabCell": {
+        "properties": {
+          "jurisdiction_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Jurisdiction Id"
+          },
+          "jurisdiction_code": {
+            "type": "string",
+            "title": "Jurisdiction Code"
+          },
+          "value": {
+            "type": "string",
+            "title": "Value"
+          },
+          "documents": {
+            "type": "integer",
+            "title": "Documents"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "jurisdiction_id",
+          "jurisdiction_code",
+          "value",
+          "documents"
+        ],
+        "title": "KnowledgeCrossTabCell"
       }
     }
   }

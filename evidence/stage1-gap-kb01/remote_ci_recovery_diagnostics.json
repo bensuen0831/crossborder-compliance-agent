@@ -26,6 +26,14 @@
       "category": "CI_PYTHON_IMPORT_PATH",
       "error": "ModuleNotFoundError: scripts during contract collection",
       "recovery": "python -m pytest with identical marker and assertions; no test removed"
+    },
+    {
+      "run_id": 38867001258,
+      "job_id": 116862024192,
+      "sha": "e2306a72b1bf042385f2b1217d6edfe963b1a889",
+      "category": "CLOSURE_AGGREGATOR_FROZEN_PARENT_HEAD",
+      "error": "All backend tests passed; R1 closure aggregator expected exact0020 despite authorized operational0021–0024 successor",
+      "recovery": "Require authenticated complete committed migration tree, exact single0024head and0024→0020lineage; independently retain all0019/0020 safety assertions. No test or migration changed."
     }
   ],
   "local_contract_checkpoint": {
@@ -41,5 +49,13 @@
   "reduced_assertions": false,
   "reduced_coverage": false,
   "browser_retries_added": false,
-  "stage2_started": false
+  "stage2_started": false,
+  "source_specific_remote_checkpoint": {
+    "sha": "e2306a72b1bf042385f2b1217d6edfe963b1a889",
+    "workflows_success": 11,
+    "workflows_total": 12,
+    "actual_job_checkouts_match": 22,
+    "actual_jobs_total": 22,
+    "status": "NOT_FINAL_SOURCE"
+  }
 }

@@ -10,6 +10,7 @@ from scripts.kb01_ownership import (
     EIGHTH_RECORD,
     ELEVENTH_RECORD,
     FIFTH_RECORD,
+    FIFTEENTH_RECORD,
     FOURTEENTH_RECORD,
     FOURTH_RECORD,
     NINTH_RECORD,
@@ -23,6 +24,7 @@ from scripts.kb01_ownership import (
     THIRTEENTH_RECORD,
     TWELFTH_RECORD,
     authenticated_dependency_successor,
+    authenticated_migration_successor,
     authenticated_paths,
     overlay,
 )
@@ -51,6 +53,7 @@ def test_kb01_ownership_authenticates_committed_source():
         THIRTEENTH_RECORD,
         "alembic/versions/0022_kb01_binary_transport.py",
         FOURTEENTH_RECORD,
+        FIFTEENTH_RECORD,
         FOURTH_RECORD,
         NINTH_RECORD,
         FIFTH_RECORD,
@@ -139,3 +142,12 @@ def test_m1_boundary_retains_every_original_check_with_authenticated_dependency(
     assert result["status"] == "PASS"
     assert set(result["checks"]) == original_keys
     assert all(result["checks"].values())
+
+
+def test_kb01_schema_successor_authenticates_complete_committed_migration_tree():
+    assert authenticated_migration_successor(ROOT, "0024_kb01_import_manifest_records")
+
+
+@pytest.mark.parametrize("head", ["head", "0020_stage1_formal_decision_engine_compatibility", "0025_unapproved"])
+def test_kb01_schema_successor_rejects_unapproved_or_alias_heads(head):
+    assert not authenticated_migration_successor(ROOT, head)

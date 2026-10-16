@@ -10,6 +10,8 @@ import { TaxonomyTree } from "./TaxonomyTree";
 import { TranslationAlignment } from "./TranslationAlignment";
 import { ManifestPanel } from "./ManifestPanel";
 import { KnowledgeScopeControls } from "./KnowledgeScopeControls";
+import { BulkDocumentActions } from "./BulkDocumentActions";
+import { KnowledgeStatistics } from "./KnowledgeStatistics";
 
 type Document = Schema<"ManagedKnowledgeDocumentView">;
 type Detail = Schema<"ManagedKnowledgeDocumentDetail">;
@@ -60,6 +62,7 @@ export function KnowledgeManagement({
   const [stats, setStats] = useState<Schema<"KnowledgeStatisticsView">>();
   const [query, setQuery] = useState("");
   const [language, setLanguage] = useState("");
+  const [sort, setSort] = useState("updated_desc");
   const [lifecycle, setLifecycle] = useState("");
   const [label, setLabel] = useState("");
   const [countryFilters, setCountryFilters] = useState<string[]>([]);
@@ -168,6 +171,7 @@ export function KnowledgeManagement({
       query,
       page: String(page),
       page_size: "25",
+      sort,
     });
     if (language) filters.set("language", language);
     if (lifecycle) filters.set("lifecycle", lifecycle);
@@ -222,6 +226,7 @@ export function KnowledgeManagement({
     client,
     can,
     query,
+    sort,
     language,
     lifecycle,
     label,
@@ -553,6 +558,7 @@ export function KnowledgeManagement({
             <h3>{t("ui.kb01.jurisdictionTree")}</h3>
             <p>{t("ui.kb01.publishedHierarchy")}</p>
             <TaxonomyTree key={revision} client={client} selected={countryFilters}
+              counts={stats && !stats.classification_groups_truncated ? Object.fromEntries(stats.by_classification.map((group) => [group.definition_id, group.documents])) : undefined}
               onSelect={(node) => {
                 setCountryFilters((old) => old.includes(node.definition_id)
                   ? old.filter((id) => id !== node.definition_id) : [...old, node.definition_id]);
@@ -627,6 +633,10 @@ export function KnowledgeManagement({
                   </div>
                 ))}
               </dl>
+              <KnowledgeStatistics client={client} statistics={stats} filters={new URLSearchParams([
+                ["query", query], ["language", language], ...(lifecycle ? [["lifecycle", lifecycle]] : []),
+                ...(label ? [["label_id", label]] : []), ...[...countryFilters, ...categoryFilters].map((id) => ["label_ids", id]),
+              ]).toString()} />
               <p>{t("ui.kb01.countScope")}</p>
               <time>{stats.as_of}</time>
               <ul>
@@ -638,6 +648,11 @@ export function KnowledgeManagement({
               </ul>
             </section>
           )}
+          <label>{t("ui.kb01.documentSort")}<select value={sort} onChange={(e) => { setSort(e.target.value); setPage(1); }}>
+            {["updated_desc", "title_asc", "created_desc"].map((value) => <option key={value} value={value}>{t(`ui.kb01.sort.${value}`)}</option>)}
+          </select></label>
+          {documents && <BulkDocumentActions key={JSON.stringify([query, page, sort, language, lifecycle, label, countryFilters, categoryFilters])}
+            client={client} documents={documents.items} can={can} onChanged={() => setRevision((old) => old + 1)} />}
           <ul className="resource-list">
             {documents?.items.map((row) => (
               <li key={row.document_id}>

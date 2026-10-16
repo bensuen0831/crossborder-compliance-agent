@@ -118,6 +118,13 @@ def test_real_catalogue_preview_matches_full_path_and_survives_new_owner_without
     )
     assert loaded["items"][0]["matched_item_id"] == item["item_id"]
     assert count_versions(f) == before
+    from test_kb01_statistics_postgres import statistics
+
+    inventory = statistics(f, set(owner(env).context.permission.scopes) | {"knowledge:statistics:read", "knowledge:document:read"}).summary(query="No matching document")["import_inventory"]
+    assert inventory["scope"] == "TENANT_OPERATIONAL_UNFILTERED"
+    assert inventory["manifest_records"] == 1 and inventory["missing_manifest_files"] == 0
+    assert inventory["verified_uploads"] == 3 and inventory["verified_upload_bytes"] > 0
+    assert statistics(f).summary()["import_inventory"] is None
     assert owner(env).list(batch["batch_id"])["total"] == 1
     report = owner(env).missing_files(batch["batch_id"], created["manifest_id"])
     assert report["total"] == 0 and report["unlisted_total"] == 1

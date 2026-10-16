@@ -8,11 +8,12 @@ type Props = {
   selected: string[];
   onSelect: (node: Node) => void;
   parent?: string;
+  counts?: Record<string, number>;
 };
 
 // A nested list of disclosures keeps native keyboard controls. Each expanded
 // level reads a bounded server page of the existing published hierarchy.
-export function TaxonomyTree({ client, selected, onSelect, parent }: Props) {
+export function TaxonomyTree({ client, selected, onSelect, parent, counts }: Props) {
   const { t, i18n } = useTranslation();
   const [page, setPage] = useState(1);
   const [data, setData] = useState<Schema<"TaxonomyTreePage">>();
@@ -43,8 +44,9 @@ export function TaxonomyTree({ client, selected, onSelect, parent }: Props) {
         </button>}
         <button type="button" aria-pressed={selected.includes(node.definition_id)}
           onClick={() => onSelect(node)}>{node.display_name}</button>
+        {counts && <span> · {counts[node.definition_id] ?? 0}</span>}
         {expanded.includes(node.definition_id) && <TaxonomyTree
-          client={client} selected={selected} onSelect={onSelect} parent={node.definition_id} />}
+          client={client} selected={selected} onSelect={onSelect} parent={node.definition_id} counts={counts} />}
       </li>)}
     </ul>
     {data && data.total > data.page_size && <div>

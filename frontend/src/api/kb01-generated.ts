@@ -1149,6 +1149,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/knowledge-management/statistics/cross-tab": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Cross Tab */
+        get: operations["cross_tab_api_v1_admin_knowledge_management_statistics_cross_tab_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -3180,6 +3197,13 @@ export interface components {
         };
         /** KnowledgeStatisticsView */
         KnowledgeStatisticsView: {
+            /** Version Lifecycle Counts */
+            version_lifecycle_counts: {
+                [key: string]: number;
+            };
+            import_inventory: components["schemas"]["KnowledgeImportInventory"] | null;
+            /** By Format */
+            by_format: components["schemas"]["KnowledgeStatisticsGroup"][];
             /**
              * As Of
              * Format: date-time
@@ -3217,6 +3241,22 @@ export interface components {
             many_to_many_group_totals_are_not_global_totals: true;
             scope: components["schemas"]["KnowledgeStatisticsScope"];
         };
+        /** KnowledgeImportInventory */
+        KnowledgeImportInventory: {
+            /**
+             * Scope
+             * @constant
+             */
+            scope: "TENANT_OPERATIONAL_UNFILTERED";
+            /** Manifest Records */
+            manifest_records: number;
+            /** Missing Manifest Files */
+            missing_manifest_files: number;
+            /** Verified Uploads */
+            verified_uploads: number;
+            /** Verified Upload Bytes */
+            verified_upload_bytes: number;
+        };
         /** KnowledgeStatisticsGroup */
         KnowledgeStatisticsGroup: {
             /** Key */
@@ -3253,6 +3293,52 @@ export interface components {
             lifecycle: ("DRAFT" | "INGESTED" | "VALIDATED" | "PENDING_REVIEW" | "APPROVED" | "ACTIVE" | "SUPERSEDED" | "EXPIRED" | "ARCHIVED") | null;
             /** Language */
             language: string | null;
+        };
+        /** KnowledgeCrossTabView */
+        KnowledgeCrossTabView: {
+            /**
+             * As Of
+             * Format: date-time
+             */
+            as_of: string;
+            /**
+             * Dimension
+             * @enum {string}
+             */
+            dimension: "category" | "topic" | "language" | "format" | "status" | "source";
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+            /** Items */
+            items: components["schemas"]["KnowledgeCrossTabCell"][];
+            scope: components["schemas"]["KnowledgeStatisticsScope"];
+            /**
+             * Missing Dimension Values Excluded
+             * @constant
+             */
+            missing_dimension_values_excluded: true;
+            /**
+             * Group Totals Are Not Global Totals
+             * @constant
+             */
+            group_totals_are_not_global_totals: true;
+        };
+        /** KnowledgeCrossTabCell */
+        KnowledgeCrossTabCell: {
+            /**
+             * Jurisdiction Id
+             * Format: uuid
+             */
+            jurisdiction_id: string;
+            /** Jurisdiction Code */
+            jurisdiction_code: string;
+            /** Value */
+            value: string;
+            /** Documents */
+            documents: number;
         };
     };
     responses: never;
@@ -5696,6 +5782,44 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["KnowledgeStatisticsView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    cross_tab_api_v1_admin_knowledge_management_statistics_cross_tab_get: {
+        parameters: {
+            query: {
+                dimension: "category" | "topic" | "language" | "format" | "status" | "source";
+                query?: string;
+                label_id?: string | null;
+                label_ids?: string[] | null;
+                lifecycle?: ("DRAFT" | "INGESTED" | "VALIDATED" | "PENDING_REVIEW" | "APPROVED" | "ACTIVE" | "SUPERSEDED" | "EXPIRED" | "ARCHIVED") | null;
+                language?: string | null;
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgeCrossTabView"];
                 };
             };
             /** @description Validation Error */

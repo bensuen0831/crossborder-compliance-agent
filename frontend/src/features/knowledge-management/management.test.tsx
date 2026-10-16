@@ -295,4 +295,14 @@ it("sends country and category together to both list and SQL statistics", async 
       ).toBe(true);
     }
   });
+
+
 });
+
+  it("passes the selected document order to the canonical list query", async () => {
+    const fetcher = transport(["document:read"]);
+    render(<KnowledgeManagement client={new AdminClient(fetcher)} session={session} />);
+    await screen.findByRole("button", { name: /Original regulation/ });
+    await userEvent.selectOptions(screen.getByRole("combobox", { name: i18n.t("ui.kb01.documentSort") }), "title_asc");
+    await waitFor(() => expect(fetcher.mock.calls.some(([url]) => String(url).includes("/documents?") && String(url).includes("sort=title_asc"))).toBe(true));
+  });

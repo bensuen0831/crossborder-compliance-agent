@@ -1,6 +1,7 @@
 """SQL aggregates over the same authorized document scope as the list API."""
 
 from sqlalchemy import func, select, text
+from sqlalchemy.orm import aliased
 
 from crossborder_compliance.domain.knowledge_management import require_management_permission
 from crossborder_compliance.infrastructure.persistence import knowledge_models as k
@@ -110,8 +111,28 @@ class PostgresKnowledgeStatistics:
                 .order_by(Label.kind, Label.definition_id)
                 .limit(1001)
             ).all()
+            version_counts = dict(s.execute(versions.with_only_columns(
+                v.lifecycle, func.count(v.knowledge_version_id)
+            ).group_by(v.lifecycle)).all())
+            imports = None
+            if {"knowledge:batch:read", "knowledge:batch:manifest-read", "knowledge:upload:read"} <= self.context.permission.scopes:
+                from crossborder_compliance.infrastructure.persistence.knowledge_manifest_models import KnowledgeManifestRecordEntity as Record
+
+                records = select(Record).where(Record.tenant_id == self.tenant)
+                verified = select(Upload).where(Upload.tenant_id == self.tenant, Upload.status == "VERIFIED")
+                imports = {
+                    "scope": "TENANT_OPERATIONAL_UNFILTERED",
+                    "manifest_records": count(records),
+                    "missing_manifest_files": count(records.where(Record.status == "FILE_MISSING")),
+                    "verified_uploads": count(verified),
+                    "verified_upload_bytes": s.scalar(select(func.coalesce(func.sum(Upload.declared_bytes), 0)).where(Upload.tenant_id == self.tenant, Upload.status == "VERIFIED")),
+                }
+            format_query = chosen.join(Attachment, (Attachment.tenant_id == v.tenant_id) & (Attachment.knowledge_version_id == v.knowledge_version_id)).join(Upload, (Upload.tenant_id == Attachment.tenant_id) & (Upload.upload_session_id == Attachment.upload_session_id)).where(Upload.status == "VERIFIED")
             return {
                 "as_of": cutoff,
+                "version_lifecycle_counts": version_counts,
+                "import_inventory": imports,
+                "by_format": groups(format_query, Upload.declared_format),
                 "documents": count(scoped),
                 "versions": count(versions),
                 "attached_originals": s.scalar(select(func.count()).select_from(physical)),
@@ -136,3 +157,46 @@ class PostgresKnowledgeStatistics:
                     "language": language,
                 },
             }
+
+
+    def cross_tab(self, *, dimension, page=1, page_size=50, **filters):
+        """SQL distinct-document cells over the same representative version scope."""
+        require_management_permission(self.context, "statistics:read")
+        require_management_permission(self.context, "document:read")
+        if dimension not in {"category", "topic", "language", "format", "status", "source"}:
+            raise ValueError("INVALID_STATISTICS_DIMENSION")
+        if page < 1 or not 1 <= page_size <= 100:
+            raise ValueError("INVALID_STATISTICS_PAGE")
+        if len(filters.get("query", "")) > 250:
+            raise ValueError("INVALID_STATISTICS_FILTER")
+        d, v = k.KnowledgeDocumentEntity, k.KnowledgeDocumentVersionEntity
+        scoped, selection = self.documents.scoped_query(**filters)
+        representative = scoped.with_only_columns(d.document_id, selection.label("version_id")).subquery()
+        country = aliased(Label)
+        query = select(v.document_id).join(representative, representative.c.version_id == v.knowledge_version_id).join(
+            country, (country.tenant_id == v.tenant_id) & (country.knowledge_version_id == v.knowledge_version_id) & (country.kind == "JURISDICTION_CONFIG")
+        ).join(m.MetadataDefinitionEntity, (m.MetadataDefinitionEntity.tenant_id == country.tenant_id) & (m.MetadataDefinitionEntity.definition_id == country.definition_id)).where(v.tenant_id == self.tenant)
+        if dimension in {"category", "topic"}:
+            other = aliased(Label)
+            query = query.join(other, (other.tenant_id == v.tenant_id) & (other.knowledge_version_id == v.knowledge_version_id) & (other.kind == ("REGULATION_CATEGORY" if dimension == "category" else "RESEARCH_TOPIC")))
+            value = other.definition_id
+        elif dimension == "format":
+            query = query.join(Attachment, (Attachment.tenant_id == v.tenant_id) & (Attachment.knowledge_version_id == v.knowledge_version_id)).join(Upload, (Upload.tenant_id == Attachment.tenant_id) & (Upload.upload_session_id == Attachment.upload_session_id)).where(Upload.status == "VERIFIED")
+            value = Upload.declared_format
+        elif dimension == "source":
+            query = query.join(d, (d.tenant_id == v.tenant_id) & (d.document_id == v.document_id))
+            value = d.source_id
+        else:
+            value = v.language if dimension == "language" else v.lifecycle
+        query = query.with_only_columns(country.definition_id.label("jurisdiction_id"), m.MetadataDefinitionEntity.code.label("jurisdiction_code"), value.label("value"), func.count(func.distinct(v.document_id)).label("documents")).group_by(country.definition_id, m.MetadataDefinitionEntity.code, value)
+        with self.sessions() as session, session.begin():
+            session.execute(text("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"))
+            total = session.scalar(select(func.count()).select_from(query.subquery()))
+            rows = session.execute(query.order_by(country.definition_id, value).offset((page - 1) * page_size).limit(page_size)).mappings().all()
+            return {"as_of": session.scalar(select(func.now())).isoformat(), "dimension": dimension,
+                "total": total, "page": page, "page_size": page_size,
+                "items": [dict(row) for row in rows], "scope": {
+                    "query": filters.get("query", ""), "label_id": str(filters["label_id"]) if filters.get("label_id") else None,
+                    "label_ids": sorted(set(map(str, filters.get("label_ids", ())))),
+                    "language": filters.get("language"), "lifecycle": filters.get("lifecycle"),
+                }, "missing_dimension_values_excluded": True, "group_totals_are_not_global_totals": True}

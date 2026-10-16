@@ -171,3 +171,7 @@ not merely a green count; a substituted unrelated case is rejected. Twelve
 focused aggregator/origin tests passed. Four capacity cases remain mandatory,
 and original77 Browser executions remain required separately (expected total87).
 These additive tests require a new exact-head run before technical acceptance.
+
+## Subsequent isolated and remote checkpoints
+
+Exact34a78c57 isolated full PostgreSQL regression completed1295 PASS, zero failed/errors/skipped/deselected,4469.30seconds, runtime25/25; see i_full_regression_checkpoint.json. On e2306a72 remote11/12 workflows passed with22/22 actual checkout matches. R1's full backend gate passed but its closure step still hardcoded the historical0020 head; the bounded recovery validates authenticated complete KB migration sources and the exact single0024 lineage, while independently preserving0019/0020 safety assertions. These checkpoints are historical and cannot seal later batch-UI source changes. Final-head validation remains pending.

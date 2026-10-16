@@ -273,3 +273,36 @@ def test_delete_reconciles_live_country_category_and_filtered_sql_counts(knowled
         assert after["documents"] == after["versions"] == service(f).list(**query)["total"] == 1
         assert after["attached_originals"] == after["attached_bytes"] == 0
     assert service(f).detail(UUID(kept["document_id"]))["document_id"] == kept["document_id"]
+
+
+def test_six_cross_tab_dimensions_share_exact_list_scope_and_do_not_double_count(knowledge):
+    f = knowledge
+    countries = tuple(published_label(f, "JURISDICTION_CONFIG", TaxonomyPayload(jurisdiction_type="COUNTRY")) for _ in range(2))
+    category, topic = published_label(f), published_label(f, "RESEARCH_TOPIC")
+    make(f, KnowledgeDocumentMetadata(title="Cross-tab shared source", labels=(*countries, category, topic)))
+    make(f, KnowledgeDocumentMetadata(title="Cross-tab second source", labels=(countries[0], category)))
+    stats = statistics(f)
+    for dimension, expected in [("category", [1, 2]), ("topic", [1, 1]), ("language", [1, 2]), ("status", [1, 2]), ("source", [1, 2])]:
+        result = stats.cross_tab(dimension=dimension, query="Cross-tab")
+        assert result["total"] == 2
+        assert sorted(row["documents"] for row in result["items"]) == expected
+        assert {row["jurisdiction_id"] for row in result["items"]} == {str(x.definition_id) for x in countries}
+        assert result["group_totals_are_not_global_totals"] is True
+        first = stats.cross_tab(dimension=dimension, query="Cross-tab", page_size=1)
+        second = stats.cross_tab(dimension=dimension, query="Cross-tab", page_size=1, page=2)
+        assert len(first["items"]) == len(second["items"]) == 1 and first["items"] != second["items"]
+    assert stats.cross_tab(dimension="format")["items"] == []  # No fabricated binary.
+    assert stats.cross_tab(dimension="language", label_ids=[countries[1].definition_id])["total"] == 2  # One selected multi-country document, two cells.
+    assert stats.cross_tab(dimension="language", language="ar")["total"] == 0
+    assert stats.cross_tab(dimension="language", query="No such source")["total"] == 0
+    assert stats.summary()["documents"] == 2
+    assert stats.summary()["version_lifecycle_counts"] == {"DRAFT": 2}
+    assert stats.summary()["import_inventory"] is None
+    for dimension in ["tenant", "country_code", "raw_sql"]:
+        with pytest.raises(ValueError, match="INVALID_STATISTICS_DIMENSION"):
+            stats.cross_tab(dimension=dimension)
+    with pytest.raises(KnowledgeManagementPermissionError):
+        statistics(f, {"knowledge:statistics:read"}).cross_tab(dimension="source")
+    from test_phase1f_postgres import fixture
+    other = fixture.__wrapped__()
+    assert statistics(other).cross_tab(dimension="source")["total"] == 0

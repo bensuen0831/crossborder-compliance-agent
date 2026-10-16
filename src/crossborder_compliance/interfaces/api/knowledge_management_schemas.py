@@ -261,7 +261,37 @@ class KnowledgeStatisticsScope(Projection):
     language: str | None
 
 
+class KnowledgeImportInventory(Projection):
+    scope: Literal["TENANT_OPERATIONAL_UNFILTERED"]
+    manifest_records: int
+    missing_manifest_files: int
+    verified_uploads: int
+    verified_upload_bytes: int
+
+
+class KnowledgeCrossTabCell(Projection):
+    jurisdiction_id: UUID
+    jurisdiction_code: str
+    value: str
+    documents: int
+
+
+class KnowledgeCrossTabView(Projection):
+    as_of: datetime
+    dimension: Literal["category", "topic", "language", "format", "status", "source"]
+    total: int
+    page: int
+    page_size: int
+    items: list[KnowledgeCrossTabCell]
+    scope: KnowledgeStatisticsScope
+    missing_dimension_values_excluded: Literal[True]
+    group_totals_are_not_global_totals: Literal[True]
+
+
 class KnowledgeStatisticsView(Projection):
+    version_lifecycle_counts: dict[str, int]
+    import_inventory: KnowledgeImportInventory | None
+    by_format: list[KnowledgeStatisticsGroup]
     as_of: datetime
     documents: int
     versions: int

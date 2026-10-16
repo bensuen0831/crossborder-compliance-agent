@@ -34,6 +34,7 @@ jobs:
         run: |
           set -Eeuo pipefail
           mkdir -p artifacts/kb01/backend
+          export EVIDENCE_DIR=artifacts/kb01/backend
           test "$(git rev-parse HEAD)" = "$EXPECTED_PR_HEAD"
           git rev-parse HEAD > artifacts/kb01/backend/runner_checkout_sha.txt
           alembic upgrade head
@@ -118,7 +119,7 @@ jobs:
                       time.sleep(1)
           PY
           PLAYWRIGHT_JSON_OUTPUT_NAME="$GITHUB_WORKSPACE/artifacts/kb01/frontend/browser.json" \
-            npm --prefix frontend run test:e2e -- kb01-management.spec.ts kb01-manifest.spec.ts kb01-taxonomy.spec.ts kb01-folder.spec.ts \
+            npm --prefix frontend run test:e2e -- kb01-management.spec.ts kb01-manifest.spec.ts kb01-taxonomy.spec.ts kb01-folder.spec.ts kb01-bulk.spec.ts \
             --output="$GITHUB_WORKSPACE/artifacts/kb01/frontend/browser-artifacts" --reporter=line,json
       - uses: actions/upload-artifact@v4
         if: always()
