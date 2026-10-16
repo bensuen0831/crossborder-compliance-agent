@@ -28,6 +28,7 @@ def check(root):
     batches = read(prefix + "knowledge_batches.py")
     uploads = read(prefix + "knowledge_uploads.py")
     worker = read("src/crossborder_compliance/infrastructure/knowledge_import_worker.py")
+    upload_worker = read("src/crossborder_compliance/infrastructure/knowledge_upload_worker.py")
     binary_migration = read("alembic/versions/0022_kb01_binary_transport.py")
     ingestion = read("src/crossborder_compliance/application/knowledge_services.py")
     extraction = read("src/crossborder_compliance/infrastructure/knowledge_binary_extraction.py")
@@ -237,7 +238,7 @@ def check(root):
         "kb01_binary_worker_is_not_workflow_runtime": "WorkflowRuntime" not in worker
         and "AnalysisSnapshot" not in worker,
         "kb01_scan_memory_is_frozen_not_latest": (
-            'row["policy"].get("scanner_memory_bytes", 2 * 1024**3)' in worker
+            'row["policy"].get("scanner_memory_bytes", 2 * 1024**3)' in upload_worker
         ),
         "kb01_scan_memory_is_bounded_before_process_launch": "INVALID_KNOWLEDGE_MEMORY_BUDGET"
         in sandbox
