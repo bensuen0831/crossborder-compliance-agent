@@ -40,6 +40,7 @@ PREVIOUS = "evidence/stage1-full-e2e/r3/approved_owner_overlay.json"
 PATHS = frozenset(
     (
         "frontend/e2e/kb01-safe-evidence.ts",
+        "frontend/e2e/kb01-taxonomy.spec.ts",
         "frontend/src/test/kb01-evidence.test.ts",
         "frontend/e2e/kb01-capacity.spec.ts",
         "frontend/e2e/kb01-manifest.spec.ts",

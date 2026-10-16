@@ -1,0 +1,56 @@
+{
+  "source_bytes": 1080014006,
+  "source_sha256": "34c7c30e28cf2d057c1e8b45a9623469ea97051d66602e6669739bebbdb83f81",
+  "results": [
+    {
+      "memory_gib": 2,
+      "elapsed_seconds": 36.823410593002336,
+      "exit_code": 137,
+      "stdout": "",
+      "stderr": "",
+      "image_id": "sha256:e947464eb29f37996f3927e7c2e091bdd989493ca8ed6573c624430296513ade"
+    },
+    {
+      "memory_gib": 4,
+      "elapsed_seconds": 108.65833314001793,
+      "exit_code": 0,
+      "stdout": "/input/original: OK\n",
+      "stderr": "",
+      "image_id": "sha256:e947464eb29f37996f3927e7c2e091bdd989493ca8ed6573c624430296513ade"
+    }
+  ],
+  "artifact_kind": "DEVELOPMENT_SCANNER_RESOURCE_DIAGNOSIS",
+  "acceptance_level": "SYNTHETIC_GOVERNED_TEST_DATA",
+  "classification": "BOUNDED_SCAN_MEMORY_BUDGET_EXHAUSTION",
+  "functional_assertions_changed": false,
+  "scan_limits_reduced": false,
+  "browser_retries_added": false,
+  "legacy_policy_default_bytes": 2147483648,
+  "new_uat_policy_bytes": 4294967296,
+  "policy_upper_bound_bytes": 8589934592,
+  "final_exact_head_ci": "PENDING",
+  "limitations": [
+    "exit137 alone is not a product assertion failure; identical-byte4GiB comparison completed clean",
+    "Historical source-specific result; final exact-head acceptance remains mandatory"
+  ],
+  "focused_tests": {
+    "passed": 7,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junit_sha256": "26a86fa13fe4b2e6f602f25148a372227e2ae3b2184fe980241679a30ecac837"
+  },
+  "upload_regression": {
+    "passed": 24,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junit_sha256": "a06fdef3938f4f4427be2a3cc63a2431f90558e7fff5e6de694a625d1bb1b3be"
+  },
+  "uat_origin_regression": {
+    "passed": 11,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  }
+}

@@ -236,6 +236,12 @@ def check(root):
         and ".read_bytes(" not in storage + worker,
         "kb01_binary_worker_is_not_workflow_runtime": "WorkflowRuntime" not in worker
         and "AnalysisSnapshot" not in worker,
+        "kb01_scan_memory_is_frozen_not_latest": (
+            'row["policy"].get("scanner_memory_bytes", 2 * 1024**3)' in worker
+        ),
+        "kb01_scan_memory_is_bounded_before_process_launch": "INVALID_KNOWLEDGE_MEMORY_BUDGET"
+        in sandbox
+        and "256 * 1024**2 <= memory_bytes <= 8 * 1024**3" in sandbox,
         "kb01_scanner_is_actual_isolated_process": '"/usr/bin/clamscan"' in sandbox
         and '"--network=none"' in sandbox
         and '"--read-only"' in sandbox,

@@ -1,4 +1,8 @@
-# Current readiness and proposed deployment runbook
+# Deployment runbook and retained readiness history
+
+The opening D0 observations below are historical. The reproducible prerequisites
+and current resource policy are described in the continuation sections; final
+acceptance still requires final-head remote CI.
 
 Current tools: existing Python3.12 virtualenv and dependency set, PostgreSQL17 with pgvector, Redis, Docker. S3/scanner/RAR/DOC converter are NOT CONFIGURED/VERIFIED. Runtime network uses inherited proxy/CA; keep TLS verification, never expose credential values. Current managed configuration has no declared new credential bindings. No environment draft fields changed for this D0.
 
@@ -43,3 +47,26 @@ Before a final acceptance claim, rerun from the sealed committed source. Current
 development checkpoints are not borrowed as final-source evidence. F1 remains
 BLOCKED — EXTERNAL_EVIDENCE_PENDING. No real-regulatory accuracy, production UAT,
 paid-provider acceptance, main merge, release tag or Stage 2 is implied.
+
+
+## Governed scanner resource budget
+
+A genuine 1,080,014,006-byte ZIP was scanned twice with identical official CVD
+signatures, immutable image, bytes and scan limits. The 2 GiB container exited137
+in36.8234s; a 4 GiB container completed clean in108.6583s. This is an execution
+resource failure, not a clean/malicious assertion. The failed execution remains
+part of the development evidence.
+
+`KnowledgeManagementPolicy.scanner_memory_bytes` is reviewed/published through
+existing Metadata governance and frozen into each upload session. It defaults to
+2 GiB for old policies/sessions, with a256 MiB–8 GiB bound enforced before process
+launch. New technical Browser fixtures explicitly publish4 GiB. Workers consume
+the frozen session budget and never substitute the latest active policy. Parser
+memory, scan coverage, encryption/limit refusal, network isolation and retry
+policy are unchanged. No schema revision or historical-policy rewrite is needed.
+
+Use separate S3 buckets/CORS origins for concurrent suites: full-backend fixtures
+may reset their own loopback CORS. Browser capacity acceptance must have a separate
+bucket, isolated PostgreSQL database, exact frontend origin and owned tool scratch.
+Allocate actual staging and versioned-object capacity; do not discard originals,
+failed governance evidence or another suite's state to make a case pass.

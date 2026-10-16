@@ -35,6 +35,8 @@ class KnowledgeProcessSandbox:
             raise ValueError("KNOWLEDGE_PROCESS_NOT_ALLOWED")
         if any(not isinstance(a, str) or "\0" in a for a in args):
             raise ValueError("INVALID_KNOWLEDGE_PROCESS_ARGUMENT")
+        if type(memory_bytes) is not int or not 256 * 1024**2 <= memory_bytes <= 8 * 1024**3:
+            raise ValueError("INVALID_KNOWLEDGE_MEMORY_BUDGET")
         if scratch_bytes is not None and not 0 < scratch_bytes <= 50 * 1024**3:
             raise ValueError("INVALID_KNOWLEDGE_SCRATCH_BUDGET")
         name = "kb01-process-" + uuid4().hex
@@ -141,7 +143,15 @@ class ClamKnowledgeScanner:
         self.sandbox, self.database = sandbox, database
         self.database_identity = database_identity
 
-    def scan(self, path, timeout, *, max_expanded_bytes=50 * 1024**3, max_entries=20000):
+    def scan(
+        self,
+        path,
+        timeout,
+        *,
+        max_expanded_bytes=50 * 1024**3,
+        max_entries=20000,
+        memory_bytes=2 * 1024**3,
+    ):
         if not self.database.is_dir() or not any(self.database.iterdir()):
             raise ValueError("SCANNER_DATABASE_NOT_CONFIGURED")
         result = self.sandbox.run(
@@ -160,6 +170,7 @@ class ClamKnowledgeScanner:
             ],
             {"/database/signatures": self.database, "/input/original": path},
             timeout,
+            memory_bytes=memory_bytes,
             scratch_bytes=min(
                 max_expanded_bytes,
                 max(1, shutil.disk_usage(self.sandbox.working_root).free - 2 * 1024**3),

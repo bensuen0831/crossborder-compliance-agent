@@ -10,6 +10,7 @@ import json
 import os
 import sys
 from pathlib import Path
+from urllib.parse import urlsplit
 from uuid import UUID
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -59,7 +60,10 @@ def seed(path):
         "knowledge:batch:manifest-export",
     }
     for name in ("A", "B"):
-        deletion_policy((sf, UUID(people[name]["tenant_id"]), None, None))
+        deletion_policy(
+            (sf, UUID(people[name]["tenant_id"]), None, None),
+            scanner_memory_bytes=4 * 1024**3,
+        )
         people[name]["permissions"] = sorted(set(people[name]["permissions"]) | author)
     for name, permissions in (
         (
@@ -94,6 +98,24 @@ def seed(path):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(people, indent=2) + "\n")
     path.chmod(0o600)
+
+
+def upload_browser_origin():
+    """Only a concrete loopback origin may configure this synthetic UAT bucket."""
+    origin = os.environ.get("M0_FRONTEND_URL", "http://127.0.0.1:15173")
+    parsed = urlsplit(origin)
+    if (
+        parsed.scheme != "http"
+        or parsed.hostname not in {"127.0.0.1", "localhost"}
+        or parsed.username is not None
+        or parsed.password is not None
+        or parsed.path
+        or parsed.query
+        or parsed.fragment
+        or parsed.port is None
+    ):
+        raise ValueError("KB01_UAT_REQUIRES_EXACT_LOOPBACK_ORIGIN")
+    return origin
 
 
 def host(path):
@@ -145,7 +167,7 @@ def host(path):
         CORSConfiguration={
             "CORSRules": [
                 {
-                    "AllowedOrigins": ["http://127.0.0.1:15173", "http://localhost:15173"],
+                    "AllowedOrigins": [upload_browser_origin()],
                     "AllowedMethods": ["PUT"],
                     "AllowedHeaders": ["content-type", "x-amz-checksum-sha256"],
                     "ExposeHeaders": ["ETag"],

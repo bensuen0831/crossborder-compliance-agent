@@ -104,7 +104,7 @@ def publish(env, created):
     return service("publisher").mutate("PUBLISH", vid, mutation(approve["record_version"]))
 
 
-def deletion_policy(env):
+def deletion_policy(env, **policy_overrides):
     sf, tenant, _, _ = env
 
     def owner(actor, scopes):
@@ -117,7 +117,7 @@ def deletion_policy(env):
         code="DELETE-POLICY",
         display_name="Technical management policy",
         payload=KnowledgeManagementPolicy(
-            draft_delete_allowed=True, draft_retention_seconds=0
+            draft_delete_allowed=True, draft_retention_seconds=0, **policy_overrides
         ).model_dump(mode="json"),
     )
     ident = UUID(draft["version_id"])

@@ -288,3 +288,12 @@ and item CAS, respects the attempt bound, and cannot retry permanent parse refus
 Failure exports require an explicit scoped export grant. PostgreSQL-specific
 reference DDL remains enforced on PostgreSQL; SQLite-only runtime fixtures do not
 emit PostgreSQL functions. Frozen migrations 0001–0023 remain unchanged.
+
+KB01 scanner RAM is a bounded technical setting on the existing governed
+KnowledgeManagementPolicy, frozen on each upload. Old sessions retain2GiB;
+newly published policies may explicitly choose256MiB–8GiB. A worker may not
+resolve latest policy to replace a frozen budget, and an invalid budget is
+rejected before launching a process. Scanner coverage, refusal semantics and
+offline isolation remain unchanged. The executable checks
+kb01_scan_memory_is_frozen_not_latest and
+kb01_scan_memory_is_bounded_before_process_launch are additive.

@@ -102,6 +102,7 @@ class KnowledgeUploadWorker:
                 result = self.scanner.scan(
                     path,
                     row["policy"]["scanner_timeout_seconds"],
+                    memory_bytes=row["policy"].get("scanner_memory_bytes", 2 * 1024**3),
                     max_expanded_bytes=min(
                         row["policy"]["max_expanded_bytes"], manifest["max_expanded_bytes"]
                     )

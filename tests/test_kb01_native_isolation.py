@@ -177,3 +177,25 @@ def test_existing_document_parser_port_can_use_same_core_without_fake_source_ide
     )
     assert len(result.nodes) == 2
     assert all(node.document_version_id == identity for node in result.nodes)
+
+
+@pytest.mark.parametrize("memory_bytes", [0, True, 256 * 1024**2 - 1, 8 * 1024**3 + 1])
+def test_process_rejects_unbounded_memory_before_launch(tmp_path, memory_bytes):
+    sandbox = KnowledgeProcessSandbox("sha256:" + "a" * 64, tmp_path)
+    with pytest.raises(ValueError, match="INVALID_KNOWLEDGE_MEMORY_BUDGET"):
+        sandbox.run("/usr/bin/clamscan", [], {}, 1, memory_bytes=memory_bytes)
+
+
+def test_scanner_policy_preserves_legacy_default_and_bounds():
+    from pydantic import ValidationError
+
+    from crossborder_compliance.domain.knowledge_management import KnowledgeManagementPolicy
+
+    assert KnowledgeManagementPolicy.model_validate({}).scanner_memory_bytes == 2 * 1024**3
+    assert (
+        KnowledgeManagementPolicy(scanner_memory_bytes=4 * 1024**3).scanner_memory_bytes
+        == 4 * 1024**3
+    )
+    for value in (256 * 1024**2 - 1, 8 * 1024**3 + 1):
+        with pytest.raises(ValidationError):
+            KnowledgeManagementPolicy(scanner_memory_bytes=value)

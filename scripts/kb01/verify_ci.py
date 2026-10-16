@@ -75,7 +75,7 @@ def verify(root, expected):
         or frontend["numTotalTests"] != frontend["numPassedTests"]
     ):
         raise ValueError("KB01_FRONTEND_NONPASS_OR_REDUCED")
-    locale_cases = browser(one(roots["frontend"], "browser.json"), 4)
+    locale_cases = browser(one(roots["frontend"], "browser.json"), 5)
     if not all(
         any(locale in title for title in locale_cases) for locale in ("zh-CN", "zh-HK", "en-US")
     ):

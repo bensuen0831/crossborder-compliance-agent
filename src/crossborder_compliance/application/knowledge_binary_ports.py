@@ -19,5 +19,11 @@ class KnowledgeBinaryStorePort(Protocol):
 
 class KnowledgeMalwareScannerPort(Protocol):
     def scan(
-        self, path: Path, timeout: int, *, max_expanded_bytes: int, max_entries: int
+        self,
+        path: Path,
+        timeout: int,
+        *,
+        max_expanded_bytes: int,
+        max_entries: int,
+        memory_bytes: int = 2 * 1024**3,
     ) -> dict: ...

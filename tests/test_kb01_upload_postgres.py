@@ -91,9 +91,12 @@ def test_durable_cleanup_finishes_cancel_after_lost_provider_response(env):
 
 
 @pytest.fixture
-def env():
+def env(request):
     f = foundation.__wrapped__()
-    deletion_policy((f["sf"], UUID(f["tenant"]), None, None))
+    deletion_policy(
+        (f["sf"], UUID(f["tenant"]), None, None),
+        **getattr(request, "param", {}),
+    )
     cfg_path = os.environ.get("KB01_TEST_S3_CONFIG")
     image = os.environ.get("KB01_TEST_TOOL_IMAGE")
     work = os.environ.get("KB01_TEST_WORK_ROOT")
@@ -447,3 +450,36 @@ def test_upload_policy_view_comes_from_the_governed_tenant_version(env):
     )
     with pytest.raises(PermissionError):
         restricted.policy_view()
+
+
+@pytest.mark.parametrize("env", [{}, {"scanner_memory_bytes": 4 * 1024**3}], indirect=True)
+def test_worker_scans_with_frozen_upload_memory_budget(env, monkeypatch):
+    # Exercise real S3 bytes and real ClamAV, including pre-field persisted policy.
+    f, repo, service, worker = env
+    data = b"Article 1. Synthetic frozen scanner budget.\n"
+    _, row = begin(service, data)
+    frozen_budget = repo.transport(row["upload_session_id"])["policy"]["scanner_memory_bytes"]
+    # Replay the pre-field representation without changing the persisted policy.
+    if frozen_budget == 2 * 1024**3:
+        actual_claim = repo.scan_claim
+
+        def claim():
+            result = actual_claim()
+            if result:
+                result["policy"] = dict(result["policy"])
+                result["policy"].pop("scanner_memory_bytes", None)
+            return result
+
+        monkeypatch.setattr(repo, "scan_claim", claim)
+    transfer(service, row, data)
+    actual_scan = worker.scanner.scan
+    observed = []
+
+    def scan(*args, **kwargs):
+        observed.append(kwargs["memory_bytes"])
+        return actual_scan(*args, **kwargs)
+
+    monkeypatch.setattr(worker.scanner, "scan", scan)
+    assert worker.run_once()
+    assert repo.detail(row["upload_session_id"])["status"] == "VERIFIED"
+    assert observed == [frozen_budget]

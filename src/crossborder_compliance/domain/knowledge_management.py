@@ -187,6 +187,10 @@ class KnowledgeManagementPolicy(ManagementRequest):
     max_active_upload_sessions: int = Field(default=64, ge=1, le=10000)
     signed_part_expiry_seconds: int = Field(default=900, ge=60, le=3600)
     scanner_timeout_seconds: int = Field(default=3600, ge=1, le=14400)
+    # Frozen on the upload session alongside the existing scan policy. Older
+    # sessions retain their original 2 GiB budget; larger budgets require a
+    # separately reviewed and published policy version.
+    scanner_memory_bytes: int = Field(default=2 * 1024**3, ge=256 * 1024**2, le=8 * 1024**3)
     native_parser: KnowledgeNativeParsingPolicy = Field(
         default_factory=KnowledgeNativeParsingPolicy
     )

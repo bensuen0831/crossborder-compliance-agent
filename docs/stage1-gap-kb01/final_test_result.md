@@ -106,3 +106,26 @@ remain recorded, not relabelled PASS. This isolation changes test setup only.
 
 Final A–E/F0 technical acceptance, final PR-head CI and full Browser closure remain
 pending. F1 remains BLOCKED — EXTERNAL_EVIDENCE_PENDING. Stage 2 NOT STARTED.
+
+
+## Current scanner-resource and management coverage continuation
+
+Country/category creation, localized editing/aliases, independent review and
+publication, protected deletion, country-tree selection and reload are now covered
+by an additional genuine Browser journey:1/1 PASS,8.9s,zero retries. The optional
+CSV catalogue journey passed1/1 in30.2s. Six-format × three-locale publication
+passed3/3 (18 format/locale combinations) in251.5s. Full frontend measured165 PASS.
+These are development-source measurements, not final-head remote closure.
+
+Isolated official-signature capacity execution measured SINGLE/RAR4/RAR5 PASS;
+ZIP failed with SCANNER_UNAVAILABLE. The same ZIP under controlled scanner budgets
+reproduced exit137 at2 GiB and clean exit0 at4 GiB. The existing governed policy
+now exposes a bounded scanner memory budget, preserving old2 GiB defaults and
+frozen session policy semantics. Seven focused real-tool/resource tests passed.
+ZIP recovery and final committed-source regression/remote CI remain pending until
+measured. No failed execution is erased or relabeled PASS.
+
+A–E/F0 Technical Acceptance = IN PROGRESS.
+F1 = BLOCKED — EXTERNAL_EVIDENCE_PENDING.
+Paid Internet LLM / Real Regulatory Knowledge / Production Business UAT = NOT EXECUTED.
+Stage2 = NOT STARTED. Main and v3.7-stage1-e2e-pass remain unchanged.

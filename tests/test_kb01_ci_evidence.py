@@ -44,7 +44,7 @@ def artifacts(tmp_path):
         frontend / "browser.json",
         browser(
             ["management " + locale for locale in ("zh-CN", "zh-HK", "en-US")]
-            + ["catalogue explicit human mapping"]
+            + ["catalogue explicit human mapping", "governed country and category lifecycle"]
         ),
     )
     put(
@@ -88,3 +88,27 @@ def test_ci_aggregation_rejects_green_but_incomplete_or_wrong_source(artifacts, 
         put(path, value)
     with pytest.raises(ValueError, match="KB01_"):
         verify(root, "a" * 40)
+
+
+@pytest.mark.parametrize(
+    "origin",
+    [
+        "http://example.com:15173",
+        "http://user:pass@localhost:15173",
+        "http://localhost:15173/?secret=redacted",
+        "http://localhost:15173/path",
+    ],
+)
+def test_uat_cannot_configure_nonlocal_or_credentialed_cors(monkeypatch, origin):
+    from scripts.kb01.uat import upload_browser_origin
+
+    monkeypatch.setenv("M0_FRONTEND_URL", origin)
+    with pytest.raises(ValueError, match="KB01_UAT_REQUIRES_EXACT_LOOPBACK_ORIGIN"):
+        upload_browser_origin()
+
+
+def test_uat_uses_exact_isolated_browser_origin(monkeypatch):
+    from scripts.kb01.uat import upload_browser_origin
+
+    monkeypatch.setenv("M0_FRONTEND_URL", "http://127.0.0.1:15175")
+    assert upload_browser_origin() == "http://127.0.0.1:15175"
