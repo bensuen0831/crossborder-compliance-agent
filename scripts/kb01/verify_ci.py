@@ -68,7 +68,7 @@ def verify(root, expected):
         raise ValueError("KB01_BACKEND_COLLECTED_EXECUTED_MISMATCH")
     frontend = json.loads(one(roots["frontend"], "unit.json").read_text())
     if (
-        frontend["numPassedTests"] < 177
+        frontend["numPassedTests"] < 180
         or any(
             frontend.get(key, 0) for key in ("numFailedTests", "numPendingTests", "numTodoTests")
         )

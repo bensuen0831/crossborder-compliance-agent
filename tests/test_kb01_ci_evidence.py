@@ -25,7 +25,7 @@ def artifacts(tmp_path):
     (backend / "pytest.xml").write_text(
         '<testsuite><testcase classname="tests.test_boundary" name="test_scope"/></testsuite>'
     )
-    put(frontend / "unit.json", {"numPassedTests": 177, "numTotalTests": 177})
+    put(frontend / "unit.json", {"numPassedTests": 180, "numTotalTests": 180})
 
     def browser(names):
         return {

@@ -76,6 +76,7 @@ export function KnowledgeManagement({
   const [kind, setKind] = useState("");
   const [page, setPage] = useState(1);
   const [detail, setDetail] = useState<Detail>();
+  const [documentImpact, setDocumentImpact] = useState<Schema<"ManagedKnowledgeDocumentImpact">>();
   const [preview, setPreview] = useState<Schema<"KnowledgeDocumentPreview">>();
   const [alignmentSource, setAlignmentSource] = useState<Version>();
   const [scopeVersion, setScopeVersion] = useState<Version>();
@@ -310,6 +311,7 @@ export function KnowledgeManagement({
   const openDocument = async (row: Document) => {
     setEditing(undefined);
     setNewVersionDocument(undefined);
+    setDocumentImpact(undefined);
     setDetail(await client.get<Detail>(`/documents/${row.document_id}`));
     setPreview(undefined);
     setHistory(undefined);
@@ -652,7 +654,11 @@ export function KnowledgeManagement({
             {["updated_desc", "title_asc", "created_desc"].map((value) => <option key={value} value={value}>{t(`ui.kb01.sort.${value}`)}</option>)}
           </select></label>
           {documents && <BulkDocumentActions key={JSON.stringify([query, page, sort, language, lifecycle, label, countryFilters, categoryFilters])}
-            client={client} documents={documents.items} can={can} onChanged={() => setRevision((old) => old + 1)} />}
+            client={client} documents={documents.items} can={can} onChanged={() => {
+              setDetail(undefined); setDocumentImpact(undefined); setPreview(undefined); setHistory(undefined);
+              setEditing(undefined); setNewVersionDocument(undefined); setScopeVersion(undefined); setAlignmentSource(undefined);
+              setRevision((old) => old + 1);
+            }} />}
           <ul className="resource-list">
             {documents?.items.map((row) => (
               <li key={row.document_id}>
@@ -682,15 +688,28 @@ export function KnowledgeManagement({
               >
                 {t("ui.kb01.history")}
               </button>
+              <button disabled={!can("document:read") || pending} onClick={() => void perform(async () => {
+                setDocumentImpact(await client.get(`/documents/${detail.document_id}/impact`));
+              })}>{t("ui.kb01.impact")}</button>
+              {documentImpact && <div role="status">
+                <p>{t("ui.kb01.bulkReferences")}: {JSON.stringify(documentImpact.references)}</p>
+                <p>{t(documentImpact.eligible_draft ? "ui.kb01.deleteEligible" : "ui.kb01.deleteProtected")}</p>
+              </div>}
               <button
-                disabled={!can("document:delete") || pending || !reason}
+                disabled={!can("document:delete") || pending || !reason || !documentImpact?.eligible_draft}
                 onClick={() =>
                   void perform(async () => {
-                    await client.mutate(
-                      `/documents/${detail.document_id}`,
-                      mutation(detail.record_version, reason),
-                      "DELETE",
-                    );
+                    try {
+                      await client.mutate(`/documents/${detail.document_id}`, mutation(detail.record_version, reason), "DELETE");
+                    } catch (e) {
+                      if (e instanceof ApiError && e.status === 409) {
+                        setDetail(await client.get<Detail>(`/documents/${detail.document_id}`));
+                        setDocumentImpact(await client.get(`/documents/${detail.document_id}/impact`));
+                        throw new Error(t("ui.kb01.deleteChanged"));
+                      }
+                      throw e;
+                    }
+                    setDocumentImpact(undefined);
                     setDetail(undefined);
                   })
                 }

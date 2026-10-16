@@ -306,3 +306,58 @@ it("sends country and category together to both list and SQL statistics", async 
     await userEvent.selectOptions(screen.getByRole("combobox", { name: i18n.t("ui.kb01.documentSort") }), "title_asc");
     await waitFor(() => expect(fetcher.mock.calls.some(([url]) => String(url).includes("/documents?") && String(url).includes("sort=title_asc"))).toBe(true));
   });
+
+
+it.each([true, false])("requires a server reference preview before single-document deletion (eligible=%s)", async (eligible) => {
+  await i18n.changeLanguage("en-US");
+  const base = transport(["document:read", "document:delete"]);
+  const fetcher = vi.fn<FetchPort>().mockImplementation((path, options) => {
+    if (String(path).endsWith("/impact")) return Promise.resolve(response({ document_id: document.document_id,
+      references: { snapshots: eligible ? 0 : 1 }, protected_version_history: !eligible, eligible_draft: eligible }));
+    if (options?.method === "DELETE") return Promise.resolve(response({ deleted: true }));
+    return base(path, options);
+  });
+  render(<KnowledgeManagement client={new AdminClient(fetcher)} session={session} />);
+  await userEvent.click(await screen.findByRole("button", { name: /Original regulation/ }));
+  await userEvent.type(screen.getAllByRole("textbox", { name: i18n.t("ui.kb01.reason") })[0], "Explicit draft cleanup");
+  const remove = screen.getByRole("button", { name: i18n.t("ui.kb01.deleteDraft") });
+  expect(remove).toBeDisabled();
+  await userEvent.click(screen.getByRole("button", { name: i18n.t("ui.kb01.impact") }));
+  await screen.findByText(i18n.t(eligible ? "ui.kb01.deleteEligible" : "ui.kb01.deleteProtected"));
+  if (!eligible) {
+    expect(remove).toBeDisabled();
+    expect(fetcher.mock.calls.some(([, options]) => options?.method === "DELETE")).toBe(false);
+  } else {
+    await userEvent.click(remove);
+    await waitFor(() => expect(fetcher.mock.calls.some(([, options]) => options?.method === "DELETE")).toBe(true));
+    const sent = fetcher.mock.calls.find(([, options]) => options?.method === "DELETE")!;
+    expect(JSON.parse(String(sent[1]?.body))).toEqual({ expected_record_version: 1, reason: "Explicit draft cleanup", idempotency_key: expect.any(String) });
+  }
+});
+
+it("refreshes the exact document CAS and explains concurrent deletion refusal", async () => {
+  await i18n.changeLanguage("en-US");
+  const base = transport(["document:read", "document:delete"]);
+  let attempted = false;
+  const fetcher = vi.fn<FetchPort>().mockImplementation((path, options) => {
+    const url = String(path);
+    if (url.endsWith("/impact")) return Promise.resolve(response({ document_id: document.document_id, eligible_draft: true, protected_version_history: false, references: {} }));
+    if (options?.method === "DELETE") {
+      if (!attempted) { attempted = true; return Promise.resolve(response({}, 409)); }
+      return Promise.resolve(response({ deleted: true }));
+    }
+    if (attempted && url.endsWith("/documents/document-1")) return Promise.resolve(response({ ...document, record_version: 2, versions: [version] }));
+    return base(path, options);
+  });
+  render(<KnowledgeManagement client={new AdminClient(fetcher)} session={session} />);
+  await userEvent.click(await screen.findByRole("button", { name: /Original regulation/ }));
+  await userEvent.type(screen.getAllByRole("textbox", { name: i18n.t("ui.kb01.reason") })[0], "Human reviewed draft cleanup");
+  await userEvent.click(screen.getByRole("button", { name: i18n.t("ui.kb01.impact") }));
+  const remove = screen.getByRole("button", { name: i18n.t("ui.kb01.deleteDraft") });
+  await waitFor(() => expect(remove).toBeEnabled());
+  await userEvent.click(remove);
+  await screen.findByText(i18n.t("ui.kb01.deleteChanged"));
+  await userEvent.click(remove);
+  await waitFor(() => expect(fetcher.mock.calls.filter(([, options]) => options?.method === "DELETE")).toHaveLength(2));
+  expect(fetcher.mock.calls.filter(([, options]) => options?.method === "DELETE").map(([, options]) => JSON.parse(String(options?.body)).expected_record_version)).toEqual([1, 2]);
+});

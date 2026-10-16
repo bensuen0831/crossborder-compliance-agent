@@ -58,6 +58,13 @@ test("KB01 bounded batch deletion previews references, uses canonical commands a
   expect(projected.items[0].documents).toBe(2);
   expect(projected.items[0].jurisdiction_id).toBe(labels[0].definition_id);
   expect(projected.items[0].value).toBe(labels[1].definition_id);
+  await page.locator(`button[data-document-id="${ids[0]}"]`).click();
+  await page.getByRole("textbox", { name: t("ui.kb01.reason"), exact: true }).first().fill("Synthetic explicit reference inspection");
+  const singleDelete = page.getByRole("button", { name: t("ui.kb01.deleteDraft"), exact: true });
+  await expect(singleDelete).toBeDisabled();
+  await page.getByRole("button", { name: t("ui.kb01.impact"), exact: true }).click();
+  await expect(page.getByText(t("ui.kb01.deleteEligible"), { exact: true })).toBeVisible();
+  await expect(singleDelete).toBeEnabled();
   const bulk = page.getByRole("region", { name: t("ui.kb01.bulkActions"), exact: true });
   for (const id of ids) await bulk.locator(`input[data-bulk-document-id="${id}"]`).check();
   await bulk.getByRole("textbox", { name: t("ui.kb01.reason"), exact: true }).fill("Synthetic explicitly authorized unreferenced draft cleanup");
