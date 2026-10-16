@@ -1,0 +1,45 @@
+{
+  "decision": "PENDING_FINAL_HEAD_CI",
+  "failures_preserved": true,
+  "failures": [
+    {
+      "run_id": 38862537338,
+      "sha": "c905538d3b754df68e25ab1d127bc98a989d45fc",
+      "category": "WORKFLOW_EXPRESSION_CONTEXT",
+      "error": "runner context is not allowed in job-level env",
+      "recovery": "Resolve RUNNER_TEMP inside a runner step; verified actionlintv1.7.12"
+    },
+    {
+      "run_ids": [
+        38863222421,
+        38863222433
+      ],
+      "sha": "b1c644c33ac81827b95d966f47ea08ce5c2b8fca",
+      "category": "HISTORICAL_DEPENDENCY_BOUNDARY",
+      "error": "Original M1 whole package/lock identity rejects finite streaming-hash addition",
+      "recovery": "Authenticated exact-source one-dependency successor; all original8 checks retained"
+    },
+    {
+      "run_id": 38864370395,
+      "job_id": 116853711118,
+      "sha": "34a78c57cfe37730779db570bd0524b48e58299c",
+      "category": "CI_PYTHON_IMPORT_PATH",
+      "error": "ModuleNotFoundError: scripts during contract collection",
+      "recovery": "python -m pytest with identical marker and assertions; no test removed"
+    }
+  ],
+  "local_contract_checkpoint": {
+    "sha": "34a78c57cfe37730779db570bd0524b48e58299c",
+    "passed": 666,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 629,
+    "elapsed_seconds": 432.73,
+    "scope": "EXPLICIT_CONTRACT_SUBSET_NOT_FULL_POSTGRES_SUITE"
+  },
+  "reduced_assertions": false,
+  "reduced_coverage": false,
+  "browser_retries_added": false,
+  "stage2_started": false
+}
