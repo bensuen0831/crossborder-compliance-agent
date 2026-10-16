@@ -1,3 +1,4 @@
+import { safeBrowserError } from "./kb01-safe-evidence";
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import path from "node:path";
@@ -13,8 +14,8 @@ test("KB01 optional CSV catalogue remains an immutable proposal until explicit f
   const original = originals.find(row => row.locale === "en-US" && row.format === "TXT")!;
   expect(original).toBeTruthy();
   const errors: string[] = [];
-  page.on("pageerror", error => errors.push(error.message));
-  page.on("console", message => { if (message.type() === "error") errors.push(message.text()); });
+  page.on("pageerror", error => errors.push(safeBrowserError(error.message)));
+  page.on("console", message => { if (message.type() === "error") errors.push(safeBrowserError(message.text())); });
   page.on("response", response => { if (response.status() >= 500) errors.push(`HTTP_${response.status()}`); });
   await page.addInitScript(() => { if (["http:", "https:"].includes(location.protocol)) localStorage.setItem("stage1-alpha.ui-locale", "en-US"); });
   expect((await page.request.post("/m0-demo/login", { data: { persona: "A" } })).status()).toBe(200);

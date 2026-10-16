@@ -81,3 +81,28 @@ assertions, locale coverage or Browser retry policy are removed or weakened.
 **A–E/F0 technical closure remains IN PROGRESS. Remote exact-head CI PENDING.**
 **F1 BLOCKED — EXTERNAL_EVIDENCE_PENDING.** Paid Internet LLM, real regulatory legal
 acceptance and production business UAT remain NOT EXECUTED. Stage 2 NOT STARTED.
+
+
+## F sealed-source full gate and evidence-safety continuation
+
+On exact isolated checkout `876f5a3a7312c45b104978c5ab41def02633f447`,
+complete PostgreSQL regression measured **1271 PASS**, zero failed/errors/skipped/
+deselected, in **4199.00 seconds**. Runtime **25/25 PASS**; all gate checks, including
+Stage1-alpha integrity, completed successfully. All nine architecture authorities
+measured **442/442 PASS**. The initial standalone M2-E architecture invocation
+lacked the isolated checkout in PYTHONPATH; the corrected invocation passed 27/27,
+with the original invocation diagnostic retained. These are source-specific facts.
+
+Later evidence-safety changes redact signed URL query/fragment/userinfo from every
+captured Browser error while preserving the error assertion and HTTP identity.
+Raw traces/cookies/network archives remain private diagnostics and are excluded
+from public CI artifacts. Two focused diagnostic tests pass; no product behavior,
+legal result, migration or retry policy changes. Final-source CI is still required.
+
+The complete suite's S3 fixture replaces bucket CORS as part of test setup. Large
+Browser acceptance therefore uses a separate versioned bucket and database; it
+must not share the full-regression bucket. The cancelled/failed development runs
+remain recorded, not relabelled PASS. This isolation changes test setup only.
+
+Final A–E/F0 technical acceptance, final PR-head CI and full Browser closure remain
+pending. F1 remains BLOCKED — EXTERNAL_EVIDENCE_PENDING. Stage 2 NOT STARTED.

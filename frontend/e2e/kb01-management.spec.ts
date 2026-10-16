@@ -1,3 +1,4 @@
+import { safeBrowserError } from "./kb01-safe-evidence";
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import crypto from "node:crypto";
@@ -22,9 +23,9 @@ for (const locale of Object.keys(catalogs) as (keyof typeof catalogs)[]) {
     test.setTimeout(240_000);
     const t = (key: keyof typeof enUS) => catalogs[locale][key];
     const errors: string[] = [];
-    page.on("pageerror", (e) => errors.push(e.message));
+    page.on("pageerror", (e) => errors.push(safeBrowserError(e.message)));
     page.on("console", (message) => {
-      if (message.type() === "error") errors.push(message.text());
+      if (message.type() === "error") errors.push(safeBrowserError(message.text()));
     });
     page.on("response", (response) => {
       if (response.status() >= 500) errors.push(`HTTP_${response.status()}`);

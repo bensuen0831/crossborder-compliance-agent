@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from scripts.kb01_ownership import (
+    EIGHTH_RECORD,
     FIFTH_RECORD,
     FOURTH_RECORD,
     RECORD,
@@ -43,6 +44,8 @@ def test_kb01_ownership_authenticates_committed_source():
         FIFTH_RECORD,
         SIXTH_RECORD,
         SEVENTH_RECORD,
+        EIGHTH_RECORD,
+        "frontend/e2e/kb01-safe-evidence.ts",
         "src/crossborder_compliance/infrastructure/persistence/knowledge_manifest_models.py",
         "scripts/stage1_alpha_integrity.py",
         ".github/workflows/kb01-knowledge-management.yml",

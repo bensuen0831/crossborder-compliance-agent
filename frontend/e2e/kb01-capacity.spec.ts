@@ -1,3 +1,4 @@
+import { safeBrowserError } from "./kb01-safe-evidence";
 import { test, expect } from "@playwright/test";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
@@ -22,8 +23,8 @@ for (const kind of ["SINGLE", "RAR4", "RAR5", "ZIP"] as const) {
     const fixture = JSON.parse(stdout) as Fixture;
     expect(fixture.bytes).toBeGreaterThan(kind === "SINGLE" ? 500 * 1024 ** 2 : 1024 ** 3);
     const errors: string[] = [];
-    page.on("pageerror", error => errors.push(error.message));
-    page.on("console", message => { if (message.type() === "error") errors.push(message.text()); });
+    page.on("pageerror", error => errors.push(safeBrowserError(error.message)));
+    page.on("console", message => { if (message.type() === "error") errors.push(safeBrowserError(message.text())); });
     page.on("response", response => { if (response.status() >= 500) errors.push(`HTTP_${response.status()}`); });
     await page.addInitScript(() => { if (["http:", "https:"].includes(location.protocol)) localStorage.setItem("stage1-alpha.ui-locale", "en-US"); });
     expect((await page.request.post("/m0-demo/login", { data: { persona: "A" } })).status()).toBe(200);

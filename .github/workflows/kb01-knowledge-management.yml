@@ -124,7 +124,9 @@ jobs:
         if: always()
         with:
           name: kb01-management-browser-${{ github.run_id }}
-          path: artifacts/kb01/frontend
+          path: |
+            artifacts/kb01/frontend/*.json
+            artifacts/kb01/frontend/runner_checkout_sha.txt
           if-no-files-found: error
   capacity-browser:
     runs-on: ubuntu-latest
@@ -208,7 +210,10 @@ jobs:
         if: always()
         with:
           name: kb01-capacity-browser-${{ github.run_id }}
-          path: artifacts/kb01/capacity
+          path: |
+            artifacts/kb01/capacity/*.json
+            artifacts/kb01/capacity/runner_checkout_sha.txt
+            artifacts/kb01/capacity/measured/*.json
           if-no-files-found: error
   acceptance-complete:
     runs-on: ubuntu-latest
