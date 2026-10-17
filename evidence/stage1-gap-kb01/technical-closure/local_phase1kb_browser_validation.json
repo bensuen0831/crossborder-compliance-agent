@@ -1,0 +1,57 @@
+{
+  "source_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "classification": "LOCAL_EXACT_SOURCE_FOCUSED_NOT_REMOTE_CLOSURE",
+  "environment": [
+    "real PostgreSQL",
+    "real HTTP",
+    "Chromium",
+    "local HTTP LLM provider"
+  ],
+  "passed": 6,
+  "failed": 0,
+  "retries": 0,
+  "cases": [
+    {
+      "title": "governed admin providers, write-only secret and real HTTP tests zh-CN",
+      "file": "frontend/e2e/phase1kb.spec.ts",
+      "status": "PASS",
+      "retries": 0,
+      "duration_ms": 11750
+    },
+    {
+      "title": "authorized eligible selection, genuine document extraction and exact workflow zh-CN",
+      "file": "frontend/e2e/phase1kb.spec.ts",
+      "status": "PASS",
+      "retries": 0,
+      "duration_ms": 19889
+    },
+    {
+      "title": "governed admin providers, write-only secret and real HTTP tests zh-HK",
+      "file": "frontend/e2e/phase1kb.spec.ts",
+      "status": "PASS",
+      "retries": 0,
+      "duration_ms": 11192
+    },
+    {
+      "title": "authorized eligible selection, genuine document extraction and exact workflow zh-HK",
+      "file": "frontend/e2e/phase1kb.spec.ts",
+      "status": "PASS",
+      "retries": 0,
+      "duration_ms": 19160
+    },
+    {
+      "title": "governed admin providers, write-only secret and real HTTP tests en-US",
+      "file": "frontend/e2e/phase1kb.spec.ts",
+      "status": "PASS",
+      "retries": 0,
+      "duration_ms": 12082
+    },
+    {
+      "title": "authorized eligible selection, genuine document extraction and exact workflow en-US",
+      "file": "frontend/e2e/phase1kb.spec.ts",
+      "status": "PASS",
+      "retries": 0,
+      "duration_ms": 18175
+    }
+  ]
+}

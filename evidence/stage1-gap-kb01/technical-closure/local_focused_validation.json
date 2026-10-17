@@ -1,0 +1,344 @@
+{
+  "source_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "classification": "LOCAL_FOCUSED_SOURCE_TAMPER_CI_PRIVACY_GATE_NOT_FULL_REMOTE_CLOSURE",
+  "passed": 66,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "deselected": 0,
+  "elapsed_seconds": 90.783,
+  "cases": [
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_authenticates_committed_source",
+      "seconds": 1.517
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[alembic/versions/0020_stage1_formal_decision_engine_compatibility.py]",
+      "seconds": 2.569
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[src/crossborder_compliance/domain/decision_engine.py]",
+      "seconds": 2.321
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-full-e2e/r3/approved_owner_overlay.json]",
+      "seconds": 1.428
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[src/crossborder_compliance/domain/knowledge_management.py]",
+      "seconds": 2.337
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[src/crossborder_compliance/application/unapproved_kb_shortcut.py]",
+      "seconds": 2.415
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay.json]",
+      "seconds": 1.428
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v2.json]",
+      "seconds": 1.443
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v3.json]",
+      "seconds": 1.624
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v13.json0]",
+      "seconds": 2.118
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v12.json0]",
+      "seconds": 1.886
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v13.json1]",
+      "seconds": 2.075
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[alembic/versions/0022_kb01_binary_transport.py]",
+      "seconds": 1.506
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v14.json]",
+      "seconds": 1.974
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v15.json]",
+      "seconds": 1.996
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v16.json]",
+      "seconds": 2.036
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v17.json]",
+      "seconds": 2.121
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v18.json]",
+      "seconds": 2.163
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v4.json]",
+      "seconds": 1.407
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v9.json0]",
+      "seconds": 1.665
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v5.json]",
+      "seconds": 1.51
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v6.json]",
+      "seconds": 1.573
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v7.json]",
+      "seconds": 1.688
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v8.json]",
+      "seconds": 1.622
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v11.json]",
+      "seconds": 1.748
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v9.json1]",
+      "seconds": 1.71
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v10.json]",
+      "seconds": 1.714
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v12.json1]",
+      "seconds": 1.832
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v13.json2]",
+      "seconds": 1.929
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[frontend/e2e/kb01-safe-evidence.ts]",
+      "seconds": 2.248
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[src/crossborder_compliance/infrastructure/persistence/knowledge_manifest_models.py]",
+      "seconds": 2.331
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[scripts/stage1_alpha_integrity.py]",
+      "seconds": 2.149
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[.github/workflows/kb01-knowledge-management.yml]",
+      "seconds": 2.225
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[frontend/package-lock.json]",
+      "seconds": 2.361
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[frontend/package.json]",
+      "seconds": 2.549
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[frontend/scripts/m1/boundary_check.py]",
+      "seconds": 2.792
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[alembic/versions/0023_kb01_evidence_source_reference.py]",
+      "seconds": 1.787
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[alembic/versions/0021_kb01_taxonomy_operations.py]",
+      "seconds": 1.674
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[src/crossborder_compliance/infrastructure/knowledge_import_worker.py]",
+      "seconds": 2.197
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[src/crossborder_compliance/infrastructure/persistence/regulatory_acceptance_governance.py]",
+      "seconds": 2.226
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_uncommitted_tampering[src/crossborder_compliance/infrastructure/persistence/knowledge_translation_alignment.py]",
+      "seconds": 2.197
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_ownership_rejects_live_hash_self_certification",
+      "seconds": 1.105
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_successor_bounds_require_matching_source",
+      "seconds": 3.264
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_dependency_successor_preserves_exact_m1_package_contract",
+      "seconds": 2.125
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_m1_boundary_retains_every_original_check_with_authenticated_dependency",
+      "seconds": 1.606
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_schema_successor_authenticates_complete_committed_migration_tree",
+      "seconds": 1.374
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_schema_successor_rejects_unapproved_or_alias_heads[head]",
+      "seconds": 0.0
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_schema_successor_rejects_unapproved_or_alias_heads[0020_stage1_formal_decision_engine_compatibility]",
+      "seconds": 0.0
+    },
+    {
+      "class": "tests.test_kb01_ownership",
+      "name": "test_kb01_schema_successor_rejects_unapproved_or_alias_heads[0025_unapproved]",
+      "seconds": 0.0
+    },
+    {
+      "class": "tests.test_kb01_ci_evidence",
+      "name": "test_ci_aggregation_requires_complete_exact_source_evidence",
+      "seconds": 0.002
+    },
+    {
+      "class": "tests.test_kb01_ci_evidence",
+      "name": "test_ci_aggregation_rejects_green_but_incomplete_or_wrong_source[source]",
+      "seconds": 0.001
+    },
+    {
+      "class": "tests.test_kb01_ci_evidence",
+      "name": "test_ci_aggregation_rejects_green_but_incomplete_or_wrong_source[skipped]",
+      "seconds": 0.001
+    },
+    {
+      "class": "tests.test_kb01_ci_evidence",
+      "name": "test_ci_aggregation_rejects_green_but_incomplete_or_wrong_source[missing_test]",
+      "seconds": 0.001
+    },
+    {
+      "class": "tests.test_kb01_ci_evidence",
+      "name": "test_ci_aggregation_rejects_green_but_incomplete_or_wrong_source[retry]",
+      "seconds": 0.001
+    },
+    {
+      "class": "tests.test_kb01_ci_evidence",
+      "name": "test_ci_aggregation_rejects_green_but_incomplete_or_wrong_source[small_archive]",
+      "seconds": 0.002
+    },
+    {
+      "class": "tests.test_kb01_ci_evidence",
+      "name": "test_ci_aggregation_rejects_green_but_incomplete_or_wrong_source[wrong_browser_case]",
+      "seconds": 0.001
+    },
+    {
+      "class": "tests.test_kb01_ci_evidence",
+      "name": "test_uat_cannot_configure_nonlocal_or_credentialed_cors[http://example.com:15173]",
+      "seconds": 0.001
+    },
+    {
+      "class": "tests.test_kb01_ci_evidence",
+      "name": "test_uat_cannot_configure_nonlocal_or_credentialed_cors[http://user:pass@localhost:15173]",
+      "seconds": 0.0
+    },
+    {
+      "class": "tests.test_kb01_ci_evidence",
+      "name": "test_uat_cannot_configure_nonlocal_or_credentialed_cors[http://localhost:15173/?secret=redacted]",
+      "seconds": 0.0
+    },
+    {
+      "class": "tests.test_kb01_ci_evidence",
+      "name": "test_uat_cannot_configure_nonlocal_or_credentialed_cors[http://localhost:15173/path]",
+      "seconds": 0.0
+    },
+    {
+      "class": "tests.test_kb01_ci_evidence",
+      "name": "test_uat_uses_exact_isolated_browser_origin",
+      "seconds": 0.0
+    },
+    {
+      "class": "tests.test_kb01_ci_diagnostics",
+      "name": "test_storage_topology_projection_excludes_network_and_identity_fields",
+      "seconds": 0.0
+    },
+    {
+      "class": "tests.test_kb01_ci_diagnostics",
+      "name": "test_storage_log_reports_causal_markers_without_signed_urls_or_keys",
+      "seconds": 0.0
+    },
+    {
+      "class": "tests.test_kb01_ci_diagnostics",
+      "name": "test_upload_diagnostic_preserves_only_exact_safe_state_and_frozen_budget",
+      "seconds": 0.0
+    },
+    {
+      "class": "tests.test_kb01_ci_diagnostics",
+      "name": "test_upload_diagnostic_redacts_untrusted_error_detail",
+      "seconds": 0.0
+    },
+    {
+      "class": "tests.test_kb01_architecture",
+      "name": "test_kb01_additive_architecture_contracts",
+      "seconds": 1.087
+    }
+  ],
+  "typecheck": "PASS",
+  "lint": "PASS"
+}

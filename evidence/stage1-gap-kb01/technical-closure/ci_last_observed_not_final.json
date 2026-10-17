@@ -1,0 +1,539 @@
+{
+  "source_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "decision": "PENDING_OR_BLOCKED",
+  "expected_workflows": [
+    "KB01 Regulatory Knowledge Management",
+    "M0 Knowledge & Evidence Preview",
+    "M1 Intake Analysis Alpha",
+    "M2A Production Intake",
+    "M2B Production Document Integration",
+    "M2C Formal Result Workspace",
+    "M2D Governed Human Review",
+    "M2E External Agent API Gateway",
+    "Phase1KB Multi-provider LLM Governance",
+    "Stage1 Full Business E2E Acceptance",
+    "Stage1 R1 Candidate Governance Recovery",
+    "phase1a-runtime-smoke"
+  ],
+  "missing_workflows": [],
+  "runs": [
+    {
+      "id": 38985601851,
+      "name": "KB01 Regulatory Knowledge Management",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "status": "in_progress",
+      "conclusion": null,
+      "event": "pull_request",
+      "run_attempt": 1,
+      "created_at": "2026-10-17T00:16:27Z",
+      "updated_at": "2026-10-17T00:16:37Z",
+      "jobs": [
+        {
+          "id": 117256227389,
+          "name": "capacity-browser",
+          "status": "in_progress",
+          "conclusion": null,
+          "started_at": "2026-10-17T00:16:31Z",
+          "completed_at": null,
+          "current_step": "Genuine 500MiB original and GiB RAR4/RAR5/ZIP canonical publication",
+          "failed_steps": []
+        },
+        {
+          "id": 117256227444,
+          "name": "focused-postgres",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-17T00:16:31Z",
+          "completed_at": "2026-10-17T00:22:52Z",
+          "current_step": null,
+          "failed_steps": [],
+          "log_sha256": "10d9973829099e308adc95022489db564c195c90bc765271c5ba5b08b7f4f8a8",
+          "runner_checkout_shas": [
+            "39c3581ca455df4e3ce9760ed2deab8905a5f588"
+          ],
+          "checkout_match": true
+        },
+        {
+          "id": 117256227464,
+          "name": "management-browser",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-17T00:16:31Z",
+          "completed_at": "2026-10-17T00:26:25Z",
+          "current_step": null,
+          "failed_steps": [],
+          "log_sha256": "1e6eb7a61e7c5649918d1e462f9245212b07844315400f679044e690269de23c",
+          "runner_checkout_shas": [
+            "39c3581ca455df4e3ce9760ed2deab8905a5f588"
+          ],
+          "checkout_match": true
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 12083285901,
+          "name": "kb01-tools-capacity-browser-38985601851-1",
+          "size_in_bytes": 1340,
+          "digest": "sha256:e18a280a67bdce8bc294acda30f23c415085ba6f828a0f9a08dbb19cab04b437",
+          "expired": false
+        },
+        {
+          "id": 12082769215,
+          "name": "kb01-management-browser-38985601851",
+          "size_in_bytes": 52110,
+          "digest": "sha256:c11526f1e1aebc1ae3e741c78c74983fac32be92cd78ebf8c5cece7246cae0cb",
+          "expired": false
+        },
+        {
+          "id": 12082742382,
+          "name": "kb01-focused-postgres-38985601851",
+          "size_in_bytes": 14619,
+          "digest": "sha256:8bdff38219c3576f7094098ffd1adf61b99b21b1fb1a172a8060ec54fc7f502a",
+          "expired": false
+        },
+        {
+          "id": 12081929683,
+          "name": "kb01-tools-management-browser-38985601851-1",
+          "size_in_bytes": 1341,
+          "digest": "sha256:b327b28f2849dea29d6fe75e61acd98943e55b91ec875b858a117f97970d5451",
+          "expired": false
+        },
+        {
+          "id": 12081809850,
+          "name": "kb01-tools-focused-postgres-38985601851-1",
+          "size_in_bytes": 1341,
+          "digest": "sha256:31ec86e9cd4bf31a67d8b544861bd00178dd6567bcbcfb20e7ada939edac9780",
+          "expired": false
+        }
+      ]
+    },
+    {
+      "id": 38985601865,
+      "name": "M0 Knowledge & Evidence Preview",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "status": "completed",
+      "conclusion": "success",
+      "event": "pull_request",
+      "run_attempt": 1,
+      "created_at": "2026-10-17T00:16:27Z",
+      "updated_at": "2026-10-17T00:22:22Z",
+      "jobs": [
+        {
+          "id": 117256227323,
+          "name": "frontend",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-17T00:16:30Z",
+          "completed_at": "2026-10-17T00:18:30Z",
+          "current_step": null,
+          "failed_steps": [],
+          "log_sha256": "2555272e90099c40e1cc92fb992af02bf9765ee8f2099ee6625e1c8fd2082f6a",
+          "runner_checkout_shas": [
+            "39c3581ca455df4e3ce9760ed2deab8905a5f588"
+          ],
+          "checkout_match": true
+        },
+        {
+          "id": 117256227475,
+          "name": "real-backend-uat",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-17T00:16:30Z",
+          "completed_at": "2026-10-17T00:22:21Z",
+          "current_step": null,
+          "failed_steps": [],
+          "log_sha256": "cf5d297850caa3ebadd9f89ebbb0f3262e4fafec8f0274b20559d5d1a136689b",
+          "runner_checkout_shas": [
+            "39c3581ca455df4e3ce9760ed2deab8905a5f588"
+          ],
+          "checkout_match": true
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 12083331409,
+          "name": "m0-browser-uat-38985601865-1",
+          "size_in_bytes": 2147665,
+          "digest": "sha256:a776315c7d525aae4e2795c36ae4d2de08875a1effff399815606d2887eb9fc2",
+          "expired": false
+        }
+      ]
+    },
+    {
+      "id": 38985601847,
+      "name": "M1 Intake Analysis Alpha",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "status": "completed",
+      "conclusion": "success",
+      "event": "pull_request",
+      "run_attempt": 1,
+      "created_at": "2026-10-17T00:16:27Z",
+      "updated_at": "2026-10-17T00:25:02Z",
+      "jobs": [
+        {
+          "id": 117256227401,
+          "name": "frontend-real-backend-uat",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-17T00:16:31Z",
+          "completed_at": "2026-10-17T00:25:01Z",
+          "current_step": null,
+          "failed_steps": [],
+          "log_sha256": "21b802956e21c5a28645e81365dbf364e3bde1c4db21b6772ce38fe350db32ce",
+          "runner_checkout_shas": [
+            "39c3581ca455df4e3ce9760ed2deab8905a5f588"
+          ],
+          "checkout_match": true
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 12082998059,
+          "name": "m1-uat-38985601847",
+          "size_in_bytes": 3196296,
+          "digest": "sha256:0af15e4bfdfd07c23a1d8c15afdc57187ddd8c8a5b4719fc863d1968178d2b75",
+          "expired": false
+        }
+      ]
+    },
+    {
+      "id": 38985601876,
+      "name": "M2A Production Intake",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "status": "completed",
+      "conclusion": "success",
+      "event": "pull_request",
+      "run_attempt": 1,
+      "created_at": "2026-10-17T00:16:27Z",
+      "updated_at": "2026-10-17T00:21:53Z",
+      "jobs": [
+        {
+          "id": 117256227408,
+          "name": "frontend-real-backend-uat",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-17T00:16:30Z",
+          "completed_at": "2026-10-17T00:21:52Z",
+          "current_step": null,
+          "failed_steps": [],
+          "log_sha256": "77be0950fe25c7fd70d0b89fe719125660ffc3920af8f166d5f7dbac7ae11dcb",
+          "runner_checkout_shas": [
+            "39c3581ca455df4e3ce9760ed2deab8905a5f588"
+          ],
+          "checkout_match": true
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 12083306531,
+          "name": "m2a-uat-38985601876",
+          "size_in_bytes": 1436670,
+          "digest": "sha256:12f4252d364f67904bc496bd2dafe014c635c215f8643f1df1df5ea96bfd361b",
+          "expired": false
+        }
+      ]
+    },
+    {
+      "id": 38985601848,
+      "name": "M2B Production Document Integration",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "status": "completed",
+      "conclusion": "success",
+      "event": "pull_request",
+      "run_attempt": 1,
+      "created_at": "2026-10-17T00:16:27Z",
+      "updated_at": "2026-10-17T00:24:23Z",
+      "jobs": [
+        {
+          "id": 117256227680,
+          "name": "frontend-real-backend-uat",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-17T00:16:30Z",
+          "completed_at": "2026-10-17T00:24:22Z",
+          "current_step": null,
+          "failed_steps": [],
+          "log_sha256": "2565dab295fbdb22e1cbc97b7cadfbe8e3872790e348a3341c34bd73de85cee0",
+          "runner_checkout_shas": [
+            "39c3581ca455df4e3ce9760ed2deab8905a5f588"
+          ],
+          "checkout_match": true
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 12082953162,
+          "name": "m2b-uat-38985601848",
+          "size_in_bytes": 6066164,
+          "digest": "sha256:1cf906590ad3c10b9d2144abec0a910eb7eddf161f5f7dfc2953d7f4e4b41f00",
+          "expired": false
+        }
+      ]
+    },
+    {
+      "id": 38985601873,
+      "name": "M2C Formal Result Workspace",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "status": "completed",
+      "conclusion": "success",
+      "event": "pull_request",
+      "run_attempt": 1,
+      "created_at": "2026-10-17T00:16:27Z",
+      "updated_at": "2026-10-17T00:31:37Z",
+      "jobs": [
+        {
+          "id": 117256227235,
+          "name": "frontend-real-backend-uat",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-17T00:16:30Z",
+          "completed_at": "2026-10-17T00:31:36Z",
+          "current_step": null,
+          "failed_steps": [],
+          "log_sha256": "94d0f39de9c0382079c569edb3e85e9a74a83546ea709e1579f53d43b0666e61",
+          "runner_checkout_shas": [
+            "39c3581ca455df4e3ce9760ed2deab8905a5f588"
+          ],
+          "checkout_match": true
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 12083950024,
+          "name": "m2c-uat-38985601873",
+          "size_in_bytes": 7041294,
+          "digest": "sha256:69e184484676e963bc126a547f066db553451cb34a79f44d2dc27fc8e55d99e1",
+          "expired": false
+        }
+      ]
+    },
+    {
+      "id": 38985601854,
+      "name": "M2D Governed Human Review",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "status": "in_progress",
+      "conclusion": null,
+      "event": "pull_request",
+      "run_attempt": 1,
+      "created_at": "2026-10-17T00:16:27Z",
+      "updated_at": "2026-10-17T00:16:31Z",
+      "jobs": [
+        {
+          "id": 117256227299,
+          "name": "frontend-real-backend-uat",
+          "status": "in_progress",
+          "conclusion": null,
+          "started_at": "2026-10-17T00:16:30Z",
+          "completed_at": null,
+          "current_step": "Three-locale real-backend UAT, zero retries",
+          "failed_steps": []
+        }
+      ]
+    },
+    {
+      "id": 38985601846,
+      "name": "M2E External Agent API Gateway",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "status": "in_progress",
+      "conclusion": null,
+      "event": "pull_request",
+      "run_attempt": 1,
+      "created_at": "2026-10-17T00:16:27Z",
+      "updated_at": "2026-10-17T00:16:31Z",
+      "jobs": [
+        {
+          "id": 117256227196,
+          "name": "mandatory-backend",
+          "status": "in_progress",
+          "conclusion": null,
+          "started_at": "2026-10-17T00:16:30Z",
+          "completed_at": null,
+          "current_step": "Full mandatory PostgreSQL runtime, registry, real HTTP providers, security and migration",
+          "failed_steps": []
+        },
+        {
+          "id": 117256227416,
+          "name": "canonical-frontend-browser",
+          "status": "in_progress",
+          "conclusion": null,
+          "started_at": "2026-10-17T00:16:30Z",
+          "completed_at": null,
+          "current_step": "Admin/user three-locale smoke and M2-D/C/B/A/M1 regressions, zero retries",
+          "failed_steps": []
+        }
+      ]
+    },
+    {
+      "id": 38985601845,
+      "name": "Phase1KB Multi-provider LLM Governance",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "status": "in_progress",
+      "conclusion": null,
+      "event": "pull_request",
+      "run_attempt": 1,
+      "created_at": "2026-10-17T00:16:27Z",
+      "updated_at": "2026-10-17T00:16:37Z",
+      "jobs": [
+        {
+          "id": 117256227153,
+          "name": "mandatory-backend",
+          "status": "in_progress",
+          "conclusion": null,
+          "started_at": "2026-10-17T00:16:30Z",
+          "completed_at": null,
+          "current_step": "Full mandatory PostgreSQL runtime, registry, real HTTP providers, security and migration",
+          "failed_steps": []
+        },
+        {
+          "id": 117256227288,
+          "name": "canonical-frontend-browser",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-17T00:16:30Z",
+          "completed_at": "2026-10-17T00:30:42Z",
+          "current_step": null,
+          "failed_steps": [],
+          "log_sha256": "e4f4244af7381275cef41ada750e4fab700d8803fddfe3f65b4ff9de534a5475",
+          "runner_checkout_shas": [
+            "39c3581ca455df4e3ce9760ed2deab8905a5f588"
+          ],
+          "checkout_match": true
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 12083865407,
+          "name": "phase1kb-frontend-38985601845",
+          "size_in_bytes": 414,
+          "digest": "sha256:9a047968924886788cb35941aebba5cbbddd7df6455f2c3dabb86f78c1935843",
+          "expired": false
+        },
+        {
+          "id": 12083121825,
+          "name": "kb01-tools-mandatory-backend-38985601845-1",
+          "size_in_bytes": 1339,
+          "digest": "sha256:78b390c561aa962da386cbe7d186b9b55f8ba137766e4e717624f0ac9b410f4b",
+          "expired": false
+        }
+      ]
+    },
+    {
+      "id": 38985601896,
+      "name": "Stage1 Full Business E2E Acceptance",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "status": "in_progress",
+      "conclusion": null,
+      "event": "pull_request",
+      "run_attempt": 1,
+      "created_at": "2026-10-17T00:16:27Z",
+      "updated_at": "2026-10-17T00:16:31Z",
+      "jobs": [
+        {
+          "id": 117256227576,
+          "name": "business-contracts",
+          "status": "in_progress",
+          "conclusion": null,
+          "started_at": "2026-10-17T00:16:31Z",
+          "completed_at": null,
+          "current_step": "Full synthetic business fixtures, four outcomes, parity, RAG and successors",
+          "failed_steps": []
+        },
+        {
+          "id": 117256227771,
+          "name": "business-browser",
+          "status": "in_progress",
+          "conclusion": null,
+          "started_at": "2026-10-17T00:16:31Z",
+          "completed_at": null,
+          "current_step": "Twelve fresh business projects, four outcomes \u00d7 three locales, zero retries",
+          "failed_steps": []
+        }
+      ]
+    },
+    {
+      "id": 38985601852,
+      "name": "Stage1 R1 Candidate Governance Recovery",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "status": "in_progress",
+      "conclusion": null,
+      "event": "pull_request",
+      "run_attempt": 1,
+      "created_at": "2026-10-17T00:16:27Z",
+      "updated_at": "2026-10-17T00:16:31Z",
+      "jobs": [
+        {
+          "id": 117256227194,
+          "name": "mandatory-backend",
+          "status": "in_progress",
+          "conclusion": null,
+          "started_at": "2026-10-17T00:16:30Z",
+          "completed_at": null,
+          "current_step": "Full mandatory PostgreSQL runtime, registry, real HTTP providers, security and migration",
+          "failed_steps": []
+        },
+        {
+          "id": 117256227326,
+          "name": "canonical-frontend-browser",
+          "status": "in_progress",
+          "conclusion": null,
+          "started_at": "2026-10-17T00:16:31Z",
+          "completed_at": null,
+          "current_step": "Admin/user three-locale smoke and M2-D/C/B/A/M1 regressions, zero retries",
+          "failed_steps": []
+        }
+      ]
+    },
+    {
+      "id": 38985601850,
+      "name": "phase1a-runtime-smoke",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "status": "in_progress",
+      "conclusion": null,
+      "event": "pull_request",
+      "run_attempt": 1,
+      "created_at": "2026-10-17T00:16:27Z",
+      "updated_at": "2026-10-17T00:16:31Z",
+      "jobs": [
+        {
+          "id": 117256227173,
+          "name": "contract-tests",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-17T00:16:30Z",
+          "completed_at": "2026-10-17T00:22:58Z",
+          "current_step": null,
+          "failed_steps": [],
+          "log_sha256": "2987cb9ea4e01efd212ace398f8b83dea90ceea654b5b34405b01124616eda5b",
+          "runner_checkout_shas": [
+            "39c3581ca455df4e3ce9760ed2deab8905a5f588"
+          ],
+          "checkout_match": true
+        },
+        {
+          "id": 117256227397,
+          "name": "mandatory-runtime-smoke",
+          "status": "in_progress",
+          "conclusion": null,
+          "started_at": "2026-10-17T00:16:30Z",
+          "completed_at": null,
+          "current_step": "Run mandatory PostgreSQL-backed LangGraph gate",
+          "failed_steps": []
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 12083130876,
+          "name": "kb01-tools-mandatory-runtime-smoke-38985601850-1",
+          "size_in_bytes": 1343,
+          "digest": "sha256:8ad628c5050c89d17c7603e754e5cf0fe254b7905f58b742d4f6ad22c98fdbab",
+          "expired": false
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "workflows_success": 5,
+  "jobs_checkout_match": 10,
+  "job_count": 20,
+  "failed_jobs": []
+}

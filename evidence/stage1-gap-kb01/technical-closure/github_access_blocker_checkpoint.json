@@ -1,0 +1,54 @@
+{
+  "decision": "BLOCKED",
+  "reason": "GITHUB_CREDENTIALS_REJECTED_EXACT_HEAD_CLOSURE_UNVERIFIABLE",
+  "recorded_at_utc": "2026-10-17T00:36:08.890833+00:00",
+  "source_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "source_commit": "49b94c30085c6c411e4a86316505ff8392bba1de",
+  "pr": 29,
+  "last_verified_pr_state": "OPEN_DRAFT",
+  "last_verified_main_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "local": {
+    "source_tamper_ci_privacy_passed": 66,
+    "phase1kb_browser_passed": 6,
+    "browser_retries": 0,
+    "typecheck": "PASS",
+    "lint": "PASS"
+  },
+  "collection_only_not_execution": {
+    "backend_current": 1315,
+    "baseline_backend_retained": 1012,
+    "frontend_current": 180,
+    "baseline_frontend_retained": 142,
+    "browser_current": 88,
+    "baseline_browser_retained": 77,
+    "removed_test_ids": []
+  },
+  "last_observed_ci": {
+    "workflow_success": 5,
+    "workflow_total": 12,
+    "actual_job_checkout_matches": 10,
+    "jobs_allocated": 20,
+    "final_required_jobs": 22,
+    "failed_jobs": [],
+    "live_status_unavailable": true,
+    "observation_stale_due_to_authentication_failure": true,
+    "inventory_sha256": "5ed8f439989963f13555aad157b49c045d25abeb2a2dcfbf9bd1fd7eecd3098a"
+  },
+  "access_diagnosis": {
+    "rest": "HTTP401 Bad credentials",
+    "gh_cli_graphql": "HTTP401 Bad credentials",
+    "git_remote": "Unable to authenticate through existing Git credential path",
+    "cloud_environment": "running/connected; no ready outbound identity advertised; network enforcement stateunknown",
+    "policy_bypass_or_credentials_extraction_attempted": false
+  },
+  "recovery_required": "Restore the platform GitHub repository connection; then refresh actual latest-head jobs/logs/artifacts, require all12SUCCESS/all22checkoutMATCH, derive and review independent technical evidence, then push evidence only and update Draft29. No token should be pasted into chat.",
+  "ci_runs_cancelled": false,
+  "main_merge": false,
+  "tag_created_or_moved": false,
+  "f1": "BLOCKED \u2014 EXTERNAL_EVIDENCE_PENDING",
+  "paid_internet_llm": "NOT EXECUTED",
+  "real_regulatory_knowledge_acceptance": "NOT EXECUTED",
+  "production_business_uat": "NOT EXECUTED",
+  "production_deployment_readiness": "NOT ACCEPTED",
+  "stage2": "NOT STARTED"
+}
