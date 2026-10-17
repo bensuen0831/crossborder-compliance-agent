@@ -1,0 +1,81 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "dataset_kind": {
+      "enum": [
+        "L1_SYNTHETIC_GOVERNED",
+        "L2_REAL_REGULATORY"
+      ],
+      "title": "Dataset Kind",
+      "type": "string"
+    },
+    "synthetic_label": {
+      "anyOf": [
+        {
+          "const": "SYNTHETIC_GOVERNED_TEST_DATA",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Synthetic Label"
+    },
+    "schema_version": {
+      "const": "KB01_F0_EXPERT_AUTHORIZATION_V1",
+      "default": "KB01_F0_EXPERT_AUTHORIZATION_V1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "expert_actor_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Expert Actor Id",
+      "type": "string"
+    },
+    "jurisdiction_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Jurisdiction Ids",
+      "type": "array"
+    },
+    "appointment_record_ref": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Appointment Record Ref",
+      "type": "string"
+    },
+    "valid_from": {
+      "format": "date",
+      "title": "Valid From",
+      "type": "string"
+    },
+    "valid_to": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Valid To"
+    }
+  },
+  "required": [
+    "dataset_kind",
+    "expert_actor_id",
+    "jurisdiction_ids",
+    "appointment_record_ref",
+    "valid_from"
+  ],
+  "title": "RegulatoryExpertAuthorization",
+  "type": "object"
+}

@@ -1,0 +1,299 @@
+{
+  "$defs": {
+    "ExpectedRegulatorySemantics": {
+      "additionalProperties": false,
+      "description": "Explicit expert-authored oracle fields; no provider narrative or majority vote.",
+      "properties": {
+        "jurisdiction_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "title": "Jurisdiction Ids",
+          "type": "array"
+        },
+        "required_document_levels": {
+          "additionalProperties": {
+            "enum": [
+              "REQUIRED",
+              "CONDITIONAL",
+              "RECOMMENDED",
+              "NOT_APPLICABLE"
+            ],
+            "type": "string"
+          },
+          "propertyNames": {
+            "maxLength": 160,
+            "minLength": 1
+          },
+          "title": "Required Document Levels",
+          "type": "object"
+        },
+        "generation_available": {
+          "const": false,
+          "default": false,
+          "title": "Generation Available",
+          "type": "boolean"
+        },
+        "classification_codes": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 1000,
+          "title": "Classification Codes",
+          "type": "array"
+        },
+        "applicability_codes": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 1000,
+          "title": "Applicability Codes",
+          "type": "array"
+        },
+        "cross_border_status": {
+          "enum": [
+            "DIRECT_TRANSFER_ALLOWED",
+            "CONDITIONAL_TRANSFER_ALLOWED",
+            "TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED",
+            "REVIEW_REQUIRED",
+            "NOT_APPLICABLE"
+          ],
+          "title": "Cross Border Status",
+          "type": "string"
+        },
+        "obligation_codes": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 1000,
+          "title": "Obligation Codes",
+          "type": "array"
+        },
+        "candidate_path_codes": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 1000,
+          "title": "Candidate Path Codes",
+          "type": "array"
+        },
+        "risk_codes": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 1000,
+          "title": "Risk Codes",
+          "type": "array"
+        },
+        "recommendation_codes": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 1000,
+          "title": "Recommendation Codes",
+          "type": "array"
+        },
+        "final_path_codes": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 1000,
+          "title": "Final Path Codes",
+          "type": "array"
+        },
+        "required_document_codes": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 1000,
+          "title": "Required Document Codes",
+          "type": "array"
+        },
+        "reason_codes": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 1000,
+          "title": "Reason Codes",
+          "type": "array"
+        },
+        "legal_source_pins": {
+          "items": {
+            "$ref": "#/$defs/RegulatorySourcePin"
+          },
+          "maxItems": 1000,
+          "minItems": 1,
+          "title": "Legal Source Pins",
+          "type": "array"
+        }
+      },
+      "required": [
+        "jurisdiction_ids",
+        "required_document_levels",
+        "classification_codes",
+        "applicability_codes",
+        "cross_border_status",
+        "obligation_codes",
+        "candidate_path_codes",
+        "risk_codes",
+        "recommendation_codes",
+        "final_path_codes",
+        "required_document_codes",
+        "reason_codes",
+        "legal_source_pins"
+      ],
+      "title": "ExpectedRegulatorySemantics",
+      "type": "object"
+    },
+    "RegulatorySourcePin": {
+      "additionalProperties": false,
+      "properties": {
+        "knowledge_version_id": {
+          "format": "uuid",
+          "title": "Knowledge Version Id",
+          "type": "string"
+        },
+        "content_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Content Sha256",
+          "type": "string"
+        },
+        "structure_node_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "maxItems": 1000,
+          "minItems": 1,
+          "title": "Structure Node Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "knowledge_version_id",
+        "content_sha256",
+        "structure_node_ids"
+      ],
+      "title": "RegulatorySourcePin",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "dataset_kind": {
+      "enum": [
+        "L1_SYNTHETIC_GOVERNED",
+        "L2_REAL_REGULATORY"
+      ],
+      "title": "Dataset Kind",
+      "type": "string"
+    },
+    "synthetic_label": {
+      "anyOf": [
+        {
+          "const": "SYNTHETIC_GOVERNED_TEST_DATA",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Synthetic Label"
+    },
+    "schema_version": {
+      "const": "KB01_F0_CASE_V1",
+      "default": "KB01_F0_CASE_V1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "description": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Description",
+      "type": "string"
+    },
+    "jurisdiction_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Jurisdiction Ids",
+      "type": "array"
+    },
+    "analysis_as_of_date": {
+      "format": "date",
+      "title": "Analysis As Of Date",
+      "type": "string"
+    },
+    "input_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Input Manifest Sha256",
+      "type": "string"
+    },
+    "source_pins": {
+      "items": {
+        "$ref": "#/$defs/RegulatorySourcePin"
+      },
+      "maxItems": 1000,
+      "title": "Source Pins",
+      "type": "array"
+    },
+    "expected": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ExpectedRegulatorySemantics"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "evaluation_criteria": {
+      "items": {
+        "maxLength": 160,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Evaluation Criteria",
+      "type": "array"
+    }
+  },
+  "required": [
+    "dataset_kind",
+    "description",
+    "jurisdiction_ids",
+    "analysis_as_of_date",
+    "input_manifest_sha256",
+    "source_pins",
+    "evaluation_criteria"
+  ],
+  "title": "RegulatoryAcceptanceCase",
+  "type": "object"
+}

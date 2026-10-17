@@ -209,6 +209,17 @@ def owned_delta(root):
         for p in (Path(root) / prefix).rglob("*")
         if p.is_file()
     )
+    if (Path(root) / "evidence/stage1-gap-kb01/approved_owner_overlay.json").exists():
+        from scripts.kb01_ownership import authenticated_paths
+
+        # Only non-source delivery files follow the independently proven KB source.
+        authenticated_paths(root, source)
+        paths.update(
+            str(p.relative_to(root))
+            for prefix in ("docs/stage1-gap-kb01", "evidence/stage1-gap-kb01")
+            for p in (Path(root) / prefix).rglob("*")
+            if p.is_file()
+        )
     return paths
 
 

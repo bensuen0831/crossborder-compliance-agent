@@ -1,0 +1,495 @@
+{
+  "decision": "IN_PROGRESS_NOT_PACKAGE_B_PASS",
+  "source_identity": "UNCOMMITTED_PROTOTYPE",
+  "postgres_s3_focused": {
+    "passed": 8,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 0,
+    "test_ids": [
+      "tests.test_kb01_upload_postgres::test_real_multipart_receipts_and_scan_are_not_knowledge_publication",
+      "tests.test_kb01_upload_postgres::test_repeated_start_and_completion_reuse_exact_provider_upload",
+      "tests.test_kb01_upload_postgres::test_idempotency_cannot_change_declared_binary",
+      "tests.test_kb01_upload_postgres::test_cross_tenant_and_revoked_current_grant_fail_closed",
+      "tests.test_kb01_upload_postgres::test_stale_part_cas_and_incomplete_completion_are_rejected",
+      "tests.test_kb01_upload_postgres::test_malware_is_quarantined_and_cannot_be_attached",
+      "tests.test_kb01_upload_postgres::test_declared_complete_hash_is_independently_verified",
+      "tests.test_kb01_upload_postgres::test_scan_lease_is_single_winner_and_recovers_after_expiry"
+    ],
+    "junit_sha256": "22c61f78ed9a3edc86e3fcbaeb79a6634d44438d46b75e23c8d1c5e0e5d6e229"
+  },
+  "pure_contract_tests": {
+    "passed": 20,
+    "capacity_acceptance": false
+  },
+  "s3_provider": {
+    "name": "SeaweedFS",
+    "release": "4.48",
+    "official_release_sha256": "4a7d108384d044d95212d1342cdda9533fa55842c1c9b41f606ca3c8a9561124",
+    "real_http_multipart": true,
+    "versioning": "Enabled",
+    "initial_probe_bytes": 6000000,
+    "initial_probe_parts": 2
+  },
+  "scanner": {
+    "engine": "ClamAV",
+    "version": "1.4.3",
+    "isolation": "Docker no network/read-only/unprivileged/caps dropped",
+    "image_id": "sha256:e947464eb29f37996f3927e7c2e091bdd989493ca8ed6573c624430296513ade",
+    "database": "SYNTHETIC_SECURITY_SIGNATURES:EICAR_ONLY",
+    "clean_and_eicar_detection_measured": true,
+    "official_database_download": "HTTP_403_NOT_CONFIGURED",
+    "production_signature_database_acceptance": "NOT_EXECUTED"
+  },
+  "migration": "0022_kb01_binary_transport_UNCOMMITTED",
+  "fresh_upgrade": "PASS_PROTOTYPE_ONLY",
+  "safety_matrix": "PASS_FOCUSED_PROTOTYPE",
+  "frozen_0021": "BYTE_IDENTICAL_TO_6f0f448",
+  "remaining": [
+    "durable batch >1GB end-to-end capacity including canonical ingestion",
+    "expiry/crash/membership/security matrix completion",
+    "six-format canonical parsing and OCR",
+    "UI and production authorization integration",
+    "production signature database readiness",
+    "final exact-head full regression and CI"
+  ],
+  "stage2_started": false,
+  "latest_focused_bundle": {
+    "passed": 33,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 0,
+    "junit_sha256": "3a39b2ab1f41e1d44ce0745d3a24664adf5dac0cad434c50b99c8acce4fea8a3"
+  },
+  "migration_safety_matrix": {
+    "passed": 2,
+    "head": "0022_kb01_binary_transport",
+    "fresh_exact0021_equivalence_safe_down_up_and_audit_loss_refusal": true,
+    "frozen_0001_0021": true
+  },
+  "governance_counterexample": {
+    "initial_failing_cases": 2,
+    "reason": "content contributor could approve through a proxy submitter",
+    "counterexample_junit_sha256": "0a2685d5e7f0f257e1017798c7c1ecee4c5d1859554ead4547dbe5df5802fea2",
+    "recovery": "canonical Knowledge approval consults immutable content-mutation receipts for KB managed versions",
+    "focused_regression_passed": 44,
+    "historical_result_or_legal_algorithm_changed": false
+  },
+  "archive_isolation_focused": {
+    "passed": 15,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 0,
+    "junit_sha256": "d894e69f4abc47dde24a1ab257ba333168b917b2c7414ed6cc17c266292300cd",
+    "image_id": "sha256:276a4f1278d7d69c5cfeb6547f495c1089c20582b56b0d32becdd251bb10948c",
+    "genuine_rar4_rar5_zip": true,
+    "chinese_rtl_paths": true,
+    "malicious_zip_refusal": true,
+    "capacity_gt_1gb": "NOT_EXECUTED",
+    "durable_batch_orchestration": "NOT_IMPLEMENTED"
+  },
+  "latest_batch_transport_isolation_migration_bundle": {
+    "passed": 57,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 0,
+    "seconds": 61.756,
+    "test_ids": [
+      "tests.test_kb01_batches_postgres::test_batch_uses_canonical_drafts_only_after_explicit_mapping",
+      "tests.test_kb01_batches_postgres::test_foreign_item_rolls_back_all_canonical_mapping",
+      "tests.test_kb01_batches_postgres::test_batch_tenant_grants_cas_and_cancel_preserve_original",
+      "tests.test_kb01_batches_postgres::test_durable_archive_worker_creates_verified_originals_not_legal_results[ZIP]",
+      "tests.test_kb01_batches_postgres::test_durable_archive_worker_creates_verified_originals_not_legal_results[RAR4]",
+      "tests.test_kb01_batches_postgres::test_durable_archive_worker_creates_verified_originals_not_legal_results[RAR5]",
+      "tests.test_kb01_batches_postgres::test_archive_batch_unsupported_member_fails_without_fabricated_draft",
+      "tests.test_kb01_batches_postgres::test_import_transport_recovery_reuses_completed_child_after_lost_receipt",
+      "tests.test_kb01_batches_postgres::test_import_cancellation_rejects_late_worker_and_preserves_history",
+      "tests.test_kb01_batches_postgres::test_batch_manifest_and_member_identity_are_database_immutable",
+      "tests.test_kb01_upload_postgres::test_final_scan_lease_expiry_is_audited_and_not_left_running",
+      "tests.test_kb01_upload_postgres::test_durable_cleanup_finishes_cancel_after_lost_provider_response",
+      "tests.test_kb01_upload_postgres::test_real_multipart_receipts_and_scan_are_not_knowledge_publication",
+      "tests.test_kb01_upload_postgres::test_repeated_start_and_completion_reuse_exact_provider_upload",
+      "tests.test_kb01_upload_postgres::test_idempotency_cannot_change_declared_binary",
+      "tests.test_kb01_upload_postgres::test_cross_tenant_and_revoked_current_grant_fail_closed",
+      "tests.test_kb01_upload_postgres::test_stale_part_cas_and_incomplete_completion_are_rejected",
+      "tests.test_kb01_upload_postgres::test_malware_is_quarantined_and_cannot_be_attached",
+      "tests.test_kb01_upload_postgres::test_declared_complete_hash_is_independently_verified",
+      "tests.test_kb01_upload_postgres::test_scan_lease_is_single_winner_and_recovers_after_expiry",
+      "tests.test_kb01_upload_postgres::test_cancel_aborts_provider_and_releases_only_unconsumed_transport",
+      "tests.test_kb01_upload_postgres::test_scanner_failure_retry_keeps_the_exact_binary_and_is_bounded",
+      "tests.test_kb01_upload_postgres::test_upload_http_authentication_and_safe_projection",
+      "tests.test_kb01_upload_postgres::test_upload_manifest_and_completed_part_receipts_are_database_immutable",
+      "tests.test_kb01_upload_postgres::test_attached_original_cannot_be_replaced_even_while_version_is_draft",
+      "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+      "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+      "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+      "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+      "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document",
+      "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+      "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+      "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+      "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+      "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+      "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+      "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+      "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+      "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+      "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+      "tests.test_kb01_archive_isolation::test_zip_chinese_and_rtl_paths_preserve_exact_originals",
+      "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[../outside.txt]",
+      "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[/outside.txt]",
+      "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[a/../../outside.txt]",
+      "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[C:/outside.txt]",
+      "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[a\\\\outside.txt]",
+      "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[a//outside.txt]",
+      "tests.test_kb01_archive_isolation::test_archive_symlink_is_refused",
+      "tests.test_kb01_archive_isolation::test_casefold_collision_is_refused",
+      "tests.test_kb01_archive_isolation::test_nested_archive_is_refused",
+      "tests.test_kb01_archive_isolation::test_expansion_and_count_limits_are_enforced[policy0]",
+      "tests.test_kb01_archive_isolation::test_expansion_and_count_limits_are_enforced[policy1]",
+      "tests.test_kb01_archive_isolation::test_corrupt_zip_payload_is_refused",
+      "tests.test_kb01_archive_isolation::test_genuine_rar4_rar5_are_decoded_by_real_isolated_libarchive[4]",
+      "tests.test_kb01_archive_isolation::test_genuine_rar4_rar5_are_decoded_by_real_isolated_libarchive[5]",
+      "tests.test_kb01_binary_migrations::test_kb01_binary_single_head_and_frozen_0001_0021",
+      "tests.test_kb01_binary_migrations::test_binary_fresh_exact0021_equivalence_preservation_and_refusal"
+    ],
+    "junit_sha256": "820ed5cf8f5f7397c778e208d2a804e819a02f159ea6d9f8848001c25a0e3b2d"
+  },
+  "batch_first_diagnostic": {
+    "passed": 21,
+    "failed": 1,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 0,
+    "seconds": 14.582,
+    "test_ids": [
+      "tests.test_kb01_batches_postgres::test_batch_uses_canonical_drafts_only_after_explicit_mapping",
+      "tests.test_kb01_batches_postgres::test_foreign_item_rolls_back_all_canonical_mapping",
+      "tests.test_kb01_batches_postgres::test_batch_tenant_grants_cas_and_cancel_preserve_original",
+      "tests.test_kb01_batches_postgres::test_durable_archive_worker_creates_verified_originals_not_legal_results[ZIP]",
+      "tests.test_kb01_batches_postgres::test_durable_archive_worker_creates_verified_originals_not_legal_results[RAR4]",
+      "tests.test_kb01_batches_postgres::test_durable_archive_worker_creates_verified_originals_not_legal_results[RAR5]",
+      "tests.test_kb01_batches_postgres::test_archive_batch_unsupported_member_fails_without_fabricated_draft",
+      "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+      "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+      "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+      "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+      "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document",
+      "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+      "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+      "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+      "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+      "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+      "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+      "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+      "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+      "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+      "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection"
+    ],
+    "junit_sha256": "0f2982ae960bfefd32c962c4c6d5f6ff0dc81e0a9f930febc8c1887bd2b2157e"
+  },
+  "batch_scan_recovery_diagnostic": {
+    "passed": 49,
+    "failed": 1,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 0,
+    "seconds": 42.886,
+    "test_ids": [
+      "tests.test_kb01_batches_postgres::test_batch_uses_canonical_drafts_only_after_explicit_mapping",
+      "tests.test_kb01_batches_postgres::test_foreign_item_rolls_back_all_canonical_mapping",
+      "tests.test_kb01_batches_postgres::test_batch_tenant_grants_cas_and_cancel_preserve_original",
+      "tests.test_kb01_batches_postgres::test_durable_archive_worker_creates_verified_originals_not_legal_results[ZIP]",
+      "tests.test_kb01_batches_postgres::test_durable_archive_worker_creates_verified_originals_not_legal_results[RAR4]",
+      "tests.test_kb01_batches_postgres::test_durable_archive_worker_creates_verified_originals_not_legal_results[RAR5]",
+      "tests.test_kb01_batches_postgres::test_archive_batch_unsupported_member_fails_without_fabricated_draft",
+      "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+      "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+      "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+      "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+      "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document",
+      "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+      "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+      "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+      "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+      "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+      "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+      "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+      "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+      "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+      "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+      "tests.test_kb01_upload_postgres::test_real_multipart_receipts_and_scan_are_not_knowledge_publication",
+      "tests.test_kb01_upload_postgres::test_repeated_start_and_completion_reuse_exact_provider_upload",
+      "tests.test_kb01_upload_postgres::test_idempotency_cannot_change_declared_binary",
+      "tests.test_kb01_upload_postgres::test_cross_tenant_and_revoked_current_grant_fail_closed",
+      "tests.test_kb01_upload_postgres::test_stale_part_cas_and_incomplete_completion_are_rejected",
+      "tests.test_kb01_upload_postgres::test_malware_is_quarantined_and_cannot_be_attached",
+      "tests.test_kb01_upload_postgres::test_declared_complete_hash_is_independently_verified",
+      "tests.test_kb01_upload_postgres::test_scan_lease_is_single_winner_and_recovers_after_expiry",
+      "tests.test_kb01_upload_postgres::test_cancel_aborts_provider_and_releases_only_unconsumed_transport",
+      "tests.test_kb01_upload_postgres::test_scanner_failure_retry_keeps_the_exact_binary_and_is_bounded",
+      "tests.test_kb01_upload_postgres::test_upload_http_authentication_and_safe_projection",
+      "tests.test_kb01_upload_postgres::test_upload_manifest_and_completed_part_receipts_are_database_immutable",
+      "tests.test_kb01_upload_postgres::test_attached_original_cannot_be_replaced_even_while_version_is_draft",
+      "tests.test_kb01_archive_isolation::test_zip_chinese_and_rtl_paths_preserve_exact_originals",
+      "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[../outside.txt]",
+      "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[/outside.txt]",
+      "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[a/../../outside.txt]",
+      "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[C:/outside.txt]",
+      "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[a\\\\outside.txt]",
+      "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[a//outside.txt]",
+      "tests.test_kb01_archive_isolation::test_archive_symlink_is_refused",
+      "tests.test_kb01_archive_isolation::test_casefold_collision_is_refused",
+      "tests.test_kb01_archive_isolation::test_nested_archive_is_refused",
+      "tests.test_kb01_archive_isolation::test_expansion_and_count_limits_are_enforced[policy0]",
+      "tests.test_kb01_archive_isolation::test_expansion_and_count_limits_are_enforced[policy1]",
+      "tests.test_kb01_archive_isolation::test_corrupt_zip_payload_is_refused",
+      "tests.test_kb01_archive_isolation::test_genuine_rar4_rar5_are_decoded_by_real_isolated_libarchive[4]",
+      "tests.test_kb01_archive_isolation::test_genuine_rar4_rar5_are_decoded_by_real_isolated_libarchive[5]"
+    ],
+    "junit_sha256": "49e8416b93c2e17ce3e4c5f12fb5c7cce6977d284785a3dff6bacba71cf70943"
+  },
+  "large_single_transport": {
+    "source_identity": "UNCOMMITTED_PROTOTYPE",
+    "input": {
+      "bytes": 540006868,
+      "sha256": "c2fdbb5b1032e1fefa75b3e209f1185d09d1cf101a2db10b47199840903ecf60",
+      "pages": 12,
+      "image_stream_bytes_each": 45000000,
+      "original_rgb_bytes": 540000000,
+      "all_native_page_text_verified": true,
+      "sparse_or_unused_padding": false,
+      "source_class": "SYNTHETIC_GOVERNED_TEST_DATA",
+      "validation_elapsed_seconds": 1.9403198579966556
+    },
+    "real_http_s3_bytes": 540006868,
+    "part_count": 17,
+    "parts": [
+      {
+        "part": 1,
+        "bytes": 33554432,
+        "sha256": "e2c4ce35e487304244e6c059de2fdd8e72d26ff3241460533c35a07823a15b90"
+      },
+      {
+        "part": 2,
+        "bytes": 33554432,
+        "sha256": "0a4f0c5780c4fe077ed244eee02d89e61f797db929f1deb776bd2d2b55bfbc2f"
+      },
+      {
+        "part": 3,
+        "bytes": 33554432,
+        "sha256": "a2a6489a650d84168d213067f6d2c5a618866cfff64388dda5757ed77bdca898"
+      },
+      {
+        "part": 4,
+        "bytes": 33554432,
+        "sha256": "1df04310fb71f011e88a188c6451c0fc844452fe1d32810058c112a954e1bdac"
+      },
+      {
+        "part": 5,
+        "bytes": 33554432,
+        "sha256": "c2f7dc55bfd84443aef7ef8021a0a6d9fdd7519b4f7bc33347091e8b09847995"
+      },
+      {
+        "part": 6,
+        "bytes": 33554432,
+        "sha256": "a16f5b7a7e1082827f1539dbc0d41c7ac9f283c771ab8619bee2d2b45b0adaca"
+      },
+      {
+        "part": 7,
+        "bytes": 33554432,
+        "sha256": "e8ed6018206f9338eaaa9c0f366ed01f9192cbda8b00693cb438bc9b5b1d510e"
+      },
+      {
+        "part": 8,
+        "bytes": 33554432,
+        "sha256": "b748e962acbf6f96222b92cec31047574b9236cbac528258c95d6d25085ea4b7"
+      },
+      {
+        "part": 9,
+        "bytes": 33554432,
+        "sha256": "f8b36169d83e5490409c061158415794902448a919ae38a57d902f4ed578d2eb"
+      },
+      {
+        "part": 10,
+        "bytes": 33554432,
+        "sha256": "ddd6f15af60a962665ee3f6827c8e2ffea2ef1e8f654023c1a41528fa3def919"
+      },
+      {
+        "part": 11,
+        "bytes": 33554432,
+        "sha256": "7f0a03c77dfb8884ff633367251a3f2d17ea8c7e61dc151d6fe4b8bf38415f36"
+      },
+      {
+        "part": 12,
+        "bytes": 33554432,
+        "sha256": "bea3e02c23e826f6ae6472867ed5cc7f10875d1ce39110b0ca5fc6c24d75e167"
+      },
+      {
+        "part": 13,
+        "bytes": 33554432,
+        "sha256": "8ab5cd36b1c13262f8c9914ea386c39a2cc3ea5bb6542823495e3da9a0730031"
+      },
+      {
+        "part": 14,
+        "bytes": 33554432,
+        "sha256": "9e11674d4a2f89cc1c9c15fe6b54be41a67803e65e2886bcb0ffc4901c2abb82"
+      },
+      {
+        "part": 15,
+        "bytes": 33554432,
+        "sha256": "ad6fc1e5afdb60d8c0b320bfa4211857fdbb48f0bd40558443ee39ada8d57bd3"
+      },
+      {
+        "part": 16,
+        "bytes": 33554432,
+        "sha256": "a313bd1cc21360121e7b3750aad7ba104ddce788e5ba96e966c18245483ed6d0"
+      },
+      {
+        "part": 17,
+        "bytes": 3135956,
+        "sha256": "e7120c3fd58508949043585f80e81e4c5689f8a99146afe54e8cb767822ae315"
+      }
+    ],
+    "upload_session_id": "ae82135f-65f8-4a76-890d-31fd0a745bd0",
+    "status": "VERIFIED",
+    "error_code": null,
+    "scan": {
+      "byte_size": 540006868,
+      "content_sha256": "c2fdbb5b1032e1fefa75b3e209f1185d09d1cf101a2db10b47199840903ecf60",
+      "scanner": {
+        "clean": true,
+        "engine": "CLAMAV",
+        "database_identity": "SYNTHETIC_SECURITY_SIGNATURES:EICAR_ONLY",
+        "image_id": "sha256:e947464eb29f37996f3927e7c2e091bdd989493ca8ed6573c624430296513ade"
+      },
+      "detected_format": "PDF"
+    },
+    "upload_seconds": 3.298644181006239,
+    "total_seconds": 14.650280072004534,
+    "server_independent_streamed_sha256_verified": true,
+    "official_signature_database_acceptance": false,
+    "source_class": "SYNTHETIC_GOVERNED_TEST_DATA",
+    "not_package_b_pass": true,
+    "combined_orchestrator_worker_peak_rss_kib": 472564
+  },
+  "large_archives": {
+    "source_identity": "UNCOMMITTED_PROTOTYPE",
+    "source_class": "SYNTHETIC_GOVERNED_TEST_DATA",
+    "records": [
+      {
+        "file": "genuine-capacity-rar4.rar",
+        "archive_bytes": 1080013855,
+        "sha256": "bc5583166b369ec4cded65b9f5e5a0752109eb7a285a7b5dcee61eec1a182e9d",
+        "part_count": 33,
+        "status": "VERIFIED",
+        "error_code": null,
+        "transfer_seconds": 7.045030733999738,
+        "scan": {
+          "byte_size": 1080013855,
+          "content_sha256": "bc5583166b369ec4cded65b9f5e5a0752109eb7a285a7b5dcee61eec1a182e9d",
+          "scanner": {
+            "clean": true,
+            "engine": "CLAMAV",
+            "database_identity": "SYNTHETIC_SECURITY_SIGNATURES:EICAR_ONLY",
+            "image_id": "sha256:e947464eb29f37996f3927e7c2e091bdd989493ca8ed6573c624430296513ade"
+          },
+          "detected_format": "RAR"
+        },
+        "extracted_files": 2,
+        "expanded_bytes": 1080013736,
+        "manifest_sha256": "215caff97e7e1f1f39d4f2532224a6cc8ad2ee472002b2b2e79e502cef4d94cd",
+        "extractor_image_id": "sha256:276a4f1278d7d69c5cfeb6547f495c1089c20582b56b0d32becdd251bb10948c",
+        "exact_original_sha256_match": true,
+        "total_seconds": 28.930050457005564
+      },
+      {
+        "file": "genuine-capacity-rar5.rar",
+        "archive_bytes": 1080013844,
+        "sha256": "0c82a93676117961e8726020105ebdf375a2bab1447d8e102a9534422c787d35",
+        "part_count": 33,
+        "status": "VERIFIED",
+        "error_code": null,
+        "transfer_seconds": 7.308403825998539,
+        "scan": {
+          "byte_size": 1080013844,
+          "content_sha256": "0c82a93676117961e8726020105ebdf375a2bab1447d8e102a9534422c787d35",
+          "scanner": {
+            "clean": true,
+            "engine": "CLAMAV",
+            "database_identity": "SYNTHETIC_SECURITY_SIGNATURES:EICAR_ONLY",
+            "image_id": "sha256:e947464eb29f37996f3927e7c2e091bdd989493ca8ed6573c624430296513ade"
+          },
+          "detected_format": "RAR"
+        },
+        "extracted_files": 2,
+        "expanded_bytes": 1080013736,
+        "manifest_sha256": "215caff97e7e1f1f39d4f2532224a6cc8ad2ee472002b2b2e79e502cef4d94cd",
+        "extractor_image_id": "sha256:276a4f1278d7d69c5cfeb6547f495c1089c20582b56b0d32becdd251bb10948c",
+        "exact_original_sha256_match": true,
+        "total_seconds": 28.948056458000792
+      },
+      {
+        "file": "genuine-capacity.zip",
+        "archive_bytes": 1080013966,
+        "sha256": "7a3305aae964a0a24e05be91be49f33ce7964aa627a2552b33a42e7724decfd4",
+        "part_count": 33,
+        "status": "VERIFIED",
+        "error_code": null,
+        "transfer_seconds": 10.513997767993715,
+        "scan": {
+          "byte_size": 1080013966,
+          "content_sha256": "7a3305aae964a0a24e05be91be49f33ce7964aa627a2552b33a42e7724decfd4",
+          "scanner": {
+            "clean": true,
+            "engine": "CLAMAV",
+            "database_identity": "SYNTHETIC_SECURITY_SIGNATURES:EICAR_ONLY",
+            "image_id": "sha256:e947464eb29f37996f3927e7c2e091bdd989493ca8ed6573c624430296513ade"
+          },
+          "detected_format": "ZIP"
+        },
+        "extracted_files": 2,
+        "expanded_bytes": 1080013736,
+        "manifest_sha256": "215caff97e7e1f1f39d4f2532224a6cc8ad2ee472002b2b2e79e502cef4d94cd",
+        "extractor_image_id": "sha256:276a4f1278d7d69c5cfeb6547f495c1089c20582b56b0d32becdd251bb10948c",
+        "exact_original_sha256_match": true,
+        "total_seconds": 55.163936391007155
+      }
+    ],
+    "initial_zip_failure": {
+      "file": "genuine-capacity.zip",
+      "archive_bytes": 1080013966,
+      "sha256": "7a3305aae964a0a24e05be91be49f33ce7964aa627a2552b33a42e7724decfd4",
+      "part_count": 33,
+      "status": "FAILED",
+      "error_code": "SCANNER_UNAVAILABLE",
+      "transfer_seconds": 7.572322430998611,
+      "scan": {}
+    },
+    "failure_diagnostic": {
+      "exit_code": 2,
+      "stdout": "/input/original: Can't write to file ERROR\n",
+      "stderr": "LibClamAV Error: cli_writen: write error: No space left on device\n",
+      "image_id": "sha256:e947464eb29f37996f3927e7c2e091bdd989493ca8ed6573c624430296513ade"
+    },
+    "zip_recovery": {
+      "scan": {
+        "clean": true,
+        "engine": "CLAMAV",
+        "database_identity": "SYNTHETIC_SECURITY_SIGNATURES:EICAR_ONLY",
+        "image_id": "sha256:e947464eb29f37996f3927e7c2e091bdd989493ca8ed6573c624430296513ade"
+      },
+      "elapsed_seconds": 29.999485240005015,
+      "scratch": "bounded_owned_disk",
+      "previous_failure": "128MiB tmpfs exhausted",
+      "production_signature_acceptance": false
+    },
+    "combined_orchestrator_worker_peak_rss_kib": 578744,
+    "durable_batch_capacity_acceptance": false,
+    "official_signature_database_acceptance": false
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "decision": "FOCUSED_CHECKPOINT_PASS_PACKAGE_IN_PROGRESS",
+  "source_identity": "to_be_sealed_from_committed_git_blobs_in_v5_successor",
+  "backend_focused": {
+    "tests": 39,
+    "passed": 39,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junit_sha256": "31b3c4135984a4ab7d6baa74ea69f716c39c24749810eb267eb2b781687624d9"
+  },
+  "frontend_full": {
+    "tests": 150,
+    "passed": 150,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junit_sha256": "8740c2d6c4b30cfa52d8af85720e9c3ebc221ae3b580a0f1d2cdcf37a5d65c26"
+  },
+  "typecheck": "PASS",
+  "lint": "PASS",
+  "build": "PASS",
+  "i18n": {
+    "status": "PASS",
+    "locales": [
+      "zh-CN",
+      "zh-HK",
+      "en-US"
+    ]
+  },
+  "historical_c_full_regression": "c_full_regression_initial.json",
+  "isolated_c_typescript_sdk_prerequisite_recovery": {
+    "tests": 1,
+    "passed": 1,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junit_sha256": "ac78f7cefccbf95be41de9c3b67ae5370a185345bde5313cd2d8c533877d0cdc"
+  },
+  "c_postgres_migration_matrix_in_recovery": {
+    "passed": 2,
+    "junit": "d-owner-recovery.xml",
+    "note": "That broader run had one newly added HTTP test fixture construction failure; the fixture was corrected and all5statistics/preview tests then passed separately."
+  },
+  "statistics_http_recovery": {
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junit_sha256": "065dfb770c4d880b56dec4a2462d911005fc3a61a6824a0b136297ed43761f1c"
+  },
+  "browser": "NOT_EXECUTED_FOR_THIS_CHECKPOINT",
+  "full_backend_for_this_source": "PENDING",
+  "remote_ci": "NOT_EXECUTED_FOR_THIS_CHECKPOINT",
+  "remaining": [
+    "typed source/collection options",
+    "all large durable imports through canonical ingestion",
+    "translation alignment and review",
+    "full current-source regressions and browser acceptance",
+    "CI provisioning/exact-head runs",
+    "F0 engineering readiness records/evaluation"
+  ],
+  "f1": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+  "paid_internet_llm": "NOT_EXECUTED",
+  "production_business_uat": "NOT_EXECUTED",
+  "stage2_started": false
+}

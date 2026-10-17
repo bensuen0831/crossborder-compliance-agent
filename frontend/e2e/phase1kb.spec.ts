@@ -1,4 +1,4 @@
-import { test, expect, type APIRequestContext, type Page } from '@playwright/test';
+import { test, expect, type APIRequestContext, type Page, type Locator } from '@playwright/test';
 import fs from 'node:fs';
 import zhCN from '../src/locales/zh-CN.json' with { type: 'json' };
 import zhHK from '../src/locales/zh-HK.json' with { type: 'json' };
@@ -14,6 +14,18 @@ async function clean(page: Page) {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   expect(await page.locator('body').innerText()).not.toContain('ui.phase1kb.');
   expect(await page.evaluate(() => JSON.stringify({ ...localStorage, ...sessionStorage }))).not.toContain('ci-local-credential');
+}
+// Reviewer handoff requires the server's committed transition, not merely a click.
+async function transition(page: Page, button: Locator, path: string, target: string) {
+  const committed = page.waitForResponse(r => new URL(r.url()).pathname === path
+    && r.request().method() === 'POST'
+    && r.request().postDataJSON()?.target_status === target);
+  await button.click();
+  const response = await committed;
+  expect(response.status(), await response.text()).toBe(200);
+  const result = await response.json();
+  expect(result.lifecycle_status).toBe(target);
+  return result;
 }
 for (const [locale, m] of Object.entries(catalogs)) {
   test(`governed admin providers, write-only secret and real HTTP tests ${locale}`, async ({ page, playwright }) => {
@@ -43,14 +55,17 @@ for (const [locale, m] of Object.entries(catalogs)) {
     await row.getByRole('button', { name: m['ui.phase1kb.testConnection'], exact: true }).click();
     await expect(page.locator('.admin-content').getByRole('alert')).toContainText(m['ui.phase1kb.health.HEALTHY']);
     await row.getByRole('button', { name: m['ui.phase1kb.discover'], exact: true }).click();
-    await row.getByRole('button', { name: m['ui.phase1kb.submit'], exact: true }).click();
+    const providerTransition = `/api/v1/admin/model-providers/versions/${provider.provider_version_id}/transition`;
+    const submittedProvider = await transition(page, row.getByRole('button', { name: m['ui.phase1kb.submit'], exact: true }), providerTransition, 'PENDING_REVIEW');
     const reviewer = await playwright.request.newContext({ baseURL: process.env.M0_FRONTEND_URL ?? 'http://127.0.0.1:5173' });
     await identity(reviewer, 'LLM_REVIEWER');
     const list = await (await page.request.get('/api/v1/admin/model-providers')).json();
     const version = list.providers.find((p: { provider_id: string }) => p.provider_id === provider.provider_id).versions[0];
+    expect(version.record_version).toBe(submittedProvider.record_version);
+    expect(version.lifecycle_status).toBe('PENDING_REVIEW');
     expect((await reviewer.post(`/api/v1/admin/model-providers/versions/${version.provider_version_id}/transition`, { data: { target_status: 'APPROVED', expected_record_version: version.record_version } })).status()).toBe(200);
     await page.reload(); await page.getByRole('button', { name: m['ui.phase1kb.providers'], exact: true }).click();
-    await row.getByRole('button', { name: m['ui.phase1kb.publish'], exact: true }).click();
+    await transition(page, row.getByRole('button', { name: m['ui.phase1kb.publish'], exact: true }), providerTransition, 'ACTIVE');
     await row.getByRole('button', { name: m['ui.phase1kb.discover'], exact: true }).click();
     const modelForm = page.locator('.admin-content form').nth(1);
     await modelForm.getByLabel(m['ui.phase1kb.providerVersion']).click();
@@ -59,15 +74,28 @@ for (const [locale, m] of Object.entries(catalogs)) {
     await modelForm.getByLabel(m['ui.phase1kb.remoteModel']).fill('A1');
     const modelSaved = page.waitForResponse(r => r.url().endsWith(`/${provider.provider_id}/models`) && r.request().method() === 'POST');
     await modelForm.getByRole('button', { name: m['ui.phase1kb.saveModel'], exact: true }).click();
-    expect((await modelSaved).status()).toBe(201);
+    const modelResponse = await modelSaved;
+    expect(modelResponse.status()).toBe(201);
+    const createdModel = await modelResponse.json();
+    const modelTransition = `/api/v1/admin/model-providers/models/deployments/${createdModel.deployment_id}/transition`;
     const modelRow = page.getByRole('row').filter({ hasText: `Browser Model ${locale}` });
-    await modelRow.getByRole('button', { name: m['ui.phase1kb.submit'], exact: true }).click();
+    // A click is not a committed governance transition. Forward the real HTTP
+    // request with bounded latency so reviewer handoff cannot rely on timing.
+    await page.route('**/api/v1/admin/model-providers/models/deployments/*/transition', async route => {
+      if (route.request().postDataJSON()?.target_status === 'PENDING_REVIEW')
+        await new Promise(resolve => setTimeout(resolve, 500));
+      await route.continue();
+    });
+    const submittedModel = await transition(page, modelRow.getByRole('button', { name: m['ui.phase1kb.submit'], exact: true }), modelTransition, 'PENDING_REVIEW');
     const models = await (await page.request.get(`/api/v1/admin/model-providers/${provider.provider_id}/models`)).json();
-    const model = models.models[0];
+    const model = models.models.find((entry: { deployment_id: string }) => entry.deployment_id === createdModel.deployment_id);
+    expect(model).toBeDefined();
+    expect(model.lifecycle_status).toBe('PENDING_REVIEW');
+    expect(model.record_version).toBe(submittedModel.record_version);
     expect((await reviewer.post(`/api/v1/admin/model-providers/models/deployments/${model.deployment_id}/transition`, { data: { target_status: 'APPROVED', expected_record_version: model.record_version } })).status()).toBe(200);
     await page.reload(); await page.getByRole('button', { name: m['ui.phase1kb.providers'], exact: true }).click();
     await row.getByRole('button', { name: m['ui.phase1kb.models'], exact: true }).click();
-    await modelRow.getByRole('button', { name: m['ui.phase1kb.publish'], exact: true }).click();
+    await transition(page, modelRow.getByRole('button', { name: m['ui.phase1kb.publish'], exact: true }), modelTransition, 'ACTIVE');
     await modelRow.getByRole('button', { name: `${m['ui.phase1kb.testModel']} chat`, exact: true }).click();
     await expect(page.locator('.admin-content').getByRole('alert')).toContainText(m['ui.phase1kb.health.HEALTHY']);
     await page.reload(); await page.getByRole('button', { name: m['ui.phase1kb.providers'], exact: true }).click();

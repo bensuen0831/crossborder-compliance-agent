@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { api, ApiError, validateContract } from './client';
+import { api, ApiError, request, validateContract } from './client';
 import type { RetrievalResponse, Session } from './contracts';
 import fixture from '../test/fixtures/retrieval.json';
 import ready from '../test/fixtures/readiness.json';
@@ -49,4 +49,17 @@ describe('frozen API contracts', () => {
     await expect(api.session()).rejects.toBeInstanceOf(ApiError);
     await expect(api.session()).rejects.toMatchObject({ status });
   });
+});
+
+it('propagates cancellation during JSON body parsing instead of returning successful null', async () => {
+  const controller = new AbortController();
+  const cancelled = new DOMException('Body cancelled', 'AbortError');
+  const response = new Response('{}', { status: 200, headers: { 'Content-Type': 'application/json' } });
+  const body = new Promise<never>((_, reject) => controller.signal.addEventListener('abort', () => reject(cancelled), { once: true }));
+  vi.spyOn(response, 'json').mockReturnValue(body);
+  const transport = vi.fn<typeof fetch>().mockResolvedValue(response);
+  const pending = request('/api/v1/admin/knowledge-management/import-batches/opaque', { signal: controller.signal }, undefined, transport);
+  await Promise.resolve();
+  controller.abort();
+  await expect(pending).rejects.toBe(cancelled);
 });

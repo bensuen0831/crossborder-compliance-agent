@@ -70,7 +70,16 @@ export async function request<T>(path: string, options: RequestInit = {}, schema
     if (error instanceof DOMException && error.name === 'AbortError') throw error;
     throw new ApiError(0, 'NETWORK_UNAVAILABLE');
   }
-  const body: unknown = await response.json().catch(() => null);
+  const body: unknown = await response.json().catch((error: unknown) => {
+    // Cancellation can occur after headers arrive while the JSON body streams.
+    // It is never a successful null response or an instruction to clear UI state.
+    if (options.signal?.aborted || (error instanceof DOMException && error.name === 'AbortError')) {
+      throw error instanceof DOMException && error.name === 'AbortError'
+        ? error : new DOMException('Aborted', 'AbortError');
+    }
+    return null;
+  });
+  if (options.signal?.aborted) throw new DOMException('Aborted', 'AbortError');
   if (!response.ok) {
     const data = body && typeof body === 'object' ? body as Record<string, unknown> : {};
     // Do not display serialized validation inputs, sensitive bodies or stack traces.

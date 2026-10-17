@@ -1,0 +1,80 @@
+{
+  "artifact_kind": "DEVELOPMENT_GENUINE_CAPACITY_BROWSER_MEASUREMENTS",
+  "decision": "PENDING_FINAL_HEAD_CI",
+  "cases": {
+    "RAR4": {
+      "measurement": {
+        "kind": "RAR4",
+        "bytes": 1080013875,
+        "sha256": "3fd250bde19f8dba683aeb7cf337929774cecbe0f51b2d95a294741cf3444cdd",
+        "batch_id": "769f7672-5cfe-4711-8e54-b0f3dc3f5181",
+        "knowledge_version_ids": [
+          "aef8bcd0-4bf3-4430-b706-5f6cafdd87a5",
+          "78abad5c-1c61-4315-bc0f-1e1f2a16e5a6"
+        ],
+        "source_class": "SYNTHETIC_GOVERNED_TEST_DATA",
+        "status": "PASS",
+        "publication": "ACTIVE",
+        "runtime": "READY",
+        "exact_original_download": "PASS",
+        "browser_retries": 0,
+        "elapsed_seconds": 222.207
+      },
+      "artifact_sha256": "fdc53f367fc368bf26076be40f403134354f33cff23931104740413cafcc4e1b",
+      "source_identity": "DEVELOPMENT_WORKTREE_NOT_FINAL_HEAD_CLOSURE"
+    },
+    "RAR5": {
+      "measurement": {
+        "kind": "RAR5",
+        "bytes": 1080013864,
+        "sha256": "e901ecc79ac63eb6335be6a9aa92474e60a168c06b05114c48ea8bbc32bd08e5",
+        "batch_id": "47d05893-a027-4397-a24f-1b19c552d734",
+        "knowledge_version_ids": [
+          "ba0795a9-4146-4bd1-87bc-4a92e5a5aae1",
+          "c193bb79-df8b-46f0-a684-5d90448bbe88"
+        ],
+        "source_class": "SYNTHETIC_GOVERNED_TEST_DATA",
+        "status": "PASS",
+        "publication": "ACTIVE",
+        "runtime": "READY",
+        "exact_original_download": "PASS",
+        "browser_retries": 0,
+        "elapsed_seconds": 202.831
+      },
+      "artifact_sha256": "b50bc8f999524d73c745d20a5823e12e7da70711d4789669534e7cfee67f92b5",
+      "source_identity": "DEVELOPMENT_WORKTREE_NOT_FINAL_HEAD_CLOSURE"
+    },
+    "ZIP": {
+      "measurement": {
+        "kind": "ZIP",
+        "bytes": 1080014006,
+        "sha256": "34c7c30e28cf2d057c1e8b45a9623469ea97051d66602e6669739bebbdb83f81",
+        "batch_id": "00766ccc-1eba-45d4-8983-a3b136f485f8",
+        "knowledge_version_ids": [
+          "c20b4b4c-0ca3-4aee-b45c-2e0771d047fe",
+          "a57499f4-a7c8-405a-9b67-597cb62074ba"
+        ],
+        "source_class": "SYNTHETIC_GOVERNED_TEST_DATA",
+        "status": "PASS",
+        "publication": "ACTIVE",
+        "runtime": "READY",
+        "exact_original_download": "PASS",
+        "browser_retries": 0,
+        "elapsed_seconds": 263.222
+      },
+      "artifact_sha256": "bdbeff3a9eded7506bc84228b27b96712ffdc32865bd8a7b58992583d15a2870",
+      "source_identity": "DEVELOPMENT_WORKTREE_NOT_FINAL_HEAD_CLOSURE"
+    }
+  },
+  "retries": 0,
+  "scanner_database_identity": "OFFICIAL_CLAMAV_VERIFIED_CVD_MAIN_DAILY_BYTECODE",
+  "retained_failures": [
+    "ZIP2GiBscannerexit137",
+    "UATfixedoriginCORSrejection",
+    "SharedlocalS3volume20-slotexhaustion"
+  ],
+  "limitations": [
+    "Four passes came from separate development executions; final same-head capacity workflow remains mandatory",
+    "Synthetic technical originals, not real regulatory legal acceptance"
+  ]
+}

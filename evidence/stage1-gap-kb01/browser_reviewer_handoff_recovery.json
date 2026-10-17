@@ -1,0 +1,87 @@
+{
+  "scope": "TEST_ORCHESTRATION_ONLY_FOCUSED_CHECKPOINT_NOT_FINAL_REMOTE_CLOSURE",
+  "environment": [
+    "real PostgreSQL",
+    "real HTTP FastAPI",
+    "Chromium",
+    "canonical local HTTP LLM provider"
+  ],
+  "locales": [
+    "zh-CN",
+    "zh-HK",
+    "en-US"
+  ],
+  "passed": 3,
+  "failed": 0,
+  "retries": 0,
+  "forwarded_request_delay_ms": 500,
+  "model_transition_observations": [
+    {
+      "target_status": "PENDING_REVIEW",
+      "expected_record_version": 1,
+      "http_status": 200,
+      "persisted_record_version": 2,
+      "persisted_lifecycle": "PENDING_REVIEW"
+    },
+    {
+      "target_status": "APPROVED",
+      "expected_record_version": 2,
+      "http_status": 200,
+      "persisted_record_version": 3,
+      "persisted_lifecycle": "APPROVED"
+    },
+    {
+      "target_status": "ACTIVE",
+      "expected_record_version": 3,
+      "http_status": 200,
+      "persisted_record_version": 4,
+      "persisted_lifecycle": "ACTIVE"
+    },
+    {
+      "target_status": "PENDING_REVIEW",
+      "expected_record_version": 1,
+      "http_status": 200,
+      "persisted_record_version": 2,
+      "persisted_lifecycle": "PENDING_REVIEW"
+    },
+    {
+      "target_status": "APPROVED",
+      "expected_record_version": 2,
+      "http_status": 200,
+      "persisted_record_version": 3,
+      "persisted_lifecycle": "APPROVED"
+    },
+    {
+      "target_status": "ACTIVE",
+      "expected_record_version": 3,
+      "http_status": 200,
+      "persisted_record_version": 4,
+      "persisted_lifecycle": "ACTIVE"
+    },
+    {
+      "target_status": "PENDING_REVIEW",
+      "expected_record_version": 1,
+      "http_status": 200,
+      "persisted_record_version": 2,
+      "persisted_lifecycle": "PENDING_REVIEW"
+    },
+    {
+      "target_status": "APPROVED",
+      "expected_record_version": 2,
+      "http_status": 200,
+      "persisted_record_version": 3,
+      "persisted_lifecycle": "APPROVED"
+    },
+    {
+      "target_status": "ACTIVE",
+      "expected_record_version": 3,
+      "http_status": 200,
+      "persisted_record_version": 4,
+      "persisted_lifecycle": "ACTIVE"
+    }
+  ],
+  "production_source_changed": false,
+  "cas_weakened": false,
+  "old_counterexample_preserved": true,
+  "paid_internet_llm": "NOT EXECUTED"
+}

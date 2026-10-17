@@ -1,0 +1,27 @@
+{
+  "decision": "PASS_DEVELOPMENT_CHECKPOINT_NOT_FINAL_HEAD",
+  "worktree_parent": "e2306a72b1bf042385f2b1217d6edfe963b1a889",
+  "browser_passed": 2,
+  "browser_retries": 0,
+  "elapsed_seconds": 56.2,
+  "scope": [
+    "eligible draft batch deletion",
+    "SQL count reconciliation",
+    "canonical receipt audit",
+    "genuine directory upload and Citation/original hash",
+    "independent scope/quality/review/publication",
+    "explicit version bulk expiry/archive"
+  ],
+  "failures_preserved": [
+    {
+      "category": "TEST_LOCATOR",
+      "detail": "Exact getByLabel included option text; switched to accessible combobox role without changing behavior"
+    },
+    {
+      "category": "TEST_AUDIT_CODE",
+      "detail": "Canonical operation is DOCUMENT_DELETE_DRAFT; assertion now checks exact owning operation"
+    }
+  ],
+  "authority": "Existing canonical per-document commands; partial results, server authorization/CAS/idempotency unchanged",
+  "new_migration": false
+}

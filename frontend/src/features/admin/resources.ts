@@ -2,6 +2,7 @@ import type { Action, AdminSession, Lifecycle, Operation, Resource } from './con
 
 const payload = { name: 'payload', label: "ui.metadataPayload", type: 'json' as const };
 export const resources: readonly Resource[] = [
+  { key: 'knowledge-management', label: 'ui.kb01.workspace', group: 'ui.knowledgeGroup', family: 'knowledge', fields: [] },
   { key: 'jurisdictions', label: "ui.jurisdictions", group: "ui.metadataGroup", family: 'metadata', registry: 'jurisdictions', fields: [payload] },
   { key: 'scenarios', label: "ui.scenarios", group: "ui.metadataGroup", family: 'metadata', registry: 'scenarios', fields: [payload] },
   { key: 'products', label: "ui.products", group: "ui.metadataGroup", family: 'metadata', registry: 'products', fields: [payload] },

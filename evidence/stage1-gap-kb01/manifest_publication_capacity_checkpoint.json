@@ -1,0 +1,69 @@
+{
+  "source_identity": "UNCOMMITTED_DEVELOPMENT_MEASUREMENT",
+  "final_acceptance": false,
+  "frontend": {
+    "passed": 163,
+    "failed": 0,
+    "skipped": 0
+  },
+  "management_browser": {
+    "startTime": "2026-10-16T01:57:35.472Z",
+    "duration": 251468.403,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "manager_format_locale_combinations": 18,
+  "manifest_browser": {
+    "startTime": "2026-10-16T02:05:25.851Z",
+    "duration": 30169.186,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "single_500_mib_browser": {
+    "kind": "SINGLE",
+    "bytes": 540006868,
+    "sha256": "c2fdbb5b1032e1fefa75b3e209f1185d09d1cf101a2db10b47199840903ecf60",
+    "batch_id": "2a6a2b0f-0326-4212-ac28-be6c03f80d4d",
+    "knowledge_version_ids": [
+      "8f867b4d-efd4-4feb-969a-aa3a0b609cda"
+    ],
+    "source_class": "SYNTHETIC_GOVERNED_TEST_DATA",
+    "status": "PASS",
+    "publication": "ACTIVE",
+    "runtime": "READY",
+    "exact_original_download": "PASS",
+    "browser_retries": 0,
+    "elapsed_seconds": 66.226
+  },
+  "new_tool_http_catalogue_scope_suite": {
+    "passed": 35,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 0
+  },
+  "independent_batch_scan_projection_suite": {
+    "passed": 10,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 0
+  },
+  "limitations": [
+    "Browser measurements precede latest pending-member projection; exact committed-source rerun required",
+    "GiB archive Browser acceptance in progress",
+    "Original browser/full-backend regression and final remote CI pending",
+    "F1 BLOCKED \u2014 EXTERNAL_EVIDENCE_PENDING"
+  ],
+  "artifact_sha256": {
+    "kb-current-frontend-results.json": "4b0dc3934cc93d30eb13a87ec33f9a75216d7bd06fe05fced69e1ef2b8b7f4fb",
+    "kb-browser-k-publication-results.json": "c93f34457d8f1cbf013eb95843b71ba3e835f30a06c30bdfa6693c2460eb62e6",
+    "kb-manifest-browser-initial-results.json": "2b6316eef18c498ea6da08e6e75e331301caa51896d9fdd36220cf456a919dc8",
+    "ci-tools-http-catalogue-current.xml": "190d3e55b3407216a8a8a6ff1371ac5b75ec360d3237eb1c52d29967c1d88928",
+    "batch-transport-ready-recovery.xml": "e233a557371edf7f2915dc8ab5dbe6c5c1a7c5b490c301d54c9d34d96484a799"
+  }
+}

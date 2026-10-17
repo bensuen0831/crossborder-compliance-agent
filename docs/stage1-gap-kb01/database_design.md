@@ -1,0 +1,11 @@
+# Canonical persistence: implemented A and proposed B/C
+
+Package A implements admin_operation_receipts (immutable detail of canonical AdminChangeSet), knowledge_management_holds and knowledge_document_labels (exact MetadataDefinition/Version pins on canonical KnowledgeDocumentVersion). No candidate, legal-result or Registry owner is duplicated. Migration 0021 is a working-branch addition; main remains 0020.
+
+Retain knowledge_source_definitions, knowledge_documents, knowledge_document_versions, knowledge_ingestion_runs, knowledge_structure_nodes, regulatory_structure_nodes, knowledge_chunks, citations, bindings, AdminReviewTask, change events and publication outbox. No duplicate Knowledge/file-version/result/registry tables.
+
+Add operational identities: knowledge_upload_sessions (tenant/actor/target KnowledgeVersion, immutable declared manifest, backend-selected key, multipart ID, expiry, size/checksum, lifecycle, CAS/idempotency); knowledge_upload_parts (session + part sequence, backend-verified storage receipt/digest); knowledge_import_batches (tenant/actor, manifest/archive artifact refs, technical state, cancellation/lease); knowledge_manifest_records (batch,row, original relative path/normalized key, proposed metadata, mapping state); knowledge_batch_items (record, matched immutable artifact ref, canonical KnowledgeVersion FK, technical phase, structured error, attempts, lease). A ManifestRecord is a proposal, not a Regulation.
+
+Version-scoped dimensions use relationship tables pointing to existing governed MetadataDefinition/Version for jurisdiction, category, topic, language, issuer and source; do not put core relationships in arbitrary JSON. Existing KnowledgeDocumentVersion gets typed binary fields (verified size BIGINT, detected format, immutable object version/hash) and security/retention policy version refs. Source parse linkage follows the compatible option A selected under V2; verify the shared adapter contract in package C.
+
+Every new FK checks tenant plus owner ID (add compatible composite unique keys where necessary); CAS and idempotency identities enforced in DB. Published/versioned source rows cannot be overwritten; queries never silently select latest on historical pins. Batch counts are SQL projections over items, never competing authoritative counters. Big binaries remain S3 objects, never DB BLOBs.

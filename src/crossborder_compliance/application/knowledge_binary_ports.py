@@ -1,0 +1,29 @@
+"""Streaming transport and scan boundaries; no ORM, provider or legal authority."""
+
+from pathlib import Path
+from typing import Protocol
+
+
+class KnowledgeBinaryStorePort(Protocol):
+    def begin(self, key: str, content_type: str) -> str: ...
+    def part_url(
+        self, key: str, upload_id: str, number: int, size: int, sha256: str, expiry: int
+    ) -> dict: ...
+    def parts(self, key: str, upload_id: str) -> list[dict]: ...
+    def complete(self, key: str, upload_id: str, parts: list[dict]) -> dict: ...
+    def head(self, key: str) -> dict: ...
+    def download(self, key: str, version: str, target: Path, max_bytes: int) -> dict: ...
+    def abort(self, key: str, upload_id: str) -> None: ...
+    def delete(self, key: str, version: str) -> None: ...
+
+
+class KnowledgeMalwareScannerPort(Protocol):
+    def scan(
+        self,
+        path: Path,
+        timeout: int,
+        *,
+        max_expanded_bytes: int,
+        max_entries: int,
+        memory_bytes: int = 2 * 1024**3,
+    ) -> dict: ...

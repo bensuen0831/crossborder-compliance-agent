@@ -32,13 +32,18 @@ def fingerprint(url,record):
 
 def test_frozen_0001_0019_and_exact_single_head():
     script=ScriptDirectory.from_config(Config(str(ROOT/'alembic.ini')))
-    assert script.get_heads()==[HEAD]
+    from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after
+    heads = script.get_heads()
+    assert len(heads) == 1
+    assert revision_at_or_after(heads[0], "0020_stage1_formal_decision_engine_compatibility")
     assert script.get_revision(HEAD).down_revision==PARENT
     for path in (ROOT/'alembic/versions').glob('*.py'):
         if path.name[:4].isdigit() and int(path.name[:4])<=19:
             assert path.read_bytes()==subprocess.check_output(['git','show',SOURCE+':'+str(path.relative_to(ROOT))],cwd=ROOT)
 
 def test_fresh_exact0019_equivalence_preservation_downgrade_and_reupgrade(tmp_path):
+    from kb01_historical_schema import historical_bootstrap_source
+    bootstrap=historical_bootstrap_source(tmp_path/'historical0020',HEAD)
     base=make_url(get_settings().database_url)
     admin=create_engine(base.set(database='postgres'),isolation_level='AUTOCOMMIT')
     names=['compat20_'+uuid4().hex for _ in range(2)]
@@ -47,7 +52,7 @@ def test_fresh_exact0019_equivalence_preservation_downgrade_and_reupgrade(tmp_pa
     try:
         with admin.connect() as c:
             for name in names:c.execute(text('CREATE DATABASE "'+name+'"'))
-        assert migrate(ROOT,urls[0],'upgrade',HEAD).returncode==0
+        assert migrate(bootstrap,urls[0],'upgrade',HEAD).returncode==0
         original=prior_source(tmp_path/'frozen0019')
         assert migrate(original,urls[1],'upgrade','head').returncode==0
         legacy=produce_decisions(original,database_url=urls[1]);assert legacy['engine_version']=='FORMAL_DECISION_V2'

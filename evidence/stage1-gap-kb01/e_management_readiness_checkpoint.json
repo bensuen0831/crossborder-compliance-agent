@@ -1,0 +1,69 @@
+{
+  "validation_scope": "WORKTREE_FOCUSED_NOT_FINAL_EXACT_HEAD",
+  "postgres_combined": {
+    "tests": 64,
+    "passed": 64,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "artifact_sha256": "10a4aacc9f321f0f91d1ca13be3ff31f1c5966a51cad9d0d08ec11e032ee753c"
+  },
+  "translation_with_legacy_regression": {
+    "tests": 6,
+    "passed": 6,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "artifact_sha256": "ace31b01aa3584bf3db70b1c38de27a45248bb813a6344de30ce4c00ae880f75"
+  },
+  "upload_policy": {
+    "tests": 1,
+    "passed": 1,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "artifact_sha256": "cd27b0038d7cf278cdd16ea138167836d90d62682c29382a6c4408cd156a7d39"
+  },
+  "frontend_full": {
+    "passed": 157,
+    "failed": 0,
+    "log_sha256": "648d58c9cd5ece6ccd9cf0533347b8e26d5fa221f28fcda618f18f9b1e7beb18"
+  },
+  "typecheck": "PASS",
+  "lint": "PASS",
+  "i18n": "PASS",
+  "build": "PASS",
+  "browser": {
+    "passed": 3,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "format_locale_combinations": 18,
+    "locales": [
+      "zh-CN",
+      "zh-HK",
+      "en-US"
+    ],
+    "retries": 0,
+    "elapsed_ms": 241111.94999999998,
+    "artifact_sha256": "c1d4e84f4a78d13ab2f9a5c2bad7477a4ef466648aa06e9632c6eafc1c1ec46e",
+    "actual_original_formats": [
+      "DOC",
+      "DOCX",
+      "HTML",
+      "PDF",
+      "TXT",
+      "XHTML"
+    ],
+    "scanner_database": "OFFICIAL_CLAMAV_VERIFIED_CVD_MAIN_DAILY_BYTECODE",
+    "old_browser_regression": "NOT_RERUN_IN_THIS_FOCUSED_MEASUREMENT"
+  },
+  "architecture": "PENDING_COMMITTED_SOURCE_SEAL",
+  "full_backend_for_this_source": "PENDING",
+  "remote_ci": "NOT_EXECUTED",
+  "f1": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+  "real_regulatory_knowledge": "NOT_EXECUTED",
+  "production_business_uat": "NOT_EXECUTED",
+  "paid_internet_llm": "NOT_EXECUTED",
+  "stage2_started": false
+}

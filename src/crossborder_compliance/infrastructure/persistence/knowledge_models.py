@@ -45,6 +45,7 @@ KnowledgeDocumentEntity = entity(
         source_id=ref("knowledge_source_definitions.knowledge_source_definition_id"),
         display_name=col(String(250)),
     ),
+    (UniqueConstraint("tenant_id", "document_id", name="uq_knowledge_document_scope"),),
 )
 KnowledgeDocumentVersionEntity = entity(
     "KnowledgeDocumentVersionEntity",
@@ -65,6 +66,7 @@ KnowledgeDocumentVersionEntity = entity(
         approved_by=col(String(160), nullable=True),
     ),
     (
+        UniqueConstraint("tenant_id", "knowledge_version_id", name="uq_knowledge_version_scope"),
         UniqueConstraint(
             "tenant_id", "document_id", "version", name="uq_knowledge_document_version"
         ),

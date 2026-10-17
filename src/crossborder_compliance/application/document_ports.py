@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
+from pathlib import Path
 from typing import Protocol
 from uuid import UUID
 
@@ -44,6 +45,20 @@ class DocumentParserPort(Protocol):
     def parse(
         self, *, document_version_id: UUID, content: bytes, filename: str, mime_type: str
     ) -> ParsedDocument: ...
+
+
+class StreamNativeDocumentParserPort(Protocol):
+    """Shared identity-free block extraction for Project and Knowledge owners.
+
+    The adapter supplies the real source path and typed technical profile. The
+    owning application maps blocks to its own canonical nodes; no fake foreign
+    DocumentVersion/Project/Snapshot identity crosses this port.
+    """
+
+    parser_name: str
+    parser_version: str
+
+    def parse(self, source: Path, declared_format: str, policy) -> tuple[list[dict], dict]: ...
 
 
 class TaskQueuePort(Protocol):

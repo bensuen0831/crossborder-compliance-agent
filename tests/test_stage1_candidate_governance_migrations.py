@@ -41,7 +41,10 @@ def test_frozen_migration_bytes_and_single_lineage():
     from alembic.script import ScriptDirectory
 
     scripts = ScriptDirectory.from_config(Config(str(ROOT / "alembic.ini")))
-    assert scripts.get_heads() == ["0020_stage1_formal_decision_engine_compatibility"]
+    from crossborder_compliance.infrastructure.persistence.migration_lineage import revision_at_or_after
+    heads = scripts.get_heads()
+    assert len(heads) == 1
+    assert revision_at_or_after(heads[0], "0020_stage1_formal_decision_engine_compatibility")
     assert scripts.get_revision(HEAD).down_revision == OLD
     for path in (ROOT / "alembic/versions").glob("*.py"):
         if path.name[:4].isdigit() and int(path.name[:4]) <= 18:
@@ -51,6 +54,8 @@ def test_frozen_migration_bytes_and_single_lineage():
 
 
 def test_fresh_exact0018_equivalence_empty_roundtrip_and_retained_authority(tmp_path):
+    from kb01_historical_schema import historical_bootstrap_source
+    bootstrap=historical_bootstrap_source(tmp_path/"historical0019",HEAD)
     source = tmp_path / "frozen0018"
     source.mkdir()
     archive = tmp_path / "source.tar"
@@ -68,7 +73,7 @@ def test_fresh_exact0018_equivalence_empty_roundtrip_and_retained_authority(tmp_
         with admin.connect() as c:
             for n in names:
                 c.execute(text('CREATE DATABASE "' + n + '"'))
-        result = migrate(ROOT, urls[0], "upgrade", HEAD)
+        result = migrate(bootstrap, urls[0], "upgrade", HEAD)
         assert result.returncode == 0, result.stderr
         result = migrate(source, urls[1], "upgrade", "head")
         assert result.returncode == 0, result.stderr

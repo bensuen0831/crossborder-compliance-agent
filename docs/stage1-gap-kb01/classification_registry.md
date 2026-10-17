@@ -1,0 +1,3 @@
+# Dynamic KB metadata design
+
+Reuse MetadataDefinition/MetadataVersion plus draft/review/publish/outbox and existing JurisdictionRegistry. Add bounded kinds/DTOs for REGULATION_CATEGORY, RESEARCH_TOPIC, LANGUAGE, ISSUING_AUTHORITY, KNOWLEDGE_SOURCE_TYPE; no new registry database. Admin and metadata catalog expose approved effective tenant versions, codes, localized display labels and allowed operations. Jurisdiction location, supranational scope, legal category, topic, language and format stay distinct. Unknown labels/Quarantine require mapping/review, never automatic legal evidence. Technical format capability comes from server adapter/policy catalog; no hardcoded UI country options.

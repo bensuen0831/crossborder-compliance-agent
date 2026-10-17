@@ -22,6 +22,9 @@ from crossborder_compliance.infrastructure.persistence import (
     review_models as _review_models,  # noqa: F401
 )
 from crossborder_compliance.infrastructure.persistence.models import Base
+from crossborder_compliance.infrastructure.persistence import knowledge_management_models as _knowledge_management_models  # noqa: F401
+from crossborder_compliance.infrastructure.persistence import knowledge_upload_models as _knowledge_upload_models  # noqa: F401
+from crossborder_compliance.infrastructure.persistence import knowledge_manifest_models as _knowledge_manifest_models  # noqa: F401
 
 config = context.config
 if config.config_file_name is not None:

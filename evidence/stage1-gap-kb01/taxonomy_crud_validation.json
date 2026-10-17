@@ -1,0 +1,43 @@
+{
+  "artifact_kind": "HISTORICAL_MEASURED_TEST_ID_INDEX",
+  "decision": "PENDING_FINAL_HEAD_VALIDATION",
+  "historical_source_sha": "876f5a3a7312c45b104978c5ab41def02633f447",
+  "historical_full_suite_junit_sha256": "8bba4baa49349975a0d613bf26ac0ca1bd2d34a1bd119e710deb0ddf11b3b1d7",
+  "historical_passed": 30,
+  "historical_test_ids": [
+    "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[JURISDICTION_CONFIG]",
+    "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[REGULATION_CATEGORY]",
+    "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[RESEARCH_TOPIC]",
+    "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[LANGUAGE]",
+    "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[ISSUING_AUTHORITY]",
+    "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[KNOWLEDGE_SOURCE_TYPE]",
+    "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[LEGAL_EFFECT]",
+    "tests.test_kb01_taxonomy_postgres::test_no_client_actor_tenant_or_arbitrary_legal_kind",
+    "tests.test_kb01_taxonomy_postgres::test_create_idempotency_and_different_payload_conflict",
+    "tests.test_kb01_taxonomy_postgres::test_current_scope_revocation_blocks_cached_idempotent_result",
+    "tests.test_kb01_taxonomy_postgres::test_cross_tenant_list_detail_and_impact_fail_closed",
+    "tests.test_kb01_taxonomy_postgres::test_published_tree_keeps_drafts_out_and_paginates_canonical_children",
+    "tests.test_kb01_taxonomy_postgres::test_tree_requires_current_read_scope_and_scoped_published_parent",
+    "tests.test_kb01_taxonomy_postgres::test_draft_edit_cas_and_parent_cycle_are_rejected",
+    "tests.test_kb01_taxonomy_postgres::test_independent_review_cannot_use_self_review_override",
+    "tests.test_kb01_taxonomy_postgres::test_two_reviewers_have_one_canonical_winner",
+    "tests.test_kb01_taxonomy_postgres::test_new_version_and_locale_preserve_old_payload_identity",
+    "tests.test_kb01_taxonomy_postgres::test_versioned_deactivate_reactivate_does_not_rewrite_jurisdiction_identity",
+    "tests.test_kb01_taxonomy_postgres::test_draft_delete_requires_real_governed_retention_policy_and_preserves_audit",
+    "tests.test_kb01_taxonomy_postgres::test_published_or_referenced_draft_cannot_be_deleted",
+    "tests.test_kb01_taxonomy_postgres::test_merge_is_governed_alias_without_historical_rebinding",
+    "tests.test_kb01_taxonomy_postgres::test_receipt_cannot_be_mutated_in_postgres",
+    "tests.test_kb01_taxonomy_postgres::test_http_contract_denies_untrusted_context_and_spoofed_actor",
+    "tests.test_kb01_taxonomy_postgres::test_partial_edit_preserves_aliases_and_advances_root_cas",
+    "tests.test_kb01_taxonomy_postgres::test_generic_metadata_channel_cannot_bypass_taxonomy_references",
+    "tests.test_kb01_taxonomy_postgres::test_deactivation_hides_new_discovery_without_rewriting_identity",
+    "tests.test_kb01_taxonomy_postgres::test_hold_is_audited_releasable_once_and_protects_history",
+    "tests.test_kb01_taxonomy_postgres::test_hold_cross_tenant_and_stale_resource_are_rejected",
+    "tests.test_kb01_taxonomy_postgres::test_alias_and_localized_names_search_use_tenant_scoped_sql",
+    "tests.test_kb01_taxonomy_postgres::test_alias_merge_cycle_and_competing_target_are_rejected"
+  ],
+  "limitations": [
+    "This is an index into the actual1271-pass historical suite, not current-head acceptance",
+    "Final technical closure requires all mandatory final-head workflows and actual checkout identities"
+  ]
+}

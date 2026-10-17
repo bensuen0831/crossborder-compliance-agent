@@ -1,0 +1,69 @@
+{
+  "source_sha": "876f5a3a7312c45b104978c5ab41def02633f447",
+  "root": {
+    "passed": 286,
+    "total": 286
+  },
+  "groups": [
+    {
+      "name": "m2a_architecture_check",
+      "exit_code": 0,
+      "passed": 13,
+      "total": 13,
+      "status": true
+    },
+    {
+      "name": "m2b_architecture_check",
+      "exit_code": 0,
+      "passed": 27,
+      "total": 27,
+      "status": true
+    },
+    {
+      "name": "m2c_architecture_check",
+      "exit_code": 0,
+      "passed": 15,
+      "total": 15,
+      "status": null
+    },
+    {
+      "name": "m2c_projection_architecture",
+      "exit_code": 0,
+      "passed": 15,
+      "total": 15,
+      "status": null
+    },
+    {
+      "name": "m2d_architecture_check",
+      "exit_code": 0,
+      "passed": 21,
+      "total": 21,
+      "status": null
+    },
+    {
+      "name": "phase1kb_architecture_check",
+      "exit_code": 0,
+      "passed": 27,
+      "total": 27,
+      "status": null
+    },
+    {
+      "name": "m2e_architecture_check",
+      "exit_code": 0,
+      "passed": 27,
+      "total": 27,
+      "status": true,
+      "recovery": "Corrected PYTHONPATH to the exact isolated checkout; original invocation error retained"
+    },
+    {
+      "name": "m2e_r1_architecture_check",
+      "exit_code": 0,
+      "passed": 11,
+      "total": 11,
+      "status": null
+    }
+  ],
+  "passed": 442,
+  "total": 442,
+  "all_pass": true
+}
