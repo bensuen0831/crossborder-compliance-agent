@@ -1,0 +1,1979 @@
+{
+  "classification": "EXACT_HEAD_FRONTEND_BROWSER_ONLY_NOT_FULL_TECHNICAL_CLOSURE",
+  "source_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "frontend_gate": "PASS",
+  "frontend": 180,
+  "browser_gate": "PASS",
+  "browser": 88,
+  "browser_retries": 0,
+  "business_outcome_locale_matrix": 12,
+  "four_browser_outcomes": 4,
+  "cases": [
+    {
+      "file": "candidate-governance.spec.ts",
+      "suite": [],
+      "title": "pre-confirm genuine DOCX ACCEPT and exact input freeze zh-CN",
+      "repeat_ordinal": 0,
+      "source_test_id": "7c3fafd35e08aa2aa57f-7b6b9675198bd911c223",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601852,
+            "job_id": 117256227326,
+            "job_log_sha256": "908ccba77291ff085a733f8a08420e375e41ef2fa797c35259964849e7d275ac",
+            "passed_line_sha256": "aafcecbbc9f533eb8cddc629f3b8c65199fc1bf649de8404bb7df365e3b2eb2d",
+            "safe_passed_test_line": "\u2713  1 e2e/candidate-governance.spec.ts:21:3 \u203a pre-confirm genuine DOCX ACCEPT and exact input freeze zh-CN (28.4s)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "candidate-governance.spec.ts",
+      "suite": [],
+      "title": "pre-confirm genuine DOCX ACCEPT and exact input freeze zh-HK",
+      "repeat_ordinal": 0,
+      "source_test_id": "7c3fafd35e08aa2aa57f-068cf7463cc3a14332eb",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601852,
+            "job_id": 117256227326,
+            "job_log_sha256": "908ccba77291ff085a733f8a08420e375e41ef2fa797c35259964849e7d275ac",
+            "passed_line_sha256": "dd0b07d87619cbb78ddab644c564ce9a5cf608a5e52f2e326c36059975f1606f",
+            "safe_passed_test_line": "\u2713  2 e2e/candidate-governance.spec.ts:21:3 \u203a pre-confirm genuine DOCX ACCEPT and exact input freeze zh-HK (29.2s)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "candidate-governance.spec.ts",
+      "suite": [],
+      "title": "pre-confirm genuine DOCX ACCEPT and exact input freeze en-US",
+      "repeat_ordinal": 0,
+      "source_test_id": "7c3fafd35e08aa2aa57f-bb396d7b6f90be3b5356",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601852,
+            "job_id": 117256227326,
+            "job_log_sha256": "908ccba77291ff085a733f8a08420e375e41ef2fa797c35259964849e7d275ac",
+            "passed_line_sha256": "8da129d15f6f938ed9761f9bd64be1eacf47bd22ae92bc310d429420ca4a0668",
+            "safe_passed_test_line": "\u2713  3 e2e/candidate-governance.spec.ts:21:3 \u203a pre-confirm genuine DOCX ACCEPT and exact input freeze en-US (29.8s)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "candidate-governance.spec.ts",
+      "suite": [],
+      "title": "pre-confirm genuine DOCX REJECT and exact input freeze en-US",
+      "repeat_ordinal": 0,
+      "source_test_id": "7c3fafd35e08aa2aa57f-c278b14850409b3f2d0c",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601852,
+            "job_id": 117256227326,
+            "job_log_sha256": "908ccba77291ff085a733f8a08420e375e41ef2fa797c35259964849e7d275ac",
+            "passed_line_sha256": "8a5f43b3391e495ab2fa2a91e2ba4b8e882234b533a00a8a19b85a57da30bddf",
+            "safe_passed_test_line": "\u2713  4 e2e/candidate-governance.spec.ts:21:3 \u203a pre-confirm genuine DOCX REJECT and exact input freeze en-US (29.3s)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "candidate-governance.spec.ts",
+      "suite": [],
+      "title": "pre-confirm genuine DOCX EDIT and exact input freeze en-US",
+      "repeat_ordinal": 0,
+      "source_test_id": "7c3fafd35e08aa2aa57f-aa62085fe430e437eda2",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601852,
+            "job_id": 117256227326,
+            "job_log_sha256": "908ccba77291ff085a733f8a08420e375e41ef2fa797c35259964849e7d275ac",
+            "passed_line_sha256": "8f8ad2a4f03728cff89e3061a4d46af1a2f58ad6d8824b028a6f097e214139da",
+            "safe_passed_test_line": "\u2713  5 e2e/candidate-governance.spec.ts:21:3 \u203a pre-confirm genuine DOCX EDIT and exact input freeze en-US (29.8s)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "kb01-bulk.spec.ts",
+      "suite": [],
+      "title": "KB01 bounded batch deletion previews references, uses canonical commands and reconciles SQL counts",
+      "repeat_ordinal": 0,
+      "source_test_id": "0a23eeb96dba877e162c-ec0c4cee394bedbd13ac",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601851/kb01-management-browser-38985601851/structured/browser.json"
+        ],
+        "duration_ms": 5312
+      }
+    },
+    {
+      "file": "kb01-capacity.spec.ts",
+      "suite": [],
+      "title": "KB01 genuine capacity SINGLE: signed upload through human publication and exact original",
+      "repeat_ordinal": 0,
+      "source_test_id": "13f48b936c2b4d05c40b-52be9f4fac6f9825506e",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601851/kb01-capacity-browser-38985601851/structured/browser.json"
+        ],
+        "duration_ms": 78988
+      }
+    },
+    {
+      "file": "kb01-capacity.spec.ts",
+      "suite": [],
+      "title": "KB01 genuine capacity RAR4: signed upload through human publication and exact original",
+      "repeat_ordinal": 0,
+      "source_test_id": "13f48b936c2b4d05c40b-6d30ed0e2fa2676fd08e",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601851/kb01-capacity-browser-38985601851/structured/browser.json"
+        ],
+        "duration_ms": 213272
+      }
+    },
+    {
+      "file": "kb01-capacity.spec.ts",
+      "suite": [],
+      "title": "KB01 genuine capacity RAR5: signed upload through human publication and exact original",
+      "repeat_ordinal": 0,
+      "source_test_id": "13f48b936c2b4d05c40b-e7745fccb793dd3bded2",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601851/kb01-capacity-browser-38985601851/structured/browser.json"
+        ],
+        "duration_ms": 218615
+      }
+    },
+    {
+      "file": "kb01-capacity.spec.ts",
+      "suite": [],
+      "title": "KB01 genuine capacity ZIP: signed upload through human publication and exact original",
+      "repeat_ordinal": 0,
+      "source_test_id": "13f48b936c2b4d05c40b-7ecb55e4de4b9cc79193",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601851/kb01-capacity-browser-38985601851/structured/browser.json"
+        ],
+        "duration_ms": 252389
+      }
+    },
+    {
+      "file": "kb01-folder.spec.ts",
+      "suite": [],
+      "title": "KB01 real directory upload preserves duplicate basenames, native citations and exact originals without Excel",
+      "repeat_ordinal": 0,
+      "source_test_id": "17ba07c6cc2aa24e053d-2e78f50d706a38d72e4e",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601851/kb01-management-browser-38985601851/structured/browser.json"
+        ],
+        "duration_ms": 32296
+      }
+    },
+    {
+      "file": "kb01-management.spec.ts",
+      "suite": [],
+      "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-CN",
+      "repeat_ordinal": 0,
+      "source_test_id": "824755e00467bf136892-dca3886a9377f25b0c70",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601851/kb01-management-browser-38985601851/structured/browser.json"
+        ],
+        "duration_ms": 76287
+      }
+    },
+    {
+      "file": "kb01-management.spec.ts",
+      "suite": [],
+      "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-HK",
+      "repeat_ordinal": 0,
+      "source_test_id": "824755e00467bf136892-d8e5d73c8f982aa7ddea",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601851/kb01-management-browser-38985601851/structured/browser.json"
+        ],
+        "duration_ms": 75658
+      }
+    },
+    {
+      "file": "kb01-management.spec.ts",
+      "suite": [],
+      "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in en-US",
+      "repeat_ordinal": 0,
+      "source_test_id": "824755e00467bf136892-879d2c8c3d5eaab1a884",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601851/kb01-management-browser-38985601851/structured/browser.json"
+        ],
+        "duration_ms": 75968
+      }
+    },
+    {
+      "file": "kb01-manifest.spec.ts",
+      "suite": [],
+      "title": "KB01 optional CSV catalogue remains an immutable proposal until explicit file mapping",
+      "repeat_ordinal": 0,
+      "source_test_id": "49e0583561605d55652f-cf565edc4324ec3360ca",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601851/kb01-management-browser-38985601851/structured/browser.json"
+        ],
+        "duration_ms": 25063
+      }
+    },
+    {
+      "file": "kb01-taxonomy.spec.ts",
+      "suite": [],
+      "title": "KB01 country and regulation-category UI preserves governed versions, tree and protected deletion",
+      "repeat_ordinal": 0,
+      "source_test_id": "594049264a7d780f0ee3-35e4ac80faaf0349a724",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601851/kb01-management-browser-38985601851/structured/browser.json"
+        ],
+        "duration_ms": 9769
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 0,
+      "source_test_id": "0828a03cd0e93ee0ce1b-0b60468ad3f0e7d43d04",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 6850
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 1,
+      "source_test_id": "0828a03cd0e93ee0ce1b-0b60468ad3f0e7d43d04",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 6056
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 2,
+      "source_test_id": "0828a03cd0e93ee0ce1b-0b60468ad3f0e7d43d04",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 6321
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 0,
+      "source_test_id": "0828a03cd0e93ee0ce1b-8dd866e07faf1be9735f",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 4346
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 1,
+      "source_test_id": "0828a03cd0e93ee0ce1b-8dd866e07faf1be9735f",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 3929
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 2,
+      "source_test_id": "0828a03cd0e93ee0ce1b-8dd866e07faf1be9735f",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 4128
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 0,
+      "source_test_id": "0828a03cd0e93ee0ce1b-876eaec5bf6a738bfb5e",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 3259
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 1,
+      "source_test_id": "0828a03cd0e93ee0ce1b-876eaec5bf6a738bfb5e",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 2586
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 2,
+      "source_test_id": "0828a03cd0e93ee0ce1b-876eaec5bf6a738bfb5e",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 2470
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 0,
+      "source_test_id": "0828a03cd0e93ee0ce1b-e7b0e0156daad214e7f9",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 4467
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 1,
+      "source_test_id": "0828a03cd0e93ee0ce1b-e7b0e0156daad214e7f9",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 4290
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 2,
+      "source_test_id": "0828a03cd0e93ee0ce1b-e7b0e0156daad214e7f9",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 3806
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 0,
+      "source_test_id": "0828a03cd0e93ee0ce1b-0a96abc15f2dda4c5fc5",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 6144
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 1,
+      "source_test_id": "0828a03cd0e93ee0ce1b-0a96abc15f2dda4c5fc5",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 6048
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 2,
+      "source_test_id": "0828a03cd0e93ee0ce1b-0a96abc15f2dda4c5fc5",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 6197
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 0,
+      "source_test_id": "0828a03cd0e93ee0ce1b-8733610e07b010e8fa07",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 4190
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 1,
+      "source_test_id": "0828a03cd0e93ee0ce1b-8733610e07b010e8fa07",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 4156
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 2,
+      "source_test_id": "0828a03cd0e93ee0ce1b-8733610e07b010e8fa07",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 4077
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 0,
+      "source_test_id": "0828a03cd0e93ee0ce1b-e2e4fd7d9bc32c84d4f7",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 2701
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 1,
+      "source_test_id": "0828a03cd0e93ee0ce1b-e2e4fd7d9bc32c84d4f7",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 2674
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 2,
+      "source_test_id": "0828a03cd0e93ee0ce1b-e2e4fd7d9bc32c84d4f7",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 2583
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 0,
+      "source_test_id": "0828a03cd0e93ee0ce1b-7bfee08198fd2c785605",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 4009
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 1,
+      "source_test_id": "0828a03cd0e93ee0ce1b-7bfee08198fd2c785605",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 4059
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 2,
+      "source_test_id": "0828a03cd0e93ee0ce1b-7bfee08198fd2c785605",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 4175
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 0,
+      "source_test_id": "0828a03cd0e93ee0ce1b-4b26de3bfa3520b14869",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 6057
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 1,
+      "source_test_id": "0828a03cd0e93ee0ce1b-4b26de3bfa3520b14869",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 6143
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 2,
+      "source_test_id": "0828a03cd0e93ee0ce1b-4b26de3bfa3520b14869",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 6009
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 0,
+      "source_test_id": "0828a03cd0e93ee0ce1b-b838484ae1edd2ec3fc3",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 4190
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 1,
+      "source_test_id": "0828a03cd0e93ee0ce1b-b838484ae1edd2ec3fc3",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 4125
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 2,
+      "source_test_id": "0828a03cd0e93ee0ce1b-b838484ae1edd2ec3fc3",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 4123
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 0,
+      "source_test_id": "0828a03cd0e93ee0ce1b-bbb453f16e90ff390dd1",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 2554
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 1,
+      "source_test_id": "0828a03cd0e93ee0ce1b-bbb453f16e90ff390dd1",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 2724
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 2,
+      "source_test_id": "0828a03cd0e93ee0ce1b-bbb453f16e90ff390dd1",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 2455
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 0,
+      "source_test_id": "0828a03cd0e93ee0ce1b-836a98032f52ad92e7e9",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 4159
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 1,
+      "source_test_id": "0828a03cd0e93ee0ce1b-836a98032f52ad92e7e9",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 3974
+      }
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 2,
+      "source_test_id": "0828a03cd0e93ee0ce1b-836a98032f52ad92e7e9",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601865/m0-browser-uat-38985601865-1/structured/results.json"
+        ],
+        "duration_ms": 3925
+      }
+    },
+    {
+      "file": "m1.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "four-step intake, canonical results, official citation and locale state invariance",
+      "repeat_ordinal": 0,
+      "source_test_id": "1c39409c6e78644cb110-5d52ab9355b85be61567",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601848/m2b-uat-38985601848/structured/tmp/m2b-core-browser.json",
+          "38985601848/m2b-uat-38985601848/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601873/m2c-uat-38985601873/structured/tmp/m2b-core-browser.json",
+          "38985601873/m2c-uat-38985601873/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601847/m1-uat-38985601847/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601854/m2d-uat-38985601854/structured/tmp/m2b-core-browser.json",
+          "38985601854/m2d-uat-38985601854/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json"
+        ],
+        "duration_ms": 46395
+      }
+    },
+    {
+      "file": "m1.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "four-step intake, canonical results, official citation and locale state invariance",
+      "repeat_ordinal": 0,
+      "source_test_id": "1c39409c6e78644cb110-8d621be59a54cc8466b0",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601848/m2b-uat-38985601848/structured/tmp/m2b-core-browser.json",
+          "38985601848/m2b-uat-38985601848/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601873/m2c-uat-38985601873/structured/tmp/m2b-core-browser.json",
+          "38985601873/m2c-uat-38985601873/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601847/m1-uat-38985601847/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601854/m2d-uat-38985601854/structured/tmp/m2b-core-browser.json",
+          "38985601854/m2d-uat-38985601854/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json"
+        ],
+        "duration_ms": 23316
+      }
+    },
+    {
+      "file": "m1.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "four-step intake, canonical results, official citation and locale state invariance",
+      "repeat_ordinal": 0,
+      "source_test_id": "1c39409c6e78644cb110-c8522f4a112e9e4e7414",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601848/m2b-uat-38985601848/structured/tmp/m2b-core-browser.json",
+          "38985601848/m2b-uat-38985601848/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601873/m2c-uat-38985601873/structured/tmp/m2b-core-browser.json",
+          "38985601873/m2c-uat-38985601873/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601847/m1-uat-38985601847/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601854/m2d-uat-38985601854/structured/tmp/m2b-core-browser.json",
+          "38985601854/m2d-uat-38985601854/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json"
+        ],
+        "duration_ms": 23047
+      }
+    },
+    {
+      "file": "m2a.spec.ts",
+      "suite": [],
+      "title": "new persisted project, refresh, exact snapshot and canonical START/READ in zh-CN",
+      "repeat_ordinal": 0,
+      "source_test_id": "49d86bb918eea637eb67-bd327ae3a42099b94360",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601848/m2b-uat-38985601848/structured/tmp/m2b-core-browser.json",
+          "38985601848/m2b-uat-38985601848/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601876/m2a-uat-38985601876/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601873/m2c-uat-38985601873/structured/tmp/m2b-core-browser.json",
+          "38985601873/m2c-uat-38985601873/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601854/m2d-uat-38985601854/structured/tmp/m2b-core-browser.json",
+          "38985601854/m2d-uat-38985601854/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json"
+        ],
+        "duration_ms": 20897
+      }
+    },
+    {
+      "file": "m2a.spec.ts",
+      "suite": [],
+      "title": "new persisted project, refresh, exact snapshot and canonical START/READ in zh-HK",
+      "repeat_ordinal": 0,
+      "source_test_id": "49d86bb918eea637eb67-80085a333d7a0bdc2f01",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601848/m2b-uat-38985601848/structured/tmp/m2b-core-browser.json",
+          "38985601848/m2b-uat-38985601848/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601876/m2a-uat-38985601876/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601873/m2c-uat-38985601873/structured/tmp/m2b-core-browser.json",
+          "38985601873/m2c-uat-38985601873/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601854/m2d-uat-38985601854/structured/tmp/m2b-core-browser.json",
+          "38985601854/m2d-uat-38985601854/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json"
+        ],
+        "duration_ms": 23464
+      }
+    },
+    {
+      "file": "m2a.spec.ts",
+      "suite": [],
+      "title": "new persisted project, refresh, exact snapshot and canonical START/READ in en-US",
+      "repeat_ordinal": 0,
+      "source_test_id": "49d86bb918eea637eb67-40bf095b91b29ad59c73",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601848/m2b-uat-38985601848/structured/tmp/m2b-core-browser.json",
+          "38985601848/m2b-uat-38985601848/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601876/m2a-uat-38985601876/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601873/m2c-uat-38985601873/structured/tmp/m2b-core-browser.json",
+          "38985601873/m2c-uat-38985601873/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601854/m2d-uat-38985601854/structured/tmp/m2b-core-browser.json",
+          "38985601854/m2d-uat-38985601854/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json"
+        ],
+        "duration_ms": 23696
+      }
+    },
+    {
+      "file": "m2b.spec.ts",
+      "suite": [],
+      "title": "real binary, pinned documents and canonical workflow in zh-CN",
+      "repeat_ordinal": 0,
+      "source_test_id": "7122c592afc7dc3e6b39-cad3b438a01933b9368c",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601848/m2b-uat-38985601848/structured/tmp/m2b-core-browser.json",
+          "38985601848/m2b-uat-38985601848/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601873/m2c-uat-38985601873/structured/tmp/m2b-core-browser.json",
+          "38985601873/m2c-uat-38985601873/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601854/m2d-uat-38985601854/structured/tmp/m2b-core-browser.json",
+          "38985601854/m2d-uat-38985601854/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json"
+        ],
+        "duration_ms": 22956
+      }
+    },
+    {
+      "file": "m2b.spec.ts",
+      "suite": [],
+      "title": "real binary, pinned documents and canonical workflow in zh-HK",
+      "repeat_ordinal": 0,
+      "source_test_id": "7122c592afc7dc3e6b39-5ad4e34c707ded00c4f7",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601848/m2b-uat-38985601848/structured/tmp/m2b-core-browser.json",
+          "38985601848/m2b-uat-38985601848/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601873/m2c-uat-38985601873/structured/tmp/m2b-core-browser.json",
+          "38985601873/m2c-uat-38985601873/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601854/m2d-uat-38985601854/structured/tmp/m2b-core-browser.json",
+          "38985601854/m2d-uat-38985601854/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json"
+        ],
+        "duration_ms": 22728
+      }
+    },
+    {
+      "file": "m2b.spec.ts",
+      "suite": [],
+      "title": "real binary, pinned documents and canonical workflow in en-US",
+      "repeat_ordinal": 0,
+      "source_test_id": "7122c592afc7dc3e6b39-9a8080e66f228c9f738f",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601848/m2b-uat-38985601848/structured/tmp/m2b-core-browser.json",
+          "38985601848/m2b-uat-38985601848/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601873/m2c-uat-38985601873/structured/tmp/m2b-core-browser.json",
+          "38985601873/m2c-uat-38985601873/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601854/m2d-uat-38985601854/structured/tmp/m2b-core-browser.json",
+          "38985601854/m2d-uat-38985601854/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json"
+        ],
+        "duration_ms": 21886
+      }
+    },
+    {
+      "file": "m2c.spec.ts",
+      "suite": [],
+      "title": "Stage 1 formal authorities, visualizations and exact-snapshot reread in zh-CN",
+      "repeat_ordinal": 0,
+      "source_test_id": "4de343ac5db37ecc6189-f1afb1e6806837924710",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601873/m2c-uat-38985601873/structured/tmp/m2b-core-browser.json",
+          "38985601873/m2c-uat-38985601873/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601854/m2d-uat-38985601854/structured/tmp/m2b-core-browser.json",
+          "38985601854/m2d-uat-38985601854/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json"
+        ],
+        "duration_ms": 94942
+      }
+    },
+    {
+      "file": "m2c.spec.ts",
+      "suite": [],
+      "title": "Stage 1 formal authorities, visualizations and exact-snapshot reread in zh-HK",
+      "repeat_ordinal": 0,
+      "source_test_id": "4de343ac5db37ecc6189-76503ef4e08cd9cebda7",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601873/m2c-uat-38985601873/structured/tmp/m2b-core-browser.json",
+          "38985601873/m2c-uat-38985601873/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601854/m2d-uat-38985601854/structured/tmp/m2b-core-browser.json",
+          "38985601854/m2d-uat-38985601854/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json"
+        ],
+        "duration_ms": 88696
+      }
+    },
+    {
+      "file": "m2c.spec.ts",
+      "suite": [],
+      "title": "Stage 1 formal authorities, visualizations and exact-snapshot reread in en-US",
+      "repeat_ordinal": 0,
+      "source_test_id": "4de343ac5db37ecc6189-6111d3d49725194bfd25",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601873/m2c-uat-38985601873/structured/tmp/m2b-core-browser.json",
+          "38985601873/m2c-uat-38985601873/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+          "38985601854/m2d-uat-38985601854/structured/tmp/m2b-core-browser.json",
+          "38985601854/m2d-uat-38985601854/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json"
+        ],
+        "duration_ms": 89211
+      }
+    },
+    {
+      "file": "m2d.spec.ts",
+      "suite": [],
+      "title": "governed same-snapshot approval, request-changes and genuine fact successor in zh-CN",
+      "repeat_ordinal": 0,
+      "source_test_id": "c052a4e5cf4841f146a5-e18e90efe14dce292b1f",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601854/m2d-uat-38985601854/structured/tmp/m2b-core-browser.json",
+          "38985601854/m2d-uat-38985601854/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json"
+        ],
+        "duration_ms": 92361
+      }
+    },
+    {
+      "file": "m2d.spec.ts",
+      "suite": [],
+      "title": "governed same-snapshot approval, request-changes and genuine fact successor in zh-HK",
+      "repeat_ordinal": 0,
+      "source_test_id": "c052a4e5cf4841f146a5-9db904067104abec5d86",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601854/m2d-uat-38985601854/structured/tmp/m2b-core-browser.json",
+          "38985601854/m2d-uat-38985601854/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json"
+        ],
+        "duration_ms": 92367
+      }
+    },
+    {
+      "file": "m2d.spec.ts",
+      "suite": [],
+      "title": "governed same-snapshot approval, request-changes and genuine fact successor in en-US",
+      "repeat_ordinal": 0,
+      "source_test_id": "c052a4e5cf4841f146a5-2e0298091731b991eb16",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "VERIFIED_RAW_BROWSER_REPORT",
+        "reports": [
+          "38985601854/m2d-uat-38985601854/structured/tmp/m2b-core-browser.json",
+          "38985601854/m2d-uat-38985601854/structured/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json"
+        ],
+        "duration_ms": 92217
+      }
+    },
+    {
+      "file": "m2e.spec.ts",
+      "suite": [],
+      "title": "integration Admin, one-time credentials and signed callback zh-CN",
+      "repeat_ordinal": 0,
+      "source_test_id": "3a181351ed0597d72cf1-c199b24daf8438efc2be",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601846,
+            "job_id": 117256227416,
+            "job_log_sha256": "86c98c2d0d8b6ce7b2a3822469c1c531df4e4467636baaec5bb04ff1417c4f2a",
+            "passed_line_sha256": "b200a3579781f4c2b6d54fa084af27bb223e8b30f06733f8114138c7ce8a31b2",
+            "safe_passed_test_line": "\u2713  16 e2e/m2e.spec.ts:15:3 \u203a integration Admin, one-time credentials and signed callback zh-CN (3.4s)"
+          },
+          {
+            "run_id": 38985601852,
+            "job_id": 117256227326,
+            "job_log_sha256": "908ccba77291ff085a733f8a08420e375e41ef2fa797c35259964849e7d275ac",
+            "passed_line_sha256": "39bd5bbce91462af286e3f3013915ea284ed5dab9197abf2d62a03d50b673a92",
+            "safe_passed_test_line": "\u2713  16 e2e/m2e.spec.ts:15:3 \u203a integration Admin, one-time credentials and signed callback zh-CN (3.5s)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "m2e.spec.ts",
+      "suite": [],
+      "title": "integration Admin, one-time credentials and signed callback zh-HK",
+      "repeat_ordinal": 0,
+      "source_test_id": "3a181351ed0597d72cf1-615ca9750bd76f92aa72",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601846,
+            "job_id": 117256227416,
+            "job_log_sha256": "86c98c2d0d8b6ce7b2a3822469c1c531df4e4467636baaec5bb04ff1417c4f2a",
+            "passed_line_sha256": "32d1beaf82c2c2ce83bf834a54fc764e43f83b848584415acb9656b35acaf9d8",
+            "safe_passed_test_line": "\u2713  17 e2e/m2e.spec.ts:15:3 \u203a integration Admin, one-time credentials and signed callback zh-HK (2.9s)"
+          },
+          {
+            "run_id": 38985601852,
+            "job_id": 117256227326,
+            "job_log_sha256": "908ccba77291ff085a733f8a08420e375e41ef2fa797c35259964849e7d275ac",
+            "passed_line_sha256": "4f639836c412bf260dd7af50c8860aee160c161038acffc3a4fc83978298cf19",
+            "safe_passed_test_line": "\u2713  17 e2e/m2e.spec.ts:15:3 \u203a integration Admin, one-time credentials and signed callback zh-HK (4.0s)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "m2e.spec.ts",
+      "suite": [],
+      "title": "integration Admin, one-time credentials and signed callback en-US",
+      "repeat_ordinal": 0,
+      "source_test_id": "3a181351ed0597d72cf1-f0c2080ba95b430319c9",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601846,
+            "job_id": 117256227416,
+            "job_log_sha256": "86c98c2d0d8b6ce7b2a3822469c1c531df4e4467636baaec5bb04ff1417c4f2a",
+            "passed_line_sha256": "eb63f3b32785644c946a92199d81bd3083a101ab998cc852b7bd3d43c301f140",
+            "safe_passed_test_line": "\u2713  18 e2e/m2e.spec.ts:15:3 \u203a integration Admin, one-time credentials and signed callback en-US (3.1s)"
+          },
+          {
+            "run_id": 38985601852,
+            "job_id": 117256227326,
+            "job_log_sha256": "908ccba77291ff085a733f8a08420e375e41ef2fa797c35259964849e7d275ac",
+            "passed_line_sha256": "ac6f7d11f4cb8b89d8e13eae8471c4b3fe9dc5a16845f2b1e8e925fc7c198eae",
+            "safe_passed_test_line": "\u2713  18 e2e/m2e.spec.ts:15:3 \u203a integration Admin, one-time credentials and signed callback en-US (5.0s)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "phase1kb.spec.ts",
+      "suite": [],
+      "title": "governed admin providers, write-only secret and real HTTP tests zh-CN",
+      "repeat_ordinal": 0,
+      "source_test_id": "0bc08d3250e9131aa275-7a0518ead1c28a8993c4",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601846,
+            "job_id": 117256227416,
+            "job_log_sha256": "86c98c2d0d8b6ce7b2a3822469c1c531df4e4467636baaec5bb04ff1417c4f2a",
+            "passed_line_sha256": "913185d6041e10ec54ae375a9c8858feacf99f979aabf87f26ed4fde8717d059",
+            "safe_passed_test_line": "\u2713  19 e2e/phase1kb.spec.ts:31:3 \u203a governed admin providers, write-only secret and real HTTP tests zh-CN (8.5s)"
+          },
+          {
+            "run_id": 38985601845,
+            "job_id": 117256227288,
+            "job_log_sha256": "e4f4244af7381275cef41ada750e4fab700d8803fddfe3f65b4ff9de534a5475",
+            "passed_line_sha256": "cdc2463158003aacf73b0a905771e7bd14e308baf4e929e2cf77e1d6fb4131b4",
+            "safe_passed_test_line": "\u2713  16 e2e/phase1kb.spec.ts:31:3 \u203a governed admin providers, write-only secret and real HTTP tests zh-CN (6.2s)"
+          },
+          {
+            "run_id": 38985601852,
+            "job_id": 117256227326,
+            "job_log_sha256": "908ccba77291ff085a733f8a08420e375e41ef2fa797c35259964849e7d275ac",
+            "passed_line_sha256": "33a54939dd9863a09a293f2bc9f7565160119033a6be1fae0b516c674976748c",
+            "safe_passed_test_line": "\u2713  19 e2e/phase1kb.spec.ts:31:3 \u203a governed admin providers, write-only secret and real HTTP tests zh-CN (9.1s)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "phase1kb.spec.ts",
+      "suite": [],
+      "title": "authorized eligible selection, genuine document extraction and exact workflow zh-CN",
+      "repeat_ordinal": 0,
+      "source_test_id": "0bc08d3250e9131aa275-7168754485952748a99b",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601846,
+            "job_id": 117256227416,
+            "job_log_sha256": "86c98c2d0d8b6ce7b2a3822469c1c531df4e4467636baaec5bb04ff1417c4f2a",
+            "passed_line_sha256": "d4ad70b862ed270eb0206146d822b1ae0037bc1b6211ba5ee9f464eb56957958",
+            "safe_passed_test_line": "\u2713  20 e2e/phase1kb.spec.ts:105:3 \u203a authorized eligible selection, genuine document extraction and exact workflow zh-CN (19.4s)"
+          },
+          {
+            "run_id": 38985601845,
+            "job_id": 117256227288,
+            "job_log_sha256": "e4f4244af7381275cef41ada750e4fab700d8803fddfe3f65b4ff9de534a5475",
+            "passed_line_sha256": "6a7353f6ce7a07533f530c360d7f8bc8ee1e1fc6a2e05664810262a3d25e9eb3",
+            "safe_passed_test_line": "\u2713  17 e2e/phase1kb.spec.ts:105:3 \u203a authorized eligible selection, genuine document extraction and exact workflow zh-CN (13.0s)"
+          },
+          {
+            "run_id": 38985601852,
+            "job_id": 117256227326,
+            "job_log_sha256": "908ccba77291ff085a733f8a08420e375e41ef2fa797c35259964849e7d275ac",
+            "passed_line_sha256": "d3ee51a02c16dddf6d465d8fc14b0d050476ca26190c3167ac9a87d6f457045b",
+            "safe_passed_test_line": "\u2713  20 e2e/phase1kb.spec.ts:105:3 \u203a authorized eligible selection, genuine document extraction and exact workflow zh-CN (22.0s)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "phase1kb.spec.ts",
+      "suite": [],
+      "title": "governed admin providers, write-only secret and real HTTP tests zh-HK",
+      "repeat_ordinal": 0,
+      "source_test_id": "0bc08d3250e9131aa275-15bd6e8309a3e177e8e2",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601846,
+            "job_id": 117256227416,
+            "job_log_sha256": "86c98c2d0d8b6ce7b2a3822469c1c531df4e4467636baaec5bb04ff1417c4f2a",
+            "passed_line_sha256": "6a8f01f7ea203467058134b0dbc31ddad3d9eb7fcb0920fd04fcc446ff85f6f3",
+            "safe_passed_test_line": "\u2713  21 e2e/phase1kb.spec.ts:31:3 \u203a governed admin providers, write-only secret and real HTTP tests zh-HK (10.5s)"
+          },
+          {
+            "run_id": 38985601845,
+            "job_id": 117256227288,
+            "job_log_sha256": "e4f4244af7381275cef41ada750e4fab700d8803fddfe3f65b4ff9de534a5475",
+            "passed_line_sha256": "02a3a6226c7c01749d040731f3ecc99471dc4ecb29cff0ef4e2dd45ec95b5da4",
+            "safe_passed_test_line": "\u2713  18 e2e/phase1kb.spec.ts:31:3 \u203a governed admin providers, write-only secret and real HTTP tests zh-HK (8.0s)"
+          },
+          {
+            "run_id": 38985601852,
+            "job_id": 117256227326,
+            "job_log_sha256": "908ccba77291ff085a733f8a08420e375e41ef2fa797c35259964849e7d275ac",
+            "passed_line_sha256": "ceb52f989095769ae7ea5910482b5b21b27a274b96dd5207922aedb86ec7f57c",
+            "safe_passed_test_line": "\u2713  21 e2e/phase1kb.spec.ts:31:3 \u203a governed admin providers, write-only secret and real HTTP tests zh-HK (11.4s)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "phase1kb.spec.ts",
+      "suite": [],
+      "title": "authorized eligible selection, genuine document extraction and exact workflow zh-HK",
+      "repeat_ordinal": 0,
+      "source_test_id": "0bc08d3250e9131aa275-7644fb3a27bbc146078b",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601846,
+            "job_id": 117256227416,
+            "job_log_sha256": "86c98c2d0d8b6ce7b2a3822469c1c531df4e4467636baaec5bb04ff1417c4f2a",
+            "passed_line_sha256": "97338fc1cf35c463701168d802613d1b52e39cd3268c5fe532217abeebb2cdb0",
+            "safe_passed_test_line": "\u2713  22 e2e/phase1kb.spec.ts:105:3 \u203a authorized eligible selection, genuine document extraction and exact workflow zh-HK (19.9s)"
+          },
+          {
+            "run_id": 38985601845,
+            "job_id": 117256227288,
+            "job_log_sha256": "e4f4244af7381275cef41ada750e4fab700d8803fddfe3f65b4ff9de534a5475",
+            "passed_line_sha256": "07e4c9399579303a27b6384f18cdf3e549231cd51c7d0d03278ad68b8ad7df4c",
+            "safe_passed_test_line": "\u2713  19 e2e/phase1kb.spec.ts:105:3 \u203a authorized eligible selection, genuine document extraction and exact workflow zh-HK (13.0s)"
+          },
+          {
+            "run_id": 38985601852,
+            "job_id": 117256227326,
+            "job_log_sha256": "908ccba77291ff085a733f8a08420e375e41ef2fa797c35259964849e7d275ac",
+            "passed_line_sha256": "5361d8091d16058a8d9275cbeb36e2e11e23b5a6c50938e25ff2e6ba088667a7",
+            "safe_passed_test_line": "\u2713  22 e2e/phase1kb.spec.ts:105:3 \u203a authorized eligible selection, genuine document extraction and exact workflow zh-HK (21.1s)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "phase1kb.spec.ts",
+      "suite": [],
+      "title": "governed admin providers, write-only secret and real HTTP tests en-US",
+      "repeat_ordinal": 0,
+      "source_test_id": "0bc08d3250e9131aa275-5b4c4d0303f6e46a3ff6",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601846,
+            "job_id": 117256227416,
+            "job_log_sha256": "86c98c2d0d8b6ce7b2a3822469c1c531df4e4467636baaec5bb04ff1417c4f2a",
+            "passed_line_sha256": "cb20d3738c97ad565c18c53b825b235bed13edf9d132e991c28e561d396b38b1",
+            "safe_passed_test_line": "\u2713  23 e2e/phase1kb.spec.ts:31:3 \u203a governed admin providers, write-only secret and real HTTP tests en-US (10.6s)"
+          },
+          {
+            "run_id": 38985601845,
+            "job_id": 117256227288,
+            "job_log_sha256": "e4f4244af7381275cef41ada750e4fab700d8803fddfe3f65b4ff9de534a5475",
+            "passed_line_sha256": "f716ba9e95d1c85608447283071392f89db1725768a4463993a91eaba17e446c",
+            "safe_passed_test_line": "\u2713  20 e2e/phase1kb.spec.ts:31:3 \u203a governed admin providers, write-only secret and real HTTP tests en-US (7.9s)"
+          },
+          {
+            "run_id": 38985601852,
+            "job_id": 117256227326,
+            "job_log_sha256": "908ccba77291ff085a733f8a08420e375e41ef2fa797c35259964849e7d275ac",
+            "passed_line_sha256": "5f6d8819c3fe2b565fe52585caea94bcd7e4ac44ca530ac1027615aa561d98b6",
+            "safe_passed_test_line": "\u2713  23 e2e/phase1kb.spec.ts:31:3 \u203a governed admin providers, write-only secret and real HTTP tests en-US (11.8s)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "phase1kb.spec.ts",
+      "suite": [],
+      "title": "authorized eligible selection, genuine document extraction and exact workflow en-US",
+      "repeat_ordinal": 0,
+      "source_test_id": "0bc08d3250e9131aa275-a33566c29ec54562443b",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601846,
+            "job_id": 117256227416,
+            "job_log_sha256": "86c98c2d0d8b6ce7b2a3822469c1c531df4e4467636baaec5bb04ff1417c4f2a",
+            "passed_line_sha256": "250114728cf0ecbea23c3bc8d40123df0037e292e26186fe45eac11fb643980d",
+            "safe_passed_test_line": "\u2713  24 e2e/phase1kb.spec.ts:105:3 \u203a authorized eligible selection, genuine document extraction and exact workflow en-US (19.7s)"
+          },
+          {
+            "run_id": 38985601845,
+            "job_id": 117256227288,
+            "job_log_sha256": "e4f4244af7381275cef41ada750e4fab700d8803fddfe3f65b4ff9de534a5475",
+            "passed_line_sha256": "32dfb830151fe9095ff09f4814e95f9db0a530528096d5f05237189debacd0e7",
+            "safe_passed_test_line": "\u2713  21 e2e/phase1kb.spec.ts:105:3 \u203a authorized eligible selection, genuine document extraction and exact workflow en-US (13.1s)"
+          },
+          {
+            "run_id": 38985601852,
+            "job_id": 117256227326,
+            "job_log_sha256": "908ccba77291ff085a733f8a08420e375e41ef2fa797c35259964849e7d275ac",
+            "passed_line_sha256": "986084f411b1f009f029676ba31bfa068c2a4f890becfe8a6d7e55d2d704919d",
+            "safe_passed_test_line": "\u2713  24 e2e/phase1kb.spec.ts:105:3 \u203a authorized eligible selection, genuine document extraction and exact workflow en-US (21.9s)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical DIRECT business journey zh-CN",
+      "repeat_ordinal": 0,
+      "source_test_id": "2c2a308c61cbf020bc97-35c20ae1fd0ddc38df26",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601896,
+            "job_id": 117256227771,
+            "job_log_sha256": "8082b90bb99ce61d8a77e53da59255acf2f57a2e46ff3ab9c38b4bfe79818690",
+            "passed_line_sha256": "e651218868bb65a79b1b31494f326131bba0ff373d29fe787a4611090001f1ae",
+            "safe_passed_test_line": "\u2713   1 e2e/stage1-business.spec.ts:14:5 \u203a blank project canonical DIRECT business journey zh-CN (2.7m)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical DIRECT business journey zh-HK",
+      "repeat_ordinal": 0,
+      "source_test_id": "2c2a308c61cbf020bc97-cbea8a439bc8f7b4b31f",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601896,
+            "job_id": 117256227771,
+            "job_log_sha256": "8082b90bb99ce61d8a77e53da59255acf2f57a2e46ff3ab9c38b4bfe79818690",
+            "passed_line_sha256": "d28264366ecfeaeff98363b12a350847db954326ed355e46150a22316823ebd4",
+            "safe_passed_test_line": "\u2713   2 e2e/stage1-business.spec.ts:14:5 \u203a blank project canonical DIRECT business journey zh-HK (2.6m)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical DIRECT business journey en-US",
+      "repeat_ordinal": 0,
+      "source_test_id": "2c2a308c61cbf020bc97-6f831d3f769001de7d89",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601896,
+            "job_id": 117256227771,
+            "job_log_sha256": "8082b90bb99ce61d8a77e53da59255acf2f57a2e46ff3ab9c38b4bfe79818690",
+            "passed_line_sha256": "283c5c6d5dd613e1e98fd9e3360c98205bdf22dc859d101b493ca07167c8d781",
+            "safe_passed_test_line": "\u2713   3 e2e/stage1-business.spec.ts:14:5 \u203a blank project canonical DIRECT business journey en-US (2.6m)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical CONDITIONAL business journey zh-CN",
+      "repeat_ordinal": 0,
+      "source_test_id": "2c2a308c61cbf020bc97-ff9b4b80ea247bcce7db",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601896,
+            "job_id": 117256227771,
+            "job_log_sha256": "8082b90bb99ce61d8a77e53da59255acf2f57a2e46ff3ab9c38b4bfe79818690",
+            "passed_line_sha256": "4aa6b85dcaa33b780f1d188e84a4ace9bd8e4edd79e6fd30afd2540bf7caf520",
+            "safe_passed_test_line": "\u2713   4 e2e/stage1-business.spec.ts:14:5 \u203a blank project canonical CONDITIONAL business journey zh-CN (2.6m)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical CONDITIONAL business journey zh-HK",
+      "repeat_ordinal": 0,
+      "source_test_id": "2c2a308c61cbf020bc97-9e4920c4b5568938a2e1",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601896,
+            "job_id": 117256227771,
+            "job_log_sha256": "8082b90bb99ce61d8a77e53da59255acf2f57a2e46ff3ab9c38b4bfe79818690",
+            "passed_line_sha256": "daab34d63165ec36b26af37b9c9e1bb6802ec8a3b87df05403dfb02163dc8993",
+            "safe_passed_test_line": "\u2713   5 e2e/stage1-business.spec.ts:14:5 \u203a blank project canonical CONDITIONAL business journey zh-HK (2.6m)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical CONDITIONAL business journey en-US",
+      "repeat_ordinal": 0,
+      "source_test_id": "2c2a308c61cbf020bc97-256d974e05e1d32926ff",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601896,
+            "job_id": 117256227771,
+            "job_log_sha256": "8082b90bb99ce61d8a77e53da59255acf2f57a2e46ff3ab9c38b4bfe79818690",
+            "passed_line_sha256": "04613ee5a65cd8a8ec56f0ef42efd76b50eb87968225aa584e119159ba57b289",
+            "safe_passed_test_line": "\u2713   6 e2e/stage1-business.spec.ts:14:5 \u203a blank project canonical CONDITIONAL business journey en-US (2.6m)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical LOCALIZATION business journey zh-CN",
+      "repeat_ordinal": 0,
+      "source_test_id": "2c2a308c61cbf020bc97-6ff9beeb30dc3374b43e",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601896,
+            "job_id": 117256227771,
+            "job_log_sha256": "8082b90bb99ce61d8a77e53da59255acf2f57a2e46ff3ab9c38b4bfe79818690",
+            "passed_line_sha256": "bcc94d2d68e57ba5b02df78d6071ee17c5f51cfebb0c78ff91393cce3ab13690",
+            "safe_passed_test_line": "\u2713   7 e2e/stage1-business.spec.ts:14:5 \u203a blank project canonical LOCALIZATION business journey zh-CN (2.5m)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical LOCALIZATION business journey zh-HK",
+      "repeat_ordinal": 0,
+      "source_test_id": "2c2a308c61cbf020bc97-67e565ae485aee7871a7",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601896,
+            "job_id": 117256227771,
+            "job_log_sha256": "8082b90bb99ce61d8a77e53da59255acf2f57a2e46ff3ab9c38b4bfe79818690",
+            "passed_line_sha256": "03aae845640165acc0a082810eae6e83da4c27121b98d704ef9e94acd4e30f16",
+            "safe_passed_test_line": "\u2713   8 e2e/stage1-business.spec.ts:14:5 \u203a blank project canonical LOCALIZATION business journey zh-HK (2.5m)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical LOCALIZATION business journey en-US",
+      "repeat_ordinal": 0,
+      "source_test_id": "2c2a308c61cbf020bc97-7c9714bb83438e7c8f7d",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601896,
+            "job_id": 117256227771,
+            "job_log_sha256": "8082b90bb99ce61d8a77e53da59255acf2f57a2e46ff3ab9c38b4bfe79818690",
+            "passed_line_sha256": "31aed1e01ea48887897f8d00737d56c33ddd6e79fb36c2cbfad595f920fd453d",
+            "safe_passed_test_line": "\u2713   9 e2e/stage1-business.spec.ts:14:5 \u203a blank project canonical LOCALIZATION business journey en-US (2.5m)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical REVIEW business journey zh-CN",
+      "repeat_ordinal": 0,
+      "source_test_id": "2c2a308c61cbf020bc97-a827c653ee7fa76dffd9",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601896,
+            "job_id": 117256227771,
+            "job_log_sha256": "8082b90bb99ce61d8a77e53da59255acf2f57a2e46ff3ab9c38b4bfe79818690",
+            "passed_line_sha256": "4e6d09ff4ad9197d228741b3cd92a251b91a5e559f0f9fa516d0019061e88258",
+            "safe_passed_test_line": "\u2713  10 e2e/stage1-business.spec.ts:14:5 \u203a blank project canonical REVIEW business journey zh-CN (39.3s)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical REVIEW business journey zh-HK",
+      "repeat_ordinal": 0,
+      "source_test_id": "2c2a308c61cbf020bc97-a546f9c16a7a4d84d11e",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601896,
+            "job_id": 117256227771,
+            "job_log_sha256": "8082b90bb99ce61d8a77e53da59255acf2f57a2e46ff3ab9c38b4bfe79818690",
+            "passed_line_sha256": "4bce667b015595047e7c12d32c046af67a9aab2788f504a4bc85cbb0daab2cde",
+            "safe_passed_test_line": "\u2713  11 e2e/stage1-business.spec.ts:14:5 \u203a blank project canonical REVIEW business journey zh-HK (39.1s)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical REVIEW business journey en-US",
+      "repeat_ordinal": 0,
+      "source_test_id": "2c2a308c61cbf020bc97-2bbd49f9910b0feb9f79",
+      "status": "PASS",
+      "retries": 0,
+      "proof": {
+        "kind": "ACTUAL_PASSED_TEST_LOG_LINE_AND_SUCCESSFUL_ZERO_RETRY_JOB_AGGREGATE",
+        "producers": [
+          {
+            "run_id": 38985601896,
+            "job_id": 117256227771,
+            "job_log_sha256": "8082b90bb99ce61d8a77e53da59255acf2f57a2e46ff3ab9c38b4bfe79818690",
+            "passed_line_sha256": "de21ea7a3a4e266dea0bc5cfdf50fbd0429e2dd606576d38cad3857fe8fe4987",
+            "safe_passed_test_line": "\u2713  12 e2e/stage1-business.spec.ts:14:5 \u203a blank project canonical REVIEW business journey en-US (39.0s)"
+          }
+        ]
+      }
+    }
+  ],
+  "business_measurement": {
+    "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+    "tested_source_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+    "passed": 12,
+    "retries": 0,
+    "cases": [
+      {
+        "title": "blank project canonical DIRECT business journey zh-CN",
+        "test_id": "2c2a308c61cbf020bc97-35c20ae1fd0ddc38df26",
+        "duration_ms": 160784,
+        "outcome": "DIRECT",
+        "locale": "zh-CN",
+        "project_id": "08f8714c-5d12-403a-9989-634336b69ec5",
+        "snapshot_id": "8cb2ad9d-7e77-57a0-abdd-755b75a53d21",
+        "workflow_run_id": "d17009ed-4ac2-52ae-9643-3d41216619c3",
+        "elapsed_ms": 160726,
+        "formal_status": "DIRECT_TRANSFER_ALLOWED",
+        "normalized_formal_sha256": "080c3351a49b6a2b1aeacfbcb45463d58817aa9d40793cc7b85e654e2e69938b",
+        "retries": 0
+      },
+      {
+        "title": "blank project canonical DIRECT business journey zh-HK",
+        "test_id": "2c2a308c61cbf020bc97-cbea8a439bc8f7b4b31f",
+        "duration_ms": 158013,
+        "outcome": "DIRECT",
+        "locale": "zh-HK",
+        "project_id": "38f8eb72-dafa-432f-8735-90a8da464c79",
+        "snapshot_id": "820aa113-e02f-5893-a099-cd8bb00e7b2c",
+        "workflow_run_id": "91b30fb7-3c01-50b4-b6e5-d4492f892742",
+        "elapsed_ms": 157971,
+        "formal_status": "DIRECT_TRANSFER_ALLOWED",
+        "normalized_formal_sha256": "080c3351a49b6a2b1aeacfbcb45463d58817aa9d40793cc7b85e654e2e69938b",
+        "retries": 0
+      },
+      {
+        "title": "blank project canonical DIRECT business journey en-US",
+        "test_id": "2c2a308c61cbf020bc97-6f831d3f769001de7d89",
+        "duration_ms": 158446,
+        "outcome": "DIRECT",
+        "locale": "en-US",
+        "project_id": "895cfbd1-f7b2-4af1-980e-39b4aadc251a",
+        "snapshot_id": "adbdbca1-093c-5737-b439-214eb5bc4e90",
+        "workflow_run_id": "15b81dda-912a-5623-8dee-12e6d7bb171d",
+        "elapsed_ms": 158393,
+        "formal_status": "DIRECT_TRANSFER_ALLOWED",
+        "normalized_formal_sha256": "080c3351a49b6a2b1aeacfbcb45463d58817aa9d40793cc7b85e654e2e69938b",
+        "retries": 0
+      },
+      {
+        "title": "blank project canonical CONDITIONAL business journey zh-CN",
+        "test_id": "2c2a308c61cbf020bc97-ff9b4b80ea247bcce7db",
+        "duration_ms": 156686,
+        "outcome": "CONDITIONAL",
+        "locale": "zh-CN",
+        "project_id": "b111b644-c142-43e8-b419-1cca6343ebf1",
+        "snapshot_id": "f967e5f2-719a-577c-bfa4-242e1218f70b",
+        "workflow_run_id": "a0f09c43-d560-5dac-be4f-6fb555f76ab4",
+        "elapsed_ms": 156645,
+        "formal_status": "CONDITIONAL_TRANSFER_ALLOWED",
+        "normalized_formal_sha256": "175ffac3360b1f0659710e56b051b7567ac6ee46fc31620b32b20468a8fc5fbc",
+        "retries": 0
+      },
+      {
+        "title": "blank project canonical CONDITIONAL business journey zh-HK",
+        "test_id": "2c2a308c61cbf020bc97-9e4920c4b5568938a2e1",
+        "duration_ms": 153036,
+        "outcome": "CONDITIONAL",
+        "locale": "zh-HK",
+        "project_id": "405ef262-286e-47a1-918c-dc54cf43cc08",
+        "snapshot_id": "3d58d286-574a-5c1a-8c3a-279ad6e3f057",
+        "workflow_run_id": "06ca98e2-1179-5b6e-833f-bc5c9b6dfed3",
+        "elapsed_ms": 152993,
+        "formal_status": "CONDITIONAL_TRANSFER_ALLOWED",
+        "normalized_formal_sha256": "175ffac3360b1f0659710e56b051b7567ac6ee46fc31620b32b20468a8fc5fbc",
+        "retries": 0
+      },
+      {
+        "title": "blank project canonical CONDITIONAL business journey en-US",
+        "test_id": "2c2a308c61cbf020bc97-256d974e05e1d32926ff",
+        "duration_ms": 153856,
+        "outcome": "CONDITIONAL",
+        "locale": "en-US",
+        "project_id": "b9034642-7a24-4ebe-a6e0-5a1fda479cf1",
+        "snapshot_id": "53279fed-919d-509d-8573-a091c270ac73",
+        "workflow_run_id": "daf41255-f5aa-5f12-a21c-55f5289281a4",
+        "elapsed_ms": 153814,
+        "formal_status": "CONDITIONAL_TRANSFER_ALLOWED",
+        "normalized_formal_sha256": "175ffac3360b1f0659710e56b051b7567ac6ee46fc31620b32b20468a8fc5fbc",
+        "retries": 0
+      },
+      {
+        "title": "blank project canonical LOCALIZATION business journey zh-CN",
+        "test_id": "2c2a308c61cbf020bc97-6ff9beeb30dc3374b43e",
+        "duration_ms": 151667,
+        "outcome": "LOCALIZATION",
+        "locale": "zh-CN",
+        "project_id": "da047734-62ad-42de-9a71-59df1114dd76",
+        "snapshot_id": "2a82eb62-1b2d-5bc7-ab41-e7141fdc2d82",
+        "workflow_run_id": "6195bd8b-be44-5923-814a-5684d55e6c03",
+        "elapsed_ms": 151627,
+        "formal_status": "TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED",
+        "normalized_formal_sha256": "516e047b580815c6903f4b278cb54d109cfd755cf48362c6ba4ea50f1b60c21e",
+        "retries": 0
+      },
+      {
+        "title": "blank project canonical LOCALIZATION business journey zh-HK",
+        "test_id": "2c2a308c61cbf020bc97-67e565ae485aee7871a7",
+        "duration_ms": 149537,
+        "outcome": "LOCALIZATION",
+        "locale": "zh-HK",
+        "project_id": "afe1a3f1-79f1-48d5-8bef-6e68540f0654",
+        "snapshot_id": "c0517e09-0bc3-56d9-b9e0-b0d373bea2d4",
+        "workflow_run_id": "4e84d89f-4743-5bea-8a28-6cf871d2c300",
+        "elapsed_ms": 149495,
+        "formal_status": "TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED",
+        "normalized_formal_sha256": "516e047b580815c6903f4b278cb54d109cfd755cf48362c6ba4ea50f1b60c21e",
+        "retries": 0
+      },
+      {
+        "title": "blank project canonical LOCALIZATION business journey en-US",
+        "test_id": "2c2a308c61cbf020bc97-7c9714bb83438e7c8f7d",
+        "duration_ms": 149165,
+        "outcome": "LOCALIZATION",
+        "locale": "en-US",
+        "project_id": "300ae0eb-cede-45fb-93c3-3d67a3fbd6a4",
+        "snapshot_id": "e69c8299-1367-5581-9fcd-15b48b582b52",
+        "workflow_run_id": "2414eebe-c09a-5f2b-ab72-6426e1277a70",
+        "elapsed_ms": 149123,
+        "formal_status": "TRANSFER_NOT_ALLOWED_OR_LOCALIZATION_REQUIRED",
+        "normalized_formal_sha256": "516e047b580815c6903f4b278cb54d109cfd755cf48362c6ba4ea50f1b60c21e",
+        "retries": 0
+      },
+      {
+        "title": "blank project canonical REVIEW business journey zh-CN",
+        "test_id": "2c2a308c61cbf020bc97-a827c653ee7fa76dffd9",
+        "duration_ms": 39335,
+        "outcome": "REVIEW",
+        "locale": "zh-CN",
+        "project_id": "78dff13d-60c9-4164-906d-71bbb82f9726",
+        "snapshot_id": "82e73bb1-1a0c-5418-b4ff-e4c8b6a2618b",
+        "workflow_run_id": "b9736bfb-1649-5259-8420-6d1fd6f085cf",
+        "elapsed_ms": 39295,
+        "formal_status": "REVIEW_REQUIRED",
+        "normalized_formal_sha256": "5b31f4621d617575cb8f72f4bfa434329670bd09b8f5295edef04148918a1979",
+        "retries": 0
+      },
+      {
+        "title": "blank project canonical REVIEW business journey zh-HK",
+        "test_id": "2c2a308c61cbf020bc97-a546f9c16a7a4d84d11e",
+        "duration_ms": 39103,
+        "outcome": "REVIEW",
+        "locale": "zh-HK",
+        "project_id": "e10924d6-336e-4b27-92d4-2c48b9308fa6",
+        "snapshot_id": "4b6abbeb-3eea-57cf-88f2-072b07fd449c",
+        "workflow_run_id": "bfc641f7-24e6-55d6-ba28-d1e1d1b8b857",
+        "elapsed_ms": 39057,
+        "formal_status": "REVIEW_REQUIRED",
+        "normalized_formal_sha256": "5b31f4621d617575cb8f72f4bfa434329670bd09b8f5295edef04148918a1979",
+        "retries": 0
+      },
+      {
+        "title": "blank project canonical REVIEW business journey en-US",
+        "test_id": "2c2a308c61cbf020bc97-2bbd49f9910b0feb9f79",
+        "duration_ms": 39021,
+        "outcome": "REVIEW",
+        "locale": "en-US",
+        "project_id": "2d94ee8f-5f4e-4ed5-a693-d756f8d4b6e6",
+        "snapshot_id": "83d4fce5-056b-583d-983c-716da4c1e5cb",
+        "workflow_run_id": "3e24214a-7f4e-5bce-b1a1-d8ebf16d8107",
+        "elapsed_ms": 38981,
+        "formal_status": "REVIEW_REQUIRED",
+        "normalized_formal_sha256": "5b31f4621d617575cb8f72f4bfa434329670bd09b8f5295edef04148918a1979",
+        "retries": 0
+      }
+    ],
+    "report_sha256": "7692fa1ef22ee3bd4f923451bca1c62df33036e1a7f4100dfa388fd765352956",
+    "gate": "browser",
+    "decision": "PASS"
+  },
+  "full_backend_runtime_migration_and_all_workflow_closure": "PENDING",
+  "f1": "BLOCKED \u2014 EXTERNAL_EVIDENCE_PENDING",
+  "stage2_started": false
+}
