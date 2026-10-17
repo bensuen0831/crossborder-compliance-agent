@@ -32,8 +32,8 @@
       "job_id": 116862024192,
       "sha": "e2306a72b1bf042385f2b1217d6edfe963b1a889",
       "category": "CLOSURE_AGGREGATOR_FROZEN_PARENT_HEAD",
-      "error": "All backend tests passed; R1 closure aggregator expected exact0020 despite authorized operational0021–0024 successor",
-      "recovery": "Require authenticated complete committed migration tree, exact single0024head and0024→0020lineage; independently retain all0019/0020 safety assertions. No test or migration changed."
+      "error": "All backend tests passed; R1 closure aggregator expected exact0020 despite authorized operational0021\u20130024 successor",
+      "recovery": "Require authenticated complete committed migration tree, exact single0024head and0024\u21920020lineage; independently retain all0019/0020 safety assertions. No test or migration changed."
     },
     {
       "run_id": 38924072434,
@@ -58,6 +58,37 @@
         "new_observed_slots_used": 27
       },
       "recovery": "Provision and verify40 bounded CI volume slots and collect safe upload-state/topology/disk/error-marker diagnostics on EXIT. Exact remote root cause remains a limitation until actual measurements; no assertions, retry policy, test count, AV policy or timeout weakened."
+    },
+    {
+      "run_id": 38927685806,
+      "sha": "282f97a6ce00c1462a23c41f910dea5a7adb4a19",
+      "job_id": 117063319492,
+      "job": "canonical-frontend-browser",
+      "step": "Admin/user three-locale smoke and M2-D/C/B/A/M1 regressions, zero retries",
+      "classification": "BROWSER_REVIEWER_HANDOFF_BEFORE_COMMITTED_SUBMIT",
+      "measured": {
+        "browser_passed": 23,
+        "browser_failed": 1,
+        "locale": "zh-HK",
+        "expected_http_status": 200,
+        "actual_http_status": 409,
+        "browser_retries": 0
+      },
+      "real_postgres_http_counterexample": {
+        "transport_delay_ms": 500,
+        "before_submit_commit": {
+          "review_expected_record_version": 1,
+          "http_status": 422,
+          "persisted_status": "DRAFT"
+        },
+        "after_submit_commit_with_stale_read": {
+          "review_expected_record_version": 1,
+          "http_status": 409,
+          "persisted_record_version": 2,
+          "persisted_status": "PENDING_REVIEW"
+        }
+      },
+      "recovery": "Wait for exact provider/model Submit and Publish POST response and assert committed lifecycle; reviewer GET selects exact created deployment and matches acknowledged record_version. Retain500ms real forwarded Submit transport delay; no fixed wait used for handoff, no fake responses, no retries, no product/CAS/authorization/assertion changes."
     }
   ],
   "local_contract_checkpoint": {
@@ -75,11 +106,11 @@
   "browser_retries_added": false,
   "stage2_started": false,
   "source_specific_remote_checkpoint": {
-    "sha": "e2306a72b1bf042385f2b1217d6edfe963b1a889",
+    "sha": "282f97a6ce00c1462a23c41f910dea5a7adb4a19",
     "workflows_success": 11,
     "workflows_total": 12,
     "actual_job_checkouts_match": 22,
     "actual_jobs_total": 22,
-    "status": "NOT_FINAL_SOURCE"
+    "status": "NOT_FINAL_SOURCE_ONE_BROWSER_CAS_RACE_FAILURE"
   }
 }
