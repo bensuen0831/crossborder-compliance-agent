@@ -1,0 +1,32 @@
+{
+  "classification": "HISTORICAL_ACCESS_OUTAGE_RECOVERED_NOT_FINAL_TECHNICAL_ACCEPTANCE",
+  "recorded_at_utc": "2026-10-17T00:38:29.314088+00:00",
+  "source_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "prior_outage": "REST and normal gh CLI401Bad credentials; Git remote credential path unavailable",
+  "current_observations": {
+    "rest": "HTTP200",
+    "gh_cli": "OPEN_DRAFT exact39c3581",
+    "git_remote": "feature39c3581/main060cbb5",
+    "artifacts_downloaded": 17,
+    "artifact_digest_errors": 0,
+    "workflows_success": 6,
+    "workflows_required": 12,
+    "completed_job_checkout_matches": 13,
+    "allocated_jobs": 21,
+    "final_required_jobs": 22,
+    "m2e_frontend_job": {
+      "id": 117256227416,
+      "conclusion": "success",
+      "checkout_sha": [
+        "39c3581ca455df4e3ce9760ed2deab8905a5f588"
+      ]
+    }
+  },
+  "user_reauthorization_currently_required": false,
+  "credential_extracted_or_proxy_bypass": false,
+  "prior_checkpoint_preserved": true,
+  "technical_closure": "PENDING",
+  "main_merge": false,
+  "tag_moved": false,
+  "stage2_started": false
+}
