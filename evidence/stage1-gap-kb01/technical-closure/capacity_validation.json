@@ -1,0 +1,80 @@
+{
+  "source_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "migration_head": "0024_kb01_import_manifest_records",
+  "acceptance_level": "L1_SYNTHETIC_GOVERNED_TECHNICAL",
+  "paid_internet_llm": "NOT EXECUTED",
+  "real_regulatory_knowledge_acceptance": "NOT EXECUTED",
+  "production_business_uat": "NOT EXECUTED",
+  "stage2": "NOT STARTED",
+  "decision": "PASS",
+  "measurements": {
+    "SINGLE": {
+      "kind": "SINGLE",
+      "bytes": 540006868,
+      "sha256": "c2fdbb5b1032e1fefa75b3e209f1185d09d1cf101a2db10b47199840903ecf60",
+      "batch_id": "65e946de-1570-4059-92af-4fe3bd6a0d76",
+      "knowledge_version_ids": [
+        "873a6dae-6854-4697-8464-6baba653abfc"
+      ],
+      "source_class": "SYNTHETIC_GOVERNED_TEST_DATA",
+      "status": "PASS",
+      "publication": "ACTIVE",
+      "runtime": "READY",
+      "exact_original_download": "PASS",
+      "browser_retries": 0,
+      "elapsed_seconds": 78.857
+    },
+    "RAR4": {
+      "kind": "RAR4",
+      "bytes": 1080013875,
+      "sha256": "3fd250bde19f8dba683aeb7cf337929774cecbe0f51b2d95a294741cf3444cdd",
+      "batch_id": "5bca7575-156a-424a-afd9-7780d5c18161",
+      "knowledge_version_ids": [
+        "d53376f1-605b-47be-8d71-8b7d3efe8e7c",
+        "3b9c43d5-71c7-4b33-a7bb-c4e992be1e59"
+      ],
+      "source_class": "SYNTHETIC_GOVERNED_TEST_DATA",
+      "status": "PASS",
+      "publication": "ACTIVE",
+      "runtime": "READY",
+      "exact_original_download": "PASS",
+      "browser_retries": 0,
+      "elapsed_seconds": 213.079
+    },
+    "RAR5": {
+      "kind": "RAR5",
+      "bytes": 1080013864,
+      "sha256": "e901ecc79ac63eb6335be6a9aa92474e60a168c06b05114c48ea8bbc32bd08e5",
+      "batch_id": "0e91e5e0-ea49-4ee6-8f96-1e7a962bbb88",
+      "knowledge_version_ids": [
+        "70c09b70-eb35-48d3-827f-9d075a1e00bd",
+        "8bfb9ced-e25f-470d-9b9b-b19bc3aa67b9"
+      ],
+      "source_class": "SYNTHETIC_GOVERNED_TEST_DATA",
+      "status": "PASS",
+      "publication": "ACTIVE",
+      "runtime": "READY",
+      "exact_original_download": "PASS",
+      "browser_retries": 0,
+      "elapsed_seconds": 218.446
+    },
+    "ZIP": {
+      "kind": "ZIP",
+      "bytes": 1080014006,
+      "sha256": "c974f79b36a1cbbbb95aa45c278604af8d9d3261e69a270e9c6e63fda5b52ff6",
+      "batch_id": "a9cba78d-ffa0-421a-b574-54b42f91430d",
+      "knowledge_version_ids": [
+        "c7f377f7-47d5-479e-b6c6-382000d794f2",
+        "55dc84e6-7368-4f84-85b8-59d1c6e167b0"
+      ],
+      "source_class": "SYNTHETIC_GOVERNED_TEST_DATA",
+      "status": "PASS",
+      "publication": "ACTIVE",
+      "runtime": "READY",
+      "exact_original_download": "PASS",
+      "browser_retries": 0,
+      "elapsed_seconds": 252.089
+    }
+  },
+  "source": "Exact-head KB01 CI official-signature real-browser acceptance; synthetic originals explicitly labelled"
+}

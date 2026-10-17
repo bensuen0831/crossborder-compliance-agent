@@ -1,21 +1,68 @@
 {
-  "artifact_kind": "HISTORICAL_MEASURED_TEST_ID_INDEX",
-  "decision": "PENDING_FINAL_HEAD_VALIDATION",
-  "historical_source_sha": "876f5a3a7312c45b104978c5ab41def02633f447",
-  "historical_full_suite_junit_sha256": "8bba4baa49349975a0d613bf26ac0ca1bd2d34a1bd119e710deb0ddf11b3b1d7",
-  "historical_passed": 8,
-  "historical_test_ids": [
-    "tests.test_kb01_statistics_postgres::test_sql_statistics_reconciles_list_scope_and_many_to_many_labels",
-    "tests.test_kb01_statistics_postgres::test_statistics_requires_current_read_and_statistics_grants",
-    "tests.test_kb01_statistics_postgres::test_statistics_does_not_include_another_tenant",
+  "source_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "acceptance_level": "L1_SYNTHETIC_GOVERNED_TECHNICAL",
+  "paid_internet_llm": "NOT EXECUTED",
+  "real_regulatory_knowledge_acceptance": "NOT EXECUTED",
+  "production_business_uat": "NOT EXECUTED",
+  "stage2": "NOT STARTED",
+  "decision": "PASS",
+  "measurement_source": "technical-closure/work_package_validation.json",
+  "test_ids": [
+    "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+    "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+    "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+    "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+    "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+    "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+    "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+    "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+    "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+    "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+    "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+    "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+    "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+    "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+    "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document",
+    "tests.test_kb01_manifest_imports_postgres::test_bad_columns_persist_failed_preview_without_partial_proposals",
+    "tests.test_kb01_manifest_imports_postgres::test_catalogue_duplicate_missing_and_unlisted_records_are_not_fabricated_files",
+    "tests.test_kb01_manifest_imports_postgres::test_catalogue_receipts_are_immutable_and_not_attachable_as_legal_documents",
+    "tests.test_kb01_manifest_imports_postgres::test_catalogue_scope_revocation_and_cross_tenant_are_fail_closed",
+    "tests.test_kb01_manifest_imports_postgres::test_existing_genuine_catalogue_evidence_causes_atomic_downgrade_refusal",
+    "tests.test_kb01_manifest_imports_postgres::test_explicit_batch_confirmation_retains_exact_catalogue_provenance",
+    "tests.test_kb01_manifest_imports_postgres::test_formula_is_a_review_issue_and_never_evaluated",
+    "tests.test_kb01_manifest_imports_postgres::test_real_catalogue_preview_matches_full_path_and_survives_new_owner_without_publishing[CSV]",
+    "tests.test_kb01_manifest_imports_postgres::test_real_catalogue_preview_matches_full_path_and_survives_new_owner_without_publishing[XLSX]",
     "tests.test_kb01_statistics_postgres::test_clause_preview_uses_exact_version_and_preserves_source_identity",
-    "tests.test_kb01_statistics_postgres::test_statistics_and_capabilities_http_trust_server_context_only",
-    "tests.test_kb01_statistics_postgres::test_source_options_use_canonical_tenant_rows_without_returning_configuration",
+    "tests.test_kb01_statistics_postgres::test_conjunctive_country_and_category_filters_share_exact_version_sql_scope",
+    "tests.test_kb01_statistics_postgres::test_delete_reconciles_live_country_category_and_filtered_sql_counts",
     "tests.test_kb01_statistics_postgres::test_production_route_order_does_not_parse_management_resource_as_metadata_uuid",
-    "tests.test_kb01_statistics_postgres::test_conjunctive_country_and_category_filters_share_exact_version_sql_scope"
+    "tests.test_kb01_statistics_postgres::test_six_cross_tab_dimensions_share_exact_list_scope_and_do_not_double_count",
+    "tests.test_kb01_statistics_postgres::test_source_options_use_canonical_tenant_rows_without_returning_configuration",
+    "tests.test_kb01_statistics_postgres::test_sql_statistics_reconciles_list_scope_and_many_to_many_labels",
+    "tests.test_kb01_statistics_postgres::test_statistics_and_capabilities_http_trust_server_context_only",
+    "tests.test_kb01_statistics_postgres::test_statistics_does_not_include_another_tenant",
+    "tests.test_kb01_statistics_postgres::test_statistics_requires_current_read_and_statistics_grants"
   ],
-  "limitations": [
-    "This is an index into the actual1271-pass historical suite, not current-head acceptance",
-    "Final technical closure requires all mandatory final-head workflows and actual checkout identities"
-  ]
+  "final_browser_execution_evidence": "technical-closure/browser_execution_inventory.json",
+  "historical_implementation_checkpoint": {
+    "artifact_kind": "HISTORICAL_MEASURED_TEST_ID_INDEX",
+    "decision": "PENDING_FINAL_HEAD_VALIDATION",
+    "historical_source_sha": "876f5a3a7312c45b104978c5ab41def02633f447",
+    "historical_full_suite_junit_sha256": "8bba4baa49349975a0d613bf26ac0ca1bd2d34a1bd119e710deb0ddf11b3b1d7",
+    "historical_passed": 8,
+    "historical_test_ids": [
+      "tests.test_kb01_statistics_postgres::test_sql_statistics_reconciles_list_scope_and_many_to_many_labels",
+      "tests.test_kb01_statistics_postgres::test_statistics_requires_current_read_and_statistics_grants",
+      "tests.test_kb01_statistics_postgres::test_statistics_does_not_include_another_tenant",
+      "tests.test_kb01_statistics_postgres::test_clause_preview_uses_exact_version_and_preserves_source_identity",
+      "tests.test_kb01_statistics_postgres::test_statistics_and_capabilities_http_trust_server_context_only",
+      "tests.test_kb01_statistics_postgres::test_source_options_use_canonical_tenant_rows_without_returning_configuration",
+      "tests.test_kb01_statistics_postgres::test_production_route_order_does_not_parse_management_resource_as_metadata_uuid",
+      "tests.test_kb01_statistics_postgres::test_conjunctive_country_and_category_filters_share_exact_version_sql_scope"
+    ],
+    "limitations": [
+      "This is an index into the actual1271-pass historical suite, not current-head acceptance",
+      "Final technical closure requires all mandatory final-head workflows and actual checkout identities"
+    ]
+  }
 }

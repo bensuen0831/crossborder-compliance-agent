@@ -1,0 +1,208 @@
+{
+  "source_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "migration_head": "0024_kb01_import_manifest_records",
+  "acceptance_level": "L1_SYNTHETIC_GOVERNED_TECHNICAL",
+  "paid_internet_llm": "NOT EXECUTED",
+  "real_regulatory_knowledge_acceptance": "NOT EXECUTED",
+  "production_business_uat": "NOT EXECUTED",
+  "stage2": "NOT STARTED",
+  "decision": "PASS",
+  "single_head": "0024_kb01_import_manifest_records",
+  "frozen_release_migrations": {
+    "0001_phase1a_runtime_tables.py": "d8a3d4c060beaa95ee2daab5658a476854640c24b3100cee6ebd4c44d86d793a",
+    "0002_phase1b_domain_foundation.py": "4fa947ad533c7faeaa5d8893917a7c1fcb9933436be9ec41180524eae4c3b9da",
+    "0003_phase1c_metadata_registry.py": "fb8c17f96cfe83c6cbb9f5d1b71450f1e77ae1ee1a9d9df334f6fefff24d66b1",
+    "0004_phase1d_document_intelligence.py": "9f1bf0b1ad8924d698a66d996571565fe5ffd22808f906d639d04549fa8d48ff",
+    "0005_phase1e_context_resolution.py": "6f524b052b4e13df4d809f9ab85157999df43ed9f819d76f5aff9e52493993e3",
+    "0006_phase1f_knowledge_scope.py": "5c4ffecc8cf1ff7787bb282eaed18699b918ad5e40c44e23f761fefd0eeb6085",
+    "0007_phase1g_retrieval_evidence.py": "47117a332785bb63d7ef6ae3537bce321732e9d570f2afc005051888c8c5d4b4",
+    "0008_phase1h_rule_classification.py": "04ac67c7ffe3445a1d89b633549690d0c59fa12ac978e90ca5514b5902484f77",
+    "0009_phase1i_applicability.py": "e363840390a0cb673aef676d75c02c24ed8ea7002a9c1a03605db80bf30447e8",
+    "0010_phase1j_formal_decisions.py": "cebbe1158f5b98ca0c2a7dd87726111f50e2fc24f1f83f828ac1243d24d0e57f",
+    "0011_m2a_structured_intake.py": "573785cdee48f57d8ff7761b49d73e57cf110befd4a14d3e1fcae031e5a89cf0",
+    "0012_m2b_document_inputs.py": "f732e59b44c6fb54a4880f5ca777140560614a675315f9ec8f94212409b4cb8f",
+    "0013_m2b_context_temporal_contract.py": "79133fdda7aeda64a1c10e164abe1fbde73534dfecb3f7397a0b8f642ad33561",
+    "0014_m2c_formal_result_authority.py": "63f1e8f97587dd52983d51cb632972ef9a9d0a7b83f60f4f32678ba3d29bd266",
+    "0015_m2d_review_governance.py": "e424078407d47b338b722503f61bd4abd5f94e0cc65aeb7440f4e4330e51e02a",
+    "0016_phase1kb_multi_provider_llm_governance.py": "6f375dc1bc9ba86b668160ac28572822ddfe6867d16d2104d7ee5db5d422ee93",
+    "0017_m2e_external_agent_api.py": "25cdb35ebd50c503abd3554fe7cb1da665007a216461022cc8ea6f4f93cdb7de",
+    "0018_phase1h_multijurisdiction_classification_identity.py": "e0aa96fbd00f49e370f66edf3c0e0bb20c97888955e8e3547fab65cffbec8f62",
+    "0019_stage1_candidate_governance.py": "bf95e33f21bcbe3ae7729d57202b5afa5479818e60252246dcf5cadfe5b04878",
+    "0020_stage1_formal_decision_engine_compatibility.py": "09d20a37d4e2d0243deabadb18915a996b9df61ae0c2cc47b5d5df27acd8b1e8"
+  },
+  "operational_migrations_0021_0024_frozen_by_source_proof": "approved_owner_overlay_v19.json",
+  "reports": {
+    "kb01_taxonomy_migration_measured.json": {
+      "artifacts": [
+        {
+          "path": "38985601851/kb01-focused-postgres-38985601851/structured/kb01_taxonomy_migration_measured.json",
+          "sha256": "d60336d1ac893620407764f34098fe91b32f5fa94f0629252ddec950bb3486ed"
+        },
+        {
+          "path": "38985601852/r11-backend-38985601852/structured/kb01_taxonomy_migration_measured.json",
+          "sha256": "45290d6dcd3bb9a284679ef6b930d698cce0d09acc466e84c6ec280c8628f8ea"
+        },
+        {
+          "path": "38985601850/phase1a-runtime-evidence-38985601850-1/structured/kb01_taxonomy_migration_measured.json",
+          "sha256": "3137dfd5177d9f7a96f97b93b1f4fb4d3b38158e7dfd8d8925c887c6f57f4e54"
+        },
+        {
+          "path": "38985601846/m2e-backend-38985601846/structured/kb01_taxonomy_migration_measured.json",
+          "sha256": "39baebf1a393bd30468ed383dbdf19e86db4f86ebda049c9a67b0fcfc1c0db7e"
+        }
+      ],
+      "measurement": {
+        "base_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+        "head": "0021_kb01_taxonomy_operations",
+        "parent": "0020_stage1_formal_decision_engine_compatibility",
+        "fresh": true,
+        "exact0020_upgrade": true,
+        "schema_equivalence": true,
+        "old_metadata_digest_preserved": true,
+        "safe_downgrade": true,
+        "safe_reupgrade": true,
+        "audit_downgrade_refused": true,
+        "no_fabricated_history": true,
+        "preserved_row_digest": "433e42b6bfa889062fa5f7d94a2a55398fa088ed666224ef24cc306d76acb324"
+      }
+    },
+    "kb01_binary_migration_measured.json": {
+      "artifacts": [
+        {
+          "path": "38985601851/kb01-focused-postgres-38985601851/structured/kb01_binary_migration_measured.json",
+          "sha256": "6ae7593fb29ab1db9638cd20d7991e0a76108e7a0f8d3d3e29adfb8f18d8458d"
+        },
+        {
+          "path": "38985601852/r11-backend-38985601852/structured/kb01_binary_migration_measured.json",
+          "sha256": "f0b44f129dd3002479a370e0228ecbcdb1389aaa4a12ae357537361e53824e11"
+        },
+        {
+          "path": "38985601850/phase1a-runtime-evidence-38985601850-1/structured/kb01_binary_migration_measured.json",
+          "sha256": "783974c2bfd069499d842a6104d15a1de97097507f8743ef173d805de2d4af72"
+        },
+        {
+          "path": "38985601846/m2e-backend-38985601846/structured/kb01_binary_migration_measured.json",
+          "sha256": "6071dc4e8241447302f02f6ff82820da7b9abddb6bb0bb1d4fac886e86cfa981"
+        }
+      ],
+      "measurement": {
+        "previous_source": "28bd4203ec54d81f54e140b652a85401d87deeec",
+        "head": "0022_kb01_binary_transport",
+        "parent": "0021_kb01_taxonomy_operations",
+        "fresh_upgrade": true,
+        "exact0021_upgrade": true,
+        "schema_equivalence": true,
+        "old_metadata_and_admin_receipts_preserved": true,
+        "safe_downgrade": true,
+        "safe_reupgrade": true,
+        "unsafe_downgrade_refused": true,
+        "initial_row_digest": "de4a2a318aa5011d99ad60b4bfb32b9b710dd8a1991630494a1c059e07a52fd2"
+      }
+    },
+    "kb01_manifest_migration_measured.json": {
+      "artifacts": [
+        {
+          "path": "38985601851/kb01-focused-postgres-38985601851/structured/kb01_manifest_migration_measured.json",
+          "sha256": "2b0f970cdb3f506c97f40fcb1d32b2a4dc5200ca129057050673861d9bc5a4a4"
+        },
+        {
+          "path": "38985601852/r11-backend-38985601852/structured/kb01_manifest_migration_measured.json",
+          "sha256": "2b0f970cdb3f506c97f40fcb1d32b2a4dc5200ca129057050673861d9bc5a4a4"
+        },
+        {
+          "path": "38985601850/phase1a-runtime-evidence-38985601850-1/structured/kb01_manifest_migration_measured.json",
+          "sha256": "2b0f970cdb3f506c97f40fcb1d32b2a4dc5200ca129057050673861d9bc5a4a4"
+        },
+        {
+          "path": "38985601846/m2e-backend-38985601846/structured/kb01_manifest_migration_measured.json",
+          "sha256": "2b0f970cdb3f506c97f40fcb1d32b2a4dc5200ca129057050673861d9bc5a4a4"
+        }
+      ],
+      "measurement": {
+        "head": "0024_kb01_import_manifest_records",
+        "parent": "0023_kb01_evidence_source_reference",
+        "exact_previous_source": "2e4acdc3f355ed28a1d3e4792f9cbbb9cbbff098",
+        "fresh": true,
+        "exact_previous_upgrade": true,
+        "schema_equivalence": true,
+        "prior_rows_unchanged": true,
+        "safe_empty_downgrade": true,
+        "safe_reupgrade": true,
+        "catalogue_upload_downgrade_refused": true
+      }
+    },
+    "decision_compatibility_migration_measured.json": {
+      "artifacts": [
+        {
+          "path": "38985601852/r11-backend-38985601852/structured/decision_compatibility_migration_measured.json",
+          "sha256": "e9a788aeb08e3f3c853239c001db24efd8ace237bcd304c5dcde0c8400600488"
+        },
+        {
+          "path": "38985601850/phase1a-runtime-evidence-38985601850-1/structured/decision_compatibility_migration_measured.json",
+          "sha256": "7afdc6c0554ade2c80d8f687101d8519bbfddae0bb622993dca6a8420d17fc31"
+        },
+        {
+          "path": "38985601846/m2e-backend-38985601846/structured/decision_compatibility_migration_measured.json",
+          "sha256": "d0446f999e9ad69c2b193c757b6d354f5d063b7e71426c4eaad4099963edd67e"
+        }
+      ],
+      "measurement": {
+        "migration_head": "0020_stage1_formal_decision_engine_compatibility",
+        "parent": "0019_stage1_candidate_governance",
+        "knowledge_fixture_kind": "SYNTHETIC_GOVERNED_TEST_DATA",
+        "fresh": true,
+        "exact0019_upgrade": true,
+        "schema_equivalence": true,
+        "legacy_rows_preserved": true,
+        "empty_and_legacy_safe_downgrade": true,
+        "reupgrade": true,
+        "current_rows_downgrade_refused": true,
+        "no_data_rewritten": true,
+        "legacy_row_digests": {
+          "OBLIGATION": "2f1e1594a822e49da43168f4fce6523d5cc22443cbbd4b25b224eab63364993b",
+          "CANDIDATE_PATH": "4a20059cca06afc770bb48bb263b975ac6df25a517011e14dc15f2fcabab70d0",
+          "RISK": "30df084fb18799c77ff4a1ee882bf88e21140420f9807f34296e2defa9deb976",
+          "RECOMMENDATION": "44c3dcc16d7f4684f41bb280cde86845e682c77305c303dc65531333709b2c71",
+          "FINAL_PATH": "65d7936eb1949d366c775cb04a25318ea07ec0bc3be6e82437561b68ed831190"
+        },
+        "current_row_digests": {
+          "OBLIGATION": "210ac3a7b7b65287dd9a58044b272befda746a96f19d611783acb912deed7c96",
+          "CANDIDATE_PATH": "4c4805cb93e1d033a8facb9a3bc6cc3f231ea3222f3abb6c2bbda034e2d929db",
+          "RISK": "c47e26237ddea67a9c19e2ad0d3a5eeeee5b578736052075ca547f11ed1a0225",
+          "RECOMMENDATION": "77aefffd4fb2ca7689bd31f6bcd4f21c83d419907e55bbebcc3108ae04bc7725",
+          "FINAL_PATH": "eeb3df7d4f3cb8c22a849134a5f89013ce8cd43b748922a0b57500ee93ffe54f"
+        }
+      }
+    },
+    "candidate_governance_migration_measured.json": {
+      "artifacts": [
+        {
+          "path": "38985601852/r11-backend-38985601852/structured/candidate_governance_migration_measured.json",
+          "sha256": "790073da8241c31aabbdd1fddc179d41e6c34ad64be4405c9c7cfec9ca2f900a"
+        },
+        {
+          "path": "38985601850/phase1a-runtime-evidence-38985601850-1/structured/candidate_governance_migration_measured.json",
+          "sha256": "790073da8241c31aabbdd1fddc179d41e6c34ad64be4405c9c7cfec9ca2f900a"
+        }
+      ],
+      "measurement": {
+        "head": "0019_stage1_candidate_governance",
+        "parent": "0018_phase1h_multijurisdiction_classification_identity",
+        "baseline": "df3a10923734495d728981f4f319b66afadf8c71",
+        "fresh": true,
+        "exact0018_upgrade": true,
+        "schema_equivalence": true,
+        "legacy_audit_unchanged": true,
+        "historical_snapshot_unchanged": true,
+        "safe_downgrade": true,
+        "safe_reupgrade": true,
+        "retained_authority_downgrade_refused": true,
+        "frozen_migrations_unchanged": true
+      }
+    }
+  },
+  "evidence_reference_0023_test_ids": [
+    "tests.test_kb01_evidence_reference_migrations::test_evidence_source_reference_has_single_head_and_frozen_0001_0022",
+    "tests.test_kb01_evidence_reference_migrations::test_reference_fresh_exact0022_preservation_equivalence_and_downgrade"
+  ]
+}

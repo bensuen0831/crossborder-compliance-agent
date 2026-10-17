@@ -1,0 +1,13 @@
+# Exact-head technical evidence verification method
+
+The product source is39c3581ca455df4e3ce9760ed2deab8905a5f588; evidence commits are independent documentation, not product baselines. Full closure requires all12 workflows, all22 successful jobs and actual checkout-log SHA equality, plus live unchanged PR/main/tag checks immediately before deriving PASS and before publishing.
+
+Backend collection IDs are compared with every completed full JUnit execution. Convert only the Python module/class separators before the first parameter bracket; retain the complete bracketed parameter, including IPv6 `::` and URLs. Each full execution must contain exactly1315 distinct expected IDs, no failure/error/skipped children and a separately zero-deselected full summary. No unknown or missing ID is ignored. Four executions cover one1315-test suite, not5260 independent tests. Credential-free original JUnit metadata is archived under technical-closure/verified_structured_inputs/ with source artifact/run identities and SHA256 digests. All25 remote runtime assertion names and true values are retained.
+
+The supplemental selected contract subset is disclosed separately. Its7 skips and632 deselections are not full PostgreSQL results. Complete full suites must have0 failed/errors/skipped/deselected.
+
+Browser correlation preserves file, suite, title and original repeat ordinal. M0 has12 definitions executed three times; the existing77 executions and11 additive KB journeys total88. Use either verified raw Playwright reports with one passed attempt/retry0 or exact passed test log lines from a successful zero-retry job whose actual checkout matches the source. Do not count repeated runs across workflows as new coverage. Preserve all12 formal-outcome/locale combinations and their normalized semantic digests. Frontend test identities retain full repository-relative paths.
+
+Source/test/fixture hashes come from exact committed Git archive blobs. Immutable prior owner records and fixed migration identities remain unchanged; no live worktree hash self-certifies an uncommitted source. The final safe evidence digest manifest excludes only itself and states that exclusion. Earlier cancelled/failed capacity, reviewer-race and temporary authentication observations remain historical records, not substituted acceptance evidence.
+
+These gates certify L1 synthetic-governed technical behavior. F1/LEGAL L2 remains BLOCKED—EXTERNAL_EVIDENCE_PENDING; real regulatory acceptance, paid Internet LLM and production business UAT are NOT EXECUTED. Production deployment readiness is NOT ACCEPTED. No main merge, tag movement or Stage2 work follows from this report.

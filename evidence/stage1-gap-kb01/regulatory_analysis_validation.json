@@ -1,12 +1,36 @@
 {
-  "f0": "PENDING_FINAL_HEAD_TECHNICAL_VALIDATION",
+  "source_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "acceptance_level": "L1_SYNTHETIC_GOVERNED_TECHNICAL",
+  "paid_internet_llm": "NOT EXECUTED",
+  "real_regulatory_knowledge_acceptance": "NOT EXECUTED",
+  "production_business_uat": "NOT EXECUTED",
+  "stage2": "NOT STARTED",
+  "f0": "PASS",
+  "f0_test_ids": [
+    "tests.test_kb01_acceptance_readiness::test_l1_label_cannot_be_promoted_to_real_regulatory_dataset",
+    "tests.test_kb01_acceptance_readiness::test_reconciliation_includes_status_reasons_and_exact_legal_source_pins",
+    "tests.test_kb01_acceptance_readiness_postgres::test_acceptance_http_import_rejects_caller_approval_identity_and_retains_real_f1_blocker",
+    "tests.test_kb01_acceptance_readiness_postgres::test_arbitrary_admin_cannot_approve_source_verification_for_appointed_expert",
+    "tests.test_kb01_acceptance_readiness_postgres::test_expert_cannot_self_appoint_or_be_replaced_by_an_arbitrary_admin",
+    "tests.test_kb01_acceptance_readiness_postgres::test_l2_raw_source_without_authorized_binary_original_is_not_acceptance_evidence",
+    "tests.test_kb01_acceptance_readiness_postgres::test_synthetic_appointed_expert_flow_preserves_canonical_versions_and_never_claims_f1"
+  ],
   "f1": "BLOCKED",
+  "legal_l2": "BLOCKED",
   "reason": "EXTERNAL_EVIDENCE_PENDING",
   "authorized_originals_provided": false,
   "independent_expert_gold_standard_provided": false,
   "expert_approval_records_provided": false,
-  "paid_internet_llm": "NOT_EXECUTED",
-  "real_regulatory_knowledge_acceptance": "NOT_EXECUTED",
-  "production_business_uat": "NOT_EXECUTED",
-  "stage2": "NOT_STARTED"
+  "historical_implementation_checkpoint": {
+    "f0": "PENDING_FINAL_HEAD_TECHNICAL_VALIDATION",
+    "f1": "BLOCKED",
+    "reason": "EXTERNAL_EVIDENCE_PENDING",
+    "authorized_originals_provided": false,
+    "independent_expert_gold_standard_provided": false,
+    "expert_approval_records_provided": false,
+    "paid_internet_llm": "NOT_EXECUTED",
+    "real_regulatory_knowledge_acceptance": "NOT_EXECUTED",
+    "production_business_uat": "NOT_EXECUTED",
+    "stage2": "NOT_STARTED"
+  }
 }

@@ -83,3 +83,8 @@ original Stage1 ban on product fixture `case_id` logic remains intact, with no
 checker exception or legal-owner whitelist. The initial v6 architecture failure
 is retained in the private diagnostics; source is corrected and resealed before
 full regression.
+
+
+## Final F0 engineering readiness
+
+F0 = PASS on 39c3581ca455df4e3ce9760ed2deab8905a5f588, measured by full exact-head CI and the explicit F0 test IDs in technical-closure/work_package_validation.json. This closes engineering readiness only. F1 remains BLOCKED—EXTERNAL_EVIDENCE_PENDING; none of the missing external originals, appointed independent experts, approved expected legal answers or formal approvals is invented. Real regulatory acceptance, paid-provider acceptance and production UAT remain NOT EXECUTED.
