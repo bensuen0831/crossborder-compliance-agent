@@ -1,0 +1,11 @@
+# G0 knowledge governance review
+
+AI independent-pass / **second-pass review**, not a designated human or third-party approval. Review date 2026-10-21T03:27:46.611373+00:00. Product source `39c3581ca455df4e3ce9760ed2deab8905a5f588`; main `060cbb5a20a9f8f70fa88dbefb8b5feb404c460d`; prior independently archived acceptance commit `bd30290c577e8ac16cbb88a20a0535553fb6bd00`. These are three different identities. No product source, test assertion, frozen migration or release tag was changed for this review. PR29 remains Draft. No merge or Stage2 is authorized.
+
+Code references below resolve against [the reviewed product tree](https://github.com/bensuen0831/crossborder-compliance-agent/tree/39c3581ca455df4e3ce9760ed2deab8905a5f588); the original complete acceptance package is [separate evidence](https://github.com/bensuen0831/crossborder-compliance-agent/tree/bd30290c577e8ac16cbb88a20a0535553fb6bd00).
+
+VERIFIED chain: local original → versioned object → fail-closed scan → exact binary attachment → canonical ingestion run → native source blocks → canonical structure/chunk/citation/evidence → quality → independent review → approve → publish/outbox → materialized READY barrier. Technical workers do not approve/publish or become formal legal authorities.
+
+Reviewed exact entry points: knowledge_uploads._target/attach, knowledge_repositories.schedule_ingestion and _governance_in_session, knowledge_runtime_repository.finish_publication; label validation and scoped binding use distinct canonical authorities. Version content/labels are not overwritten after ingestion/publication. Contributor, submitter and reviewer separation is checked through canonical receipts; generic channels cannot bypass the managed protections.
+
+Knowledge scope binds tenant/product/scenario/jurisdiction and exact versions; new versions/expiry exclude new analysis where required without rewriting prior Snapshot references. G0 historical scope/retrieval and V2/V2_1 subset24/24 passed after Redis startup. Original complete exact-source regressions also retain legacy reads, digest verification and mixed-chain refusal. No historical result, JSON, support, pin or identity was rewritten by G0. F0 is independent source/expert/Gold readiness engineering; F1/LEGAL L2 remains blocked by actual missing external originals/approved expert evidence.

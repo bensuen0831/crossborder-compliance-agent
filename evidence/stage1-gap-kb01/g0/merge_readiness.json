@@ -1,0 +1,33 @@
+{
+  "review_type": "AI_INDEPENDENT_SECOND_PASS_NOT_THIRD_PARTY_APPROVAL",
+  "observed_at": "2026-10-21T03:27:46.611373+00:00",
+  "product_source_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "previous_acceptance_evidence_commit": "bd30290c577e8ac16cbb88a20a0535553fb6bd00",
+  "main_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "production_deployment": "NOT ACCEPTED",
+  "f1": "BLOCKED — EXTERNAL_EVIDENCE_PENDING",
+  "legal_l2": "NOT ACCEPTED",
+  "paid_internet_llm": "NOT EXECUTED",
+  "production_uat": "NOT EXECUTED",
+  "stage2": "NOT STARTED",
+  "decision": "READY_FOR_FORMAL_REVIEW",
+  "ready_for_merge_approval": false,
+  "formal_reviewer_approval": "NOT RECORDED",
+  "critical_open": 0,
+  "high_open": 0,
+  "medium_open": 2,
+  "required_product_fix_found": false,
+  "exact_source_mandatory_ci": "PASS:12/12 live runs,22/22 verified job logs",
+  "source_head_unchanged": true,
+  "g0_scope": "Explicit G0 checklist and preserved requirement mapping; absent original MASTER full-text comparison remains NOT VERIFIED",
+  "formal_review_remaining": [
+    "Assess Medium query growth and immutable tool-rebuild provenance findings",
+    "Reconcile original KB01-MASTER V2.0 complete text, if requirements beyond the current G0 list are asserted",
+    "Authorized maintainer verifies required approvals and repository policy, including unreadable legacy protection details",
+    "Retain explicit F1/LEGAL L2/deployment/UAT/paid provider boundaries"
+  ],
+  "pr_draft": true,
+  "merge_executed": false,
+  "tag_changed": false,
+  "stage2_started": false
+}

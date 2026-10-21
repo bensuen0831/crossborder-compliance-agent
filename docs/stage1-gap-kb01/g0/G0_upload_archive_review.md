@@ -1,0 +1,13 @@
+# G0 upload archive review
+
+AI independent-pass / **second-pass review**, not a designated human or third-party approval. Review date 2026-10-21T03:27:46.611373+00:00. Product source `39c3581ca455df4e3ce9760ed2deab8905a5f588`; main `060cbb5a20a9f8f70fa88dbefb8b5feb404c460d`; prior independently archived acceptance commit `bd30290c577e8ac16cbb88a20a0535553fb6bd00`. These are three different identities. No product source, test assertion, frozen migration or release tag was changed for this review. PR29 remains Draft. No merge or Stage2 is authorized.
+
+Code references below resolve against [the reviewed product tree](https://github.com/bensuen0831/crossborder-compliance-agent/tree/39c3581ca455df4e3ce9760ed2deab8905a5f588); the original complete acceptance package is [separate evidence](https://github.com/bensuen0831/crossborder-compliance-agent/tree/bd30290c577e8ac16cbb88a20a0535553fb6bd00).
+
+VERIFIED: S3 versioning required; exact server-owned tenant/session key; signed method/part/length/checksum/expiry; independently checked part/full hashes; CAS, ownership and current permission checks; bounded quota reservation, cancellation/expiry cleanup and scanner leases. Storage credentials remain private configuration. No byte or MIME declaration alone grants readiness.
+
+Archive source inspection: ZIP raw-name precheck; real libarchive RAR4/RAR5/ZIP streaming decode; normalized traversal/absolute path/colon/control/separator/collision checks; symlink/hardlink/special file refusal; nested archive/encryption refusal; expanded size/file count limits; no shell construction; offline non-root resource-limited process. Child originals are individually scanned and resumable; partial failure and cancellation preserve canonical originals/audit. Native document parsers have separate output/disk/time bounds.
+
+Reverified actual prior capacity Browser measurements: SINGLE540006868 bytes; RAR41080013875; RAR51080013864; ZIP1080014006. Exact originals/download hashes, ACTIVE publication and READY runtime are recorded in the signed-digest artifact set; all retries0. These are prior exact-source executions, not four newly generated G0 large archives. Local G0 RAR/native/multipart negative tests use real tools and explicitly synthetic EICAR fixtures. Official CVD main/daily/bytecode signature evidence is separately reverified for the original Browser run.
+
+Earlier CI storage/race/scan-resource failures remain archived. The exact initial remote RAR5/ZIP readiness failure cause was not observed; the independent local20-slot exhaustion reproduction is not claimed to forensically prove that remote cause. Image rebuild provenance is the separate Medium finding002.

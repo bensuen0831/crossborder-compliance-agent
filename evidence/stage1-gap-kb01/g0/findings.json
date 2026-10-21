@@ -1,0 +1,78 @@
+{
+  "review_type": "AI_INDEPENDENT_SECOND_PASS_NOT_THIRD_PARTY_APPROVAL",
+  "observed_at": "2026-10-21T03:27:46.611373+00:00",
+  "product_source_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "previous_acceptance_evidence_commit": "bd30290c577e8ac16cbb88a20a0535553fb6bd00",
+  "main_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "production_deployment": "NOT ACCEPTED",
+  "f1": "BLOCKED — EXTERNAL_EVIDENCE_PENDING",
+  "legal_l2": "NOT ACCEPTED",
+  "paid_internet_llm": "NOT EXECUTED",
+  "production_uat": "NOT EXECUTED",
+  "stage2": "NOT STARTED",
+  "critical_open": 0,
+  "high_open": 0,
+  "medium_open": 2,
+  "low_open": 0,
+  "findings": [
+    {
+      "finding_id": "KB01-G0-001",
+      "severity": "Medium",
+      "source_file": "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+      "line": 242,
+      "related_lines": [
+        251,
+        260,
+        388
+      ],
+      "affected_contract": "Bounded taxonomy-list query scalability; SQL statistics aggregates are a separate fixed-query path.",
+      "reproduction": "Create four synthetic canonical taxonomy rows. Instrument the real SQLAlchemy engine; call list(page_size=1), then list(page_size=4) under the same tenant/read grant. See review_probes.py.",
+      "actual_result": {
+        "1": 5,
+        "4": 14
+      },
+      "expected_result": "Batch selected-version and actor projections so query count does not grow linearly with page size.",
+      "impact": "Three per-row reads add network/database latency. Page size is capped at 100; no cross-tenant leak, wrong count or measured acceptance timeout resulted.",
+      "recommended_fix": "In a separately validated change, load selected versions and creator/latest actor projections with bounded batch queries; preserve payload, tenant scope and stable order.",
+      "regression_test": "test_taxonomy_list_query_growth_is_measured reproduces 5 vs 14 statements; future regression should assert constant bounded query count and unchanged response semantics.",
+      "resolution": "OPEN_NON_BLOCKING_FOR_FORMAL_REVIEW",
+      "merge_blocking_assessment": "No stated latency SLA is violated in measurements; bounded administrative list, not a correctness/security failure. Formal reviewer must assess this deferral.",
+      "product_fix_performed": false
+    },
+    {
+      "finding_id": "KB01-G0-002",
+      "severity": "Medium",
+      "source_file": "scripts/kb01/Containerfile",
+      "line": 2,
+      "related_lines": [
+        7
+      ],
+      "affected_contract": "Reconstruction of historical native-tool binary environment from Git alone.",
+      "reproduction": "Inspect FROM debian:trixie-slim and unversioned apt-get install package names; rebuild with the repository helper and record the newly produced immutable image ID.",
+      "actual_result": {
+        "base_tag_is_mutable": true,
+        "apt_package_versions_are_not_frozen": true,
+        "current_review_image": "sha256:15fbf1cb1c8349e018de488f31ec4ae366b6ecebbbced32934d0127644d787ac"
+      },
+      "expected_result": "A release reproducibility policy should pin a reviewed base digest and package snapshot or retain an independently identified image/SBOM.",
+      "impact": "Git/source digest alone cannot reconstruct the identical historical tool image; package updates can alter later parser/scanner behavior. Existing executed image IDs, source hashes, signed Debian installation and CVD signature verification remain valid traceability evidence. No compromised package is alleged.",
+      "recommended_fix": "Define an approved immutable image retention and patch-refresh policy; pin reviewed base/package provenance and record SBOM/tool versions before production acceptance. Revalidate any resulting source/image change.",
+      "regression_test": "Actual bounded sandbox probe passes; build helper records image/source digests. A future reproducibility gate should verify approved image/package provenance.",
+      "resolution": "OPEN_NON_BLOCKING_FOR_L1_TECHNICAL_FORMAL_REVIEW",
+      "merge_blocking_assessment": "Each technical run uses a concrete sha256 image and signed tool installation. Production deployment remains explicitly NOT ACCEPTED; no change is made solely to manufacture a clean findings register. Formal reviewer must assess the residual risk.",
+      "product_fix_performed": false
+    }
+  ],
+  "scope_limitations": [
+    {
+      "id": "ORIGINAL_MASTER_TEXT",
+      "state": "NOT VERIFIED",
+      "detail": "The historical uploaded KB01-MASTER V2.0 attachment could not be authorized/resolved in this task. Current explicit G0 requirements, repository D0 V2.0 traceability and the user-authorized F0/F1 revision were reviewed. Exhaustive textual equivalence against the absent original is not claimed."
+    },
+    {
+      "id": "FORMAL_APPROVAL",
+      "state": "External Dependency",
+      "detail": "No formal reviewer approval exists; legacy branch-protection details are not readable by the integration."
+    }
+  ]
+}

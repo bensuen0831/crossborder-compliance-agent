@@ -1,0 +1,91 @@
+{
+  "review_type": "AI_INDEPENDENT_SECOND_PASS_NOT_THIRD_PARTY_APPROVAL",
+  "observed_at": "2026-10-21T03:27:46.611373+00:00",
+  "product_source_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "previous_acceptance_evidence_commit": "bd30290c577e8ac16cbb88a20a0535553fb6bd00",
+  "main_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "production_deployment": "NOT ACCEPTED",
+  "f1": "BLOCKED — EXTERNAL_EVIDENCE_PENDING",
+  "legal_l2": "NOT ACCEPTED",
+  "paid_internet_llm": "NOT EXECUTED",
+  "production_uat": "NOT EXECUTED",
+  "stage2": "NOT STARTED",
+  "status": "VERIFIED_WITH_DISCLOSED_NONBLOCKING_FINDINGS",
+  "checks": {
+    "source_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+    "passed": 456,
+    "total": 456,
+    "authorities": [
+      {
+        "authority": "m2a_architecture_check.py",
+        "passed": 13,
+        "total": 13
+      },
+      {
+        "authority": "m2b_architecture_check.py",
+        "passed": 27,
+        "total": 27
+      },
+      {
+        "authority": "m2c_architecture_check.py",
+        "passed": 15,
+        "total": 15
+      },
+      {
+        "authority": "m2c_projection_architecture.py",
+        "passed": 15,
+        "total": 15
+      },
+      {
+        "authority": "m2d_architecture_check.py",
+        "passed": 21,
+        "total": 21
+      },
+      {
+        "authority": "m2e_r1_architecture_check.py",
+        "passed": 11,
+        "total": 11
+      },
+      {
+        "authority": "m2e_architecture_check.py",
+        "passed": 27,
+        "total": 27
+      },
+      {
+        "authority": "architecture_rule_check.py",
+        "passed": 300,
+        "total": 300
+      },
+      {
+        "authority": "phase1kb_architecture_check.py",
+        "passed": 27,
+        "total": 27
+      }
+    ]
+  },
+  "canonical_owners": [
+    "KnowledgeDocumentEntity",
+    "KnowledgeDocumentVersionEntity",
+    "KnowledgeStructureNodeEntity",
+    "KnowledgeChunkEntity",
+    "CitationEntity",
+    "EvidenceReferenceEntity",
+    "MetadataDefinitionEntity",
+    "MetadataVersionEntity",
+    "AdminChangeSetEntity",
+    "AdminReviewTaskEntity",
+    "KnowledgeRuntimePublicationEntity"
+  ],
+  "operational_only": [
+    "KnowledgeUploadSessionEntity",
+    "KnowledgeUploadPartEntity",
+    "KnowledgeBinaryAttachmentEntity",
+    "KnowledgeImportBatchEntity",
+    "KnowledgeBatchItemEntity",
+    "KnowledgeImportManifestEntity",
+    "KnowledgeManifestRecordEntity",
+    "AdminOperationReceiptEntity"
+  ],
+  "formal_legal_calculation_source_changed": false,
+  "second_workflow_or_formal_result_owner_found": false
+}

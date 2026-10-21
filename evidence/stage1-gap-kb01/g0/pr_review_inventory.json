@@ -1,0 +1,41 @@
+{
+  "review_type": "AI_INDEPENDENT_SECOND_PASS_NOT_THIRD_PARTY_APPROVAL",
+  "observed_at": "2026-10-21T03:27:46.611373+00:00",
+  "product_source_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "previous_acceptance_evidence_commit": "bd30290c577e8ac16cbb88a20a0535553fb6bd00",
+  "main_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "production_deployment": "NOT ACCEPTED",
+  "f1": "BLOCKED — EXTERNAL_EVIDENCE_PENDING",
+  "legal_l2": "NOT ACCEPTED",
+  "paid_internet_llm": "NOT EXECUTED",
+  "production_uat": "NOT EXECUTED",
+  "stage2": "NOT STARTED",
+  "reviews": [],
+  "review_comment_count": 0,
+  "issue_comment_count": 0,
+  "review_threads": {
+    "data": {
+      "repository": {
+        "pullRequest": {
+          "reviewDecision": null,
+          "reviewThreads": {
+            "nodes": [],
+            "pageInfo": {
+              "hasNextPage": false
+            }
+          }
+        }
+      }
+    }
+  },
+  "branch_endpoint_protected": false,
+  "rules_applying_to_main": [],
+  "rulesets": [],
+  "legacy_protection_endpoint": {
+    "verified": false,
+    "error": "gh: Resource not accessible by integration (HTTP 403)"
+  },
+  "formal_reviewer_approval": "NOT RECORDED",
+  "complete_policy_verification": "NOT VERIFIED: legacy protection endpoint HTTP 403; readable branch endpoint reports unprotected",
+  "merge_authorization": "NOT GRANTED FOR G0"
+}

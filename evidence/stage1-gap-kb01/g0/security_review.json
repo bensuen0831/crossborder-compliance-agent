@@ -1,0 +1,61 @@
+{
+  "review_type": "AI_INDEPENDENT_SECOND_PASS_NOT_THIRD_PARTY_APPROVAL",
+  "observed_at": "2026-10-21T03:27:46.611373+00:00",
+  "product_source_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "previous_acceptance_evidence_commit": "bd30290c577e8ac16cbb88a20a0535553fb6bd00",
+  "main_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "production_deployment": "NOT ACCEPTED",
+  "f1": "BLOCKED — EXTERNAL_EVIDENCE_PENDING",
+  "legal_l2": "NOT ACCEPTED",
+  "paid_internet_llm": "NOT EXECUTED",
+  "production_uat": "NOT EXECUTED",
+  "stage2": "NOT STARTED",
+  "status": "VERIFIED_IN_TRUSTED_CONTEXT_TECHNICAL_SCOPE",
+  "independent_adversarial_tests": {
+    "passed": 12,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 0,
+    "ids": [
+      "kb01-g0.test_g0_adversarial::test_current_coarse_admin_cannot_authorize_kb_actions[post-/taxonomy-payload0]",
+      "kb01-g0.test_g0_adversarial::test_current_coarse_admin_cannot_authorize_kb_actions[post-/taxonomy-payload1]",
+      "kb01-g0.test_g0_adversarial::test_current_coarse_admin_cannot_authorize_kb_actions[post-/taxonomy/{id}/merge-payload2]",
+      "kb01-g0.test_g0_adversarial::test_current_coarse_admin_cannot_authorize_kb_actions[delete-/documents/{id}-payload3]",
+      "kb01-g0.test_g0_adversarial::test_current_coarse_admin_cannot_authorize_kb_actions[post-/documents/versions/{id}/approve-payload4]",
+      "kb01-g0.test_g0_adversarial::test_current_coarse_admin_cannot_authorize_kb_actions[post-/documents/versions/{id}/publish-payload5]",
+      "kb01-g0.test_g0_adversarial::test_current_coarse_admin_cannot_authorize_kb_actions[post-/upload-sessions/{id}/part-url-payload6]",
+      "kb01-g0.test_g0_adversarial::test_current_coarse_admin_cannot_authorize_kb_actions[get-/import-batches/{id}/failures-None]",
+      "kb01-g0.test_g0_adversarial::test_real_existing_cross_tenant_taxonomy_is_concealed",
+      "kb01-g0.test_g0_adversarial::test_no_trusted_identity_is_unauthenticated_despite_spoof_headers",
+      "kb01-g0.test_g0_adversarial::test_taxonomy_list_query_growth_is_measured",
+      "kb01-g0.test_g0_adversarial::test_actual_parser_container_has_no_network_credentials_or_host_mount"
+    ],
+    "sha256": "c3bca4e649ac45b5e0fa5195fef34972daf1c99be569ae8bd1498da20a4f232d"
+  },
+  "sandbox": {
+    "tool_image": "sha256:15fbf1cb1c8349e018de488f31ec4ae366b6ecebbbced32934d0127644d787ac",
+    "checks": {
+      "uid_nonroot": true,
+      "app_database_credential_absent": true,
+      "host_workspace_absent": true,
+      "interfaces": true,
+      "docker_socket_absent": true
+    }
+  },
+  "scope_notes": [
+    "Trusted test host injects server RepositoryContext. This is backend authorization verification, not acceptance of a production IdP/session/CSRF deployment.",
+    "Local full KB antivirus fixture is explicitly SYNTHETIC_SECURITY_SIGNATURES:EICAR_ONLY. Exact-source remote Browser official CVD signature evidence is separately ZIP/member-digest verified.",
+    "No general claim of exhaustive penetration testing, converter memory-safety proof or zero-day immunity is made."
+  ],
+  "reviewed_boundaries": [
+    "Server-generated tenant object keys; exact object version; part/full hashes and length",
+    "Operation grants before cache/idempotency result; actor from server context",
+    "Archive raw path checks, symlink/hardlink/special-file refusal, collisions, nested archive refusal, expanded bytes/entries",
+    "Parser network=none, read-only root, non-root, no application/database credentials/host workspace/socket mount, bounded RAM/CPU/PIDs/timeout",
+    "DOC macro security; DOCX XML only; PDF text/OCR tools offline; HTML plain text; XHTML declaration refusal",
+    "Fail-closed scanner errors, encrypted/limit refusal, verified original before attachment/ingestion, independent human review before publish",
+    "Scoped original download with attachment/no-store/nosniff/sandbox headers",
+    "Published version/labels and audit holds protected; expiry/supersede preserve historical pins"
+  ]
+}
