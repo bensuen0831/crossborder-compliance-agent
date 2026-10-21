@@ -1,0 +1,674 @@
+{
+  "prepared_at": "2026-10-21T04:10:03.812889+00:00",
+  "purpose": "FORMAL_REVIEW_PREPARATION_NOT_APPROVAL",
+  "product_head": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "main_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "g0_evidence_commit": "1193eb35096806fc0f885c0181de98b87d61980a",
+  "prior_technical_evidence_commit": "bd30290c577e8ac16cbb88a20a0535553fb6bd00",
+  "boundaries": {
+    "kb01_f1": "BLOCKED — EXTERNAL_EVIDENCE_PENDING",
+    "legal_l2": "NOT ACCEPTED",
+    "production_deployment": "NOT ACCEPTED",
+    "paid_internet_llm": "NOT EXECUTED",
+    "real_regulatory_knowledge": "NOT EXECUTED",
+    "production_uat": "NOT EXECUTED",
+    "pr_29": "DRAFT",
+    "main_merge": "NOT AUTHORIZED",
+    "tag": "UNCHANGED",
+    "stage2": "NOT STARTED"
+  },
+  "MASTER_FULL_TEXT_RECONCILIATION": "INPUT_REQUIRED",
+  "FORMAL_REQUIREMENT_CHANGE_APPROVAL": "NOT_VERIFIED",
+  "original_master_available": false,
+  "original_master_sha256": null,
+  "formal_requirement_change_approval_records": [],
+  "auxiliary_sources": [
+    {
+      "path": "docs/stage1-gap-kb01/D0_requirement_traceability.md",
+      "sha256": "a6b3690f886af8fd9679e7fb67729689f50aff91ba5b1c9881a49e87aac4f62d",
+      "authority": "AUXILIARY_NOT_ORIGINAL_MASTER_OR_APPROVAL"
+    },
+    {
+      "path": "docs/stage1-gap-kb01/D0_gap_matrix.md",
+      "sha256": "a4af18e70228e813f0211fdb2cfa6c0d32db11360226861498c417daa50ba985",
+      "authority": "AUXILIARY_NOT_ORIGINAL_MASTER_OR_APPROVAL"
+    },
+    {
+      "path": "docs/stage1-gap-kb01/architecture_design.md",
+      "sha256": "c75cfbe4783a52a583a32e635f0cae26bb8f59cb5ef66a2ff5a4268155e49160",
+      "authority": "AUXILIARY_NOT_ORIGINAL_MASTER_OR_APPROVAL"
+    }
+  ],
+  "rows": [
+    {
+      "topic": "國家／地區 CRUD、alias、merge、停用",
+      "auxiliary_g0_id": "G0-REQ-01",
+      "original_master_clause": null,
+      "original_master_text_digest": null,
+      "master_reconciliation": "INPUT_REQUIRED",
+      "formal_change_approval": "NOT_VERIFIED",
+      "g0_technical_check_status": "VERIFIED",
+      "g0_technical_evidence_ref": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/1193eb35096806fc0f885c0181de98b87d61980a/evidence/stage1-gap-kb01/g0/requirement_coverage.json",
+      "owner": "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+      "test_ids": [
+        "tests.test_kb01_taxonomy_postgres::test_alias_and_localized_names_search_use_tenant_scoped_sql",
+        "tests.test_kb01_taxonomy_postgres::test_alias_merge_cycle_and_competing_target_are_rejected",
+        "tests.test_kb01_taxonomy_postgres::test_create_idempotency_and_different_payload_conflict",
+        "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[ISSUING_AUTHORITY]",
+        "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[JURISDICTION_CONFIG]",
+        "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[KNOWLEDGE_SOURCE_TYPE]",
+        "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[LANGUAGE]",
+        "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[LEGAL_EFFECT]",
+        "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[REGULATION_CATEGORY]",
+        "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[RESEARCH_TOPIC]",
+        "tests.test_kb01_taxonomy_postgres::test_cross_tenant_list_detail_and_impact_fail_closed",
+        "tests.test_kb01_taxonomy_postgres::test_current_scope_revocation_blocks_cached_idempotent_result",
+        "tests.test_kb01_taxonomy_postgres::test_deactivation_hides_new_discovery_without_rewriting_identity",
+        "tests.test_kb01_taxonomy_postgres::test_draft_delete_requires_real_governed_retention_policy_and_preserves_audit",
+        "tests.test_kb01_taxonomy_postgres::test_draft_edit_cas_and_parent_cycle_are_rejected",
+        "tests.test_kb01_taxonomy_postgres::test_generic_metadata_channel_cannot_bypass_taxonomy_references",
+        "tests.test_kb01_taxonomy_postgres::test_hold_cross_tenant_and_stale_resource_are_rejected",
+        "tests.test_kb01_taxonomy_postgres::test_hold_is_audited_releasable_once_and_protects_history",
+        "tests.test_kb01_taxonomy_postgres::test_http_contract_denies_untrusted_context_and_spoofed_actor",
+        "tests.test_kb01_taxonomy_postgres::test_independent_review_cannot_use_self_review_override",
+        "tests.test_kb01_taxonomy_postgres::test_merge_is_governed_alias_without_historical_rebinding",
+        "tests.test_kb01_taxonomy_postgres::test_new_version_and_locale_preserve_old_payload_identity",
+        "tests.test_kb01_taxonomy_postgres::test_no_client_actor_tenant_or_arbitrary_legal_kind",
+        "tests.test_kb01_taxonomy_postgres::test_partial_edit_preserves_aliases_and_advances_root_cas",
+        "tests.test_kb01_taxonomy_postgres::test_published_or_referenced_draft_cannot_be_deleted",
+        "tests.test_kb01_taxonomy_postgres::test_published_tree_keeps_drafts_out_and_paginates_canonical_children",
+        "tests.test_kb01_taxonomy_postgres::test_receipt_cannot_be_mutated_in_postgres",
+        "tests.test_kb01_taxonomy_postgres::test_tree_requires_current_read_scope_and_scoped_published_parent",
+        "tests.test_kb01_taxonomy_postgres::test_two_reviewers_have_one_canonical_winner",
+        "tests.test_kb01_taxonomy_postgres::test_versioned_deactivate_reactivate_does_not_rewrite_jurisdiction_identity"
+      ],
+      "interpretation": "Existing technical evidence only; not verified against complete original MASTER wording or approved changes"
+    },
+    {
+      "topic": "法規類型 CRUD、層次、重分類",
+      "auxiliary_g0_id": "G0-REQ-02",
+      "original_master_clause": null,
+      "original_master_text_digest": null,
+      "master_reconciliation": "INPUT_REQUIRED",
+      "formal_change_approval": "NOT_VERIFIED",
+      "g0_technical_check_status": "VERIFIED",
+      "g0_technical_evidence_ref": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/1193eb35096806fc0f885c0181de98b87d61980a/evidence/stage1-gap-kb01/g0/requirement_coverage.json",
+      "owner": "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+      "test_ids": [
+        "tests.test_kb01_taxonomy_postgres::test_alias_and_localized_names_search_use_tenant_scoped_sql",
+        "tests.test_kb01_taxonomy_postgres::test_alias_merge_cycle_and_competing_target_are_rejected",
+        "tests.test_kb01_taxonomy_postgres::test_create_idempotency_and_different_payload_conflict",
+        "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[ISSUING_AUTHORITY]",
+        "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[JURISDICTION_CONFIG]",
+        "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[KNOWLEDGE_SOURCE_TYPE]",
+        "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[LANGUAGE]",
+        "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[LEGAL_EFFECT]",
+        "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[REGULATION_CATEGORY]",
+        "tests.test_kb01_taxonomy_postgres::test_creation_uses_existing_authority_and_exact_scoped_rows[RESEARCH_TOPIC]",
+        "tests.test_kb01_taxonomy_postgres::test_cross_tenant_list_detail_and_impact_fail_closed",
+        "tests.test_kb01_taxonomy_postgres::test_current_scope_revocation_blocks_cached_idempotent_result",
+        "tests.test_kb01_taxonomy_postgres::test_deactivation_hides_new_discovery_without_rewriting_identity",
+        "tests.test_kb01_taxonomy_postgres::test_draft_delete_requires_real_governed_retention_policy_and_preserves_audit",
+        "tests.test_kb01_taxonomy_postgres::test_draft_edit_cas_and_parent_cycle_are_rejected",
+        "tests.test_kb01_taxonomy_postgres::test_generic_metadata_channel_cannot_bypass_taxonomy_references",
+        "tests.test_kb01_taxonomy_postgres::test_hold_cross_tenant_and_stale_resource_are_rejected",
+        "tests.test_kb01_taxonomy_postgres::test_hold_is_audited_releasable_once_and_protects_history",
+        "tests.test_kb01_taxonomy_postgres::test_http_contract_denies_untrusted_context_and_spoofed_actor",
+        "tests.test_kb01_taxonomy_postgres::test_independent_review_cannot_use_self_review_override",
+        "tests.test_kb01_taxonomy_postgres::test_merge_is_governed_alias_without_historical_rebinding",
+        "tests.test_kb01_taxonomy_postgres::test_new_version_and_locale_preserve_old_payload_identity",
+        "tests.test_kb01_taxonomy_postgres::test_no_client_actor_tenant_or_arbitrary_legal_kind",
+        "tests.test_kb01_taxonomy_postgres::test_partial_edit_preserves_aliases_and_advances_root_cas",
+        "tests.test_kb01_taxonomy_postgres::test_published_or_referenced_draft_cannot_be_deleted",
+        "tests.test_kb01_taxonomy_postgres::test_published_tree_keeps_drafts_out_and_paginates_canonical_children",
+        "tests.test_kb01_taxonomy_postgres::test_receipt_cannot_be_mutated_in_postgres",
+        "tests.test_kb01_taxonomy_postgres::test_tree_requires_current_read_scope_and_scoped_published_parent",
+        "tests.test_kb01_taxonomy_postgres::test_two_reviewers_have_one_canonical_winner",
+        "tests.test_kb01_taxonomy_postgres::test_versioned_deactivate_reactivate_does_not_rewrite_jurisdiction_identity"
+      ],
+      "interpretation": "Existing technical evidence only; not verified against complete original MASTER wording or approved changes"
+    },
+    {
+      "topic": "文件 CRUD、版本、受保護刪除、bulk archive",
+      "auxiliary_g0_id": "G0-REQ-03",
+      "original_master_clause": null,
+      "original_master_text_digest": null,
+      "master_reconciliation": "INPUT_REQUIRED",
+      "formal_change_approval": "NOT_VERIFIED",
+      "g0_technical_check_status": "VERIFIED",
+      "g0_technical_evidence_ref": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/1193eb35096806fc0f885c0181de98b87d61980a/evidence/stage1-gap-kb01/g0/requirement_coverage.json",
+      "owner": "src/crossborder_compliance/infrastructure/persistence/knowledge_document_management.py",
+      "test_ids": [
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+        "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+        "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+        "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+        "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+        "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+        "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+        "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+        "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+        "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+        "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+        "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+        "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+        "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document"
+      ],
+      "interpretation": "Existing technical evidence only; not verified against complete original MASTER wording or approved changes"
+    },
+    {
+      "topic": "國家→類型→文件動態管理",
+      "auxiliary_g0_id": "G0-REQ-04",
+      "original_master_clause": null,
+      "original_master_text_digest": null,
+      "master_reconciliation": "INPUT_REQUIRED",
+      "formal_change_approval": "NOT_VERIFIED",
+      "g0_technical_check_status": "VERIFIED",
+      "g0_technical_evidence_ref": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/1193eb35096806fc0f885c0181de98b87d61980a/evidence/stage1-gap-kb01/g0/requirement_coverage.json",
+      "owner": "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+      "test_ids": [
+        "tests.test_kb01_statistics_postgres::test_clause_preview_uses_exact_version_and_preserves_source_identity",
+        "tests.test_kb01_statistics_postgres::test_conjunctive_country_and_category_filters_share_exact_version_sql_scope",
+        "tests.test_kb01_statistics_postgres::test_delete_reconciles_live_country_category_and_filtered_sql_counts",
+        "tests.test_kb01_statistics_postgres::test_production_route_order_does_not_parse_management_resource_as_metadata_uuid",
+        "tests.test_kb01_statistics_postgres::test_six_cross_tab_dimensions_share_exact_list_scope_and_do_not_double_count",
+        "tests.test_kb01_statistics_postgres::test_source_options_use_canonical_tenant_rows_without_returning_configuration",
+        "tests.test_kb01_statistics_postgres::test_sql_statistics_reconciles_list_scope_and_many_to_many_labels",
+        "tests.test_kb01_statistics_postgres::test_statistics_and_capabilities_http_trust_server_context_only",
+        "tests.test_kb01_statistics_postgres::test_statistics_does_not_include_another_tenant",
+        "tests.test_kb01_statistics_postgres::test_statistics_requires_current_read_and_statistics_grants"
+      ],
+      "interpretation": "Existing technical evidence only; not verified against complete original MASTER wording or approved changes"
+    },
+    {
+      "topic": "本地單檔／多檔／資料夾上傳",
+      "auxiliary_g0_id": "G0-REQ-05",
+      "original_master_clause": null,
+      "original_master_text_digest": null,
+      "master_reconciliation": "INPUT_REQUIRED",
+      "formal_change_approval": "NOT_VERIFIED",
+      "g0_technical_check_status": "VERIFIED",
+      "g0_technical_evidence_ref": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/1193eb35096806fc0f885c0181de98b87d61980a/evidence/stage1-gap-kb01/g0/requirement_coverage.json",
+      "owner": "src/crossborder_compliance/infrastructure/persistence/knowledge_uploads.py",
+      "test_ids": [
+        "tests.test_kb01_upload_postgres::test_attached_original_cannot_be_replaced_even_while_version_is_draft",
+        "tests.test_kb01_upload_postgres::test_cancel_aborts_provider_and_releases_only_unconsumed_transport",
+        "tests.test_kb01_upload_postgres::test_cross_tenant_and_revoked_current_grant_fail_closed",
+        "tests.test_kb01_upload_postgres::test_declared_complete_hash_is_independently_verified",
+        "tests.test_kb01_upload_postgres::test_durable_cleanup_finishes_cancel_after_lost_provider_response",
+        "tests.test_kb01_upload_postgres::test_final_scan_lease_expiry_is_audited_and_not_left_running",
+        "tests.test_kb01_upload_postgres::test_idempotency_cannot_change_declared_binary",
+        "tests.test_kb01_upload_postgres::test_malware_is_quarantined_and_cannot_be_attached",
+        "tests.test_kb01_upload_postgres::test_real_multipart_receipts_and_scan_are_not_knowledge_publication",
+        "tests.test_kb01_upload_postgres::test_repeated_start_and_completion_reuse_exact_provider_upload",
+        "tests.test_kb01_upload_postgres::test_scan_lease_is_single_winner_and_recovers_after_expiry",
+        "tests.test_kb01_upload_postgres::test_scanner_failure_retry_keeps_the_exact_binary_and_is_bounded",
+        "tests.test_kb01_upload_postgres::test_stale_part_cas_and_incomplete_completion_are_rejected",
+        "tests.test_kb01_upload_postgres::test_upload_http_authentication_and_safe_projection",
+        "tests.test_kb01_upload_postgres::test_upload_manifest_and_completed_part_receipts_are_database_immutable",
+        "tests.test_kb01_upload_postgres::test_upload_policy_view_comes_from_the_governed_tenant_version",
+        "tests.test_kb01_upload_postgres::test_worker_scans_with_frozen_upload_memory_budget[env0]",
+        "tests.test_kb01_upload_postgres::test_worker_scans_with_frozen_upload_memory_budget[env1]"
+      ],
+      "interpretation": "Existing technical evidence only; not verified against complete original MASTER wording or approved changes"
+    },
+    {
+      "topic": "500MB+ 單檔及 RAR4/RAR5/ZIP 1GB+",
+      "auxiliary_g0_id": "G0-REQ-06",
+      "original_master_clause": null,
+      "original_master_text_digest": null,
+      "master_reconciliation": "INPUT_REQUIRED",
+      "formal_change_approval": "NOT_VERIFIED",
+      "g0_technical_check_status": "VERIFIED",
+      "g0_technical_evidence_ref": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/1193eb35096806fc0f885c0181de98b87d61980a/evidence/stage1-gap-kb01/g0/requirement_coverage.json",
+      "owner": "src/crossborder_compliance/infrastructure/persistence/knowledge_batches.py",
+      "test_ids": [
+        "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[../outside.txt]",
+        "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[/outside.txt]",
+        "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[C:/outside.txt]",
+        "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[a/../../outside.txt]",
+        "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[a//outside.txt]",
+        "tests.test_kb01_archive_isolation::test_archive_escaping_or_ambiguous_namespace_is_refused[a\\\\outside.txt]",
+        "tests.test_kb01_archive_isolation::test_archive_symlink_is_refused",
+        "tests.test_kb01_archive_isolation::test_casefold_collision_is_refused",
+        "tests.test_kb01_archive_isolation::test_corrupt_zip_payload_is_refused",
+        "tests.test_kb01_archive_isolation::test_expansion_and_count_limits_are_enforced[policy0]",
+        "tests.test_kb01_archive_isolation::test_expansion_and_count_limits_are_enforced[policy1]",
+        "tests.test_kb01_archive_isolation::test_genuine_rar4_rar5_are_decoded_by_real_isolated_libarchive[4]",
+        "tests.test_kb01_archive_isolation::test_genuine_rar4_rar5_are_decoded_by_real_isolated_libarchive[5]",
+        "tests.test_kb01_archive_isolation::test_nested_archive_is_refused",
+        "tests.test_kb01_archive_isolation::test_zip_chinese_and_rtl_paths_preserve_exact_originals"
+      ],
+      "interpretation": "Existing technical evidence only; not verified against complete original MASTER wording or approved changes"
+    },
+    {
+      "topic": "恢復／重試／取消／部分失敗／配額",
+      "auxiliary_g0_id": "G0-REQ-07",
+      "original_master_clause": null,
+      "original_master_text_digest": null,
+      "master_reconciliation": "INPUT_REQUIRED",
+      "formal_change_approval": "NOT_VERIFIED",
+      "g0_technical_check_status": "VERIFIED",
+      "g0_technical_evidence_ref": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/1193eb35096806fc0f885c0181de98b87d61980a/evidence/stage1-gap-kb01/g0/requirement_coverage.json",
+      "owner": "src/crossborder_compliance/infrastructure/persistence/knowledge_batches.py",
+      "test_ids": [
+        "tests.test_kb01_batch_recovery_postgres::test_failed_export_is_scoped_and_permanent_refusal_cannot_retry",
+        "tests.test_kb01_batch_recovery_postgres::test_original_download_streams_exact_verified_version_as_safe_attachment",
+        "tests.test_kb01_batch_recovery_postgres::test_retry_recovers_real_native_ingestion_without_new_run_or_original",
+        "tests.test_kb01_batch_recovery_postgres::test_retry_rejects_stale_item_revision_and_unknown_membership"
+      ],
+      "interpretation": "Existing technical evidence only; not verified against complete original MASTER wording or approved changes"
+    },
+    {
+      "topic": "不依賴 Excel 導入；可選 CSV/XLSX Manifest",
+      "auxiliary_g0_id": "G0-REQ-08",
+      "original_master_clause": null,
+      "original_master_text_digest": null,
+      "master_reconciliation": "INPUT_REQUIRED",
+      "formal_change_approval": "NOT_VERIFIED",
+      "g0_technical_check_status": "VERIFIED",
+      "g0_technical_evidence_ref": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/1193eb35096806fc0f885c0181de98b87d61980a/evidence/stage1-gap-kb01/g0/requirement_coverage.json",
+      "owner": "src/crossborder_compliance/infrastructure/persistence/knowledge_manifest_imports.py",
+      "test_ids": [
+        "tests.test_kb01_manifest_imports_postgres::test_bad_columns_persist_failed_preview_without_partial_proposals",
+        "tests.test_kb01_manifest_imports_postgres::test_catalogue_duplicate_missing_and_unlisted_records_are_not_fabricated_files",
+        "tests.test_kb01_manifest_imports_postgres::test_catalogue_receipts_are_immutable_and_not_attachable_as_legal_documents",
+        "tests.test_kb01_manifest_imports_postgres::test_catalogue_scope_revocation_and_cross_tenant_are_fail_closed",
+        "tests.test_kb01_manifest_imports_postgres::test_existing_genuine_catalogue_evidence_causes_atomic_downgrade_refusal",
+        "tests.test_kb01_manifest_imports_postgres::test_explicit_batch_confirmation_retains_exact_catalogue_provenance",
+        "tests.test_kb01_manifest_imports_postgres::test_formula_is_a_review_issue_and_never_evaluated",
+        "tests.test_kb01_manifest_imports_postgres::test_real_catalogue_preview_matches_full_path_and_survives_new_owner_without_publishing[CSV]",
+        "tests.test_kb01_manifest_imports_postgres::test_real_catalogue_preview_matches_full_path_and_survives_new_owner_without_publishing[XLSX]"
+      ],
+      "interpretation": "Existing technical evidence only; not verified against complete original MASTER wording or approved changes"
+    },
+    {
+      "topic": "DOC/DOCX/HTML/PDF/TXT/XHTML 解析與 OCR",
+      "auxiliary_g0_id": "G0-REQ-09",
+      "original_master_clause": null,
+      "original_master_text_digest": null,
+      "master_reconciliation": "INPUT_REQUIRED",
+      "formal_change_approval": "NOT_VERIFIED",
+      "g0_technical_check_status": "VERIFIED",
+      "g0_technical_evidence_ref": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/1193eb35096806fc0f885c0181de98b87d61980a/evidence/stage1-gap-kb01/g0/requirement_coverage.json",
+      "owner": "src/crossborder_compliance/infrastructure/persistence/knowledge_repositories.py",
+      "test_ids": [
+        "tests.test_kb01_binary_ingestion_postgres::test_batch_cancel_after_mapping_preserves_canonical_draft_without_new_work",
+        "tests.test_kb01_binary_ingestion_postgres::test_batch_resume_after_completed_ingestion_does_not_reparse_or_duplicate",
+        "tests.test_kb01_binary_ingestion_postgres::test_durable_batch_ingestion_uses_single_canonical_run_and_keeps_original",
+        "tests.test_kb01_binary_ingestion_postgres::test_native_ingestion_worker_needs_no_broad_admin_or_publication_authority",
+        "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[DOCX]",
+        "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[DOC]",
+        "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[HTML]",
+        "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[PDF]",
+        "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[TXT]",
+        "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[XHTML]",
+        "tests.test_kb01_binary_ingestion_postgres::test_runtime_worker_rejects_system_identity_instead_of_bypassing_current_roles",
+        "tests.test_kb01_binary_ingestion_postgres::test_standalone_native_request_has_durable_canonical_work_identity"
+      ],
+      "interpretation": "Existing technical evidence only; not verified against complete original MASTER wording or approved changes"
+    },
+    {
+      "topic": "資料庫持久化與 canonical 知識儲存",
+      "auxiliary_g0_id": "G0-REQ-10",
+      "original_master_clause": null,
+      "original_master_text_digest": null,
+      "master_reconciliation": "INPUT_REQUIRED",
+      "formal_change_approval": "NOT_VERIFIED",
+      "g0_technical_check_status": "VERIFIED",
+      "g0_technical_evidence_ref": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/1193eb35096806fc0f885c0181de98b87d61980a/evidence/stage1-gap-kb01/g0/requirement_coverage.json",
+      "owner": "src/crossborder_compliance/infrastructure/persistence/knowledge_repositories.py",
+      "test_ids": [
+        "tests.test_kb01_binary_ingestion_postgres::test_batch_cancel_after_mapping_preserves_canonical_draft_without_new_work",
+        "tests.test_kb01_binary_ingestion_postgres::test_batch_resume_after_completed_ingestion_does_not_reparse_or_duplicate",
+        "tests.test_kb01_binary_ingestion_postgres::test_durable_batch_ingestion_uses_single_canonical_run_and_keeps_original",
+        "tests.test_kb01_binary_ingestion_postgres::test_native_ingestion_worker_needs_no_broad_admin_or_publication_authority",
+        "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[DOCX]",
+        "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[DOC]",
+        "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[HTML]",
+        "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[PDF]",
+        "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[TXT]",
+        "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[XHTML]",
+        "tests.test_kb01_binary_ingestion_postgres::test_runtime_worker_rejects_system_identity_instead_of_bypassing_current_roles",
+        "tests.test_kb01_binary_ingestion_postgres::test_standalone_native_request_has_durable_canonical_work_identity"
+      ],
+      "interpretation": "Existing technical evidence only; not verified against complete original MASTER wording or approved changes"
+    },
+    {
+      "topic": "搜尋／篩選／排序／分頁／預覽",
+      "auxiliary_g0_id": "G0-REQ-11",
+      "original_master_clause": null,
+      "original_master_text_digest": null,
+      "master_reconciliation": "INPUT_REQUIRED",
+      "formal_change_approval": "NOT_VERIFIED",
+      "g0_technical_check_status": "VERIFIED",
+      "g0_technical_evidence_ref": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/1193eb35096806fc0f885c0181de98b87d61980a/evidence/stage1-gap-kb01/g0/requirement_coverage.json",
+      "owner": "src/crossborder_compliance/infrastructure/persistence/knowledge_document_management.py",
+      "test_ids": [
+        "tests.test_kb01_statistics_postgres::test_clause_preview_uses_exact_version_and_preserves_source_identity",
+        "tests.test_kb01_statistics_postgres::test_conjunctive_country_and_category_filters_share_exact_version_sql_scope",
+        "tests.test_kb01_statistics_postgres::test_delete_reconciles_live_country_category_and_filtered_sql_counts",
+        "tests.test_kb01_statistics_postgres::test_production_route_order_does_not_parse_management_resource_as_metadata_uuid",
+        "tests.test_kb01_statistics_postgres::test_six_cross_tab_dimensions_share_exact_list_scope_and_do_not_double_count",
+        "tests.test_kb01_statistics_postgres::test_source_options_use_canonical_tenant_rows_without_returning_configuration",
+        "tests.test_kb01_statistics_postgres::test_sql_statistics_reconciles_list_scope_and_many_to_many_labels",
+        "tests.test_kb01_statistics_postgres::test_statistics_and_capabilities_http_trust_server_context_only",
+        "tests.test_kb01_statistics_postgres::test_statistics_does_not_include_another_tenant",
+        "tests.test_kb01_statistics_postgres::test_statistics_requires_current_read_and_statistics_grants"
+      ],
+      "interpretation": "Existing technical evidence only; not verified against complete original MASTER wording or approved changes"
+    },
+    {
+      "topic": "分類計數、統計與交叉維度",
+      "auxiliary_g0_id": "G0-REQ-12",
+      "original_master_clause": null,
+      "original_master_text_digest": null,
+      "master_reconciliation": "INPUT_REQUIRED",
+      "formal_change_approval": "NOT_VERIFIED",
+      "g0_technical_check_status": "VERIFIED",
+      "g0_technical_evidence_ref": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/1193eb35096806fc0f885c0181de98b87d61980a/evidence/stage1-gap-kb01/g0/requirement_coverage.json",
+      "owner": "src/crossborder_compliance/infrastructure/persistence/knowledge_statistics.py",
+      "test_ids": [
+        "tests.test_kb01_statistics_postgres::test_clause_preview_uses_exact_version_and_preserves_source_identity",
+        "tests.test_kb01_statistics_postgres::test_conjunctive_country_and_category_filters_share_exact_version_sql_scope",
+        "tests.test_kb01_statistics_postgres::test_delete_reconciles_live_country_category_and_filtered_sql_counts",
+        "tests.test_kb01_statistics_postgres::test_production_route_order_does_not_parse_management_resource_as_metadata_uuid",
+        "tests.test_kb01_statistics_postgres::test_six_cross_tab_dimensions_share_exact_list_scope_and_do_not_double_count",
+        "tests.test_kb01_statistics_postgres::test_source_options_use_canonical_tenant_rows_without_returning_configuration",
+        "tests.test_kb01_statistics_postgres::test_sql_statistics_reconciles_list_scope_and_many_to_many_labels",
+        "tests.test_kb01_statistics_postgres::test_statistics_and_capabilities_http_trust_server_context_only",
+        "tests.test_kb01_statistics_postgres::test_statistics_does_not_include_another_tenant",
+        "tests.test_kb01_statistics_postgres::test_statistics_requires_current_read_and_statistics_grants"
+      ],
+      "interpretation": "Existing technical evidence only; not verified against complete original MASTER wording or approved changes"
+    },
+    {
+      "topic": "審查／批准／發布／Runtime READY",
+      "auxiliary_g0_id": "G0-REQ-13",
+      "original_master_clause": null,
+      "original_master_text_digest": null,
+      "master_reconciliation": "INPUT_REQUIRED",
+      "formal_change_approval": "NOT_VERIFIED",
+      "g0_technical_check_status": "VERIFIED",
+      "g0_technical_evidence_ref": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/1193eb35096806fc0f885c0181de98b87d61980a/evidence/stage1-gap-kb01/g0/requirement_coverage.json",
+      "owner": "src/crossborder_compliance/infrastructure/persistence/knowledge_repositories.py",
+      "test_ids": [
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+        "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+        "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+        "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+        "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+        "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+        "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+        "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+        "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+        "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+        "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+        "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+        "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+        "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document"
+      ],
+      "interpretation": "Existing technical evidence only; not verified against complete original MASTER wording or approved changes"
+    },
+    {
+      "topic": "法條、原文 Citation、歷史精確版本",
+      "auxiliary_g0_id": "G0-REQ-14",
+      "original_master_clause": null,
+      "original_master_text_digest": null,
+      "master_reconciliation": "INPUT_REQUIRED",
+      "formal_change_approval": "NOT_VERIFIED",
+      "g0_technical_check_status": "VERIFIED",
+      "g0_technical_evidence_ref": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/1193eb35096806fc0f885c0181de98b87d61980a/evidence/stage1-gap-kb01/g0/requirement_coverage.json",
+      "owner": "src/crossborder_compliance/infrastructure/persistence/knowledge_repositories.py",
+      "test_ids": [
+        "tests.test_phase1g_isolation_postgres::test_failed_provider_run_retained_without_partial_pack",
+        "tests.test_phase1g_isolation_postgres::test_historical_snapshot_retrieval_and_expired_fresh_exclusion",
+        "tests.test_phase1g_isolation_postgres::test_incompatible_dimensions_cannot_enter_candidates[data_category]",
+        "tests.test_phase1g_isolation_postgres::test_incompatible_dimensions_cannot_enter_candidates[industry]",
+        "tests.test_phase1g_isolation_postgres::test_incompatible_dimensions_cannot_enter_candidates[jurisdiction]",
+        "tests.test_phase1g_isolation_postgres::test_incompatible_dimensions_cannot_enter_candidates[scenario]",
+        "tests.test_phase1g_isolation_postgres::test_multi_product_minimal_subject_scope",
+        "tests.test_phase1g_isolation_postgres::test_product_conflict_no_internal_or_external_product_broadening",
+        "tests.test_phase1g_isolation_postgres::test_query_embedding_uses_registry_and_real_pgvector"
+      ],
+      "interpretation": "Existing technical evidence only; not verified against complete original MASTER wording or approved changes"
+    },
+    {
+      "topic": "租戶／權限／審計／上傳及壓縮檔安全",
+      "auxiliary_g0_id": "G0-REQ-15",
+      "original_master_clause": null,
+      "original_master_text_digest": null,
+      "master_reconciliation": "INPUT_REQUIRED",
+      "formal_change_approval": "NOT_VERIFIED",
+      "g0_technical_check_status": "VERIFIED",
+      "g0_technical_evidence_ref": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/1193eb35096806fc0f885c0181de98b87d61980a/evidence/stage1-gap-kb01/g0/requirement_coverage.json",
+      "owner": "src/crossborder_compliance/infrastructure/persistence/knowledge_uploads.py",
+      "test_ids": [
+        "tests.test_kb01_upload_postgres::test_attached_original_cannot_be_replaced_even_while_version_is_draft",
+        "tests.test_kb01_upload_postgres::test_cancel_aborts_provider_and_releases_only_unconsumed_transport",
+        "tests.test_kb01_upload_postgres::test_cross_tenant_and_revoked_current_grant_fail_closed",
+        "tests.test_kb01_upload_postgres::test_declared_complete_hash_is_independently_verified",
+        "tests.test_kb01_upload_postgres::test_durable_cleanup_finishes_cancel_after_lost_provider_response",
+        "tests.test_kb01_upload_postgres::test_final_scan_lease_expiry_is_audited_and_not_left_running",
+        "tests.test_kb01_upload_postgres::test_idempotency_cannot_change_declared_binary",
+        "tests.test_kb01_upload_postgres::test_malware_is_quarantined_and_cannot_be_attached",
+        "tests.test_kb01_upload_postgres::test_real_multipart_receipts_and_scan_are_not_knowledge_publication",
+        "tests.test_kb01_upload_postgres::test_repeated_start_and_completion_reuse_exact_provider_upload",
+        "tests.test_kb01_upload_postgres::test_scan_lease_is_single_winner_and_recovers_after_expiry",
+        "tests.test_kb01_upload_postgres::test_scanner_failure_retry_keeps_the_exact_binary_and_is_bounded",
+        "tests.test_kb01_upload_postgres::test_stale_part_cas_and_incomplete_completion_are_rejected",
+        "tests.test_kb01_upload_postgres::test_upload_http_authentication_and_safe_projection",
+        "tests.test_kb01_upload_postgres::test_upload_manifest_and_completed_part_receipts_are_database_immutable",
+        "tests.test_kb01_upload_postgres::test_upload_policy_view_comes_from_the_governed_tenant_version",
+        "tests.test_kb01_upload_postgres::test_worker_scans_with_frozen_upload_memory_budget[env0]",
+        "tests.test_kb01_upload_postgres::test_worker_scans_with_frozen_upload_memory_budget[env1]"
+      ],
+      "interpretation": "Existing technical evidence only; not verified against complete original MASTER wording or approved changes"
+    },
+    {
+      "topic": "F0 專家／Gold Standard／驗收準備",
+      "auxiliary_g0_id": "G0-REQ-16",
+      "original_master_clause": null,
+      "original_master_text_digest": null,
+      "master_reconciliation": "INPUT_REQUIRED",
+      "formal_change_approval": "NOT_VERIFIED",
+      "g0_technical_check_status": "VERIFIED",
+      "g0_technical_evidence_ref": "https://github.com/bensuen0831/crossborder-compliance-agent/blob/1193eb35096806fc0f885c0181de98b87d61980a/evidence/stage1-gap-kb01/g0/requirement_coverage.json",
+      "owner": "src/crossborder_compliance/infrastructure/persistence/regulatory_acceptance_governance.py",
+      "test_ids": [
+        "tests.test_kb01_acceptance_readiness_postgres::test_acceptance_http_import_rejects_caller_approval_identity_and_retains_real_f1_blocker",
+        "tests.test_kb01_acceptance_readiness_postgres::test_arbitrary_admin_cannot_approve_source_verification_for_appointed_expert",
+        "tests.test_kb01_acceptance_readiness_postgres::test_expert_cannot_self_appoint_or_be_replaced_by_an_arbitrary_admin",
+        "tests.test_kb01_acceptance_readiness_postgres::test_l2_raw_source_without_authorized_binary_original_is_not_acceptance_evidence",
+        "tests.test_kb01_acceptance_readiness_postgres::test_synthetic_appointed_expert_flow_preserves_canonical_versions_and_never_claims_f1"
+      ],
+      "interpretation": "Existing technical evidence only; not verified against complete original MASTER wording or approved changes"
+    }
+  ],
+  "unmapped_original_clauses": "UNKNOWN_UNTIL_FULL_TEXT_PROVIDED",
+  "user_clarification": "Original full MASTER V2.0 and formal change signoff have not been supplied; continue independent G1 preparation without inferring approval",
+  "all_18_auxiliary_d0_rows": [
+    {
+      "auxiliary_d0_id": "KB01-01",
+      "preserved_auxiliary_wording": "Country/territory/supranational/sub-jurisdiction CRUD, aliases, merge, deactivate/reactivate",
+      "g0_technical_domains": [
+        "G0-REQ-01"
+      ],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "Technical evidence only; original full text not compared"
+    },
+    {
+      "auxiliary_d0_id": "KB01-02",
+      "preserved_auxiliary_wording": "Dynamic shared category CRUD, hierarchy/order/merge/reclassification",
+      "g0_technical_domains": [
+        "G0-REQ-02"
+      ],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "Technical evidence only; original full text not compared"
+    },
+    {
+      "auxiliary_d0_id": "KB01-03",
+      "preserved_auxiliary_wording": "Document CRUD/version/eligible deletion/bulk archive",
+      "g0_technical_domains": [
+        "G0-REQ-03"
+      ],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "Technical evidence only; original full text not compared"
+    },
+    {
+      "auxiliary_d0_id": "KB01-04",
+      "preserved_auxiliary_wording": "Local six-format single upload>=500MB",
+      "g0_technical_domains": [
+        "G0-REQ-05",
+        "G0-REQ-06"
+      ],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "Technical evidence only; original full text not compared"
+    },
+    {
+      "auxiliary_d0_id": "KB01-05",
+      "preserved_auxiliary_wording": "Local multifile upload/common or per-item metadata",
+      "g0_technical_domains": [
+        "G0-REQ-05"
+      ],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "Technical evidence only; original full text not compared"
+    },
+    {
+      "auxiliary_d0_id": "KB01-06",
+      "preserved_auxiliary_wording": "Local folder upload/preserved paths",
+      "g0_technical_domains": [
+        "G0-REQ-05"
+      ],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "Technical evidence only; original full text not compared"
+    },
+    {
+      "auxiliary_d0_id": "KB01-07",
+      "preserved_auxiliary_wording": "RAR4/RAR5/ZIP, both RAR/ZIP>1GB",
+      "g0_technical_domains": [
+        "G0-REQ-06"
+      ],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "Technical evidence only; original full text not compared"
+    },
+    {
+      "auxiliary_d0_id": "KB01-08",
+      "preserved_auxiliary_wording": "OPTIONAL mapped XLSX/CSV; file/folder/archive-only import must work",
+      "g0_technical_domains": [
+        "G0-REQ-08"
+      ],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "Technical evidence only; original full text not compared"
+    },
+    {
+      "auxiliary_d0_id": "KB01-09",
+      "preserved_auxiliary_wording": "Six-format/multilingual/RTL/OCR/clause parser",
+      "g0_technical_domains": [
+        "G0-REQ-09"
+      ],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "Technical evidence only; original full text not compared"
+    },
+    {
+      "auxiliary_d0_id": "KB01-10",
+      "preserved_auxiliary_wording": "Canonical database persistence/recovery",
+      "g0_technical_domains": [
+        "G0-REQ-10"
+      ],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "Technical evidence only; original full text not compared"
+    },
+    {
+      "auxiliary_d0_id": "KB01-11",
+      "preserved_auxiliary_wording": "Technical stages separate from governed review/publish/READY",
+      "g0_technical_domains": [
+        "G0-REQ-13"
+      ],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "Technical evidence only; original full text not compared"
+    },
+    {
+      "auxiliary_d0_id": "KB01-12",
+      "preserved_auxiliary_wording": "SQL dynamic counts, distinct documents/versions/files/manifest and cross-tabs",
+      "g0_technical_domains": [
+        "G0-REQ-12"
+      ],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "Technical evidence only; original full text not compared"
+    },
+    {
+      "auxiliary_d0_id": "KB01-13",
+      "preserved_auxiliary_wording": "Exact source version/run/object/article/citation provenance",
+      "g0_technical_domains": [
+        "G0-REQ-14"
+      ],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "Technical evidence only; original full text not compared"
+    },
+    {
+      "auxiliary_d0_id": "KB01-14",
+      "preserved_auxiliary_wording": "Genuine approved source integration with formal applicability/obligation owners",
+      "g0_technical_domains": [
+        "G0-REQ-16"
+      ],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "F1/legal expected outcome and multi-subject coverage remain external/unaccepted"
+    },
+    {
+      "auxiliary_d0_id": "KB01-15",
+      "preserved_auxiliary_wording": "Source/destination/processing/storage jurisdiction comparison",
+      "g0_technical_domains": [
+        "G0-REQ-14",
+        "G0-REQ-16"
+      ],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "F1/legal expected outcome and multi-subject coverage remain external/unaccepted"
+    },
+    {
+      "auxiliary_d0_id": "KB01-16",
+      "preserved_auxiliary_wording": "Production auth/CSRF, operation RBAC, tenant/resource audit/security/holds",
+      "g0_technical_domains": [
+        "G0-REQ-15"
+      ],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "Production identity/session/CSRF/deployment not accepted"
+    },
+    {
+      "auxiliary_d0_id": "KB01-17",
+      "preserved_auxiliary_wording": "Multipart/quotas/leases/restart/partial retries/cleanup/capacity",
+      "g0_technical_domains": [
+        "G0-REQ-07"
+      ],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "Technical evidence only; original full text not compared"
+    },
+    {
+      "auxiliary_d0_id": "KB01-18",
+      "preserved_auxiliary_wording": "Old mandatory IDs + new exact-head technical CI, Draft PR/no merge",
+      "g0_technical_domains": [],
+      "original_master_clause": null,
+      "reconciliation": "INPUT_REQUIRED",
+      "boundary": "Exact-head CI/evidence is separately reverified, not a new full G1 rerun"
+    }
+  ]
+}

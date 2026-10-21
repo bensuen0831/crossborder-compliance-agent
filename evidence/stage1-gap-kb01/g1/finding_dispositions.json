@@ -1,0 +1,78 @@
+{
+  "prepared_at": "2026-10-21T04:10:03.812889+00:00",
+  "purpose": "FORMAL_REVIEW_PREPARATION_NOT_APPROVAL",
+  "product_head": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "main_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "g0_evidence_commit": "1193eb35096806fc0f885c0181de98b87d61980a",
+  "prior_technical_evidence_commit": "bd30290c577e8ac16cbb88a20a0535553fb6bd00",
+  "boundaries": {
+    "kb01_f1": "BLOCKED — EXTERNAL_EVIDENCE_PENDING",
+    "legal_l2": "NOT ACCEPTED",
+    "production_deployment": "NOT ACCEPTED",
+    "paid_internet_llm": "NOT EXECUTED",
+    "real_regulatory_knowledge": "NOT EXECUTED",
+    "production_uat": "NOT EXECUTED",
+    "pr_29": "DRAFT",
+    "main_merge": "NOT AUTHORIZED",
+    "tag": "UNCHANGED",
+    "stage2": "NOT STARTED"
+  },
+  "findings": [
+    {
+      "id": "KB01-G0-001",
+      "severity": "MEDIUM",
+      "subject": "taxonomy list N+1",
+      "engineering_recommendation": "FIX_BEFORE_MERGE",
+      "formal_decision_status": "PENDING_FORMAL_REVIEW",
+      "approved_disposition": null,
+      "allowed_dispositions": [
+        "FIX_BEFORE_MERGE",
+        "ACCEPT_RISK",
+        "DEFER_WITH_OWNER",
+        "BLOCK"
+      ],
+      "approved_by": null,
+      "approved_at": null,
+      "approval_record": null,
+      "owner": "PENDING_USER_CONFIRMATION",
+      "due_date": null,
+      "planning_estimate_not_commitment": "0.5–1.5 engineer-days plus full required CI wall time",
+      "proposed_plan": "Batch only paginated selected versions and actor maps; preserve tenant/kind filters, aliases/localized search, count, stable order, pagination and exact JSON. Proposed target <=5 SQL reads/page; no schema change expected.",
+      "product_fix_performed": false,
+      "risk_accepted": false,
+      "deferral_approved": false
+    },
+    {
+      "id": "KB01-G0-002",
+      "severity": "MEDIUM",
+      "subject": "floating native-tool dependencies",
+      "engineering_recommendation": "FIX_BEFORE_MERGE",
+      "formal_decision_status": "PENDING_FORMAL_REVIEW",
+      "approved_disposition": null,
+      "allowed_dispositions": [
+        "FIX_BEFORE_MERGE",
+        "ACCEPT_RISK",
+        "DEFER_WITH_OWNER",
+        "BLOCK"
+      ],
+      "approved_by": null,
+      "approved_at": null,
+      "approval_record": null,
+      "owner": "PENDING_USER_CONFIRMATION",
+      "due_date": null,
+      "planning_estimate_not_commitment": "1–2 engineer-days plus infrastructure/retention policy coordination and full CI",
+      "proposed_plan": "Propose reviewed per-platform base manifest digest, authenticated package snapshot/provenance, actual CI-image SBOM and immutable image retention/restore gate. Preserve offline sandbox, official scanner database verification and patch refresh controls.",
+      "product_fix_performed": false,
+      "risk_accepted": false,
+      "deferral_approved": false
+    }
+  ],
+  "taxonomy_measured_max_sql": 402,
+  "taxonomy_measured_max_page_median_seconds": 2.536919,
+  "local_tool_sbom": "local_tool_image_sbom.spdx.json",
+  "local_tool_sbom_validation": "sbom_validation.json",
+  "historical_ci_image_sbom": "NOT VERIFIED",
+  "vulnerability_scan": "NOT EXECUTED",
+  "retention_restore": "NOT EXECUTED",
+  "g0_nonblocking_assessment_is_formal_disposition": false
+}

@@ -1,0 +1,354 @@
+{
+  "prepared_at": "2026-10-21T04:10:03.812889+00:00",
+  "purpose": "FORMAL_REVIEW_PREPARATION_NOT_APPROVAL",
+  "product_head": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "main_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "g0_evidence_commit": "1193eb35096806fc0f885c0181de98b87d61980a",
+  "prior_technical_evidence_commit": "bd30290c577e8ac16cbb88a20a0535553fb6bd00",
+  "boundaries": {
+    "kb01_f1": "BLOCKED — EXTERNAL_EVIDENCE_PENDING",
+    "legal_l2": "NOT ACCEPTED",
+    "production_deployment": "NOT ACCEPTED",
+    "paid_internet_llm": "NOT EXECUTED",
+    "real_regulatory_knowledge": "NOT EXECUTED",
+    "production_uat": "NOT EXECUTED",
+    "pr_29": "DRAFT",
+    "main_merge": "NOT AUTHORIZED",
+    "tag": "UNCHANGED",
+    "stage2": "NOT STARTED"
+  },
+  "observed_at": "2026-10-21T11:56:32.100278+08:00",
+  "pr_state": "open",
+  "draft": true,
+  "merged": false,
+  "pr_author": "bensuen0831",
+  "requested_reviewers": [],
+  "requested_teams": [],
+  "mandatory_workflows": 12,
+  "verified_job_checkouts": 22,
+  "runs": [
+    {
+      "run_id": 38985601851,
+      "workflow": "KB01 Regulatory Knowledge Management",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "attempt": 1,
+      "event": "pull_request",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38985601851",
+      "jobs": [
+        {
+          "job_id": 117256227389,
+          "name": "capacity-browser",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "3265120959d785773fbfb726e05d6a375ca257bc20f121ba6c728ccfa236bc2c",
+          "g0_log_digest_match": true
+        },
+        {
+          "job_id": 117256227444,
+          "name": "focused-postgres",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "10d9973829099e308adc95022489db564c195c90bc765271c5ba5b08b7f4f8a8",
+          "g0_log_digest_match": true
+        },
+        {
+          "job_id": 117256227464,
+          "name": "management-browser",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "1e6eb7a61e7c5649918d1e462f9245212b07844315400f679044e690269de23c",
+          "g0_log_digest_match": true
+        },
+        {
+          "job_id": 117260525652,
+          "name": "acceptance-complete",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "841ece9b5bb1120c321c3423ea56fe7f82cd271584ae9c664ad2f583ecbb19e4",
+          "g0_log_digest_match": true
+        }
+      ]
+    },
+    {
+      "run_id": 38985601865,
+      "workflow": "M0 Knowledge & Evidence Preview",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "attempt": 1,
+      "event": "pull_request",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38985601865",
+      "jobs": [
+        {
+          "job_id": 117256227323,
+          "name": "frontend",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "2555272e90099c40e1cc92fb992af02bf9765ee8f2099ee6625e1c8fd2082f6a",
+          "g0_log_digest_match": true
+        },
+        {
+          "job_id": 117256227475,
+          "name": "real-backend-uat",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "cf5d297850caa3ebadd9f89ebbb0f3262e4fafec8f0274b20559d5d1a136689b",
+          "g0_log_digest_match": true
+        }
+      ]
+    },
+    {
+      "run_id": 38985601847,
+      "workflow": "M1 Intake Analysis Alpha",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "attempt": 1,
+      "event": "pull_request",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38985601847",
+      "jobs": [
+        {
+          "job_id": 117256227401,
+          "name": "frontend-real-backend-uat",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "21b802956e21c5a28645e81365dbf364e3bde1c4db21b6772ce38fe350db32ce",
+          "g0_log_digest_match": true
+        }
+      ]
+    },
+    {
+      "run_id": 38985601876,
+      "workflow": "M2A Production Intake",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "attempt": 1,
+      "event": "pull_request",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38985601876",
+      "jobs": [
+        {
+          "job_id": 117256227408,
+          "name": "frontend-real-backend-uat",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "77be0950fe25c7fd70d0b89fe719125660ffc3920af8f166d5f7dbac7ae11dcb",
+          "g0_log_digest_match": true
+        }
+      ]
+    },
+    {
+      "run_id": 38985601848,
+      "workflow": "M2B Production Document Integration",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "attempt": 1,
+      "event": "pull_request",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38985601848",
+      "jobs": [
+        {
+          "job_id": 117256227680,
+          "name": "frontend-real-backend-uat",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "2565dab295fbdb22e1cbc97b7cadfbe8e3872790e348a3341c34bd73de85cee0",
+          "g0_log_digest_match": true
+        }
+      ]
+    },
+    {
+      "run_id": 38985601873,
+      "workflow": "M2C Formal Result Workspace",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "attempt": 1,
+      "event": "pull_request",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38985601873",
+      "jobs": [
+        {
+          "job_id": 117256227235,
+          "name": "frontend-real-backend-uat",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "94d0f39de9c0382079c569edb3e85e9a74a83546ea709e1579f53d43b0666e61",
+          "g0_log_digest_match": true
+        }
+      ]
+    },
+    {
+      "run_id": 38985601854,
+      "workflow": "M2D Governed Human Review",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "attempt": 1,
+      "event": "pull_request",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38985601854",
+      "jobs": [
+        {
+          "job_id": 117256227299,
+          "name": "frontend-real-backend-uat",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "4c5caa9a5178a9f408764992522a89d489a0c03fa60faa3ac0e82c76dc034d44",
+          "g0_log_digest_match": true
+        }
+      ]
+    },
+    {
+      "run_id": 38985601846,
+      "workflow": "M2E External Agent API Gateway",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "attempt": 1,
+      "event": "pull_request",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38985601846",
+      "jobs": [
+        {
+          "job_id": 117256227196,
+          "name": "mandatory-backend",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "ce59a95b273fdd1d817a620ac2f294819533dc8be457503a9ca2bf37e518f138",
+          "g0_log_digest_match": true
+        },
+        {
+          "job_id": 117256227416,
+          "name": "canonical-frontend-browser",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "86c98c2d0d8b6ce7b2a3822469c1c531df4e4467636baaec5bb04ff1417c4f2a",
+          "g0_log_digest_match": true
+        }
+      ]
+    },
+    {
+      "run_id": 38985601845,
+      "workflow": "Phase1KB Multi-provider LLM Governance",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "attempt": 1,
+      "event": "pull_request",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38985601845",
+      "jobs": [
+        {
+          "job_id": 117256227153,
+          "name": "mandatory-backend",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "7c0aed6e2ae1c625ce60ee824e15328a7af1c58aef33dbf62beff0d3d38ca580",
+          "g0_log_digest_match": true
+        },
+        {
+          "job_id": 117256227288,
+          "name": "canonical-frontend-browser",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "e4f4244af7381275cef41ada750e4fab700d8803fddfe3f65b4ff9de534a5475",
+          "g0_log_digest_match": true
+        }
+      ]
+    },
+    {
+      "run_id": 38985601896,
+      "workflow": "Stage1 Full Business E2E Acceptance",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "attempt": 1,
+      "event": "pull_request",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38985601896",
+      "jobs": [
+        {
+          "job_id": 117256227576,
+          "name": "business-contracts",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "7539d28a779c8792aacbe81e579aafaf0f3030c88eb62501da7e1a1168281d9a",
+          "g0_log_digest_match": true
+        },
+        {
+          "job_id": 117256227771,
+          "name": "business-browser",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "8082b90bb99ce61d8a77e53da59255acf2f57a2e46ff3ab9c38b4bfe79818690",
+          "g0_log_digest_match": true
+        },
+        {
+          "job_id": 117264331467,
+          "name": "verified-business-aggregation",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "086532db5df42f3e87d0681650436aa782612f2839b082234424a09277126cca",
+          "g0_log_digest_match": true
+        }
+      ]
+    },
+    {
+      "run_id": 38985601852,
+      "workflow": "Stage1 R1 Candidate Governance Recovery",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "attempt": 1,
+      "event": "pull_request",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38985601852",
+      "jobs": [
+        {
+          "job_id": 117256227194,
+          "name": "mandatory-backend",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "4093b5d43cd7410a9ff496b23252e127a775af0a3111fd09f6cd153b8f70f10d",
+          "g0_log_digest_match": true
+        },
+        {
+          "job_id": 117256227326,
+          "name": "canonical-frontend-browser",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "908ccba77291ff085a733f8a08420e375e41ef2fa797c35259964849e7d275ac",
+          "g0_log_digest_match": true
+        }
+      ]
+    },
+    {
+      "run_id": 38985601850,
+      "workflow": "phase1a-runtime-smoke",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "attempt": 1,
+      "event": "pull_request",
+      "url": "https://github.com/bensuen0831/crossborder-compliance-agent/actions/runs/38985601850",
+      "jobs": [
+        {
+          "job_id": 117256227173,
+          "name": "contract-tests",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "2987cb9ea4e01efd212ace398f8b83dea90ceea654b5b34405b01124616eda5b",
+          "g0_log_digest_match": true
+        },
+        {
+          "job_id": 117256227397,
+          "name": "mandatory-runtime-smoke",
+          "conclusion": "success",
+          "runner_checkout_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+          "log_sha256": "c096fc285e102bf57bbf7cd433c7cd505aec1c68ce4ab69af17e70543773001c",
+          "g0_log_digest_match": true
+        }
+      ]
+    }
+  ],
+  "no_new_ci_execution_triggered": true,
+  "validation_scope": "Fresh metadata and all 22 actual checkout logs rechecked; unchanged product source, no new G1 full-suite execution",
+  "server_required_checks_verified": false
+}

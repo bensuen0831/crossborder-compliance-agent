@@ -1,0 +1,170 @@
+{
+  "product_head": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "method": "Real PostgreSQL;100 canonical rows per isolated synthetic tenant; ACTIVE rows independently submit/review/publish via existing owners;3 reads per page size; no product changes",
+  "measurements": [
+    {
+      "lifecycle": "DRAFT",
+      "page_size": 1,
+      "samples": [
+        {
+          "query_count": 5,
+          "elapsed_seconds": 0.015297
+        },
+        {
+          "query_count": 5,
+          "elapsed_seconds": 0.007082
+        },
+        {
+          "query_count": 5,
+          "elapsed_seconds": 0.006388
+        }
+      ],
+      "query_count": 5,
+      "median_seconds": 0.007082
+    },
+    {
+      "lifecycle": "DRAFT",
+      "page_size": 4,
+      "samples": [
+        {
+          "query_count": 14,
+          "elapsed_seconds": 0.017537
+        },
+        {
+          "query_count": 14,
+          "elapsed_seconds": 0.017687
+        },
+        {
+          "query_count": 14,
+          "elapsed_seconds": 0.017103
+        }
+      ],
+      "query_count": 14,
+      "median_seconds": 0.017537
+    },
+    {
+      "lifecycle": "DRAFT",
+      "page_size": 25,
+      "samples": [
+        {
+          "query_count": 77,
+          "elapsed_seconds": 0.089807
+        },
+        {
+          "query_count": 77,
+          "elapsed_seconds": 0.119821
+        },
+        {
+          "query_count": 77,
+          "elapsed_seconds": 0.089511
+        }
+      ],
+      "query_count": 77,
+      "median_seconds": 0.089807
+    },
+    {
+      "lifecycle": "DRAFT",
+      "page_size": 100,
+      "samples": [
+        {
+          "query_count": 302,
+          "elapsed_seconds": 0.368497
+        },
+        {
+          "query_count": 302,
+          "elapsed_seconds": 0.346506
+        },
+        {
+          "query_count": 302,
+          "elapsed_seconds": 0.370732
+        }
+      ],
+      "query_count": 302,
+      "median_seconds": 0.368497
+    },
+    {
+      "lifecycle": "ACTIVE",
+      "page_size": 1,
+      "samples": [
+        {
+          "query_count": 6,
+          "elapsed_seconds": 0.033121
+        },
+        {
+          "query_count": 6,
+          "elapsed_seconds": 0.029187
+        },
+        {
+          "query_count": 6,
+          "elapsed_seconds": 0.028085
+        }
+      ],
+      "query_count": 6,
+      "median_seconds": 0.029187
+    },
+    {
+      "lifecycle": "ACTIVE",
+      "page_size": 4,
+      "samples": [
+        {
+          "query_count": 18,
+          "elapsed_seconds": 0.104259
+        },
+        {
+          "query_count": 18,
+          "elapsed_seconds": 0.102663
+        },
+        {
+          "query_count": 18,
+          "elapsed_seconds": 0.104122
+        }
+      ],
+      "query_count": 18,
+      "median_seconds": 0.104122
+    },
+    {
+      "lifecycle": "ACTIVE",
+      "page_size": 25,
+      "samples": [
+        {
+          "query_count": 102,
+          "elapsed_seconds": 0.634899
+        },
+        {
+          "query_count": 102,
+          "elapsed_seconds": 0.623366
+        },
+        {
+          "query_count": 102,
+          "elapsed_seconds": 0.629162
+        }
+      ],
+      "query_count": 102,
+      "median_seconds": 0.629162
+    },
+    {
+      "lifecycle": "ACTIVE",
+      "page_size": 100,
+      "samples": [
+        {
+          "query_count": 402,
+          "elapsed_seconds": 2.513563
+        },
+        {
+          "query_count": 402,
+          "elapsed_seconds": 2.536919
+        },
+        {
+          "query_count": 402,
+          "elapsed_seconds": 2.572379
+        }
+      ],
+      "query_count": 402,
+      "median_seconds": 2.536919
+    }
+  ],
+  "formula": "2 + 3*DRAFT_rows + 4*rows_with_active_version",
+  "maximum_page_size": 100,
+  "bounded_query_count_upper_observed": 402,
+  "latency_extrapolation": "Illustrative serialized network round trips only;402 queries at5ms/20ms RTT add approximately2.01s/8.04s. Not a measured remote latency or formal SLA."
+}

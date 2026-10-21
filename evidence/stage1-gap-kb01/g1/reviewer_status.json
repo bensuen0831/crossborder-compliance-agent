@@ -1,0 +1,76 @@
+{
+  "prepared_at": "2026-10-21T04:10:03.812889+00:00",
+  "purpose": "FORMAL_REVIEW_PREPARATION_NOT_APPROVAL",
+  "product_head": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "main_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "g0_evidence_commit": "1193eb35096806fc0f885c0181de98b87d61980a",
+  "prior_technical_evidence_commit": "bd30290c577e8ac16cbb88a20a0535553fb6bd00",
+  "boundaries": {
+    "kb01_f1": "BLOCKED — EXTERNAL_EVIDENCE_PENDING",
+    "legal_l2": "NOT ACCEPTED",
+    "production_deployment": "NOT ACCEPTED",
+    "paid_internet_llm": "NOT EXECUTED",
+    "real_regulatory_knowledge": "NOT EXECUTED",
+    "production_uat": "NOT EXECUTED",
+    "pr_29": "DRAFT",
+    "main_merge": "NOT AUTHORIZED",
+    "tag": "UNCHANGED",
+    "stage2": "NOT STARTED"
+  },
+  "roles": [
+    {
+      "proposed_role": "Technical / Architecture Reviewer",
+      "responsibility": "架構、Canonical Source of Truth、API、資料庫遷移、歷史相容性",
+      "github_username": "PENDING_USER_CONFIRMATION",
+      "approval_status": "PENDING_USER_CONFIRMATION",
+      "authorization_scope": "PENDING_USER_CONFIRMATION",
+      "appointment_record": null,
+      "approval_review_id": null,
+      "approval_commit_sha": null,
+      "approved_at": null
+    },
+    {
+      "proposed_role": "Security Reviewer",
+      "responsibility": "RBAC、Tenant Isolation、上傳、RAR/ZIP、Parser、依賴安全",
+      "github_username": "PENDING_USER_CONFIRMATION",
+      "approval_status": "PENDING_USER_CONFIRMATION",
+      "authorization_scope": "PENDING_USER_CONFIRMATION",
+      "appointment_record": null,
+      "approval_review_id": null,
+      "approval_commit_sha": null,
+      "approved_at": null
+    },
+    {
+      "proposed_role": "QA / Release Reviewer",
+      "responsibility": "需求覆蓋、完整回歸、Exact-head CI、Evidence Integrity",
+      "github_username": "PENDING_USER_CONFIRMATION",
+      "approval_status": "PENDING_USER_CONFIRMATION",
+      "authorization_scope": "PENDING_USER_CONFIRMATION",
+      "appointment_record": null,
+      "approval_review_id": null,
+      "approval_commit_sha": null,
+      "approved_at": null
+    },
+    {
+      "proposed_role": "Authorized Maintainer / Merge Approver",
+      "responsibility": "Repository Policy、必要審批、正式合併授權",
+      "github_username": "PENDING_USER_CONFIRMATION",
+      "approval_status": "PENDING_USER_CONFIRMATION",
+      "authorization_scope": "PENDING_USER_CONFIRMATION",
+      "appointment_record": null,
+      "approval_review_id": null,
+      "approval_commit_sha": null,
+      "approved_at": null
+    }
+  ],
+  "observed_reviews": [],
+  "observed_review_comments": [],
+  "requested_reviewers": [],
+  "requested_teams": [],
+  "pr_author": "bensuen0831",
+  "formal_approval_count": 0,
+  "review_requests_sent": false,
+  "roles_are_appointments": false,
+  "multiple_roles_per_person": "Only if formally authorized, qualified, independent and repository policy permits",
+  "user_confirmation": "No reviewers appointed; do not nominate/request/approve/mark ready/merge"
+}

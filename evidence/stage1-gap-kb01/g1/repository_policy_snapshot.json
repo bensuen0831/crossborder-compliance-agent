@@ -1,0 +1,99 @@
+{
+  "prepared_at": "2026-10-21T04:10:03.812889+00:00",
+  "purpose": "FORMAL_REVIEW_PREPARATION_NOT_APPROVAL",
+  "product_head": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "main_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "g0_evidence_commit": "1193eb35096806fc0f885c0181de98b87d61980a",
+  "prior_technical_evidence_commit": "bd30290c577e8ac16cbb88a20a0535553fb6bd00",
+  "boundaries": {
+    "kb01_f1": "BLOCKED — EXTERNAL_EVIDENCE_PENDING",
+    "legal_l2": "NOT ACCEPTED",
+    "production_deployment": "NOT ACCEPTED",
+    "paid_internet_llm": "NOT EXECUTED",
+    "real_regulatory_knowledge": "NOT EXECUTED",
+    "production_uat": "NOT EXECUTED",
+    "pr_29": "DRAFT",
+    "main_merge": "NOT AUTHORIZED",
+    "tag": "UNCHANGED",
+    "stage2": "NOT STARTED"
+  },
+  "status": "REPOSITORY_POLICY_VERIFICATION_PENDING",
+  "observed_at": "2026-10-21T11:56:32.100278+08:00",
+  "legacy_protection_endpoint": {
+    "verification": "PENDING",
+    "error": "gh: Resource not accessible by integration (HTTP 403)"
+  },
+  "branch_endpoint_observation": {
+    "protected": false,
+    "protection": {
+      "enabled": false,
+      "required_status_checks": {
+        "enforcement_level": "off",
+        "contexts": [],
+        "checks": []
+      }
+    }
+  },
+  "applicable_rules_observation": [],
+  "rulesets_including_parents_observation": [],
+  "graphql_policy_observation": {
+    "data": {
+      "repository": {
+        "pullRequest": {
+          "reviewDecision": null,
+          "reviewThreads": {
+            "nodes": [],
+            "pageInfo": {
+              "hasNextPage": false
+            }
+          }
+        },
+        "ref": {
+          "branchProtectionRule": null
+        }
+      }
+    }
+  },
+  "codeowners_paths": [
+    {
+      "source": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+      "path": ".github/CODEOWNERS",
+      "exists": false
+    },
+    {
+      "source": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+      "path": "CODEOWNERS",
+      "exists": false
+    },
+    {
+      "source": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+      "path": "docs/CODEOWNERS",
+      "exists": false
+    },
+    {
+      "source": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "path": ".github/CODEOWNERS",
+      "exists": false
+    },
+    {
+      "source": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "path": "CODEOWNERS",
+      "exists": false
+    },
+    {
+      "source": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "path": "docs/CODEOWNERS",
+      "exists": false
+    }
+  ],
+  "required_approvals": null,
+  "required_status_checks": null,
+  "full_policy_verified": false,
+  "merge_options": {
+    "allow_merge_commit": true,
+    "allow_squash_merge": true,
+    "allow_rebase_merge": true,
+    "allow_auto_merge": false
+  },
+  "interpretation": "403 prevents complete legacy policy verification. Empty readable lists, protected=false and GraphQL null do not establish absence of policy. Technical mandatory workflows are not proof of server-enforced required checks. No bypass authorized."
+}

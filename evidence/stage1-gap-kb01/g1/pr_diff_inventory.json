@@ -1,0 +1,4957 @@
+{
+  "base": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "product_head": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "merge_base": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "product_tree": "7394de0632cc26d4696c673783f4c26c80f7f4dc",
+  "changed_files": 285,
+  "additions": 61097,
+  "deletions": 307,
+  "group_counts": {
+    "ci_and_tools": 25,
+    "docs_evidence_or_config": 103,
+    "migration": 5,
+    "frontend": 44,
+    "production": 74,
+    "tests": 34
+  },
+  "git_binary_diff_sha256": "ae0f16383711fe24f9cc1cd17e05fc29450b5a0a4684eb402ef34ecff1b056f5",
+  "git_binary_diff_bytes": 3611946,
+  "github_file_path_and_blob_identities_match": true,
+  "github_stat_differences": [
+    {
+      "path": "evidence/stage1-gap-kb01/c_native_prototype.json",
+      "git_additions": 325,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/ci_references.json",
+      "git_additions": 14,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/citation_validation.json",
+      "git_additions": 37,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/d_full_regression_initial.json",
+      "git_additions": 1274,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/d_management_checkpoint.json",
+      "git_additions": 68,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/database_owner_counterexample.json",
+      "git_additions": 60,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/delete_dependency_validation.json",
+      "git_additions": 58,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/dynamic_statistics_validation.json",
+      "git_additions": 21,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/e_full_regression_initial.json",
+      "git_additions": 2757,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/e_management_readiness_checkpoint.json",
+      "git_additions": 69,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/f_architecture_checkpoint.json",
+      "git_additions": 69,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/f_full_regression_checkpoint.json",
+      "git_additions": 1416,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/final_matrix_development_checkpoint.json",
+      "git_additions": 34,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/full_regression_summary.json",
+      "git_additions": 11,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/i_full_regression_checkpoint.json",
+      "git_additions": 1310,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/knowledge_database_validation.json",
+      "git_additions": 17,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/manifest_publication_capacity_checkpoint.json",
+      "git_additions": 69,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/manifest_validation.json",
+      "git_additions": 60,
+      "git_deletions": 0,
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      },
+      "exact_product_blob_matches": true
+    }
+  ],
+  "github_diff_stats_limitation": "Some evidence JSON files have API zero line counts/no rendered patch while exact Git blobs match. Do not treat zero API statistics as an empty file. Review complete pinned git diff; root cause of API omission is not asserted.",
+  "files": [
+    {
+      "path": ".github/actions/kb01-tools/action.yml",
+      "status": "A",
+      "added": 33,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": null,
+      "product_blob": "0b374d8ee5a0fb09c016df5a6c6760fdf7ae0239",
+      "product_file_sha256": "2efb312c857014c35acc051da77780fd5f87774ddce0953168bea2f1f85fee6c",
+      "github_stats": {
+        "additions": 33,
+        "deletions": 0,
+        "changes": 33,
+        "patch_present": true
+      }
+    },
+    {
+      "path": ".github/workflows/kb01-knowledge-management.yml",
+      "status": "A",
+      "added": 251,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": null,
+      "product_blob": "30a3318f99b35749a04ca00c32af28ceb7f58231",
+      "product_file_sha256": "27dd89926cb28b2b4a87c5d4877951107079d3b77fab63e0eb3a90ccdb588399",
+      "github_stats": {
+        "additions": 251,
+        "deletions": 0,
+        "changes": 251,
+        "patch_present": true
+      }
+    },
+    {
+      "path": ".github/workflows/m2e-external-agent-api.yml",
+      "status": "M",
+      "added": 4,
+      "deleted": 1,
+      "group": "ci_and_tools",
+      "base_blob": "39e3b1a9f6d0629cc8b7ac2acd6b88bbd9c4a58b",
+      "product_blob": "0a2dd2724b4df149840d90381791618b8fbac667",
+      "product_file_sha256": "ce87064816f1323ade5e818ba46aeeb387d686e21cadcba351b61eb7793937cb",
+      "github_stats": {
+        "additions": 4,
+        "deletions": 1,
+        "changes": 5,
+        "patch_present": true
+      }
+    },
+    {
+      "path": ".github/workflows/phase1a-runtime-smoke.yml",
+      "status": "M",
+      "added": 3,
+      "deleted": 2,
+      "group": "ci_and_tools",
+      "base_blob": "d97ed6b9938772846d7aab834e9e1f920e28b5cc",
+      "product_blob": "c62d19594525f77acf0bb4b2ea403f4d2196340e",
+      "product_file_sha256": "5e4837a4a13fdf8507fd33e469329b35473e68e62498cee80c8d681c3e11002f",
+      "github_stats": {
+        "additions": 3,
+        "deletions": 2,
+        "changes": 5,
+        "patch_present": true
+      }
+    },
+    {
+      "path": ".github/workflows/phase1kb-multi-provider-llm-governance.yml",
+      "status": "M",
+      "added": 2,
+      "deleted": 1,
+      "group": "ci_and_tools",
+      "base_blob": "cf668aed5858f2c3de421db84e90954432e6c1b2",
+      "product_blob": "bd612a4a38faa4f09c2bd83169bfa7c16283690d",
+      "product_file_sha256": "7b104224a17156636805b91c766e2ba69779d329cfbeb6b8d4f74fca7b218d24",
+      "github_stats": {
+        "additions": 2,
+        "deletions": 1,
+        "changes": 3,
+        "patch_present": true
+      }
+    },
+    {
+      "path": ".github/workflows/stage1-candidate-governance.yml",
+      "status": "M",
+      "added": 4,
+      "deleted": 1,
+      "group": "ci_and_tools",
+      "base_blob": "47cee486729476a17757415425552a160b8acdac",
+      "product_blob": "eaa85ff0415040392d232b118641355745e4feab",
+      "product_file_sha256": "fcf911ba8f79a8efe03374686d3500ba818ca3404745872326d6b2954ece4c6c",
+      "github_stats": {
+        "additions": 4,
+        "deletions": 1,
+        "changes": 5,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "ARCHITECTURE_RULES.md",
+      "status": "M",
+      "added": 80,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": "dc8143a53b02c6391d803b0a6322788d13d58036",
+      "product_blob": "167b1e597114bb0175d0068d0c5c0e658e5439a0",
+      "product_file_sha256": "3936145274c80f582ce77ee9f5dd90ceca06b542c0b5fdf704e4a8ac68cdff00",
+      "github_stats": {
+        "additions": 80,
+        "deletions": 0,
+        "changes": 80,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "alembic/env.py",
+      "status": "M",
+      "added": 3,
+      "deleted": 0,
+      "group": "migration",
+      "base_blob": "fadb322eb44b5e34abb1df287df708cbe96c40ac",
+      "product_blob": "bbe2d6c4702d618a82e7e72c951d0eae6eb1b2b0",
+      "product_file_sha256": "16fbeccb564896e56bad1cef38650baacfb29827aca4f5d8b9f731ab18faa6aa",
+      "github_stats": {
+        "additions": 3,
+        "deletions": 0,
+        "changes": 3,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "alembic/versions/0021_kb01_taxonomy_operations.py",
+      "status": "A",
+      "added": 211,
+      "deleted": 0,
+      "group": "migration",
+      "base_blob": null,
+      "product_blob": "22cde8b39b5508908240a55f36f66c194763eef3",
+      "product_file_sha256": "8466afef71debab86d5429561581186f82469ff8d1329511db587baae454bae5",
+      "github_stats": {
+        "additions": 211,
+        "deletions": 0,
+        "changes": 211,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "alembic/versions/0022_kb01_binary_transport.py",
+      "status": "A",
+      "added": 370,
+      "deleted": 0,
+      "group": "migration",
+      "base_blob": null,
+      "product_blob": "8f387e234488dd7b23bd0b15d4040535ec5172fe",
+      "product_file_sha256": "426aaa3d144bb602f71b3a58dcd136e452cd8ad7ec40cdf224b5a6f7a3abb839",
+      "github_stats": {
+        "additions": 370,
+        "deletions": 0,
+        "changes": 370,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "alembic/versions/0023_kb01_evidence_source_reference.py",
+      "status": "A",
+      "added": 66,
+      "deleted": 0,
+      "group": "migration",
+      "base_blob": null,
+      "product_blob": "848c75d533606aaf2fdc504bc05949527ec8df41",
+      "product_file_sha256": "b26cff68f50e51ce980835299d4b661820af7deb3c8686d279dafc82afe82630",
+      "github_stats": {
+        "additions": 66,
+        "deletions": 0,
+        "changes": 66,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "alembic/versions/0024_kb01_import_manifest_records.py",
+      "status": "A",
+      "added": 214,
+      "deleted": 0,
+      "group": "migration",
+      "base_blob": null,
+      "product_blob": "fa0288456f824dbf0849e7562fe484a93da1350e",
+      "product_file_sha256": "61b4d6a92a8c0b67ffeeb2fe8a4dbd8030658050b5630cd2bb609bf177b13a64",
+      "github_stats": {
+        "additions": 214,
+        "deletions": 0,
+        "changes": 214,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/D0_acceptance_plan.md",
+      "status": "A",
+      "added": 3,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "65d61314a8712160b97b22e0bf01fda41effd626",
+      "product_file_sha256": "61eb2bccc76504cf1ab98ad4798c41876ffd535546f77533a9ae3756d794a6d3",
+      "github_stats": {
+        "additions": 3,
+        "deletions": 0,
+        "changes": 3,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/D0_api_contract.md",
+      "status": "A",
+      "added": 3,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "e061b460ad803820935a0c229c80cb11b6025a87",
+      "product_file_sha256": "5c553c88755f35644ad59cb0b44967f2d4c40e6d9d36b163b7f3b289d1bfad2b",
+      "github_stats": {
+        "additions": 3,
+        "deletions": 0,
+        "changes": 3,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/D0_architecture_design.md",
+      "status": "A",
+      "added": 3,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "d4f5c287832340f4febfb37a0bdc3d7ae05c4423",
+      "product_file_sha256": "8ec9284db8029f90cab3e727732d06d07eaf35eb727db6934add16f377839c3e",
+      "github_stats": {
+        "additions": 3,
+        "deletions": 0,
+        "changes": 3,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/D0_database_design.md",
+      "status": "A",
+      "added": 3,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "63843571eee8282a82ec64ae638efb946950473c",
+      "product_file_sha256": "f7e53b73f361cdfaf7dc5ce7d8e130e5e67fe1a0eb2382a398b886ac6e463377",
+      "github_stats": {
+        "additions": 3,
+        "deletions": 0,
+        "changes": 3,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/D0_gap_matrix.md",
+      "status": "A",
+      "added": 56,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "e8b23b01408f9bcf6187828327c22ffbdd4782fd",
+      "product_file_sha256": "a4af18e70228e813f0211fdb2cfa6c0d32db11360226861498c417daa50ba985",
+      "github_stats": {
+        "additions": 56,
+        "deletions": 0,
+        "changes": 56,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/D0_requirement_traceability.md",
+      "status": "A",
+      "added": 30,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "bad4b4a6eb6abde74d37dd53041f81391b34127c",
+      "product_file_sha256": "a6b3690f886af8fd9679e7fb67729689f50aff91ba5b1c9881a49e87aac4f62d",
+      "github_stats": {
+        "additions": 30,
+        "deletions": 0,
+        "changes": 30,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/D0_security_review.md",
+      "status": "A",
+      "added": 3,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "1745e0b1339e90b4c016b355e1f824279a12e2cd",
+      "product_file_sha256": "9588df9ec971868a4b373a79c2562738dd0d6dc9204dbdf5659b1c23dc318c4b",
+      "github_stats": {
+        "additions": 3,
+        "deletions": 0,
+        "changes": 3,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/acceptance-templates/regulatory_acceptance_case.schema.json",
+      "status": "A",
+      "added": 299,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "ab969f4e8fe2070cd3197378dd5e2cb23743e040",
+      "product_file_sha256": "7860f779a4dc1f30b2b79d250b4f54bc1b1367095beec260fdda2dd194752ebf",
+      "github_stats": {
+        "additions": 299,
+        "deletions": 0,
+        "changes": 299,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/acceptance-templates/regulatory_acceptance_evidence.schema.json",
+      "status": "A",
+      "added": 140,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "ec82db07d2798387779b221fc3471f18c9cffc9e",
+      "product_file_sha256": "f8e8d855e57a1eee3befb9ff34645348a73d26de495ef93076fbeeb66d684014",
+      "github_stats": {
+        "additions": 140,
+        "deletions": 0,
+        "changes": 140,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/acceptance-templates/regulatory_expert_authorization.schema.json",
+      "status": "A",
+      "added": 81,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "75fc2ffd5386b497a5c12331075e8d2a6db0e130",
+      "product_file_sha256": "a596e75adaba7a3ef13657582adbaabf89039e6b7ca96d7a75a9b306405885b4",
+      "github_stats": {
+        "additions": 81,
+        "deletions": 0,
+        "changes": 81,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/acceptance-templates/regulatory_gold_review.schema.json",
+      "status": "A",
+      "added": 86,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "738c28feb4719cb7dd1905d62477fecf3fd9b129",
+      "product_file_sha256": "6528e45ca3f1fd549f30588ccc02e2c1face48ee233c7dd0a48d558b223cce6c",
+      "github_stats": {
+        "additions": 86,
+        "deletions": 0,
+        "changes": 86,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/acceptance-templates/regulatory_source_verification.schema.json",
+      "status": "A",
+      "added": 120,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "8c0a7946e2b9967624fe763d48d202241c780989",
+      "product_file_sha256": "43b0d1872d3e3a1c0884c3e860aec04412f3ca57bb7d203a4824f643c5b0b480",
+      "github_stats": {
+        "additions": 120,
+        "deletions": 0,
+        "changes": 120,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/acceptance-templates/template_manifest.json",
+      "status": "A",
+      "added": 13,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "bd4b02e3d21105231c78ee57b1f6f014d60d66e2",
+      "product_file_sha256": "2935addd28bf171528b1dd847a1c589818015cc9e374bf2c54d2dad31facdb18",
+      "github_stats": {
+        "additions": 13,
+        "deletions": 0,
+        "changes": 13,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/acceptance_plan.md",
+      "status": "A",
+      "added": 9,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "b2671717573838fe0f535ca9ad02d33a2da4b8e5",
+      "product_file_sha256": "405905e3d2de003f8472cf3dc953a217fecdee8ff477b93cd38df613f5dcca5b",
+      "github_stats": {
+        "additions": 9,
+        "deletions": 0,
+        "changes": 9,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/api_contract.md",
+      "status": "A",
+      "added": 7,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "437c98716e855f8c11728c6748822da389dbd6b2",
+      "product_file_sha256": "6b0257d57a787460295ec4f17713ee692d23d62d01b69d0a7e9f3afc69aa4030",
+      "github_stats": {
+        "additions": 7,
+        "deletions": 0,
+        "changes": 7,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/architecture_design.md",
+      "status": "A",
+      "added": 31,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "4777375811474e94dbd01f3ba49a8560c42eacb4",
+      "product_file_sha256": "c75cfbe4783a52a583a32e635f0cae26bb8f59cb5ef66a2ff5a4268155e49160",
+      "github_stats": {
+        "additions": 31,
+        "deletions": 0,
+        "changes": 31,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/batch_import_design.md",
+      "status": "A",
+      "added": 9,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "e3b01bdbeaac24031ffd402f49c5e6d5a96eecfc",
+      "product_file_sha256": "87639e03e9bd4164f34d75c91a6e1285d359e9bdf66379f752e89dc60997ab41",
+      "github_stats": {
+        "additions": 9,
+        "deletions": 0,
+        "changes": 9,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/browser_reviewer_handoff_recovery.md",
+      "status": "A",
+      "added": 11,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "0744db717997b0e6a86e884edb87684b3598fa2a",
+      "product_file_sha256": "5f7077436a03509abf0f19692b4866513849c0a6fe1621f2bfc590f4a4265da1",
+      "github_stats": {
+        "additions": 11,
+        "deletions": 0,
+        "changes": 11,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/classification_registry.md",
+      "status": "A",
+      "added": 3,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "65beae7fd66250a264e97154d40122fb3da16789",
+      "product_file_sha256": "a5a0eb3e540ae79f5172121a18c2d705e0780e24215f22614b8c135a1eb9c2e3",
+      "github_stats": {
+        "additions": 3,
+        "deletions": 0,
+        "changes": 3,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/database_design.md",
+      "status": "A",
+      "added": 11,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "790993339dcd140a4054458c519fcd1169a08c23",
+      "product_file_sha256": "2369462fc76788c415a4d808d9ff146eb1294cdb1a8b83f4652fa174c823480a",
+      "github_stats": {
+        "additions": 11,
+        "deletions": 0,
+        "changes": 11,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/database_migration_plan.md",
+      "status": "A",
+      "added": 9,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "7fa035bcb1257ec675c9f41ccc47867a5805acbc",
+      "product_file_sha256": "311c5a22970ac05dfed772eebcdf94e88a2a21b1cf8c1ed3064388d0bd31be89",
+      "github_stats": {
+        "additions": 9,
+        "deletions": 0,
+        "changes": 9,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/deletion_governance.md",
+      "status": "A",
+      "added": 7,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "ce62c3a85dc36b262f309164658bd665f39ea80c",
+      "product_file_sha256": "773e1add56e2f6399cf2e312fdd77d10cb1997ff222771b985eec5fb1310b7c1",
+      "github_stats": {
+        "additions": 7,
+        "deletions": 0,
+        "changes": 7,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/deletion_retention_policy.md",
+      "status": "A",
+      "added": 7,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "5d63e1bf2d1ed8a61cbd49787ffd03d91298918a",
+      "product_file_sha256": "b0c0921e47ca0fdf675e7607837f68dd5556c941a500165fe5a2150e751b55cc",
+      "github_stats": {
+        "additions": 7,
+        "deletions": 0,
+        "changes": 7,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/final_acceptance_report.md",
+      "status": "A",
+      "added": 13,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "726721582ae87b7ab73064aa66f355b1b2f43782",
+      "product_file_sha256": "6b7fbbc7ca96ed2aca534c64f872bca162a055d7ef41114dde4fa803e5095da5",
+      "github_stats": {
+        "additions": 13,
+        "deletions": 0,
+        "changes": 13,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/final_test_result.md",
+      "status": "A",
+      "added": 177,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "b40c2d463731c7accb0f84a330796cc8c0c28ef4",
+      "product_file_sha256": "e983907fbc0bf3d1e3a3ceacd3d0aedca55778db7c6677631d47d129b4929eee",
+      "github_stats": {
+        "additions": 177,
+        "deletions": 0,
+        "changes": 177,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/frontend_design.md",
+      "status": "A",
+      "added": 71,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "162d2ba939e427b2b867c9e5e09088ef757d2f99",
+      "product_file_sha256": "de6c3e36e88cb3c4e1e1dacd1e88d18a6aa4a7823a4eb0a5fcae80cac31563ef",
+      "github_stats": {
+        "additions": 71,
+        "deletions": 0,
+        "changes": 71,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/frontend_management_design.md",
+      "status": "A",
+      "added": 25,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "8d4dd6b51e99780efcc502dc0dcd872b8e57b5a4",
+      "product_file_sha256": "5532a6fb7ed6dcad00edee6dda145de80794a536c5db970db8c531e2f844326d",
+      "github_stats": {
+        "additions": 25,
+        "deletions": 0,
+        "changes": 25,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/knowledge_ingestion_design.md",
+      "status": "A",
+      "added": 9,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "ccfe8d2b00f36a52e227da0211b189ada9a8584f",
+      "product_file_sha256": "957f2118f737b04b3e8515f8c229f85cc7fd89cab5c39f047c857191af46ac42",
+      "github_stats": {
+        "additions": 9,
+        "deletions": 0,
+        "changes": 9,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/large_archive_design.md",
+      "status": "A",
+      "added": 7,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "a64512ee36bbaa027c759ee01c8b734938fc2c04",
+      "product_file_sha256": "15e2849c6a0be3aaf69eb9f5a478a9e03e10e2adc15ba1a8d999685cf180df0d",
+      "github_stats": {
+        "additions": 7,
+        "deletions": 0,
+        "changes": 7,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/manifest_contract.md",
+      "status": "A",
+      "added": 5,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "3590d3ac19148a7a6d29919125ab4a9052e63b63",
+      "product_file_sha256": "f58494c41848791eb6f92e0dae3d0f08bce01d70703bcf5db823a832eec5263e",
+      "github_stats": {
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/manifest_persistence_decision.md",
+      "status": "A",
+      "added": 43,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "bcc4ee1771cbc88c4c644d180dd0ac39079544b4",
+      "product_file_sha256": "ad5c956f3be9c73623838834fb3bd59e106ed2a0187a054694010cfb57aa94aa",
+      "github_stats": {
+        "additions": 43,
+        "deletions": 0,
+        "changes": 43,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/migration_plan.md",
+      "status": "A",
+      "added": 9,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "6a497ec0bb19cde578e133c24540a4556c25eac7",
+      "product_file_sha256": "6a30d9645653494a65a5702a2d4e346cd7e69c313671c9004f9f80c6542f2973",
+      "github_stats": {
+        "additions": 9,
+        "deletions": 0,
+        "changes": 9,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/operational_runbook.md",
+      "status": "A",
+      "added": 78,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "d16e0c2fae30e6a89e0504215af1d1479ce74fb8",
+      "product_file_sha256": "6f1feddb98d784a1b8e8c2f3bd24ad3e8945d33eef8891870fc3858c842d26cd",
+      "github_stats": {
+        "additions": 78,
+        "deletions": 0,
+        "changes": 78,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/parser_matrix.md",
+      "status": "A",
+      "added": 25,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "6a8240c1f2f96c4cf8358ebc28fd80a602865b94",
+      "product_file_sha256": "56ec1ca01f9ffb1b59f77f15d78368fcea92a22891c7258642021ed5ec396cb6",
+      "github_stats": {
+        "additions": 25,
+        "deletions": 0,
+        "changes": 25,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/real_regulatory_acceptance_readiness.md",
+      "status": "A",
+      "added": 85,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "5895df8088982f61ce65293111d41b0fbb2b9f44",
+      "product_file_sha256": "039d4074629ee38a55d379c09c4b75be23a7468fb0fe3ebf9d0566b9b5bb658d",
+      "github_stats": {
+        "additions": 85,
+        "deletions": 0,
+        "changes": 85,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/regulatory_analysis_design.md",
+      "status": "A",
+      "added": 5,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "b72a12ae2ac2a9210b00413dafa297ac25828226",
+      "product_file_sha256": "84cb24ec8543989d0eeac2f87bd1f2cbbbd687ad50ffe8039c3f6046ce6a083e",
+      "github_stats": {
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/security_design.md",
+      "status": "A",
+      "added": 5,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "dda523b105439672d01d22bfc4ab92f443444e2e",
+      "product_file_sha256": "5cadc8c7fc10286cac2e7707f43e415c4feb0174e1104bdbe2240745dd22cce2",
+      "github_stats": {
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/statistics_contract.md",
+      "status": "A",
+      "added": 5,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "5c2ed169b0a2c566d1eee5b3a73b98e6d4b144b1",
+      "product_file_sha256": "82f3ff8c43d3915be8b603651b9b31b6008d2c1fe282215dbbabbfa08a786ea3",
+      "github_stats": {
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/taxonomy_crud_design.md",
+      "status": "A",
+      "added": 7,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "de6b264fd5b7e89182771a76027221b7b3d695d5",
+      "product_file_sha256": "bcb7bb0ba480fb63ddec1324c3e58c762a7313968f9abcdebe527b8f68c00d13",
+      "github_stats": {
+        "additions": 7,
+        "deletions": 0,
+        "changes": 7,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/upload_api_contract.md",
+      "status": "A",
+      "added": 5,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "a6b40480411db6b37b84c479d8225918390edc93",
+      "product_file_sha256": "0b1059bbb9638d1ecf5efdbcc66a12e94ee84efe222b98d240272e71733f29c4",
+      "github_stats": {
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "docs/stage1-gap-kb01/upload_contract.md",
+      "status": "A",
+      "added": 9,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "398c6febc55b4f7cd813d7da0ad7b99b62e5a0c1",
+      "product_file_sha256": "6773373cca2cafd9fdac49b829db16217c0a523a955b7ff2fcfabc252d31ac3c",
+      "github_stats": {
+        "additions": 9,
+        "deletions": 0,
+        "changes": 9,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/a_focused_validation.json",
+      "status": "A",
+      "added": 369,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "e9a1d4fd0844c4764906bd2c5a62f9ee0973461b",
+      "product_file_sha256": "91d490482d3bcea83107eac0a4171f2a0ccd8bd10ea40a95f555d287520c9c3b",
+      "github_stats": {
+        "additions": 369,
+        "deletions": 0,
+        "changes": 369,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/a_full_regression_initial.json",
+      "status": "A",
+      "added": 28,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "200fbb6a656a428118cb7a7d5aa9ca19d58aa17c",
+      "product_file_sha256": "8870c1658059b9030882e0982db6478ff96bd6edf357bddb408a6846d88b48c8",
+      "github_stats": {
+        "additions": 28,
+        "deletions": 0,
+        "changes": 28,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/a_full_regression_successor.json",
+      "status": "A",
+      "added": 1191,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "3bd9694bfff261deebb93cb65ca13358d45cf5b0",
+      "product_file_sha256": "49cf19804792d1619e7e5aea0eedff1565990f928734fbc024ebde7b1f0a08b9",
+      "github_stats": {
+        "additions": 1191,
+        "deletions": 0,
+        "changes": 1191,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay.json",
+      "status": "A",
+      "added": 235,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "1b73eaffb284e14e418224713f7b5bbd6252cafc",
+      "product_file_sha256": "720a34a30f62be6eee881ccc534672d21d7e1f54590a2842d2270897e9df608b",
+      "github_stats": {
+        "additions": 235,
+        "deletions": 0,
+        "changes": 235,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v10.json",
+      "status": "A",
+      "added": 366,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "a0e059794beb7dea573c4f6f8f15f10e1aaa0a75",
+      "product_file_sha256": "20f37a18bc6144c7cf7824469e858318aadfdc6a350f6481208f8ef14131a9af",
+      "github_stats": {
+        "additions": 366,
+        "deletions": 0,
+        "changes": 366,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v11.json",
+      "status": "A",
+      "added": 367,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "166b298f450fdc5d65b31f310f1790eead5d2349",
+      "product_file_sha256": "592efc58545cc21af6facd3e4aa0c0cf0095a170455e2bbd1cd5687083639cfb",
+      "github_stats": {
+        "additions": 367,
+        "deletions": 0,
+        "changes": 367,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v12.json",
+      "status": "A",
+      "added": 368,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "a74d48b48744e8bf3326088f098247bc20a9b219",
+      "product_file_sha256": "b077457d1398efda0f13bdb843d14313a215eec31b69be250bbd38a9b48f1f41",
+      "github_stats": {
+        "additions": 368,
+        "deletions": 0,
+        "changes": 368,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v13.json",
+      "status": "A",
+      "added": 370,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "add11dfc028c0ff3e23989725ec3abbec1d89319",
+      "product_file_sha256": "e204aee4d7e5bfe4eb049bb693420861a5320ccb506537ad8643af390f5a752e",
+      "github_stats": {
+        "additions": 370,
+        "deletions": 0,
+        "changes": 370,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v14.json",
+      "status": "A",
+      "added": 371,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "4e3a519b09c3d5fa5f64520547d2b8fdd8f54ace",
+      "product_file_sha256": "e9c3cd7507895302af0f781cb26f0317269d7cb6059e2b9af3adbc6b57fa7e58",
+      "github_stats": {
+        "additions": 371,
+        "deletions": 0,
+        "changes": 371,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v15.json",
+      "status": "A",
+      "added": 373,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "8420aee92c5b51d56d9bc72fa61e21d0887ab7ff",
+      "product_file_sha256": "8e97a6a86cb6dbb862fd0c502e154facc4c82499997d7a7d271b60b1f7b3e5e7",
+      "github_stats": {
+        "additions": 373,
+        "deletions": 0,
+        "changes": 373,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v16.json",
+      "status": "A",
+      "added": 379,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "ee7f3984ab75e611e4b7b6c17c1c3d02ee069245",
+      "product_file_sha256": "d31886324f4b72efad8e3bf47d28fb86869220ebaf34a2c47ffbbec7e182d812",
+      "github_stats": {
+        "additions": 379,
+        "deletions": 0,
+        "changes": 379,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v17.json",
+      "status": "A",
+      "added": 380,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "82a0bb0a6aa83234c01ddc5f4d1536d541620b24",
+      "product_file_sha256": "6be1a3086aeb617b4cf5efaacffd1d4b13241268b6c234caee9283381283f74f",
+      "github_stats": {
+        "additions": 380,
+        "deletions": 0,
+        "changes": 380,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v18.json",
+      "status": "A",
+      "added": 383,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "14dd4f957e65914dc50e9571af73fbdec7d7b100",
+      "product_file_sha256": "1101a808379b83696312b0ab352012b3b3baabd5d635d810fc2b89997d658b16",
+      "github_stats": {
+        "additions": 383,
+        "deletions": 0,
+        "changes": 383,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v19.json",
+      "status": "A",
+      "added": 384,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "d3bc42400662a44a8c460e0fba87b04461503789",
+      "product_file_sha256": "6e7ec27d8d7e1ea7cadeeae55ce723d1a9b2c167cc03b1eeb99c23ebb2245dd2",
+      "github_stats": {
+        "additions": 384,
+        "deletions": 0,
+        "changes": 384,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v2.json",
+      "status": "A",
+      "added": 237,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "95b8fde241333f361e5bab4e965ef49188cae6c0",
+      "product_file_sha256": "a6d890e8bdd89c71a6594ee5467641e923ae551a63ce4694b0971a3e742885ee",
+      "github_stats": {
+        "additions": 237,
+        "deletions": 0,
+        "changes": 237,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v3.json",
+      "status": "A",
+      "added": 265,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "f958446317e2fdc9e458dc13264a42336434e5de",
+      "product_file_sha256": "6ec46d5a648bce8d0b3cf9685b51512be1b2341e4e045ef7a7b2c84575a2348b",
+      "github_stats": {
+        "additions": 265,
+        "deletions": 0,
+        "changes": 265,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v4.json",
+      "status": "A",
+      "added": 290,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "3d48f49118b4c1b57df6675bc0a0822fc1b1d1c2",
+      "product_file_sha256": "1784f2e1793fa048b8155deb47e9ea4f4f0de348435c275be318e7602b35b3a2",
+      "github_stats": {
+        "additions": 290,
+        "deletions": 0,
+        "changes": 290,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v5.json",
+      "status": "A",
+      "added": 309,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "94e286459ec861cc02c134f3cfe9fea843119d2e",
+      "product_file_sha256": "adf772cd3f3b2983bf42d63f2457adab05cedb9e95b54b8bf55f22c0bb937bae",
+      "github_stats": {
+        "additions": 309,
+        "deletions": 0,
+        "changes": 309,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v6.json",
+      "status": "A",
+      "added": 332,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "e10c537da5fbd7c98240f16fd478504a842fbd0e",
+      "product_file_sha256": "725de872d847bc7783e636f3f1fd0e6bdaf057123e67ef83f7d1b1bcd500991f",
+      "github_stats": {
+        "additions": 332,
+        "deletions": 0,
+        "changes": 332,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v7.json",
+      "status": "A",
+      "added": 333,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "22336df6575f9efe12fc55e35653f5f15f23dbc2",
+      "product_file_sha256": "d5a7e38b35cef07379949c4f70a975ff595ffe483e1d076e156437fb2cc8c453",
+      "github_stats": {
+        "additions": 333,
+        "deletions": 0,
+        "changes": 333,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v8.json",
+      "status": "A",
+      "added": 361,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "e1d9042a9ff98da40f3ecd7c17e901dd0d2e3342",
+      "product_file_sha256": "03471f6aa3f5ee33576339d36436ae5497bd6ea48911b277399848058556f9ca",
+      "github_stats": {
+        "additions": 361,
+        "deletions": 0,
+        "changes": 361,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/approved_owner_overlay_v9.json",
+      "status": "A",
+      "added": 365,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "5034bdda20939adabf844fde202db9aec4eec17b",
+      "product_file_sha256": "e233acdfffa8824cf35a27316fcf81964eb225646b4fd741ac74491193eefba8",
+      "github_stats": {
+        "additions": 365,
+        "deletions": 0,
+        "changes": 365,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/b_sealed_focused_checkpoint.json",
+      "status": "A",
+      "added": 131,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "0e67fd022c1d2d01534b9266326aeb3f147a5548",
+      "product_file_sha256": "a4789c455514fb50915137203eac384a0e8217b6605e4d2fd5174dc813119d14",
+      "github_stats": {
+        "additions": 131,
+        "deletions": 0,
+        "changes": 131,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/b_transport_prototype.json",
+      "status": "A",
+      "added": 495,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "d9ef2707ee4104e199f701d817cad150c6a004a2",
+      "product_file_sha256": "aea9d87f93fe6c0c76f5e410dfba168041e68237390e55bfac5f00d08f7fbe92",
+      "github_stats": {
+        "additions": 495,
+        "deletions": 0,
+        "changes": 495,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/baseline_identity.json",
+      "status": "A",
+      "added": 36,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "da405d7959e91c5d4254732afd25058eb81e10e5",
+      "product_file_sha256": "63c3df6ff5cd66d4ce0d1e5947359c6596280306d0573c681e55c9da6360402d",
+      "github_stats": {
+        "additions": 36,
+        "deletions": 0,
+        "changes": 36,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/batch_import_validation.json",
+      "status": "A",
+      "added": 36,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "2342beb17e30c1cb6c4ad2370db76505956087e4",
+      "product_file_sha256": "9f2038ffe1f2c3cf56823b0334af3c970ce94db74ec926610d2fb6afca5c2a13",
+      "github_stats": {
+        "additions": 36,
+        "deletions": 0,
+        "changes": 36,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/browser_reviewer_handoff_recovery.json",
+      "status": "A",
+      "added": 87,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "0228d60c4605fff927ffc564bf25344a4aad1fb2",
+      "product_file_sha256": "57b402fe837179883a0242da372973f2410c85bd256bbd40ab78e564082a578b",
+      "github_stats": {
+        "additions": 87,
+        "deletions": 0,
+        "changes": 87,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/bulk_management_checkpoint.json",
+      "status": "A",
+      "added": 27,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "1e7682e3c4c2b468e7210e46464ef34ee208ace0",
+      "product_file_sha256": "064019bee72d9f96156af90ac48ed0c3a3c440d381f6f474553eb9382cc407f7",
+      "github_stats": {
+        "additions": 27,
+        "deletions": 0,
+        "changes": 27,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/c_full_regression_initial.json",
+      "status": "A",
+      "added": 50,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "b9dc6a29eef8b0dd345a7a6462f59593440df97b",
+      "product_file_sha256": "3af93306952c6b85308e2f2b0ddf41ec29a0852fcd1d62e23e51e97ec078445d",
+      "github_stats": {
+        "additions": 50,
+        "deletions": 0,
+        "changes": 50,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/c_native_prototype.json",
+      "status": "A",
+      "added": 325,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "4fa5f0900278bee5df3a1b5eac0f56ba9cc50e55",
+      "product_file_sha256": "81750ad0883ac6ed5d9be4e373483952a102df74d83f38e7cf63c9a2eab4aa7a",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/ci_references.json",
+      "status": "A",
+      "added": 14,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "5d4528ca639729b4a20bb3c67684cfe8e4a77989",
+      "product_file_sha256": "782cdb9918bc8dc09111d3585f4c77e4550adb1178247fd95b80a952a64e222f",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/citation_validation.json",
+      "status": "A",
+      "added": 37,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "693a5a64ff6e420378d1c98178f39dfbc83590fd",
+      "product_file_sha256": "03e48395f478fd1118e4b513a6ccdb717732859ebb7e5ecc72d64273ad05278f",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/d_full_regression_initial.json",
+      "status": "A",
+      "added": 1274,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "114e63346b9d74d14dcca9e8eb3e48a0f15b7317",
+      "product_file_sha256": "da0981c359e61517b2b70b0acc1e02685733b0b5b7cd7b820485c611bb862a27",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/d_management_checkpoint.json",
+      "status": "A",
+      "added": 68,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "eb11e26832493d087cab0594046b8cbd11aa0ecc",
+      "product_file_sha256": "c120c00296d1c33f658bc033831843d2205fe7126704241153acf2e73a5ed347",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/database_owner_counterexample.json",
+      "status": "A",
+      "added": 60,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "f41a3b7f0b8d0fa0fc52cc9d5bbc23dada08a90e",
+      "product_file_sha256": "7911bee5d2bd917868bb2d0e7b7b62962dd79ffefadbedddb95033f56e69b086",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/delete_dependency_validation.json",
+      "status": "A",
+      "added": 58,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "ef873630d2df637824131ab5996e66c565d416d8",
+      "product_file_sha256": "c6f5a6621c6d18265c4d1de88105b78f9266f9db12b3287b4a9d399553db5685",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/dynamic_statistics_validation.json",
+      "status": "A",
+      "added": 21,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "125c95fac82ad7f4d4d1f4c209dde9b6c4782af0",
+      "product_file_sha256": "71ed94e31129f8f5921cdba3742ccd1c2b8e5d9a7601bf9d72058590b4ed59a0",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/e_full_regression_initial.json",
+      "status": "A",
+      "added": 2757,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "61e7ae550e9152ee43e9d3121486333e15be1778",
+      "product_file_sha256": "759752a0834a0b3df9d2e353adeb8c41856abad2b7450a9a00a0ccb5d86b10df",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/e_management_readiness_checkpoint.json",
+      "status": "A",
+      "added": 69,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "afae54247d7aa919c5cafbf46103a733267c45c9",
+      "product_file_sha256": "e9d4ec21636190d3954615ad7dc844c6dbf5ca5dc72ddbf94006dcb5ba2a16e7",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/f_architecture_checkpoint.json",
+      "status": "A",
+      "added": 69,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "70f791ac3d16caa41893107a3cfb1f8a02485adf",
+      "product_file_sha256": "4316e4b85868baffcdd24b9dad93d57a20e9079e7455b1a7e2e65276a5c4f402",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/f_full_regression_checkpoint.json",
+      "status": "A",
+      "added": 1416,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "1ce64ca6052493465bde85fa6a9a08d94a54238b",
+      "product_file_sha256": "b7eb48b77d6d8f274798c3dc9eb3180383bb081a278064b2fcb8812e3eda4943",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/final_matrix_development_checkpoint.json",
+      "status": "A",
+      "added": 34,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "d9c042356bf5aaf08e881807110a9033b86e4076",
+      "product_file_sha256": "4ad784d142e7f7b68d353a1cec3a0fcf8aaf532259b0ff60e962a16044577b02",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/full_regression_summary.json",
+      "status": "A",
+      "added": 11,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "8f3689ea7253bfa01f377c785ccbe15532a4fae1",
+      "product_file_sha256": "79a75664eeefeee1bc19895b9bddde938cc61c7fe6e0aa4c66f6dae786406657",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/i_full_regression_checkpoint.json",
+      "status": "A",
+      "added": 1310,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "3830e1401a252c8a48dd7efc5fc6f4f606e36bce",
+      "product_file_sha256": "9a8d781527aa920c662fcdb2ceae0ea9405fbcf47d738847acedf46116393b59",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/knowledge_database_validation.json",
+      "status": "A",
+      "added": 17,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "d321f6006f692206c016613342b803566b358b77",
+      "product_file_sha256": "7e305b664531913a91b14b8d028b68ebcf6a87c6473bc60283bb941db8a6d113",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/manifest_publication_capacity_checkpoint.json",
+      "status": "A",
+      "added": 69,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "8d7f3d5256973e29739febe57fe92f00084239c2",
+      "product_file_sha256": "f14e08250ef8480f65469a022f30811bc67f3fb48819e646049c27411fa9c679",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/manifest_validation.json",
+      "status": "A",
+      "added": 60,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "b05138ec8c94aee4ab5673d09c7cfb1e440fd27e",
+      "product_file_sha256": "7db800ac64ff9cc6ca27b14f33459623d84aa5cb67bacac0c192556857d7d993",
+      "github_stats": {
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/owner_review_required.json",
+      "status": "A",
+      "added": 25,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "e2c2260821e39dd3d601cd7916b2054ac991db7d",
+      "product_file_sha256": "68c2c4d7d06851df3f3dfacb1da9275abd7455d38cfa4f376f4f02319ca80255",
+      "github_stats": {
+        "additions": 25,
+        "deletions": 0,
+        "changes": 25,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/rar_1gb_validation.json",
+      "status": "A",
+      "added": 80,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "4581cf9c9a8f935932113bc56c1df4fbba819f44",
+      "product_file_sha256": "2e869e78159cf161cc5aa74e1ad84d36c10d881bc07449f221dad9478959f4e6",
+      "github_stats": {
+        "additions": 80,
+        "deletions": 0,
+        "changes": 80,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/real_regulatory_dependencies.json",
+      "status": "A",
+      "added": 21,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "9ddea6f9dc1dbc6bce616a0d610a4d9a8ce994a1",
+      "product_file_sha256": "5264cf9f2ff5c23a8e3a3792a3db3fe45c5427d3b85170ec05b3711a2bfbe2f9",
+      "github_stats": {
+        "additions": 21,
+        "deletions": 0,
+        "changes": 21,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/regression_summary.json",
+      "status": "A",
+      "added": 1131,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "27c95a7326faa8f0cdc12367aaef8037c7012eca",
+      "product_file_sha256": "fcfa3be390e53179626c22aa7998cbfd32012065074cd8fedb96634addd26005",
+      "github_stats": {
+        "additions": 1131,
+        "deletions": 0,
+        "changes": 1131,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/regulatory_analysis_validation.json",
+      "status": "A",
+      "added": 12,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "5a424829ce4b3143f3804a58d1f312240786fa35",
+      "product_file_sha256": "a2c39503690fe89bc8b6214d4644b03a00f3baeabdb05414d98335e85fadb021",
+      "github_stats": {
+        "additions": 12,
+        "deletions": 0,
+        "changes": 12,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/remote_ci_recovery_diagnostics.json",
+      "status": "A",
+      "added": 116,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "c97da33193373c69b784946c3b9b9a72d4dc84d0",
+      "product_file_sha256": "e0383ad458bfbcbad353e599f8c8292bad7978d740ddc2e26cc51da075f2afe0",
+      "github_stats": {
+        "additions": 116,
+        "deletions": 0,
+        "changes": 116,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/reproducible_tooling_checkpoint.json",
+      "status": "A",
+      "added": 43,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "fdcc0262e2be035a708c82b26a4f2f831eed5859",
+      "product_file_sha256": "5aea649891dddde47c28550115b9c3399bdad14bd10e70d84ea3a2fb0378d277",
+      "github_stats": {
+        "additions": 43,
+        "deletions": 0,
+        "changes": 43,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/scanner_resource_recovery.json",
+      "status": "A",
+      "added": 56,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "ab1b9a00b14cb14efe665291a2bb9a8a8d432be3",
+      "product_file_sha256": "dc2515c2832efd1dc00e2c942a6451ce5ada6756f50c25213ba05dbb10a329f9",
+      "github_stats": {
+        "additions": 56,
+        "deletions": 0,
+        "changes": 56,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/security_validation.json",
+      "status": "A",
+      "added": 78,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "3cc61e84790648a24ee6503f4808693a64f0cbf1",
+      "product_file_sha256": "4e556f8a81bc8bc53589071253f80a2c9c4647f0aebb95a7274c720fbecabcd4",
+      "github_stats": {
+        "additions": 78,
+        "deletions": 0,
+        "changes": 78,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/six_format_parser_validation.json",
+      "status": "A",
+      "added": 37,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "693a5a64ff6e420378d1c98178f39dfbc83590fd",
+      "product_file_sha256": "03e48395f478fd1118e4b513a6ccdb717732859ebb7e5ecc72d64273ad05278f",
+      "github_stats": {
+        "additions": 37,
+        "deletions": 0,
+        "changes": 37,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/statistics_completion_checkpoint.json",
+      "status": "A",
+      "added": 35,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "2334904b27cca769da7eb4eff9b188533eaddafd",
+      "product_file_sha256": "e58b06ec080903bde6741b814768cb15a376d3eb6a75fc52a299bd39f905971b",
+      "github_stats": {
+        "additions": 35,
+        "deletions": 0,
+        "changes": 35,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/taxonomy_crud_validation.json",
+      "status": "A",
+      "added": 43,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "35a86b279806820c6f16af2fec8121372df66f18",
+      "product_file_sha256": "367c06c20ae8603cc9a416772b3f96b88f0c86482a924e3a5de6ffd2e994d00a",
+      "github_stats": {
+        "additions": 43,
+        "deletions": 0,
+        "changes": 43,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "evidence/stage1-gap-kb01/upload_500mb_validation.json",
+      "status": "A",
+      "added": 37,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": null,
+      "product_blob": "d748edbc70a776fce8ed454139199e36808bea24",
+      "product_file_sha256": "86b48e7da0e9a4b729dbab1d87ebc08ac3cfe8a9ebf55b1e7da7b8e285c34343",
+      "github_stats": {
+        "additions": 37,
+        "deletions": 0,
+        "changes": 37,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/e2e/kb01-bulk.spec.ts",
+      "status": "A",
+      "added": 84,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "1e1842fbbe24285bdb7579822416c709f5faa279",
+      "product_file_sha256": "824acb306e5c3843d8567a89e8f63d3349fd8b4a311a6165c588e5f88570b688",
+      "github_stats": {
+        "additions": 84,
+        "deletions": 0,
+        "changes": 84,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/e2e/kb01-capacity.spec.ts",
+      "status": "A",
+      "added": 108,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "a85bdcacc267792c5ee694ba63f2065f866c8c85",
+      "product_file_sha256": "82fc5f7252af8990e4276db37ab34b5aa1d58595025451a93e2c4b48e8f1bcb0",
+      "github_stats": {
+        "additions": 108,
+        "deletions": 0,
+        "changes": 108,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/e2e/kb01-folder.spec.ts",
+      "status": "A",
+      "added": 135,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "38af265840e296b8c979449065e25a10c635d510",
+      "product_file_sha256": "dba75ff7252bf89bac8f396b1138bdabf97499303246579bd1131b2c5cd94e2d",
+      "github_stats": {
+        "additions": 135,
+        "deletions": 0,
+        "changes": 135,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/e2e/kb01-management.spec.ts",
+      "status": "A",
+      "added": 271,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "2ffec59397975fd2f3eb1383ce74abac45c8d5d8",
+      "product_file_sha256": "d365f86cd6a678721828a2676ed4e0419867766eab80a58b46e33a3a1742f788",
+      "github_stats": {
+        "additions": 271,
+        "deletions": 0,
+        "changes": 271,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/e2e/kb01-manifest.spec.ts",
+      "status": "A",
+      "added": 81,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "b2aa18a2d5bc1919afe661034dbd2581bb6eb736",
+      "product_file_sha256": "2d26e463cecfa2502ad863443673c7f06981798789eac05cbf2b1bfc85b6a57c",
+      "github_stats": {
+        "additions": 81,
+        "deletions": 0,
+        "changes": 81,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/e2e/kb01-safe-evidence.ts",
+      "status": "A",
+      "added": 12,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "887fa2689fca1f75d60d4d3adfe4b025a0da5f43",
+      "product_file_sha256": "0c63ac231da3e98d0584979e8efd118865bb4b35b4914e3591d9ed5c29072099",
+      "github_stats": {
+        "additions": 12,
+        "deletions": 0,
+        "changes": 12,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/e2e/kb01-taxonomy.spec.ts",
+      "status": "A",
+      "added": 82,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "bc6fd765222dbe7d92160f472efd9926caf1fc35",
+      "product_file_sha256": "f94dd10b2c08029e77e6779fa9e5e6d560ce39e44ca9be8328b2e6542e2472a9",
+      "github_stats": {
+        "additions": 82,
+        "deletions": 0,
+        "changes": 82,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/e2e/phase1kb.spec.ts",
+      "status": "M",
+      "added": 35,
+      "deleted": 7,
+      "group": "frontend",
+      "base_blob": "48b28f5db8a4791ec80d118cd0700623519a7a49",
+      "product_blob": "a81d935625009371911add40326100bd21e4555a",
+      "product_file_sha256": "b657067cd7972a3d48063b9eba3e22e181019a42ed7e529503b1168fc5ffa1b2",
+      "github_stats": {
+        "additions": 35,
+        "deletions": 7,
+        "changes": 42,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/eslint.config.js",
+      "status": "M",
+      "added": 1,
+      "deleted": 1,
+      "group": "frontend",
+      "base_blob": "1c1e7ad94e3ef0cabecebcc70c9b33d7df47cd0e",
+      "product_blob": "9350912b189945a48a89809752ee7095f2395022",
+      "product_file_sha256": "4fb32e2f8012aa0fc7f248b84ad968cb85830cf80547c6bc48f71c916f5667b5",
+      "github_stats": {
+        "additions": 1,
+        "deletions": 1,
+        "changes": 2,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/package-lock.json",
+      "status": "M",
+      "added": 13,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": "571660e4fb85b3c1645cc990fccdcbe71a327086",
+      "product_blob": "92bb9e569b53fec0ce4d776e0ca3326ac1bd06fe",
+      "product_file_sha256": "a599ca558fc23a6650b4c7582a8f818b6212d8b32dd830139c395f885d80874a",
+      "github_stats": {
+        "additions": 13,
+        "deletions": 0,
+        "changes": 13,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/package.json",
+      "status": "M",
+      "added": 1,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": "9ce285e444c1532ba3005d9850bad8bca88d2416",
+      "product_blob": "be4a615ac561636f5b54077b93bbbbab396a224f",
+      "product_file_sha256": "5fbdda9edd7f435417fdaa80651e4d68910bd2c803e36e6bfea40d6eee409909",
+      "github_stats": {
+        "additions": 1,
+        "deletions": 0,
+        "changes": 1,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/scripts/m1/boundary_check.py",
+      "status": "M",
+      "added": 7,
+      "deleted": 1,
+      "group": "frontend",
+      "base_blob": "a09c6b3b48d39ee0db283943ebeaa0c80ee24cbd",
+      "product_blob": "e1a9776e7b053209ccfbb0250628ee11bf635715",
+      "product_file_sha256": "7b28772c5745f122c2ec3f9461fc97bf85b0bb36533a72635338307165c4e59c",
+      "github_stats": {
+        "additions": 7,
+        "deletions": 1,
+        "changes": 8,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/api/client.test.ts",
+      "status": "M",
+      "added": 14,
+      "deleted": 1,
+      "group": "frontend",
+      "base_blob": "8656b1178143c41cac44bd6c1262d8297c8753fe",
+      "product_blob": "10e9d8ed511ff2bc37adf393473d0a37debcdef1",
+      "product_file_sha256": "72b3dc8f3ecf3ff2b17e4f3e5d900bf4856255a1eac15d40d118233f9848994a",
+      "github_stats": {
+        "additions": 14,
+        "deletions": 1,
+        "changes": 15,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/api/client.ts",
+      "status": "M",
+      "added": 10,
+      "deleted": 1,
+      "group": "frontend",
+      "base_blob": "a4d9dbe80a99f09da22597a756b90fff24ea0fff",
+      "product_blob": "8725124146936a4f6cb74a74979990d446bbcfa6",
+      "product_file_sha256": "0da6895a0b1b5c761c47a65436d2b4c72dedc5133dfcffb7b3c6dbc4c476fcb2",
+      "github_stats": {
+        "additions": 10,
+        "deletions": 1,
+        "changes": 11,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/api/kb01-generated.ts",
+      "status": "A",
+      "added": 5836,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "275400d0808583d220b2334be6168e1ffd9afb7d",
+      "product_file_sha256": "c4438a88b3f1a5c3604d9fed9308308947127f919049e29487562234e966af6a",
+      "github_stats": {
+        "additions": 5836,
+        "deletions": 0,
+        "changes": 5836,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "frontend/src/api/kb01-openapi.json",
+      "status": "A",
+      "added": 9911,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "1819c8b27c01d4a74e09c2a38f98b0477d70453f",
+      "product_file_sha256": "43e9a38f93445348d679d8615468b207402941eaf5dd30e15661be8fe1f41796",
+      "github_stats": {
+        "additions": 9911,
+        "deletions": 0,
+        "changes": 9911,
+        "patch_present": false
+      }
+    },
+    {
+      "path": "frontend/src/features/admin/AdminFeature.tsx",
+      "status": "M",
+      "added": 5,
+      "deleted": 3,
+      "group": "frontend",
+      "base_blob": "6a503c1a607c130490bf4d953eef67816be1452c",
+      "product_blob": "142d53fff267e3f5a197071412598ff8b9390f93",
+      "product_file_sha256": "a67ee44e44118fb9328ed53c43b2f12cba1a27f1a59137011aa1cc538c1fa15a",
+      "github_stats": {
+        "additions": 5,
+        "deletions": 3,
+        "changes": 8,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/admin/admin.css",
+      "status": "M",
+      "added": 5,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": "c885b75a196a0e78ff5fd5cd2c617b72ecfa3e29",
+      "product_blob": "a0f25bfad90ab4487c1a0b60cffcf0abb0f6f4c6",
+      "product_file_sha256": "1498c649b3fe97f6c3708d0073e5ccb3d06563644c0e2e8cb7f3d014aca23339",
+      "github_stats": {
+        "additions": 5,
+        "deletions": 0,
+        "changes": 5,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/admin/resources.ts",
+      "status": "M",
+      "added": 1,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": "429881f3c4f044b1fa47a49ea0734f3ebe3c5bae",
+      "product_blob": "7c316dbee4570431025f50bf435ff42445150fd8",
+      "product_file_sha256": "273e35baebdc9b880b893b359113914f06f45f1da9a7d7777c171ca0afcd412c",
+      "github_stats": {
+        "additions": 1,
+        "deletions": 0,
+        "changes": 1,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/BulkDocumentActions.test.tsx",
+      "status": "A",
+      "added": 112,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "92f77baaa005867744f3282636358ba562e44a34",
+      "product_file_sha256": "2d54f636c31086a548dd958ab20debc31b04294b6951ac16b518fe62357378cd",
+      "github_stats": {
+        "additions": 112,
+        "deletions": 0,
+        "changes": 112,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/BulkDocumentActions.tsx",
+      "status": "A",
+      "added": 133,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "71a251787cdbd5a69b82e36aa6844e8f7563de30",
+      "product_file_sha256": "eadb4f361716a19c4a335a9acccbc373ee43b6eb62ea47a0f233d125db77cef0",
+      "github_stats": {
+        "additions": 133,
+        "deletions": 0,
+        "changes": 133,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/KnowledgeManagement.tsx",
+      "status": "A",
+      "added": 1707,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "596b8d89b2fad610d31dc77dc2f691d515388db1",
+      "product_file_sha256": "167393d247e34c50d27abcbc6661dede98729d769d3dde1769fa99bae282a787",
+      "github_stats": {
+        "additions": 1707,
+        "deletions": 0,
+        "changes": 1707,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/KnowledgeScopeControls.test.tsx",
+      "status": "A",
+      "added": 50,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "cde3e93687a6bd3311893d98041245f21f287e20",
+      "product_file_sha256": "c11eca42a0e8706a3f511b3a36c2cc23c2dd0e0df62b88e6efadd198e7815b89",
+      "github_stats": {
+        "additions": 50,
+        "deletions": 0,
+        "changes": 50,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/KnowledgeScopeControls.tsx",
+      "status": "A",
+      "added": 110,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "9be7f74d125aefcfb1c465355d97ebab76b66db7",
+      "product_file_sha256": "5dcbbdbf48f6662f22f45e1f15ce2e58af324e36d9ec6609e07d3e61ed255055",
+      "github_stats": {
+        "additions": 110,
+        "deletions": 0,
+        "changes": 110,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/KnowledgeStatistics.test.tsx",
+      "status": "A",
+      "added": 51,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "9708217d1e4e7ac74a30b32cfa2f0ed29ef1e9f3",
+      "product_file_sha256": "e0852e66af550b87f66f2a7b2d8ce4e7239e984e57a44c29e6a65e0993adc732",
+      "github_stats": {
+        "additions": 51,
+        "deletions": 0,
+        "changes": 51,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/KnowledgeStatistics.tsx",
+      "status": "A",
+      "added": 55,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "90ae08c2f96266d65269f98b493876a368840c14",
+      "product_file_sha256": "c34cf9e41416c5b9cf4d42d9840b803e83f808b65abd9ef9edd6e49c4eb8c9f1",
+      "github_stats": {
+        "additions": 55,
+        "deletions": 0,
+        "changes": 55,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/ManifestPanel.test.tsx",
+      "status": "A",
+      "added": 49,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "89c445351b527f936fee99f520641997a30db33c",
+      "product_file_sha256": "e45a5e050a8bed52a254bcc5c0c5a70a9ee3487cf5efd56b197eed6515260c73",
+      "github_stats": {
+        "additions": 49,
+        "deletions": 0,
+        "changes": 49,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/ManifestPanel.tsx",
+      "status": "A",
+      "added": 153,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "d6ed68a61399d398ced56f9206e847d68419ef7a",
+      "product_file_sha256": "4b8148f513655cd712d3fea38a32ff0c7f625accc778d7f30bfae6db03e638c3",
+      "github_stats": {
+        "additions": 153,
+        "deletions": 0,
+        "changes": 153,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/TaxonomyEditor.tsx",
+      "status": "A",
+      "added": 228,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "ed8199d09d0b88b41ed1b90a84f55af8c5693665",
+      "product_file_sha256": "fdb917e5783e5757ce813de7f4d29cf124e4431c685469a13504cecfe19a912a",
+      "github_stats": {
+        "additions": 228,
+        "deletions": 0,
+        "changes": 228,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/TaxonomyTree.test.tsx",
+      "status": "A",
+      "added": 63,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "d6fc677e2e5771150724d3e122a9ac9ebb7f4a0c",
+      "product_file_sha256": "a7860a3751581487d39e78e728fb585e0958cca5db04efb31e89cc14c6f46ccf",
+      "github_stats": {
+        "additions": 63,
+        "deletions": 0,
+        "changes": 63,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/TaxonomyTree.tsx",
+      "status": "A",
+      "added": 60,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "c4bd82a46bacbec0ce3b1544a61c0823755d0da8",
+      "product_file_sha256": "b55ceb8f184e8ca49fa26e60c644b8547de06bf09201fef9d7d49db260eba73c",
+      "github_stats": {
+        "additions": 60,
+        "deletions": 0,
+        "changes": 60,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/TranslationAlignment.test.tsx",
+      "status": "A",
+      "added": 73,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "7825dfe461cf8f3b5f5aa557798466ed1a6832e4",
+      "product_file_sha256": "0accf21c62c0692f744d68f2a56ef217918170658d680a97abe1c1968de01097",
+      "github_stats": {
+        "additions": 73,
+        "deletions": 0,
+        "changes": 73,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/TranslationAlignment.tsx",
+      "status": "A",
+      "added": 148,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "4e58ee25cd49517d0b851646778d65e9ed07bb6e",
+      "product_file_sha256": "e6bb7b54e68c855f19e51d8e7c74bcb9f01e0f95dab2fd4bb93d1eec745ef0b4",
+      "github_stats": {
+        "additions": 148,
+        "deletions": 0,
+        "changes": 148,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/client.ts",
+      "status": "A",
+      "added": 25,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "3e29ab9eb750a0716737fd3ca17b078d014b4e49",
+      "product_file_sha256": "84ade0f26ca4507be3c571802adccc3859b3b840572d319a21f7caaa1b72494a",
+      "github_stats": {
+        "additions": 25,
+        "deletions": 0,
+        "changes": 25,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/hash.worker.ts",
+      "status": "A",
+      "added": 10,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "18aed0291896d9e32c27c750c88fbec0d88c52c0",
+      "product_file_sha256": "9ab3ca33be5a7a6f57d9ac821fd28aba5fd17321f88db700975e4eda045bc160",
+      "github_stats": {
+        "additions": 10,
+        "deletions": 0,
+        "changes": 10,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/management.test.tsx",
+      "status": "A",
+      "added": 363,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "e11b39a5ff4a72f3d0c6d7778c9268327bf62ef1",
+      "product_file_sha256": "121437ce4d90c2c05088c35ba9cd7de873fc8e8cb1a9b3281a6dbb32ab2312ab",
+      "github_stats": {
+        "additions": 363,
+        "deletions": 0,
+        "changes": 363,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/streamDigest.test.ts",
+      "status": "A",
+      "added": 35,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "a4b1baad2374dfa6fec43f0fba337279cc432602",
+      "product_file_sha256": "f004ea9dfb6573378705fa0e77089991e38d0d7cec8005557d870debafb4f00a",
+      "github_stats": {
+        "additions": 35,
+        "deletions": 0,
+        "changes": 35,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/streamDigest.ts",
+      "status": "A",
+      "added": 21,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "dffec89e519e125254509e31702bd9b1f8f388e4",
+      "product_file_sha256": "a52ee13ad2de51f2b283ad2227acae86c58a99eadc93b6fce53456a4735aa7eb",
+      "github_stats": {
+        "additions": 21,
+        "deletions": 0,
+        "changes": 21,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/features/knowledge-management/uploads.ts",
+      "status": "A",
+      "added": 147,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "6a137d6dfc5e2a681369c2a4f674fa8967cba145",
+      "product_file_sha256": "527c2067760fcbccfb347c3c88e9e740c812098468c14af8a81e585b1916cfac",
+      "github_stats": {
+        "additions": 147,
+        "deletions": 0,
+        "changes": 147,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/locales/en-US.json",
+      "status": "M",
+      "added": 178,
+      "deleted": 1,
+      "group": "frontend",
+      "base_blob": "ffe540e44456c786e8a414deec444e07e59b8bec",
+      "product_blob": "77a7e263333b97d87bc1a7effe8a5c0889706b91",
+      "product_file_sha256": "2f390565d79a55b11572366e91b80ebda8db5a669342d2e19e3e248f14fead7d",
+      "github_stats": {
+        "additions": 178,
+        "deletions": 1,
+        "changes": 179,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/locales/zh-CN.json",
+      "status": "M",
+      "added": 178,
+      "deleted": 1,
+      "group": "frontend",
+      "base_blob": "f3f873c8f2e2b3870a5342de8307d9b72c966049",
+      "product_blob": "734638c3a934306d53772f1dabf9fb2bbfff6c3d",
+      "product_file_sha256": "b710f23f34a14f8beb044b2f922465647d6f64630ba68a0b3a08628f9430ebea",
+      "github_stats": {
+        "additions": 178,
+        "deletions": 1,
+        "changes": 179,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/locales/zh-HK.json",
+      "status": "M",
+      "added": 178,
+      "deleted": 1,
+      "group": "frontend",
+      "base_blob": "3d23c0344e4eb10177d28711e635b11a7a8bd2fe",
+      "product_blob": "a02fa13fb8e079bcada0d2e7ed48af115d2500d9",
+      "product_file_sha256": "db19c404d9c86f6e936b0f9f0760e3ca07fade80a553adb089d3183b2a01cd2a",
+      "github_stats": {
+        "additions": 178,
+        "deletions": 1,
+        "changes": 179,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/src/test/kb01-evidence.test.ts",
+      "status": "A",
+      "added": 16,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": null,
+      "product_blob": "16f4b48c4ae4a16ea8dc49815a90ccc88cd3a738",
+      "product_file_sha256": "2ab50c1726f1c56420f651aeed52ac9d2baf4698798ada2ad528dc0ed67f0fbc",
+      "github_stats": {
+        "additions": 16,
+        "deletions": 0,
+        "changes": 16,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "frontend/vite.config.ts",
+      "status": "M",
+      "added": 2,
+      "deleted": 0,
+      "group": "frontend",
+      "base_blob": "cb839c75bcd74df0b7e720ae3222a4680f44fec6",
+      "product_blob": "464b2a78df6759f53565766f9481d87d39d22afc",
+      "product_file_sha256": "98fb66cf59c792c07b4397ea295115c38bd3b37f60b92799321fc35c57581400",
+      "github_stats": {
+        "additions": 2,
+        "deletions": 0,
+        "changes": 2,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "pyproject.toml",
+      "status": "M",
+      "added": 1,
+      "deleted": 0,
+      "group": "docs_evidence_or_config",
+      "base_blob": "40b0865826a01286404c69c3511f0734018dc078",
+      "product_blob": "cdc20bf6a8039078b3cce82404e041127e2f45d0",
+      "product_file_sha256": "7e583b9b3fd4a9fb2d318928bd3bb5396348751f365d09164c54d7d74723a68d",
+      "github_stats": {
+        "additions": 1,
+        "deletions": 0,
+        "changes": 1,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/architecture_rule_check.py",
+      "status": "M",
+      "added": 4,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": "fe3787481010ff651cd30fd896316f1c277d35b5",
+      "product_blob": "bd90e8cf6f33a99f7ae6499b47a6fb256d74b7d5",
+      "product_file_sha256": "8f08ec93b82dedc382e5ac5ca6aab28df0777466fec612e62c2b96dee3470bfd",
+      "github_stats": {
+        "additions": 4,
+        "deletions": 0,
+        "changes": 4,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/kb01/Containerfile",
+      "status": "A",
+      "added": 19,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": null,
+      "product_blob": "2115b7c8d3194fed6e2aa5d7cf4302a50cff8670",
+      "product_file_sha256": "a7ccdac11b227c69ec61c026bde2524dd5338e7a1a187d6f499a4651249f4a70",
+      "github_stats": {
+        "additions": 19,
+        "deletions": 0,
+        "changes": 19,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/kb01/build_tools.py",
+      "status": "A",
+      "added": 67,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": null,
+      "product_blob": "3f58a4b64e914962f9e841f53cf43e360509d42e",
+      "product_file_sha256": "570651b45d5b9d274a1267233003223e5c19b33a8d4ce0d719e2667dccde7d99",
+      "github_stats": {
+        "additions": 67,
+        "deletions": 0,
+        "changes": 67,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/kb01/ci_services.py",
+      "status": "A",
+      "added": 201,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": null,
+      "product_blob": "14dc3fbcb3f04fe5e30dce8e34a9138f4db29746",
+      "product_file_sha256": "4c4d598149dad7948e916e0d6f607be75e9d5053f12d4efe08b5d65bb5463961",
+      "github_stats": {
+        "additions": 201,
+        "deletions": 0,
+        "changes": 201,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/kb01/diagnose_ci.py",
+      "status": "A",
+      "added": 113,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": null,
+      "product_blob": "e389ea4e1b0b9ff8523bb21014b4e9ea2120f94a",
+      "product_file_sha256": "45690152935ef0cb502e3579013ebd072350a23d68ed4c52de9bee37fb689ace",
+      "github_stats": {
+        "additions": 113,
+        "deletions": 0,
+        "changes": 113,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/kb01/export_acceptance_templates.py",
+      "status": "A",
+      "added": 41,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": null,
+      "product_blob": "f2ea01c55244dc4cc91dc567a6aad16b7413dc34",
+      "product_file_sha256": "9693d7dcdffbdf1ea556b5f1abfa933c8b99de1c0e4f2bebab6156acec35781c",
+      "github_stats": {
+        "additions": 41,
+        "deletions": 0,
+        "changes": 41,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/kb01/generate_capacity.py",
+      "status": "A",
+      "added": 76,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": null,
+      "product_blob": "8c62817f279a8cff0591c3eed004fb9b11dbeca9",
+      "product_file_sha256": "a38cdcf79282153304abfd3d76af2c2cc3d6c912d54a3551ed1c8abb70ebbb42",
+      "github_stats": {
+        "additions": 76,
+        "deletions": 0,
+        "changes": 76,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/kb01/generate_fixtures.py",
+      "status": "A",
+      "added": 56,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": null,
+      "product_blob": "4444d61190570fa14eb83e61cb03fd010ba35d09",
+      "product_file_sha256": "7aa02b08b9a2e0e67ac327e653e3f8dcfd18d5f0a90d479a90060ea2684f5f91",
+      "github_stats": {
+        "additions": 56,
+        "deletions": 0,
+        "changes": 56,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/kb01/official_signatures.py",
+      "status": "A",
+      "added": 117,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": null,
+      "product_blob": "046d533312d466fe5c6925c91bfc6862233701b5",
+      "product_file_sha256": "e3c0477aafe363affaba26ff84d8795634af3d786f81b45c4c3bba7f51ae5292",
+      "github_stats": {
+        "additions": 117,
+        "deletions": 0,
+        "changes": 117,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/kb01/uat.py",
+      "status": "A",
+      "added": 247,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": null,
+      "product_blob": "f95b96fe50ad35377a709dc25688b0ad8c705699",
+      "product_file_sha256": "f210c986fa95668f322b6f70f7353370d09a9a8e156a213a52a6490ef243c31e",
+      "github_stats": {
+        "additions": 247,
+        "deletions": 0,
+        "changes": 247,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/kb01/verify_ci.py",
+      "status": "A",
+      "added": 141,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": null,
+      "product_blob": "82347cdfa2c59883a2166b1411965e1f758d61c4",
+      "product_file_sha256": "c7aa703b37532d1c67212910e6368ac503b8ef427ed46dd114b3a7c931444cf8",
+      "github_stats": {
+        "additions": 141,
+        "deletions": 0,
+        "changes": 141,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/kb01_architecture_check.py",
+      "status": "A",
+      "added": 339,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": null,
+      "product_blob": "e69e67eb1211dfa94fabd3d72b406326b010db83",
+      "product_file_sha256": "c53c329df96da7cd78d410cabd3a43a61b5bc20074e5e0c7017be50c01336da8",
+      "github_stats": {
+        "additions": 339,
+        "deletions": 0,
+        "changes": 339,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/kb01_export_contracts.py",
+      "status": "A",
+      "added": 50,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": null,
+      "product_blob": "ba52a7f2ee17f5a16cc8b56eb553b1feb0804d66",
+      "product_file_sha256": "8746c44eabb4c6670b198426f34f764284b784aa76ac74136f97bc249d1b4f6c",
+      "github_stats": {
+        "additions": 50,
+        "deletions": 0,
+        "changes": 50,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/kb01_ownership.py",
+      "status": "A",
+      "added": 692,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": null,
+      "product_blob": "1125114d6d8cff67603936dc3726e6798d5d8c3c",
+      "product_file_sha256": "a5c9c1312578f9c36f83501cd70029fc86ee7ced8f1211301c3318f01416c740",
+      "github_stats": {
+        "additions": 692,
+        "deletions": 0,
+        "changes": 692,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/m2a_ownership.py",
+      "status": "M",
+      "added": 11,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": "4be40891dc973470e224bca3bca1c555eb30746a",
+      "product_blob": "98d83f2a603030620488228436a0f383b1fba9a8",
+      "product_file_sha256": "019747adbb7e6fe6528fafbc73081acbe519bae346f2f2b81c67b4b0ab23a793",
+      "github_stats": {
+        "additions": 11,
+        "deletions": 0,
+        "changes": 11,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/stage1_alpha_integrity.py",
+      "status": "M",
+      "added": 16,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": "e1e0097989d76a0a4ce11df2eede31f57db346c7",
+      "product_blob": "e4d9156c1ad41f0109896fa16d5c8f589668e6db",
+      "product_file_sha256": "45f3411f4d057b79f4a03ecb56f3b22c07fdca476431df8f9927da4ff769688e",
+      "github_stats": {
+        "additions": 16,
+        "deletions": 0,
+        "changes": 16,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/stage1_business_architecture.py",
+      "status": "M",
+      "added": 16,
+      "deleted": 1,
+      "group": "ci_and_tools",
+      "base_blob": "ad9f230b00ecc17e9c4eb54047d103827556d218",
+      "product_blob": "d65a7e33239edbe22b33f033f37779f3d73d0632",
+      "product_file_sha256": "5f4d15880686b4e65a35cda87512276b06a602fcff9bf541bac665e40c2962bb",
+      "github_stats": {
+        "additions": 16,
+        "deletions": 1,
+        "changes": 17,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/stage1_candidate_closure.py",
+      "status": "M",
+      "added": 9,
+      "deleted": 2,
+      "group": "ci_and_tools",
+      "base_blob": "5bd10b494c38fcca44110afd06006005e253ea60",
+      "product_blob": "620ab5297059f9c76bc3e4a92c0f44b1648a0b5e",
+      "product_file_sha256": "e30a23443ddc097215879aff1449d0191023b0d49c352c426f466a2314d9a983",
+      "github_stats": {
+        "additions": 9,
+        "deletions": 2,
+        "changes": 11,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "scripts/stage1_e2e_r3_ownership.py",
+      "status": "M",
+      "added": 3,
+      "deleted": 0,
+      "group": "ci_and_tools",
+      "base_blob": "009a31c6de05e958f3bee262a18e9d91125793fa",
+      "product_blob": "42927e6bf9b35cecbfbf5cd0551f4cd291082fd1",
+      "product_file_sha256": "3bc67704fcba54dfa204021ebbfe5fa5c25d3a12141d20e225abcd031b2adfe9",
+      "github_stats": {
+        "additions": 3,
+        "deletions": 0,
+        "changes": 3,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/application/document_ports.py",
+      "status": "M",
+      "added": 15,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": "a8c4987849dc8fa68454487123811788ffd1075b",
+      "product_blob": "e8d2907b5bd48f8192f05775a449a5ffbf13aa2c",
+      "product_file_sha256": "112a3b7037285593dbbc32e460365e1bfc23c5dca48026f88c88a1611b12ffc3",
+      "github_stats": {
+        "additions": 15,
+        "deletions": 0,
+        "changes": 15,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/application/knowledge_binary_ports.py",
+      "status": "A",
+      "added": 29,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "59d44eec15af5a884507e612fef1c3e4f0532708",
+      "product_file_sha256": "771992f4aaa6ab141f6c51306b9138854b0cebbd42a92e35e5f7534972c898d8",
+      "github_stats": {
+        "additions": 29,
+        "deletions": 0,
+        "changes": 29,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/application/knowledge_document_management.py",
+      "status": "A",
+      "added": 64,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "7f73093a32639f7d3550d14a5b7f0de535df92ec",
+      "product_file_sha256": "f4fed6a4f82f438e974904a83a92131b74e5772e183a62036fe3ad68ae19cfb9",
+      "github_stats": {
+        "additions": 64,
+        "deletions": 0,
+        "changes": 64,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/application/knowledge_manifest.py",
+      "status": "A",
+      "added": 207,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "ef4cefb876d4a88103acfdfcc101c559739e5a92",
+      "product_file_sha256": "e6a43a803676567c3d4e5ad542243884dbcb90fd016ad01bc48d89c9bcabc071",
+      "github_stats": {
+        "additions": 207,
+        "deletions": 0,
+        "changes": 207,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/application/knowledge_manifest_imports.py",
+      "status": "A",
+      "added": 33,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "220863cdb97d78d351ed13791ffe7a1b0df4b589",
+      "product_file_sha256": "8e4616f6049d2fc08ff3b6669225b0e4553be1e0bcf5f1672156e7b83dd19ba4",
+      "github_stats": {
+        "additions": 33,
+        "deletions": 0,
+        "changes": 33,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/application/knowledge_ports.py",
+      "status": "M",
+      "added": 6,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": "72f0bffd51ba693b7bb6e0814329c522943346fd",
+      "product_blob": "97d584b7888fad6b0ae0398d9a11291a10800d32",
+      "product_file_sha256": "674bc0fa413509283bc39dddef7f8648dd41fb5321754bab08166f69ef7188ef",
+      "github_stats": {
+        "additions": 6,
+        "deletions": 0,
+        "changes": 6,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/application/knowledge_services.py",
+      "status": "M",
+      "added": 62,
+      "deleted": 14,
+      "group": "production",
+      "base_blob": "929ff1f0cf793bcf83522c5b5bd8863b8a321a0f",
+      "product_blob": "b4e9727189c1480b8dd57ef1764624dfcb12486f",
+      "product_file_sha256": "d850d334b0f4b366cb9b7b0ffabf7d65bc623aadbdc5081b7eee0ad2fa36a9ba",
+      "github_stats": {
+        "additions": 62,
+        "deletions": 14,
+        "changes": 76,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/application/knowledge_taxonomy.py",
+      "status": "A",
+      "added": 94,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "bb0465311a2ffbbc1e9f8f7d1fe26ea98355c16f",
+      "product_file_sha256": "a3650adfddc95339aab0297ab79f48da5456fddb52d1247f23cfb49a3561d31b",
+      "github_stats": {
+        "additions": 94,
+        "deletions": 0,
+        "changes": 94,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/application/knowledge_uploads.py",
+      "status": "A",
+      "added": 88,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "81a9a41c32e8d5bdb6727a09aecedcebf44e62fe",
+      "product_file_sha256": "4abc31c7e5dc1e1bf8421a91e84cf2dd42fa7e28c1b286157fca53a8eb365c37",
+      "github_stats": {
+        "additions": 88,
+        "deletions": 0,
+        "changes": 88,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/application/regulatory_acceptance.py",
+      "status": "A",
+      "added": 54,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "5a5ef47b0c46204ad3d010f588138342695ecb2b",
+      "product_file_sha256": "2ec40ff1acde01333e482120345e69caf2d29dc544195f6d7884fb6599a4b1a9",
+      "github_stats": {
+        "additions": 54,
+        "deletions": 0,
+        "changes": 54,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/domain/document_text.py",
+      "status": "A",
+      "added": 8,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "da37e7687e9dda66db5e31d097838eabc68b340e",
+      "product_file_sha256": "8d9827d17b3401d16c5d2885c5c264673c5326d5deff9b8f14d39f53d8564aaa",
+      "github_stats": {
+        "additions": 8,
+        "deletions": 0,
+        "changes": 8,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/domain/knowledge_batches.py",
+      "status": "A",
+      "added": 46,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "d725bc05042835fa020d64c52f235acfc2990f33",
+      "product_file_sha256": "8ddded93bd8fc7f794cb232e398dea896ebf4b259604c1dcd0a51f9f585cf631",
+      "github_stats": {
+        "additions": 46,
+        "deletions": 0,
+        "changes": 46,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/domain/knowledge_management.py",
+      "status": "A",
+      "added": 207,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "e0be87286a726d47c1cd09787c7ba3dd4a60e4e6",
+      "product_file_sha256": "717185699987f5bf891db78f90050191a5feb3fdb9339b06076186cf17eacd2b",
+      "github_stats": {
+        "additions": 207,
+        "deletions": 0,
+        "changes": 207,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/domain/knowledge_manifest_governance.py",
+      "status": "A",
+      "added": 53,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "cdc6776571aaa1f63d37f20c6917eb391f3c147e",
+      "product_file_sha256": "bb20753f835053bf83b8bc58659aea98237da1397f6022b296de0de1f775f566",
+      "github_stats": {
+        "additions": 53,
+        "deletions": 0,
+        "changes": 53,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/domain/knowledge_manifest_policy.py",
+      "status": "A",
+      "added": 13,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "13c52dce905fcad37ec3731b9784199ee85a307f",
+      "product_file_sha256": "0547d1744a2f80c2ec6445ed7f66d26008b29a5a83d31dcfcfe5a62ae385ae58",
+      "github_stats": {
+        "additions": 13,
+        "deletions": 0,
+        "changes": 13,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/domain/knowledge_native_parsing.py",
+      "status": "A",
+      "added": 30,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "f85c07c73afff0dd22ec52bf4f43a60ccdc7caff",
+      "product_file_sha256": "37dd23c3b48657e2dfb811c59071848c95ddcec15faf13d82472a0cd59d75da0",
+      "github_stats": {
+        "additions": 30,
+        "deletions": 0,
+        "changes": 30,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/domain/knowledge_paths.py",
+      "status": "A",
+      "added": 20,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "e3c4d11e08ed345c7fdfecb9cb6493bceefe5158",
+      "product_file_sha256": "5c7543b6c2167e2243744c3693ff8b2291c3b492ea773ab47f698225c756e476",
+      "github_stats": {
+        "additions": 20,
+        "deletions": 0,
+        "changes": 20,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/domain/knowledge_translation_alignment.py",
+      "status": "A",
+      "added": 40,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "5610c82d72ea27d0eb78d075d68a00a8926c3834",
+      "product_file_sha256": "bbd5949c612367ecec6ec66a39d63e02f6d518121fd85fe831d113b88ee5b0bf",
+      "github_stats": {
+        "additions": 40,
+        "deletions": 0,
+        "changes": 40,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/domain/knowledge_upload.py",
+      "status": "A",
+      "added": 89,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "23efc0784fea4a7276f1f31b1345359d34b2c75c",
+      "product_file_sha256": "9a6accc55dd033bfd1b5df6344c56db62504710521c53e363eb59a35937c4f50",
+      "github_stats": {
+        "additions": 89,
+        "deletions": 0,
+        "changes": 89,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/domain/native_structure.py",
+      "status": "A",
+      "added": 65,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "8ac1c4b7960f84a687e10778ab1a880f85090484",
+      "product_file_sha256": "2dad5d2a53896519e764e86804af795bef95c9f5156093af9a13c39b4a0a4012",
+      "github_stats": {
+        "additions": 65,
+        "deletions": 0,
+        "changes": 65,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/domain/regulatory_acceptance.py",
+      "status": "A",
+      "added": 141,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "22d81ab2c3d7b9cc43c738490088b4ce83e4f229",
+      "product_file_sha256": "9850fa77e935bbb3ee53d18c350ad7bc6e8271fc5983555c8ef09165c6647769",
+      "github_stats": {
+        "additions": 141,
+        "deletions": 0,
+        "changes": 141,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/document_parsers.py",
+      "status": "M",
+      "added": 90,
+      "deleted": 4,
+      "group": "production",
+      "base_blob": "ac7bae29375c8eebf12f0dff3f19e8d8cdee431b",
+      "product_blob": "12610f6440a471e261fbc65b6fa2516ac78693e5",
+      "product_file_sha256": "7963fedfcafbc52f1b25c495c938790c1979b7fd7f4cf2e17be8a063209ab551",
+      "github_stats": {
+        "additions": 90,
+        "deletions": 4,
+        "changes": 94,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/knowledge_archive_extractor.py",
+      "status": "A",
+      "added": 57,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "0c6534eedbee7babf096a4834b14e07721220bce",
+      "product_file_sha256": "61bdffbd40c3697b966cbdaa33309d08d91aa449951319bbcc737f5eaea41c39",
+      "github_stats": {
+        "additions": 57,
+        "deletions": 0,
+        "changes": 57,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/knowledge_archive_process.py",
+      "status": "A",
+      "added": 201,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "a5d9652c13c38a7252beabd6ca8f5f96b929f1ea",
+      "product_file_sha256": "9ece6ca1be4f691ce4daee1a8e0d2c72bf9ef380ad529d28979e2a7e427b5398",
+      "github_stats": {
+        "additions": 201,
+        "deletions": 0,
+        "changes": 201,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/knowledge_batch_ingestion_worker.py",
+      "status": "A",
+      "added": 36,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "5723635fe0ba498155dd73f3e2f2648b9b88096a",
+      "product_file_sha256": "e8e023a03d9330fe1cef9bd08fdbf269a51362d3f6313f503b35093b3bc111b5",
+      "github_stats": {
+        "additions": 36,
+        "deletions": 0,
+        "changes": 36,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/knowledge_binary_extraction.py",
+      "status": "A",
+      "added": 106,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "954c439ddb3800c7c6846d696e382b93df52bcbf",
+      "product_file_sha256": "17c095c4e9e6069ba625dba6e42acdfbf5e82ae8854ccf22614a57c8a6dc3086",
+      "github_stats": {
+        "additions": 106,
+        "deletions": 0,
+        "changes": 106,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/knowledge_binary_storage.py",
+      "status": "A",
+      "added": 191,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "958556e98ea48266e947d34a763f1c8b48a302de",
+      "product_file_sha256": "178460c395ad02902d7e4b1d961148bf692c9705bb49a1639a2be8dc4bacd659",
+      "github_stats": {
+        "additions": 191,
+        "deletions": 0,
+        "changes": 191,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/knowledge_import_worker.py",
+      "status": "A",
+      "added": 173,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "9ed077226c511d641733668708502099ff6f7cfc",
+      "product_file_sha256": "fdf2b22c6b334698b4c40869c4c6d0f5839b66aee183f382f0fcd8002cd97068",
+      "github_stats": {
+        "additions": 173,
+        "deletions": 0,
+        "changes": 173,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/knowledge_management_worker.py",
+      "status": "A",
+      "added": 118,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "e9bfe2dfa67e1eafc25c81f9769f629ecdae3072",
+      "product_file_sha256": "ad89b31069aa0f859674f2fad2814ca36ab830fdaf4cf52c71fefc782c347db8",
+      "github_stats": {
+        "additions": 118,
+        "deletions": 0,
+        "changes": 118,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/knowledge_manifest_parser.py",
+      "status": "A",
+      "added": 73,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "dc0a7e9be3a1f815c6316f27ea080653b60bff1d",
+      "product_file_sha256": "04f6d88f3a38ec275c00010943b91f581d2354ceb6dc8b15afd85bb15157415e",
+      "github_stats": {
+        "additions": 73,
+        "deletions": 0,
+        "changes": 73,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/knowledge_native_parser.py",
+      "status": "A",
+      "added": 73,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "f7d0a77cd5f2d5263ae76821f83a872c66d95a2e",
+      "product_file_sha256": "2d74ad6457f20274459d916597fcb14c4430d67809129e458079418af89de397",
+      "github_stats": {
+        "additions": 73,
+        "deletions": 0,
+        "changes": 73,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/knowledge_native_process.py",
+      "status": "A",
+      "added": 70,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "555adfede73b8c4d697bf6bdae18f92f1c6123d3",
+      "product_file_sha256": "e246ed65daae6932afa01521858837b3fe7073cb6d7dc553dffb0f0ad758f1f0",
+      "github_stats": {
+        "additions": 70,
+        "deletions": 0,
+        "changes": 70,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/knowledge_process_sandbox.py",
+      "status": "A",
+      "added": 191,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "8acacd4acffeab6a343d7f1ec521cb8158713260",
+      "product_file_sha256": "0bd0f32f97db995628cc784722bc34feb23fe043f1e1b71cca3080cb7c7c5f8c",
+      "github_stats": {
+        "additions": 191,
+        "deletions": 0,
+        "changes": 191,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/knowledge_upload_worker.py",
+      "status": "A",
+      "added": 147,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "e3fe8dd4b9219c9dec7f772a3678950723935283",
+      "product_file_sha256": "065cf8824cf5995fa3f5f4e6691d25e03f929ecf023f5294650d02cb47d935d6",
+      "github_stats": {
+        "additions": 147,
+        "deletions": 0,
+        "changes": 147,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/native_document_extraction.py",
+      "status": "A",
+      "added": 425,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "db856957817f2098759cdc7338166d86451dc216",
+      "product_file_sha256": "a893f8446563b7a79f2f707ae298f4e455c8a9de30159894f064c3e303188cc9",
+      "github_stats": {
+        "additions": 425,
+        "deletions": 0,
+        "changes": 425,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/native_language.py",
+      "status": "A",
+      "added": 51,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "cc04f27e7265dff806d6d807e28dc2dbcc5df5e2",
+      "product_file_sha256": "bde080f7dc89ca9a5ec82d797e6edbc9dd449e07b915302cc8646fd22c570af2",
+      "github_stats": {
+        "additions": 51,
+        "deletions": 0,
+        "changes": 51,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/compliance_profile_governance.py",
+      "status": "M",
+      "added": 25,
+      "deleted": 3,
+      "group": "production",
+      "base_blob": "11941f149d818c1e7de59d301fbee713e383ffc1",
+      "product_blob": "f2c4cf2fb280ae74c772769be229421c5eba6cb9",
+      "product_file_sha256": "f403ec8d04c70a5fd21ce93f08a83f41544c5ca4bcfadcd1087a5320d683d1de",
+      "github_stats": {
+        "additions": 25,
+        "deletions": 3,
+        "changes": 28,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/knowledge_batches.py",
+      "status": "A",
+      "added": 866,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "42ae6d1409d524c33248161bc674133f314cfc6a",
+      "product_file_sha256": "697befcab4bfe014cc64d04a94389873d0b0503e136efba0f263d85f5ed90993",
+      "github_stats": {
+        "additions": 866,
+        "deletions": 0,
+        "changes": 866,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/knowledge_document_management.py",
+      "status": "A",
+      "added": 766,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "18055ed178535ba5097a0a6d7673c022642d3297",
+      "product_file_sha256": "8dab144c00e05cdc09ce0fbc9470d1e7c40716e63db8e31070f84c9a152f0872",
+      "github_stats": {
+        "additions": 766,
+        "deletions": 0,
+        "changes": 766,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/knowledge_management_models.py",
+      "status": "A",
+      "added": 140,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "60286c375c4d64b45ce5ae3d5e84719614b982c9",
+      "product_file_sha256": "f27d26fbaa5c494f407679ba4ea8702cd8033316fda3e3bbf5729f98a60e4e23",
+      "github_stats": {
+        "additions": 140,
+        "deletions": 0,
+        "changes": 140,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/knowledge_manifest_imports.py",
+      "status": "A",
+      "added": 360,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "4177811e8a779fb674bec9b31e0264a90dfd4fe9",
+      "product_file_sha256": "40a07828760ef432d935aa4e1390b21b96d6e049b3033820b758f4a4b5d83d5a",
+      "github_stats": {
+        "additions": 360,
+        "deletions": 0,
+        "changes": 360,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/knowledge_manifest_models.py",
+      "status": "A",
+      "added": 100,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "fb6a3a886785c2e0fa4c337e04e8cdfdc1b8fb84",
+      "product_file_sha256": "bc828ddd07b3c791675b2e0fd146f2ddfef9285d245ae4e92802c2c157bd9604",
+      "github_stats": {
+        "additions": 100,
+        "deletions": 0,
+        "changes": 100,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/knowledge_models.py",
+      "status": "M",
+      "added": 2,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": "9f18c341e7415ff32a276cd0c81efa89af996b29",
+      "product_blob": "2238e634db31898a6f97c1cf8ac961f9d9dc6aeb",
+      "product_file_sha256": "de925b07eb1882aa4a25228a956221b692e2b4f16397e8097c6c7d253b5ddadb",
+      "github_stats": {
+        "additions": 2,
+        "deletions": 0,
+        "changes": 2,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/knowledge_repositories.py",
+      "status": "M",
+      "added": 314,
+      "deleted": 169,
+      "group": "production",
+      "base_blob": "bd314f950117fbc96b24371d37ef8ac833eb9fad",
+      "product_blob": "e09fa9442ed3c2770d02321f864af65dddb124ed",
+      "product_file_sha256": "74900dec7600fe76a1618494910832e5ebf61496caf869610f4614c5457ad4fc",
+      "github_stats": {
+        "additions": 314,
+        "deletions": 169,
+        "changes": 483,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/knowledge_statistics.py",
+      "status": "A",
+      "added": 202,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "b8ff47cf96c82d220111df61263dcf5d6abd1c04",
+      "product_file_sha256": "cb2f7fba0237ad02262f3478f14ca24f0dfab2d141c861dc706b24783d07f85e",
+      "github_stats": {
+        "additions": 202,
+        "deletions": 0,
+        "changes": 202,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+      "status": "A",
+      "added": 1007,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "c206b81a0feed201623f23820234e4549796f831",
+      "product_file_sha256": "e15ee30290ea77be884537626d422f4e2883a72b14d617245c541b24f9d40040",
+      "github_stats": {
+        "additions": 1007,
+        "deletions": 0,
+        "changes": 1007,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/knowledge_translation_alignment.py",
+      "status": "A",
+      "added": 218,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "d4fe3f2bca926ada6e9816232a06e2bc98c1682a",
+      "product_file_sha256": "a7c819fd67dd5ccad10d96245b019dd883e76c87a63d411b88a2334c91cda65c",
+      "github_stats": {
+        "additions": 218,
+        "deletions": 0,
+        "changes": 218,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/knowledge_upload_models.py",
+      "status": "A",
+      "added": 217,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "d0699b5f5253a6dba6526b7a06ae1f254b7c821f",
+      "product_file_sha256": "c1660d85ae2b2737416565500991f3398e2c7f4b8c4b2bce50ae529d4c15c15f",
+      "github_stats": {
+        "additions": 217,
+        "deletions": 0,
+        "changes": 217,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/knowledge_uploads.py",
+      "status": "A",
+      "added": 734,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "bb8a39142a134e59ccc579879b72090ffc593fd5",
+      "product_file_sha256": "19041788ec9857a3114052d0f313478bd06ff5790daed42f73e655a1328ad915",
+      "github_stats": {
+        "additions": 734,
+        "deletions": 0,
+        "changes": 734,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/metadata_models.py",
+      "status": "M",
+      "added": 3,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": "9d7deb39a5743046779f1844087c4a695e27b545",
+      "product_blob": "733c1e41db21ba390762540416c98bfb1f02c225",
+      "product_file_sha256": "3f4979555a16af462283653c1e5ee01624cc07bb809e2f9b0e168fab9add5cad",
+      "github_stats": {
+        "additions": 3,
+        "deletions": 0,
+        "changes": 3,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/metadata_repositories.py",
+      "status": "M",
+      "added": 114,
+      "deleted": 82,
+      "group": "production",
+      "base_blob": "310dcb2e40a567079b36b3e170552eb98934e9e7",
+      "product_blob": "b8f9113c451c3bf12f350629b331065cc984ecba",
+      "product_file_sha256": "418028fb304d73dceef4c28fde7660e5d01705985fb51d7cf5cc883333299ae0",
+      "github_stats": {
+        "additions": 114,
+        "deletions": 82,
+        "changes": 196,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/models.py",
+      "status": "M",
+      "added": 10,
+      "deleted": 2,
+      "group": "production",
+      "base_blob": "316ed0f6f38f9cc6c24d2036bac32fc2816ba10d",
+      "product_blob": "cc5c4c667cb09f95b12fdd9fbfab0fe43ddcd705",
+      "product_file_sha256": "3587f8940c99173d1ac6424fd333a02dcd6ae71896efb6522b9fdf5175008aa0",
+      "github_stats": {
+        "additions": 10,
+        "deletions": 2,
+        "changes": 12,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/regulatory_acceptance.py",
+      "status": "A",
+      "added": 127,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "e617f20c9575543360f0b42c76d91e94b8955a59",
+      "product_file_sha256": "d4e004860771fb7756498b45c2c59710c1eb3b58a9f6166711dfa876f954c289",
+      "github_stats": {
+        "additions": 127,
+        "deletions": 0,
+        "changes": 127,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/regulatory_acceptance_governance.py",
+      "status": "A",
+      "added": 219,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "d0df3b67e70ef247a7988fc0a256b8a9e189c43f",
+      "product_file_sha256": "b1963f3b52f26df36d4d1e291f496a12c11828dace6305e4b56b6d362e3781e9",
+      "github_stats": {
+        "additions": 219,
+        "deletions": 0,
+        "changes": 219,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/persistence/taxonomy_governance.py",
+      "status": "A",
+      "added": 129,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "ef69b9cebb84962e7bf577d56ca2b114111610cf",
+      "product_file_sha256": "91874a776b46603ef7163a92edbd525f26d741b4284f24c243105e94a121716c",
+      "github_stats": {
+        "additions": 129,
+        "deletions": 0,
+        "changes": 129,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/infrastructure/registry_catalog.py",
+      "status": "M",
+      "added": 7,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": "b9f8b1ecb9855687bdda1ca7cb142d6f9a35f068",
+      "product_blob": "3c1cbd4dda131c45792bed010682ce23439d1baa",
+      "product_file_sha256": "d1189f16c21a646aa3ded8138f152629407fc97c2e74092dd441a5110277c8e5",
+      "github_stats": {
+        "additions": 7,
+        "deletions": 0,
+        "changes": 7,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/knowledge_batch_schemas.py",
+      "status": "A",
+      "added": 70,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "d7d85e22f38ba186698ab65f82f541b1e31fb5d8",
+      "product_file_sha256": "1a7f3a97e8c81b1f5ab3e1550ac34f55d167ae3768fc6bda3525808e92803f00",
+      "github_stats": {
+        "additions": 70,
+        "deletions": 0,
+        "changes": 70,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/knowledge_binary_ingestion_schemas.py",
+      "status": "A",
+      "added": 23,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "da72b1a8c1fa48fdb42545ebc0a9ffbde43daa77",
+      "product_file_sha256": "4b203b14b0b5e4063abde3ec6934f1947e75b2ee17536cd973318e3349c6a9c7",
+      "github_stats": {
+        "additions": 23,
+        "deletions": 0,
+        "changes": 23,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/knowledge_management_schemas.py",
+      "status": "A",
+      "added": 400,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "3961ef6b48b60c0f7e41d6050e0aa88fead713d8",
+      "product_file_sha256": "381c645e105c6af3ad4dda24d3e72c3e84d348e86a4f6511923d8e5b99c6f9bb",
+      "github_stats": {
+        "additions": 400,
+        "deletions": 0,
+        "changes": 400,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/knowledge_manifest_schemas.py",
+      "status": "A",
+      "added": 72,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "3c4a9be72aeeecce95525913cc20ad1f621728a4",
+      "product_file_sha256": "1a0acdcef0e8d35aba037cf01f8c8e2b82d4d08f2f02a645ccfd288290158fa1",
+      "github_stats": {
+        "additions": 72,
+        "deletions": 0,
+        "changes": 72,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/knowledge_upload_schemas.py",
+      "status": "A",
+      "added": 90,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "802f9199f7af2d6c3eee41f8eaf9d128c5f29a1b",
+      "product_file_sha256": "f559a8c70c36c72f40048b7638034c6b4b9158caae72801ab6958af1474346e3",
+      "github_stats": {
+        "additions": 90,
+        "deletions": 0,
+        "changes": 90,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/main.py",
+      "status": "M",
+      "added": 47,
+      "deleted": 1,
+      "group": "production",
+      "base_blob": "7ebf7a058a6b3b2d2f5afb88119723a09433f8ea",
+      "product_blob": "30e70134dce1e7b11582dd0da7911f65b5487dc0",
+      "product_file_sha256": "1276b0c0f29965155d2f91f88cc43d63d4bb8477740b11ec7439b2d267be91c9",
+      "github_stats": {
+        "additions": 47,
+        "deletions": 1,
+        "changes": 48,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/regulatory_acceptance_schemas.py",
+      "status": "A",
+      "added": 62,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "25a6df094f0fa7f87f1e3532cc4aeda04e48c8b5",
+      "product_file_sha256": "1236b513c084c8227600e397b286c3815ea5d4a0445eede72343974edf0184b3",
+      "github_stats": {
+        "additions": 62,
+        "deletions": 0,
+        "changes": 62,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/routes/admin_metadata.py",
+      "status": "M",
+      "added": 9,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": "a9eb4775f9b18d91638762ae154bfe49912cfb35",
+      "product_blob": "31a22ea83f17c68d5c4188782eb3bdda2d1538f2",
+      "product_file_sha256": "49a4b16322854780110c9672c0fe1fa6c4c20fa17d0e07e9e30936f0d10af067",
+      "github_stats": {
+        "additions": 9,
+        "deletions": 0,
+        "changes": 9,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/routes/knowledge_batches.py",
+      "status": "A",
+      "added": 85,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "d36d993a51f8f469a66970a73576efbd90dac317",
+      "product_file_sha256": "d676f27c3075a0e9ef0575cbe338d646f58c877a68daf2e8b4ee8eb3ac3cbfb1",
+      "github_stats": {
+        "additions": 85,
+        "deletions": 0,
+        "changes": 85,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/routes/knowledge_binary_ingestion.py",
+      "status": "A",
+      "added": 44,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "fd6a4c4c3fbadc76f92e886e7a7f0b73a470ce69",
+      "product_file_sha256": "dfd82380641e2a93a4e147a2e40e781f9c5fa69eea4fe88ddc757bb9bde5c738",
+      "github_stats": {
+        "additions": 44,
+        "deletions": 0,
+        "changes": 44,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/routes/knowledge_document_management.py",
+      "status": "A",
+      "added": 256,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "18c0751966a190fb30b6ba8fab7f39eb105bf5f7",
+      "product_file_sha256": "2c6605beafdff1ec2df496f412091dc5d3e45373cc34897a9b78d1f6f09f8401",
+      "github_stats": {
+        "additions": 256,
+        "deletions": 0,
+        "changes": 256,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/routes/knowledge_management.py",
+      "status": "A",
+      "added": 239,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "e99f5de0eb6ff34547a4fada5b2ec34664ca875c",
+      "product_file_sha256": "bcb0b38f5735853825ebd6fb17edc81405b80b494152ed8874768a88d823ed96",
+      "github_stats": {
+        "additions": 239,
+        "deletions": 0,
+        "changes": 239,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/routes/knowledge_manifests.py",
+      "status": "A",
+      "added": 108,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "b331ca415625764b5c682a48596ca0bdee5d7d2a",
+      "product_file_sha256": "102640ca02a232aab18e482d6ee9ca1dadaeea77a1e52b56879cf0651b709005",
+      "github_stats": {
+        "additions": 108,
+        "deletions": 0,
+        "changes": 108,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/routes/knowledge_statistics.py",
+      "status": "A",
+      "added": 57,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "d48f544743f48f293feaaa44883ef2e9e216783c",
+      "product_file_sha256": "339e0ff72641e06e89f0614b5f395a94a9f57e276b57ea2ba3fe5e004a4f367a",
+      "github_stats": {
+        "additions": 57,
+        "deletions": 0,
+        "changes": 57,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/routes/knowledge_translation_alignment.py",
+      "status": "A",
+      "added": 54,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "7ef0e47cf6bdcc2f74d635feadbd24ced9074529",
+      "product_file_sha256": "f755af5f2ec6c4ce4e5cc9cbe496584a3eaf73250c8e6e2542e633610ce11b58",
+      "github_stats": {
+        "additions": 54,
+        "deletions": 0,
+        "changes": 54,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/routes/knowledge_uploads.py",
+      "status": "A",
+      "added": 136,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "aab71e88533f1666e3364e6036544ba10f1266ef",
+      "product_file_sha256": "8ff1b38cc904351df22db5cc4e876608222119aae90ebcdb14ca2ff862de737f",
+      "github_stats": {
+        "additions": 136,
+        "deletions": 0,
+        "changes": 136,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/routes/metadata.py",
+      "status": "M",
+      "added": 4,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": "a302ec439e44f0e4f7b7a673d5bb46f3b3bd7c9e",
+      "product_blob": "a79214a629453acaed59d586c971c967408fb4c7",
+      "product_file_sha256": "dfa1b98fcac89ad260f42d7827bfab5771f7e268b9cf79dbd3bab405a7f15990",
+      "github_stats": {
+        "additions": 4,
+        "deletions": 0,
+        "changes": 4,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "src/crossborder_compliance/interfaces/api/routes/regulatory_acceptance.py",
+      "status": "A",
+      "added": 68,
+      "deleted": 0,
+      "group": "production",
+      "base_blob": null,
+      "product_blob": "df8fe51cf8e71d83434099f9a10310c5432ce51e",
+      "product_file_sha256": "99295439b85174339e52bcf634a81ba3e16b6bdba66f245000e1624897403846",
+      "github_stats": {
+        "additions": 68,
+        "deletions": 0,
+        "changes": 68,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/kb01_archive_fixtures.py",
+      "status": "A",
+      "added": 84,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "c35071f28b858bb100b135c767e375324ea3be43",
+      "product_file_sha256": "07534f31c8f41af47d55ba147841523d90296e0cb92b11d92e1cc685c4c2e4cc",
+      "github_stats": {
+        "additions": 84,
+        "deletions": 0,
+        "changes": 84,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/kb01_historical_schema.py",
+      "status": "A",
+      "added": 31,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "0017373d89926b739636aa28a7aaad38883245d7",
+      "product_file_sha256": "23faa3f805c68f325dfb15f7cdb2c97c9bae501511b0073e946a51ec80a65084",
+      "github_stats": {
+        "additions": 31,
+        "deletions": 0,
+        "changes": 31,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/kb01_large_fixtures.py",
+      "status": "A",
+      "added": 128,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "217c3d91628a5b856bc004a50f2a7e16ccf4791e",
+      "product_file_sha256": "11db51377c0c2fa32a8905a369e0754e2667483a66068390ed4cbda6e7af7c92",
+      "github_stats": {
+        "additions": 128,
+        "deletions": 0,
+        "changes": 128,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/kb01_native_fixtures.py",
+      "status": "A",
+      "added": 44,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "5f644e6dfe245b8392fd87d03385da803874d6df",
+      "product_file_sha256": "37e3f2acb5548b42bab9d88982c51c7493d3d87dd6e1f8bcae1c218730492b25",
+      "github_stats": {
+        "additions": 44,
+        "deletions": 0,
+        "changes": 44,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_acceptance_readiness.py",
+      "status": "A",
+      "added": 84,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "f2a0754fe3fe3a3af61817f067093332b51bc85f",
+      "product_file_sha256": "1492f6ae56af9d9cb3a7fc3776dbce85704fdedc2ee370510d9b2d862a58cfdb",
+      "github_stats": {
+        "additions": 84,
+        "deletions": 0,
+        "changes": 84,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_acceptance_readiness_postgres.py",
+      "status": "A",
+      "added": 289,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "1dc2c82c537912542b6f0cd58d64ba140fa72442",
+      "product_file_sha256": "6aa81d114406aacc8b3d10da98e120a8ed06444ac3018c66eaa2c7a5a96d2025",
+      "github_stats": {
+        "additions": 289,
+        "deletions": 0,
+        "changes": 289,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_architecture.py",
+      "status": "A",
+      "added": 9,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "2565b33764eae0c1b2de5dd17961c2ac9197539f",
+      "product_file_sha256": "0f9774349c67a0995f2532abc96e6eef74c7c6bc1195376335b901711fadc15f",
+      "github_stats": {
+        "additions": 9,
+        "deletions": 0,
+        "changes": 9,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_archive_isolation.py",
+      "status": "A",
+      "added": 148,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "f07ccb45365be888610a73b6239057a7b7cddaf4",
+      "product_file_sha256": "490c6d6ccd517ac4b062bc0e89551e0bbcfec04faf534e69a41d34b10b001d3e",
+      "github_stats": {
+        "additions": 148,
+        "deletions": 0,
+        "changes": 148,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_batch_recovery_postgres.py",
+      "status": "A",
+      "added": 241,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "2e450c69dfc185feeb01ea42f0cc59975f3b5e70",
+      "product_file_sha256": "d54e741b9ce176e260da8d3e836806c8f849c12f6b6be213924ee9eba122ac4c",
+      "github_stats": {
+        "additions": 241,
+        "deletions": 0,
+        "changes": 241,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_batches_postgres.py",
+      "status": "A",
+      "added": 462,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "d9aa4a2dd8afb7adfbb6cf6a7012720e7b6cf0e0",
+      "product_file_sha256": "5adb9d2a643b6fdf0a23f415bd20f01d0f2e66d5a61aa2d1bfd53151bc4116b9",
+      "github_stats": {
+        "additions": 462,
+        "deletions": 0,
+        "changes": 462,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_binary_ingestion_postgres.py",
+      "status": "A",
+      "added": 422,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "aa8d5b032d8b2887ad6e5f5e5a0995857bd7cb87",
+      "product_file_sha256": "0f229c33810c62b64a998eeec74a18b009c32b2241009da1bea8bcf59ad324ad",
+      "github_stats": {
+        "additions": 422,
+        "deletions": 0,
+        "changes": 422,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_binary_migrations.py",
+      "status": "A",
+      "added": 205,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "ae774b892b2cebb87bcdf68b85f0c1d09aedb813",
+      "product_file_sha256": "48b5344fc082ed6d869055ae1cbd3cafdc3d928ff30674add1f040b8f27ace8d",
+      "github_stats": {
+        "additions": 205,
+        "deletions": 0,
+        "changes": 205,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_ci_diagnostics.py",
+      "status": "A",
+      "added": 31,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "4e58b5a393d9deb1d5f05191238a1a3488d7ccd4",
+      "product_file_sha256": "c9fb4f788c0c5570520efe5ac58491449d09ca5afbacbf1c1cbf850904245677",
+      "github_stats": {
+        "additions": 31,
+        "deletions": 0,
+        "changes": 31,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_ci_evidence.py",
+      "status": "A",
+      "added": 139,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "6e5d8f4f834086a7a02ed6455c5da63cbd9a5605",
+      "product_file_sha256": "797881ca1040d3f35382bd3f1bf0b1ce8df0e8f4e75c93343835ad7cdc3e3ea0",
+      "github_stats": {
+        "additions": 139,
+        "deletions": 0,
+        "changes": 139,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_document_management_postgres.py",
+      "status": "A",
+      "added": 432,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "3c2eedb9099a458a12b4f76293a5b2e51fc1b9f0",
+      "product_file_sha256": "c3996cd89e6bdf2d105548dee7aa5b651b362a88c56fd310de176daf2e915556",
+      "github_stats": {
+        "additions": 432,
+        "deletions": 0,
+        "changes": 432,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_evidence_reference_migrations.py",
+      "status": "A",
+      "added": 137,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "711865c32179ea772eb42c10b1ab4ce9f0ba42c6",
+      "product_file_sha256": "55eae618f8b9453f7eeef3404b4cd409af67c7eefd1d7827321ba9b73b01ded1",
+      "github_stats": {
+        "additions": 137,
+        "deletions": 0,
+        "changes": 137,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_manifest_imports_postgres.py",
+      "status": "A",
+      "added": 303,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "962a4a230f755d5ae846e92479deeefefd3b60b7",
+      "product_file_sha256": "2366fb8c53341282cd6fb05a892b215508a8f275624c42b4b05379d4e0e52f22",
+      "github_stats": {
+        "additions": 303,
+        "deletions": 0,
+        "changes": 303,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_manifest_migrations.py",
+      "status": "A",
+      "added": 188,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "b3b6bfe7ce1f98f2fff2ee406e8b564e342fae42",
+      "product_file_sha256": "4b67c081a225cc9d09c2e7e9430595dc5482528252a33acf8d2b7d99650160d9",
+      "github_stats": {
+        "additions": 188,
+        "deletions": 0,
+        "changes": 188,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_native_isolation.py",
+      "status": "A",
+      "added": 201,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "b1cb67597f0aee8067e39e5df8b177895c2ca424",
+      "product_file_sha256": "e3789c1a5688bf166c85d3d66ebc44dc36e2fd5788bce76459bacbfb1c07cb0b",
+      "github_stats": {
+        "additions": 201,
+        "deletions": 0,
+        "changes": 201,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_native_structure.py",
+      "status": "A",
+      "added": 64,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "db4c5581c2e1956de11d177173640e3595ae7fae",
+      "product_file_sha256": "b46f73218e8ceb4dfc00ed8d29c99d624ed60f4f2cfa9b07da93bd791306b7d1",
+      "github_stats": {
+        "additions": 64,
+        "deletions": 0,
+        "changes": 64,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_ownership.py",
+      "status": "A",
+      "added": 159,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "3f02ac90d810c66b5e5fa39c59e2846f29463635",
+      "product_file_sha256": "323d6b7da4268209b61c67d41647e5966ffce3370970365862d14cd5c3f76c45",
+      "github_stats": {
+        "additions": 159,
+        "deletions": 0,
+        "changes": 159,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_scope_management_postgres.py",
+      "status": "A",
+      "added": 141,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "e5b2a85eab512830df6c45f343728b3fa96855fd",
+      "product_file_sha256": "c0880cdf271c6295a4d83014f4edc177fec59be8e8bfb9593fef9ee228526b91",
+      "github_stats": {
+        "additions": 141,
+        "deletions": 0,
+        "changes": 141,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_statistics_postgres.py",
+      "status": "A",
+      "added": 308,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "047746a6ddd40dcc037b9b981892724449304cfa",
+      "product_file_sha256": "94f59c2192beec4013aaddbd2722c79832aa0193872a55745e3d4fcef7e769ba",
+      "github_stats": {
+        "additions": 308,
+        "deletions": 0,
+        "changes": 308,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_taxonomy_migrations.py",
+      "status": "A",
+      "added": 210,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "195247a290c70a7e6fd2b9029d40bb8481f3ae57",
+      "product_file_sha256": "2add39ca00e20bbbaa736b807bee449c555bdfd53ddea314517b9c1a9f83d819",
+      "github_stats": {
+        "additions": 210,
+        "deletions": 0,
+        "changes": 210,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_taxonomy_postgres.py",
+      "status": "A",
+      "added": 717,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "1b09b6e8e9c31226bc9a11b9227f57b91e9544c1",
+      "product_file_sha256": "b6b449b706d76a5d4849d3935f844dfe49dbf2b6c7ad014d3640e14b37728add",
+      "github_stats": {
+        "additions": 717,
+        "deletions": 0,
+        "changes": 717,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_translation_alignment_postgres.py",
+      "status": "A",
+      "added": 231,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "db43fd079e9bf04f9b67be1dc9768098fef03545",
+      "product_file_sha256": "1b8e8381d3db68e303e152831cd6912331d551feab149e47eab2a985cfaf66db",
+      "github_stats": {
+        "additions": 231,
+        "deletions": 0,
+        "changes": 231,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_upload_contracts.py",
+      "status": "A",
+      "added": 92,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "80dcc3c3d2825b23c29db79f89846a1122e688d6",
+      "product_file_sha256": "282592b9bc0dc15893cf805f0e28aa72f0ff1e397743084442a55500b0875860",
+      "github_stats": {
+        "additions": 92,
+        "deletions": 0,
+        "changes": 92,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_kb01_upload_postgres.py",
+      "status": "A",
+      "added": 485,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "f302e1a307610146917f195891d7ae285d42d88f",
+      "product_file_sha256": "f794710efb601da6166f4bf27714da0211ea0241068e8f1925d53c83badf792a",
+      "github_stats": {
+        "additions": 485,
+        "deletions": 0,
+        "changes": 485,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_knowledge_manifest.py",
+      "status": "A",
+      "added": 284,
+      "deleted": 0,
+      "group": "tests",
+      "base_blob": null,
+      "product_blob": "2ad52ba21b729b2c0463e6ed269eca57fff98a9f",
+      "product_file_sha256": "a5948e2f41bd0157d1bde739c235625423adbc25460615fbe35db37a725b71b2",
+      "github_stats": {
+        "additions": 284,
+        "deletions": 0,
+        "changes": 284,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_m2d_architecture.py",
+      "status": "M",
+      "added": 7,
+      "deleted": 1,
+      "group": "tests",
+      "base_blob": "e109b7ebdfd5c4b8c016ca172a6e89388eec6592",
+      "product_blob": "333f574d13130b911b3005efd86e4a7aaa2a38e0",
+      "product_file_sha256": "b6f18650260d1e243c5fea465dba782371220b2085dd52f6631282dc74df93d2",
+      "github_stats": {
+        "additions": 7,
+        "deletions": 1,
+        "changes": 8,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_m2e_r1_architecture.py",
+      "status": "M",
+      "added": 6,
+      "deleted": 1,
+      "group": "tests",
+      "base_blob": "af1809febc665a5ca18c9fdaf9bd137e1f86d508",
+      "product_blob": "6061153cf30e1b0277df6fba46f971cdf9551870",
+      "product_file_sha256": "3ee229ec16f96322bfb9c59e29d4b2901c2dfcdc9eeaab4d2102e18fd6567cc7",
+      "github_stats": {
+        "additions": 6,
+        "deletions": 1,
+        "changes": 7,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_phase1kb_architecture.py",
+      "status": "M",
+      "added": 6,
+      "deleted": 1,
+      "group": "tests",
+      "base_blob": "50b207ff04e60079c4b3a2d60c6bae187b51c45c",
+      "product_blob": "a1cc9b4e8bef50bf0bd18c1c9960d3799071b4c3",
+      "product_file_sha256": "59859c1a6dd2a6c29646c2645c99f535fde2c5e9dd83f73c540c60376efd70f4",
+      "github_stats": {
+        "additions": 6,
+        "deletions": 1,
+        "changes": 7,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_stage1_candidate_governance_migrations.py",
+      "status": "M",
+      "added": 7,
+      "deleted": 2,
+      "group": "tests",
+      "base_blob": "228829bf45ad13ec237a6752aa75fb9893de29bc",
+      "product_blob": "c4de856c59adaab3a3bc27a81886f04270156cca",
+      "product_file_sha256": "08e855c871fc30cdf6d6080d5f84ed81d6c0c95d5b2f7e836142b3ede54b0042",
+      "github_stats": {
+        "additions": 7,
+        "deletions": 2,
+        "changes": 9,
+        "patch_present": true
+      }
+    },
+    {
+      "path": "tests/test_stage1_decision_compatibility_migrations.py",
+      "status": "M",
+      "added": 7,
+      "deleted": 2,
+      "group": "tests",
+      "base_blob": "1641bda0e129cdf35aa8acda03bfc28349a4f6b8",
+      "product_blob": "f69a1153dead134c40a1587df0e26d8b2c50cd0d",
+      "product_file_sha256": "e02aef443af3aa52a19abf6c23d2195f1b6d063de069df4620dffad61c901127",
+      "github_stats": {
+        "additions": 7,
+        "deletions": 2,
+        "changes": 9,
+        "patch_present": true
+      }
+    }
+  ],
+  "codeowners": [
+    {
+      "source": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+      "path": ".github/CODEOWNERS",
+      "exists": false
+    },
+    {
+      "source": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+      "path": "CODEOWNERS",
+      "exists": false
+    },
+    {
+      "source": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+      "path": "docs/CODEOWNERS",
+      "exists": false
+    },
+    {
+      "source": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "path": ".github/CODEOWNERS",
+      "exists": false
+    },
+    {
+      "source": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "path": "CODEOWNERS",
+      "exists": false
+    },
+    {
+      "source": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+      "path": "docs/CODEOWNERS",
+      "exists": false
+    }
+  ],
+  "migration_digests": [
+    {
+      "path": "alembic/versions/0001_phase1a_runtime_tables.py",
+      "sha256": "d8a3d4c060beaa95ee2daab5658a476854640c24b3100cee6ebd4c44d86d793a",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0002_phase1b_domain_foundation.py",
+      "sha256": "4fa947ad533c7faeaa5d8893917a7c1fcb9933436be9ec41180524eae4c3b9da",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0003_phase1c_metadata_registry.py",
+      "sha256": "fb8c17f96cfe83c6cbb9f5d1b71450f1e77ae1ee1a9d9df334f6fefff24d66b1",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0004_phase1d_document_intelligence.py",
+      "sha256": "9f1bf0b1ad8924d698a66d996571565fe5ffd22808f906d639d04549fa8d48ff",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0005_phase1e_context_resolution.py",
+      "sha256": "6f524b052b4e13df4d809f9ab85157999df43ed9f819d76f5aff9e52493993e3",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0006_phase1f_knowledge_scope.py",
+      "sha256": "5c4ffecc8cf1ff7787bb282eaed18699b918ad5e40c44e23f761fefd0eeb6085",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0007_phase1g_retrieval_evidence.py",
+      "sha256": "47117a332785bb63d7ef6ae3537bce321732e9d570f2afc005051888c8c5d4b4",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0008_phase1h_rule_classification.py",
+      "sha256": "04ac67c7ffe3445a1d89b633549690d0c59fa12ac978e90ca5514b5902484f77",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0009_phase1i_applicability.py",
+      "sha256": "e363840390a0cb673aef676d75c02c24ed8ea7002a9c1a03605db80bf30447e8",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0010_phase1j_formal_decisions.py",
+      "sha256": "cebbe1158f5b98ca0c2a7dd87726111f50e2fc24f1f83f828ac1243d24d0e57f",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0011_m2a_structured_intake.py",
+      "sha256": "573785cdee48f57d8ff7761b49d73e57cf110befd4a14d3e1fcae031e5a89cf0",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0012_m2b_document_inputs.py",
+      "sha256": "f732e59b44c6fb54a4880f5ca777140560614a675315f9ec8f94212409b4cb8f",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0013_m2b_context_temporal_contract.py",
+      "sha256": "79133fdda7aeda64a1c10e164abe1fbde73534dfecb3f7397a0b8f642ad33561",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0014_m2c_formal_result_authority.py",
+      "sha256": "63f1e8f97587dd52983d51cb632972ef9a9d0a7b83f60f4f32678ba3d29bd266",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0015_m2d_review_governance.py",
+      "sha256": "e424078407d47b338b722503f61bd4abd5f94e0cc65aeb7440f4e4330e51e02a",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0016_phase1kb_multi_provider_llm_governance.py",
+      "sha256": "6f375dc1bc9ba86b668160ac28572822ddfe6867d16d2104d7ee5db5d422ee93",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0017_m2e_external_agent_api.py",
+      "sha256": "25cdb35ebd50c503abd3554fe7cb1da665007a216461022cc8ea6f4f93cdb7de",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0018_phase1h_multijurisdiction_classification_identity.py",
+      "sha256": "e0aa96fbd00f49e370f66edf3c0e0bb20c97888955e8e3547fab65cffbec8f62",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0019_stage1_candidate_governance.py",
+      "sha256": "bf95e33f21bcbe3ae7729d57202b5afa5479818e60252246dcf5cadfe5b04878",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0020_stage1_formal_decision_engine_compatibility.py",
+      "sha256": "09d20a37d4e2d0243deabadb18915a996b9df61ae0c2cc47b5d5df27acd8b1e8",
+      "unchanged_release_bytes": true
+    },
+    {
+      "path": "alembic/versions/0021_kb01_taxonomy_operations.py",
+      "sha256": "8466afef71debab86d5429561581186f82469ff8d1329511db587baae454bae5",
+      "unchanged_release_bytes": false
+    },
+    {
+      "path": "alembic/versions/0022_kb01_binary_transport.py",
+      "sha256": "426aaa3d144bb602f71b3a58dcd136e452cd8ad7ec40cdf224b5a6f7a3abb839",
+      "unchanged_release_bytes": false
+    },
+    {
+      "path": "alembic/versions/0023_kb01_evidence_source_reference.py",
+      "sha256": "b26cff68f50e51ce980835299d4b661820af7deb3c8686d279dafc82afe82630",
+      "unchanged_release_bytes": false
+    },
+    {
+      "path": "alembic/versions/0024_kb01_import_manifest_records.py",
+      "sha256": "61b4d6a92a8c0b67ffeeb2fe8a4dbd8030658050b5630cd2bb609bf177b13a64",
+      "unchanged_release_bytes": false
+    }
+  ],
+  "g0_review_evidence_hashes_verified": 27,
+  "product_source_hashes_verified": 731
+}
