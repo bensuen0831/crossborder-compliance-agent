@@ -49,6 +49,7 @@ def artifacts(tmp_path):
                 for locale in ("zh-CN", "zh-HK", "en-US")
             ]
             + [
+                "KB01 RC1 synthetic author reviewer publisher and restricted roles remain distinct",
                 "KB01 bounded batch deletion previews references, uses canonical commands and reconciles SQL counts",
                 (
                     "KB01 optional CSV catalogue remains an immutable proposal until "
@@ -89,7 +90,16 @@ def test_ci_aggregation_requires_complete_exact_source_evidence(artifacts):
 
 
 @pytest.mark.parametrize(
-    "tamper", ["source", "skipped", "missing_test", "retry", "small_archive", "wrong_browser_case"]
+    "tamper",
+    [
+        "source",
+        "skipped",
+        "missing_test",
+        "retry",
+        "small_archive",
+        "wrong_browser_case",
+        "missing_rc1_role",
+    ],
 )
 def test_ci_aggregation_rejects_green_but_incomplete_or_wrong_source(artifacts, tamper):
     root, backend, frontend, capacity = artifacts
@@ -105,6 +115,17 @@ def test_ci_aggregation_rejects_green_but_incomplete_or_wrong_source(artifacts, 
         path = frontend / "browser.json"
         value = json.loads(path.read_text())
         value["suites"][0]["specs"][-1]["title"] = "Unrelated green test"
+        put(path, value)
+    elif tamper == "missing_rc1_role":
+        path = frontend / "browser.json"
+        value = json.loads(path.read_text())
+        value["suites"][0]["specs"] = [
+            spec
+            for spec in value["suites"][0]["specs"]
+            if spec["title"]
+            != "KB01 RC1 synthetic author reviewer publisher and restricted roles remain distinct"
+        ]
+        value["stats"]["expected"] -= 1
         put(path, value)
     else:
         path = capacity / "measured/RAR5.json"
