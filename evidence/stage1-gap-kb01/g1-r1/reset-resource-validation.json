@@ -1,0 +1,11 @@
+{
+  "source_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+  "decision": "PASS",
+  "scope": "Actual disposable Docker PG/Redis containers and owned volumes; no application dataset seeded; live UAT database untouched.",
+  "exact_owned_containers_removed": 2,
+  "exact_owned_volumes_removed": 2,
+  "independent_control_volume_preserved_before_explicit_probe_cleanup": true,
+  "synthetic_local_original_file_retained": true,
+  "live_uat_remains_healthy": true,
+  "reset_stdout": "RC1 stopped; PostgreSQL volumes and versioned S3 originals retained.\nReset completed; local files retained privately at /workspace/kb01-g1r1/reset-disposable.retained-20261022T062020Z; start creates a new isolated instance."
+}

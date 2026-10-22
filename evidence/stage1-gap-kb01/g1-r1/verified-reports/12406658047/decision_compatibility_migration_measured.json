@@ -1,0 +1,27 @@
+{
+  "migration_head": "0020_stage1_formal_decision_engine_compatibility",
+  "parent": "0019_stage1_candidate_governance",
+  "knowledge_fixture_kind": "SYNTHETIC_GOVERNED_TEST_DATA",
+  "fresh": true,
+  "exact0019_upgrade": true,
+  "schema_equivalence": true,
+  "legacy_rows_preserved": true,
+  "empty_and_legacy_safe_downgrade": true,
+  "reupgrade": true,
+  "current_rows_downgrade_refused": true,
+  "no_data_rewritten": true,
+  "legacy_row_digests": {
+    "OBLIGATION": "b7ce9f34f5e30c499bb727d7aa3be81c63e7ab06b74382ae16c314917ccc8b61",
+    "CANDIDATE_PATH": "878b491e015994a3cad925ae587332027a1af5e1a12f5d450eadf17307c8020f",
+    "RISK": "fabe0189aef1defae9342e1fd9da003411bf06ae46c988b4e4d4e0482c355224",
+    "RECOMMENDATION": "d61267414b6893f559571e5e3256395c9bf020cf8134f14ac02199e6c9cc8b4b",
+    "FINAL_PATH": "f03a70a589ec35e7544404b30f312366ba473c8058c106c4efdbfd400c7b54e4"
+  },
+  "current_row_digests": {
+    "OBLIGATION": "da45b575c1422ed188b85ef09782a3f9825dcbb944b6dffc35689ad16fc81226",
+    "CANDIDATE_PATH": "e5ea0cb5647eff7764b5f09a42ed6a84e6ea0d2fb5f5a8449516f484b7b1762b",
+    "RISK": "89c0e095425915e46d2fc179670d987eb888eedc0b58470f1b1a2cdb420d4ddb",
+    "RECOMMENDATION": "6801caef49547aed3a80c668a9e8da69adfe42dd0459bf721e0f303224316e17",
+    "FINAL_PATH": "6d3145a4768710c79732aa0073e0a12670192ab7de927b7b270e21c6030afa1a"
+  }
+}

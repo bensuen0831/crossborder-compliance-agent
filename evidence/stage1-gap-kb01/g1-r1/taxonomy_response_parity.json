@@ -1,0 +1,93 @@
+{
+  "source_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+  "reference_sha": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "decision": "PASS",
+  "complete_json_comparisons": [
+    {
+      "lifecycle": "DRAFT",
+      "page_size": 1,
+      "complete_json_sha256": "9f74cc10c070927c5f39b41c44d8b2578e5799c9c123d18552762e5942baeafd",
+      "equal": true
+    },
+    {
+      "lifecycle": "DRAFT",
+      "page_size": 4,
+      "complete_json_sha256": "a6a55323ef4eaf86b4ac094c2a1f1c5d5326c21bcac8d1eebcc6d1e4e4836ba4",
+      "equal": true
+    },
+    {
+      "lifecycle": "DRAFT",
+      "page_size": 25,
+      "complete_json_sha256": "b34efd72c33bd094031b71304bb99e63f03b585d877e75ef91cb31295a113b9c",
+      "equal": true
+    },
+    {
+      "lifecycle": "DRAFT",
+      "page_size": 100,
+      "complete_json_sha256": "d2beb8ea11ef064a7b62a11f9767de1ce6b1368c7e6d8d503775d752e08b7110",
+      "equal": true
+    },
+    {
+      "lifecycle": "ACTIVE",
+      "page_size": 1,
+      "complete_json_sha256": "8bad3e1804e6a9cc1de9d8b98031a3ee028e5b2268ccb8b8d3fd6e4dda64f773",
+      "equal": true
+    },
+    {
+      "lifecycle": "ACTIVE",
+      "page_size": 4,
+      "complete_json_sha256": "18dd8747a621f73820765cc034036a6db6e2903a558230b5e5354a9ad1a834d9",
+      "equal": true
+    },
+    {
+      "lifecycle": "ACTIVE",
+      "page_size": 25,
+      "complete_json_sha256": "a065b6ac73fac45793f5c7b5c51e776e3800ad9ae85ca2b3fd64975f7f3bf32c",
+      "equal": true
+    },
+    {
+      "lifecycle": "ACTIVE",
+      "page_size": 100,
+      "complete_json_sha256": "5905fdb70592c910c1577f75ef717dac1d31bc80eaa796f73cf125d2b1f85f56",
+      "equal": true
+    },
+    {
+      "lifecycle": "MIXED",
+      "page_size": 1,
+      "complete_json_sha256": "9649ba14c7222ef431021471a44705845e6a9a5f2685bd7f2819cf17e520fc21",
+      "equal": true
+    },
+    {
+      "lifecycle": "MIXED",
+      "page_size": 4,
+      "complete_json_sha256": "b5ce037c7f0d1bc1590e3218a6c71045226a7e21cdad5f9285b99e6abdcd3bfa",
+      "equal": true
+    },
+    {
+      "lifecycle": "MIXED",
+      "page_size": 25,
+      "complete_json_sha256": "7daa6d29ec1d5975aa2e0ce7974f568c0d6d14e4fc3045a0a5b4d56ee998661a",
+      "equal": true
+    },
+    {
+      "lifecycle": "MIXED",
+      "page_size": 100,
+      "complete_json_sha256": "8e716ecc579e1a39d186a273944228fbaac929e468ac534ab35a232e8fd00b85",
+      "equal": true
+    }
+  ],
+  "coverage": [
+    "three_locales",
+    "tenant_isolation",
+    "permissions",
+    "missing_actors",
+    "missing_version",
+    "active_exact_version_not_newer_draft",
+    "stable_ordering",
+    "aliases",
+    "pagination",
+    "count"
+  ],
+  "postgres_test_xml": "reports/taxonomy-all.xml",
+  "legacy_enabled_filter_counterexample": "Old selected-version correlated subquery raises CardinalityViolation on multi-draft rows; new query preserves intended latest-version enabled semantics. Separate regression, not labelled old full-JSON parity for a request that formerly failed."
+}

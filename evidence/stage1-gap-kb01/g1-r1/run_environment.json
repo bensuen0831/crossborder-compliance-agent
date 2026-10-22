@@ -1,0 +1,28 @@
+{
+  "source_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+  "recorded_at": "2026-10-22T14:00:50.300288+08:00",
+  "supported_tested_platform": {
+    "os": "Linux",
+    "architecture": "x86_64",
+    "kernel": "6.18.55"
+  },
+  "python": "3.12.14",
+  "node": "v24.19.0",
+  "postgresql": "PostgreSQL 17.11 (Debian 17.11-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+  "pgvector": "0.8.7",
+  "redis": "7.4.11",
+  "migration_head": "0024_kb01_import_manifest_records",
+  "health": {
+    "backend": {
+      "url": "http://127.0.0.1:18010/health/live",
+      "status": 200
+    },
+    "frontend": {
+      "url": "http://127.0.0.1:15173",
+      "status": 200
+    }
+  },
+  "public_staging_url": null,
+  "scope": "LOCAL_ISOLATED_SYNTHETIC_TECHNICAL_UAT_ONLY",
+  "actual_uat_state_directory": "/workspace/kb01-rc1"
+}

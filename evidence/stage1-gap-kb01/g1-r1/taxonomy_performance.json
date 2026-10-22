@@ -1,0 +1,465 @@
+{
+  "source_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+  "reference_source": "39c3581ca455df4e3ce9760ed2deab8905a5f588",
+  "method": "Real PostgreSQL; canonical independent-author/reviewer/publisher fixtures; paired old/new same engine/data; three reads each; no mocked SQL count",
+  "samples": [
+    {
+      "lifecycle": "DRAFT",
+      "page_size": 1,
+      "before_samples": [
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.014305723991128616
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.008805853009107523
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.00865588299348019
+        }
+      ],
+      "after_samples": [
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.010966328001813963
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.008138894991134293
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.007192583987489343
+        }
+      ],
+      "before_median_seconds": 0.008805853009107523,
+      "after_median_seconds": 0.008138894991134293,
+      "before_sql": 5,
+      "after_sql": 5,
+      "complete_json_sha256": "9f74cc10c070927c5f39b41c44d8b2578e5799c9c123d18552762e5942baeafd",
+      "json_parity": true
+    },
+    {
+      "lifecycle": "DRAFT",
+      "page_size": 4,
+      "before_samples": [
+        {
+          "sql_statements": 14,
+          "elapsed_seconds": 0.0172728720062878
+        },
+        {
+          "sql_statements": 14,
+          "elapsed_seconds": 0.018847510000341572
+        },
+        {
+          "sql_statements": 14,
+          "elapsed_seconds": 0.016833800997119397
+        }
+      ],
+      "after_samples": [
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.006947914996999316
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.006296146006206982
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.006456144998082891
+        }
+      ],
+      "before_median_seconds": 0.0172728720062878,
+      "after_median_seconds": 0.006456144998082891,
+      "before_sql": 14,
+      "after_sql": 5,
+      "complete_json_sha256": "a6a55323ef4eaf86b4ac094c2a1f1c5d5326c21bcac8d1eebcc6d1e4e4836ba4",
+      "json_parity": true
+    },
+    {
+      "lifecycle": "DRAFT",
+      "page_size": 25,
+      "before_samples": [
+        {
+          "sql_statements": 77,
+          "elapsed_seconds": 0.08981295900593977
+        },
+        {
+          "sql_statements": 77,
+          "elapsed_seconds": 0.09093528700759634
+        },
+        {
+          "sql_statements": 77,
+          "elapsed_seconds": 0.09552566100319382
+        }
+      ],
+      "after_samples": [
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.009572698996635154
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.00909409199084621
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.008720953002921306
+        }
+      ],
+      "before_median_seconds": 0.09093528700759634,
+      "after_median_seconds": 0.00909409199084621,
+      "before_sql": 77,
+      "after_sql": 5,
+      "complete_json_sha256": "b34efd72c33bd094031b71304bb99e63f03b585d877e75ef91cb31295a113b9c",
+      "json_parity": true
+    },
+    {
+      "lifecycle": "DRAFT",
+      "page_size": 100,
+      "before_samples": [
+        {
+          "sql_statements": 302,
+          "elapsed_seconds": 0.3395466330111958
+        },
+        {
+          "sql_statements": 302,
+          "elapsed_seconds": 0.35702049800602254
+        },
+        {
+          "sql_statements": 302,
+          "elapsed_seconds": 0.35288362800201867
+        }
+      ],
+      "after_samples": [
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.01741765699989628
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.01762792699446436
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.01852841100480873
+        }
+      ],
+      "before_median_seconds": 0.35288362800201867,
+      "after_median_seconds": 0.01762792699446436,
+      "before_sql": 302,
+      "after_sql": 5,
+      "complete_json_sha256": "d2beb8ea11ef064a7b62a11f9767de1ce6b1368c7e6d8d503775d752e08b7110",
+      "json_parity": true
+    },
+    {
+      "lifecycle": "ACTIVE",
+      "page_size": 1,
+      "before_samples": [
+        {
+          "sql_statements": 6,
+          "elapsed_seconds": 0.04937122299452312
+        },
+        {
+          "sql_statements": 6,
+          "elapsed_seconds": 0.02818950600340031
+        },
+        {
+          "sql_statements": 6,
+          "elapsed_seconds": 0.029567153003881685
+        }
+      ],
+      "after_samples": [
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.009346054008346982
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.007238217993290164
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.007432231999700889
+        }
+      ],
+      "before_median_seconds": 0.029567153003881685,
+      "after_median_seconds": 0.007432231999700889,
+      "before_sql": 6,
+      "after_sql": 5,
+      "complete_json_sha256": "8bad3e1804e6a9cc1de9d8b98031a3ee028e5b2268ccb8b8d3fd6e4dda64f773",
+      "json_parity": true
+    },
+    {
+      "lifecycle": "ACTIVE",
+      "page_size": 4,
+      "before_samples": [
+        {
+          "sql_statements": 18,
+          "elapsed_seconds": 0.1283553760003997
+        },
+        {
+          "sql_statements": 18,
+          "elapsed_seconds": 0.11008211200532969
+        },
+        {
+          "sql_statements": 18,
+          "elapsed_seconds": 0.1055311930103926
+        }
+      ],
+      "after_samples": [
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.008805742996628396
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.011356969000189565
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.006915945006767288
+        }
+      ],
+      "before_median_seconds": 0.11008211200532969,
+      "after_median_seconds": 0.008805742996628396,
+      "before_sql": 18,
+      "after_sql": 5,
+      "complete_json_sha256": "18dd8747a621f73820765cc034036a6db6e2903a558230b5e5354a9ad1a834d9",
+      "json_parity": true
+    },
+    {
+      "lifecycle": "ACTIVE",
+      "page_size": 25,
+      "before_samples": [
+        {
+          "sql_statements": 102,
+          "elapsed_seconds": 0.6359897099900991
+        },
+        {
+          "sql_statements": 102,
+          "elapsed_seconds": 0.6467826290027006
+        },
+        {
+          "sql_statements": 102,
+          "elapsed_seconds": 0.6860014800040517
+        }
+      ],
+      "after_samples": [
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.014673797006253153
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.015915891010081396
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.017669423003098927
+        }
+      ],
+      "before_median_seconds": 0.6467826290027006,
+      "after_median_seconds": 0.015915891010081396,
+      "before_sql": 102,
+      "after_sql": 5,
+      "complete_json_sha256": "a065b6ac73fac45793f5c7b5c51e776e3800ad9ae85ca2b3fd64975f7f3bf32c",
+      "json_parity": true
+    },
+    {
+      "lifecycle": "ACTIVE",
+      "page_size": 100,
+      "before_samples": [
+        {
+          "sql_statements": 402,
+          "elapsed_seconds": 2.570233300997643
+        },
+        {
+          "sql_statements": 402,
+          "elapsed_seconds": 2.7059178330091527
+        },
+        {
+          "sql_statements": 402,
+          "elapsed_seconds": 2.627473243002896
+        }
+      ],
+      "after_samples": [
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.03481861299951561
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.036335873999632895
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.03665932900912594
+        }
+      ],
+      "before_median_seconds": 2.627473243002896,
+      "after_median_seconds": 0.036335873999632895,
+      "before_sql": 402,
+      "after_sql": 5,
+      "complete_json_sha256": "5905fdb70592c910c1577f75ef717dac1d31bc80eaa796f73cf125d2b1f85f56",
+      "json_parity": true
+    },
+    {
+      "lifecycle": "MIXED",
+      "page_size": 1,
+      "before_samples": [
+        {
+          "sql_statements": 6,
+          "elapsed_seconds": 0.01918233701144345
+        },
+        {
+          "sql_statements": 6,
+          "elapsed_seconds": 0.014182768005412072
+        },
+        {
+          "sql_statements": 6,
+          "elapsed_seconds": 0.015078334996360354
+        }
+      ],
+      "after_samples": [
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.008928292998461984
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.006168516003526747
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.006296546009252779
+        }
+      ],
+      "before_median_seconds": 0.015078334996360354,
+      "after_median_seconds": 0.006296546009252779,
+      "before_sql": 6,
+      "after_sql": 5,
+      "complete_json_sha256": "9649ba14c7222ef431021471a44705845e6a9a5f2685bd7f2819cf17e520fc21",
+      "json_parity": true
+    },
+    {
+      "lifecycle": "MIXED",
+      "page_size": 4,
+      "before_samples": [
+        {
+          "sql_statements": 17,
+          "elapsed_seconds": 0.05214443599106744
+        },
+        {
+          "sql_statements": 17,
+          "elapsed_seconds": 0.051854152989108115
+        },
+        {
+          "sql_statements": 17,
+          "elapsed_seconds": 0.04825831200287212
+        }
+      ],
+      "after_samples": [
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.006949779010028578
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.00689986499492079
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.006922168002347462
+        }
+      ],
+      "before_median_seconds": 0.051854152989108115,
+      "after_median_seconds": 0.006922168002347462,
+      "before_sql": 17,
+      "after_sql": 5,
+      "complete_json_sha256": "b5ce037c7f0d1bc1590e3218a6c71045226a7e21cdad5f9285b99e6abdcd3bfa",
+      "json_parity": true
+    },
+    {
+      "lifecycle": "MIXED",
+      "page_size": 25,
+      "before_samples": [
+        {
+          "sql_statements": 92,
+          "elapsed_seconds": 0.3077247950132005
+        },
+        {
+          "sql_statements": 92,
+          "elapsed_seconds": 0.3003795910044573
+        },
+        {
+          "sql_statements": 92,
+          "elapsed_seconds": 0.2809561739995843
+        }
+      ],
+      "after_samples": [
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.013083289988571778
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.01150891299766954
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.011389530001906678
+        }
+      ],
+      "before_median_seconds": 0.3003795910044573,
+      "after_median_seconds": 0.01150891299766954,
+      "before_sql": 92,
+      "after_sql": 5,
+      "complete_json_sha256": "7daa6d29ec1d5975aa2e0ce7974f568c0d6d14e4fc3045a0a5b4d56ee998661a",
+      "json_parity": true
+    },
+    {
+      "lifecycle": "MIXED",
+      "page_size": 100,
+      "before_samples": [
+        {
+          "sql_statements": 352,
+          "elapsed_seconds": 1.1547307540022302
+        },
+        {
+          "sql_statements": 352,
+          "elapsed_seconds": 1.158432764990721
+        },
+        {
+          "sql_statements": 352,
+          "elapsed_seconds": 1.1708158230030676
+        }
+      ],
+      "after_samples": [
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.024105941993184388
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.023325661997660063
+        },
+        {
+          "sql_statements": 5,
+          "elapsed_seconds": 0.02836083699367009
+        }
+      ],
+      "before_median_seconds": 1.158432764990721,
+      "after_median_seconds": 0.024105941993184388,
+      "before_sql": 352,
+      "after_sql": 5,
+      "complete_json_sha256": "8e716ecc579e1a39d186a273944228fbaac929e468ac534ab35a232e8fd00b85",
+      "json_parity": true
+    }
+  ],
+  "g1_prior_other_session_active100_median_seconds": 2.536919,
+  "g1_prior_measurement_not_a_same_session_speed_ratio": true
+}

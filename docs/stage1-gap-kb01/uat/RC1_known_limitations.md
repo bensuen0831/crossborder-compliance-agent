@@ -11,3 +11,9 @@
 版本：`KB01-Technical-UAT-RC1`。只限 `LOCAL / ISOLATED TECHNICAL TESTING ONLY`。使用既有 React 前端、UAT Host、PostgreSQL、Redis、versioned S3 與 canonical Workers；不是 Production Auth，也不提供公開網址。
 
 KB01-F1 = BLOCKED — EXTERNAL_EVIDENCE_PENDING；LEGAL L2 / Production Deployment = NOT ACCEPTED；Real Regulatory Acceptance / Production UAT / Paid Internet LLM = NOT EXECUTED；Reviewer Approval = Pending；MASTER reconciliation = INPUT_REQUIRED；PR29 Draft；Main merge 未授權；Release Tag 不變；Stage2 NOT STARTED。
+
+## 本輪已執行的交付身份
+
+產品 `4593a355d0711a9ba955b1624926a2ec71d60430`，PR29 Draft。本獨立 evidence branch 只保存測量／操作說明，不是新的產品 Head；請 clone 完整 repository 後 checkout 上述產品 Commit。Linux x86_64／Python3.12.14／Node24.19.0／PostgreSQL17.11+pgvector0.8.7／Redis7.4.11 已實測；Windows 原生及 Docker Desktop/WSL 未獨立驗收。
+
+本輪工具映像漏洞掃描已完成，但134 High +1 Critical（套件 finding，並非135個不同CVE）的正式處置未批准。`TECHNICAL_UAT_CANDIDATE=READY` 僅表示隔離合成資料功能可操作；`RC1_TECHNICAL_ACCEPTANCE=BLOCKED_SECURITY_REVIEW_PENDING`，不等於可部署／可對外提供服務。不要使用敏感文件或對外暴露 synthetic session。

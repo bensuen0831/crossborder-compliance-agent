@@ -1,0 +1,780 @@
+{
+  "source_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+  "passed": 89,
+  "retained_prior": 88,
+  "additive": 1,
+  "retries": 0,
+  "failed": 0,
+  "skipped": 0,
+  "reports": [
+    {
+      "report": "verified-reports/12404990410/browser.json",
+      "sha256": "1a6bce8640c9918daae06e89b1c779390cd41493227348c125b4de53c8cda86c",
+      "passed": 4,
+      "retries": 0,
+      "duration_ms": 645929.2050000001
+    },
+    {
+      "report": "verified-reports/12404476230/browser.json",
+      "sha256": "7bdf2aff8a6e89977c01cf0784f290492461c633fc899066de5a7ec3a871c0c6",
+      "passed": 8,
+      "retries": 0,
+      "duration_ms": 283226.653
+    },
+    {
+      "report": "verified-reports/12404028050/results.json",
+      "sha256": "c1c26f8cc818be553644842c54e897bed85075adad131ad4c7a8c5f77ce8a744",
+      "passed": 36,
+      "retries": 0,
+      "duration_ms": 103032.25200000001
+    },
+    {
+      "report": "verified-reports/12404388166/tmp/m2b-core-browser.json",
+      "sha256": "40028d228193433ced6f21d1214905016939b2225d9c292d41b16dfac5d1ee7b",
+      "passed": 15,
+      "retries": 0,
+      "duration_ms": 642481.194
+    },
+    {
+      "report": "verified-reports/12404388166/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+      "sha256": "40028d228193433ced6f21d1214905016939b2225d9c292d41b16dfac5d1ee7b",
+      "passed": 15,
+      "retries": 0,
+      "duration_ms": 642481.194
+    },
+    {
+      "report": "verified-reports/12403709201/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+      "sha256": "736ad8a84263347a36a6415542f3a6e5f7c90748c4fd2eddaff5d9e227ce482b",
+      "passed": 3,
+      "retries": 0,
+      "duration_ms": 123731.09999999999
+    },
+    {
+      "report": "verified-reports/12404575261/tmp/m2b-core-browser.json",
+      "sha256": "906fcdc77e1e12eb3c8284dbc406151f167817c4644c58f05062e7f3c48dfa2e",
+      "passed": 9,
+      "retries": 0,
+      "duration_ms": 333947.341
+    },
+    {
+      "report": "verified-reports/12404575261/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+      "sha256": "906fcdc77e1e12eb3c8284dbc406151f167817c4644c58f05062e7f3c48dfa2e",
+      "passed": 9,
+      "retries": 0,
+      "duration_ms": 333947.341
+    },
+    {
+      "report": "verified-reports/12404201527/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+      "sha256": "aae290007e246497b2d0ff9eb144d4e26f9e2df1aba4263ff476a2207350339d",
+      "passed": 3,
+      "retries": 0,
+      "duration_ms": 65620.61099999999
+    },
+    {
+      "report": "verified-reports/12404710919/tmp/m2b-core-browser.json",
+      "sha256": "147713600aa73fae31996e85173424a8f5e3b1b575003d9881d952d8467c357b",
+      "passed": 12,
+      "retries": 0,
+      "duration_ms": 597375.627
+    },
+    {
+      "report": "verified-reports/12404710919/home/runner/work/crossborder-compliance-agent/crossborder-compliance-agent/frontend/test-results/results.json",
+      "sha256": "147713600aa73fae31996e85173424a8f5e3b1b575003d9881d952d8467c357b",
+      "passed": 12,
+      "retries": 0,
+      "duration_ms": 597375.627
+    }
+  ],
+  "structured_actual_reports": [
+    {
+      "report": "verified-reports/12404646903/candidate_frontend_measured.json",
+      "sha256": "442622beda24cbb661839a0c05b44af895b7951b3851b92a0adb32c8929d199f",
+      "passed": 5,
+      "kind": "Canonical measured named candidate browser cases"
+    },
+    {
+      "report": "verified-reports/12405132376/stage1_business_browser_measured.json",
+      "sha256": "f72513da99e407972b15185cde9471667babc53ddf788292704fe42569d3b955",
+      "passed": 12,
+      "kind": "Canonical actual browser IDs and result relationships"
+    },
+    {
+      "report": "verified-reports/12404646903/frontend_measured.json",
+      "sha256": "85fd6df866e8f3afb3f0ab531b3293d87e03cdeb1af6d925811a32e867072b65",
+      "browser_counts": {
+        "m1.spec.ts": 3,
+        "m2a.spec.ts": 3,
+        "m2b.spec.ts": 3,
+        "m2c.spec.ts": 3,
+        "m2d.spec.ts": 3,
+        "m2e.spec.ts": 3,
+        "phase1kb.spec.ts": 6,
+        "knowledge.spec.ts": 36
+      },
+      "kind": "Canonical full raw JSON validated at job runtime before projected upload"
+    },
+    {
+      "report": "verified-reports/12404987112/frontend_measured.json",
+      "sha256": "85fd6df866e8f3afb3f0ab531b3293d87e03cdeb1af6d925811a32e867072b65",
+      "browser_counts": {
+        "m1.spec.ts": 3,
+        "m2a.spec.ts": 3,
+        "m2b.spec.ts": 3,
+        "m2c.spec.ts": 3,
+        "m2d.spec.ts": 3,
+        "m2e.spec.ts": 3,
+        "phase1kb.spec.ts": 6,
+        "knowledge.spec.ts": 36
+      },
+      "kind": "Canonical full raw JSON validated at job runtime before projected upload"
+    },
+    {
+      "report": "verified-reports/12404452316/frontend_measured.json",
+      "sha256": "1efd2cf9f2533e03311c2081d3706aa02d2c1619f4487c2ec86f592b66f1004d",
+      "browser_counts": {
+        "m1.spec.ts": 3,
+        "m2a.spec.ts": 3,
+        "m2b.spec.ts": 3,
+        "m2c.spec.ts": 3,
+        "m2d.spec.ts": 3,
+        "phase1kb.spec.ts": 6,
+        "knowledge.spec.ts": 36
+      },
+      "kind": "Canonical full raw JSON validated at job runtime before projected upload"
+    }
+  ],
+  "additional_actual_pass_log_proof": "browser-runtime-log-identities.json",
+  "test_ids": [
+    {
+      "file": "candidate-governance.spec.ts",
+      "suite": [],
+      "title": "pre-confirm genuine DOCX ACCEPT and exact input freeze en-US",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "candidate-governance.spec.ts",
+      "suite": [],
+      "title": "pre-confirm genuine DOCX ACCEPT and exact input freeze zh-CN",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "candidate-governance.spec.ts",
+      "suite": [],
+      "title": "pre-confirm genuine DOCX ACCEPT and exact input freeze zh-HK",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "candidate-governance.spec.ts",
+      "suite": [],
+      "title": "pre-confirm genuine DOCX EDIT and exact input freeze en-US",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "candidate-governance.spec.ts",
+      "suite": [],
+      "title": "pre-confirm genuine DOCX REJECT and exact input freeze en-US",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "kb01-bulk.spec.ts",
+      "suite": [],
+      "title": "KB01 bounded batch deletion previews references, uses canonical commands and reconciles SQL counts",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "kb01-capacity.spec.ts",
+      "suite": [],
+      "title": "KB01 genuine capacity RAR4: signed upload through human publication and exact original",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "kb01-capacity.spec.ts",
+      "suite": [],
+      "title": "KB01 genuine capacity RAR5: signed upload through human publication and exact original",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "kb01-capacity.spec.ts",
+      "suite": [],
+      "title": "KB01 genuine capacity SINGLE: signed upload through human publication and exact original",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "kb01-capacity.spec.ts",
+      "suite": [],
+      "title": "KB01 genuine capacity ZIP: signed upload through human publication and exact original",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "kb01-folder.spec.ts",
+      "suite": [],
+      "title": "KB01 real directory upload preserves duplicate basenames, native citations and exact originals without Excel",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "kb01-management.spec.ts",
+      "suite": [],
+      "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in en-US",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "kb01-management.spec.ts",
+      "suite": [],
+      "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-CN",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "kb01-management.spec.ts",
+      "suite": [],
+      "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-HK",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "kb01-manifest.spec.ts",
+      "suite": [],
+      "title": "KB01 optional CSV catalogue remains an immutable proposal until explicit file mapping",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "kb01-rc1.spec.ts",
+      "suite": [],
+      "title": "KB01 RC1 synthetic author reviewer publisher and restricted roles remain distinct",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "kb01-taxonomy.spec.ts",
+      "suite": [],
+      "title": "KB01 country and regulation-category UI preserves governed versions, tree and protected deletion",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 1
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 2
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 1
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 2
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 1
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 2
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 1
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 2
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 1
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 2
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 1
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 2
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 1
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 2
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 1
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 2
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 1
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "canonical Admin route inspects real Knowledge version and denies the normal project user",
+      "repeat_ordinal": 2
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 1
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "identity switch purges evidence, isolates tenant B, and rejects A resource guessing server-side",
+      "repeat_ordinal": 2
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 1
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "no-match query renders empty evidence and actionable backend guidance on a narrow viewport",
+      "repeat_ordinal": 2
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 1
+    },
+    {
+      "file": "knowledge.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "real multilingual Knowledge/Evidence/Sufficiency/Runtime and presentation-only locale switching",
+      "repeat_ordinal": 2
+    },
+    {
+      "file": "m1.spec.ts",
+      "suite": [
+        "en-US"
+      ],
+      "title": "four-step intake, canonical results, official citation and locale state invariance",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "m1.spec.ts",
+      "suite": [
+        "zh-CN"
+      ],
+      "title": "four-step intake, canonical results, official citation and locale state invariance",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "m1.spec.ts",
+      "suite": [
+        "zh-HK"
+      ],
+      "title": "four-step intake, canonical results, official citation and locale state invariance",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "m2a.spec.ts",
+      "suite": [],
+      "title": "new persisted project, refresh, exact snapshot and canonical START/READ in en-US",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "m2a.spec.ts",
+      "suite": [],
+      "title": "new persisted project, refresh, exact snapshot and canonical START/READ in zh-CN",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "m2a.spec.ts",
+      "suite": [],
+      "title": "new persisted project, refresh, exact snapshot and canonical START/READ in zh-HK",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "m2b.spec.ts",
+      "suite": [],
+      "title": "real binary, pinned documents and canonical workflow in en-US",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "m2b.spec.ts",
+      "suite": [],
+      "title": "real binary, pinned documents and canonical workflow in zh-CN",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "m2b.spec.ts",
+      "suite": [],
+      "title": "real binary, pinned documents and canonical workflow in zh-HK",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "m2c.spec.ts",
+      "suite": [],
+      "title": "Stage 1 formal authorities, visualizations and exact-snapshot reread in en-US",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "m2c.spec.ts",
+      "suite": [],
+      "title": "Stage 1 formal authorities, visualizations and exact-snapshot reread in zh-CN",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "m2c.spec.ts",
+      "suite": [],
+      "title": "Stage 1 formal authorities, visualizations and exact-snapshot reread in zh-HK",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "m2d.spec.ts",
+      "suite": [],
+      "title": "governed same-snapshot approval, request-changes and genuine fact successor in en-US",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "m2d.spec.ts",
+      "suite": [],
+      "title": "governed same-snapshot approval, request-changes and genuine fact successor in zh-CN",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "m2d.spec.ts",
+      "suite": [],
+      "title": "governed same-snapshot approval, request-changes and genuine fact successor in zh-HK",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "m2e.spec.ts",
+      "suite": [],
+      "title": "integration Admin, one-time credentials and signed callback en-US",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "m2e.spec.ts",
+      "suite": [],
+      "title": "integration Admin, one-time credentials and signed callback zh-CN",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "m2e.spec.ts",
+      "suite": [],
+      "title": "integration Admin, one-time credentials and signed callback zh-HK",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "phase1kb.spec.ts",
+      "suite": [],
+      "title": "authorized eligible selection, genuine document extraction and exact workflow en-US",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "phase1kb.spec.ts",
+      "suite": [],
+      "title": "authorized eligible selection, genuine document extraction and exact workflow zh-CN",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "phase1kb.spec.ts",
+      "suite": [],
+      "title": "authorized eligible selection, genuine document extraction and exact workflow zh-HK",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "phase1kb.spec.ts",
+      "suite": [],
+      "title": "governed admin providers, write-only secret and real HTTP tests en-US",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "phase1kb.spec.ts",
+      "suite": [],
+      "title": "governed admin providers, write-only secret and real HTTP tests zh-CN",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "phase1kb.spec.ts",
+      "suite": [],
+      "title": "governed admin providers, write-only secret and real HTTP tests zh-HK",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical CONDITIONAL business journey en-US",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical CONDITIONAL business journey zh-CN",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical CONDITIONAL business journey zh-HK",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical DIRECT business journey en-US",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical DIRECT business journey zh-CN",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical DIRECT business journey zh-HK",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical LOCALIZATION business journey en-US",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical LOCALIZATION business journey zh-CN",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical LOCALIZATION business journey zh-HK",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical REVIEW business journey en-US",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical REVIEW business journey zh-CN",
+      "repeat_ordinal": 0
+    },
+    {
+      "file": "stage1-business.spec.ts",
+      "suite": [],
+      "title": "blank project canonical REVIEW business journey zh-HK",
+      "repeat_ordinal": 0
+    }
+  ],
+  "file_counts": {
+    "kb01-capacity.spec.ts": 4,
+    "kb01-bulk.spec.ts": 1,
+    "kb01-folder.spec.ts": 1,
+    "kb01-management.spec.ts": 3,
+    "kb01-manifest.spec.ts": 1,
+    "kb01-rc1.spec.ts": 1,
+    "kb01-taxonomy.spec.ts": 1,
+    "knowledge.spec.ts": 36,
+    "m1.spec.ts": 3,
+    "m2a.spec.ts": 3,
+    "m2b.spec.ts": 3,
+    "m2c.spec.ts": 3,
+    "m2d.spec.ts": 3,
+    "candidate-governance.spec.ts": 5,
+    "stage1-business.spec.ts": 12,
+    "m2e.spec.ts": 3,
+    "phase1kb.spec.ts": 6
+  }
+}

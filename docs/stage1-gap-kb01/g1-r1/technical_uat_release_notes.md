@@ -1,11 +1,17 @@
 # KB01-Technical-UAT-RC1
 
-新增可重現local lifecycle wrapper，復用既有uat.py、ci_services.py、canonical routers/workers與React應用。專用PostgreSQL17+pgvector、Redis按manifest固定，只綁loopback；S3保留原private credentials/versioning/data，stop/start不重seed。只支援經驗證的Linux/amd64流程；Windows原生與遠端Staging不在本輪接受範圍。
+TECHNICAL_UAT_CANDIDATE = READY（僅限隔離合成資料功能測試）
+RC1_TECHNICAL_ACCEPTANCE = BLOCKED — SECURITY_REVIEW_PENDING
 
-start/stop/status/health/demo/logs/diagnose/reset齊備；reset必須提供exact owned instance，僅處理自有volumes，其他state檔案保留封存。沒有公開Cloud URL。前端UAT專屬Reviewer/Publisher/Restricted按鈕受雙demo feature gate限制；作者不授予新KB approve/publish，server仍唯一授權來源。
+產品 `4593a355d0711a9ba955b1624926a2ec71d60430`，既有PR29產品分支。Linux/amd64已實測，Python3.12.14/Node24.19.0/PostgreSQL17.11+pgvector0.8.7/Redis7.4.11，migration0024。未驗證Windows原生/WSL，不宣稱已支援。
 
-參見 ../uat/RC1_quick_start.md、installation_guide、user_test_cases、test_accounts_and_roles、known_limitations、feedback_template、troubleshooting。18項UAT案例為操作指引，不預填人類PASS；自動smoke／Browser與restart實測另外記錄。
+Start/Stop/Health/Demo/Logs/Diagnose/Reset沿用既有UAT Host、React、canonical知識服務及workers。AUTHOR/REVIEWER/PUBLISHER/RESTRICTED為不同actor/permissions；不提供production身份。100個ACTIVE分類與18個六格式原檔已實際stop/start保留exact bytes/hash；另以一次性Dockerresources實測Reset只清exact owned containers/volumes，原檔封存與獨立volume保留。
 
-本輪修復授權：使用者提交 STAGE1-GAP-KB01-G1-R1；不是正式 Reviewer Approval。產品仍沿用 PR29 Draft／原分支，Main060cbb5、Release Tag不變。F1 BLOCKED、Legal L2／部署未接受、Production UAT／Paid LLM 未執行、MASTER原文INPUT_REQUIRED、Stage2 NOT STARTED。所有最終 PASS 必須以新 exact-head 完整 CI 與獨立 evidence 證明；此設計／定向紀錄不能替代。
+操作指南：`../uat/RC1_quick_start.md`、installation、user_test_cases、roles、known_limitations、troubleshooting、feedback_template。前端 `http://127.0.0.1:15173/admin?admin_resource=knowledge-management`；backend `http://127.0.0.1:18010/health/live`，本輪兩者實際200。Loopback只屬執行命令那台電腦；沒有公開Cloud URL或持續託管承諾。請依固定SHA clone本機執行，不可暴露synthetic login到Internet。
 
-首次RC1整合Smoke在source50cb54e發現CVD配置位於sandbox mount root之外，正確fail closed為SCANNER_UNAVAILABLE。修復僅把launcher的official-signatures路徑移至既有services/scan根內；sandbox guard、assertions、timeouts與Browser retries均不放寬。舊失敗／中止驗證保留，完整最終Gate於新Head重跑。
+定向PG320PASS保留原303+17新增，完整遠端PG 1332PASS保留原1315；architecture456/456，runtime25/25，frontend180，browser89/89（原88+角色切換1），retries0。12/12 mandatory workflows SUCCESS；22/22 actual jobcheckout MATCH。全量PG無failed/errors/skipped/deselected；supplemental contract選取另外披露。
+
+Security scan有134High+1Critical待正式處置，不能宣稱RC1整體安全接受。UAT01–18的人類結果保持Pending，工程自動化不代替Production UAT或法律審核。
+
+
+PR29 保持 Draft／未合併；Main060cbb5與 v3.7-stage1-e2e-pass 不變。Formal Reviewer Approval=PENDING；MASTER full-text reconciliation=INPUT_REQUIRED；Formal requirement change approval=NOT_VERIFIED。KB01-F1=BLOCKED_EXTERNAL_EVIDENCE_PENDING，LEGAL L2／Production Deployment=NOT ACCEPTED；Real Regulatory Acceptance／Production UAT／Paid Internet LLM=NOT EXECUTED；Stage2=NOT STARTED。

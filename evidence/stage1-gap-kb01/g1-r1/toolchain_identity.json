@@ -1,0 +1,757 @@
+{
+  "source_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+  "base_image_digest": "VERIFIED",
+  "apt_provenance": "VERIFIED_SIGNED_SNAPSHOT_PACKAGE_AND_SOURCE_VERSIONS_HASHES",
+  "local_actual_provenance": "local-toolchain/provenance.json",
+  "ci_images": [
+    {
+      "artifact_name": "kb01-tools-capacity-browser-39727744068-1",
+      "base": {
+        "manifest_digest": "sha256:4876fdea29cac1a33a3195f1eb1952feb1fca7dd6dd00be3e2f1879cf20d34d2",
+        "config_digest": "sha256:133aec7ab1411181567fef7fc3f4512123e1f9660090b49851de4b698b4ff772",
+        "platform": "linux/amd64",
+        "verification": "VERIFIED_FROM_REGISTRY_CONTENT"
+      },
+      "oci": {
+        "format": "OCI_IMAGE_LAYOUT_1.0_ARCHIVE",
+        "manifest_digest": "sha256:cbf70a0ec81b56684dada48e396b9baa3e4e0f92dca66a910bf3bf54fe729293",
+        "config_digest": "sha256:41b2fb1a1d49262dfa7131db266ba0b3073607380001cde42508d6ba658fe8e1",
+        "archive_sha256": "a027823772f57a3c4b8dcc3abe1a5237d383c5ff2d03d721ec003cd535dfdd76",
+        "bytes": 874639360
+      },
+      "source_build": {
+        "runner_checkout_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+        "source_dirty": false,
+        "image_id": "sha256:41b2fb1a1d49262dfa7131db266ba0b3073607380001cde42508d6ba658fe8e1",
+        "source_sha256": {
+          "domain/document_text.py": "8d9827d17b3401d16c5d2885c5c264673c5326d5deff9b8f14d39f53d8564aaa",
+          "domain/knowledge_paths.py": "5c7543b6c2167e2243744c3693ff8b2291c3b492ea773ab47f698225c756e476",
+          "infrastructure/native_document_extraction.py": "a893f8446563b7a79f2f707ae298f4e455c8a9de30159894f064c3e303188cc9",
+          "infrastructure/knowledge_native_process.py": "e246ed65daae6932afa01521858837b3fe7073cb6d7dc553dffb0f0ad758f1f0",
+          "infrastructure/knowledge_archive_process.py": "9ece6ca1be4f691ce4daee1a8e0d2c72bf9ef380ad529d28979e2a7e427b5398"
+        },
+        "containerfile_sha256": "a325c68b4be898c58ef4492bd168ef3157d36df94b138b0ea81bc2ffdd131e2c",
+        "inventory_script_sha256": "a8118ae9e1e211974e23d0a1cfa17f2d68b9423e8d360476f771c686bd00a2b1"
+      },
+      "sbom": {
+        "decision": "PASS",
+        "standard": "SPDX-2.3",
+        "packages": 290,
+        "schema_sha256": "239208b7ac287b3cf5d9a9af23f9d69863971102a5e1587a27a398b43490b89b",
+        "schema_url": "https://raw.githubusercontent.com/spdx/spdx-spec/aadf3b0b8dbbabdb4d880b0fc714255fea436ff7/schemas/spdx-schema.json",
+        "sbom_sha256": "f042937b2249d3866b9be8a292550b5f4020a74494fa87dbeb26fa94d5ac614a"
+      },
+      "security": {
+        "scan_execution": "PASS",
+        "security_acceptance": "BLOCKED_REVIEW_REQUIRED",
+        "scanner_version": "0.76.1",
+        "scanner_archive_sha256": "c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0",
+        "report_sha256": "08dbb418aab3a49306634f6100ce5376b651b7d5cf3ce471102fd33eadcbcec7",
+        "severities": {
+          "LOW": 302,
+          "HIGH": 134,
+          "MEDIUM": 250,
+          "UNKNOWN": 5,
+          "CRITICAL": 1
+        },
+        "high_critical_findings": 135,
+        "database_files": {
+          "trivy.db": "45cd2e39a69b2c3129010778d56cca64863f92b1f7ac526efa0ad420face34ab",
+          "metadata.json": "d6fccd7493d43cdbe22966fbeb5c6bd0c3c97dcb0665825bce518964f1dd7f98"
+        },
+        "risk_acceptance": null
+      },
+      "restore": {
+        "decision": "PASS",
+        "scope": "All OCI blobs verified and content round-tripped into local Docker; not an independent clean-host or long-term retention claim"
+      },
+      "all_oci_blobs_verified": true,
+      "packages_match_pinned_local_image": true,
+      "critical_binary_hashes_match": true
+    },
+    {
+      "artifact_name": "kb01-tools-focused-postgres-39727744068-1",
+      "base": {
+        "manifest_digest": "sha256:4876fdea29cac1a33a3195f1eb1952feb1fca7dd6dd00be3e2f1879cf20d34d2",
+        "config_digest": "sha256:133aec7ab1411181567fef7fc3f4512123e1f9660090b49851de4b698b4ff772",
+        "platform": "linux/amd64",
+        "verification": "VERIFIED_FROM_REGISTRY_CONTENT"
+      },
+      "oci": {
+        "format": "OCI_IMAGE_LAYOUT_1.0_ARCHIVE",
+        "manifest_digest": "sha256:596212b41b3c8b56dfde66fa0edb7bd2279b1393419e2e8b406f03bebc47395c",
+        "config_digest": "sha256:b6b245b4dc832b2edb556d43fcd2cf8c5c73ad9f12145890040141abbdb97cab",
+        "archive_sha256": "e4c644f943963c52b152f234102225b5b6e94fdaa1168f9ff7b9733387c4ec2f",
+        "bytes": 874639360
+      },
+      "source_build": {
+        "runner_checkout_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+        "source_dirty": false,
+        "image_id": "sha256:b6b245b4dc832b2edb556d43fcd2cf8c5c73ad9f12145890040141abbdb97cab",
+        "source_sha256": {
+          "domain/document_text.py": "8d9827d17b3401d16c5d2885c5c264673c5326d5deff9b8f14d39f53d8564aaa",
+          "domain/knowledge_paths.py": "5c7543b6c2167e2243744c3693ff8b2291c3b492ea773ab47f698225c756e476",
+          "infrastructure/native_document_extraction.py": "a893f8446563b7a79f2f707ae298f4e455c8a9de30159894f064c3e303188cc9",
+          "infrastructure/knowledge_native_process.py": "e246ed65daae6932afa01521858837b3fe7073cb6d7dc553dffb0f0ad758f1f0",
+          "infrastructure/knowledge_archive_process.py": "9ece6ca1be4f691ce4daee1a8e0d2c72bf9ef380ad529d28979e2a7e427b5398"
+        },
+        "containerfile_sha256": "a325c68b4be898c58ef4492bd168ef3157d36df94b138b0ea81bc2ffdd131e2c",
+        "inventory_script_sha256": "a8118ae9e1e211974e23d0a1cfa17f2d68b9423e8d360476f771c686bd00a2b1"
+      },
+      "sbom": {
+        "decision": "PASS",
+        "standard": "SPDX-2.3",
+        "packages": 290,
+        "schema_sha256": "239208b7ac287b3cf5d9a9af23f9d69863971102a5e1587a27a398b43490b89b",
+        "schema_url": "https://raw.githubusercontent.com/spdx/spdx-spec/aadf3b0b8dbbabdb4d880b0fc714255fea436ff7/schemas/spdx-schema.json",
+        "sbom_sha256": "51fe29ad9ec2d72dd40f9c8252114bbfa58f431144e213b9ad595ca9fa831db6"
+      },
+      "security": {
+        "scan_execution": "PASS",
+        "security_acceptance": "BLOCKED_REVIEW_REQUIRED",
+        "scanner_version": "0.76.1",
+        "scanner_archive_sha256": "c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0",
+        "report_sha256": "efe1e55761fd404d35b7643cbdccf5e1fb0156dd11597be8eca9033c22f45ea6",
+        "severities": {
+          "LOW": 302,
+          "HIGH": 134,
+          "MEDIUM": 250,
+          "UNKNOWN": 5,
+          "CRITICAL": 1
+        },
+        "high_critical_findings": 135,
+        "database_files": {
+          "trivy.db": "45cd2e39a69b2c3129010778d56cca64863f92b1f7ac526efa0ad420face34ab",
+          "metadata.json": "61ed22ee9b1396f62c3d844b967f90fcc54c000f35b15194e5d960785a232018"
+        },
+        "risk_acceptance": null
+      },
+      "restore": {
+        "decision": "PASS",
+        "scope": "All OCI blobs verified and content round-tripped into local Docker; not an independent clean-host or long-term retention claim"
+      },
+      "all_oci_blobs_verified": true,
+      "packages_match_pinned_local_image": true,
+      "critical_binary_hashes_match": true
+    },
+    {
+      "artifact_name": "kb01-tools-management-browser-39727744068-1",
+      "base": {
+        "manifest_digest": "sha256:4876fdea29cac1a33a3195f1eb1952feb1fca7dd6dd00be3e2f1879cf20d34d2",
+        "config_digest": "sha256:133aec7ab1411181567fef7fc3f4512123e1f9660090b49851de4b698b4ff772",
+        "platform": "linux/amd64",
+        "verification": "VERIFIED_FROM_REGISTRY_CONTENT"
+      },
+      "oci": {
+        "format": "OCI_IMAGE_LAYOUT_1.0_ARCHIVE",
+        "manifest_digest": "sha256:a29161c01d7d27fc3781f692c75b7d03b61eb357c1fcbd1b0d1020ed2956aadb",
+        "config_digest": "sha256:34914b9970c98f6d608e3d85eab67cbc0ddd84176c3b4bd6f1d94f6101bfa85b",
+        "archive_sha256": "c2db44dfdc44bb5d341820aac61ed723708c07268750a27c452cfec0fc99d0e1",
+        "bytes": 874639360
+      },
+      "source_build": {
+        "runner_checkout_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+        "source_dirty": false,
+        "image_id": "sha256:34914b9970c98f6d608e3d85eab67cbc0ddd84176c3b4bd6f1d94f6101bfa85b",
+        "source_sha256": {
+          "domain/document_text.py": "8d9827d17b3401d16c5d2885c5c264673c5326d5deff9b8f14d39f53d8564aaa",
+          "domain/knowledge_paths.py": "5c7543b6c2167e2243744c3693ff8b2291c3b492ea773ab47f698225c756e476",
+          "infrastructure/native_document_extraction.py": "a893f8446563b7a79f2f707ae298f4e455c8a9de30159894f064c3e303188cc9",
+          "infrastructure/knowledge_native_process.py": "e246ed65daae6932afa01521858837b3fe7073cb6d7dc553dffb0f0ad758f1f0",
+          "infrastructure/knowledge_archive_process.py": "9ece6ca1be4f691ce4daee1a8e0d2c72bf9ef380ad529d28979e2a7e427b5398"
+        },
+        "containerfile_sha256": "a325c68b4be898c58ef4492bd168ef3157d36df94b138b0ea81bc2ffdd131e2c",
+        "inventory_script_sha256": "a8118ae9e1e211974e23d0a1cfa17f2d68b9423e8d360476f771c686bd00a2b1"
+      },
+      "sbom": {
+        "decision": "PASS",
+        "standard": "SPDX-2.3",
+        "packages": 290,
+        "schema_sha256": "239208b7ac287b3cf5d9a9af23f9d69863971102a5e1587a27a398b43490b89b",
+        "schema_url": "https://raw.githubusercontent.com/spdx/spdx-spec/aadf3b0b8dbbabdb4d880b0fc714255fea436ff7/schemas/spdx-schema.json",
+        "sbom_sha256": "0c5886c6bd1048bfa43fd5ca983b33b01a43a3cfc4b40fd18f6abe210ab63f7b"
+      },
+      "security": {
+        "scan_execution": "PASS",
+        "security_acceptance": "BLOCKED_REVIEW_REQUIRED",
+        "scanner_version": "0.76.1",
+        "scanner_archive_sha256": "c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0",
+        "report_sha256": "e78f5c21a9e140b2944b82f764bc68997be9e69c3e14ae500451069d770f5300",
+        "severities": {
+          "LOW": 302,
+          "HIGH": 134,
+          "MEDIUM": 250,
+          "UNKNOWN": 5,
+          "CRITICAL": 1
+        },
+        "high_critical_findings": 135,
+        "database_files": {
+          "trivy.db": "45cd2e39a69b2c3129010778d56cca64863f92b1f7ac526efa0ad420face34ab",
+          "metadata.json": "beb86f4052da32f4b7e90fc97e4f7c3129b30067c2c40a17273645254f66fc22"
+        },
+        "risk_acceptance": null
+      },
+      "restore": {
+        "decision": "PASS",
+        "scope": "All OCI blobs verified and content round-tripped into local Docker; not an independent clean-host or long-term retention claim"
+      },
+      "all_oci_blobs_verified": true,
+      "packages_match_pinned_local_image": true,
+      "critical_binary_hashes_match": true
+    },
+    {
+      "artifact_name": "kb01-tools-mandatory-backend-39727744019-1",
+      "base": {
+        "manifest_digest": "sha256:4876fdea29cac1a33a3195f1eb1952feb1fca7dd6dd00be3e2f1879cf20d34d2",
+        "config_digest": "sha256:133aec7ab1411181567fef7fc3f4512123e1f9660090b49851de4b698b4ff772",
+        "platform": "linux/amd64",
+        "verification": "VERIFIED_FROM_REGISTRY_CONTENT"
+      },
+      "oci": {
+        "format": "OCI_IMAGE_LAYOUT_1.0_ARCHIVE",
+        "manifest_digest": "sha256:0ffa20e38e708e1c0eb7db6d50808aa4ea869594ba3ae4185456696a2629b0f6",
+        "config_digest": "sha256:d67667a4c26c7d0931db8abba503fc741944fa3b7c424288d239017c472d93c3",
+        "archive_sha256": "fd7248921cca536cdd066314f0eefb9144902dd68de5f861240e8cd432f30987",
+        "bytes": 874639360
+      },
+      "source_build": {
+        "runner_checkout_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+        "source_dirty": false,
+        "image_id": "sha256:d67667a4c26c7d0931db8abba503fc741944fa3b7c424288d239017c472d93c3",
+        "source_sha256": {
+          "domain/document_text.py": "8d9827d17b3401d16c5d2885c5c264673c5326d5deff9b8f14d39f53d8564aaa",
+          "domain/knowledge_paths.py": "5c7543b6c2167e2243744c3693ff8b2291c3b492ea773ab47f698225c756e476",
+          "infrastructure/native_document_extraction.py": "a893f8446563b7a79f2f707ae298f4e455c8a9de30159894f064c3e303188cc9",
+          "infrastructure/knowledge_native_process.py": "e246ed65daae6932afa01521858837b3fe7073cb6d7dc553dffb0f0ad758f1f0",
+          "infrastructure/knowledge_archive_process.py": "9ece6ca1be4f691ce4daee1a8e0d2c72bf9ef380ad529d28979e2a7e427b5398"
+        },
+        "containerfile_sha256": "a325c68b4be898c58ef4492bd168ef3157d36df94b138b0ea81bc2ffdd131e2c",
+        "inventory_script_sha256": "a8118ae9e1e211974e23d0a1cfa17f2d68b9423e8d360476f771c686bd00a2b1"
+      },
+      "sbom": {
+        "decision": "PASS",
+        "standard": "SPDX-2.3",
+        "packages": 290,
+        "schema_sha256": "239208b7ac287b3cf5d9a9af23f9d69863971102a5e1587a27a398b43490b89b",
+        "schema_url": "https://raw.githubusercontent.com/spdx/spdx-spec/aadf3b0b8dbbabdb4d880b0fc714255fea436ff7/schemas/spdx-schema.json",
+        "sbom_sha256": "f37e7abf1c47609608b075c5a72b99f8e235461d4e754f312225a5407611f492"
+      },
+      "security": {
+        "scan_execution": "PASS",
+        "security_acceptance": "BLOCKED_REVIEW_REQUIRED",
+        "scanner_version": "0.76.1",
+        "scanner_archive_sha256": "c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0",
+        "report_sha256": "3f497daf94de92f19e3131b32518710fafd2b6b26b024aeb7b76407f43a06d35",
+        "severities": {
+          "LOW": 302,
+          "HIGH": 134,
+          "MEDIUM": 250,
+          "UNKNOWN": 5,
+          "CRITICAL": 1
+        },
+        "high_critical_findings": 135,
+        "database_files": {
+          "trivy.db": "45cd2e39a69b2c3129010778d56cca64863f92b1f7ac526efa0ad420face34ab",
+          "metadata.json": "e0f9a5dd444b70c52c6afdaa29625e8f0fef65dfb414bca02f923c298404411a"
+        },
+        "risk_acceptance": null
+      },
+      "restore": {
+        "decision": "PASS",
+        "scope": "All OCI blobs verified and content round-tripped into local Docker; not an independent clean-host or long-term retention claim"
+      },
+      "all_oci_blobs_verified": true,
+      "packages_match_pinned_local_image": true,
+      "critical_binary_hashes_match": true
+    },
+    {
+      "artifact_name": "kb01-tools-mandatory-backend-39727743962-1",
+      "base": {
+        "manifest_digest": "sha256:4876fdea29cac1a33a3195f1eb1952feb1fca7dd6dd00be3e2f1879cf20d34d2",
+        "config_digest": "sha256:133aec7ab1411181567fef7fc3f4512123e1f9660090b49851de4b698b4ff772",
+        "platform": "linux/amd64",
+        "verification": "VERIFIED_FROM_REGISTRY_CONTENT"
+      },
+      "oci": {
+        "format": "OCI_IMAGE_LAYOUT_1.0_ARCHIVE",
+        "manifest_digest": "sha256:8d0a1e9e2f2bb64a2c4776caa120482ed097c47f1ca849f107ad531fdcf85f21",
+        "config_digest": "sha256:39d04db65cc03516b61a7030fbeefecd6070a3cd07520e561996fbfb98727adb",
+        "archive_sha256": "510b79da573faa00fe4589e4a11eb2f9d358a13a6069a7c761c0ef2e204f0bc9",
+        "bytes": 874639360
+      },
+      "source_build": {
+        "runner_checkout_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+        "source_dirty": false,
+        "image_id": "sha256:39d04db65cc03516b61a7030fbeefecd6070a3cd07520e561996fbfb98727adb",
+        "source_sha256": {
+          "domain/document_text.py": "8d9827d17b3401d16c5d2885c5c264673c5326d5deff9b8f14d39f53d8564aaa",
+          "domain/knowledge_paths.py": "5c7543b6c2167e2243744c3693ff8b2291c3b492ea773ab47f698225c756e476",
+          "infrastructure/native_document_extraction.py": "a893f8446563b7a79f2f707ae298f4e455c8a9de30159894f064c3e303188cc9",
+          "infrastructure/knowledge_native_process.py": "e246ed65daae6932afa01521858837b3fe7073cb6d7dc553dffb0f0ad758f1f0",
+          "infrastructure/knowledge_archive_process.py": "9ece6ca1be4f691ce4daee1a8e0d2c72bf9ef380ad529d28979e2a7e427b5398"
+        },
+        "containerfile_sha256": "a325c68b4be898c58ef4492bd168ef3157d36df94b138b0ea81bc2ffdd131e2c",
+        "inventory_script_sha256": "a8118ae9e1e211974e23d0a1cfa17f2d68b9423e8d360476f771c686bd00a2b1"
+      },
+      "sbom": {
+        "decision": "PASS",
+        "standard": "SPDX-2.3",
+        "packages": 290,
+        "schema_sha256": "239208b7ac287b3cf5d9a9af23f9d69863971102a5e1587a27a398b43490b89b",
+        "schema_url": "https://raw.githubusercontent.com/spdx/spdx-spec/aadf3b0b8dbbabdb4d880b0fc714255fea436ff7/schemas/spdx-schema.json",
+        "sbom_sha256": "9ec46011b00e9f59852b3c8a73f7dd8b2e7e6281b8fa3d0e95191baf185174d7"
+      },
+      "security": {
+        "scan_execution": "PASS",
+        "security_acceptance": "BLOCKED_REVIEW_REQUIRED",
+        "scanner_version": "0.76.1",
+        "scanner_archive_sha256": "c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0",
+        "report_sha256": "f57363eca6184f2fedf5844024be3d8cc3ec4d20ff7d117bf849258918d2bf68",
+        "severities": {
+          "LOW": 302,
+          "HIGH": 134,
+          "MEDIUM": 250,
+          "UNKNOWN": 5,
+          "CRITICAL": 1
+        },
+        "high_critical_findings": 135,
+        "database_files": {
+          "trivy.db": "45cd2e39a69b2c3129010778d56cca64863f92b1f7ac526efa0ad420face34ab",
+          "metadata.json": "7442708916b62b8f5b0307ad05d42b305622a12f6acbf7122425f1e222787141"
+        },
+        "risk_acceptance": null
+      },
+      "restore": {
+        "decision": "PASS",
+        "scope": "All OCI blobs verified and content round-tripped into local Docker; not an independent clean-host or long-term retention claim"
+      },
+      "all_oci_blobs_verified": true,
+      "packages_match_pinned_local_image": true,
+      "critical_binary_hashes_match": true
+    },
+    {
+      "artifact_name": "kb01-tools-mandatory-backend-39727743917-1",
+      "base": {
+        "manifest_digest": "sha256:4876fdea29cac1a33a3195f1eb1952feb1fca7dd6dd00be3e2f1879cf20d34d2",
+        "config_digest": "sha256:133aec7ab1411181567fef7fc3f4512123e1f9660090b49851de4b698b4ff772",
+        "platform": "linux/amd64",
+        "verification": "VERIFIED_FROM_REGISTRY_CONTENT"
+      },
+      "oci": {
+        "format": "OCI_IMAGE_LAYOUT_1.0_ARCHIVE",
+        "manifest_digest": "sha256:a1326a5bd3ea4fc6cb92ce2877104e628b7622871a7d9830a16be0983d77babd",
+        "config_digest": "sha256:a8dcc06b5d9bdbcc4ce020e8d59885f3e55bcf8f10be57346f1b377606d20082",
+        "archive_sha256": "d5b987b38e6893136cb6a4f603c99ca8d0a496c3e738ed6ba21e3726c3dba013",
+        "bytes": 874639360
+      },
+      "source_build": {
+        "runner_checkout_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+        "source_dirty": false,
+        "image_id": "sha256:a8dcc06b5d9bdbcc4ce020e8d59885f3e55bcf8f10be57346f1b377606d20082",
+        "source_sha256": {
+          "domain/document_text.py": "8d9827d17b3401d16c5d2885c5c264673c5326d5deff9b8f14d39f53d8564aaa",
+          "domain/knowledge_paths.py": "5c7543b6c2167e2243744c3693ff8b2291c3b492ea773ab47f698225c756e476",
+          "infrastructure/native_document_extraction.py": "a893f8446563b7a79f2f707ae298f4e455c8a9de30159894f064c3e303188cc9",
+          "infrastructure/knowledge_native_process.py": "e246ed65daae6932afa01521858837b3fe7073cb6d7dc553dffb0f0ad758f1f0",
+          "infrastructure/knowledge_archive_process.py": "9ece6ca1be4f691ce4daee1a8e0d2c72bf9ef380ad529d28979e2a7e427b5398"
+        },
+        "containerfile_sha256": "a325c68b4be898c58ef4492bd168ef3157d36df94b138b0ea81bc2ffdd131e2c",
+        "inventory_script_sha256": "a8118ae9e1e211974e23d0a1cfa17f2d68b9423e8d360476f771c686bd00a2b1"
+      },
+      "sbom": {
+        "decision": "PASS",
+        "standard": "SPDX-2.3",
+        "packages": 290,
+        "schema_sha256": "239208b7ac287b3cf5d9a9af23f9d69863971102a5e1587a27a398b43490b89b",
+        "schema_url": "https://raw.githubusercontent.com/spdx/spdx-spec/aadf3b0b8dbbabdb4d880b0fc714255fea436ff7/schemas/spdx-schema.json",
+        "sbom_sha256": "23d5293788f292ca9a2af72dd98a27a7bc42e41de1e29ce0b7494b9d3f2638a8"
+      },
+      "security": {
+        "scan_execution": "PASS",
+        "security_acceptance": "BLOCKED_REVIEW_REQUIRED",
+        "scanner_version": "0.76.1",
+        "scanner_archive_sha256": "c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0",
+        "report_sha256": "6bc36364379aa128a4148c2f8e7f4f128f66435700cd6f717323f81523a68082",
+        "severities": {
+          "LOW": 302,
+          "HIGH": 134,
+          "MEDIUM": 250,
+          "UNKNOWN": 5,
+          "CRITICAL": 1
+        },
+        "high_critical_findings": 135,
+        "database_files": {
+          "metadata.json": "01ea2d4f5b0036cd71e0b4cab3348fecb6817c6e9dfd09b0188ca86f1722e389",
+          "trivy.db": "45cd2e39a69b2c3129010778d56cca64863f92b1f7ac526efa0ad420face34ab"
+        },
+        "risk_acceptance": null
+      },
+      "restore": {
+        "decision": "PASS",
+        "scope": "All OCI blobs verified and content round-tripped into local Docker; not an independent clean-host or long-term retention claim"
+      },
+      "all_oci_blobs_verified": true,
+      "packages_match_pinned_local_image": true,
+      "critical_binary_hashes_match": true
+    },
+    {
+      "artifact_name": "kb01-tools-mandatory-runtime-smoke-39727743953-1",
+      "base": {
+        "manifest_digest": "sha256:4876fdea29cac1a33a3195f1eb1952feb1fca7dd6dd00be3e2f1879cf20d34d2",
+        "config_digest": "sha256:133aec7ab1411181567fef7fc3f4512123e1f9660090b49851de4b698b4ff772",
+        "platform": "linux/amd64",
+        "verification": "VERIFIED_FROM_REGISTRY_CONTENT"
+      },
+      "oci": {
+        "format": "OCI_IMAGE_LAYOUT_1.0_ARCHIVE",
+        "manifest_digest": "sha256:8764cb4e377e0b2e5e6478cfb3eb6891389c15bed285a0d57dd820d55b4e755c",
+        "config_digest": "sha256:5f126e88e10506fab02216c865a7801c5a55c09e4b7931bc3bbcec4f666cd057",
+        "archive_sha256": "1dd22add7e763eb655ba09d7dd845a77c6e3253e20a9c53737f0b9764616d505",
+        "bytes": 874639360
+      },
+      "source_build": {
+        "runner_checkout_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+        "source_dirty": false,
+        "image_id": "sha256:5f126e88e10506fab02216c865a7801c5a55c09e4b7931bc3bbcec4f666cd057",
+        "source_sha256": {
+          "domain/document_text.py": "8d9827d17b3401d16c5d2885c5c264673c5326d5deff9b8f14d39f53d8564aaa",
+          "domain/knowledge_paths.py": "5c7543b6c2167e2243744c3693ff8b2291c3b492ea773ab47f698225c756e476",
+          "infrastructure/native_document_extraction.py": "a893f8446563b7a79f2f707ae298f4e455c8a9de30159894f064c3e303188cc9",
+          "infrastructure/knowledge_native_process.py": "e246ed65daae6932afa01521858837b3fe7073cb6d7dc553dffb0f0ad758f1f0",
+          "infrastructure/knowledge_archive_process.py": "9ece6ca1be4f691ce4daee1a8e0d2c72bf9ef380ad529d28979e2a7e427b5398"
+        },
+        "containerfile_sha256": "a325c68b4be898c58ef4492bd168ef3157d36df94b138b0ea81bc2ffdd131e2c",
+        "inventory_script_sha256": "a8118ae9e1e211974e23d0a1cfa17f2d68b9423e8d360476f771c686bd00a2b1"
+      },
+      "sbom": {
+        "decision": "PASS",
+        "standard": "SPDX-2.3",
+        "packages": 290,
+        "schema_sha256": "239208b7ac287b3cf5d9a9af23f9d69863971102a5e1587a27a398b43490b89b",
+        "schema_url": "https://raw.githubusercontent.com/spdx/spdx-spec/aadf3b0b8dbbabdb4d880b0fc714255fea436ff7/schemas/spdx-schema.json",
+        "sbom_sha256": "b00f88692764041f423143a785f62e8d436c8b52e46350907a5ce18ed1fa1383"
+      },
+      "security": {
+        "scan_execution": "PASS",
+        "security_acceptance": "BLOCKED_REVIEW_REQUIRED",
+        "scanner_version": "0.76.1",
+        "scanner_archive_sha256": "c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0",
+        "report_sha256": "028eba5c3a355b79f5d15489fe3e13c71b4da90eeb8cd921f09cd7362a37c884",
+        "severities": {
+          "LOW": 302,
+          "HIGH": 134,
+          "MEDIUM": 250,
+          "UNKNOWN": 5,
+          "CRITICAL": 1
+        },
+        "high_critical_findings": 135,
+        "database_files": {
+          "trivy.db": "45cd2e39a69b2c3129010778d56cca64863f92b1f7ac526efa0ad420face34ab",
+          "metadata.json": "aa345075cf729f865a9456569be5153ef2fa5780e02d697a60d6a7f4d0e35311"
+        },
+        "risk_acceptance": null
+      },
+      "restore": {
+        "decision": "PASS",
+        "scope": "All OCI blobs verified and content round-tripped into local Docker; not an independent clean-host or long-term retention claim"
+      },
+      "all_oci_blobs_verified": true,
+      "packages_match_pinned_local_image": true,
+      "critical_binary_hashes_match": true
+    }
+  ],
+  "short_term_github_artifact_retention": "PASS",
+  "artifacts": [
+    {
+      "run_id": 39727744068,
+      "id": 12404186218,
+      "name": "toolchain-oci-management-browser-39727744068-1",
+      "digest": "sha256:7182c14d1a94693107aa55bbe26456a43dbfa350623a6c195132fcb606cda7b3",
+      "expires_at": "2027-01-20T05:23:24Z",
+      "downloaded_zip_sha256": "7182c14d1a94693107aa55bbe26456a43dbfa350623a6c195132fcb606cda7b3",
+      "oci": {
+        "archive_sha256": "c2db44dfdc44bb5d341820aac61ed723708c07268750a27c452cfec0fc99d0e1",
+        "bytes": 874639360,
+        "manifest_digest": "sha256:a29161c01d7d27fc3781f692c75b7d03b61eb357c1fcbd1b0d1020ed2956aadb",
+        "config_digest": "sha256:34914b9970c98f6d608e3d85eab67cbc0ddd84176c3b4bd6f1d94f6101bfa85b",
+        "verified_blobs": {
+          "sha256:12970f35d41349937f28427452eba5a4a6785308e5d141063278f027bb67f702": {
+            "size": 7680
+          },
+          "sha256:34914b9970c98f6d608e3d85eab67cbc0ddd84176c3b4bd6f1d94f6101bfa85b": {
+            "size": 4267
+          },
+          "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef": {
+            "size": 1024
+          },
+          "sha256:646f52822eac1351c7ecb217a20597b34775ba3c665554412287a0f2c77578b2": {
+            "size": 793320960
+          },
+          "sha256:81eb5e088f6f81dd0fb7df393136a90f347bfac05b5efa7bdce6026d75344380": {
+            "size": 37376
+          },
+          "sha256:a29161c01d7d27fc3781f692c75b7d03b61eb357c1fcbd1b0d1020ed2956aadb": {
+            "size": 1158
+          },
+          "sha256:a70f6272827f64e1427d048ced77491aab5d64ab95725e56920802ff391197d7": {
+            "size": 81254400
+          }
+        },
+        "platform": {
+          "architecture": "amd64",
+          "os": "linux"
+        }
+      }
+    },
+    {
+      "run_id": 39727744068,
+      "id": 12403608670,
+      "name": "toolchain-oci-focused-postgres-39727744068-1",
+      "digest": "sha256:4e543041f30e26865aebfd56e7558ab8b34ccc9511c32235978fce7f0aeb27e9",
+      "expires_at": "2027-01-20T05:23:24Z",
+      "downloaded_zip_sha256": "4e543041f30e26865aebfd56e7558ab8b34ccc9511c32235978fce7f0aeb27e9",
+      "oci": {
+        "archive_sha256": "e4c644f943963c52b152f234102225b5b6e94fdaa1168f9ff7b9733387c4ec2f",
+        "bytes": 874639360,
+        "manifest_digest": "sha256:596212b41b3c8b56dfde66fa0edb7bd2279b1393419e2e8b406f03bebc47395c",
+        "config_digest": "sha256:b6b245b4dc832b2edb556d43fcd2cf8c5c73ad9f12145890040141abbdb97cab",
+        "verified_blobs": {
+          "sha256:12970f35d41349937f28427452eba5a4a6785308e5d141063278f027bb67f702": {
+            "size": 7680
+          },
+          "sha256:596212b41b3c8b56dfde66fa0edb7bd2279b1393419e2e8b406f03bebc47395c": {
+            "size": 1158
+          },
+          "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef": {
+            "size": 1024
+          },
+          "sha256:81eb5e088f6f81dd0fb7df393136a90f347bfac05b5efa7bdce6026d75344380": {
+            "size": 37376
+          },
+          "sha256:a70f6272827f64e1427d048ced77491aab5d64ab95725e56920802ff391197d7": {
+            "size": 81254400
+          },
+          "sha256:ab66f26feda87fce73dd345af6cf13d62297fedecaea825432f118f8f7432914": {
+            "size": 793320960
+          },
+          "sha256:b6b245b4dc832b2edb556d43fcd2cf8c5c73ad9f12145890040141abbdb97cab": {
+            "size": 4268
+          }
+        },
+        "platform": {
+          "architecture": "amd64",
+          "os": "linux"
+        }
+      }
+    },
+    {
+      "run_id": 39727744068,
+      "id": 12403524792,
+      "name": "toolchain-oci-capacity-browser-39727744068-1",
+      "digest": "sha256:c469cd94d918ecde2ae552383cef05eb319d2a47a3e638487fb17e3ff02c7c19",
+      "expires_at": "2027-01-20T05:23:24Z",
+      "downloaded_zip_sha256": "c469cd94d918ecde2ae552383cef05eb319d2a47a3e638487fb17e3ff02c7c19",
+      "oci": {
+        "archive_sha256": "a027823772f57a3c4b8dcc3abe1a5237d383c5ff2d03d721ec003cd535dfdd76",
+        "bytes": 874639360,
+        "manifest_digest": "sha256:cbf70a0ec81b56684dada48e396b9baa3e4e0f92dca66a910bf3bf54fe729293",
+        "config_digest": "sha256:41b2fb1a1d49262dfa7131db266ba0b3073607380001cde42508d6ba658fe8e1",
+        "verified_blobs": {
+          "sha256:2c5bf3c531513915609bbdc47e1056165a83c05bd362fa81a6b368cd1c218fea": {
+            "size": 793320960
+          },
+          "sha256:41b2fb1a1d49262dfa7131db266ba0b3073607380001cde42508d6ba658fe8e1": {
+            "size": 4267
+          },
+          "sha256:53fc868eb788deb31b279bd8be9e4c62eb1cb35fc7c77fca5bdfca6f2289b14e": {
+            "size": 37376
+          },
+          "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef": {
+            "size": 1024
+          },
+          "sha256:64d162fa8faa3f29cac020526c86bee6f8a771152e888bde4eafa0f0a582fda2": {
+            "size": 7680
+          },
+          "sha256:a70f6272827f64e1427d048ced77491aab5d64ab95725e56920802ff391197d7": {
+            "size": 81254400
+          },
+          "sha256:cbf70a0ec81b56684dada48e396b9baa3e4e0f92dca66a910bf3bf54fe729293": {
+            "size": 1158
+          }
+        },
+        "platform": {
+          "architecture": "amd64",
+          "os": "linux"
+        }
+      }
+    },
+    {
+      "run_id": 39727744019,
+      "id": 12403268669,
+      "name": "toolchain-oci-mandatory-backend-39727744019-1",
+      "digest": "sha256:db8f314708279bb7a448d0f334f509384a67c4946b6bcba48df204420802c8d2",
+      "expires_at": "2027-01-20T05:23:24Z",
+      "downloaded_zip_sha256": "db8f314708279bb7a448d0f334f509384a67c4946b6bcba48df204420802c8d2",
+      "oci": {
+        "archive_sha256": "fd7248921cca536cdd066314f0eefb9144902dd68de5f861240e8cd432f30987",
+        "bytes": 874639360,
+        "manifest_digest": "sha256:0ffa20e38e708e1c0eb7db6d50808aa4ea869594ba3ae4185456696a2629b0f6",
+        "config_digest": "sha256:d67667a4c26c7d0931db8abba503fc741944fa3b7c424288d239017c472d93c3",
+        "verified_blobs": {
+          "sha256:0ffa20e38e708e1c0eb7db6d50808aa4ea869594ba3ae4185456696a2629b0f6": {
+            "size": 1158
+          },
+          "sha256:585d0b5ab61947a896dd03dcf8e35bbc520e47b5acfbde5dce25b1de2fc129bf": {
+            "size": 37376
+          },
+          "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef": {
+            "size": 1024
+          },
+          "sha256:689fb2cacc66cc0bae88f5d203c5bc54c039259bb2724337da071b792909ef83": {
+            "size": 793320960
+          },
+          "sha256:a70f6272827f64e1427d048ced77491aab5d64ab95725e56920802ff391197d7": {
+            "size": 81254400
+          },
+          "sha256:d67667a4c26c7d0931db8abba503fc741944fa3b7c424288d239017c472d93c3": {
+            "size": 4268
+          },
+          "sha256:eb099dc09e52b954a6c801b9821125fd0e0106cf1d742ac89e2835d4d92a003d": {
+            "size": 7680
+          }
+        },
+        "platform": {
+          "architecture": "amd64",
+          "os": "linux"
+        }
+      }
+    },
+    {
+      "run_id": 39727743962,
+      "id": 12403268407,
+      "name": "toolchain-oci-mandatory-backend-39727743962-1",
+      "digest": "sha256:4fe72c109c11ddddad010f4cff15bf13bf3e95cbcbbe563bbe3d8f632093f124",
+      "expires_at": "2027-01-20T05:23:24Z",
+      "downloaded_zip_sha256": "4fe72c109c11ddddad010f4cff15bf13bf3e95cbcbbe563bbe3d8f632093f124",
+      "oci": {
+        "archive_sha256": "510b79da573faa00fe4589e4a11eb2f9d358a13a6069a7c761c0ef2e204f0bc9",
+        "bytes": 874639360,
+        "manifest_digest": "sha256:8d0a1e9e2f2bb64a2c4776caa120482ed097c47f1ca849f107ad531fdcf85f21",
+        "config_digest": "sha256:39d04db65cc03516b61a7030fbeefecd6070a3cd07520e561996fbfb98727adb",
+        "verified_blobs": {
+          "sha256:39d04db65cc03516b61a7030fbeefecd6070a3cd07520e561996fbfb98727adb": {
+            "size": 4267
+          },
+          "sha256:44f1302783f998fd573e0cc2a7702bbf78e0b02c82ad6c9753ffa23497cb1130": {
+            "size": 793320960
+          },
+          "sha256:4e412ff692d10f4e8ff02f16240b02787bcf261e99ff96a7599c29b184718054": {
+            "size": 37376
+          },
+          "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef": {
+            "size": 1024
+          },
+          "sha256:8d0a1e9e2f2bb64a2c4776caa120482ed097c47f1ca849f107ad531fdcf85f21": {
+            "size": 1158
+          },
+          "sha256:a70f6272827f64e1427d048ced77491aab5d64ab95725e56920802ff391197d7": {
+            "size": 81254400
+          },
+          "sha256:b41bd6cf87b1070d0912d23b0be4c13c29c2305691d2a37b90ae7b669596b52d": {
+            "size": 7680
+          }
+        },
+        "platform": {
+          "architecture": "amd64",
+          "os": "linux"
+        }
+      }
+    },
+    {
+      "run_id": 39727743917,
+      "id": 12403434824,
+      "name": "toolchain-oci-mandatory-backend-39727743917-1",
+      "digest": "sha256:0d0d4208125ae0119dcb918ea8c0ec6d111af4d15939c5b835581f51af543b7b",
+      "expires_at": "2027-01-20T05:23:24Z",
+      "downloaded_zip_sha256": "0d0d4208125ae0119dcb918ea8c0ec6d111af4d15939c5b835581f51af543b7b",
+      "oci": {
+        "archive_sha256": "d5b987b38e6893136cb6a4f603c99ca8d0a496c3e738ed6ba21e3726c3dba013",
+        "bytes": 874639360,
+        "manifest_digest": "sha256:a1326a5bd3ea4fc6cb92ce2877104e628b7622871a7d9830a16be0983d77babd",
+        "config_digest": "sha256:a8dcc06b5d9bdbcc4ce020e8d59885f3e55bcf8f10be57346f1b377606d20082",
+        "verified_blobs": {
+          "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef": {
+            "size": 1024
+          },
+          "sha256:8e95bf2f6ec04336359b3b9901571b11eaf827446c6329bc95579d2abb7ec75f": {
+            "size": 37376
+          },
+          "sha256:a1326a5bd3ea4fc6cb92ce2877104e628b7622871a7d9830a16be0983d77babd": {
+            "size": 1158
+          },
+          "sha256:a70f6272827f64e1427d048ced77491aab5d64ab95725e56920802ff391197d7": {
+            "size": 81254400
+          },
+          "sha256:a8dcc06b5d9bdbcc4ce020e8d59885f3e55bcf8f10be57346f1b377606d20082": {
+            "size": 4261
+          },
+          "sha256:dc0a2c024b668072739b3cb92a27aca5152aa6b2a0c47050cdc2dda63f067ca6": {
+            "size": 7680
+          },
+          "sha256:e683b0a9c9417b2e38f26894d70a044f026c885d277adb057dd59182c6f7b8c0": {
+            "size": 793320960
+          }
+        },
+        "platform": {
+          "architecture": "amd64",
+          "os": "linux"
+        }
+      }
+    },
+    {
+      "run_id": 39727743953,
+      "id": 12403479928,
+      "name": "toolchain-oci-mandatory-runtime-smoke-39727743953-1",
+      "digest": "sha256:e26b3e94efdbf08825822939db310c751875b7ef59d81540ecf309d00a18e809",
+      "expires_at": "2027-01-20T05:23:24Z",
+      "downloaded_zip_sha256": "e26b3e94efdbf08825822939db310c751875b7ef59d81540ecf309d00a18e809",
+      "oci": {
+        "archive_sha256": "1dd22add7e763eb655ba09d7dd845a77c6e3253e20a9c53737f0b9764616d505",
+        "bytes": 874639360,
+        "manifest_digest": "sha256:8764cb4e377e0b2e5e6478cfb3eb6891389c15bed285a0d57dd820d55b4e755c",
+        "config_digest": "sha256:5f126e88e10506fab02216c865a7801c5a55c09e4b7931bc3bbcec4f666cd057",
+        "verified_blobs": {
+          "sha256:3bb3a2d5aef02438c93149c3eba110f835601ce57afcd8a5a7d282fa5907215e": {
+            "size": 37376
+          },
+          "sha256:5f126e88e10506fab02216c865a7801c5a55c09e4b7931bc3bbcec4f666cd057": {
+            "size": 4268
+          },
+          "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef": {
+            "size": 1024
+          },
+          "sha256:6bf0d2eddac57c0bade1624a5bc6068ca814dec9f9ac723275bd8cc746213b2c": {
+            "size": 7680
+          },
+          "sha256:8764cb4e377e0b2e5e6478cfb3eb6891389c15bed285a0d57dd820d55b4e755c": {
+            "size": 1158
+          },
+          "sha256:a70f6272827f64e1427d048ced77491aab5d64ab95725e56920802ff391197d7": {
+            "size": 81254400
+          },
+          "sha256:ae4da264e2026c3af90252871c9ff1e5f29c3ba6a59b457809e69fd51dce06fc": {
+            "size": 793320960
+          }
+        },
+        "platform": {
+          "architecture": "amd64",
+          "os": "linux"
+        }
+      }
+    }
+  ],
+  "long_term_registry_signing_and_retention": "EXTERNAL_DEPENDENCY",
+  "local_oci_roundtrip": "PASS",
+  "independent_clean_host_restore": "EXTERNAL_DEPENDENCY",
+  "build_reproducibility_claim": "Pinned source universe and matching installed-package/critical-executable hashes; OCI build timestamps/config identities may differ. No false bit-for-bit all-build claim."
+}

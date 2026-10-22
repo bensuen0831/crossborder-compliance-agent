@@ -1,11 +1,37 @@
-# RC1 final acceptance gate
+# KB01-G1-R1 最終技術交付
 
-本文件定義交付門檻；最終測量由新Head的獨立evidence封存，不能把本文件存在或舊39c3581的PASS當新驗收。
+N_PLUS_ONE_FIX = PASS
+TOOLCHAIN_REPRODUCIBILITY_CONTROLS = PASS（外部保存／clean-host依賴另列）
+TECHNICAL_UAT_CANDIDATE = READY — LOCAL / ISOLATED SYNTHETIC TECHNICAL TESTING ONLY
+FUNCTIONAL_REGRESSION = PASS
+RC1_TECHNICAL_ACCEPTANCE = BLOCKED — SECURITY_REVIEW_PENDING
 
-需保留Backend>=1315（含新增case）、Architecture>=456、Runtime25/25、Frontend>=180、Browser>=88及新增rolejourney、Retries0；完整PG failed/errors/skipped/deselected均0。12 mandatory workflows必須全SUCCESS，actual jobcheckout/source/test/fixture/log/artifact identity核實後才可報RC1_TECHNICAL_ACCEPTANCE=PASS。
+| 新exact產品Head Gate | 實測 |
+|---|---|
+| Source | `4593a355d0711a9ba955b1624926a2ec71d60430` |
+| Full PostgreSQL | 1332PASS，4個獨立CI執行 |
+| Failed / errors / skipped / deselected | 0/0/0/0 |
+| 原完整backend IDs / 新增 | 1315全部保留 / 17 |
+| Local directed PG | 320PASS=303原用例+17新增 |
+| Architecture | 456/456PASS |
+| Runtime | 25/25PASS |
+| Frontend | 180PASS |
+| Typecheck/lint/build/i18n | PASS |
+| Browser | 89/89PASS=88原必跑+1RC1角色 |
+| Browser retries | 0 |
+| Mandatory CI | 12/12SUCCESS |
+| Actual checkout | 22/22MATCH |
+| Source/test/fixture hashes | 739 verified |
+| Artifact ZIP / OCI image | 34 /7 verified |
+| Alembic | 0024唯一head，0001–0024 byte unchanged |
 
-Toolchain須實測base/APT/SBOM/tool/OCI identity、parser/archive/security/capacity；official CVD與engine分開。掃描完成但有未處置High/Critical時不能宣稱security acceptance PASS；保持BLOCKED_REVIEW_REQUIRED，不自行代Reviewer簽risk acceptance。資料保存／restore證據不存在時明確EXTERNAL_DEPENDENCY。
+**阻塞項：** 固定實際工具映像134High+1Critical package findings尚無正式批准處置。Trivy scan execution PASS不等於security acceptance PASS；未冒簽review或risk acceptance。已交付能啟動及操作的隔離技術候選，不能宣稱整體RC1驗收、正式部署或法律接受PASS。
 
-本機UAT可啟動與技術接受／正式Production UAT是分開的狀態。交付必須附sourceSHA、commands、supportedplatform、URLs、roles、health、stop/reset與安全邊界。PR保持Draft；未得到新授權不得Ready、Merge、Tag或Stage2。
+已完成兩項程式修復；安全Reviewer需確認依賴漏洞的修復／風險處置。長期registry/簽署/保存與獨立clean-host restore=EXTERNAL_DEPENDENCY；GitHub短期OCI artifact已真實保存驗證。MASTER原文及指定正式Reviewer仍待提供，不重複推定批准。
 
-本輪修復授權：使用者提交 STAGE1-GAP-KB01-G1-R1；不是正式 Reviewer Approval。產品仍沿用 PR29 Draft／原分支，Main060cbb5、Release Tag不變。F1 BLOCKED、Legal L2／部署未接受、Production UAT／Paid LLM 未執行、MASTER原文INPUT_REQUIRED、Stage2 NOT STARTED。所有最終 PASS 必須以新 exact-head 完整 CI 與獨立 evidence 證明；此設計／定向紀錄不能替代。
+CI/source/log/artifact/test IDs與safe hashes見 `evidence/stage1-gap-kb01/g1-r1/`。本文件在獨立evidence branch封存，不推進產品Head/Main；完整CI只對上面產品SHA成立。舊source50/04的CI取消與local全套143終止被保留為superseded development，未借用PASS。曾有scanner掛載路徑及CI fixture少一case兩項開發失敗，均最小修正後對新459重新跑12個workflows；未加browser retry／刪除skip或弱化assertion。
+
+
+PR29 保持 Draft／未合併；Main060cbb5與 v3.7-stage1-e2e-pass 不變。Formal Reviewer Approval=PENDING；MASTER full-text reconciliation=INPUT_REQUIRED；Formal requirement change approval=NOT_VERIFIED。KB01-F1=BLOCKED_EXTERNAL_EVIDENCE_PENDING，LEGAL L2／Production Deployment=NOT ACCEPTED；Real Regulatory Acceptance／Production UAT／Paid Internet LLM=NOT EXECUTED；Stage2=NOT STARTED。
+
+補充contract-tests子集的實際 skipped/deselected 數見 `supplemental_contract_subsets.json`，與四個完整PG suite分開，沒有冒稱subset為全量。

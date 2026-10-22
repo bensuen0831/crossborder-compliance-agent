@@ -1,0 +1,40 @@
+{
+  "tested_pr_head_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+  "runner_checkout_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+  "final_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+  "exact_head_verified": true,
+  "backend": {
+    "passed": 1332,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0,
+    "deselected": 0,
+    "phase_coverage": {
+      "phase1b": true,
+      "phase1c": true,
+      "phase1d": true,
+      "phase1e": true,
+      "phase1f": true,
+      "phase1g": true,
+      "phase1h": true,
+      "phase1i": true,
+      "phase1j": true
+    },
+    "pass": true
+  },
+  "runtime_passed": 25,
+  "architecture_passed": 418,
+  "architecture_total": 418,
+  "migration": {
+    "base_sha": "efda0955342de8d1ea36aa0f754d63c9b421fec8",
+    "from_revision": "0015_m2d_review_governance",
+    "head": "0024_kb01_import_manifest_records",
+    "fresh": true,
+    "exact0015_upgrade": true,
+    "schema_equivalence": true,
+    "frozen_migrations_unchanged": true,
+    "empty_downgrade_reupgrade": true,
+    "authoritative_pins_transactional_refusal": true
+  },
+  "alembic": "0024_kb01_import_manifest_records"
+}

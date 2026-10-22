@@ -1,0 +1,107 @@
+{
+  "source_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+  "scan_execution": "PASS",
+  "security_acceptance": "BLOCKED_REVIEW_REQUIRED",
+  "scanner_version": "0.76.1",
+  "scanner_archive_sha256": "c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0",
+  "report_sha256": "9ef5d45363f17eb4049c578ddae82ba42361e8f7d4bb269d9c7637569f01e522",
+  "severities": {
+    "LOW": 302,
+    "HIGH": 134,
+    "MEDIUM": 250,
+    "UNKNOWN": 5,
+    "CRITICAL": 1
+  },
+  "high_critical_findings": 135,
+  "database_files": {
+    "metadata.json": "5639c2b812f858aae6e675c0015805f62fc4b10dabf9f9c3ed49d9455aba7b86",
+    "trivy.db": "45cd2e39a69b2c3129010778d56cca64863f92b1f7ac526efa0ad420face34ab"
+  },
+  "risk_acceptance": null,
+  "critical_finding": "CVE-2026-6653",
+  "critical_package": "libxml2",
+  "critical_fixed_version_reported": null,
+  "classification": "Scanner-reported package vulnerabilities; exploitability not independently established. No authorized risk acceptance.",
+  "runtime_sandbox_regression": "PASS_ACTUAL_FRESH_SOURCE_FULL_AND_KB_FOCUSED_POSTGRES_AND_BROWSER",
+  "official_cvd_identity": "Separate per-image and per-UAT service evidence; not equated to ClamAV executable version.",
+  "required_reviewer_action": "Assess reachable exposure and remediation; approve explicit disposition or request a minimal dependency update with fresh complete exact-head evidence. No auto-acceptance.",
+  "ci_image_severity_counts": [
+    {
+      "artifact_name": "kb01-tools-capacity-browser-39727744068-1",
+      "counts": {
+        "LOW": 302,
+        "HIGH": 134,
+        "MEDIUM": 250,
+        "UNKNOWN": 5,
+        "CRITICAL": 1
+      },
+      "report_sha256": "08dbb418aab3a49306634f6100ce5376b651b7d5cf3ce471102fd33eadcbcec7"
+    },
+    {
+      "artifact_name": "kb01-tools-focused-postgres-39727744068-1",
+      "counts": {
+        "LOW": 302,
+        "HIGH": 134,
+        "MEDIUM": 250,
+        "UNKNOWN": 5,
+        "CRITICAL": 1
+      },
+      "report_sha256": "efe1e55761fd404d35b7643cbdccf5e1fb0156dd11597be8eca9033c22f45ea6"
+    },
+    {
+      "artifact_name": "kb01-tools-management-browser-39727744068-1",
+      "counts": {
+        "LOW": 302,
+        "HIGH": 134,
+        "MEDIUM": 250,
+        "UNKNOWN": 5,
+        "CRITICAL": 1
+      },
+      "report_sha256": "e78f5c21a9e140b2944b82f764bc68997be9e69c3e14ae500451069d770f5300"
+    },
+    {
+      "artifact_name": "kb01-tools-mandatory-backend-39727744019-1",
+      "counts": {
+        "LOW": 302,
+        "HIGH": 134,
+        "MEDIUM": 250,
+        "UNKNOWN": 5,
+        "CRITICAL": 1
+      },
+      "report_sha256": "3f497daf94de92f19e3131b32518710fafd2b6b26b024aeb7b76407f43a06d35"
+    },
+    {
+      "artifact_name": "kb01-tools-mandatory-backend-39727743962-1",
+      "counts": {
+        "LOW": 302,
+        "HIGH": 134,
+        "MEDIUM": 250,
+        "UNKNOWN": 5,
+        "CRITICAL": 1
+      },
+      "report_sha256": "f57363eca6184f2fedf5844024be3d8cc3ec4d20ff7d117bf849258918d2bf68"
+    },
+    {
+      "artifact_name": "kb01-tools-mandatory-backend-39727743917-1",
+      "counts": {
+        "LOW": 302,
+        "HIGH": 134,
+        "MEDIUM": 250,
+        "UNKNOWN": 5,
+        "CRITICAL": 1
+      },
+      "report_sha256": "6bc36364379aa128a4148c2f8e7f4f128f66435700cd6f717323f81523a68082"
+    },
+    {
+      "artifact_name": "kb01-tools-mandatory-runtime-smoke-39727743953-1",
+      "counts": {
+        "LOW": 302,
+        "HIGH": 134,
+        "MEDIUM": 250,
+        "UNKNOWN": 5,
+        "CRITICAL": 1
+      },
+      "report_sha256": "028eba5c3a355b79f5d15489fe3e13c71b4da90eeb8cd921f09cd7362a37c884"
+    }
+  ]
+}

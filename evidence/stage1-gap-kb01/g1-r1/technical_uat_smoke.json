@@ -1,0 +1,109 @@
+{
+  "source_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+  "decision": "PASS_ISOLATED_SYNTHETIC_FUNCTIONAL_SMOKE",
+  "environment": {
+    "source_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+    "recorded_at": "2026-10-22T14:00:50.300288+08:00",
+    "supported_tested_platform": {
+      "os": "Linux",
+      "architecture": "x86_64",
+      "kernel": "6.18.55"
+    },
+    "python": "3.12.14",
+    "node": "v24.19.0",
+    "postgresql": "PostgreSQL 17.11 (Debian 17.11-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+    "pgvector": "0.8.7",
+    "redis": "7.4.11",
+    "migration_head": "0024_kb01_import_manifest_records",
+    "health": {
+      "backend": {
+        "url": "http://127.0.0.1:18010/health/live",
+        "status": 200
+      },
+      "frontend": {
+        "url": "http://127.0.0.1:15173",
+        "status": 200
+      }
+    },
+    "public_staging_url": null,
+    "scope": "LOCAL_ISOLATED_SYNTHETIC_TECHNICAL_UAT_ONLY",
+    "actual_uat_state_directory": "/workspace/kb01-rc1"
+  },
+  "health": {
+    "version": "KB01-Technical-UAT-RC1",
+    "scope": "LOCAL_ISOLATED_TECHNICAL_TESTING_ONLY",
+    "http": {
+      "backend": {
+        "url": "http://127.0.0.1:18010/health/live",
+        "status": 200
+      },
+      "frontend": {
+        "url": "http://127.0.0.1:15173",
+        "status": 200
+      }
+    },
+    "instance": "kb01-rc1-ef39d7309242",
+    "state_directory": "/workspace/kb01-rc1",
+    "source_commit": "4593a355d0711a9ba955b1624926a2ec71d60430",
+    "stage2": "NOT STARTED",
+    "production_auth": "NOT PROVIDED",
+    "postgres": "RUNNING",
+    "redis": "RUNNING",
+    "image_id": "sha256:393153e721875265778b44ebac53d58bab5e5f94958ff5ed4c76c4e7fa0685af",
+    "oci_manifest_digest": "sha256:3de890935f4c187e990a444fe0a2d4e6f8184809df44218444679c9e7301776c"
+  },
+  "taxonomy_restart": {
+    "source_sha": "4593a355d0711a9ba955b1624926a2ec71d60430",
+    "decision": "PASS",
+    "scope": "Actual stop/start preserved100 canonical ACTIVE taxonomy rows and complete response digest; document/original restart evidence tracked separately",
+    "before": {
+      "taxonomy_json_sha256": "66203ff90f8d180a435c781a376577c45a84b1fcadcad3a45777ac872fa0ccfc",
+      "total": 100,
+      "queries": 5
+    },
+    "after_json_sha256": "66203ff90f8d180a435c781a376577c45a84b1fcadcad3a45777ac872fa0ccfc",
+    "rows": 100
+  },
+  "document_restart": {
+    "versions": 18,
+    "formats": [
+      "PDF",
+      "DOC",
+      "DOCX",
+      "TXT",
+      "HTML",
+      "XHTML"
+    ],
+    "before_report": "documents_before_restart.json",
+    "after_report": "documents_after_restart.json",
+    "semantic_and_original_sha256_unchanged": true
+  },
+  "current_head_role_browser": {
+    "stats": {
+      "startTime": "2026-10-22T05:52:14.242Z",
+      "duration": 4099.1050000000005,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "retries": 0,
+    "scope": "Fresh exact459 role switching / server permission smoke"
+  },
+  "development_management_browser": {
+    "stats": {
+      "startTime": "2026-10-22T05:20:03.396Z",
+      "duration": 537434.433,
+      "expected": 8,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "retries": 0,
+    "source_note": "Started previous04 source; only CI-test-fixture/manifest source changed mid-run. Development smoke only; formal final browser evidence is new459 CI."
+  },
+  "human_uat_cases": "UAT01\u201318 provided with human results Pending; automated smoke does not impersonate user acceptance.",
+  "public_staging_url": null,
+  "reset": "reset-resource-validation.json",
+  "health_diagnose_logs": "lifecycle-read-commands.json"
+}
