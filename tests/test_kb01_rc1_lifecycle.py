@@ -53,3 +53,17 @@ def test_rc1_rejects_nonempty_unowned_state_before_touching_contents(tmp_path, m
         rc1.main()
     assert marker.read_text() == "preserve unrelated files"
     assert not (tmp_path / "private.json").exists()
+
+
+def test_rc1_official_signatures_stay_inside_existing_scanner_mount_boundary(tmp_path):
+    services = tmp_path / "services"
+    services.mkdir()
+    scan = services / "scan"
+    (services / "service-evidence.json").write_text(
+        json.dumps({"variables": {"KB01_TEST_WORK_ROOT": str(scan)}})
+    )
+    env = rc1.environment(tmp_path, {"postgres_password": "synthetic-only"})
+    from pathlib import Path
+
+    assert Path(env["KB01_TEST_SCAN_DATABASE"]).is_relative_to(Path(env["KB01_TEST_WORK_ROOT"]))
+    assert env["KB01_TEST_SCAN_IDENTITY"] == "OFFICIAL_CLAMAV_VERIFIED_CVD_MAIN_DAILY_BYTECODE"

@@ -87,7 +87,7 @@ def environment(root, config):
     service = root / "services/service-evidence.json"
     if service.exists():
         env.update(json.loads(service.read_text())["variables"])
-        env["KB01_TEST_SCAN_DATABASE"] = str(root / "official-signatures")
+        env["KB01_TEST_SCAN_DATABASE"] = str(root / "services/scan/official-signatures")
         env["KB01_TEST_SCAN_IDENTITY"] = "OFFICIAL_CLAMAV_VERIFIED_CVD_MAIN_DAILY_BYTECODE"
     return env
 
@@ -344,7 +344,7 @@ def start(root, config, args):
         cmd.append("--resume")
     run(root, env, "services", cmd)
     env = environment(root, config)
-    signatures = root / "official-signatures"
+    signatures = root / "services/scan/official-signatures"
     image = json.loads(tool.read_text())["image_id"]
     run(
         root,
