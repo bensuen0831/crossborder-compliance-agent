@@ -3,7 +3,7 @@ description: Fail-closed real-tool prerequisites for the complete PostgreSQL sui
 runs:
   using: composite
   steps:
-    - name: Build bounded parser image from explicit source files
+    - name: Build pinned parser image, authenticated APT provenance, SBOM, OCI restore and vulnerability report
       shell: bash
       run: |
         set -Eeuo pipefail
@@ -26,8 +26,18 @@ runs:
         test "$(git rev-parse HEAD)" = "${EXPECTED_PR_HEAD:?exact source is required}"
         cp "$RUNNER_TEMP/kb01-tool-image.json" artifacts/kb01-prerequisites/
         cp "$RUNNER_TEMP/kb01-services/service-evidence.json" artifacts/kb01-prerequisites/
+        cp "$RUNNER_TEMP/toolchain/"*.json artifacts/kb01-prerequisites/
     - uses: actions/upload-artifact@v4
       with:
         name: kb01-tools-${{ github.job }}-${{ github.run_id }}-${{ github.run_attempt }}
         path: artifacts/kb01-prerequisites
         if-no-files-found: error
+        retention-days: 90
+    - name: Retain the actual immutable OCI image; separate from regression aggregation
+      uses: actions/upload-artifact@v4
+      with:
+        name: toolchain-oci-${{ github.job }}-${{ github.run_id }}-${{ github.run_attempt }}
+        path: ${{ runner.temp }}/toolchain/image.oci.tar
+        if-no-files-found: error
+        compression-level: 1
+        retention-days: 90

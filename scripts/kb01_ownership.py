@@ -63,12 +63,23 @@ SEVENTEENTH_SOURCE = "134c035b0fb51b8cf4bb718eb9bcbe07432b50c2"
 EIGHTEENTH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v18.json"
 EIGHTEENTH_SEAL = "282f97a6ce00c1462a23c41f910dea5a7adb4a19"
 EIGHTEENTH_SOURCE = "a7685d1f717b9b895873600354462335bfdd7f05"
-SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v19.json"
+NINETEENTH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v19.json"
+NINETEENTH_SEAL = "39c3581ca455df4e3ce9760ed2deab8905a5f588"
+NINETEENTH_SOURCE = "49b94c30085c6c411e4a86316505ff8392bba1de"
+SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v20.json"
 FIRST_SEAL = "a95d5f05f46566d7e58417a8c9cb2214c6d028f0"
 FIRST_SOURCE = "6f0f448fbe5d72494d2756bca30a3f74437e1f63"
 PREVIOUS = "evidence/stage1-full-e2e/r3/approved_owner_overlay.json"
 PATHS = frozenset(
     (
+        "scripts/kb01/image_inventory.py",
+        "scripts/kb01/oci_tools.py",
+        "scripts/kb01/toolchain_provenance.py",
+        "scripts/kb01/rc1.py",
+        "scripts/kb01/rc1_services.lock.json",
+        "frontend/e2e/kb01-rc1.spec.ts",
+        "tests/test_kb01_taxonomy_batch_postgres.py",
+        "tests/test_kb01_rc1_lifecycle.py",
         "frontend/e2e/phase1kb.spec.ts",
         "frontend/e2e/kb01-safe-evidence.ts",
         "frontend/e2e/kb01-bulk.spec.ts",
@@ -569,6 +580,20 @@ def overlay(root):
             for path, digest in eighteenth["paths"].items()
         ):
             return False, {}, None
+        nineteenth_bytes = git("show", NINETEENTH_SEAL + ":" + NINETEENTH_RECORD)
+        if (root / NINETEENTH_RECORD).read_bytes() != nineteenth_bytes or not ancestor(
+            NINETEENTH_SEAL, "HEAD"
+        ):
+            return False, {}, None
+        nineteenth = json.loads(nineteenth_bytes)
+        if nineteenth["source_sha"] != NINETEENTH_SOURCE or nineteenth["base_sha"] != BASE:
+            return False, {}, None
+        nineteenth_blobs = blobs(NINETEENTH_SOURCE, nineteenth["paths"])
+        if any(
+            hashlib.sha256(nineteenth_blobs[path]).hexdigest() != digest
+            for path, digest in nineteenth["paths"].items()
+        ):
+            return False, {}, None
         record = json.loads((root / SUCCESSOR_RECORD).read_text())
         expected = set(previous["paths"]) | PATHS
         source = record["source_sha"]
@@ -578,6 +603,7 @@ def overlay(root):
             or set(record["paths"]) != expected
             or not ancestor(BASE, source)
             or not ancestor(EIGHTEENTH_SEAL, source)
+            or not ancestor(NINETEENTH_SEAL, source)
             or not ancestor(source, "HEAD")
         ):
             return False, {}, None
@@ -681,12 +707,20 @@ def authenticated_migration_successor(root, head):
         if graph.get_revision(current).down_revision != parent:
             return False
     paths = subprocess.check_output(
-        ["git", "ls-tree", "-r", "--name-only", source, "alembic/versions"], cwd=root,
+        ["git", "ls-tree", "-r", "--name-only", source, "alembic/versions"],
+        cwd=root,
         text=True,
     ).splitlines()
     paths = {path for path in paths if path.endswith(".py")}
-    if paths != {path.relative_to(root).as_posix() for path in (root / "alembic/versions").glob("*.py")}:
+    if paths != {
+        path.relative_to(root).as_posix() for path in (root / "alembic/versions").glob("*.py")
+    }:
         return False
-    return all((root / path).read_bytes() == subprocess.check_output(
-        ["git", "show", source + ":" + path], cwd=root,
-    ) for path in paths)
+    return all(
+        (root / path).read_bytes()
+        == subprocess.check_output(
+            ["git", "show", source + ":" + path],
+            cwd=root,
+        )
+        for path in paths
+    )

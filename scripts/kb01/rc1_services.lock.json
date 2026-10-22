@@ -1,0 +1,16 @@
+{
+  "postgres": {
+    "image": "pgvector/pgvector@sha256:cd4ccfdaf62cbfeb5c6ee19ef0dd663406d4ed740c320b324d016a90e85385b3",
+    "platform": "linux/amd64",
+    "original_tag": "pg17",
+    "manifest_digest": "sha256:cd4ccfdaf62cbfeb5c6ee19ef0dd663406d4ed740c320b324d016a90e85385b3",
+    "config_digest": "sha256:151aa1c2e849e7828ed8aef2183ae15f692cbe887d2f28921d8b44b26e154d7e"
+  },
+  "redis": {
+    "image": "library/redis@sha256:8be847644e195abc4c10c8d9936cfa45332eccc6b714fa7b186ff43f1f4d5579",
+    "platform": "linux/amd64",
+    "original_tag": "7-alpine",
+    "manifest_digest": "sha256:8be847644e195abc4c10c8d9936cfa45332eccc6b714fa7b186ff43f1f4d5579",
+    "config_digest": "sha256:4df5c34dc41256fc4ed293482cb34281e17d133077e9aa3c6a87fda60a356c65"
+  }
+}

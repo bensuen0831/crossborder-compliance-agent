@@ -241,13 +241,6 @@ class PostgresKnowledgeTaxonomyRepository:
 
     def _view(self, s, row, locale="en-US"):
         version = self._latest(s, row)
-        payload = version.payload_json if version else {}
-        display = resolve_display(
-            row.code,
-            row.display_name,
-            LocalizedDisplayMetadata.model_validate(payload.get("localized_display", {})),
-            locale,
-        )
         created_by = s.scalar(
             select(m.MetadataVersionEntity.created_by)
             .where(
@@ -273,6 +266,18 @@ class PostgresKnowledgeTaxonomyRepository:
             )
             .limit(1)
         )
+        return self._project_view(row, version, created_by, updated_by, locale)
+
+    @staticmethod
+    def _project_view(row, version, created_by, updated_by, locale):
+        """One response projection for individual and bounded batch reads."""
+        payload = version.payload_json if version else {}
+        display = resolve_display(
+            row.code,
+            row.display_name,
+            LocalizedDisplayMetadata.model_validate(payload.get("localized_display", {})),
+            locale,
+        )
         return {
             "definition_id": row.definition_id,
             "canonical_object_id": row.canonical_object_id,
@@ -291,6 +296,100 @@ class PostgresKnowledgeTaxonomyRepository:
             "created_by": created_by,
             "updated_by": updated_by,
         }
+
+    def _page_views(self, s, rows, locale):
+        """Three tenant-bound reads for a page; no shared or long-lived cache."""
+        if not rows:
+            return []
+        ids = [row.definition_id for row in rows]
+        active_ids = [row.active_version_id for row in rows if row.active_version_id]
+        draft_ids = [row.definition_id for row in rows if not row.active_version_id]
+        draft_versions = (
+            select(m.MetadataVersionEntity.version_id)
+            .where(
+                m.MetadataVersionEntity.tenant_id == self.tenant_id,
+                m.MetadataVersionEntity.definition_id.in_(draft_ids),
+            )
+            .distinct(m.MetadataVersionEntity.definition_id)
+            .order_by(
+                m.MetadataVersionEntity.definition_id, m.MetadataVersionEntity.version_no.desc()
+            )
+        )
+        # Exact active versions and the latest draft versions are both fetched
+        # in one query. Validate the owning taxonomy like the single-row reader.
+        versions = s.scalars(
+            select(m.MetadataVersionEntity)
+            .join(
+                m.MetadataDefinitionEntity,
+                (m.MetadataDefinitionEntity.definition_id == m.MetadataVersionEntity.definition_id)
+                & (m.MetadataDefinitionEntity.tenant_id == m.MetadataVersionEntity.tenant_id),
+            )
+            .where(
+                m.MetadataVersionEntity.tenant_id == self.tenant_id,
+                m.MetadataDefinitionEntity.kind.in_(TAXONOMY_KINDS),
+                or_(
+                    m.MetadataVersionEntity.version_id.in_(active_ids),
+                    m.MetadataVersionEntity.version_id.in_(draft_versions),
+                ),
+            )
+        ).all()
+        by_id = {version.version_id: version for version in versions}
+        latest = {}
+        for version in versions:
+            previous = latest.get(version.definition_id)
+            if previous is None or version.version_no > previous.version_no:
+                latest[version.definition_id] = version
+        creators = dict(
+            s.execute(
+                select(m.MetadataVersionEntity.definition_id, m.MetadataVersionEntity.created_by)
+                .where(
+                    m.MetadataVersionEntity.tenant_id == self.tenant_id,
+                    m.MetadataVersionEntity.definition_id.in_(ids),
+                )
+                .distinct(m.MetadataVersionEntity.definition_id)
+                .order_by(m.MetadataVersionEntity.definition_id, m.MetadataVersionEntity.version_no)
+            ).all()
+        )
+        actors = dict(
+            s.execute(
+                select(AdminOperationReceiptEntity.resource_id, m.AdminChangeSetEntity.actor_id)
+                .join(
+                    m.AdminChangeSetEntity,
+                    m.AdminChangeSetEntity.change_set_id
+                    == AdminOperationReceiptEntity.change_set_id,
+                )
+                .where(
+                    AdminOperationReceiptEntity.tenant_id == self.tenant_id,
+                    m.AdminChangeSetEntity.tenant_id == self.tenant_id,
+                    AdminOperationReceiptEntity.resource_id.in_(ids),
+                )
+                .distinct(AdminOperationReceiptEntity.resource_id)
+                .order_by(
+                    AdminOperationReceiptEntity.resource_id,
+                    m.AdminChangeSetEntity.created_at.desc(),
+                    AdminOperationReceiptEntity.receipt_id,
+                )
+            ).all()
+        )
+        result = []
+        for row in rows:
+            version = (
+                by_id.get(row.active_version_id)
+                if row.active_version_id
+                else latest.get(row.definition_id)
+            )
+            if row.active_version_id and version is None:
+                raise LookupError("taxonomy version not found")
+            result.append(
+                self._project_view(
+                    row,
+                    version,
+                    creators.get(row.definition_id),
+                    actors.get(row.definition_id),
+                    locale,
+                )
+            )
+        return result
 
     def tree(
         self,
@@ -449,21 +548,10 @@ class PostgresKnowledgeTaxonomyRepository:
             # Enablement is versioned data. The correlated latest/active version
             # query keeps filtering/counts in PostgreSQL, before pagination.
             if enabled is not None:
-                version_id = func.coalesce(
-                    m.MetadataDefinitionEntity.active_version_id,
-                    select(m.MetadataVersionEntity.version_id)
-                    .where(
-                        m.MetadataVersionEntity.definition_id
-                        == m.MetadataDefinitionEntity.definition_id,
-                        m.MetadataVersionEntity.tenant_id == self.tenant_id,
-                    )
-                    .order_by(m.MetadataVersionEntity.version_no.desc())
-                    .limit(1)
-                    .scalar_subquery(),
-                )
                 value = (
-                    select(m.MetadataVersionEntity.payload_json["enabled"].as_boolean())
-                    .where(m.MetadataVersionEntity.version_id == version_id)
+                    select(candidate.payload_json["enabled"].as_boolean())
+                    .where(candidate.version_id == selected_version)
+                    .correlate(m.MetadataDefinitionEntity)
                     .scalar_subquery()
                 )
                 q = q.where(func.coalesce(value, True) == enabled)
@@ -479,7 +567,7 @@ class PostgresKnowledgeTaxonomyRepository:
                 "total": total,
                 "page": page,
                 "page_size": page_size,
-                "items": [self._view(s, row, locale) for row in rows],
+                "items": self._page_views(s, rows, locale),
             }
 
     def detail(self, identity):

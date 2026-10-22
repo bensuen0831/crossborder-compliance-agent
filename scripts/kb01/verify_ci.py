@@ -75,13 +75,17 @@ def verify(root, expected):
         or frontend["numTotalTests"] != frontend["numPassedTests"]
     ):
         raise ValueError("KB01_FRONTEND_NONPASS_OR_REDUCED")
-    locale_cases = browser(one(roots["frontend"], "browser.json"), 7)
+    locale_cases = browser(one(roots["frontend"], "browser.json"), 8)
     if not all(
         any(locale in title for title in locale_cases) for locale in ("zh-CN", "zh-HK", "en-US")
     ):
         raise ValueError("KB01_LOCALE_COVERAGE_MISSING")
     expected_management_cases = {
-        "KB01 bounded batch deletion previews references, uses canonical commands and reconciles SQL counts",
+        "KB01 RC1 synthetic author reviewer publisher and restricted roles remain distinct",
+        (
+            "KB01 bounded batch deletion previews references, uses canonical commands "
+            "and reconciles SQL counts"
+        ),
         *(
             "KB01 genuine six-format local batch, scoped SQL counts, source and download in "
             + locale

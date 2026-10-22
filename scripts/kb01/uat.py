@@ -95,6 +95,12 @@ def seed(path):
             "display_name": "SYNTHETIC_GOVERNED_TEST_DATA " + name,
             "permissions": sorted(permissions),
         }
+    people["RESTRICTED"] = {
+        **people["A"],
+        "actor_id": "synthetic-kb-restricted",
+        "display_name": "SYNTHETIC_GOVERNED_TEST_DATA RESTRICTED USER",
+        "permissions": [],
+    }
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(people, indent=2) + "\n")
     path.chmod(0o600)

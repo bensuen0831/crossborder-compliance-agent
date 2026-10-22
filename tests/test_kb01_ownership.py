@@ -14,6 +14,7 @@ from scripts.kb01_ownership import (
     FIFTH_RECORD,
     FOURTEENTH_RECORD,
     FOURTH_RECORD,
+    NINETEENTH_RECORD,
     NINTH_RECORD,
     RECORD,
     SECOND_RECORD,
@@ -49,6 +50,7 @@ def test_kb01_ownership_authenticates_committed_source():
         "src/crossborder_compliance/domain/knowledge_management.py",
         "src/crossborder_compliance/application/unapproved_kb_shortcut.py",
         RECORD,
+        NINETEENTH_RECORD,
         SECOND_RECORD,
         THIRD_RECORD,
         THIRTEENTH_RECORD,
@@ -77,6 +79,9 @@ def test_kb01_ownership_authenticates_committed_source():
         ".github/workflows/kb01-knowledge-management.yml",
         "frontend/package-lock.json",
         "frontend/package.json",
+        "scripts/kb01/Containerfile",
+        "scripts/kb01/toolchain_provenance.py",
+        "scripts/kb01/rc1.py",
         "frontend/scripts/m1/boundary_check.py",
         "alembic/versions/0023_kb01_evidence_source_reference.py",
         "alembic/versions/0021_kb01_taxonomy_operations.py",
@@ -154,6 +159,8 @@ def test_kb01_schema_successor_authenticates_complete_committed_migration_tree()
     assert authenticated_migration_successor(ROOT, "0024_kb01_import_manifest_records")
 
 
-@pytest.mark.parametrize("head", ["head", "0020_stage1_formal_decision_engine_compatibility", "0025_unapproved"])
+@pytest.mark.parametrize(
+    "head", ["head", "0020_stage1_formal_decision_engine_compatibility", "0025_unapproved"]
+)
 def test_kb01_schema_successor_rejects_unapproved_or_alias_heads(head):
     assert not authenticated_migration_successor(ROOT, head)

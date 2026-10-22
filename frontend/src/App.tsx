@@ -135,7 +135,7 @@ export default function App() {
   const [switching, setSwitching] = useState(false);
   const [loginError, setLoginError] = useState<Error | null>(null);
   const session = useQuery({ queryKey: ['session'], queryFn: ({ signal }) => api.session(signal), enabled: !switching, retry: false, staleTime: 0, gcTime: 0 });
-  const changeIdentity = async (persona?: 'A' | 'B' | 'PROJECT') => {
+  const changeIdentity = async (persona?: 'A' | 'B' | 'PROJECT' | 'REVIEWER' | 'PUBLISHER' | 'RESTRICTED') => {
     setSwitching(true); setLoginError(null);
     await queryClient.cancelQueries();
     queryClient.clear();
@@ -149,6 +149,11 @@ export default function App() {
     <div className="global-bar"><Space><SafetyCertificateOutlined /><span>{t('workspace')}</span></Space>
       <Space wrap><Select aria-label={t('ui.language')} value={currentLocale()} options={supportedLocales.map(locale => ({ value: locale, label: t({ 'zh-CN': 'ui.localeCN', 'zh-HK': 'ui.localeHK', 'en-US': 'ui.localeEN' }[locale]) }))} onChange={(lang: Locale) => void i18n.changeLanguage(lang)} />
         {demoEnabled && <><Button disabled={switching} onClick={() => void changeIdentity('A')}>{t('loginA')}</Button><Button disabled={switching} onClick={() => void changeIdentity('B')}>{t('loginB')}</Button><Button disabled={switching} onClick={() => void changeIdentity('PROJECT')}>{t('loginProject')}</Button></>}
+        {demoEnabled && import.meta.env.VITE_KB01_UAT === 'true' && <>
+          <Button disabled={switching} onClick={() => void changeIdentity('REVIEWER')}>{t('loginReviewer')}</Button>
+          <Button disabled={switching} onClick={() => void changeIdentity('PUBLISHER')}>{t('loginPublisher')}</Button>
+          <Button disabled={switching} onClick={() => void changeIdentity('RESTRICTED')}>{t('loginRestricted')}</Button>
+        </>}
         {session.isSuccess && <Button onClick={() => void changeIdentity()}>{t('signOut')}</Button>}
       </Space>
     </div>

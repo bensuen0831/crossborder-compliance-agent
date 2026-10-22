@@ -63,6 +63,7 @@ jobs:
       KB01_LOCAL_UAT: '1'
       KB01_TEST_SCAN_IDENTITY: OFFICIAL_CLAMAV_VERIFIED_CVD_MAIN_DAILY_BYTECODE
       VITE_M0_DEMO: 'true'
+      VITE_KB01_UAT: 'true'
       VITE_SESSION_PATH: /m0-demo/session
       M0_API_TARGET: http://127.0.0.1:18010
       M0_FRONTEND_URL: http://127.0.0.1:15173
@@ -119,7 +120,7 @@ jobs:
                       time.sleep(1)
           PY
           PLAYWRIGHT_JSON_OUTPUT_NAME="$GITHUB_WORKSPACE/artifacts/kb01/frontend/browser.json" \
-            npm --prefix frontend run test:e2e -- kb01-management.spec.ts kb01-manifest.spec.ts kb01-taxonomy.spec.ts kb01-folder.spec.ts kb01-bulk.spec.ts \
+            npm --prefix frontend run test:e2e -- kb01-management.spec.ts kb01-manifest.spec.ts kb01-taxonomy.spec.ts kb01-folder.spec.ts kb01-bulk.spec.ts kb01-rc1.spec.ts \
             --output="$GITHUB_WORKSPACE/artifacts/kb01/frontend/browser-artifacts" --reporter=line,json
       - uses: actions/upload-artifact@v4
         if: always()
@@ -146,6 +147,7 @@ jobs:
       KB01_LOCAL_UAT: '1'
       KB01_TEST_SCAN_IDENTITY: OFFICIAL_CLAMAV_VERIFIED_CVD_MAIN_DAILY_BYTECODE
       VITE_M0_DEMO: 'true'
+      VITE_KB01_UAT: 'true'
       VITE_SESSION_PATH: /m0-demo/session
       M0_API_TARGET: http://127.0.0.1:18010
       M0_FRONTEND_URL: http://127.0.0.1:15173

@@ -31,17 +31,26 @@ def main():
     parser.add_argument("--root", type=Path, required=True)
     parser.add_argument("--tool-evidence", type=Path, required=True)
     parser.add_argument("--port-offset", type=int, default=0, choices=range(0, 1001))
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="Restart only this retained isolated S3 data directory",
+    )
     args = parser.parse_args()
     root = args.root.resolve()
-    root.mkdir(parents=True, exist_ok=False)
+    root.mkdir(parents=True, exist_ok=args.resume)
     tool = json.loads(args.tool_evidence.read_text())
     image = tool["image_id"]
     if not image.startswith("sha256:") or len(image) != 71:
         raise ValueError("IMMUTABLE_KB01_TOOL_IMAGE_REQUIRED")
     archive = root / "seaweedfs.tar.gz"
-    with urllib.request.urlopen(WEED_URL, timeout=120) as response, archive.open("xb") as output:
-        while chunk := response.read(1024 * 1024):
-            output.write(chunk)
+    if not archive.exists():
+        with (
+            urllib.request.urlopen(WEED_URL, timeout=120) as response,
+            archive.open("xb") as output,
+        ):
+            while chunk := response.read(1024 * 1024):
+                output.write(chunk)
     digest = hashlib.sha256()
     with archive.open("rb") as source:
         while chunk := source.read(1024 * 1024):
@@ -59,26 +68,37 @@ def main():
             raise ValueError("SEAWEEDFS_RELEASE_MEMBER_MISMATCH")
         source = bundle.extractfile(members[0])
         assert source is not None
-        with executable.open("xb") as output:
+        expected_executable = hashlib.sha256()
+        if executable.exists():
             while chunk := source.read(1024 * 1024):
-                output.write(chunk)
+                expected_executable.update(chunk)
+            if hashlib.sha256(executable.read_bytes()).digest() != expected_executable.digest():
+                raise ValueError("SEAWEEDFS_EXECUTABLE_DIGEST_MISMATCH")
+        else:
+            with executable.open("xb") as output:
+                while chunk := source.read(1024 * 1024):
+                    output.write(chunk)
     executable.chmod(0o700)
-    access, secret = secrets.token_hex(16), secrets.token_hex(32)
-    private_json(
-        root / "identities.json",
-        {
-            "identities": [
-                {
-                    "name": "kb01-ci",
-                    "credentials": [{"accessKey": access, "secretKey": secret}],
-                    "actions": ["Admin", "Read", "Write", "List", "Tagging"],
-                }
-            ]
-        },
-    )
+    if not args.resume:
+        access, secret = secrets.token_hex(16), secrets.token_hex(32)
+        private_json(
+            root / "identities.json",
+            {
+                "identities": [
+                    {
+                        "name": "kb01-ci",
+                        "credentials": [{"accessKey": access, "secretKey": secret}],
+                        "actions": ["Admin", "Read", "Write", "List", "Tagging"],
+                    }
+                ]
+            },
+        )
+    else:
+        saved = json.loads((root / "client.json").read_text())
+        access, secret = saved["access_key"], saved["secret_key"]
     data = root / "data"
-    data.mkdir()
-    with (root / "s3.log").open("xb") as log:
+    data.mkdir(exist_ok=args.resume)
+    with (root / "s3.log").open("ab") as log:
         process = subprocess.Popen(
             [
                 str(executable),
@@ -101,13 +121,17 @@ def main():
             stderr=subprocess.STDOUT,
             start_new_session=True,
         )
+    (root / "process.json").write_text(
+        json.dumps({"pid": process.pid, "executable": str(executable)})
+    )
     config = {
         "endpoint_url": f"http://127.0.0.1:{19000 + args.port_offset}",
         "bucket": "kb01-acceptance",
         "access_key": access,
         "secret_key": secret,
     }
-    private_json(root / "client.json", config)
+    if not args.resume:
+        private_json(root / "client.json", config)
     store = S3KnowledgeBinaryStore(**config)
     for attempt in range(60):
         if process.poll() is not None:
@@ -122,7 +146,9 @@ def main():
     # A writable S3 port is not proof that the bounded volume pool registered.
     for attempt in range(60):
         try:
-            with urllib.request.urlopen(f"http://127.0.0.1:{19333 + args.port_offset}/dir/status", timeout=3) as response:
+            with urllib.request.urlopen(
+                f"http://127.0.0.1:{19333 + args.port_offset}/dir/status", timeout=3
+            ) as response:
                 topology = json.load(response)["Topology"]
             if topology["Max"] == 40:
                 break
@@ -131,7 +157,8 @@ def main():
         if attempt == 59:
             raise RuntimeError("KB01_LOCAL_S3_VOLUME_CAPACITY_NOT_READY")
         time.sleep(1)
-    store.client.create_bucket(Bucket=store.bucket)
+    if not args.resume:
+        store.client.create_bucket(Bucket=store.bucket)
     store.client.put_bucket_versioning(
         Bucket=store.bucket, VersioningConfiguration={"Status": "Enabled"}
     )
@@ -156,9 +183,9 @@ def main():
     )
     scan, native, archives = root / "scan", root / "native", root / "archive"
     for directory in (scan, native, archives):
-        directory.mkdir()
+        directory.mkdir(exist_ok=args.resume)
     signatures = scan / "synthetic-signatures"
-    signatures.mkdir()
+    signatures.mkdir(exist_ok=args.resume)
     eicar = b"X5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*"
     (signatures / "synthetic.ndb").write_text("KB01.EICAR:0:*:" + eicar.hex() + "\n")
     variables = {

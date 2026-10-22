@@ -6,6 +6,7 @@ import json
 import os
 import shutil
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
@@ -28,6 +29,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix="kb01-tools-") as scratch:
         context = Path(scratch)
         shutil.copyfile(ROOT / "scripts/kb01/Containerfile", context / "Dockerfile")
+        shutil.copyfile(ROOT / "scripts/kb01/image_inventory.py", context / "image_inventory.py")
         package = context / "crossborder_compliance"
         for name in ("", "domain", "infrastructure"):
             directory = package / name
@@ -40,6 +42,8 @@ def main():
             digests[relative] = hashlib.sha256(source.read_bytes()).hexdigest()
         command = ["docker", "build", "--tag", args.tag]
         ca = os.environ.get("SSL_CERT_FILE") or os.environ.get("REQUESTS_CA_BUNDLE")
+        if not ca and Path("/etc/ssl/certs/ca-certificates.crt").is_file():
+            ca = "/etc/ssl/certs/ca-certificates.crt"
         if ca and Path(ca).is_file():
             command += ["--secret", f"id=system_ca,src={ca}"]
         command += [str(context)]
@@ -48,19 +52,24 @@ def main():
             ["docker", "image", "inspect", "--format", "{{.Id}}", args.tag], text=True
         ).strip()
         args.output.parent.mkdir(parents=True, exist_ok=True)
-        args.output.write_text(
-            json.dumps(
-                {
-                    "image_id": identity,
-                    "source_sha256": digests,
-                    "containerfile_sha256": hashlib.sha256(
-                        (ROOT / "scripts/kb01/Containerfile").read_bytes()
-                    ).hexdigest(),
-                },
-                indent=2,
-            )
-            + "\n"
-        )
+        identity_evidence = {
+            "image_id": identity,
+            "source_sha256": digests,
+            "containerfile_sha256": hashlib.sha256(
+                (context / "Dockerfile").read_bytes()
+            ).hexdigest(),
+            "inventory_script_sha256": hashlib.sha256(
+                (context / "image_inventory.py").read_bytes()
+            ).hexdigest(),
+        }
+        args.output.write_text(json.dumps(identity_evidence, indent=2) + "\n")
+        sys.path.insert(0, str(ROOT))
+        from scripts.kb01.toolchain_provenance import collect
+
+        proof = collect(args.output.parent / "toolchain", identity_evidence)
+        identity_evidence["oci_manifest_digest"] = proof["oci"]["manifest_digest"]
+        identity_evidence["provenance_path"] = str(args.output.parent / "toolchain/provenance.json")
+        args.output.write_text(json.dumps(identity_evidence, indent=2) + "\n")
 
 
 if __name__ == "__main__":

@@ -103,7 +103,7 @@ export const api = {
     { method: 'POST', body: JSON.stringify(payload), signal }, 'RetrievalResponseDTO'),
   readiness: (id: string, signal?: AbortSignal) => request<Readiness>(
     `/api/v1/admin/knowledge-versions/${encodeURIComponent(id)}/runtime-readiness`, { signal }, 'KnowledgeRuntimeReadinessResult'),
-  demoLogin: (persona: 'A' | 'B' | 'PROJECT') => {
+  demoLogin: (persona: 'A' | 'B' | 'PROJECT' | 'REVIEWER' | 'PUBLISHER' | 'RESTRICTED') => {
     if (!demoEnabled) return Promise.reject(new ApiError(403, 'DEMO_DISABLED'));
     return request<Session>('/m0-demo/login', { method: 'POST', body: JSON.stringify({ persona }) }, 'Session');
   },
