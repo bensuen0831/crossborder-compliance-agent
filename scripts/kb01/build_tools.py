@@ -53,6 +53,14 @@ def main():
         ).strip()
         args.output.parent.mkdir(parents=True, exist_ok=True)
         identity_evidence = {
+            "runner_checkout_sha": subprocess.check_output(
+                ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
+            ).strip(),
+            "source_dirty": bool(
+                subprocess.check_output(
+                    ["git", "status", "--porcelain=v1"], cwd=ROOT, text=True
+                ).strip()
+            ),
             "image_id": identity,
             "source_sha256": digests,
             "containerfile_sha256": hashlib.sha256(

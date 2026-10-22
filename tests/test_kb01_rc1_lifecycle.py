@@ -43,3 +43,13 @@ def test_rc1_settings_reuse_the_same_private_test_identity_on_restart(tmp_path):
     second = rc1.settings(tmp_path)
     assert first == second
     assert json.loads((tmp_path / "private.json").read_text()) == first
+
+
+def test_rc1_rejects_nonempty_unowned_state_before_touching_contents(tmp_path, monkeypatch):
+    marker = tmp_path / "unrelated.txt"
+    marker.write_text("preserve unrelated files")
+    monkeypatch.setattr("sys.argv", ["rc1", "reset", "--state-dir", str(tmp_path)])
+    with pytest.raises(SystemExit, match="EMPTY_OR_EXISTING_RC1_STATE_DIRECTORY_REQUIRED"):
+        rc1.main()
+    assert marker.read_text() == "preserve unrelated files"
+    assert not (tmp_path / "private.json").exists()

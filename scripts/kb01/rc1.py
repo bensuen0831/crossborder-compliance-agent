@@ -457,8 +457,10 @@ def main():
     parser.add_argument("--taxonomy-rows", type=int, default=4, choices=range(1, 101))
     args = parser.parse_args()
     root = args.state_dir.resolve()
-    if root in (Path("/"), ROOT, Path.home()):
+    if root in (Path("/"), Path.home(), ROOT) or root in ROOT.parents or ROOT in root.parents:
         raise SystemExit("DEDICATED_RC1_STATE_DIRECTORY_REQUIRED")
+    if root.exists() and not (root / "private.json").exists() and any(root.iterdir()):
+        raise SystemExit("EMPTY_OR_EXISTING_RC1_STATE_DIRECTORY_REQUIRED")
     root.mkdir(parents=True, exist_ok=True)
     root.chmod(0o700)
     config = settings(root)
