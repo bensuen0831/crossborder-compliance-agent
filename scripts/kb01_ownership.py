@@ -80,6 +80,7 @@ PATHS = frozenset(
         "frontend/e2e/kb01-rc1.spec.ts",
         "tests/test_kb01_taxonomy_batch_postgres.py",
         "tests/test_kb01_rc1_lifecycle.py",
+        "frontend/src/App.tsx",
         "frontend/e2e/phase1kb.spec.ts",
         "frontend/e2e/kb01-safe-evidence.ts",
         "frontend/e2e/kb01-bulk.spec.ts",
