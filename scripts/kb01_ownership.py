@@ -69,7 +69,10 @@ NINETEENTH_SOURCE = "49b94c30085c6c411e4a86316505ff8392bba1de"
 TWENTIETH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v20.json"
 TWENTIETH_SEAL = "4593a355d0711a9ba955b1624926a2ec71d60430"
 TWENTIETH_SOURCE = "87abac8a09b8b5ff96d4f570bf5fc220389647df"
-SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v21.json"
+TWENTY_FIRST_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v21.json"
+TWENTY_FIRST_SEAL = "b9f22415d3f40cf87a6957b93bb6301b602a3733"
+TWENTY_FIRST_SOURCE = "9803c5c9a49ec3b42122f2231601f3c80b657370"
+SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v22.json"
 FIRST_SEAL = "a95d5f05f46566d7e58417a8c9cb2214c6d028f0"
 FIRST_SOURCE = "6f0f448fbe5d72494d2756bca30a3f74437e1f63"
 PREVIOUS = "evidence/stage1-full-e2e/r3/approved_owner_overlay.json"
@@ -612,6 +615,20 @@ def overlay(root):
             for path, digest in twentieth["paths"].items()
         ):
             return False, {}, None
+        twenty_first_bytes = git("show", TWENTY_FIRST_SEAL + ":" + TWENTY_FIRST_RECORD)
+        if (root / TWENTY_FIRST_RECORD).read_bytes() != twenty_first_bytes or not ancestor(
+            TWENTY_FIRST_SEAL, "HEAD"
+        ):
+            return False, {}, None
+        twenty_first = json.loads(twenty_first_bytes)
+        if twenty_first["source_sha"] != TWENTY_FIRST_SOURCE or twenty_first["base_sha"] != BASE:
+            return False, {}, None
+        twenty_first_blobs = blobs(TWENTY_FIRST_SOURCE, twenty_first["paths"])
+        if any(
+            hashlib.sha256(twenty_first_blobs[path]).hexdigest() != digest
+            for path, digest in twenty_first["paths"].items()
+        ):
+            return False, {}, None
         record = json.loads((root / SUCCESSOR_RECORD).read_text())
         expected = set(previous["paths"]) | PATHS
         source = record["source_sha"]
@@ -623,6 +640,7 @@ def overlay(root):
             or not ancestor(EIGHTEENTH_SEAL, source)
             or not ancestor(NINETEENTH_SEAL, source)
             or not ancestor(TWENTIETH_SEAL, source)
+            or not ancestor(TWENTY_FIRST_SEAL, source)
             or not ancestor(source, "HEAD")
         ):
             return False, {}, None

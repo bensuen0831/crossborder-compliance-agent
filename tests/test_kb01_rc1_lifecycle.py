@@ -1,11 +1,29 @@
 """Lifecycle safety: do not reset other data or publish synthetic identity."""
 
+import hashlib
 import json
 import stat
 
 import pytest
 
 from scripts.kb01 import rc1
+
+
+@pytest.mark.parametrize("changed", ["Containerfile", "image_inventory.py"])
+def test_rc1_cached_tool_evidence_cannot_survive_changed_build_sources(tmp_path, monkeypatch, changed):
+    sources = tmp_path / "scripts/kb01"
+    sources.mkdir(parents=True)
+    for name in ("Containerfile", "image_inventory.py"):
+        (sources / name).write_text("original " + name)
+    monkeypatch.setattr(rc1, "ROOT", tmp_path)
+    proof = {
+        "containerfile_sha256": hashlib.sha256((sources / "Containerfile").read_bytes()).hexdigest(),
+        "inventory_script_sha256": hashlib.sha256((sources / "image_inventory.py").read_bytes()).hexdigest(),
+    }
+    rc1.validate_tool_sources(proof)
+    (sources / changed).write_text("updated " + changed)
+    with pytest.raises(RuntimeError, match="RC1_TOOL_SOURCE_MISMATCH"):
+        rc1.validate_tool_sources(proof)
 
 
 def test_rc1_reset_wrong_instance_never_stops_or_removes_resources(tmp_path, monkeypatch):

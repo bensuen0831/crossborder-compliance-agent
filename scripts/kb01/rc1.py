@@ -266,6 +266,17 @@ def wait_http():
     raise RuntimeError("RC1_HTTP_NOT_READY")
 
 
+def validate_tool_sources(proof):
+    """Cached evidence must bind the current build recipe and inventory reader."""
+    for key, relative in (
+        ("containerfile_sha256", "scripts/kb01/Containerfile"),
+        ("inventory_script_sha256", "scripts/kb01/image_inventory.py"),
+    ):
+        expected = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
+        if proof.get(key) != expected:
+            raise RuntimeError("RC1_TOOL_SOURCE_MISMATCH")
+
+
 def start(root, config, args):
     if platform.system() != "Linux" or platform.machine() not in ("x86_64", "amd64"):
         raise RuntimeError("RC1_SUPPORTED_PLATFORM_LINUX_AMD64_REQUIRED")
@@ -290,11 +301,7 @@ def start(root, config, args):
     tool = root / "tool-image.json"
     if args.tool_evidence:
         supplied = json.loads(args.tool_evidence.read_text())
-        if (
-            supplied["containerfile_sha256"]
-            != hashlib.sha256((ROOT / "scripts/kb01/Containerfile").read_bytes()).hexdigest()
-        ):
-            raise RuntimeError("RC1_TOOL_SOURCE_MISMATCH")
+        validate_tool_sources(supplied)
         # External provenance paths are local state, never a release claim.
         tool.write_text(json.dumps(supplied))
     elif not tool.exists():
@@ -312,6 +319,7 @@ def start(root, config, args):
             ],
         )
     proof = json.loads(tool.read_text())
+    validate_tool_sources(proof)
     if not proof.get("oci_manifest_digest") or not proof.get("provenance_path"):
         raise RuntimeError("RC1_TOOL_PROVENANCE_INCOMPLETE")
     provenance = json.loads(Path(proof["provenance_path"]).read_text())
