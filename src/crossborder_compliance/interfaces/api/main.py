@@ -26,11 +26,38 @@ from crossborder_compliance.interfaces.api.routes.decisions import router as dec
 from crossborder_compliance.interfaces.api.routes.documents import router as documents_router
 from crossborder_compliance.interfaces.api.routes.health import router as health_router
 from crossborder_compliance.interfaces.api.routes.knowledge import router as knowledge_router
+from crossborder_compliance.interfaces.api.routes.knowledge_batches import (
+    router as knowledge_batch_router,
+)
+from crossborder_compliance.interfaces.api.routes.knowledge_binary_ingestion import (
+    router as knowledge_binary_ingestion_router,
+)
+from crossborder_compliance.interfaces.api.routes.knowledge_document_management import (
+    router as knowledge_document_management_router,
+)
+from crossborder_compliance.interfaces.api.routes.knowledge_management import (
+    router as knowledge_management_router,
+)
+from crossborder_compliance.interfaces.api.routes.knowledge_manifests import (
+    router as knowledge_manifests_router,
+)
+from crossborder_compliance.interfaces.api.routes.knowledge_statistics import (
+    router as knowledge_statistics_router,
+)
+from crossborder_compliance.interfaces.api.routes.knowledge_translation_alignment import (
+    router as knowledge_translation_alignment_router,
+)
+from crossborder_compliance.interfaces.api.routes.knowledge_uploads import (
+    router as knowledge_upload_router,
+)
 from crossborder_compliance.interfaces.api.routes.llm_models import router as llm_models_router
 from crossborder_compliance.interfaces.api.routes.metadata import router as metadata_router
 from crossborder_compliance.interfaces.api.routes.model_providers import bindings_router
 from crossborder_compliance.interfaces.api.routes.model_providers import (
     router as model_providers_router,
+)
+from crossborder_compliance.interfaces.api.routes.regulatory_acceptance import (
+    router as regulatory_acceptance_router,
 )
 from crossborder_compliance.interfaces.api.routes.retrieval import router as retrieval_router
 from crossborder_compliance.observability.logging import configure_logging
@@ -64,9 +91,16 @@ async def lifespan(app):
     integration_worker = IntegrationDeliveryWorker(app)
     app.state.integration_delivery_worker = integration_worker
     integration_worker.start()
+    # Deployment supplies real configured ports and a current-role context
+    # provider. There is no default system/tenant impersonation or clean stub.
+    knowledge_management_worker = getattr(app.state,"knowledge_management_worker",None)
+    if knowledge_management_worker is not None:
+        knowledge_management_worker.start()
     try:
         yield
     finally:
+        if knowledge_management_worker is not None:
+            knowledge_management_worker.stop()
         integration_worker.stop()
         profile_worker.stop()
         worker.stop()
@@ -77,9 +111,21 @@ async def lifespan(app):
 
 
 app = FastAPI(lifespan=lifespan, title="Cross-border Compliance Agent", version="0.7.0-phase1g")
+app.include_router(regulatory_acceptance_router)
+app.include_router(knowledge_translation_alignment_router)
+app.include_router(knowledge_manifests_router)
 app.include_router(health_router)
+app.include_router(knowledge_management_router)
+app.include_router(knowledge_document_management_router)
+app.include_router(knowledge_upload_router)
+app.include_router(knowledge_batch_router)
+app.include_router(knowledge_binary_ingestion_router)
+app.include_router(knowledge_statistics_router)
 app.include_router(metadata_router)
-from crossborder_compliance.interfaces.api.routes.integrations import admin_router as integration_admin_router
+from crossborder_compliance.interfaces.api.routes.integrations import (
+    admin_router as integration_admin_router,
+)
+
 app.include_router(integration_admin_router)
 app.include_router(admin_metadata_router)
 app.include_router(documents_router)

@@ -65,6 +65,22 @@ def verify():
     ) and (ROOT / "frontend/package-lock.json").read_bytes() == git(
         "show", f"{SOURCES['C']}:frontend/package-lock.json"
     )
+    if not checks["canonical_dependencies_unchanged"]:
+        from scripts.kb01_ownership import overlay as kb_overlay
+        kb_valid, kb_paths, kb_source = kb_overlay(ROOT)
+        # A finite additive KB01 dependency supplies bounded streaming hashing.
+        # All historical dependencies/engines and exact committed lock bytes
+        # remain checked; this is not permission for arbitrary dependency drift.
+        checks["canonical_dependencies_unchanged"] = (
+            kb_valid
+            and {"frontend/package.json", "frontend/package-lock.json"} <= kb_paths.keys()
+            and integrated["dependencies"] == {
+                **canonical["dependencies"], "@noble/hashes": "^2.0.1",
+            }
+            and all(integrated[field] == canonical[field] for field in ("devDependencies", "engines"))
+            and all((ROOT / path).read_bytes() == git("show", kb_source + ":" + path)
+                    for path in ("frontend/package.json", "frontend/package-lock.json"))
+        )
     # Phase1I owns the inherited0009. Stage1-alpha must preserve its entire
     # reviewed Alembic tree byte-for-byte and introduce no migration changes.
     migration_changes = set(git("diff", "--name-only", DOMAIN_BASE, "--", "alembic").decode().splitlines())

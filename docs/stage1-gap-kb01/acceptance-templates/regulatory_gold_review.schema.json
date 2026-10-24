@@ -1,0 +1,86 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "dataset_kind": {
+      "enum": [
+        "L1_SYNTHETIC_GOVERNED",
+        "L2_REAL_REGULATORY"
+      ],
+      "title": "Dataset Kind",
+      "type": "string"
+    },
+    "synthetic_label": {
+      "anyOf": [
+        {
+          "const": "SYNTHETIC_GOVERNED_TEST_DATA",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Synthetic Label"
+    },
+    "schema_version": {
+      "const": "KB01_F0_GOLD_REVIEW_V1",
+      "default": "KB01_F0_GOLD_REVIEW_V1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "case_version_id": {
+      "format": "uuid",
+      "title": "Case Version Id",
+      "type": "string"
+    },
+    "case_payload_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Case Payload Sha256",
+      "type": "string"
+    },
+    "expected_semantics_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Expected Semantics Sha256",
+      "type": "string"
+    },
+    "expert_authorization_version_id": {
+      "format": "uuid",
+      "title": "Expert Authorization Version Id",
+      "type": "string"
+    },
+    "source_verification_version_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "minItems": 1,
+      "title": "Source Verification Version Ids",
+      "type": "array"
+    },
+    "expert_review_record_ref": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Expert Review Record Ref",
+      "type": "string"
+    },
+    "review_notes": {
+      "maxLength": 4096,
+      "minLength": 1,
+      "title": "Review Notes",
+      "type": "string"
+    }
+  },
+  "required": [
+    "dataset_kind",
+    "case_version_id",
+    "case_payload_sha256",
+    "expected_semantics_sha256",
+    "expert_authorization_version_id",
+    "source_verification_version_ids",
+    "expert_review_record_ref",
+    "review_notes"
+  ],
+  "title": "RegulatoryGoldReview",
+  "type": "object"
+}

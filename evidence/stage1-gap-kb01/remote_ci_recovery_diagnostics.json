@@ -1,0 +1,116 @@
+{
+  "decision": "PENDING_FINAL_HEAD_CI",
+  "failures_preserved": true,
+  "failures": [
+    {
+      "run_id": 38862537338,
+      "sha": "c905538d3b754df68e25ab1d127bc98a989d45fc",
+      "category": "WORKFLOW_EXPRESSION_CONTEXT",
+      "error": "runner context is not allowed in job-level env",
+      "recovery": "Resolve RUNNER_TEMP inside a runner step; verified actionlintv1.7.12"
+    },
+    {
+      "run_ids": [
+        38863222421,
+        38863222433
+      ],
+      "sha": "b1c644c33ac81827b95d966f47ea08ce5c2b8fca",
+      "category": "HISTORICAL_DEPENDENCY_BOUNDARY",
+      "error": "Original M1 whole package/lock identity rejects finite streaming-hash addition",
+      "recovery": "Authenticated exact-source one-dependency successor; all original8 checks retained"
+    },
+    {
+      "run_id": 38864370395,
+      "job_id": 116853711118,
+      "sha": "34a78c57cfe37730779db570bd0524b48e58299c",
+      "category": "CI_PYTHON_IMPORT_PATH",
+      "error": "ModuleNotFoundError: scripts during contract collection",
+      "recovery": "python -m pytest with identical marker and assertions; no test removed"
+    },
+    {
+      "run_id": 38867001258,
+      "job_id": 116862024192,
+      "sha": "e2306a72b1bf042385f2b1217d6edfe963b1a889",
+      "category": "CLOSURE_AGGREGATOR_FROZEN_PARENT_HEAD",
+      "error": "All backend tests passed; R1 closure aggregator expected exact0020 despite authorized operational0021\u20130024 successor",
+      "recovery": "Require authenticated complete committed migration tree, exact single0024head and0024\u21920020lineage; independently retain all0019/0020 safety assertions. No test or migration changed."
+    },
+    {
+      "run_id": 38924072434,
+      "sha": "001592bfc8dabd599a65f03caea62f110dd45a08",
+      "job_id": 117051016859,
+      "job": "capacity-browser",
+      "step": "Genuine 500MiB original and GiB RAR4/RAR5/ZIP canonical publication",
+      "classification": "CAPACITY_STALL_REMOTE_ROOT_CAUSE_NOT_YET_OBSERVABLE",
+      "measured": {
+        "SINGLE": "PASS",
+        "RAR4": "PASS",
+        "RAR5": "CREATE_BATCH_DISABLED_AFTER_240_SECONDS",
+        "ZIP": "CREATE_BATCH_DISABLED_AFTER_240_SECONDS",
+        "browser_retries": 0,
+        "focused_postgres": "SUCCESS",
+        "management_browser": "SUCCESS"
+      },
+      "known_local_counterexample": {
+        "old_volume_slots": 20,
+        "symptom": "signed PUT part16 HTTP500; zero available collection volume slots",
+        "recovery": "preserve data and extend bounded owned pool to40",
+        "new_observed_slots_used": 27
+      },
+      "recovery": "Provision and verify40 bounded CI volume slots and collect safe upload-state/topology/disk/error-marker diagnostics on EXIT. Exact remote root cause remains a limitation until actual measurements; no assertions, retry policy, test count, AV policy or timeout weakened."
+    },
+    {
+      "run_id": 38927685806,
+      "sha": "282f97a6ce00c1462a23c41f910dea5a7adb4a19",
+      "job_id": 117063319492,
+      "job": "canonical-frontend-browser",
+      "step": "Admin/user three-locale smoke and M2-D/C/B/A/M1 regressions, zero retries",
+      "classification": "BROWSER_REVIEWER_HANDOFF_BEFORE_COMMITTED_SUBMIT",
+      "measured": {
+        "browser_passed": 23,
+        "browser_failed": 1,
+        "locale": "zh-HK",
+        "expected_http_status": 200,
+        "actual_http_status": 409,
+        "browser_retries": 0
+      },
+      "real_postgres_http_counterexample": {
+        "transport_delay_ms": 500,
+        "before_submit_commit": {
+          "review_expected_record_version": 1,
+          "http_status": 422,
+          "persisted_status": "DRAFT"
+        },
+        "after_submit_commit_with_stale_read": {
+          "review_expected_record_version": 1,
+          "http_status": 409,
+          "persisted_record_version": 2,
+          "persisted_status": "PENDING_REVIEW"
+        }
+      },
+      "recovery": "Wait for exact provider/model Submit and Publish POST response and assert committed lifecycle; reviewer GET selects exact created deployment and matches acknowledged record_version. Retain500ms real forwarded Submit transport delay; no fixed wait used for handoff, no fake responses, no retries, no product/CAS/authorization/assertion changes."
+    }
+  ],
+  "local_contract_checkpoint": {
+    "sha": "34a78c57cfe37730779db570bd0524b48e58299c",
+    "passed": 666,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 629,
+    "elapsed_seconds": 432.73,
+    "scope": "EXPLICIT_CONTRACT_SUBSET_NOT_FULL_POSTGRES_SUITE"
+  },
+  "reduced_assertions": false,
+  "reduced_coverage": false,
+  "browser_retries_added": false,
+  "stage2_started": false,
+  "source_specific_remote_checkpoint": {
+    "sha": "282f97a6ce00c1462a23c41f910dea5a7adb4a19",
+    "workflows_success": 11,
+    "workflows_total": 12,
+    "actual_job_checkouts_match": 22,
+    "actual_jobs_total": 22,
+    "status": "NOT_FINAL_SOURCE_ONE_BROWSER_CAS_RACE_FAILURE"
+  }
+}

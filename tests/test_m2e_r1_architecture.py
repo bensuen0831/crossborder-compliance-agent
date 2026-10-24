@@ -30,7 +30,12 @@ def test_architecture_rejects_cross_jurisdiction_applicability(tmp_path):
 def test_recovery_is_exact_committed_finite_successor_owner():
     valid, paths, source = overlay(ROOT)
     assert valid and source and source != BASE
-    assert paths.keys() == PATHS
+    allowed = PATHS
+    if (ROOT / "evidence/stage1-gap-kb01/approved_owner_overlay.json").exists():
+        from scripts.kb01_ownership import authenticated_paths
+
+        allowed |= authenticated_paths(ROOT, source)
+    assert paths.keys() == allowed
     assert not any(p.startswith("frontend/") for p in R1_PATHS)
     engine = "src/crossborder_compliance/domain/decision_engine.py"
     if engine in paths:

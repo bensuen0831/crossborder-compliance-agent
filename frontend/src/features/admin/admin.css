@@ -49,3 +49,8 @@
 .integration-clients form > label { display: flex; flex-direction: column; margin-block: .75rem; max-width: 36rem; }
 .integration-clients input, .integration-clients select { max-width: 100%; }
 .integration-clients output { display: block; overflow-wrap: anywhere; user-select: all; }
+
+.kb-management { display: grid; gap: 1rem; min-width: 0; }
+.kb-filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+.kb-management article { border-block-start: 1px solid var(--admin-border); margin-block: 1rem; padding-block: .75rem; overflow-wrap: anywhere; }
+.kb-management select[multiple] { min-height: 8rem; }

@@ -13,7 +13,10 @@ from crossborder_compliance.infrastructure.persistence import retrieval_models a
 from crossborder_compliance.domain.formal_result_policies import FORMAL_RESULT_POLICY_KINDS
 from crossborder_compliance.domain.llm_invocation import LLM_METADATA_KINDS
 
-OWNED_CONFIG_KINDS = PHASE1I_CONFIG_KINDS | PHASE1J_POLICY_KINDS | FORMAL_RESULT_POLICY_KINDS | LLM_METADATA_KINDS
+from crossborder_compliance.domain.knowledge_management import TAXONOMY_KINDS
+from crossborder_compliance.domain.regulatory_acceptance import REGULATORY_ACCEPTANCE_KINDS
+
+OWNED_CONFIG_KINDS = REGULATORY_ACCEPTANCE_KINDS | (TAXONOMY_KINDS - {"JURISDICTION_CONFIG"}) | {"KNOWLEDGE_MANAGEMENT_POLICY"} | PHASE1I_CONFIG_KINDS | PHASE1J_POLICY_KINDS | FORMAL_RESULT_POLICY_KINDS | LLM_METADATA_KINDS
 
 
 def validate_decision_policy(session, definition, payload):
@@ -94,6 +97,18 @@ def metadata_ref(session, ident, tenant, kind):
 
 def validate_payload(session, definition, payload):
     validate_localized_payload(payload)
+    if definition.kind in REGULATORY_ACCEPTANCE_KINDS:
+        from crossborder_compliance.infrastructure.persistence.regulatory_acceptance_governance import validate_acceptance_payload
+        validate_acceptance_payload(session, definition, payload)
+        return {}
+    if definition.kind == "KNOWLEDGE_MANAGEMENT_POLICY":
+        from crossborder_compliance.domain.knowledge_management import KnowledgeManagementPolicy
+        KnowledgeManagementPolicy.model_validate(payload)
+        return {}
+    from crossborder_compliance.infrastructure.persistence.taxonomy_governance import is_managed_taxonomy, validate_taxonomy_payload
+    if is_managed_taxonomy(definition.kind, payload):
+        validate_taxonomy_payload(session, definition, payload)
+        return {}
     if definition.kind in LLM_METADATA_KINDS:
         from crossborder_compliance.infrastructure.persistence.llm_metadata_governance import validate_llm_metadata
         return validate_llm_metadata(session, definition, payload)
@@ -187,7 +202,10 @@ def validate_payload(session, definition, payload):
 
 
 def lock_definition(session, definition):
-    if definition.kind in OWNED_CONFIG_KINDS:
+    if definition.kind in TAXONOMY_KINDS or definition.kind == "KNOWLEDGE_MANAGEMENT_POLICY":
+        from sqlalchemy import text
+        session.execute(text("SELECT pg_advisory_xact_lock(hashtextextended(:key,0))"), {"key": f"kb01:taxonomy-mutations:{definition.tenant_id}"})
+    if definition.kind in OWNED_CONFIG_KINDS or definition.kind == "JURISDICTION_CONFIG":
         return session.scalar(
             select(m.MetadataDefinitionEntity)
             .where(
@@ -204,7 +222,8 @@ def transition_validation(session, row, actor, target):
     if target in {"PENDING_REVIEW", "APPROVED", "ACTIVE"}:
         validate_localized_payload(row.payload_json)
     definition = scoped(session, m.MetadataDefinitionEntity, row.definition_id, row.tenant_id)
-    if definition.kind not in OWNED_CONFIG_KINDS:
+    from crossborder_compliance.infrastructure.persistence.taxonomy_governance import is_managed_taxonomy
+    if definition.kind not in OWNED_CONFIG_KINDS and not is_managed_taxonomy(definition.kind, row.payload_json):
         return row
     lock_definition(session, definition)
     row = session.scalar(
@@ -218,6 +237,9 @@ def transition_validation(session, row, actor, target):
     )
     if target in {"PENDING_REVIEW", "APPROVED", "ACTIVE"}:
         validate_payload(session, definition, row.payload_json)
+    if definition.kind in REGULATORY_ACCEPTANCE_KINDS:
+        from crossborder_compliance.infrastructure.persistence.regulatory_acceptance_governance import validate_acceptance_transition
+        validate_acceptance_transition(session, definition, row, actor, target)
     if target == "APPROVED" and actor == row.created_by:
         raise ValueError("independent Phase1I configuration review required")
     if target == "ACTIVE" and not row.approved_by:

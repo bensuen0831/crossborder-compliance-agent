@@ -1,0 +1,37 @@
+{
+  "artifact_kind": "HISTORICAL_MEASURED_TEST_ID_INDEX",
+  "decision": "PENDING_FINAL_HEAD_VALIDATION",
+  "historical_source_sha": "876f5a3a7312c45b104978c5ab41def02633f447",
+  "historical_full_suite_junit_sha256": "8bba4baa49349975a0d613bf26ac0ca1bd2d34a1bd119e710deb0ddf11b3b1d7",
+  "historical_passed": 24,
+  "historical_test_ids": [
+    "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[TXT]",
+    "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[DOCX]",
+    "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[HTML]",
+    "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[XHTML]",
+    "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[DOC]",
+    "tests.test_kb01_binary_ingestion_postgres::test_original_binary_becomes_canonical_structure_citation_and_evidence[PDF]",
+    "tests.test_kb01_binary_ingestion_postgres::test_native_ingestion_worker_needs_no_broad_admin_or_publication_authority",
+    "tests.test_kb01_binary_ingestion_postgres::test_durable_batch_ingestion_uses_single_canonical_run_and_keeps_original",
+    "tests.test_kb01_binary_ingestion_postgres::test_batch_resume_after_completed_ingestion_does_not_reparse_or_duplicate",
+    "tests.test_kb01_binary_ingestion_postgres::test_batch_cancel_after_mapping_preserves_canonical_draft_without_new_work",
+    "tests.test_kb01_binary_ingestion_postgres::test_standalone_native_request_has_durable_canonical_work_identity",
+    "tests.test_kb01_binary_ingestion_postgres::test_runtime_worker_rejects_system_identity_instead_of_bypassing_current_roles",
+    "tests.test_kb01_native_isolation::test_real_six_format_native_originals[DOC]",
+    "tests.test_kb01_native_isolation::test_real_six_format_native_originals[DOCX]",
+    "tests.test_kb01_native_isolation::test_real_six_format_native_originals[HTML]",
+    "tests.test_kb01_native_isolation::test_real_six_format_native_originals[PDF]",
+    "tests.test_kb01_native_isolation::test_real_six_format_native_originals[TXT]",
+    "tests.test_kb01_native_isolation::test_real_six_format_native_originals[XHTML]",
+    "tests.test_kb01_native_isolation::test_html_scripts_are_not_evidence_or_executed",
+    "tests.test_kb01_native_isolation::test_xhtml_external_entity_is_refused",
+    "tests.test_kb01_native_isolation::test_docx_duplicate_member_universe_is_refused",
+    "tests.test_kb01_native_isolation::test_native_output_policy_is_enforced",
+    "tests.test_kb01_native_isolation::test_actual_image_pdf_ocr_preserves_bbox_confidence_and_governed_profile",
+    "tests.test_kb01_native_isolation::test_existing_document_parser_port_can_use_same_core_without_fake_source_identity"
+  ],
+  "limitations": [
+    "This is an index into the actual1271-pass historical suite, not current-head acceptance",
+    "Final technical closure requires all mandatory final-head workflows and actual checkout identities"
+  ]
+}

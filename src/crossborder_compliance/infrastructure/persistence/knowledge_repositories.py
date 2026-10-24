@@ -174,66 +174,72 @@ class PostgresKnowledgeRepository:
     def create_document(self, payload):
         self.admin()
         with self.sessions() as s, s.begin():
-            self.get(s, m.KnowledgeSourceDefinitionEntity, payload["source_id"])
-            row = k.KnowledgeDocumentEntity(
-                document_id=str(uuid4()),
-                tenant_id=self.tenant_id,
-                source_id=payload["source_id"],
-                display_name=payload["display_name"],
-            )
-            s.add(row)
-            s.flush()
-            return result(row)
+            return self._create_document_in_session(s, payload)
+
+    def _create_document_in_session(self, s, payload):
+        self.get(s, m.KnowledgeSourceDefinitionEntity, payload["source_id"])
+        row = k.KnowledgeDocumentEntity(
+            document_id=str(uuid4()),
+            tenant_id=self.tenant_id,
+            source_id=payload["source_id"],
+            display_name=payload["display_name"],
+        )
+        s.add(row)
+        s.flush()
+        return result(row)
 
     def create_version(self, document_id, payload):
         self.admin()
         with self.sessions() as s, s.begin():
-            doc = self.get(s, k.KnowledgeDocumentEntity, document_id, True)
-            source = self.get(s, m.KnowledgeSourceDefinitionEntity, doc.source_id)
-            collection = self.get(
-                s, m.KnowledgeCollectionVersionEntity, payload["collection_version_id"]
-            )
-            if collection.knowledge_collection_id != source.knowledge_collection_id:
-                raise ValueError("source collection mismatch")
-            number = (
-                int(
-                    s.scalar(
-                        select(
-                            func.coalesce(func.max(k.KnowledgeDocumentVersionEntity.version), 0)
-                        ).where(
-                            k.KnowledgeDocumentVersionEntity.tenant_id == self.tenant_id,
-                            k.KnowledgeDocumentVersionEntity.document_id == document_id,
-                        )
+            return self._create_version_in_session(s, document_id, payload)
+
+    def _create_version_in_session(self, s, document_id, payload):
+        doc = self.get(s, k.KnowledgeDocumentEntity, document_id, True)
+        source = self.get(s, m.KnowledgeSourceDefinitionEntity, doc.source_id)
+        collection = self.get(
+            s, m.KnowledgeCollectionVersionEntity, payload["collection_version_id"]
+        )
+        if collection.knowledge_collection_id != source.knowledge_collection_id:
+            raise ValueError("source collection mismatch")
+        number = (
+            int(
+                s.scalar(
+                    select(
+                        func.coalesce(func.max(k.KnowledgeDocumentVersionEntity.version), 0)
+                    ).where(
+                        k.KnowledgeDocumentVersionEntity.tenant_id == self.tenant_id,
+                        k.KnowledgeDocumentVersionEntity.document_id == document_id,
                     )
-                    or 0
                 )
-                + 1
+                or 0
             )
-            start, end = (
-                date_value(payload.get("effective_from")),
-                date_value(payload.get("effective_to")),
-            )
-            if start and end and end < start:
-                raise ValueError("invalid effective dates")
-            row = k.KnowledgeDocumentVersionEntity(
-                knowledge_version_id=str(uuid4()),
-                tenant_id=self.tenant_id,
-                document_id=document_id,
-                collection_version_id=collection.knowledge_collection_version_id,
-                version=number,
-                language=payload["language"],
-                effective_from=start,
-                effective_to=end,
-                provenance_json=dict(
-                    payload["provenance"],
-                    created_by=self.context.user_context.user_id,
-                    source_id=source.knowledge_source_definition_id,
-                    source_hash=source.config_json["source_hash"],
-                ),
-            )
-            s.add(row)
-            s.flush()
-            return result(row)
+            + 1
+        )
+        start, end = (
+            date_value(payload.get("effective_from")),
+            date_value(payload.get("effective_to")),
+        )
+        if start and end and end < start:
+            raise ValueError("invalid effective dates")
+        row = k.KnowledgeDocumentVersionEntity(
+            knowledge_version_id=str(uuid4()),
+            tenant_id=self.tenant_id,
+            document_id=document_id,
+            collection_version_id=collection.knowledge_collection_version_id,
+            version=number,
+            language=payload["language"],
+            effective_from=start,
+            effective_to=end,
+            provenance_json=dict(
+                payload["provenance"],
+                created_by=self.context.user_context.user_id,
+                source_id=source.knowledge_source_definition_id,
+                source_hash=source.config_json["source_hash"],
+            ),
+        )
+        s.add(row)
+        s.flush()
+        return result(row)
 
     def binding(self, row):
         return dict(
@@ -275,7 +281,7 @@ class PostgresKnowledgeRepository:
             binding_version=binding.version,
             dimensions_json={key: list(values) for key, values in binding.dimensions.items()},
             permission_scopes_json=list(binding.permission_scopes),
-            provenance_json=binding.provenance,
+            provenance_json=dict(binding.provenance, submitted_by=self.context.permission.actor_id),
             review_status="PENDING",
             effective_from=binding.effective_from,
             effective_to=binding.effective_to,
@@ -294,10 +300,29 @@ class PostgresKnowledgeRepository:
             s.flush()
             return self.binding(row)
 
+    def _ingestion_access(self):
+        if not self.context.permission.system and not (
+            {"knowledge:admin", "knowledge:document:ingest"} & self.context.permission.scopes
+        ):
+            raise PermissionError("knowledge ingestion permission required")
+
+    def _authorize_ingestion_payload(self, payload):
+        if payload.get("binary_scope") or payload.get("binary_upload_session_id"):
+            from crossborder_compliance.domain.knowledge_management import require_management_permission
+            require_management_permission(self.context, "document:ingest")
+        else:
+            self.admin()
+
     def schedule_ingestion(self, version_id, payload):
-        self.admin()
-        if bool(payload.get("nodes")) == bool(payload.get("url")):
+        self._authorize_ingestion_payload(payload)
+        binary = bool(payload.get("binary_upload_session_id"))
+        if sum(bool(payload.get(key)) for key in ("nodes", "url", "binary_upload_session_id")) != 1:
             raise ValueError("canonical upload or approved URL required")
+        if binary:
+            from crossborder_compliance.domain.knowledge_management import require_management_permission
+            require_management_permission(self.context, "document:ingest")
+            if payload.get("bindings") and "knowledge:admin" not in self.context.permission.scopes:
+                require_management_permission(self.context, "document:bind")
         with self.sessions() as s, s.begin():
             version = self.version(s, version_id)
             previous = self.rows(
@@ -312,6 +337,36 @@ class PostgresKnowledgeRepository:
                     return result(run)
             if version.lifecycle != "DRAFT" or previous:
                 raise ValueError("version already ingested or scheduled")
+            pinned_payload = payload
+            if binary:
+                from crossborder_compliance.domain.knowledge_management import KnowledgeManagementPolicy
+                from crossborder_compliance.infrastructure.persistence.knowledge_upload_models import (
+                    KnowledgeBinaryAttachmentEntity, KnowledgeUploadSessionEntity,
+                )
+                if version.record_version != payload["expected_record_version"]:
+                    raise OptimisticConcurrencyError("stale knowledge version")
+                attachment = s.scalar(select(KnowledgeBinaryAttachmentEntity).where(
+                    KnowledgeBinaryAttachmentEntity.tenant_id == self.tenant_id,
+                    KnowledgeBinaryAttachmentEntity.knowledge_version_id == version_id,
+                    KnowledgeBinaryAttachmentEntity.upload_session_id == payload["binary_upload_session_id"],
+                ))
+                if attachment is None:
+                    raise ValueError("KNOWLEDGE_BINARY_ATTACHMENT_REQUIRED")
+                upload = self.get(s, KnowledgeUploadSessionEntity, attachment.upload_session_id)
+                if upload.status != "VERIFIED" or not upload.object_version:
+                    raise ValueError("KNOWLEDGE_BINARY_NOT_VERIFIED")
+                pinned_policy = KnowledgeManagementPolicy.model_validate(upload.policy_json).native_parser
+                pinned_payload = {**payload, "binary_scope": {
+                    "upload_session_id": upload.upload_session_id,
+                    "object_key": upload.object_key, "object_version": upload.object_version,
+                    "declared_format": upload.declared_format,
+                    "declared_bytes": upload.declared_bytes, "content_sha256": upload.content_sha256,
+                    "artifact_ref": version.original_artifact_ref,
+                    "policy_definition_id": upload.policy_definition_id,
+                    "policy_version_id": upload.policy_version_id,
+                    "policy_payload_digest": hash_value(upload.policy_json),
+                    "parser_policy": pinned_policy.model_dump(mode="json"),
+                }}
             doc = self.get(s, k.KnowledgeDocumentEntity, version.document_id)
             source = self.get(s, m.KnowledgeSourceDefinitionEntity, doc.source_id)
             if payload.get("url") and payload["url"] != source.config_json.get("canonical_url"):
@@ -338,7 +393,7 @@ class PostgresKnowledgeRepository:
                 knowledge_version_id=version_id,
                 idempotency_key=payload["idempotency_key"],
                 request_hash=hash_value(payload),
-                input_json=payload,
+                input_json=pinned_payload,
                 audit_json={},
                 status="PENDING",
                 outbox_event_id=event_id,
@@ -348,13 +403,14 @@ class PostgresKnowledgeRepository:
             return result(row)
 
     def ingestion_input(self, run_id):
-        self.admin()
+        self._ingestion_access()
         with self.sessions() as s:
             run = self.get(s, k.KnowledgeIngestionRunEntity, run_id)
+            self._authorize_ingestion_payload(run.input_json)
             version = self.get(s, k.KnowledgeDocumentVersionEntity, run.knowledge_version_id)
             doc = self.get(s, k.KnowledgeDocumentEntity, version.document_id)
             source = self.get(s, m.KnowledgeSourceDefinitionEntity, doc.source_id)
-            return dict(
+            data = dict(
                 status=run.status,
                 run=result(run),
                 input=run.input_json,
@@ -366,20 +422,49 @@ class PostgresKnowledgeRepository:
                 document_id=doc.document_id,
                 official_source=source.config_json.get("canonical_url") or source.code,
             )
+            if run.input_json.get("binary_scope"):
+                from crossborder_compliance.domain.knowledge_management import require_management_permission
+                from crossborder_compliance.infrastructure.persistence.knowledge_upload_models import (
+                    KnowledgeBinaryAttachmentEntity, KnowledgeUploadSessionEntity,
+                )
+                require_management_permission(self.context, "document:ingest")
+                pinned = run.input_json["binary_scope"]
+                upload = self.get(s, KnowledgeUploadSessionEntity, pinned["upload_session_id"])
+                from crossborder_compliance.domain.knowledge_management import KnowledgeManagementPolicy
+                expected_parser = KnowledgeManagementPolicy.model_validate(upload.policy_json).native_parser
+                attachment = s.scalar(select(KnowledgeBinaryAttachmentEntity).where(
+                    KnowledgeBinaryAttachmentEntity.tenant_id == self.tenant_id,
+                    KnowledgeBinaryAttachmentEntity.knowledge_version_id == version.knowledge_version_id,
+                    KnowledgeBinaryAttachmentEntity.upload_session_id == upload.upload_session_id,
+                ))
+                if (attachment is None or upload.status != "VERIFIED" or
+                    upload.object_version != pinned["object_version"] or
+                    upload.object_key != pinned["object_key"] or
+                    upload.content_sha256 != pinned["content_sha256"] or
+                    upload.policy_version_id != pinned["policy_version_id"] or
+                    expected_parser.model_dump(mode="json") != pinned["parser_policy"] or
+                    hash_value(upload.policy_json) != pinned["policy_payload_digest"] or
+                    version.original_artifact_ref != pinned["artifact_ref"] or
+                    version.content_hash != pinned["content_sha256"]):
+                    raise ValueError("KNOWLEDGE_BINARY_PIN_MISMATCH")
+                data["binary_source"] = pinned
+            return data
 
     def fail_ingestion(self, run_id):
-        self.admin()
+        self._ingestion_access()
         with self.sessions() as s, s.begin():
             row = self.get(s, k.KnowledgeIngestionRunEntity, run_id, True)
+            self._authorize_ingestion_payload(row.input_json)
             if row.status != "COMPLETED":
                 row.status = "FAILED"
                 row.error_code = "INGESTION_FAILED"
                 row.record_version += 1
 
     def complete_ingestion(self, run_id, nodes, chunks, audit):
-        self.admin()
+        self._ingestion_access()
         with self.sessions() as s, s.begin():
             run = self.get(s, k.KnowledgeIngestionRunEntity, run_id, True)
+            self._authorize_ingestion_payload(run.input_json)
             if run.status == "COMPLETED":
                 return result(run)
             version = self.version(s, run.knowledge_version_id)
@@ -557,6 +642,18 @@ class PostgresKnowledgeRepository:
             provenance_completeness=bool(version.provenance_json and version.original_artifact_ref)
             and all(n.source_trace_json and n.provenance_json for n in nodes),
         )
+        binary_run = s.scalar(select(k.KnowledgeIngestionRunEntity).where(
+            k.KnowledgeIngestionRunEntity.tenant_id == self.tenant_id,
+            k.KnowledgeIngestionRunEntity.knowledge_version_id == version.knowledge_version_id,
+            k.KnowledgeIngestionRunEntity.status == "COMPLETED",
+        ))
+        if binary_run is not None and binary_run.input_json.get("binary_scope"):
+            parser_audit = binary_run.audit_json.get("native_parser", {})
+            checks["native_extraction_quality"] = (
+                parser_audit.get("blocks", 0) > 0
+                and parser_audit.get("needs_manual_review") is False
+                and parser_audit.get("needs_ocr") is False
+            )
         existing = self.rows(
             s,
             k.KnowledgeQualityResultEntity,
@@ -582,117 +679,158 @@ class PostgresKnowledgeRepository:
         self.admin()
         actor = self.context.user_context.user_id
         with self.sessions() as s, s.begin():
-            initial = self.get(s, k.KnowledgeDocumentVersionEntity, version_id)
-            self.get(s, k.KnowledgeDocumentEntity, initial.document_id, True)
-            version = self.version(s, version_id)
-            if action == "publish" and version.lifecycle == "ACTIVE":
-                return result(version)
-            if version.record_version != expected:
-                raise OptimisticConcurrencyError("stale knowledge version")
-            transitions = {
-                "validate": ("INGESTED", "VALIDATED"),
-                "submit-review": ("VALIDATED", "PENDING_REVIEW"),
-                "approve": ("PENDING_REVIEW", "APPROVED"),
-                "publish": ("APPROVED", "ACTIVE"),
-                "supersede": ("ACTIVE", "SUPERSEDED"),
-                "expire": ("ACTIVE", "EXPIRED"),
-                "archive": ("EXPIRED", "ARCHIVED"),
-            }
-            before, after = transitions[action]
-            if version.lifecycle != before:
-                raise ValueError("invalid lifecycle transition")
-            if action in {"validate", "approve", "publish"}:
-                quality = self.quality(s, version)
-                if quality.status != "PASS":
-                    if action == "validate":
-                        s.flush()
-                        return dict(result(version), quality_status="FAILED")
-                    raise ValueError("quality gate failed")
-            if action == "submit-review":
-                change, task = str(uuid4()), str(uuid4())
-                s.add(
-                    m.AdminChangeSetEntity(
-                        change_set_id=change,
-                        tenant_id=self.tenant_id,
-                        actor_id=actor,
-                        lifecycle_status="PENDING_REVIEW",
-                        summary=f"Knowledge version {version_id}",
-                    )
-                )
-                s.flush()
-                s.add(
-                    m.AdminReviewTaskEntity(
-                        review_task_id=task,
-                        tenant_id=self.tenant_id,
-                        change_set_id=change,
-                        review_status="PENDING",
-                    )
-                )
-                s.flush()
-                version.review_task_id = task
-            if action == "approve":
-                task = self.get(s, m.AdminReviewTaskEntity, version.review_task_id, True)
-                change = self.get(s, m.AdminChangeSetEntity, task.change_set_id)
-                if self.context.permission.system or change.actor_id == actor:
-                    raise ValueError("independent human reviewer required")
-                task.review_status = "APPROVED"
-                task.reviewer_id = actor
-                task.decision_comment = "Knowledge and binding review approved"
-                change.lifecycle_status = "APPROVED"
-                version.approved_by = actor
-                for binding in self.rows(
-                    s,
-                    m.KnowledgeBindingEntity,
-                    m.KnowledgeBindingEntity.knowledge_version_id == version_id,
-                ):
-                    binding.review_status = "APPROVED"
-            if action == "publish":
-                task = self.get(s, m.AdminReviewTaskEntity, version.review_task_id)
-                if task.review_status != "APPROVED" or not version.approved_by:
-                    raise ValueError("review required before ACTIVE")
-                if not effective(version, date.today()):
-                    raise ValueError("publish outside effective dates")
-                for old in self.rows(
-                    s,
-                    k.KnowledgeDocumentVersionEntity,
-                    k.KnowledgeDocumentVersionEntity.document_id == version.document_id,
-                    k.KnowledgeDocumentVersionEntity.lifecycle == "ACTIVE",
-                ):
-                    old.lifecycle = "SUPERSEDED"
-                    old.record_version += 1
-                    self.change(
-                        s,
-                        old.knowledge_version_id,
-                        "SUPERSEDED",
-                        {"replacement_version_id": version_id},
-                    )
-                    self.diff(s, old, version)
-                s.add(
-                    m.AdminPublishRecordEntity(
-                        publish_record_id=str(uuid4()),
-                        tenant_id=self.tenant_id,
-                        object_kind="KNOWLEDGE_DOCUMENT",
-                        version_id=version_id,
-                        published_by=actor,
-                    )
-                )
-            if action == "publish":
-                # Same domain transaction: rollback cannot expose a publication event.
-                from crossborder_compliance.infrastructure.persistence import retrieval_models as g
-                event_id=str(uuid4())
-                s.add(m.RegistrySyncEventEntity(
-                    registry_sync_event_id=event_id,tenant_id=self.tenant_id,
-                    object_kind="KNOWLEDGE_VERSION_PUBLISHED",object_id=version.document_id,
-                    version_id=version.knowledge_version_id,event_version=version.version,status="PENDING"))
-                s.flush()
-                s.add(g.KnowledgeRuntimePublicationEntity(tenant_id=self.tenant_id,
-                    knowledge_version_id=version.knowledge_version_id,publication_event_id=event_id,
-                    event_version=version.version,status="PENDING"))
-            version.lifecycle = after
-            version.record_version += 1
-            self.change(s, version_id, after, {"actor": actor})
-            s.flush()
+            return self._governance_in_session(s, version_id, action, expected)
+
+    def _governance_in_session(self, s, version_id, action, expected):
+        actor = self.context.user_context.user_id
+        initial = self.get(s, k.KnowledgeDocumentVersionEntity, version_id)
+        self.get(s, k.KnowledgeDocumentEntity, initial.document_id, True)
+        version = self.version(s, version_id)
+        if action == "archive":
+            from crossborder_compliance.infrastructure.persistence.knowledge_management_models import KnowledgeManagementHoldEntity
+            if s.scalar(select(func.count()).select_from(KnowledgeManagementHoldEntity).where(
+                KnowledgeManagementHoldEntity.tenant_id == self.tenant_id,
+                KnowledgeManagementHoldEntity.knowledge_document_id == initial.document_id,
+                KnowledgeManagementHoldEntity.released_at.is_(None),
+            )):
+                raise ValueError("KNOWLEDGE_DOCUMENT_HAS_ACTIVE_HOLD")
+        if action == "publish" and version.lifecycle == "ACTIVE":
             return result(version)
+        if version.record_version != expected:
+            raise OptimisticConcurrencyError("stale knowledge version")
+        transitions = {
+            "validate": ("INGESTED", "VALIDATED"),
+            "submit-review": ("VALIDATED", "PENDING_REVIEW"),
+            "approve": ("PENDING_REVIEW", "APPROVED"),
+            "publish": ("APPROVED", "ACTIVE"),
+            "supersede": ("ACTIVE", "SUPERSEDED"),
+            "expire": ("ACTIVE", "EXPIRED"),
+            "archive": ("EXPIRED", "ARCHIVED"),
+        }
+        before, after = transitions[action]
+        if version.lifecycle != before:
+            raise ValueError("invalid lifecycle transition")
+        if action in {"validate", "approve", "publish"}:
+            quality = self.quality(s, version)
+            if quality.status != "PASS":
+                if action == "validate":
+                    s.flush()
+                    return dict(result(version), quality_status="FAILED")
+                raise ValueError("quality gate failed")
+        if action == "submit-review":
+            change, task = str(uuid4()), str(uuid4())
+            s.add(
+                m.AdminChangeSetEntity(
+                    change_set_id=change,
+                    tenant_id=self.tenant_id,
+                    actor_id=actor,
+                    lifecycle_status="PENDING_REVIEW",
+                    summary=f"Knowledge version {version_id}",
+                )
+            )
+            s.flush()
+            s.add(
+                m.AdminReviewTaskEntity(
+                    review_task_id=task,
+                    tenant_id=self.tenant_id,
+                    change_set_id=change,
+                    review_status="PENDING",
+                )
+            )
+            s.flush()
+            version.review_task_id = task
+        if action == "approve":
+            task = self.get(s, m.AdminReviewTaskEntity, version.review_task_id, True)
+            change = self.get(s, m.AdminChangeSetEntity, task.change_set_id)
+            contributor = False
+            if version.provenance_json.get("kb01_metadata") or version.provenance_json.get(
+                "kb01_binary_transport"
+            ) or version.provenance_json.get("kb01_scope_management"):
+                from crossborder_compliance.infrastructure.persistence.knowledge_management_models import (
+                    AdminOperationReceiptEntity,
+                )
+                contributor = actor == version.provenance_json.get("created_by") or bool(
+                    s.scalar(select(AdminOperationReceiptEntity.receipt_id)
+                    .join(m.AdminChangeSetEntity,
+                        (m.AdminChangeSetEntity.tenant_id == AdminOperationReceiptEntity.tenant_id)
+                        & (m.AdminChangeSetEntity.change_set_id
+                           == AdminOperationReceiptEntity.change_set_id))
+                    .where(AdminOperationReceiptEntity.tenant_id == self.tenant_id,
+                           AdminOperationReceiptEntity.operation.in_((
+                               "DOCUMENT_CREATE", "DOCUMENT_NEW_VERSION",
+                               "DOCUMENT_EDIT_DRAFT", "UPLOAD_ATTACH", "DOCUMENT_BIND",
+                           )),
+                           AdminOperationReceiptEntity.result_json["knowledge_version_id"].as_string()
+                           == version_id,
+                           m.AdminChangeSetEntity.actor_id == actor).limit(1))
+                )
+                contributor = contributor or bool(s.scalar(
+                    select(m.KnowledgeBindingEntity.knowledge_binding_id).where(
+                        m.KnowledgeBindingEntity.tenant_id == self.tenant_id,
+                        m.KnowledgeBindingEntity.knowledge_version_id == version_id,
+                        m.KnowledgeBindingEntity.provenance_json["submitted_by"].as_string() == actor,
+                    ).limit(1)
+                ))
+            if self.context.permission.system or change.actor_id == actor or contributor:
+                raise ValueError("independent human reviewer required")
+            task.review_status = "APPROVED"
+            task.reviewer_id = actor
+            task.decision_comment = "Knowledge and binding review approved"
+            change.lifecycle_status = "APPROVED"
+            version.approved_by = actor
+            for binding in self.rows(
+                s,
+                m.KnowledgeBindingEntity,
+                m.KnowledgeBindingEntity.knowledge_version_id == version_id,
+            ):
+                binding.review_status = "APPROVED"
+        if action == "publish":
+            task = self.get(s, m.AdminReviewTaskEntity, version.review_task_id)
+            if task.review_status != "APPROVED" or not version.approved_by:
+                raise ValueError("review required before ACTIVE")
+            if not effective(version, date.today()):
+                raise ValueError("publish outside effective dates")
+            for old in self.rows(
+                s,
+                k.KnowledgeDocumentVersionEntity,
+                k.KnowledgeDocumentVersionEntity.document_id == version.document_id,
+                k.KnowledgeDocumentVersionEntity.lifecycle == "ACTIVE",
+            ):
+                old.lifecycle = "SUPERSEDED"
+                old.record_version += 1
+                self.change(
+                    s,
+                    old.knowledge_version_id,
+                    "SUPERSEDED",
+                    {"replacement_version_id": version_id},
+                )
+                self.diff(s, old, version)
+            s.add(
+                m.AdminPublishRecordEntity(
+                    publish_record_id=str(uuid4()),
+                    tenant_id=self.tenant_id,
+                    object_kind="KNOWLEDGE_DOCUMENT",
+                    version_id=version_id,
+                    published_by=actor,
+                )
+            )
+        if action == "publish":
+            # Same domain transaction: rollback cannot expose a publication event.
+            from crossborder_compliance.infrastructure.persistence import retrieval_models as g
+            event_id=str(uuid4())
+            s.add(m.RegistrySyncEventEntity(
+                registry_sync_event_id=event_id,tenant_id=self.tenant_id,
+                object_kind="KNOWLEDGE_VERSION_PUBLISHED",object_id=version.document_id,
+                version_id=version.knowledge_version_id,event_version=version.version,status="PENDING"))
+            s.flush()
+            s.add(g.KnowledgeRuntimePublicationEntity(tenant_id=self.tenant_id,
+                knowledge_version_id=version.knowledge_version_id,publication_event_id=event_id,
+                event_version=version.version,status="PENDING"))
+        version.lifecycle = after
+        version.record_version += 1
+        self.change(s, version_id, after, {"actor": actor})
+        s.flush()
+        return result(version)
 
     def diff(self, s, old, new):
         def nodes(version):
@@ -758,11 +896,14 @@ class PostgresKnowledgeRepository:
             return result(self.get(s, k.KnowledgeDocumentVersionEntity, version_id))
 
     def get_run(self, run_id):
-        self.admin()
+        self._ingestion_access()
         with self.sessions() as s:
+            run = self.get(s, k.KnowledgeIngestionRunEntity, run_id)
+            if not self.context.permission.system and "knowledge:admin" not in self.context.permission.scopes:
+                self._authorize_ingestion_payload(run.input_json)
             return {
                 key: value
-                for key, value in result(self.get(s, k.KnowledgeIngestionRunEntity, run_id)).items()
+                for key, value in result(run).items()
                 if key not in {"input_json", "audit_json"}
             }
 
@@ -820,6 +961,8 @@ class PostgresKnowledgeRepository:
 
     def create_translation(self, version_id, payload):
         self.admin()
+        if payload.get("provenance", {}).get("schema") == "KB01_CLAUSE_TRANSLATION_ALIGNMENT_V1":
+            raise ValueError("USE_TYPED_TRANSLATION_ALIGNMENT_OWNER")
         translation = KnowledgeTranslation.model_validate(
             dict(payload, translation_id=str(uuid4()), knowledge_version_id=version_id)
         )
@@ -848,6 +991,8 @@ class PostgresKnowledgeRepository:
         self.admin()
         with self.sessions() as s, s.begin():
             row = self.get(s, k.KnowledgeTranslationEntity, translation_id, True)
+            if row.provenance_json.get("schema") == "KB01_CLAUSE_TRANSLATION_ALIGNMENT_V1":
+                raise ValueError("USE_TYPED_TRANSLATION_ALIGNMENT_REVIEW")
             if row.record_version != expected:
                 raise OptimisticConcurrencyError("stale translation")
             if (

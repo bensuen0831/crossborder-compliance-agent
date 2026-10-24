@@ -29,6 +29,7 @@ LIFECYCLE_VALUES = "'DRAFT','PENDING_REVIEW','APPROVED','ACTIVE','SUPERSEDED','E
 class MetadataDefinitionEntity(TenantAuditMixin, Base):
     __tablename__ = "metadata_definitions"
     __table_args__ = (
+        UniqueConstraint("tenant_id", "definition_id", name="uq_metadata_scope"),
         UniqueConstraint("tenant_id", "kind", "code", name="uq_metadata_definition_kind_code"),
         UniqueConstraint(
             "tenant_id", "kind", "canonical_object_id", name="uq_metadata_definition_canonical_ref"
@@ -58,6 +59,7 @@ class MetadataDefinitionEntity(TenantAuditMixin, Base):
 class MetadataVersionEntity(TenantAuditMixin, EffectiveMixin, Base):
     __tablename__ = "metadata_versions"
     __table_args__ = (
+        UniqueConstraint("tenant_id", "definition_id", "version_id", name="uq_metadata_version_definition_scope"),
         UniqueConstraint(
             "tenant_id", "definition_id", "version_no", name="uq_metadata_version_number"
         ),
@@ -708,6 +710,7 @@ class KnowledgeSourceDefinitionEntity(TenantAuditMixin, Base):
 
 class AdminChangeSetEntity(TenantAuditMixin, Base):
     __tablename__ = "admin_change_sets"
+    __table_args__ = (UniqueConstraint("tenant_id", "change_set_id", name="uq_admin_change_scope"),)
     change_set_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     actor_id: Mapped[str] = mapped_column(String(160), nullable=False)
     lifecycle_status: Mapped[str] = mapped_column(String(40), nullable=False, default="DRAFT")

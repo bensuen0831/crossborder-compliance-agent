@@ -3,10 +3,15 @@ from __future__ import annotations
 import csv
 import io
 import re
+import tempfile
+from pathlib import Path
 from pathlib import PurePath
 from uuid import UUID, uuid4
 
-from crossborder_compliance.application.document_ports import OCRPort, VisionDiagramPort
+from crossborder_compliance.application.document_ports import (
+    OCRPort, VisionDiagramPort, StreamNativeDocumentParserPort,
+)
+from crossborder_compliance.domain.document_text import normalize_document_text
 from crossborder_compliance.domain.document_intelligence import (
     CandidateDiagramResult,
     CanonicalNodeType,
@@ -17,7 +22,7 @@ from crossborder_compliance.domain.document_intelligence import (
 
 
 def _norm(text: object) -> str:
-    return re.sub(r"\s+", " ", str(text or "")).strip()
+    return normalize_document_text(text)
 
 
 def _node(document_version_id: UUID, node_type: CanonicalNodeType, sequence: int, **kwargs):
@@ -217,5 +222,86 @@ class ImageParserAdapter:
         return ParsedDocument(tuple(nodes),native_parse_used=True,vision_used=vision_used,detected_language=None)
 
 
-def default_native_parsers(*,ocr:OCRPort|None=None,vision:VisionDiagramPort|None=None):
-    return [PDFParserAdapter(ocr),DOCXParserAdapter(),XLSXParserAdapter(),CSVParserAdapter(),PPTXParserAdapter(),TextParserAdapter(),ImageParserAdapter(vision)]
+class StreamingNativeDocumentParserAdapter:
+    """Existing Project DocumentParserPort adaptation over the shared native core."""
+
+    parser_name = "isolated-native-document-blocks"
+    parser_version = "KB01_NATIVE_V1"
+
+    def __init__(self, native: StreamNativeDocumentParserPort, policy, working_root: Path):
+        self.native, self.policy, self.working_root = native, policy, working_root
+
+    def supports(self, *, mime_type: str, filename: str) -> bool:
+        return PurePath(filename).suffix.lower() in {
+            ".doc",
+            ".docx",
+            ".pdf",
+            ".txt",
+            ".html",
+            ".xhtml",
+        }
+
+    def parse(
+        self, *, document_version_id: UUID, content: bytes, filename: str, mime_type: str
+    ) -> ParsedDocument:
+        with tempfile.TemporaryDirectory(dir=self.working_root) as directory:
+            directory = Path(directory)
+            directory.chmod(0o755)
+            source = directory / "original"
+            source.write_bytes(content)
+            source.chmod(0o644)
+            blocks, audit = self.native.parse(
+                source, PurePath(filename).suffix[1:].upper(), self.policy
+            )
+        root = _node(
+            document_version_id,
+            CanonicalNodeType.DOCUMENT,
+            0,
+            original_text=filename,
+            normalized_text=filename,
+            parser_confidence=1.0,
+        )
+        nodes = [root]
+        for sequence, block in enumerate(blocks, 1):
+            confidence = block["source_locator"].get("ocr_confidence", 1.0)
+            nodes.append(
+                _node(
+                    document_version_id,
+                    CanonicalNodeType.HEADING
+                    if block.get("heading")
+                    else CanonicalNodeType.PARAGRAPH,
+                    sequence,
+                    parent_node_id=root.structure_node_id,
+                    page_no=block["source_locator"].get("page_no"),
+                    original_text=block["original_text"],
+                    normalized_text=_norm(block["original_text"]),
+                    parser_confidence=confidence,
+                    source_locator=block["source_locator"],
+                    provenance={"native_parser": audit},
+                )
+            )
+        return ParsedDocument(
+            tuple(nodes),
+            native_parse_used=True,
+            ocr_used=audit["ocr_used"],
+            detected_language="und",
+            warnings=("native extraction requires review",) if audit["needs_manual_review"] else (),
+        )
+
+
+def default_native_parsers(
+    *,
+    ocr: OCRPort | None = None,
+    vision: VisionDiagramPort | None = None,
+    streaming_native: StreamingNativeDocumentParserAdapter | None = None,
+):
+    legacy = [
+        PDFParserAdapter(ocr),
+        DOCXParserAdapter(),
+        XLSXParserAdapter(),
+        CSVParserAdapter(),
+        PPTXParserAdapter(),
+        TextParserAdapter(),
+        ImageParserAdapter(vision),
+    ]
+    return [streaming_native, *legacy] if streaming_native is not None else legacy

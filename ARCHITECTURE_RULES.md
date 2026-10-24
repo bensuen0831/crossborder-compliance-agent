@@ -217,3 +217,83 @@ version or history rewrite is permitted. Legacy snapshots containing legacy
 decision authority are read-only; a new analysis requires a new Snapshot.
 Migration 0020 changes only the five engine CHECK constraints and refuses
 downgrade if corrected authority exists. Stage 2 remains NOT STARTED.
+# KB01 V2 — canonical knowledge management constraints
+
+KB01 extends the existing KnowledgeDocument/KnowledgeDocumentVersion and
+MetadataDefinition/MetadataVersion authorities. Classification labels pin exact
+canonical metadata versions; they do not become formal legal scope bindings.
+Published labels and historical legal decisions remain immutable. Taxonomy
+merges are reviewed aliases and never retarget historical jurisdiction identity.
+
+Management mutations require current operation-specific grants, tenant scope,
+actor identity from RepositoryContext, CAS and payload-bound idempotency. Missing
+retention policy fails closed. Eligible draft deletion checks all references;
+operation receipts and retention-hold history cannot be rewritten or deleted.
+Unsafe downgrade refuses to discard administration evidence or classification
+pins. Historical migrations 0001–0020 remain byte-identical.
+
+The additive executable checks are in scripts/kb01_architecture_check.py. The
+finite committed-blob successor preserves every previous source manifest and
+all source outside the explicit KB01 management paths. Candidate confirmation,
+formal legal algorithms, canonical review/runtime and Stage 2 boundaries remain
+under their existing owners.
+
+KB01 binary transport uses provider-versioned multipart objects and independent
+streamed whole-file/part digests. Immutable binary receipts attach the exact
+original to the existing KnowledgeDocumentVersion. Archive and scanner tools run
+offline with bounded CPU, RAM, PID, diagnostic, disk and scratch budgets. Genuine
+RAR4/RAR5/ZIP decoding reuses the strict relative-path policy; links, traversal,
+collisions and nested archives fail closed.
+
+ImportBatch/BatchItem are durable operational work, not Knowledge, Registry or
+Workflow authorities. Explicit user metadata mapping creates canonical drafts
+through the existing owner in the same transaction as verified original
+attachment. Workers cannot publish, approve or create legal results. Cancellation
+and bounded recovery preserve immutable originals, manifests and audit receipts.
+Historical migrations 0001–0021 remain byte-identical; unsafe0022 downgrade
+refuses when any binary/batch/receipt evidence would be lost. The12 binary checks
+are additive to the preceding20 KB01 management checks.
+
+KB01 C maps identity-free native source blocks through the existing
+KnowledgeIngestionRun/KnowledgeStructureNode/KnowledgeChunk/Citation/Evidence
+owners. The existing DocumentParserPort may adapt the same streaming native
+core using a real Project DocumentVersion; no Knowledge ID is disguised as a
+Project, DocumentVersion or AnalysisSnapshot. Original binary hash/version/ref
+remain immutable when native text is ingested. Parser output, exact technical
+policy pins, OCR page/bbox/confidence and language proposals are auditable.
+Language detection and OCR confidence cannot substitute for source review or
+become legal authority. Current scoped technical worker identities cannot
+approve or publish; system-context impersonation is rejected.
+
+Compatible0023 widens only the existing Evidence source reference, preserves
+all historical values and refuses a downgrade that would truncate references.
+Its fixed-width non-unique index is an accelerator, never Evidence identity or
+digest authority. Frozen0001–0022 bytes remain unchanged. Historical fresh-schema
+fixtures explicitly use committed historical bootstrap metadata because frozen
+`0002` loads its runtime ORM; current fresh→0023 remains independently required.
+The10 native checks are additive; no earlier check is removed.
+
+
+### KB01 management channel and recovery boundaries
+
+Statistics share the authorized canonical document list scope and SQL distinct
+counts. Classification groups are many-to-many; their sum is not a document total.
+The existing AdminShell uses current server operation capabilities. Coarse legacy
+admin permission does not supply new grants. Browser transfer hashes raw bytes
+incrementally in a Worker and sends bounded signed parts without application
+credentials. Clause previews read exact canonical KnowledgeVersion nodes and
+citations with pagination; rendered source excerpts are plain text. A technical
+item retry retains the original and one canonical ingestion run, checks parent
+and item CAS, respects the attempt bound, and cannot retry permanent parse refusal.
+Failure exports require an explicit scoped export grant. PostgreSQL-specific
+reference DDL remains enforced on PostgreSQL; SQLite-only runtime fixtures do not
+emit PostgreSQL functions. Frozen migrations 0001–0023 remain unchanged.
+
+KB01 scanner RAM is a bounded technical setting on the existing governed
+KnowledgeManagementPolicy, frozen on each upload. Old sessions retain2GiB;
+newly published policies may explicitly choose256MiB–8GiB. A worker may not
+resolve latest policy to replace a frozen budget, and an invalid budget is
+rejected before launching a process. Scanner coverage, refusal semantics and
+offline isolation remain unchanged. The executable checks
+kb01_scan_memory_is_frozen_not_latest and
+kb01_scan_memory_is_bounded_before_process_launch are additive.

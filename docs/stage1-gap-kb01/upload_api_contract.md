@@ -1,0 +1,5 @@
+# Proposed API (not implemented)
+
+Extend/api/v1/admin/knowledge-* using shared canonical application use cases and extra-forbid DTOs. Document list/search supports server pagination/filter/sort; details/history/diff; version metadata CAS; structured preview. upload-sessions create/parts/resume/complete/abort and capability/policy endpoints; imports create/detail/manifest-preview/resolve-mappings/confirm/cancel/retry; statistics overview/dimension/cross-filter; governance validate/submit-review/approve/reject/publish/archive; deletion-impact/authorized draft delete/restore where policy allows.
+
+Backend owns tenant/actor/object key/target binding/version/time. No caller-supplied authorizer. Upload completion independently streams storage object checksum, size and type; S3 ETag/client hash is not full-object SHA256 authority. Keys are tenant/session scoped and expire; no public URLs. Idempotency same key/payload returns original, changed payload409; CAS stale409; forbidden403 or scoped404; missing adapter503 CAPABILITY_NOT_CONFIGURED. Metadata previews are not final publication.

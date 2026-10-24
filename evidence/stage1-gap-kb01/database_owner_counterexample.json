@@ -1,0 +1,60 @@
+{
+  "database": "kb01_d0_20261014",
+  "foreign_keys": [
+    {
+      "conname": "documents_project_id_fkey",
+      "definition": "FOREIGN KEY (project_id) REFERENCES projects(project_id) ON DELETE CASCADE",
+      "relation": "documents"
+    },
+    {
+      "conname": "fk_documents_active_version",
+      "definition": "FOREIGN KEY (active_version_id) REFERENCES document_versions(document_version_id) ON DELETE SET NULL",
+      "relation": "documents"
+    },
+    {
+      "conname": "document_versions_document_id_fkey",
+      "definition": "FOREIGN KEY (document_id) REFERENCES documents(document_id) ON DELETE CASCADE",
+      "relation": "document_versions"
+    },
+    {
+      "conname": "source_trace_refs_document_version_id_fkey",
+      "definition": "FOREIGN KEY (document_version_id) REFERENCES document_versions(document_version_id) ON DELETE CASCADE",
+      "relation": "source_trace_refs"
+    },
+    {
+      "conname": "document_parse_runs_document_version_id_fkey",
+      "definition": "FOREIGN KEY (document_version_id) REFERENCES document_versions(document_version_id) ON DELETE CASCADE",
+      "relation": "document_parse_runs"
+    }
+  ],
+  "fresh_migration": "PASS",
+  "nullable_contract": [
+    {
+      "column_name": "project_id",
+      "is_nullable": "NO",
+      "table_name": "documents"
+    },
+    {
+      "column_name": "document_version_id",
+      "is_nullable": "NO",
+      "table_name": "document_versions"
+    },
+    {
+      "column_name": "document_id",
+      "is_nullable": "NO",
+      "table_name": "document_versions"
+    },
+    {
+      "column_name": "document_version_id",
+      "is_nullable": "NO",
+      "table_name": "source_trace_refs"
+    },
+    {
+      "column_name": "document_version_id",
+      "is_nullable": "NO",
+      "table_name": "document_parse_runs"
+    }
+  ],
+  "revision": "0020_stage1_formal_decision_engine_compatibility",
+  "source": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d"
+}

@@ -97,3 +97,7 @@ for _resource in ("data-categories", "skills", "country-profiles", "scenario-adj
 
 for _resource in ("llm-invocation-policies", "model-usage-policies", "llm-provider-presets"):
     router.add_api_route("/" + _resource, _generic_runtime_endpoint(_resource), methods=["GET"])
+
+for _resource in ("regulation-categories", "research-topics", "knowledge-languages",
+                  "issuing-authorities", "knowledge-source-types", "legal-effects"):
+    router.add_api_route("/" + _resource, _generic_runtime_endpoint(_resource), methods=["GET"])

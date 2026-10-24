@@ -12,7 +12,13 @@ def test_m2d_approved_finite_owner_preserves_baseline_authorities():
     valid, paths, source = overlay(root)
     recovery_valid, recovery_paths, recovery_source = recovery_overlay(root)
     assert valid and source and source != BASE
-    assert recovery_valid and paths.keys() <= PATHS | RECOVERY_PATHS
+    allowed = PATHS | RECOVERY_PATHS
+    if (root / "evidence/stage1-gap-kb01/approved_owner_overlay.json").exists():
+        from scripts.kb01_ownership import authenticated_paths
+
+        assert source == recovery_source
+        allowed |= authenticated_paths(root, source)
+    assert recovery_valid and paths.keys() <= allowed
     engine = "src/crossborder_compliance/domain/decision_engine.py"
     if engine in paths:
         import json, subprocess

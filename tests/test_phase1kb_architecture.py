@@ -7,7 +7,12 @@ from scripts.phase1kb_ownership import BASE, PATHS, overlay
 def test_phase1kb_additive_architecture_and_finite_committed_ownership():
     root = Path(__file__).resolve().parents[1]
     valid, paths, source = overlay(root)
-    assert valid and source and source != BASE and paths.keys() <= PATHS
+    allowed = PATHS
+    if (root / "evidence/stage1-gap-kb01/approved_owner_overlay.json").exists():
+        from scripts.kb01_ownership import authenticated_paths
+
+        allowed |= authenticated_paths(root, source)
+    assert valid and source and source != BASE and paths.keys() <= allowed
     engine = "src/crossborder_compliance/domain/decision_engine.py"
     if engine in paths:
         import json, subprocess

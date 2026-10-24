@@ -1,0 +1,28 @@
+{
+  "decision": "FAILED_DIAGNOSTIC_RETAINED",
+  "tested_source_sha": "a95d5f05f46566d7e58417a8c9cb2214c6d028f0",
+  "backend": {
+    "collected": 1098,
+    "passed": 1094,
+    "failed": 4,
+    "errors": 0,
+    "skipped": 0,
+    "deselected": 0,
+    "failure_ids": [
+      "tests.test_m1_phase1lb_ownership::test_approved_m1_descendant_and_finite_integration_provenance",
+      "tests.test_m2d_architecture::test_m2d_approved_finite_owner_preserves_baseline_authorities",
+      "tests.test_m2e_r1_architecture::test_recovery_is_exact_committed_finite_successor_owner",
+      "tests.test_phase1kb_architecture::test_phase1kb_additive_architecture_and_finite_committed_ownership"
+    ]
+  },
+  "classification": "FINITE_SOURCE_SCOPE_COMPATIBILITY",
+  "runtime": {
+    "passed": 25,
+    "total": 25,
+    "source": "same exact-head fresh PostgreSQL gate"
+  },
+  "junit_sha256": "cbc373635d42bddbf3ac740da0653834aa95d0fe43de336271dbccf2f84cd875",
+  "log_sha256": "a8d38936cd6a47365542da8c0265119b4e1d03e4322ad7019798438a84589b09",
+  "replacement_pass_claimed": false,
+  "stage2_started": false
+}

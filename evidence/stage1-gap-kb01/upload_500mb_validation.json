@@ -1,0 +1,37 @@
+{
+  "artifact_kind": "DEVELOPMENT_GENUINE_CAPACITY_BROWSER_MEASUREMENTS",
+  "decision": "PENDING_FINAL_HEAD_CI",
+  "cases": {
+    "SINGLE": {
+      "measurement": {
+        "kind": "SINGLE",
+        "bytes": 540006868,
+        "sha256": "c2fdbb5b1032e1fefa75b3e209f1185d09d1cf101a2db10b47199840903ecf60",
+        "batch_id": "f05e71a0-738e-4b4b-bb1a-2f3b46a50918",
+        "knowledge_version_ids": [
+          "2cd3fc87-3fd5-48ac-89f9-3be082d40174"
+        ],
+        "source_class": "SYNTHETIC_GOVERNED_TEST_DATA",
+        "status": "PASS",
+        "publication": "ACTIVE",
+        "runtime": "READY",
+        "exact_original_download": "PASS",
+        "browser_retries": 0,
+        "elapsed_seconds": 79.241
+      },
+      "artifact_sha256": "5012f74214c05154113cdc89008088550972ad277e45bd0df56304a9941eee9c",
+      "source_identity": "DEVELOPMENT_WORKTREE_NOT_FINAL_HEAD_CLOSURE"
+    }
+  },
+  "retries": 0,
+  "scanner_database_identity": "OFFICIAL_CLAMAV_VERIFIED_CVD_MAIN_DAILY_BYTECODE",
+  "retained_failures": [
+    "ZIP2GiBscannerexit137",
+    "UATfixedoriginCORSrejection",
+    "SharedlocalS3volume20-slotexhaustion"
+  ],
+  "limitations": [
+    "Four passes came from separate development executions; final same-head capacity workflow remains mandatory",
+    "Synthetic technical originals, not real regulatory legal acceptance"
+  ]
+}

@@ -1171,6 +1171,10 @@ from scripts.stage1_business_architecture import check as check_business_accepta
 for name, passed in check_business_acceptance(ROOT).items():
     add(name, passed, "Stage1 R3 synthetic governed full business acceptance; canonical owner and exact provenance")
 
+from scripts.kb01_architecture_check import check as check_kb01_management
+for name, passed in check_kb01_management(ROOT).items():
+    add(name, passed, "KB01 V2 canonical taxonomy/document management; scoped PostgreSQL and migration tests")
+
 failed = [check for check in checks if not check["pass"]]
 result = {
     "pass": not failed,

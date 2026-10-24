@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  // Worker-only imports must be optimized before an interactive upload starts.
+  optimizeDeps: { include: ['@noble/hashes/sha2.js'] },
   server: {
     port: 5173, strictPort: true,
     proxy: Object.fromEntries(['/api', '/health', '/m0-demo'].map((path) => [path, {
