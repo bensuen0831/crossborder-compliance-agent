@@ -1,3 +1,5 @@
+> Current product `733a7483439cd919c186ed0064b8f3752904ebb6`; current gates and complete measured regression: ../g1-r1/final_technical_acceptance.md. Any explicitly retained earlier Reset/performance/host qualification measurement is historical459, not newly executed on this Head. Human UAT results remain Pending.
+
 # RC1 操作與故障排查
 
 ```bash
@@ -27,3 +29,16 @@ python scripts/kb01/rc1.py start --state-dir /absolute/private/kb01-rc1
 版本：`KB01-Technical-UAT-RC1`。只限 `LOCAL / ISOLATED TECHNICAL TESTING ONLY`。使用既有 React 前端、UAT Host、PostgreSQL、Redis、versioned S3 與 canonical Workers；不是 Production Auth，也不提供公開網址。
 
 KB01-F1 = BLOCKED — EXTERNAL_EVIDENCE_PENDING；LEGAL L2 / Production Deployment = NOT ACCEPTED；Real Regulatory Acceptance / Production UAT / Paid Internet LLM = NOT EXECUTED；Reviewer Approval = Pending；MASTER reconciliation = INPUT_REQUIRED；PR29 Draft；Main merge 未授權；Release Tag 不變；Stage2 NOT STARTED。
+
+## Cached source mismatch after a version update
+
+RC1 now verifies both Containerfile and inventory-reader hashes for supplied and cached tool evidence. `RC1_TOOL_SOURCE_MISMATCH` is a refusal, not a scanner PASS. Preserve existing data and old proof; stop this owned instance, build a new evidence directory, then start with the explicit proof:
+
+```bash
+KB01_RC1_STATE="$HOME/.local/share/kb01-rc1"
+python scripts/kb01/rc1.py stop --state-dir "$KB01_RC1_STATE"
+python scripts/kb01/build_tools.py --output "$KB01_RC1_STATE/rebuild-733a748/tool-image.json" --tag kb01-rc1-tools:733a748
+python scripts/kb01/rc1.py start --state-dir "$KB01_RC1_STATE" --tool-evidence "$KB01_RC1_STATE/rebuild-733a748/tool-image.json"
+```
+
+Use the validated Linux local Docker socket/profile; preserve proxy/CA/registry credentials. Do not edit hashes, replace provenance, remove source checks or reset the database to get past this refusal. The cached-proof counterexample and2negative tests are in security-review/. This is a technical launcher boundary, not a change to formal legal owners.

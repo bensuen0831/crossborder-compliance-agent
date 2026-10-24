@@ -1,0 +1,184 @@
+{
+  "product_sha": "733a7483439cd919c186ed0064b8f3752904ebb6",
+  "master_clause": "7.1 lines791\u2013834",
+  "required_count": 25,
+  "exact_dto_field_count": 8,
+  "dto_model_fields": [
+    "analysis_run_id",
+    "completed_at",
+    "created_at",
+    "key_findings_count",
+    "provenance",
+    "record_version",
+    "related_object_refs",
+    "review_required",
+    "schema_version",
+    "sequence",
+    "stage_code",
+    "stage_name",
+    "started_at",
+    "status",
+    "summary",
+    "updated_at",
+    "warning_count"
+  ],
+  "rows": [
+    {
+      "required_field": "stage_result_id",
+      "observation": "NOT_AN_EXACT_DTO_FIELD_EQUIVALENCE_NOT_YET_PROVEN",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": "analysis_stage_result_id exists in ORM/entity but not this DTO; no wire equivalence proved"
+    },
+    {
+      "required_field": "project_id",
+      "observation": "NOT_AN_EXACT_DTO_FIELD_EQUIVALENCE_NOT_YET_PROVEN",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": "May derive through authorized workflow/snapshot/project relation; not this DTO field"
+    },
+    {
+      "required_field": "analysis_run_id",
+      "observation": "EXACT_DTO_FIELD",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": null
+    },
+    {
+      "required_field": "stage_code",
+      "observation": "EXACT_DTO_FIELD",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": null
+    },
+    {
+      "required_field": "stage_name",
+      "observation": "EXACT_DTO_FIELD",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": null
+    },
+    {
+      "required_field": "stage_sequence",
+      "observation": "NOT_AN_EXACT_DTO_FIELD_EQUIVALENCE_NOT_YET_PROVEN",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": "sequence exists; confirm intended alias with owner and versioned contract evidence"
+    },
+    {
+      "required_field": "status",
+      "observation": "EXACT_DTO_FIELD",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": null
+    },
+    {
+      "required_field": "started_at",
+      "observation": "EXACT_DTO_FIELD",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": null
+    },
+    {
+      "required_field": "completed_at",
+      "observation": "EXACT_DTO_FIELD",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": null
+    },
+    {
+      "required_field": "duration_ms",
+      "observation": "NOT_AN_EXACT_DTO_FIELD_EQUIVALENCE_NOT_YET_PROVEN",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": "started_at/completed_at exist; require explicit projection/contract evidence for derived duration"
+    },
+    {
+      "required_field": "summary",
+      "observation": "EXACT_DTO_FIELD",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": null
+    },
+    {
+      "required_field": "key_findings",
+      "observation": "NOT_AN_EXACT_DTO_FIELD_EQUIVALENCE_NOT_YET_PROVEN",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": "Counts exist but are not the requested list/statistics/warning-code contract"
+    },
+    {
+      "required_field": "statistics",
+      "observation": "NOT_AN_EXACT_DTO_FIELD_EQUIVALENCE_NOT_YET_PROVEN",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": "Counts exist but are not the requested list/statistics/warning-code contract"
+    },
+    {
+      "required_field": "related_document_ids",
+      "observation": "NOT_AN_EXACT_DTO_FIELD_EQUIVALENCE_NOT_YET_PROVEN",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": "related_object_refs exists; require explicit typed mapping/coverage proof for every required category"
+    },
+    {
+      "required_field": "related_data_item_ids",
+      "observation": "NOT_AN_EXACT_DTO_FIELD_EQUIVALENCE_NOT_YET_PROVEN",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": "related_object_refs exists; require explicit typed mapping/coverage proof for every required category"
+    },
+    {
+      "required_field": "related_data_flow_ids",
+      "observation": "NOT_AN_EXACT_DTO_FIELD_EQUIVALENCE_NOT_YET_PROVEN",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": "related_object_refs exists; require explicit typed mapping/coverage proof for every required category"
+    },
+    {
+      "required_field": "related_classification_result_ids",
+      "observation": "NOT_AN_EXACT_DTO_FIELD_EQUIVALENCE_NOT_YET_PROVEN",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": "related_object_refs exists; require explicit typed mapping/coverage proof for every required category"
+    },
+    {
+      "required_field": "related_risk_item_ids",
+      "observation": "NOT_AN_EXACT_DTO_FIELD_EQUIVALENCE_NOT_YET_PROVEN",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": "related_object_refs exists; require explicit typed mapping/coverage proof for every required category"
+    },
+    {
+      "required_field": "related_recommendation_ids",
+      "observation": "NOT_AN_EXACT_DTO_FIELD_EQUIVALENCE_NOT_YET_PROVEN",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": "related_object_refs exists; require explicit typed mapping/coverage proof for every required category"
+    },
+    {
+      "required_field": "related_path_ids",
+      "observation": "NOT_AN_EXACT_DTO_FIELD_EQUIVALENCE_NOT_YET_PROVEN",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": "related_object_refs exists; require explicit typed mapping/coverage proof for every required category"
+    },
+    {
+      "required_field": "related_evidence_ids",
+      "observation": "NOT_AN_EXACT_DTO_FIELD_EQUIVALENCE_NOT_YET_PROVEN",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": "related_object_refs exists; require explicit typed mapping/coverage proof for every required category"
+    },
+    {
+      "required_field": "confidence",
+      "observation": "NOT_AN_EXACT_DTO_FIELD_EQUIVALENCE_NOT_YET_PROVEN",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": null
+    },
+    {
+      "required_field": "review_required",
+      "observation": "EXACT_DTO_FIELD",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": null
+    },
+    {
+      "required_field": "warning_codes",
+      "observation": "NOT_AN_EXACT_DTO_FIELD_EQUIVALENCE_NOT_YET_PROVEN",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": "Counts exist but are not the requested list/statistics/warning-code contract"
+    },
+    {
+      "required_field": "error_code",
+      "observation": "NOT_AN_EXACT_DTO_FIELD_EQUIVALENCE_NOT_YET_PROVEN",
+      "evidence": "src/crossborder_compliance/domain/contracts.py:167",
+      "candidate_mapping_or_gap": null
+    }
+  ],
+  "conclusion": "PARTIAL_CONFORMANCE_EXPLICIT_OWNER_MAPPING_OR_CHANGE_DECISION_REQUIRED",
+  "limitation": "No inference that every non-exact field is absent from all projections. This checks exact DTO fields; aliases/derived fields need independent owner evidence. No production source/migration/legal calculation modified.",
+  "minimum_compliant_options": [
+    "M2C/API owner provides tested explicit equivalent mapping to existing entities/run/context/projections",
+    "If missing, separately approve versioned projection/DTO completion without a second store or historical rewrite",
+    "Requirements custodian supplies any applicable approved amendment; do not rewrite MASTER to match existing code"
+  ]
+}

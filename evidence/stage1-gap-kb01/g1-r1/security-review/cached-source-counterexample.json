@@ -1,0 +1,21 @@
+{
+  "source_after": "733a7483439cd919c186ed0064b8f3752904ebb6",
+  "source_before": "b9f22415d3f40cf87a6957b93bb6301b602a3733",
+  "original_proof_image": "sha256:393153e721875265778b44ebac53d58bab5e5f94958ff5ed4c76c4e7fa0685af",
+  "cached_containerfile_sha256": "a325c68b4be898c58ef4492bd168ef3157d36df94b138b0ea81bc2ffdd131e2c",
+  "current_containerfile_sha256": "669f07932fa933e7c5ddc463847607f697bc1efedd08fd8629318a77fbd5752d",
+  "method": "Execute exact trusted committed old start and current start; only health/owned-container startup are stubbed; real readonly PG connect and Redis ping retained; sentinel stops before migration or worker mutation. Not a production pass fixture.",
+  "results": [
+    {
+      "source_variant": "trusted_B9_before",
+      "cached_mismatched_source_accepted": true,
+      "stopped_before_mutation": true
+    },
+    {
+      "source_variant": "working_fixed_after",
+      "cached_mismatched_source_accepted": false,
+      "stable_error": "RC1_TOOL_SOURCE_MISMATCH",
+      "stopped_before_mutation": true
+    }
+  ]
+}

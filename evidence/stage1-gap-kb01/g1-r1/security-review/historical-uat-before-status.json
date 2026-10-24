@@ -1,0 +1,26 @@
+{
+  "source_scope": "Historical intermediate B9 environment pre-restart diagnostic, not current733pass",
+  "observation": {
+    "version": "KB01-Technical-UAT-RC1",
+    "scope": "LOCAL_ISOLATED_TECHNICAL_TESTING_ONLY",
+    "http": {
+      "backend": {
+        "url": "http://127.0.0.1:18010/health/live",
+        "status": "UNAVAILABLE"
+      },
+      "frontend": {
+        "url": "http://127.0.0.1:15173",
+        "status": "UNAVAILABLE"
+      }
+    },
+    "instance": "kb01-rc1-ef39d7309242",
+    "state_directory": "/workspace/kb01-rc1",
+    "source_commit": "b9f22415d3f40cf87a6957b93bb6301b602a3733",
+    "stage2": "NOT STARTED",
+    "production_auth": "NOT PROVIDED",
+    "postgres": "STOPPED",
+    "redis": "STOPPED",
+    "image_id": "sha256:393153e721875265778b44ebac53d58bab5e5f94958ff5ed4c76c4e7fa0685af",
+    "oci_manifest_digest": "sha256:3de890935f4c187e990a444fe0a2d4e6f8184809df44218444679c9e7301776c"
+  }
+}

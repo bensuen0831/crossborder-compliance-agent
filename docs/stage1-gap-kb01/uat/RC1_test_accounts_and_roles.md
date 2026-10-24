@@ -1,3 +1,5 @@
+> Current product `733a7483439cd919c186ed0064b8f3752904ebb6`; current gates and complete measured regression: ../g1-r1/final_technical_acceptance.md. Any explicitly retained earlier Reset/performance/host qualification measurement is historical459, not newly executed on this Head. Human UAT results remain Pending.
+
 # RC1 合成測試角色
 
 沒有預設密碼，透過僅限 loopback 的 synthetic login/session cookie。兩個 safety flags `M0_LOCAL_UAT=1` / `KB01_LOCAL_UAT=1` 由 RC1 launcher 設定；缺任何一個即拒絕啟動。角色按鈕另限 `VITE_M0_DEMO=true` / `VITE_KB01_UAT=true`，不是生產 login。

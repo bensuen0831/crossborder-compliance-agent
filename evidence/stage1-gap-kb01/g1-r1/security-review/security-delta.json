@@ -1,0 +1,53 @@
+{
+  "original_counts": {
+    "HIGH": 134,
+    "CRITICAL": 1
+  },
+  "same_db_old_image_counts": {
+    "HIGH": 135,
+    "CRITICAL": 1
+  },
+  "new_image_counts": {
+    "HIGH": 130,
+    "CRITICAL": 1
+  },
+  "removed_by_image": [
+    [
+      "dirmngr",
+      "2.4.7-21+deb13u1+b5",
+      "CVE-2026-24882"
+    ],
+    [
+      "gnupg",
+      "2.4.7-21+deb13u1",
+      "CVE-2026-24882"
+    ],
+    [
+      "gnupg-l10n",
+      "2.4.7-21+deb13u1",
+      "CVE-2026-24882"
+    ],
+    [
+      "gpg-agent",
+      "2.4.7-21+deb13u1+b5",
+      "CVE-2026-24882"
+    ],
+    [
+      "gpgsm",
+      "2.4.7-21+deb13u1+b5",
+      "CVE-2026-24882"
+    ]
+  ],
+  "introduced_by_image": [],
+  "newly_reported_by_db": [
+    [
+      "libbrotli1",
+      "1.1.0-2+b7",
+      "CVE-2026-111497"
+    ]
+  ],
+  "same_db_unique_cves_before_after": [
+    45,
+    45
+  ]
+}

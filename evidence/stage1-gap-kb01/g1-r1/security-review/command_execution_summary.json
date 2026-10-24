@@ -1,0 +1,69 @@
+{
+  "product_sha": "733a7483439cd919c186ed0064b8f3752904ebb6",
+  "new_successes": {
+    "source_ci_contract_tests": 75,
+    "native_archive_f0_tests": 39,
+    "taxonomy_real_pg_tests": 7,
+    "architecture": 456,
+    "runtime_ci": 25,
+    "frontend_ci": 180,
+    "browser_ci_unique": 89,
+    "fresh_local_role_browser": 1,
+    "complete_backend_per_execution": 1336,
+    "complete_backend_executions": 4
+  },
+  "setup_and_diagnostic_failures": [
+    {
+      "command": "Initial standalone cached-source test without repository PYTHONPATH",
+      "exit": 2,
+      "classification": "Collection import scripts failed; final-source75suite rerun with PYTHONPATH=src:. passed all7lifecycle cases"
+    },
+    {
+      "command": "Default sandbox RC1 stop on retained S3 process",
+      "exit": 1,
+      "classification": "Sandbox denied /proc executable verification. Same guarded owned-instance lifecycle completed with approved outside-sandbox execution under uid1000; no process guard or native sandbox weakened"
+    },
+    {
+      "command": "One metadata read of GitHub main ref",
+      "exit": 1,
+      "classification": "HTTP503 transient metadata availability; same authorized read retried successfully, not a test retry"
+    },
+    {
+      "command": "Initial pytest without project runtime.sh",
+      "exit": 127,
+      "classification": "pytest not on PATH; no tests executed; corrected venv and rerun67PASS"
+    },
+    {
+      "command": "Initial architecture CLI without project venv",
+      "exit": 1,
+      "classification": "sqlalchemy unavailable in wrong interpreter; rerun in existing project venv"
+    },
+    {
+      "command": "Initial architecture aggregation harness",
+      "exit": 1,
+      "classification": "list-vs-dict handling in evidence-only helper; CLI output valid, helper corrected and nine authorities rerun456PASS"
+    },
+    {
+      "command": "Initial affected DB preflight on old5432",
+      "exit": 1,
+      "classification": "Prior ephemeral host PostgreSQL stopped; owned separate PG17 created on65434, fresh upgrade/tests rerun"
+    },
+    {
+      "command": "Initial RC1 readonly inventory",
+      "exit": 1,
+      "classification": "Existing owned PG/Redis stopped after environment lifecycle; normal RC1stop/start with new image recovered; no data reset"
+    },
+    {
+      "command": "Readonly inventory SQL authoring",
+      "exit": 1,
+      "classification": "ORDER BY spacing typo in evidence-only query; transaction read-only, corrected and rerun; no product change"
+    },
+    {
+      "command": "Bulk official tracker JSON bounded download",
+      "exit": 1,
+      "classification": "Source larger than64MiB bound; all45individual official CVE pages fetched/hash-verified instead"
+    }
+  ],
+  "log_policy": "Only safe structured results/hashes archived. No private PG/S3 env, cookies, credentials, raw sensitive documents or unrestricted app logs.",
+  "previous_results_not_reexecuted": "Prior459 paired medians2.627473→0.036336s and source0 d9 preserved as historical. Current new head separately reran realPG7tests with402→5SQL/fullJSON parity. No old-head regression PASS inherited."
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "command": [
+      "alembic",
+      "upgrade",
+      "head"
+    ],
+    "started_at": "2026-10-24T17:11:28.315795+00:00",
+    "completed_at": "2026-10-24T17:11:29.438376+00:00",
+    "exit_code": 0,
+    "source_sha": "733a7483439cd919c186ed0064b8f3752904ebb6",
+    "tool_image_id": "sha256:35765d74c83509652f2a7c5112fb983ec2398e1709a05f144177a12a16321e19"
+  },
+  {
+    "command": [
+      "pytest",
+      "-q",
+      "tests/test_kb01_acceptance_readiness.py",
+      "tests/test_kb01_acceptance_readiness_postgres.py",
+      "tests/test_kb01_native_isolation.py",
+      "tests/test_kb01_archive_isolation.py",
+      "--junitxml=/workspace/kb01-security-final-733a748/affected.xml"
+    ],
+    "started_at": "2026-10-24T17:11:29.440842+00:00",
+    "completed_at": "2026-10-24T17:13:26.774385+00:00",
+    "exit_code": 0,
+    "source_sha": "733a7483439cd919c186ed0064b8f3752904ebb6",
+    "tool_image_id": "sha256:35765d74c83509652f2a7c5112fb983ec2398e1709a05f144177a12a16321e19"
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "name": "debian-tracker.json",
+    "url": "https://security-tracker.debian.org/tracker/data/json",
+    "error_type": "AssertionError",
+    "error": ""
+  },
+  {
+    "name": "critical-debian.html",
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-6653",
+    "status": 200,
+    "bytes": 4966,
+    "sha256": "e2c617f15c21210bf4b14e3dfba7349a56e335e2cc0cec5a9e5365de711389e7",
+    "content_type": "text/html; charset=UTF-8",
+    "last_modified": null,
+    "observed_at": "2026-10-24T16:20:10.630652+00:00"
+  },
+  {
+    "name": "libxml2-versions.json",
+    "url": "https://snapshot.debian.org/mr/package/libxml2/",
+    "status": 200,
+    "bytes": 8072,
+    "sha256": "2d725975fcd7524000ae376ff865f5c7feb8b115fc07bb5dc5774ba4f0581e8c",
+    "content_type": "application/json",
+    "last_modified": null,
+    "observed_at": "2026-10-24T16:20:10.811350+00:00"
+  },
+  {
+    "name": "critical-cve.json",
+    "url": "https://cveawg.mitre.org/api/cve/CVE-2026-6653",
+    "status": 200,
+    "bytes": 3011,
+    "sha256": "74113e1b3fe6ef9f28c05e83d459bbd9187bf0e27dd89a164569d5caccc67848",
+    "content_type": "application/json; charset=utf-8",
+    "last_modified": null,
+    "observed_at": "2026-10-24T16:20:10.529644+00:00"
+  }
+]

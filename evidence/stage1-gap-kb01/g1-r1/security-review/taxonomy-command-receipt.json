@@ -1,0 +1,13 @@
+{
+  "source_sha": "733a7483439cd919c186ed0064b8f3752904ebb6",
+  "command": [
+    "pytest",
+    "-q",
+    "tests/test_kb01_taxonomy_batch_postgres.py",
+    "--junitxml=/workspace/kb01-security-final-733a748/taxonomy-recheck.xml"
+  ],
+  "started_at": "2026-10-24T17:15:55.298635+00:00",
+  "completed_at": "2026-10-24T17:16:15.760340+00:00",
+  "exit_code": 0,
+  "database_scope": "Dedicated task PG17, credentials omitted"
+}

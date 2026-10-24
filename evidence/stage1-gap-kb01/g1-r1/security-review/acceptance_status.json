@@ -1,0 +1,46 @@
+{
+  "observed_at": "2026-10-25T02:42:51.955827+08:00",
+  "product_head": "733a7483439cd919c186ed0064b8f3752904ebb6",
+  "technical_uat_candidate": "READY_LOCAL_ISOLATED_SYNTHETIC_ONLY",
+  "functional_exact_head_regression": "PASS",
+  "security_formal_review": "PENDING",
+  "security_acceptance": "BLOCKED_UNAPPROVED_130_HIGH_1_CRITICAL_LOCAL_AND_RECORDED_CI_FINDINGS",
+  "master_repository_v3_7_comparison": "COMPLETED_WITH_GAPS_42_SECTIONS",
+  "master_kb01_v2_full_text": "INPUT_REQUIRED",
+  "master_overall": "BLOCKED_ORIGINAL_TEXT_AND_SCOPE_DECISIONS_PENDING",
+  "f1": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+  "rc1_formal_technical_acceptance": "BLOCKED_SECURITY_REVIEW_PENDING",
+  "f1_gate_scope": "Legal acceptance separate from technical A–E/UAT; no fabricated F1 or Production acceptance",
+  "formal_requirement_change_approval": "NOT_VERIFIED",
+  "repository_policy": "REPOSITORY_POLICY_VERIFICATION_PENDING",
+  "main_merge": "NOT_AUTHORIZED",
+  "pr29": "OPEN_DRAFT_NOT_MERGED",
+  "tag": "UNCHANGED",
+  "legal_l2": "NOT_ACCEPTED",
+  "production_deployment": "NOT_ACCEPTED",
+  "production_uat": "NOT_EXECUTED",
+  "paid_internet_llm": "NOT_EXECUTED",
+  "stage2": "NOT_STARTED",
+  "remaining_decisions": [
+    {
+      "responsible_role": "Formal Security Reviewer + dependency maintainer",
+      "needed": "CVE-specific verified fix/backport or explicit applicable time-bound decision; no risk accepted by AI",
+      "next_action": "Review critical libxml2 stable-vendor gap and retained130High; assign accountable maintainer and triage deadlines"
+    },
+    {
+      "responsible_role": "Project owner / requirements custodian",
+      "needed": "Authenticated full KB01-MASTER V2 original, version/hash, approved change history",
+      "next_action": "Supply readable original and resolve42-section/9explicit-requirement gaps; D0summary cannot replace"
+    },
+    {
+      "responsible_role": "Project owner / data custodian / appointed independent expert",
+      "needed": "Five original F1 evidence categories",
+      "next_action": "Upload authorized originals and approved source/appointment/case/Gold exact versions through existing canonical acceptance APIs"
+    },
+    {
+      "responsible_role": "Authorized Maintainer / operations owner",
+      "needed": "Complete repository policy visibility, retention/registry/signing ownership and independent host restore profile/receipt",
+      "next_action": "Provide policy export and separately authorized registry/host; same-machine restart not substitute"
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "source_sha": "733a7483439cd919c186ed0064b8f3752904ebb6",
+  "passed": 456,
+  "total": 456,
+  "authorities": [
+    {
+      "authority": "m2a_architecture_check.py",
+      "passed": 13,
+      "total": 13,
+      "command": [
+        "/workspace/compliance-env/bin/python",
+        "scripts/m2a_architecture_check.py"
+      ],
+      "started_at": "2026-10-24T17:13:26.828603+00:00",
+      "completed_at": "2026-10-24T17:13:26.855409+00:00",
+      "exit_code": 0
+    },
+    {
+      "authority": "m2b_architecture_check.py",
+      "passed": 27,
+      "total": 27,
+      "command": [
+        "/workspace/compliance-env/bin/python",
+        "scripts/m2b_architecture_check.py"
+      ],
+      "started_at": "2026-10-24T17:13:26.855420+00:00",
+      "completed_at": "2026-10-24T17:13:26.883979+00:00",
+      "exit_code": 0
+    },
+    {
+      "authority": "m2c_architecture_check.py",
+      "passed": 15,
+      "total": 15,
+      "command": [
+        "/workspace/compliance-env/bin/python",
+        "scripts/m2c_architecture_check.py"
+      ],
+      "started_at": "2026-10-24T17:13:26.883989+00:00",
+      "completed_at": "2026-10-24T17:13:26.922334+00:00",
+      "exit_code": 0
+    },
+    {
+      "authority": "m2c_projection_architecture.py",
+      "passed": 15,
+      "total": 15,
+      "command": [
+        "/workspace/compliance-env/bin/python",
+        "scripts/m2c_projection_architecture.py"
+      ],
+      "started_at": "2026-10-24T17:13:26.922344+00:00",
+      "completed_at": "2026-10-24T17:13:26.954697+00:00",
+      "exit_code": 0
+    },
+    {
+      "authority": "m2d_architecture_check.py",
+      "passed": 21,
+      "total": 21,
+      "command": [
+        "/workspace/compliance-env/bin/python",
+        "scripts/m2d_architecture_check.py"
+      ],
+      "started_at": "2026-10-24T17:13:26.954708+00:00",
+      "completed_at": "2026-10-24T17:13:33.804546+00:00",
+      "exit_code": 0
+    },
+    {
+      "authority": "m2e_r1_architecture_check.py",
+      "passed": 11,
+      "total": 11,
+      "command": [
+        "/workspace/compliance-env/bin/python",
+        "scripts/m2e_r1_architecture_check.py"
+      ],
+      "started_at": "2026-10-24T17:13:33.804561+00:00",
+      "completed_at": "2026-10-24T17:13:33.846195+00:00",
+      "exit_code": 0
+    },
+    {
+      "authority": "m2e_architecture_check.py",
+      "passed": 27,
+      "total": 27,
+      "command": [
+        "/workspace/compliance-env/bin/python",
+        "scripts/m2e_architecture_check.py"
+      ],
+      "started_at": "2026-10-24T17:13:33.846208+00:00",
+      "completed_at": "2026-10-24T17:13:36.528530+00:00",
+      "exit_code": 0
+    },
+    {
+      "authority": "architecture_rule_check.py",
+      "passed": 300,
+      "total": 300,
+      "command": [
+        "/workspace/compliance-env/bin/python",
+        "scripts/architecture_rule_check.py"
+      ],
+      "started_at": "2026-10-24T17:13:36.528548+00:00",
+      "completed_at": "2026-10-24T17:13:44.911907+00:00",
+      "exit_code": 0
+    },
+    {
+      "authority": "phase1kb_architecture_check.py",
+      "passed": 27,
+      "total": 27,
+      "command": [
+        "/workspace/compliance-env/bin/python",
+        "scripts/phase1kb_architecture_check.py"
+      ],
+      "started_at": "2026-10-24T17:13:44.911925+00:00",
+      "completed_at": "2026-10-24T17:13:48.512394+00:00",
+      "exit_code": 0
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "version": "KB01-Technical-UAT-RC1",
+  "scope": "LOCAL_ISOLATED_TECHNICAL_TESTING_ONLY",
+  "http": {
+    "backend": {
+      "url": "http://127.0.0.1:18010/health/live",
+      "status": 200
+    },
+    "frontend": {
+      "url": "http://127.0.0.1:15173",
+      "status": 200
+    }
+  },
+  "instance": "kb01-rc1-ef39d7309242",
+  "state_directory": "/workspace/kb01-rc1",
+  "source_commit": "733a7483439cd919c186ed0064b8f3752904ebb6",
+  "stage2": "NOT STARTED",
+  "production_auth": "NOT PROVIDED",
+  "postgres": "RUNNING",
+  "redis": "RUNNING",
+  "image_id": "sha256:35765d74c83509652f2a7c5112fb983ec2398e1709a05f144177a12a16321e19",
+  "oci_manifest_digest": "sha256:07be6daf20dbe2feb33424afa26466421783d95504487e7ffd8548cb3064b61c"
+}

@@ -1,0 +1,5367 @@
+{
+  "CVE-2025-69720": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2025-69720",
+    "raw_sha256": "3542be519daaef8f60a0fd662f4a6129a238f59ef9b86155869d49cfd2b3af78",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2025-69720"
+        ],
+        [
+          "Description",
+          "The infocmp command-line tool in ncurses before 6.5-20251213 has a stack-based buffer overflow in analyze_string in progs/infocmp.c."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "ncurses ( PTS )",
+          "bookworm",
+          "6.4-4",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "6.5+20250216-2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "6.6+20260608-2",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "ncurses",
+          "source",
+          "(unstable)",
+          "6.6+20251231-1",
+          "",
+          "",
+          ""
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "ncurses ( PTS )",
+        "release": "bookworm",
+        "version": "6.4-4",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "ncurses ( PTS )",
+        "release": "trixie",
+        "version": "6.5+20250216-2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "ncurses ( PTS )",
+        "release": "forky, sid",
+        "version": "6.6+20260608-2",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-111497": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-111497",
+    "raw_sha256": "c41a3ecfb17558ae46c6d17713505b062010921ff245d06ec754bc307070cbe4",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-111497"
+        ],
+        [
+          "Description",
+          "A buffer overflow vulnerability in the Brotli decoder (c/dec/decode.c) in Google Brotli versions 1.0.3 through 1.2.0 on all platforms allows a remote unauthenticated attacker to corrupt adjacent decoder state memory, disclose sensitive memory contents, cause a denial of service, or potentially execute arbitrary code using a crafted Brotli-compressed stream. Users need to update any Brotli libraries or binaries between 1.0.3 through 1.2.0 to the latest available version: 1.0.10 or 1.1.1 or 1.2.1."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "References",
+          "DLA-4855-1 , DSA-6582-1"
+        ],
+        [
+          "Debian Bugs",
+          "1151690"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "brotli ( PTS )",
+          "bookworm",
+          "1.0.9-2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "1.0.9-2+deb12u1",
+          "fixed"
+        ],
+        [
+          "",
+          "trixie",
+          "1.1.0-2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security)",
+          "1.1.0-2+deb13u1",
+          "fixed"
+        ],
+        [
+          "",
+          "forky, sid",
+          "1.2.0-4",
+          "vulnerable"
+        ],
+        [
+          "nodejs ( PTS )",
+          "bookworm",
+          "18.20.4+dfsg-1~deb12u2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "18.20.4+dfsg-1~deb12u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "20.19.2+dfsg-1+deb13u2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security)",
+          "20.19.2+dfsg-1+deb13u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky",
+          "24.21.0+dfsg+~cs24.13.4-1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "sid",
+          "24.22.0+dfsg+~cs24.19.2-2",
+          "vulnerable"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "brotli",
+          "source",
+          "bookworm",
+          "1.0.9-2+deb12u1",
+          "",
+          "DLA-4855-1",
+          ""
+        ],
+        [
+          "brotli",
+          "source",
+          "trixie",
+          "1.1.0-2+deb13u1",
+          "",
+          "DSA-6582-1",
+          ""
+        ],
+        [
+          "brotli",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          "1151690"
+        ],
+        [
+          "nodejs",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "unimportant",
+          "",
+          ""
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "brotli ( PTS )",
+        "release": "bookworm",
+        "version": "1.0.9-2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "brotli ( PTS )",
+        "release": "bookworm (security)",
+        "version": "1.0.9-2+deb12u1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "brotli ( PTS )",
+        "release": "trixie",
+        "version": "1.1.0-2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "brotli ( PTS )",
+        "release": "trixie (security)",
+        "version": "1.1.0-2+deb13u1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "brotli ( PTS )",
+        "release": "forky, sid",
+        "version": "1.2.0-4",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "nodejs ( PTS )",
+        "release": "bookworm",
+        "version": "18.20.4+dfsg-1~deb12u2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "nodejs ( PTS )",
+        "release": "bookworm (security)",
+        "version": "18.20.4+dfsg-1~deb12u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "nodejs ( PTS )",
+        "release": "trixie",
+        "version": "20.19.2+dfsg-1+deb13u2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "nodejs ( PTS )",
+        "release": "trixie (security)",
+        "version": "20.19.2+dfsg-1+deb13u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "nodejs ( PTS )",
+        "release": "forky",
+        "version": "24.21.0+dfsg+~cs24.13.4-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "nodejs ( PTS )",
+        "release": "sid",
+        "version": "24.22.0+dfsg+~cs24.19.2-2",
+        "status": "vulnerable"
+      }
+    ]
+  },
+  "CVE-2026-12064": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-12064",
+    "raw_sha256": "bb81c0494a4491a58cbf71aa2455e650ee9d23195861d9c9c65a38275aeecf3a",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-12064"
+        ],
+        [
+          "Description",
+          "When a user invokes curl using a schemeless URL combined with `--proto-default` sftp (or scp), a disconnect occurs between the tool layer and libcurl. The tool layer incorrectly infers the URL scheme, which erroneously bypasses the initialization of critical SSH security options like CURLOPT_SSH_HOST_PUBLIC_KEY_SHA256 and CURLOPT_SSH_KNOWNHOSTS. Conversely, the libcurl runtime successfully honors CURLOPT_DEFAULT_PROTOCOL and establishes the connection via SFTP/SCP as specified. Because the tool layer skipped the security configuration, these SSH host verification options are silently omitted, causing curl to connect to an unverified SSH remote host without throwing an error."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "curl ( PTS )",
+          "bookworm",
+          "7.88.1-10+deb12u15",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "7.88.1-10+deb12u5",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "8.14.1-2+deb13u5",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security)",
+          "8.14.1-2+deb13u7",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky",
+          "8.22.0-1",
+          "fixed"
+        ],
+        [
+          "",
+          "sid",
+          "8.23.0-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "curl",
+          "source",
+          "bullseye",
+          "(not affected)",
+          "",
+          "",
+          ""
+        ],
+        [
+          "curl",
+          "source",
+          "(unstable)",
+          "8.21.0~rc3-1",
+          "",
+          "",
+          ""
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "curl ( PTS )",
+        "release": "bookworm",
+        "version": "7.88.1-10+deb12u15",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "curl ( PTS )",
+        "release": "bookworm (security)",
+        "version": "7.88.1-10+deb12u5",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "curl ( PTS )",
+        "release": "trixie",
+        "version": "8.14.1-2+deb13u5",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "curl ( PTS )",
+        "release": "trixie (security)",
+        "version": "8.14.1-2+deb13u7",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "curl ( PTS )",
+        "release": "forky",
+        "version": "8.22.0-1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "curl ( PTS )",
+        "release": "sid",
+        "version": "8.23.0-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-15308": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-15308",
+    "raw_sha256": "69505bd5218bc1f3f07ce8108e8a9e01cc6597bcdbd6221e2ec037304477f90a",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-15308"
+        ],
+        [
+          "Description",
+          "The incremental HTML parser (html.parser.HTMLParser) allows for CPU denial-of-service through repeated unterminated markup declarations when processing uncontrolled data."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "References",
+          "DLA-4827-1"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "python3.11 ( PTS )",
+          "bookworm",
+          "3.11.2-6+deb12u8",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "3.11.2-6+deb12u9",
+          "fixed"
+        ],
+        [
+          "python3.13 ( PTS )",
+          "trixie",
+          "3.13.5-2+deb13u5",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "3.13.15-1",
+          "fixed"
+        ],
+        [
+          "python3.14 ( PTS )",
+          "forky",
+          "3.14.8-1",
+          "fixed"
+        ],
+        [
+          "",
+          "sid",
+          "3.14.9-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "python2.7",
+          "source",
+          "bullseye",
+          "(unfixed)",
+          "end-of-life",
+          "",
+          ""
+        ],
+        [
+          "python2.7",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          ""
+        ],
+        [
+          "python3.11",
+          "source",
+          "bookworm",
+          "3.11.2-6+deb12u9",
+          "",
+          "DLA-4827-1",
+          ""
+        ],
+        [
+          "python3.11",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          ""
+        ],
+        [
+          "python3.13",
+          "source",
+          "(unstable)",
+          "3.13.15-1",
+          "",
+          "",
+          ""
+        ],
+        [
+          "python3.14",
+          "source",
+          "(unstable)",
+          "3.14.7-1",
+          "",
+          "",
+          ""
+        ],
+        [
+          "python3.9",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          ""
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "python3.11 ( PTS )",
+        "release": "bookworm",
+        "version": "3.11.2-6+deb12u8",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "python3.11 ( PTS )",
+        "release": "bookworm (security)",
+        "version": "3.11.2-6+deb12u9",
+        "status": "fixed"
+      },
+      {
+        "source_package": "python3.13 ( PTS )",
+        "release": "trixie",
+        "version": "3.13.5-2+deb13u5",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "python3.13 ( PTS )",
+        "release": "forky, sid",
+        "version": "3.13.15-1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "python3.14 ( PTS )",
+        "release": "forky",
+        "version": "3.14.8-1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "python3.14 ( PTS )",
+        "release": "sid",
+        "version": "3.14.9-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-16742": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-16742",
+    "raw_sha256": "9def8c0e8dc245c97190f018412a2f08fe7e72ec90ccf943c132ff756b7ef7b0",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-16742"
+        ],
+        [
+          "Description",
+          "systemd-homed contains a local privilege escalation bug via arbitrary system group addition to a local, logged in, homed-managed user"
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "systemd ( PTS )",
+          "bookworm",
+          "252.39-1~deb12u2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "252.38-1~deb12u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "257.13-1~deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky",
+          "262-1",
+          "fixed"
+        ],
+        [
+          "",
+          "sid",
+          "262.1-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "systemd",
+          "source",
+          "(unstable)",
+          "261.2-1",
+          "",
+          "",
+          ""
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "systemd ( PTS )",
+        "release": "bookworm",
+        "version": "252.39-1~deb12u2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "systemd ( PTS )",
+        "release": "bookworm (security)",
+        "version": "252.38-1~deb12u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "systemd ( PTS )",
+        "release": "trixie",
+        "version": "257.13-1~deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "systemd ( PTS )",
+        "release": "forky",
+        "version": "262-1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "systemd ( PTS )",
+        "release": "sid",
+        "version": "262.1-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-19445": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-19445",
+    "raw_sha256": "2465965f84627a1704fadbfe5c4facb5b4b52d7e3d1b1c11f4fc6096d99db587",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-19445"
+        ],
+        [
+          "Description",
+          "A remote, unauthenticated TLS client can make a server crash or call through a freed pointer if its sni_callback assigns a different context to SSLSocket.context (the documented way to select a certificate per server name) and nothing else keeps the original ssl.SSLContext alive. Typical cases are servers that create an SSLContext per connection or replace it while connections are open; servers that wrap their listening socket with it are not affected. Mitigation: keep a reference to every SSLContext that sets sni_callback for the lifetime of the server. TLS clients are not affected."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "References",
+          "DLA-4827-1"
+        ],
+        [
+          "Debian Bugs",
+          "1150805"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "pypy3 ( PTS )",
+          "bookworm",
+          "7.3.11+dfsg-2+deb12u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "7.3.19+dfsg-2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "8.0.1+dfsg-1",
+          "vulnerable"
+        ],
+        [
+          "python3.11 ( PTS )",
+          "bookworm",
+          "3.11.2-6+deb12u8",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "3.11.2-6+deb12u9",
+          "fixed"
+        ],
+        [
+          "python3.13 ( PTS )",
+          "trixie",
+          "3.13.5-2+deb13u5",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "3.13.15-1",
+          "vulnerable"
+        ],
+        [
+          "python3.14 ( PTS )",
+          "forky",
+          "3.14.8-1",
+          "fixed"
+        ],
+        [
+          "",
+          "sid",
+          "3.14.9-1",
+          "fixed"
+        ],
+        [
+          "python3.15 ( PTS )",
+          "forky",
+          "3.15.0-1",
+          "fixed"
+        ],
+        [
+          "",
+          "sid",
+          "3.15.1-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "pypy3",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          "1150805"
+        ],
+        [
+          "python3.11",
+          "source",
+          "bookworm",
+          "3.11.2-6+deb12u9",
+          "",
+          "DLA-4827-1",
+          ""
+        ],
+        [
+          "python3.11",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          ""
+        ],
+        [
+          "python3.13",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          ""
+        ],
+        [
+          "python3.14",
+          "source",
+          "(unstable)",
+          "3.14.8-1",
+          "",
+          "",
+          ""
+        ],
+        [
+          "python3.15",
+          "source",
+          "(unstable)",
+          "3.15.0~rc3-1",
+          "",
+          "",
+          ""
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "pypy3 ( PTS )",
+        "release": "bookworm",
+        "version": "7.3.11+dfsg-2+deb12u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "pypy3 ( PTS )",
+        "release": "trixie",
+        "version": "7.3.19+dfsg-2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "pypy3 ( PTS )",
+        "release": "forky, sid",
+        "version": "8.0.1+dfsg-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "python3.11 ( PTS )",
+        "release": "bookworm",
+        "version": "3.11.2-6+deb12u8",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "python3.11 ( PTS )",
+        "release": "bookworm (security)",
+        "version": "3.11.2-6+deb12u9",
+        "status": "fixed"
+      },
+      {
+        "source_package": "python3.13 ( PTS )",
+        "release": "trixie",
+        "version": "3.13.5-2+deb13u5",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "python3.13 ( PTS )",
+        "release": "forky, sid",
+        "version": "3.13.15-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "python3.14 ( PTS )",
+        "release": "forky",
+        "version": "3.14.8-1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "python3.14 ( PTS )",
+        "release": "sid",
+        "version": "3.14.9-1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "python3.15 ( PTS )",
+        "release": "forky",
+        "version": "3.15.0-1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "python3.15 ( PTS )",
+        "release": "sid",
+        "version": "3.15.1-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-19553": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-19553",
+    "raw_sha256": "b9ebc6f20a3a7dd685402045f09e7d880b39514eafb8baca66e036307615518b",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-19553"
+        ],
+        [
+          "Description",
+          "ssl.SSLContext.wrap_bio() didn't require the server_hostname argument to not be None if ssl.SSLContext.check_hostname was set. Due to a missing parameter check in SSLObject, if the server_hostname argument isn't supplied then hostname verification would be silently skipped. This defect could lead to programs where certificate hostname verification *appeared* to be succeeding with SSLContext.check_hostname = True and no ValueError being raised due to misconfiguration. If the program passes a server_hostname value that isn't an empty string or None to any of these APIs then certificate hostname verification proceeds as expected and the program is not affected by this vulnerability. Mitigating this vulnerability doesn't require updating Python or applying the patch. To mitigate, pass a valid non-None and non-empty server_hostname value to SSLContext.wrap_bio(), asyncio.create_connection(), or asyncio.loop.start_tls() and certificate hostname verification will proceed as expected. Upgrading to the latest version of Python or applying the patch only changes the behavior from silently skipping hostname verification to raising a ValueError, similar to SSLContext.wrap_socket(), when server_hostname isn't supplied."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "References",
+          "DLA-4827-1"
+        ],
+        [
+          "Debian Bugs",
+          "1150803"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "pypy3 ( PTS )",
+          "bookworm",
+          "7.3.11+dfsg-2+deb12u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "7.3.19+dfsg-2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "8.0.1+dfsg-1",
+          "vulnerable"
+        ],
+        [
+          "python3.11 ( PTS )",
+          "bookworm",
+          "3.11.2-6+deb12u8",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "3.11.2-6+deb12u9",
+          "fixed"
+        ],
+        [
+          "python3.13 ( PTS )",
+          "trixie",
+          "3.13.5-2+deb13u5",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "3.13.15-1",
+          "vulnerable"
+        ],
+        [
+          "python3.14 ( PTS )",
+          "forky",
+          "3.14.8-1",
+          "fixed"
+        ],
+        [
+          "",
+          "sid",
+          "3.14.9-1",
+          "fixed"
+        ],
+        [
+          "python3.15 ( PTS )",
+          "forky",
+          "3.15.0-1",
+          "fixed"
+        ],
+        [
+          "",
+          "sid",
+          "3.15.1-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "pypy3",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          "1150803"
+        ],
+        [
+          "python3.11",
+          "source",
+          "bookworm",
+          "3.11.2-6+deb12u9",
+          "",
+          "DLA-4827-1",
+          ""
+        ],
+        [
+          "python3.11",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          ""
+        ],
+        [
+          "python3.13",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          ""
+        ],
+        [
+          "python3.14",
+          "source",
+          "(unstable)",
+          "3.14.8-1",
+          "",
+          "",
+          ""
+        ],
+        [
+          "python3.15",
+          "source",
+          "(unstable)",
+          "3.15.0~rc3-1",
+          "",
+          "",
+          ""
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "pypy3 ( PTS )",
+        "release": "bookworm",
+        "version": "7.3.11+dfsg-2+deb12u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "pypy3 ( PTS )",
+        "release": "trixie",
+        "version": "7.3.19+dfsg-2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "pypy3 ( PTS )",
+        "release": "forky, sid",
+        "version": "8.0.1+dfsg-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "python3.11 ( PTS )",
+        "release": "bookworm",
+        "version": "3.11.2-6+deb12u8",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "python3.11 ( PTS )",
+        "release": "bookworm (security)",
+        "version": "3.11.2-6+deb12u9",
+        "status": "fixed"
+      },
+      {
+        "source_package": "python3.13 ( PTS )",
+        "release": "trixie",
+        "version": "3.13.5-2+deb13u5",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "python3.13 ( PTS )",
+        "release": "forky, sid",
+        "version": "3.13.15-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "python3.14 ( PTS )",
+        "release": "forky",
+        "version": "3.14.8-1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "python3.14 ( PTS )",
+        "release": "sid",
+        "version": "3.14.9-1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "python3.15 ( PTS )",
+        "release": "forky",
+        "version": "3.15.0-1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "python3.15 ( PTS )",
+        "release": "sid",
+        "version": "3.15.1-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-20213": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-20213",
+    "raw_sha256": "5343436b3bbdffbe6a97c92f9ecd0e31621089664f7af19d044b1c5c86209200",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-20213"
+        ],
+        [
+          "Description",
+          "A vulnerability in the PE file format parser of ClamAV could allow an unauthenticated, remote attacker to cause a DoS condition, or possibly other expanded impacts, resulting from memory corruption on an affected device. This vulnerability is due to improper boundary checks for content in PE files during scanning, which may result in an out-of-bounds buffer write. An attacker could exploit this vulnerability by submitting a crafted file that contains PE content to be scanned by ClamAV on an affected device. A successful exploit could allow the attacker to cause the ClamAV scanning process to terminate, resulting in a DoS condition on the affected software."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "References",
+          "DLA-4852-1"
+        ],
+        [
+          "Debian Bugs",
+          "1141303"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "clamav ( PTS )",
+          "bookworm",
+          "1.4.3+dfsg-1~deb12u2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "1.4.6+dfsg-0+deb12u1",
+          "fixed"
+        ],
+        [
+          "",
+          "trixie",
+          "1.4.3+dfsg-1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "1.4.6+dfsg-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "clamav",
+          "source",
+          "bookworm",
+          "1.4.6+dfsg-0+deb12u1",
+          "",
+          "DLA-4852-1",
+          ""
+        ],
+        [
+          "clamav",
+          "source",
+          "trixie",
+          "1.4.6+dfsg-1~deb13u1",
+          "",
+          "",
+          ""
+        ],
+        [
+          "clamav",
+          "source",
+          "(unstable)",
+          "1.4.5+dfsg-1",
+          "",
+          "",
+          "1141303"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "bookworm",
+        "version": "1.4.3+dfsg-1~deb12u2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "bookworm (security)",
+        "version": "1.4.6+dfsg-0+deb12u1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "trixie",
+        "version": "1.4.3+dfsg-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "forky, sid",
+        "version": "1.4.6+dfsg-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-20214": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-20214",
+    "raw_sha256": "f155a5b535f7ce1bf7da1f6431c694bde7e1726ab943ef700ca7fe421fef5b75",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-20214"
+        ],
+        [
+          "Description",
+          "A vulnerability in the FSG file format parser of ClamAV could allow an unauthenticated, remote attacker to cause a DoS condition, or possibly other expanded impacts, resulting from memory corruption on an affected device. This vulnerability is due to improper boundary checks for content in FSG files during scanning, which may result in an out-of-bounds buffer write. An attacker could exploit this vulnerability by submitting a crafted file that contains portable executable content compressed with FSG to be scanned by ClamAV on an affected device. A successful exploit could allow the attacker to cause the ClamAV scanning process to terminate, resulting in a DoS condition on the affected software."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "References",
+          "DLA-4852-1"
+        ],
+        [
+          "Debian Bugs",
+          "1141303"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "clamav ( PTS )",
+          "bookworm",
+          "1.4.3+dfsg-1~deb12u2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "1.4.6+dfsg-0+deb12u1",
+          "fixed"
+        ],
+        [
+          "",
+          "trixie",
+          "1.4.3+dfsg-1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "1.4.6+dfsg-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "clamav",
+          "source",
+          "bookworm",
+          "1.4.6+dfsg-0+deb12u1",
+          "",
+          "DLA-4852-1",
+          ""
+        ],
+        [
+          "clamav",
+          "source",
+          "trixie",
+          "1.4.6+dfsg-1~deb13u1",
+          "",
+          "",
+          ""
+        ],
+        [
+          "clamav",
+          "source",
+          "(unstable)",
+          "1.4.5+dfsg-1",
+          "",
+          "",
+          "1141303"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "bookworm",
+        "version": "1.4.3+dfsg-1~deb12u2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "bookworm (security)",
+        "version": "1.4.6+dfsg-0+deb12u1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "trixie",
+        "version": "1.4.3+dfsg-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "forky, sid",
+        "version": "1.4.6+dfsg-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-20215": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-20215",
+    "raw_sha256": "34e96783322ac1f4218087a8966daa9d09003a8a63326576987186f3f870ddbe",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-20215"
+        ],
+        [
+          "Description",
+          "A vulnerability in the 7z file format parser of ClamAV could allow an unauthenticated, remote attacker to cause a DoS condition, or possibly other expanded impacts, resulting from memory corruption on an affected device. This vulnerability is due to improper boundary checks for content in 7z files during scanning, which may result in an out-of-bounds buffer write. An attacker could exploit this vulnerability by submitting a crafted file that contains 7z&nbsp;content to be scanned by ClamAV on an affected device. A successful exploit could allow the attacker to cause the ClamAV scanning process to terminate, resulting in a DoS condition on the affected software."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "References",
+          "DLA-4852-1"
+        ],
+        [
+          "Debian Bugs",
+          "1141303"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "clamav ( PTS )",
+          "bookworm",
+          "1.4.3+dfsg-1~deb12u2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "1.4.6+dfsg-0+deb12u1",
+          "fixed"
+        ],
+        [
+          "",
+          "trixie",
+          "1.4.3+dfsg-1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "1.4.6+dfsg-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "clamav",
+          "source",
+          "bookworm",
+          "1.4.6+dfsg-0+deb12u1",
+          "",
+          "DLA-4852-1",
+          ""
+        ],
+        [
+          "clamav",
+          "source",
+          "trixie",
+          "1.4.6+dfsg-1~deb13u1",
+          "",
+          "",
+          ""
+        ],
+        [
+          "clamav",
+          "source",
+          "(unstable)",
+          "1.4.5+dfsg-1",
+          "",
+          "",
+          "1141303"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "bookworm",
+        "version": "1.4.3+dfsg-1~deb12u2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "bookworm (security)",
+        "version": "1.4.6+dfsg-0+deb12u1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "trixie",
+        "version": "1.4.3+dfsg-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "forky, sid",
+        "version": "1.4.6+dfsg-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-20216": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-20216",
+    "raw_sha256": "362488c152c0078429854229fb13450ccb62216bb35ff062e3c34f5c1fc52b5a",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-20216"
+        ],
+        [
+          "Description",
+          "A vulnerability in the InstallShield file format parser of ClamAV could allow an unauthenticated, remote attacker to cause a DoS condition on an affected device. This vulnerability is due to improper handling of temporary resources during file scanning. An attacker could exploit this vulnerability by submitting a crafted InstallShield file to be scanned by ClamAV on an affected device. A successful exploit could allow the attacker to terminate the ClamAV scanning process and temporarily consume available system resources, resulting in a DoS condition on the affected software."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "References",
+          "DLA-4852-1"
+        ],
+        [
+          "Debian Bugs",
+          "1141303"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "clamav ( PTS )",
+          "bookworm",
+          "1.4.3+dfsg-1~deb12u2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "1.4.6+dfsg-0+deb12u1",
+          "fixed"
+        ],
+        [
+          "",
+          "trixie",
+          "1.4.3+dfsg-1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "1.4.6+dfsg-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "clamav",
+          "source",
+          "bookworm",
+          "1.4.6+dfsg-0+deb12u1",
+          "",
+          "DLA-4852-1",
+          ""
+        ],
+        [
+          "clamav",
+          "source",
+          "trixie",
+          "1.4.6+dfsg-1~deb13u1",
+          "",
+          "",
+          ""
+        ],
+        [
+          "clamav",
+          "source",
+          "(unstable)",
+          "1.4.5+dfsg-1",
+          "",
+          "",
+          "1141303"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "bookworm",
+        "version": "1.4.3+dfsg-1~deb12u2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "bookworm (security)",
+        "version": "1.4.6+dfsg-0+deb12u1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "trixie",
+        "version": "1.4.3+dfsg-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "forky, sid",
+        "version": "1.4.6+dfsg-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-20217": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-20217",
+    "raw_sha256": "a58ec8951af72cc4706cbbc3706fbacff4dd3b9194a452b8d0b3b94bde03f9cf",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-20217"
+        ],
+        [
+          "Description",
+          "A vulnerability in the PESpin file format parser of ClamAV could allow an unauthenticated, remote attacker to cause a DoS condition, or possibly other expanded impacts, resulting from memory corruption on an affected device. This vulnerability is due to improper boundary checks for content in PESpin files during scanning, which may result in an out-of-bounds buffer write. An attacker could exploit this vulnerability by submitting a crafted file that contains PESpin content to be scanned by ClamAV on an affected device. A successful exploit could allow the attacker to cause the ClamAV scanning process to terminate, resulting in a DoS condition on the affected software."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "References",
+          "DLA-4852-1"
+        ],
+        [
+          "Debian Bugs",
+          "1141303"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "clamav ( PTS )",
+          "bookworm",
+          "1.4.3+dfsg-1~deb12u2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "1.4.6+dfsg-0+deb12u1",
+          "fixed"
+        ],
+        [
+          "",
+          "trixie",
+          "1.4.3+dfsg-1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "1.4.6+dfsg-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "clamav",
+          "source",
+          "bookworm",
+          "1.4.6+dfsg-0+deb12u1",
+          "",
+          "DLA-4852-1",
+          ""
+        ],
+        [
+          "clamav",
+          "source",
+          "trixie",
+          "1.4.6+dfsg-1~deb13u1",
+          "",
+          "",
+          ""
+        ],
+        [
+          "clamav",
+          "source",
+          "(unstable)",
+          "1.4.5+dfsg-1",
+          "",
+          "",
+          "1141303"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "bookworm",
+        "version": "1.4.3+dfsg-1~deb12u2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "bookworm (security)",
+        "version": "1.4.6+dfsg-0+deb12u1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "trixie",
+        "version": "1.4.3+dfsg-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "forky, sid",
+        "version": "1.4.6+dfsg-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-20243": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-20243",
+    "raw_sha256": "9014dbc19b088e4fcabc923afb6e3ea388a2d4947006a14f90b4533e4ab9f562",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-20243"
+        ],
+        [
+          "Description",
+          "A vulnerability in the ALZ file format parser of ClamAV could allow an unauthenticated, remote attacker to cause a DoS condition, or possibly other expanded impacts, resulting from memory corruption on an affected device. This vulnerability is due to improper boundary checks for content in ALZ files during scanning, which may result in an out-of-bounds buffer write. An attacker could exploit this vulnerability by submitting a crafted file that contains ALZ content to be scanned by ClamAV on an affected device. A successful exploit could allow the attacker to cause the ClamAV scanning process to terminate, resulting in a DoS condition on the affected software."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "References",
+          "DLA-4852-1"
+        ],
+        [
+          "Debian Bugs",
+          "1141303"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "clamav ( PTS )",
+          "bookworm",
+          "1.4.3+dfsg-1~deb12u2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "1.4.6+dfsg-0+deb12u1",
+          "fixed"
+        ],
+        [
+          "",
+          "trixie",
+          "1.4.3+dfsg-1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "1.4.6+dfsg-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "clamav",
+          "source",
+          "bookworm",
+          "1.4.6+dfsg-0+deb12u1",
+          "",
+          "DLA-4852-1",
+          ""
+        ],
+        [
+          "clamav",
+          "source",
+          "trixie",
+          "1.4.6+dfsg-1~deb13u1",
+          "",
+          "",
+          ""
+        ],
+        [
+          "clamav",
+          "source",
+          "(unstable)",
+          "1.4.5+dfsg-1",
+          "",
+          "",
+          "1141303"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "bookworm",
+        "version": "1.4.3+dfsg-1~deb12u2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "bookworm (security)",
+        "version": "1.4.6+dfsg-0+deb12u1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "trixie",
+        "version": "1.4.3+dfsg-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "forky, sid",
+        "version": "1.4.6+dfsg-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-20244": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-20244",
+    "raw_sha256": "50bfe1f59d55bcb2dd788a99cd932dd8a812ce1e7c1e162215e68047a91b1e46",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-20244"
+        ],
+        [
+          "Description",
+          "A vulnerability in the DMG file format parser of ClamAV could allow an unauthenticated, remote attacker to cause a DoS condition, or possibly other expanded impacts, resulting from memory corruption on an affected device. This vulnerability is due to improper boundary checks for content in DMG files during scanning, which may result in an integer overflow on 32-bit platforms only. An attacker could exploit this vulnerability by submitting a crafted file that contains DMG content to be scanned by ClamAV on an affected device. A successful exploit could allow the attacker to cause the ClamAV scanning process to terminate, resulting in a DoS condition on the affected software."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "References",
+          "DLA-4852-1"
+        ],
+        [
+          "Debian Bugs",
+          "1141303"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "clamav ( PTS )",
+          "bookworm",
+          "1.4.3+dfsg-1~deb12u2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "1.4.6+dfsg-0+deb12u1",
+          "fixed"
+        ],
+        [
+          "",
+          "trixie",
+          "1.4.3+dfsg-1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "1.4.6+dfsg-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "clamav",
+          "source",
+          "bookworm",
+          "1.4.6+dfsg-0+deb12u1",
+          "",
+          "DLA-4852-1",
+          ""
+        ],
+        [
+          "clamav",
+          "source",
+          "trixie",
+          "1.4.6+dfsg-1~deb13u1",
+          "",
+          "",
+          ""
+        ],
+        [
+          "clamav",
+          "source",
+          "(unstable)",
+          "1.4.5+dfsg-1",
+          "",
+          "",
+          "1141303"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "bookworm",
+        "version": "1.4.3+dfsg-1~deb12u2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "bookworm (security)",
+        "version": "1.4.6+dfsg-0+deb12u1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "trixie",
+        "version": "1.4.3+dfsg-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "clamav ( PTS )",
+        "release": "forky, sid",
+        "version": "1.4.6+dfsg-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-24882": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-24882",
+    "raw_sha256": "5cf2a806fe036455c546a8c0bf3fd196daa703b62813fa8731addde435b32307",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-24882"
+        ],
+        [
+          "Description",
+          "In GnuPG before 2.5.17, a stack-based buffer overflow exists in tpm2daemon during handling of the PKDECRYPT command for TPM-backed RSA and ECC keys."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1126631"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "gnupg2 ( PTS )",
+          "bookworm",
+          "2.2.40-1.1+deb12u2",
+          "fixed"
+        ],
+        [
+          "",
+          "trixie",
+          "2.4.7-21+deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "2.4.9-8",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "gnupg2",
+          "source",
+          "experimental",
+          "2.4.9-2",
+          "",
+          "",
+          ""
+        ],
+        [
+          "gnupg2",
+          "source",
+          "bullseye",
+          "(not affected)",
+          "",
+          "",
+          ""
+        ],
+        [
+          "gnupg2",
+          "source",
+          "bookworm",
+          "(not affected)",
+          "",
+          "",
+          ""
+        ],
+        [
+          "gnupg2",
+          "source",
+          "(unstable)",
+          "2.4.9-4",
+          "",
+          "",
+          "1126631"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "gnupg2 ( PTS )",
+        "release": "bookworm",
+        "version": "2.2.40-1.1+deb12u2",
+        "status": "fixed"
+      },
+      {
+        "source_package": "gnupg2 ( PTS )",
+        "release": "trixie",
+        "version": "2.4.7-21+deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "gnupg2 ( PTS )",
+        "release": "forky, sid",
+        "version": "2.4.9-8",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-34980": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-34980",
+    "raw_sha256": "1c4b699310b11fc3135ff1921e22e39c37175e1648321f31ed15d92e53ed0fda",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-34980"
+        ],
+        [
+          "Description",
+          "OpenPrinting CUPS is an open source printing system for Linux and other Unix-like operating systems. In versions 2.4.16 and prior, in a network-exposed cupsd with a shared target queue, an unauthorized client can send a Print-Job to that shared PostScript queue without authentication. The server accepts a page-border value supplied as textWithoutLanguage, preserves an embedded newline through option escaping and reparse, and then reparses the resulting second-line PPD: text as a trusted scheduler control record. A follow-up raw print job can therefore make the server execute an attacker-chosen existing binary such as /usr/bin/vim as lp. At time of publication, there are no publicly available patches."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1132716 , 1132729"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "cups ( PTS )",
+          "bookworm, bookworm (security)",
+          "2.4.2-3+deb12u9",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "2.4.10-3+deb13u2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security)",
+          "2.4.10-3+deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky",
+          "2.4.18-1",
+          "fixed"
+        ],
+        [
+          "",
+          "sid",
+          "2.4.20-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "cups",
+          "source",
+          "(unstable)",
+          "2.4.17-1",
+          "",
+          "",
+          "1132716 , 1132729"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "cups ( PTS )",
+        "release": "bookworm, bookworm (security)",
+        "version": "2.4.2-3+deb12u9",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "cups ( PTS )",
+        "release": "trixie",
+        "version": "2.4.10-3+deb13u2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "cups ( PTS )",
+        "release": "trixie (security)",
+        "version": "2.4.10-3+deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "cups ( PTS )",
+        "release": "forky",
+        "version": "2.4.18-1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "cups ( PTS )",
+        "release": "sid",
+        "version": "2.4.20-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-36849": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-36849",
+    "raw_sha256": "aee70023e5e4d3dc1b9edfb2518c19c10b7c4eeaf7a6bb71117b79e8bc73903f",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-36849"
+        ],
+        [
+          "Description",
+          "Denial of Service via large SamplesPerPixel tag"
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1140300"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "tiff ( PTS )",
+          "bookworm, bookworm (security)",
+          "4.5.0-6+deb12u4",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security), trixie",
+          "4.7.0-3+deb13u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "4.7.2-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "tiff",
+          "source",
+          "(unstable)",
+          "4.7.1-3",
+          "",
+          "",
+          "1140300"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "tiff ( PTS )",
+        "release": "bookworm, bookworm (security)",
+        "version": "4.5.0-6+deb12u4",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "tiff ( PTS )",
+        "release": "trixie (security), trixie",
+        "version": "4.7.0-3+deb13u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "tiff ( PTS )",
+        "release": "forky, sid",
+        "version": "4.7.2-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-52490": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-52490",
+    "raw_sha256": "8eb09df54b017b580fe40796ca45e6696f79b67b65987d346da2c4901957b81b",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-52490"
+        ],
+        [
+          "Description",
+          "An issue in libtiff 85f2ac8e0b01cb7db2bbecf4a3b891bdbef67938 allows an attacker to execute arbitrary code via the process_command_opts() function in tools/tiffcrop.c"
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1147247"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "tiff ( PTS )",
+          "bookworm, bookworm (security)",
+          "4.5.0-6+deb12u4",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security), trixie",
+          "4.7.0-3+deb13u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "4.7.2-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "tiff",
+          "source",
+          "(unstable)",
+          "4.7.2-1",
+          "",
+          "",
+          "1147247"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "tiff ( PTS )",
+        "release": "bookworm, bookworm (security)",
+        "version": "4.5.0-6+deb12u4",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "tiff ( PTS )",
+        "release": "trixie (security), trixie",
+        "version": "4.7.0-3+deb13u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "tiff ( PTS )",
+        "release": "forky, sid",
+        "version": "4.7.2-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-54369": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-54369",
+    "raw_sha256": "4677cdb2b848eca7bc76f57dd54e5d01e309f438bba58d892550db432fbde5ca",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-54369"
+        ],
+        [
+          "Description",
+          "acl before version 2.4.0 contains a symlink traversal vulnerability in the libacl pathname-based functions acl_get_file(), acl_set_file(), acl_extended_file(), and acl_delete_def_file() that allows local attackers to escalate privileges by replacing any pathname component with a symbolic link. Attackers who control any component of a pathname processed by a privileged caller can redirect ACL read or write operations to arbitrary files or directories, enabling unauthorized manipulation of access control lists and local privilege escalation."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1141110"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "acl ( PTS )",
+          "bookworm",
+          "2.3.1-3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "2.3.2-2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "2.4.0-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "acl",
+          "source",
+          "(unstable)",
+          "2.4.0-1",
+          "",
+          "",
+          "1141110"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "acl ( PTS )",
+        "release": "bookworm",
+        "version": "2.3.1-3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "acl ( PTS )",
+        "release": "trixie",
+        "version": "2.3.2-2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "acl ( PTS )",
+        "release": "forky, sid",
+        "version": "2.4.0-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-55453": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-55453",
+    "raw_sha256": "c4af7021a063872c8d9a52f3906024a0dc0ad7786844da0218092ef501862dd8",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-55453"
+        ],
+        [
+          "Description",
+          "OpenPrinting CUPS is an open source printing system for Linux and other Unix-like operating systems. Prior to 2.4.20, the backend/ipp.c quote_string() function preserves carriage-return and line-feed characters in a remote printer-controlled marker-message before report_attr() writes the value to the scheduler status stream. The scheduler can parse an injected newline as a separate PPD: control line and persist an attacker-selected PPD keyword. The reporter demonstrated that a later print job on a Foomatic-backed queue could consume an injected FoomaticRIPCommandLine value and execute in the filter context as lp. This issue is fixed in version 2.4.20."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1150560"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "cups ( PTS )",
+          "bookworm, bookworm (security)",
+          "2.4.2-3+deb12u9",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "2.4.10-3+deb13u2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security)",
+          "2.4.10-3+deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky",
+          "2.4.18-1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "sid",
+          "2.4.20-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "cups",
+          "source",
+          "(unstable)",
+          "2.4.20-1",
+          "",
+          "",
+          "1150560"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "cups ( PTS )",
+        "release": "bookworm, bookworm (security)",
+        "version": "2.4.2-3+deb12u9",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "cups ( PTS )",
+        "release": "trixie",
+        "version": "2.4.10-3+deb13u2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "cups ( PTS )",
+        "release": "trixie (security)",
+        "version": "2.4.10-3+deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "cups ( PTS )",
+        "release": "forky",
+        "version": "2.4.18-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "cups ( PTS )",
+        "release": "sid",
+        "version": "2.4.20-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-6653": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-6653",
+    "raw_sha256": "e2c617f15c21210bf4b14e3dfba7349a56e335e2cc0cec5a9e5365de711389e7",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-6653"
+        ],
+        [
+          "Description",
+          "Use After Free in libxml2's xmlParseInternalSubset from GNOME libxml2 version 2.9.11 to 2.11.0 allows a remote attacker to cause a denial-of-service via maliciously crafted XML input with improper entity resolution handling."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "libxml2 ( PTS )",
+          "bookworm",
+          "2.9.14+dfsg-1.3~deb12u6",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "2.9.14+dfsg-1.3~deb12u4",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security)",
+          "2.12.7+dfsg+really2.9.14-2.1+deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "2.15.4+dfsg-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "libxml2",
+          "source",
+          "(unstable)",
+          "2.14.5+dfsg-0.1",
+          "",
+          "",
+          ""
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "bookworm",
+        "version": "2.9.14+dfsg-1.3~deb12u6",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "bookworm (security)",
+        "version": "2.9.14+dfsg-1.3~deb12u4",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "trixie",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "trixie (security)",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "forky, sid",
+        "version": "2.15.4+dfsg-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-7210": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-7210",
+    "raw_sha256": "5bdf0cba2c2e5c27340ad56f71124d90e1180bc208544fe16abe4404d92af1a3",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-7210"
+        ],
+        [
+          "Description",
+          "`xml.parsers.expat` and `xml.etree.ElementTree` use insufficient entropy for Expat hash-flooding protection, which allows a crafted XML document to trigger hash flooding.\\r\\n\\r\\nFully mitigating this vulnerability requires both updating libexpat to 2.8.0 or later and applying this patch."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "python3.11 ( PTS )",
+          "bookworm",
+          "3.11.2-6+deb12u8",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "3.11.2-6+deb12u9",
+          "vulnerable"
+        ],
+        [
+          "python3.13 ( PTS )",
+          "trixie",
+          "3.13.5-2+deb13u5",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "3.13.15-1",
+          "fixed"
+        ],
+        [
+          "python3.14 ( PTS )",
+          "forky",
+          "3.14.8-1",
+          "fixed"
+        ],
+        [
+          "",
+          "sid",
+          "3.14.9-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "python2.7",
+          "source",
+          "bullseye",
+          "(unfixed)",
+          "end-of-life",
+          "",
+          ""
+        ],
+        [
+          "python2.7",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          ""
+        ],
+        [
+          "python3.11",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          ""
+        ],
+        [
+          "python3.13",
+          "source",
+          "(unstable)",
+          "3.13.14-1",
+          "",
+          "",
+          ""
+        ],
+        [
+          "python3.14",
+          "source",
+          "(unstable)",
+          "3.14.6-1",
+          "",
+          "",
+          ""
+        ],
+        [
+          "python3.9",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          ""
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "python3.11 ( PTS )",
+        "release": "bookworm",
+        "version": "3.11.2-6+deb12u8",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "python3.11 ( PTS )",
+        "release": "bookworm (security)",
+        "version": "3.11.2-6+deb12u9",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "python3.13 ( PTS )",
+        "release": "trixie",
+        "version": "3.13.5-2+deb13u5",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "python3.13 ( PTS )",
+        "release": "forky, sid",
+        "version": "3.13.15-1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "python3.14 ( PTS )",
+        "release": "forky",
+        "version": "3.14.8-1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "python3.14 ( PTS )",
+        "release": "sid",
+        "version": "3.14.9-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-73066": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-73066",
+    "raw_sha256": "e32acb17ce7d99f04c4f2862bab83490f285b10df236a54514fe60b609062fe8",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-73066"
+        ],
+        [
+          "Description",
+          "Tesseract is an open source OCR engine. Prior to 5.5.3, a crafted .traineddata LSTM model component loaded through Tesseract's deserializer can cause an unchecked signed integer multiplication in Convolve::DeSerialize in src/lstm/convolve.cpp to wrap the convolution output-channel count, undersizing the forward-pass output buffer while writes use the unwrapped element count and causing a heap out-of-bounds write during OCR recognition. This issue is fixed in version 5.5.3."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1144388"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "tesseract ( PTS )",
+          "bookworm",
+          "5.3.0-2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "5.5.0-1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "5.5.0-1.1",
+          "vulnerable"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "tesseract",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          "1144388"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "bookworm",
+        "version": "5.3.0-2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "trixie",
+        "version": "5.5.0-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "forky, sid",
+        "version": "5.5.0-1.1",
+        "status": "vulnerable"
+      }
+    ]
+  },
+  "CVE-2026-74860": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-74860",
+    "raw_sha256": "a80a16c47eb20f15cc86ac053379cd571ad9c36e7497e42497100eaa3e71250f",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-74860"
+        ],
+        [
+          "Description",
+          "A flaw was found in libxml2 with Python bindings enabled. A remote attacker could exploit this vulnerability by providing a specially crafted XML document containing a Document Type Definition (DTD) with enumerated attribute values. This triggers a double-free error in the SAX attributeDecl callback handler, where a string is freed twice. This flaw can lead to a denial of service (DoS) due to a reproducible crash in Python applications using the libxml2 SAX bindings."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "libxml2 ( PTS )",
+          "bookworm",
+          "2.9.14+dfsg-1.3~deb12u6",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "2.9.14+dfsg-1.3~deb12u4",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security)",
+          "2.12.7+dfsg+really2.9.14-2.1+deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "2.15.4+dfsg-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "libxml2",
+          "source",
+          "(unstable)",
+          "2.15.3+dfsg-1",
+          "",
+          "",
+          ""
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "bookworm",
+        "version": "2.9.14+dfsg-1.3~deb12u6",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "bookworm (security)",
+        "version": "2.9.14+dfsg-1.3~deb12u4",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "trixie",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "trixie (security)",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "forky, sid",
+        "version": "2.15.4+dfsg-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-76642": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-76642",
+    "raw_sha256": "243d0dcce2b7e8a9446611151a404ced874c0c45f912bca021c03061334d197b",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-76642"
+        ],
+        [
+          "Description",
+          "util-linux versions through 2.41.5 and 2.42.2 fail to check mount helper exit status before running post-mount hooks, allowing unprivileged users to execute privileged operations on pre-existing filesystems. Attackers can exploit X-mount.idmap or X-mount.owner hooks to clone filesystems with inherited suid bits or modify target inode permissions after a helper fails, achieving privilege escalation."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "util-linux ( PTS )",
+          "bookworm",
+          "2.38.1-5+deb12u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "2.38.1-5+deb12u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security), trixie",
+          "2.41.5-0+deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "2.42.4-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "util-linux",
+          "source",
+          "(unstable)",
+          "2.42.3-1",
+          "",
+          "",
+          ""
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "util-linux ( PTS )",
+        "release": "bookworm",
+        "version": "2.38.1-5+deb12u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "util-linux ( PTS )",
+        "release": "bookworm (security)",
+        "version": "2.38.1-5+deb12u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "util-linux ( PTS )",
+        "release": "trixie (security), trixie",
+        "version": "2.41.5-0+deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "util-linux ( PTS )",
+        "release": "forky, sid",
+        "version": "2.42.4-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-78408": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-78408",
+    "raw_sha256": "176ee66ad84e9fdad225f5e0a60fe5cd7bf8a5aa54bd0fd63d07beb795aba5d3",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-78408"
+        ],
+        [
+          "Description",
+          "The nsenter --join-cgroup option opens the target cgroup.procs file as root and leaves that file descriptor open across later namespace and credential changes and across execve(). Because the kernel checks later cgroup migrations using the credentials from the original open, a program run in an attacker-controlled target can inherit root's ability to move host processes between cgroups. After a privileged operator uses --join-cgroup against that target, an unprivileged user can migrate and terminate unrelated root processes."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "util-linux ( PTS )",
+          "bookworm",
+          "2.38.1-5+deb12u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "2.38.1-5+deb12u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security), trixie",
+          "2.41.5-0+deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "2.42.4-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "util-linux",
+          "source",
+          "(unstable)",
+          "2.42.4-1",
+          "",
+          "",
+          ""
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "util-linux ( PTS )",
+        "release": "bookworm",
+        "version": "2.38.1-5+deb12u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "util-linux ( PTS )",
+        "release": "bookworm (security)",
+        "version": "2.38.1-5+deb12u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "util-linux ( PTS )",
+        "release": "trixie (security), trixie",
+        "version": "2.41.5-0+deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "util-linux ( PTS )",
+        "release": "forky, sid",
+        "version": "2.42.4-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-78409": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-78409",
+    "raw_sha256": "55bb3527e79127500681d1309f174a4e010dd14b8de0e8c20dac634deb59f67b",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-78409"
+        ],
+        [
+          "Description",
+          "The X-mount.subdir option uses a detached-tree fast path on Linux 6.15 and later and passes the configured subdirectory to open_tree() with AT_SYMLINK_NOFOLLOW. That flag does not stop intermediate symlink traversal or keep resolution inside the newly mounted filesystem. A local unprivileged user with an fstab-authorized X-mount.subdir entry can attach a host path at the intended mountpoint."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "util-linux ( PTS )",
+          "bookworm",
+          "2.38.1-5+deb12u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "2.38.1-5+deb12u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security), trixie",
+          "2.41.5-0+deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "2.42.4-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "util-linux",
+          "source",
+          "(unstable)",
+          "2.42.3-1",
+          "",
+          "",
+          ""
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "util-linux ( PTS )",
+        "release": "bookworm",
+        "version": "2.38.1-5+deb12u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "util-linux ( PTS )",
+        "release": "bookworm (security)",
+        "version": "2.38.1-5+deb12u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "util-linux ( PTS )",
+        "release": "trixie (security), trixie",
+        "version": "2.41.5-0+deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "util-linux ( PTS )",
+        "release": "forky, sid",
+        "version": "2.42.4-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-78410": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-78410",
+    "raw_sha256": "370b52136365d440004d915421bd2b2529393511c802bdc04f3e3a873241621b",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-78410"
+        ],
+        [
+          "Description",
+          "A flaw was found in util-linux. Restricted bind mounts take the source path from fstab but do not pin that source before the privileged mount. A local unprivileged user who can replace the authorized source or a writable ancestor can redirect SUID mount(8) to bind another host directory. If the fstab entry also sets X-mount.owner, X-mount.group, or X-mount.mode, root then changes ownership or mode on that redirected inode."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "util-linux ( PTS )",
+          "bookworm",
+          "2.38.1-5+deb12u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "2.38.1-5+deb12u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security), trixie",
+          "2.41.5-0+deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "2.42.4-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "util-linux",
+          "source",
+          "(unstable)",
+          "2.42.3-1",
+          "",
+          "",
+          ""
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "util-linux ( PTS )",
+        "release": "bookworm",
+        "version": "2.38.1-5+deb12u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "util-linux ( PTS )",
+        "release": "bookworm (security)",
+        "version": "2.38.1-5+deb12u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "util-linux ( PTS )",
+        "release": "trixie (security), trixie",
+        "version": "2.41.5-0+deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "util-linux ( PTS )",
+        "release": "forky, sid",
+        "version": "2.42.4-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-82049": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-82049",
+    "raw_sha256": "2237129344faa194f5b6229d14f970d5a5212bb5e0c8a86d5718735ab4eb78b3",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-82049"
+        ],
+        [
+          "Description",
+          "In CPython 3.13 and earlier, the tarfile module's data and tar extraction filters are vulnerable to crafted archives containing a hard link to a symbolic link. Such archives may cause extraction to modify the permissions or modification time of a file outside the destination directory, or expose the contents of that file within the extracted tree."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1151858"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "pypy3 ( PTS )",
+          "bookworm",
+          "7.3.11+dfsg-2+deb12u3",
+          "fixed"
+        ],
+        [
+          "",
+          "trixie",
+          "7.3.19+dfsg-2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "8.0.1+dfsg-1",
+          "vulnerable"
+        ],
+        [
+          "python3.11 ( PTS )",
+          "bookworm",
+          "3.11.2-6+deb12u8",
+          "fixed"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "3.11.2-6+deb12u9",
+          "fixed"
+        ],
+        [
+          "python3.13 ( PTS )",
+          "trixie",
+          "3.13.5-2+deb13u5",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "3.13.15-1",
+          "vulnerable"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "pypy3",
+          "source",
+          "bookworm",
+          "(not affected)",
+          "",
+          "",
+          ""
+        ],
+        [
+          "pypy3",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          "1151858"
+        ],
+        [
+          "python3.11",
+          "source",
+          "(unstable)",
+          "(not affected)",
+          "",
+          "",
+          ""
+        ],
+        [
+          "python3.13",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          ""
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "pypy3 ( PTS )",
+        "release": "bookworm",
+        "version": "7.3.11+dfsg-2+deb12u3",
+        "status": "fixed"
+      },
+      {
+        "source_package": "pypy3 ( PTS )",
+        "release": "trixie",
+        "version": "7.3.19+dfsg-2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "pypy3 ( PTS )",
+        "release": "forky, sid",
+        "version": "8.0.1+dfsg-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "python3.11 ( PTS )",
+        "release": "bookworm",
+        "version": "3.11.2-6+deb12u8",
+        "status": "fixed"
+      },
+      {
+        "source_package": "python3.11 ( PTS )",
+        "release": "bookworm (security)",
+        "version": "3.11.2-6+deb12u9",
+        "status": "fixed"
+      },
+      {
+        "source_package": "python3.13 ( PTS )",
+        "release": "trixie",
+        "version": "3.13.5-2+deb13u5",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "python3.13 ( PTS )",
+        "release": "forky, sid",
+        "version": "3.13.15-1",
+        "status": "vulnerable"
+      }
+    ]
+  },
+  "CVE-2026-8458": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-8458",
+    "raw_sha256": "36db3af5adc4d84700b2ee9ee3f6577890d96350437c9a3ef87c7cea5835d6a0",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-8458"
+        ],
+        [
+          "Description",
+          "libcurl might in some circumstances reuse the wrong connection when asked to do Negotiate-authenticated ones, even when they are set to use different \"services\". libcurl features a pool of recent connections so that subsequent requests can reuse an existing connection to avoid overhead. When reusing a connection a range of criteria must be met. Due to a logical error in the code, a request that was issued by an application could wrongfully reuse an existing connection to the same server that was authenticated using different services."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "curl ( PTS )",
+          "bookworm",
+          "7.88.1-10+deb12u15",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "7.88.1-10+deb12u5",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "8.14.1-2+deb13u5",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security)",
+          "8.14.1-2+deb13u7",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky",
+          "8.22.0-1",
+          "fixed"
+        ],
+        [
+          "",
+          "sid",
+          "8.23.0-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "curl",
+          "source",
+          "(unstable)",
+          "8.21.0~rc2-1",
+          "",
+          "",
+          ""
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "curl ( PTS )",
+        "release": "bookworm",
+        "version": "7.88.1-10+deb12u15",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "curl ( PTS )",
+        "release": "bookworm (security)",
+        "version": "7.88.1-10+deb12u5",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "curl ( PTS )",
+        "release": "trixie",
+        "version": "8.14.1-2+deb13u5",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "curl ( PTS )",
+        "release": "trixie (security)",
+        "version": "8.14.1-2+deb13u7",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "curl ( PTS )",
+        "release": "forky",
+        "version": "8.22.0-1",
+        "status": "fixed"
+      },
+      {
+        "source_package": "curl ( PTS )",
+        "release": "sid",
+        "version": "8.23.0-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-86138": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-86138",
+    "raw_sha256": "c86d07e496ea97c2804988c4eae5bf897b2b34992ea4f9dbef3f3ade063d4d6e",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-86138"
+        ],
+        [
+          "Description",
+          "In libxml2 before 2.15.4, xmlDictAddQString in dict.c has an integer overflow and resultant heap-based buffer overflow."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1146744"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "libxml2 ( PTS )",
+          "bookworm",
+          "2.9.14+dfsg-1.3~deb12u6",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "2.9.14+dfsg-1.3~deb12u4",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security)",
+          "2.12.7+dfsg+really2.9.14-2.1+deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "2.15.4+dfsg-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "libxml2",
+          "source",
+          "(unstable)",
+          "2.15.4+dfsg-1",
+          "",
+          "",
+          "1146744"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "bookworm",
+        "version": "2.9.14+dfsg-1.3~deb12u6",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "bookworm (security)",
+        "version": "2.9.14+dfsg-1.3~deb12u4",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "trixie",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "trixie (security)",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "forky, sid",
+        "version": "2.15.4+dfsg-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-86139": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-86139",
+    "raw_sha256": "96aef4e01c0fb97663ff4ec0d62b0b8d424dfea21f46d9b0e2fa39ec7f2578f9",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-86139"
+        ],
+        [
+          "Description",
+          "In libxml2 before 2.15.4, xmlURIEscapeStr in uri.c has an integer overflow."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1146744"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "libxml2 ( PTS )",
+          "bookworm",
+          "2.9.14+dfsg-1.3~deb12u6",
+          "fixed"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "2.9.14+dfsg-1.3~deb12u4",
+          "fixed"
+        ],
+        [
+          "",
+          "trixie",
+          "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security)",
+          "2.12.7+dfsg+really2.9.14-2.1+deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "2.15.4+dfsg-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "libxml2",
+          "source",
+          "bookworm",
+          "(not affected)",
+          "",
+          "",
+          ""
+        ],
+        [
+          "libxml2",
+          "source",
+          "(unstable)",
+          "2.15.4+dfsg-1",
+          "",
+          "",
+          "1146744"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "bookworm",
+        "version": "2.9.14+dfsg-1.3~deb12u6",
+        "status": "fixed"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "bookworm (security)",
+        "version": "2.9.14+dfsg-1.3~deb12u4",
+        "status": "fixed"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "trixie",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "trixie (security)",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "forky, sid",
+        "version": "2.15.4+dfsg-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-86140": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-86140",
+    "raw_sha256": "8759571590f26cf4204a2aaa4431f8fda4280a59299ba951a909af51e8bd7834",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-86140"
+        ],
+        [
+          "Description",
+          "In libxml2 before 2.15.4, xmlSnprintfElements in valid.c has a strcat stack-based buffer overflow."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1146744"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "libxml2 ( PTS )",
+          "bookworm",
+          "2.9.14+dfsg-1.3~deb12u6",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "2.9.14+dfsg-1.3~deb12u4",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security)",
+          "2.12.7+dfsg+really2.9.14-2.1+deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "2.15.4+dfsg-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "libxml2",
+          "source",
+          "(unstable)",
+          "2.15.4+dfsg-1",
+          "",
+          "",
+          "1146744"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "bookworm",
+        "version": "2.9.14+dfsg-1.3~deb12u6",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "bookworm (security)",
+        "version": "2.9.14+dfsg-1.3~deb12u4",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "trixie",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "trixie (security)",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "forky, sid",
+        "version": "2.15.4+dfsg-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-86142": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-86142",
+    "raw_sha256": "2b9554ece094dd3e1b5a81b15d4d304b184a26977cff1ad7c55f71a8c685bbf3",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-86142"
+        ],
+        [
+          "Description",
+          "In libxml2 before 2.15.4, there is a heap-based buffer overflow in xmlXPtrEvalXPtrPart because of xmlXPtrEval xpointer length saturation."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1146744"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "libxml2 ( PTS )",
+          "bookworm",
+          "2.9.14+dfsg-1.3~deb12u6",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "2.9.14+dfsg-1.3~deb12u4",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security)",
+          "2.12.7+dfsg+really2.9.14-2.1+deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "2.15.4+dfsg-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "libxml2",
+          "source",
+          "(unstable)",
+          "2.15.4+dfsg-1",
+          "",
+          "",
+          "1146744"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "bookworm",
+        "version": "2.9.14+dfsg-1.3~deb12u6",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "bookworm (security)",
+        "version": "2.9.14+dfsg-1.3~deb12u4",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "trixie",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "trixie (security)",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "forky, sid",
+        "version": "2.15.4+dfsg-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-86143": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-86143",
+    "raw_sha256": "3493d4fc46e33bd9917872a2fd2b09bb788333f293077d3807b33cc125bde710",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-86143"
+        ],
+        [
+          "Description",
+          "In xmlIO in libxml2 before 2.15.4, an inconsistency in xmlOutputWriteCallback and xmlBufUse causes negative lengths to reach write callbacks, aka a lack of a check for integer overflow before calling writecallback. This has security relevance for many types of uses of that length value within a callback."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1146744"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "libxml2 ( PTS )",
+          "bookworm",
+          "2.9.14+dfsg-1.3~deb12u6",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "2.9.14+dfsg-1.3~deb12u4",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security)",
+          "2.12.7+dfsg+really2.9.14-2.1+deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "2.15.4+dfsg-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "libxml2",
+          "source",
+          "(unstable)",
+          "2.15.4+dfsg-1",
+          "",
+          "",
+          "1146744"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "bookworm",
+        "version": "2.9.14+dfsg-1.3~deb12u6",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "bookworm (security)",
+        "version": "2.9.14+dfsg-1.3~deb12u4",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "trixie",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "trixie (security)",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "forky, sid",
+        "version": "2.15.4+dfsg-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-86144": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-86144",
+    "raw_sha256": "cf9c6bfedbc6d70d05a2e4a4fe9fe5f13caf7852176d072a578b62f6352bf548",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-86144"
+        ],
+        [
+          "Description",
+          "In xinclude in libxml2 before 2.15.4, xmlXIncludeProcess and xmlXIncludeProcessTree do not propagate parseFlags. This has security relevance for, for example, the XML_PARSE_NONET flag, if (without it) a custom resource loader accesses the internet and triggers XML external entity injection, SSRF, or a denial of service (e.g., for an attacker-controlled internet resource that is intentionally slow)."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1146744"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "libxml2 ( PTS )",
+          "bookworm",
+          "2.9.14+dfsg-1.3~deb12u6",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "2.9.14+dfsg-1.3~deb12u4",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security)",
+          "2.12.7+dfsg+really2.9.14-2.1+deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "2.15.4+dfsg-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "libxml2",
+          "source",
+          "(unstable)",
+          "2.15.4+dfsg-1",
+          "",
+          "",
+          "1146744"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "bookworm",
+        "version": "2.9.14+dfsg-1.3~deb12u6",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "bookworm (security)",
+        "version": "2.9.14+dfsg-1.3~deb12u4",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "trixie",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "trixie (security)",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxml2 ( PTS )",
+        "release": "forky, sid",
+        "version": "2.15.4+dfsg-1",
+        "status": "fixed"
+      }
+    ]
+  },
+  "CVE-2026-86476": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-86476",
+    "raw_sha256": "f529a3fde45876c289c3c511337cc07adbd9f8a03e5ce4fb727262ae609f3fee",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-86476"
+        ],
+        [
+          "Description",
+          "A flaw was found in gst-plugins-base. A heap buffer overflow can be triggered when processing video buffers whose attached GstVideoMeta metadata declares plane strides and offsets that exceed the actual backing memory allocation. The metadata is not range-checked during deserialization, and the video frame mapping code does not verify that the declared plane geometry fits within the buffer before allowing consumers to read or write video data. A local attacker who controls the sending side of a GStreamer inter-process IPC pipeline can deliver a crafted buffer carrying fabricated strides, causing the receiving process to read or write beyond heap boundaries. Successful exploitation can cause a denial of service or potentially allow code execution within the affected process."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "gst-plugins-base1.0 ( PTS )",
+          "bookworm",
+          "1.22.0-3+deb12u6",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "1.22.0-3+deb12u7",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "1.26.2-1+deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie (security)",
+          "1.26.2-1+deb13u2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "1.28.8-1",
+          "vulnerable"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "gst-plugins-base1.0",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          ""
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "gst-plugins-base1.0 ( PTS )",
+        "release": "bookworm",
+        "version": "1.22.0-3+deb12u6",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "gst-plugins-base1.0 ( PTS )",
+        "release": "bookworm (security)",
+        "version": "1.22.0-3+deb12u7",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "gst-plugins-base1.0 ( PTS )",
+        "release": "trixie",
+        "version": "1.26.2-1+deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "gst-plugins-base1.0 ( PTS )",
+        "release": "trixie (security)",
+        "version": "1.26.2-1+deb13u2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "gst-plugins-base1.0 ( PTS )",
+        "release": "forky, sid",
+        "version": "1.28.8-1",
+        "status": "vulnerable"
+      }
+    ]
+  },
+  "CVE-2026-88047": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-88047",
+    "raw_sha256": "399e5d7c4c4e4a867bf121100cdcbce1cd37c2ea1918429a23d9abb44585fc0d",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-88047"
+        ],
+        [
+          "Description",
+          "Tesseract is an open source OCR engine. In version 5.5.3 and earlier, Classify::ReadNormProtos in src/classify/normmatch.cpp parses the NORMPROTO component of a .traineddata file and uses std::istream::operator>>(char*) to extract a whitespace-delimited token into a fixed 61-byte stack buffer without setting a stream width. The 100-byte line buffer can carry a token of up to 99 characters, so a token longer than 60 characters writes up to 39 attacker-controlled bytes past the buffer during TessBaseAPI::Init of the legacy engine, causing stack corruption, denial of service, and potentially control-flow hijacking on affected standard-library implementations. Builds using Apple's libc++ C++20 bounded array overload are incidentally protected, while typical libstdc++ builds remain affected. No fixed release is available as of this review."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1147403"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "tesseract ( PTS )",
+          "bookworm",
+          "5.3.0-2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "5.5.0-1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "5.5.0-1.1",
+          "vulnerable"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "tesseract",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          "1147403"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "bookworm",
+        "version": "5.3.0-2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "trixie",
+        "version": "5.5.0-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "forky, sid",
+        "version": "5.5.0-1.1",
+        "status": "vulnerable"
+      }
+    ]
+  },
+  "CVE-2026-88048": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-88048",
+    "raw_sha256": "249b8e76ff1c7dfc9a889774cea0aea5595a5ab507604951847c4b32e52ea3c1",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-88048"
+        ],
+        [
+          "Description",
+          "Tesseract is an open source OCR engine. In version 5.5.3 and earlier, FullyConnected::DeSerialize in src/lstm/fullyconnected.cpp does not validate the deserialized layer scalars ni_ and no_ against the weight-matrix dimensions. During FullyConnected::Forward, MatrixDotVector in src/lstm/weightmatrix.cpp writes w.dim1() results into temp_line, which is sized from no_, and reads w.dim2() minus one inputs from curr_input, which is sized from ni_. A crafted .traineddata NT_SOFTMAX layer can therefore use inconsistent dimensions to cause a heap out-of-bounds write and read on the default LSTM engine, resulting in heap corruption, a crash, information disclosure, or potentially controlled corruption. No fixed release is available as of this review."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1147403"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "tesseract ( PTS )",
+          "bookworm",
+          "5.3.0-2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "5.5.0-1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "5.5.0-1.1",
+          "vulnerable"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "tesseract",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          "1147403"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "bookworm",
+        "version": "5.3.0-2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "trixie",
+        "version": "5.5.0-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "forky, sid",
+        "version": "5.5.0-1.1",
+        "status": "vulnerable"
+      }
+    ]
+  },
+  "CVE-2026-88051": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-88051",
+    "raw_sha256": "1a3efa781108be6e13290a61c79cd067bb20bbf6e66c2ecfdb20d4059e33a025",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-88051"
+        ],
+        [
+          "Description",
+          "Tesseract is an open source OCR engine. In version 5.5.3 and earlier, the callback form of GenericVector::read in src/ccutil/genericvector.h reads the independent int32 fields reserved and size_used_ from a .traineddata model without a cap or an invariant check. reserve(reserved) allocates the backing array, but the callback loop writes size_used_ elements. A crafted TESSDATA_INTTEMP component with version_id 4 or later can therefore set reserved to a small value and size_used_ to a large value when fontinfo_table_.read(fp, read_info) is called from src/classify/intproto.cpp, causing a heap out-of-bounds write of FontInfo structures, heap corruption, a crash, or potentially controlled corruption. No fixed release is available as of this review."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1147403"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "tesseract ( PTS )",
+          "bookworm",
+          "5.3.0-2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "5.5.0-1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "5.5.0-1.1",
+          "vulnerable"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "tesseract",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          "1147403"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "bookworm",
+        "version": "5.3.0-2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "trixie",
+        "version": "5.5.0-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "forky, sid",
+        "version": "5.5.0-1.1",
+        "status": "vulnerable"
+      }
+    ]
+  },
+  "CVE-2026-88052": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-88052",
+    "raw_sha256": "1537726310ce83dec6874a9b145d7c64f39239c5e60407d6dae3175936319f20",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-88052"
+        ],
+        [
+          "Description",
+          "Tesseract is an open source OCR engine. In version 5.5.3 and earlier, UNICHARSET::load_via_fgets in src/ccutil/unicharset.cpp trusts the declared unichar count as a loop bound and uses id as an unchecked index into the unichars vector. unichar_insert_backwards_compatible can leave the vector unchanged for an empty, duplicate, or already-encodable representation, causing id to become larger than unichars.size(). Subsequent set_* calls and the write to unichars[id].properties.enabled then write UNICHAR_PROPERTIES beyond the vector during initialization in both the default LSTM and legacy engines, causing heap corruption, a crash, or potentially controlled corruption. No fixed release is available as of this review."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1147403"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "tesseract ( PTS )",
+          "bookworm",
+          "5.3.0-2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "5.5.0-1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "5.5.0-1.1",
+          "vulnerable"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "tesseract",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          "1147403"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "bookworm",
+        "version": "5.3.0-2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "trixie",
+        "version": "5.5.0-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "forky, sid",
+        "version": "5.5.0-1.1",
+        "status": "vulnerable"
+      }
+    ]
+  },
+  "CVE-2026-88053": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-88053",
+    "raw_sha256": "3a706832f8920121b875ca561570f3f5fe5cb7276f3f06879431a3d0eccdeb51",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-88053"
+        ],
+        [
+          "Description",
+          "Tesseract is an open source OCR engine. In version 5.5.3 and earlier, Classify::ReadIntTemplates in src/classify/intproto.cpp reads NumClassPruners, NumClasses, and NumProtoSets from the TESSDATA_INTTEMP component of a crafted .traineddata file and uses those values as loop bounds without validating them against MAX_NUM_CLASS_PRUNERS, MAX_NUM_CLASSES, and MAX_NUM_PROTO_SETS. The loops store heap pointers into fixed-capacity ClassPruners and ProtoSets arrays in INT_TEMPLATES_STRUCT and INT_CLASS_STRUCT, so an oversized count causes heap out-of-bounds pointer writes during legacy-classifier initialization before OCR begins, resulting in heap corruption, a crash, or potentially controlled corruption. No fixed release is available as of this review."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1147403"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "tesseract ( PTS )",
+          "bookworm",
+          "5.3.0-2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "5.5.0-1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "5.5.0-1.1",
+          "vulnerable"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "tesseract",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          "1147403"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "bookworm",
+        "version": "5.3.0-2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "trixie",
+        "version": "5.5.0-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "tesseract ( PTS )",
+        "release": "forky, sid",
+        "version": "5.5.0-1.1",
+        "status": "vulnerable"
+      }
+    ]
+  },
+  "CVE-2026-88806": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-88806",
+    "raw_sha256": "258537163fa385cdef5f8e4e18dc2412f829c2985de1b1c21b5d237a735cd7e9",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-88806"
+        ],
+        [
+          "Description",
+          "A malicious X server could exploit a buffer overflow in libX11 before 1.8.14 during handling of XkbGetMap overflowing the key_sym_map."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1148733"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "libx11 ( PTS )",
+          "bookworm, bookworm (security)",
+          "2:1.8.4-2+deb12u2",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "2:1.8.12-1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "2:1.8.13-1",
+          "vulnerable"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "libx11",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          "1148733"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "libx11 ( PTS )",
+        "release": "bookworm, bookworm (security)",
+        "version": "2:1.8.4-2+deb12u2",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libx11 ( PTS )",
+        "release": "trixie",
+        "version": "2:1.8.12-1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libx11 ( PTS )",
+        "release": "forky, sid",
+        "version": "2:1.8.13-1",
+        "status": "vulnerable"
+      }
+    ]
+  },
+  "CVE-2026-88807": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-88807",
+    "raw_sha256": "20660195d267f4b6dad60bbf36ab8c6faf2c0aee94f9e69cdd22f3b74cddfa49",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-88807"
+        ],
+        [
+          "Description",
+          "A heap overflow in libXrender before 0.9.13 in RenderQueryPictFormats could be used by malicious X servers to inject code into attached X clients."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1148735"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "libxrender ( PTS )",
+          "bookworm",
+          "1:0.9.10-1.1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid, trixie",
+          "1:0.9.12-1",
+          "vulnerable"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "libxrender",
+          "source",
+          "(unstable)",
+          "(unfixed)",
+          "",
+          "",
+          "1148735"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "libxrender ( PTS )",
+        "release": "bookworm",
+        "version": "1:0.9.10-1.1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "libxrender ( PTS )",
+        "release": "forky, sid, trixie",
+        "version": "1:0.9.12-1",
+        "status": "vulnerable"
+      }
+    ]
+  },
+  "CVE-2026-9538": {
+    "url": "https://security-tracker.debian.org/tracker/CVE-2026-9538",
+    "raw_sha256": "7ef5d867262210dcfd0f600ea409fd1aa470b38d8d2464d6ba885ab275a7fd57",
+    "tables": [
+      [
+        [
+          "Name",
+          "CVE-2026-9538"
+        ],
+        [
+          "Description",
+          "Archive::Tar versions before 3.10 for Perl allow memory exhaustion via attacker controlled entry size field in tar header. _read_tar() reads each entry's payload with $handle->read($$data, $block), where $block is derived from the entry's 12-byte size field in the tar header with no upper bound on that value. A crafted header declaring a multi-gigabyte size causes Perl to allocate a scalar of that size."
+        ],
+        [
+          "Source",
+          "CVE (at NVD ; CERT , ENISA , LWN , oss-sec , fulldisc , Debian ELTS , Red Hat , Ubuntu , Gentoo , SUSE bugzilla / CVE , GitHub advisories / code / issues , web search , more )"
+        ],
+        [
+          "Debian Bugs",
+          "1138861"
+        ]
+      ],
+      [
+        [
+          "Source Package",
+          "Release",
+          "Version",
+          "Status"
+        ],
+        [
+          "perl ( PTS )",
+          "bookworm",
+          "5.36.0-7+deb12u3",
+          "vulnerable"
+        ],
+        [
+          "",
+          "bookworm (security)",
+          "5.36.0-7+deb12u4",
+          "vulnerable"
+        ],
+        [
+          "",
+          "trixie",
+          "5.40.1-6+deb13u1",
+          "vulnerable"
+        ],
+        [
+          "",
+          "forky, sid",
+          "5.42.3-1",
+          "fixed"
+        ]
+      ],
+      [
+        [
+          "Package",
+          "Type",
+          "Release",
+          "Fixed Version",
+          "Urgency",
+          "Origin",
+          "Debian Bugs"
+        ],
+        [
+          "perl",
+          "source",
+          "experimental",
+          "5.44.0-1",
+          "",
+          "",
+          ""
+        ],
+        [
+          "perl",
+          "source",
+          "(unstable)",
+          "5.42.3-1",
+          "",
+          "",
+          "1138861"
+        ]
+      ]
+    ],
+    "release_rows": [
+      {
+        "source_package": "perl ( PTS )",
+        "release": "bookworm",
+        "version": "5.36.0-7+deb12u3",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "perl ( PTS )",
+        "release": "bookworm (security)",
+        "version": "5.36.0-7+deb12u4",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "perl ( PTS )",
+        "release": "trixie",
+        "version": "5.40.1-6+deb13u1",
+        "status": "vulnerable"
+      },
+      {
+        "source_package": "perl ( PTS )",
+        "release": "forky, sid",
+        "version": "5.42.3-1",
+        "status": "fixed"
+      }
+    ]
+  }
+}

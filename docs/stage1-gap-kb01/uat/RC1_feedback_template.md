@@ -1,3 +1,5 @@
+> Current product `733a7483439cd919c186ed0064b8f3752904ebb6`; current gates and complete measured regression: ../g1-r1/final_technical_acceptance.md. Any explicitly retained earlier Reset/performance/host qualification measurement is historical459, not newly executed on this Head. Human UAT results remain Pending.
+
 # RC1 測試回饋
 
 請勿附 password、API key、signed URL query、真實個資、未脫敏文件或完整 provider payload。

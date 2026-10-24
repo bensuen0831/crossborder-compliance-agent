@@ -1,0 +1,34 @@
+{
+  "product_sha": "733a7483439cd919c186ed0064b8f3752904ebb6",
+  "master_clause": "7.2 lines835\u2013867",
+  "conclusion": "PARTIAL_CONFORMANCE",
+  "source_hashes": {
+    "frontend/src/features/results/Stage1Workspace.tsx": "5c60278cfbcea4c473f5c7d5fddaa21ec2764967a0646c1958004095adf29318",
+    "src/crossborder_compliance/application/stage1_result.py": "6b15141fc0ac106254d8627f5e32bbfe207d8c53a436762cbdf17653adb1bc60",
+    "frontend/src/features/results/results.test.tsx": "596263a13f494428cb2302136ced68f63a697e0dd89084700792632cc6b7c757",
+    "src/crossborder_compliance/interfaces/api/routes/workflow.py": "b010112a471cde91116c698f03e48ffdf0096efdf84f4bd2afd19011ebaff1be"
+  },
+  "observed_current_render": "Stage1Workspace.tsx:54 maps step code to localized title and finish/process/wait status; overall review alerts/evidence drawer exist outside each step",
+  "wire_contract": "Stage1ComplianceResult contains steps/completed_steps/current_step and business results, not a per-stage duration/summary/findings record in this response",
+  "unproven_or_missing_in_inspected_stepper": [
+    "per-stage duration",
+    "per-stage summary",
+    "per-stage key findings count",
+    "per-stage warning/review badge",
+    "per-stage expand/collapse",
+    "per-stage evidence/result link"
+  ],
+  "scope_limit": "This inspection targets the actual Stage1Workspace mounted in IntakeFeature/App; not a claim that all such data is absent from every database or domain DTO",
+  "minimum_compliant_options": [
+    "Existing Stage1 projection/UI owner supplies explicit tested equivalent field and presentation mappings",
+    "Separately scoped additive projection/presentation completion using existing stage authority, no new legal engine/store or historical rewrite",
+    "Requirements custodian supplies applicable approved scope/amendment; no implicit waiver"
+  ],
+  "public_five_stage_gap": "Actual result route workflow.py:266 exposes PIPELINE semantic steps (17 current /16 legacy) and Stage1Workspace maps each into Steps; no explicit five-stage aggregate shown by this route/component",
+  "related_master_clauses": [
+    "7 lines770\u2013790",
+    "7.2 lines835\u2013867",
+    "7.3 lines868\u2013905"
+  ],
+  "design_token_observation": "Stage1Workspace.tsx:58\u201361 contains literal #2563eb/#eff6ff colors despite Master5.1 prohibition; broader theme token equivalence is not a waiver"
+}

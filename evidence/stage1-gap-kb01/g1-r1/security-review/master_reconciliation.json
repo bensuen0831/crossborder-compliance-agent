@@ -1,0 +1,2035 @@
+{
+  "product_sha": "733a7483439cd919c186ed0064b8f3752904ebb6",
+  "repository_master": {
+    "path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+    "sha256": "e23ca63a116f9c40d88c079891f7f4f8ccee845adf76f1dba06d5070b45c4fa0",
+    "git_blob": "bb250af129588df38912938b45d1345dbda1e926",
+    "line_count": 1000,
+    "raw_newline_count": 999,
+    "terminal_newline": false,
+    "same_bytes_as_main": true,
+    "section_digest_method": "UTF8 section lines joined LF, no terminal LF; complete file SHA256 is rawbytes",
+    "document_scope_note": "Actual repository V3.7 ends at9A.2; duplicate0.3/0.4 headings are identified by line number."
+  },
+  "repository_v3_7_full_section_comparison": "COMPLETED_WITH_GAPS_NOT_GLOBAL_PASS",
+  "section_count": 42,
+  "all_sections": [
+    {
+      "requirement_id": "MASTER-V3.7-L0001",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 1,
+      "end_line": 1,
+      "heading": "# 跨境數據合規智能體",
+      "section_content_sha256": "ba825ee29ac971fdb211c495b68bbbcadd315ac3c378ca654fb63de2bb05dad1",
+      "source_excerpt": "# 跨境數據合規智能體",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_management.py",
+        "src/crossborder_compliance/application/knowledge_taxonomy.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+        "frontend/src/features/knowledge-management/KnowledgeManagement.tsx"
+      ],
+      "tests": [
+        "tests/test_kb01_architecture.py",
+        "tests/test_kb01_document_management_postgres.py",
+        "tests/test_kb01_taxonomy_batch_postgres.py",
+        "frontend/e2e/kb01-management.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "證據不足",
+      "basis_and_gap": "Title or product-wide delivery statement is not independent acceptance evidence.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_kb01_architecture::test_kb01_additive_architecture_contracts",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+        "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+        "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+        "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+        "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+        "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+        "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+        "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+        "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+        "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+        "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+        "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+        "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+        "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document",
+        "tests.test_kb01_taxonomy_batch_postgres::test_active_exact_pin_ignores_newer_draft_and_actor_is_preserved",
+        "tests.test_kb01_taxonomy_batch_postgres::test_batch_reader_empty_foreign_tenant_and_denial_make_no_cross_tenant_reads",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[ACTIVE]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[DRAFT]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[MIXED]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_missing_version_and_missing_actor_keep_exact_null_projection",
+        "tests.test_kb01_taxonomy_batch_postgres::test_newest_draft_and_enabled_filter_remain_definition_correlated"
+      ],
+      "actual_browser_test_ids": [
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-HK",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0002",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 2,
+      "end_line": 9,
+      "heading": "## Codex Master Specification — Consolidated Implementation / Integration Baseline V3.7",
+      "section_content_sha256": "caa352f9d3fc256b1185c3209cdf53268aff91cf9a4bc34588d6b632046fbf08",
+      "source_excerpt": "## Codex Master Specification — Consolidated Implementation / Integration Baseline V3.7\n\n> 用途：作為 Codex 後續進行架構設計、數據模型、API、LangGraph、Agent/Skill、前後端及運維開發的唯一 Master Specification，目標是讓 Codex 最終開發出可實際部署、運行、運維及對外提供服務的產品級智能體。  \n> 本文件整合：既有分層工作流架構圖、界面示意、研究內容、合規路徑輸出要求、H5 前端、多渠道使用方式、產品知識隔離、Document-first 分析、知識運維、可視化、合同/文檔能力、模組解耦及資料與邏輯分離要求。  \n> **V3.7 Consolidation（2026-10-08）**：在不改變 V3.6 主架構的前提下，吸收 M2-A～M2-D 已驗證實作契約，並正式凍結 LLM 調用邊界、多 Provider / 多 Model 控制平面、Northbound Third-party API 與 Stage 1 Full E2E 驗收標準。\n\n---\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_management.py",
+        "src/crossborder_compliance/application/knowledge_taxonomy.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+        "frontend/src/features/knowledge-management/KnowledgeManagement.tsx"
+      ],
+      "tests": [
+        "tests/test_kb01_architecture.py",
+        "tests/test_kb01_document_management_postgres.py",
+        "tests/test_kb01_taxonomy_batch_postgres.py",
+        "frontend/e2e/kb01-management.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "證據不足",
+      "basis_and_gap": "Title or product-wide delivery statement is not independent acceptance evidence.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_kb01_architecture::test_kb01_additive_architecture_contracts",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+        "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+        "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+        "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+        "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+        "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+        "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+        "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+        "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+        "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+        "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+        "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+        "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+        "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document",
+        "tests.test_kb01_taxonomy_batch_postgres::test_active_exact_pin_ignores_newer_draft_and_actor_is_preserved",
+        "tests.test_kb01_taxonomy_batch_postgres::test_batch_reader_empty_foreign_tenant_and_denial_make_no_cross_tenant_reads",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[ACTIVE]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[DRAFT]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[MIXED]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_missing_version_and_missing_actor_keep_exact_null_projection",
+        "tests.test_kb01_taxonomy_batch_postgres::test_newest_draft_and_enabled_filter_remain_definition_correlated"
+      ],
+      "actual_browser_test_ids": [
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-HK",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0010",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 10,
+      "end_line": 47,
+      "heading": "# 0. 開發前總則",
+      "section_content_sha256": "9e54fc6d7bca6ec2ff9438685542d88af73e5c6a0547107fd037c7b59a4967d8",
+      "source_excerpt": "# 0. 開發前總則\n\n本系統為企業級「跨境數據合規智能體」，面向境外實際項目，不是普通法律問答 Chatbot，也不是單純 PDF + RAG 工具。\n\n後續所有 Codex 開發必須遵循：\n\n- `DATA ≠ LOGIC`\n- `CONFIG ≠ CODE`\n- `RULE ≠ CODE`\n- `PROMPT ≠ CODE`\n- `KNOWLEDGE ≠ CODE`\n- `TEMPLATE ≠ CODE`\n- `RESULT ≠ PRESENTATION`\n- `CHANNEL ≠ BUSINESS LOGIC`\n\n最重要原則：\n\n> **新增資料，不應等於修改程式。**\n\n新增以下內容原則上不得修改核心 Python / React / LangGraph Root Graph：\n\n- 國家 / 法域\n- 業務場景\n- 產品 / 產品域 / 產品標籤\n- Data Type / Classification\n- Data Flow Type\n- 法規 / 法規版本 / 法條\n- 案例\n- Rule / Risk Rule\n- Prompt\n- Model\n- Regulatory Template\n- Enterprise Contract Template\n- Clause\n- UI Metadata Option\n\n只有新增真正的新算法、通用能力、核心 Service 或新處理機制時，才允許修改核心 Code。\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_management.py",
+        "src/crossborder_compliance/application/knowledge_taxonomy.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+        "frontend/src/features/knowledge-management/KnowledgeManagement.tsx"
+      ],
+      "tests": [
+        "tests/test_kb01_architecture.py",
+        "tests/test_kb01_document_management_postgres.py",
+        "tests/test_kb01_taxonomy_batch_postgres.py",
+        "frontend/e2e/kb01-management.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "已符合",
+      "basis_and_gap": "Existing formal owner is preserved by unchanged source and retained regression; not a claim of real legal acceptance.",
+      "disposition": "ENGINEERING_EVIDENCE_ONLY_NOT_FORMAL_REVIEW",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_kb01_architecture::test_kb01_additive_architecture_contracts",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+        "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+        "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+        "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+        "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+        "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+        "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+        "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+        "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+        "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+        "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+        "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+        "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+        "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document",
+        "tests.test_kb01_taxonomy_batch_postgres::test_active_exact_pin_ignores_newer_draft_and_actor_is_preserved",
+        "tests.test_kb01_taxonomy_batch_postgres::test_batch_reader_empty_foreign_tenant_and_denial_make_no_cross_tenant_reads",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[ACTIVE]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[DRAFT]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[MIXED]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_missing_version_and_missing_actor_keep_exact_null_projection",
+        "tests.test_kb01_taxonomy_batch_postgres::test_newest_draft_and_enabled_filter_remain_definition_correlated"
+      ],
+      "actual_browser_test_ids": [
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-HK",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0048",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 48,
+      "end_line": 83,
+      "heading": "## 0.1 規格表達與示例通用化原則",
+      "section_content_sha256": "69684a8d5517960444623cc2c0a4f102c76c9ea4934e2293226f33543cac6622",
+      "source_excerpt": "## 0.1 規格表達與示例通用化原則\n\n本 Master Specification 中如出現任何國家、地區、產品、產品域、行業、場景、平台或文件名稱，均只能視為說明概念或測試方法的非規範性示例，不得被 Codex 解讀為固定枚舉、默認映射、特殊分支或硬編碼邏輯。\n\n正式實現必須使用抽象、可配置及可擴展語義，例如：\n\n- `selected_product_scope`\n- `unrelated_product_scope`\n- `source_jurisdiction`\n- `destination_jurisdiction`\n- `selected_scenario`\n- `detected_product_context`\n- `allowed_knowledge_scope`\n- `excluded_knowledge_scope`\n\n規範性要求必須描述「適用於任意產品 / 任意法域 / 任意場景」的通用規則，而不是只對某一個產品、某一個國家或某一份示例文檔成立。\n\n示例可以存在於：\n\n- Test Fixture\n- Demo Data\n- Seed Data\n- Documentation Example\n\n但不得存在於：\n\n- Core Domain Logic\n- LangGraph Branch Condition\n- Agent Routing Hard Code\n- RAG Scope Hard Code\n- Frontend Option Hard Co",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_management.py",
+        "src/crossborder_compliance/application/knowledge_taxonomy.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+        "frontend/src/features/knowledge-management/KnowledgeManagement.tsx"
+      ],
+      "tests": [
+        "tests/test_kb01_architecture.py",
+        "tests/test_kb01_document_management_postgres.py",
+        "tests/test_kb01_taxonomy_batch_postgres.py",
+        "frontend/e2e/kb01-management.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "已符合",
+      "basis_and_gap": "Existing formal owner is preserved by unchanged source and retained regression; not a claim of real legal acceptance.",
+      "disposition": "ENGINEERING_EVIDENCE_ONLY_NOT_FORMAL_REVIEW",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_kb01_architecture::test_kb01_additive_architecture_contracts",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+        "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+        "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+        "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+        "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+        "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+        "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+        "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+        "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+        "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+        "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+        "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+        "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+        "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document",
+        "tests.test_kb01_taxonomy_batch_postgres::test_active_exact_pin_ignores_newer_draft_and_actor_is_preserved",
+        "tests.test_kb01_taxonomy_batch_postgres::test_batch_reader_empty_foreign_tenant_and_denial_make_no_cross_tenant_reads",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[ACTIVE]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[DRAFT]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[MIXED]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_missing_version_and_missing_actor_keep_exact_null_projection",
+        "tests.test_kb01_taxonomy_batch_postgres::test_newest_draft_and_enabled_filter_remain_definition_correlated"
+      ],
+      "actual_browser_test_ids": [
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-HK",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0084",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 84,
+      "end_line": 122,
+      "heading": "## 0.2 Production-ready 目標",
+      "section_content_sha256": "f66c612c8b41a431165acc2c1032bd527fd7f30bdfdf54a9ec47b3fccc354bb4",
+      "source_excerpt": "## 0.2 Production-ready 目標\n\n本項目最終不是 Demo / Prototype，而是需要形成可實際使用的企業級智能體。\n\nCodex 後續實現必須同時滿足：\n\n1. **Local Deployable**\n   - 可在單台本地 / 私有服務器上部署；\n   - 具備完整 Web H5、API、Worker、Database、Vector Retrieval、Object Storage、Knowledge Operations；\n   - 不要求依賴開發者電腦上的臨時服務；\n   - 可通過標準配置切換外部模型或本地 / 私有模型服務。\n\n2. **Cloud Deployable**\n   - 可部署至公有雲 / 私有雲 / 企業容器平台；\n   - API 與 Worker 可水平擴展；\n   - Database、Redis、Object Storage、Search 等可切換為 Managed Service；\n   - 支持 Ingress / API Gateway / TLS / Secret Manager / Observability。\n\n3. **Third-party Callable**\n   - 提供穩定、版本化、文檔完整的對外 API；\n   - 支持 OAuth2 / Service Account；\n   - 支持同步、異步、Webhook、Streaming；\n   - 支持 OpenAPI 及 SDK；\n   -",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_management.py",
+        "src/crossborder_compliance/application/knowledge_taxonomy.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+        "frontend/src/features/knowledge-management/KnowledgeManagement.tsx"
+      ],
+      "tests": [
+        "tests/test_kb01_architecture.py",
+        "tests/test_kb01_document_management_postgres.py",
+        "tests/test_kb01_taxonomy_batch_postgres.py",
+        "frontend/e2e/kb01-management.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "部分符合",
+      "basis_and_gap": "RC1 local isolated deployment is operable; production IAM/bootstrap/cloud/TLS/observability/PITR/independent restore and production deployment acceptance are not proved.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_kb01_architecture::test_kb01_additive_architecture_contracts",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+        "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+        "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+        "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+        "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+        "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+        "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+        "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+        "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+        "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+        "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+        "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+        "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+        "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document",
+        "tests.test_kb01_taxonomy_batch_postgres::test_active_exact_pin_ignores_newer_draft_and_actor_is_preserved",
+        "tests.test_kb01_taxonomy_batch_postgres::test_batch_reader_empty_foreign_tenant_and_denial_make_no_cross_tenant_reads",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[ACTIVE]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[DRAFT]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[MIXED]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_missing_version_and_missing_actor_keep_exact_null_projection",
+        "tests.test_kb01_taxonomy_batch_postgres::test_newest_draft_and_enabled_filter_remain_definition_correlated"
+      ],
+      "actual_browser_test_ids": [
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-HK",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0123",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 123,
+      "end_line": 154,
+      "heading": "## 0.3 V3.6 LangGraph 技術決策基線",
+      "section_content_sha256": "05879aba9616afac62f4fb73dd5f42e8e47b5095a7ca784afb627f2e0ab51221",
+      "source_excerpt": "## 0.3 V3.6 LangGraph 技術決策基線\n\nV3.6 正式凍結以下技術決策：\n\n> **LangGraph 是本系統唯一默認的 Agent / Workflow Orchestration Runtime。**\n\n不再保留「LangGraph 或內部自研 Workflow Runtime 二選一」的未決狀態。\n\n同時保留框架隔離邊界：\n\n```text\nApplication Use Case\n↓\nWorkflowRuntimePort\n↓\nLangGraphWorkflowRuntimeAdapter\n↓\nCompiled LangGraph StateGraph\n↓\nNode / Router / Subgraph\n↓\nAgent / Skill / Domain Service\n```\n\n因此：\n\n- Domain 不得直接依賴 LangGraph API；\n- Agent / Skill 不得直接持有 Compiled Graph；\n- Application 通過 `WorkflowRuntimePort` 調度 Workflow；\n- LangGraph-specific API 僅允許存在於 `workflows/langgraph/`、Adapter、Graph Definition、Node/Router/Subgraph Runtime 邊界；\n- 未來如需升級或替換 Workflow Framework，只允許在 `WorkflowRunti",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/workflows/ports.py",
+        "src/crossborder_compliance/workflows/langgraph_adapter.py"
+      ],
+      "tests": [
+        "tests/test_runtime_boundaries.py"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "已符合",
+      "basis_and_gap": "Existing formal owner is preserved by unchanged source and retained regression; not a claim of real legal acceptance.",
+      "disposition": "ENGINEERING_EVIDENCE_ONLY_NOT_FORMAL_REVIEW",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_runtime_boundaries::test_human_review_node_not_agent_registry_pattern",
+        "tests.test_runtime_boundaries::test_state_contains_no_runtime_service_or_secret_fields"
+      ],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0155",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 155,
+      "end_line": 178,
+      "heading": "### 0.3.1 LangGraph 職責",
+      "section_content_sha256": "d2068a6e2cc8d93904ba62738ec073d2e05534447d4813cd2f941db1645754fd",
+      "source_excerpt": "### 0.3.1 LangGraph 職責\n\nLangGraph 負責：\n\n- `StateGraph` Workflow Orchestration\n- Conditional Routing\n- Subgraph Composition\n- Human-in-the-loop Interrupt / Resume\n- Durable Checkpoint\n- Streaming / Runtime Events\n- Node Retry / Timeout Policy\n- Long-running Workflow State Recovery\n\nLangGraph 不負責：\n\n- Regulation Knowledge Base\n- RAG Knowledge Storage\n- Rule Engine\n- Risk Engine\n- Domain Database\n- Product Scope Policy\n- Legal / Compliance Business Logic\n- Enterprise Audit Source of Truth\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/workflows/langgraph_adapter.py",
+        "src/crossborder_compliance/workflows/events.py"
+      ],
+      "tests": [
+        "tests/test_interrupt_side_effect_idempotency.py"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "已符合",
+      "basis_and_gap": "Existing formal owner is preserved by unchanged source and retained regression; not a claim of real legal acceptance.",
+      "disposition": "ENGINEERING_EVIDENCE_ONLY_NOT_FORMAL_REVIEW",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_interrupt_side_effect_idempotency::test_deterministic_canonical_event_is_idempotent_across_interrupt_replay",
+        "tests.test_interrupt_side_effect_idempotency::test_review_task_and_status_transitions_are_reentrant"
+      ],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0179",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 179,
+      "end_line": 211,
+      "heading": "### 0.3.2 Source of Truth 邊界",
+      "section_content_sha256": "636af8b7f8f0e34ea822ac021da80c0db41918d9b645110376cc9525d0b2c6d7",
+      "source_excerpt": "### 0.3.2 Source of Truth 邊界\n\n必須區分：\n\n```text\nAnalysisSnapshot\n= 一次正式合規分析所使用的 Knowledge / Rule / Prompt / Model / Template / Workflow Version 快照\n```\n\n與：\n\n```text\nLangGraph Checkpoint\n= LangGraph 運行時的 State / Pending Write / Interrupt / Execution Position 持久化\n```\n\n兩者不得合併，也不得互相替代。\n\n正式關係：\n\n```text\nAnalysisSnapshot\n↓\nWorkflowRun\n↓\nLangGraph thread_id\n↓\nLangGraph Checkpoints\n```\n\n---\n\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/workflows/canonical.py",
+        "src/crossborder_compliance/infrastructure/persistence/workflow_read_projection.py"
+      ],
+      "tests": [
+        "tests/test_m2b_snapshot_contract_probe.py"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "已符合",
+      "basis_and_gap": "Existing formal owner is preserved by unchanged source and retained regression; not a claim of real legal acceptance.",
+      "disposition": "ENGINEERING_EVIDENCE_ONLY_NOT_FORMAL_REVIEW",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_m2b_snapshot_contract_probe::test_stable_item_has_exact_immutable_snapshot_state_and_provenance"
+      ],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0212",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 212,
+      "end_line": 274,
+      "heading": "# 0.4 V3.6 Final Architecture 收口要求",
+      "section_content_sha256": "423055d4fac23160cbbfac9317bd081466f54b449cb0f37562af40ca7b929339",
+      "source_excerpt": "# 0.4 V3.6 Final Architecture 收口要求\n\nV3.6 在既有 LangGraph Baseline 基礎上完成最後一輪架構補強。\n\n本版本不再變更主架構，重點補足以下 Production / Domain 收口能力：\n\n1. `ProjectParty / LegalEntity / PartyRoleAssignment`\n   - 正式描述 Controller、Processor、Exporter、Importer、Recipient、Subprocessor 等法律責任主體；\n   - Data Flow、Contract、Compliance Path Step 必須可以關聯責任主體。\n\n2. `ClassificationScheme / ClassificationLevel / ClassificationResult`\n   - 分類分級必須版本化、法域化、規則化；\n   - 不得只保存自由文本分類結果。\n\n3. 通用 Regulatory Requirement\n   - 具體標準合同、評估文件、備案/申報文件類型由 Metadata / Rule / Country Skill / Template 驅動；\n   - 不因新增某一法域文件類型而新增 Python Skill。\n\n4. Safe Rule DSL\n   - Rule Condition / Action 使用受控 Declarative Expression；\n ",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_management.py",
+        "src/crossborder_compliance/application/knowledge_taxonomy.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+        "frontend/src/features/knowledge-management/KnowledgeManagement.tsx"
+      ],
+      "tests": [
+        "tests/test_kb01_architecture.py",
+        "tests/test_kb01_document_management_postgres.py",
+        "tests/test_kb01_taxonomy_batch_postgres.py",
+        "frontend/e2e/kb01-management.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "部分符合",
+      "basis_and_gap": "Knowledge review/source boundaries implemented; full LLM Wiki/monitoring/multimodal and all product-wide production goals are not wholly accepted by KB01.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_kb01_architecture::test_kb01_additive_architecture_contracts",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+        "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+        "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+        "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+        "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+        "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+        "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+        "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+        "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+        "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+        "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+        "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+        "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+        "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document",
+        "tests.test_kb01_taxonomy_batch_postgres::test_active_exact_pin_ignores_newer_draft_and_actor_is_preserved",
+        "tests.test_kb01_taxonomy_batch_postgres::test_batch_reader_empty_foreign_tenant_and_denial_make_no_cross_tenant_reads",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[ACTIVE]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[DRAFT]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[MIXED]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_missing_version_and_missing_actor_keep_exact_null_projection",
+        "tests.test_kb01_taxonomy_batch_postgres::test_newest_draft_and_enabled_filter_remain_definition_correlated"
+      ],
+      "actual_browser_test_ids": [
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-HK",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0275",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 275,
+      "end_line": 314,
+      "heading": "# 0.5 V3.6 Visualization / Result Contract 收口要求",
+      "section_content_sha256": "6b4f0ee5fc21f82ebb33e452b3760db97a62811c454d96be5731d42a6a326a85",
+      "source_excerpt": "# 0.5 V3.6 Visualization / Result Contract 收口要求\n\nV3.6 不改變既有已凍結主架構，重點將「分析結果輸出與可視化」由設計建議提升為強制 Product / API / Frontend Contract。\n\n本版本強制要求：\n\n1. Stage 1 合規分析結果不得只輸出自然語言報告或 Data Table。\n2. H5 Result Page 必須同時提供：\n   - Workflow Stepper\n   - Analysis KPI / Summary\n   - Data Transfer Map / Route / Topology\n   - Risk Visualization\n   - Compliance Path Visualization\n   - Data Item Compliance Table\n   - Evidence / Legal Basis Drawer\n3. Workflow 五階段必須映射真實 LangGraph 執行狀態及結構化 `AnalysisStageResult`，不得只顯示假進度動畫。\n4. Data Transfer 與 Compliance Path 至少必須提供可交互式結構化可視化。\n5. Cross-border Status 與 Risk Level 必須使用兩套獨立視覺語義。\n6. 每個 Data Item 結果必須可追溯至：\n   - 原始需求文檔位置\n   - Cla",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [],
+      "tests": [],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "不屬本階段",
+      "basis_and_gap": "Broader product / Stage2 / unrelated channel work is outside this bounded KB01/RC1 review. Requirement retained, no waiver or expansion implemented.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0315",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 315,
+      "end_line": 341,
+      "heading": "# 0.3 V3.7 Consolidated Baseline / 已驗證實作基線",
+      "section_content_sha256": "83b65647fb1b181bce41b61c0f1538a143a0d9a533ff2fe65dd5e6e0862363d6",
+      "source_excerpt": "# 0.3 V3.7 Consolidated Baseline / 已驗證實作基線\n\nV3.7 是 **V3.6 的增量收口版本，不是架構重設計**。除非本文件明確標記為新增或修訂，V3.6 已凍結要求全部保留。\n\n截至 2026-10-08，已驗證 implementation baseline：\n\n- `main = efda0955342de8d1ea36aa0f754d63c9b421fec8`\n- annotated tag：`v3.6-m2d-pass`\n- Alembic：`0015_m2d_review_governance`\n- M2-A Structured Intake：PASS + MAIN\n- M2-B Production Document / Temporal Snapshot：PASS + MAIN\n- M2-C Formal Result Authority / Result Workspace：PASS + MAIN\n- M2-D Governed Human Review / Resume / Successor Snapshot：PASS + MAIN\n\nV3.7 將以下已驗證契約提升為正式 Master Baseline：\n\n1. **Structured Intake + Document Input 共存**：Structured Input 與 Document Provenance 是兩種正式來源，不得互相偽裝。\n2. **Im",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "ARCHITECTURE_RULES.md",
+        "src/crossborder_compliance/domain/decision_calculation_versions.py"
+      ],
+      "tests": [
+        "tests/test_stage1_decision_versions.py",
+        "tests/test_stage1_support_historical.py"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "已符合",
+      "basis_and_gap": "Existing formal owner is preserved by unchanged source and retained regression; not a claim of real legal acceptance.",
+      "disposition": "ENGINEERING_EVIDENCE_ONLY_NOT_FORMAL_REVIEW",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_stage1_decision_versions::test_envelope_provenance_mismatch_and_unknown_version_fail_closed",
+        "tests.test_stage1_decision_versions::test_legacy_helper_is_exact_frozen_source_semantics",
+        "tests.test_stage1_decision_versions::test_versions_are_explicit_and_uniform_across_every_stage",
+        "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[column_provenance]",
+        "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[json_version]",
+        "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[mixed_chain]",
+        "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[row_version]",
+        "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[support]",
+        "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[unknown]",
+        "tests.test_stage1_support_historical::test_prior_source_result_reads_without_rewriting_history_and_cannot_execute_again"
+      ],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0342",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 342,
+      "end_line": 355,
+      "heading": "## 0.4 LLM 使用總原則（V3.7 新增）",
+      "section_content_sha256": "1f496f0a633157f9f154b7ec5f870f32fe59ca0b25516f5679dd81acd22765eb",
+      "source_excerpt": "## 0.4 LLM 使用總原則（V3.7 新增）\n\n正式原則：\n\n> **RAG-FIRST → RULE-FIRST → EVIDENCE-FIRST → LLM-WHEN-NEEDED**\n\n具體約束：\n\n- 有完整 Structured Input 時，不得為了「使用 AI」而再次讓 LLM 重做相同事實判斷。\n- Knowledge/RAG 已有充分、版本化、可引用 Evidence 時，正式法律判斷由 Rule/Policy/Formal Owner 執行；LLM 只可做 derived explanation。\n- `LLM parametric knowledge ≠ Legal Evidence`。模型記憶、常識或自由生成內容不得直接成為 LegalBasis / Evidence。\n- Knowledge insufficiency 時，LLM 可協助 query expansion、法規名稱候選、missing-evidence analysis；重新檢索後仍不足時，正式狀態必須是 `INSUFFICIENT_EVIDENCE / REVIEW_REQUIRED` 或其他受治理狀態，禁止用模型記憶補成確定法律結論。\n- LLM 可形成 Candidate / Derived Explanation / Generated Artifact；不得成為 Classification、Applicability、Cross-border Assessment、Ri",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/infrastructure/llm_snapshot_pins.py",
+        "src/crossborder_compliance/application/intake_services.py"
+      ],
+      "tests": [
+        "tests/test_phase1kb_document_postgres.py",
+        "tests/test_stage1_r3_llm_rag.py"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "已符合",
+      "basis_and_gap": "Existing formal owner is preserved by unchanged source and retained regression; not a claim of real legal acceptance.",
+      "disposition": "ENGINEERING_EVIDENCE_ONLY_NOT_FORMAL_REVIEW",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_phase1kb_document_postgres::test_all_document_candidate_types_require_explicit_decisions_before_formal_mapping[list_candidate_facts]",
+        "tests.test_phase1kb_document_postgres::test_all_document_candidate_types_require_explicit_decisions_before_formal_mapping[list_candidate_flow_edges]",
+        "tests.test_phase1kb_document_postgres::test_all_document_candidate_types_require_explicit_decisions_before_formal_mapping[list_candidate_flow_nodes]",
+        "tests.test_phase1kb_document_postgres::test_all_document_candidate_types_require_explicit_decisions_before_formal_mapping[list_candidate_items]",
+        "tests.test_phase1kb_document_postgres::test_multi_model_disagreement_uses_existing_fact_conflict_authority[MULTI_MODEL]",
+        "tests.test_phase1kb_document_postgres::test_native_structured_input_does_not_invoke_semantic_model",
+        "tests.test_phase1kb_document_postgres::test_real_binary_llm_candidates_genuine_trace_resolution_and_restart",
+        "tests.test_phase1kb_document_postgres::test_semantic_uncertainty_cannot_enter_formal_input[invalid_trace]",
+        "tests.test_phase1kb_document_postgres::test_semantic_uncertainty_cannot_enter_formal_input[low_confidence]",
+        "tests.test_phase1kb_document_postgres::test_semantic_uncertainty_cannot_enter_formal_input[unknown_fact_type]",
+        "tests.test_stage1_r3_llm_rag::test_blank_project_query_gap_real_http_second_retrieval_cannot_broaden_scope",
+        "tests.test_stage1_r3_llm_rag::test_multi_model_disagreement_is_candidate_only_and_user_selects_input"
+      ],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0356",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 356,
+      "end_line": 388,
+      "heading": "# 1. 系統定位",
+      "section_content_sha256": "ff791c3b3f069566143a9885e088232b066a825193c00a3eb88a49ac186a8252",
+      "source_excerpt": "# 1. 系統定位\n\n系統定位：\n\n> **面向境外實際項目的企業級跨境數據合規分析、合規路徑推薦及實施支撐平台。**\n\n主要服務角色：\n\n- 國際公司及境外機構\n- DICT 團隊\n- 產品團隊\n- 技術 / 網絡 / 雲 / AI 團隊\n- 項目交付團隊\n- 法務 / 合規 / 信息安全\n- 知識運營及系統管理員\n\n核心分析對象：\n\n- Project\n- Business Scenario\n- Product / Product Domain\n- Document\n- Data Item\n- Data Flow\n- Jurisdiction\n- Regulation / Rule\n- Risk\n- Compliance Path\n- Required Document\n- Evidence\n\n---\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_management.py",
+        "src/crossborder_compliance/application/knowledge_taxonomy.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+        "frontend/src/features/knowledge-management/KnowledgeManagement.tsx"
+      ],
+      "tests": [
+        "tests/test_kb01_architecture.py",
+        "tests/test_kb01_document_management_postgres.py",
+        "tests/test_kb01_taxonomy_batch_postgres.py",
+        "frontend/e2e/kb01-management.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "部分符合",
+      "basis_and_gap": "Synthetic technical/business pipeline demonstrated; real-law correctness and Production UAT not accepted.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_kb01_architecture::test_kb01_additive_architecture_contracts",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+        "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+        "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+        "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+        "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+        "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+        "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+        "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+        "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+        "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+        "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+        "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+        "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+        "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document",
+        "tests.test_kb01_taxonomy_batch_postgres::test_active_exact_pin_ignores_newer_draft_and_actor_is_preserved",
+        "tests.test_kb01_taxonomy_batch_postgres::test_batch_reader_empty_foreign_tenant_and_denial_make_no_cross_tenant_reads",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[ACTIVE]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[DRAFT]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[MIXED]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_missing_version_and_missing_actor_keep_exact_null_projection",
+        "tests.test_kb01_taxonomy_batch_postgres::test_newest_draft_and_enabled_filter_remain_definition_correlated"
+      ],
+      "actual_browser_test_ids": [
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-HK",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0389",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 389,
+      "end_line": 445,
+      "heading": "# 2. 研究內容映射",
+      "section_content_sha256": "71f51751bd20a3e421366420139fa566ce9962e73d24b4ca1e38c03653e66105",
+      "source_excerpt": "# 2. 研究內容映射\n\n系統必須支撐以下研究能力：\n\n1. 跨境數據合規知識庫  \n   - 原始法規\n   - 國別合規方案\n   - 典型案例\n   - 治理框架\n   - 成本模型\n   - AI 監管要求\n   - 標準化合規文檔模板\n   - 研究報告 / 學術論文\n\n2. RAG\n   - Metadata Filter\n   - Keyword Search\n   - Vector Search\n   - Hybrid Retrieval\n   - Rerank\n   - Evidence Retrieval\n\n3. LLM Wiki\n   - Country Wiki\n   - Regulation Wiki\n   - Scenario Wiki\n   - Product Wiki\n   - Data Category Wiki\n   - Compliance Mechanism Wiki\n   - Template Wiki\n\n4. Knowledge Graph\n   - Regulation → Article → Requirement → Measure / Mechanism → Document → Template\n   - Scenario → Requirement\n   - Product → Data Category\n   - Enterprise Template → Clause → Requirement\n\n5. Vertical",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_management.py",
+        "src/crossborder_compliance/application/knowledge_taxonomy.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+        "frontend/src/features/knowledge-management/KnowledgeManagement.tsx"
+      ],
+      "tests": [
+        "tests/test_kb01_architecture.py",
+        "tests/test_kb01_document_management_postgres.py",
+        "tests/test_kb01_taxonomy_batch_postgres.py",
+        "frontend/e2e/kb01-management.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "部分符合",
+      "basis_and_gap": "Canonical knowledge, metadata, RAG mechanisms exist; real regulatory dataset/Gold Standard, broader Wiki/KG/templates are not all accepted.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_kb01_architecture::test_kb01_additive_architecture_contracts",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+        "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+        "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+        "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+        "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+        "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+        "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+        "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+        "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+        "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+        "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+        "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+        "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+        "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document",
+        "tests.test_kb01_taxonomy_batch_postgres::test_active_exact_pin_ignores_newer_draft_and_actor_is_preserved",
+        "tests.test_kb01_taxonomy_batch_postgres::test_batch_reader_empty_foreign_tenant_and_denial_make_no_cross_tenant_reads",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[ACTIVE]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[DRAFT]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[MIXED]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_missing_version_and_missing_actor_keep_exact_null_projection",
+        "tests.test_kb01_taxonomy_batch_postgres::test_newest_draft_and_enabled_filter_remain_definition_correlated"
+      ],
+      "actual_browser_test_ids": [
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-HK",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0446",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 446,
+      "end_line": 453,
+      "heading": "# 3. 三種智能體使用方式",
+      "section_content_sha256": "74b9fc487c0b3b622703391f7448a9c92e9fde14b547516e9d7342e770d6fa43",
+      "source_excerpt": "# 3. 三種智能體使用方式\n\n系統必須採用：\n\n> **ONE INTELLIGENCE CORE + MULTIPLE ACCESS CHANNELS**\n\n三種主要使用方式：\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/interfaces/api/workflow_app.py",
+        "src/crossborder_compliance/application/workflow_formal.py"
+      ],
+      "tests": [
+        "tests/test_stage1_channel_parity.py"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "已符合",
+      "basis_and_gap": "Existing formal owner is preserved by unchanged source and retained regression; not a claim of real legal acceptance.",
+      "disposition": "ENGINEERING_EVIDENCE_ONLY_NOT_FORMAL_REVIEW",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_stage1_channel_parity::test_independent_web_external_oauth_blank_project_businesses[CONDITIONAL]",
+        "tests.test_stage1_channel_parity::test_independent_web_external_oauth_blank_project_businesses[DIRECT]",
+        "tests.test_stage1_channel_parity::test_independent_web_external_oauth_blank_project_businesses[LOCALIZATION]",
+        "tests.test_stage1_channel_parity::test_independent_web_external_oauth_blank_project_businesses[REVIEW]"
+      ],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0454",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 454,
+      "end_line": 465,
+      "heading": "## 3.1 HTML5 Web Frontend",
+      "section_content_sha256": "035aba7a3f844593c965335ca2a38b0bfe6af86d80859f4c5efd23bda0a52cc4",
+      "source_excerpt": "## 3.1 HTML5 Web Frontend\n\n主要使用界面：\n\n- 企業級 Midnight 深夜模式\n- H5 / React + TypeScript\n- 可獨立運行\n- 可 iframe 嵌入\n- 可 Deep Link\n- 可 JS SDK 調起\n- 可預留 Micro Frontend / Web Component\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "frontend/src/App.tsx",
+        "frontend/src/features/knowledge-management/KnowledgeManagement.tsx"
+      ],
+      "tests": [
+        "frontend/e2e/kb01-management.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "已符合",
+      "basis_and_gap": "Existing formal owner is preserved by unchanged source and retained regression; not a claim of real legal acceptance.",
+      "disposition": "ENGINEERING_EVIDENCE_ONLY_NOT_FORMAL_REVIEW",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [],
+      "actual_browser_test_ids": [
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-HK",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0466",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 466,
+      "end_line": 481,
+      "heading": "## 3.2 VS Code Conversational Client",
+      "section_content_sha256": "fb9175e15bb44d727525db00f9daa54b0fea8a6f80a554917ebb2600fcd64d71",
+      "source_excerpt": "## 3.2 VS Code Conversational Client\n\n以對話方式使用智能體：\n\n- 分析 Current File\n- 分析 Selection\n- 分析 Workspace File\n- Review Contract\n- Explain Compliance Result\n- Show Evidence\n- Generate Compliance Path\n- Generate Document\n- Open Visualization\n\nVS Code 不得實現自己的合規邏輯，只作 Client / Channel Adapter。\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [],
+      "tests": [],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "不屬本階段",
+      "basis_and_gap": "Broader product / Stage2 / unrelated channel work is outside this bounded KB01/RC1 review. Requirement retained, no waiver or expansion implemented.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0482",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 482,
+      "end_line": 524,
+      "heading": "## 3.3 Third-party API",
+      "section_content_sha256": "8a5d181e3b06b80cb4aecac081df1940e5332bfd8b9113d5c0b3f4109e97011f",
+      "source_excerpt": "## 3.3 Third-party API\n\n供其他企業系統直接調用：\n\n- REST API\n- Async Task\n- SSE / WebSocket\n- Webhook\n- SDK\n- OpenAPI\n\n適用於各類企業內部或外部業務平台，例如：\n\n- 項目 / DICT 管理平台\n- 能力協同 / 研發管理平台\n- 合規管理平台\n- AI / 模型服務平台\n- 項目管理系統\n- 其他經授權企業平台\n\n以上僅為平台類型示意，不構成固定集成清單。\n\n三種渠道必須共用：\n\n- Domain Model\n- Application Use Case\n- LangGraph\n- Agent / Skill\n- Rule / Risk\n- Knowledge / Evidence\n- Review\n- Audit\n\n渠道差異只允許存在於：\n\n- Authentication\n- Input Adapter\n- Streaming\n- Presentation\n- Client Interaction\n\n---\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/interfaces/api/workflow_app.py",
+        "src/crossborder_compliance/application/stage1_result.py"
+      ],
+      "tests": [
+        "tests/test_stage1_channel_parity.py",
+        "frontend/e2e/m2e.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "已符合",
+      "basis_and_gap": "Existing formal owner is preserved by unchanged source and retained regression; not a claim of real legal acceptance.",
+      "disposition": "ENGINEERING_EVIDENCE_ONLY_NOT_FORMAL_REVIEW",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_stage1_channel_parity::test_independent_web_external_oauth_blank_project_businesses[CONDITIONAL]",
+        "tests.test_stage1_channel_parity::test_independent_web_external_oauth_blank_project_businesses[DIRECT]",
+        "tests.test_stage1_channel_parity::test_independent_web_external_oauth_blank_project_businesses[LOCALIZATION]",
+        "tests.test_stage1_channel_parity::test_independent_web_external_oauth_blank_project_businesses[REVIEW]"
+      ],
+      "actual_browser_test_ids": [
+        {
+          "file": "m2e.spec.ts",
+          "suite": [],
+          "title": "integration Admin, one-time credentials and signed callback en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "m2e.spec.ts",
+          "suite": [],
+          "title": "integration Admin, one-time credentials and signed callback zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "m2e.spec.ts",
+          "suite": [],
+          "title": "integration Admin, one-time credentials and signed callback zh-HK",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0525",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 525,
+      "end_line": 526,
+      "heading": "# 4. HTML5 Frontend 要求",
+      "section_content_sha256": "242d4fcb410cf6e9256dce18c2e2cd702125716dff8df2734a2f7e40abf15d8a",
+      "source_excerpt": "# 4. HTML5 Frontend 要求\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_management.py",
+        "src/crossborder_compliance/application/knowledge_taxonomy.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+        "frontend/src/features/knowledge-management/KnowledgeManagement.tsx"
+      ],
+      "tests": [
+        "tests/test_kb01_architecture.py",
+        "tests/test_kb01_document_management_postgres.py",
+        "tests/test_kb01_taxonomy_batch_postgres.py",
+        "frontend/e2e/kb01-management.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "已符合",
+      "basis_and_gap": "Existing formal owner is preserved by unchanged source and retained regression; not a claim of real legal acceptance.",
+      "disposition": "ENGINEERING_EVIDENCE_ONLY_NOT_FORMAL_REVIEW",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_kb01_architecture::test_kb01_additive_architecture_contracts",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+        "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+        "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+        "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+        "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+        "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+        "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+        "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+        "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+        "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+        "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+        "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+        "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+        "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document",
+        "tests.test_kb01_taxonomy_batch_postgres::test_active_exact_pin_ignores_newer_draft_and_actor_is_preserved",
+        "tests.test_kb01_taxonomy_batch_postgres::test_batch_reader_empty_foreign_tenant_and_denial_make_no_cross_tenant_reads",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[ACTIVE]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[DRAFT]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[MIXED]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_missing_version_and_missing_actor_keep_exact_null_projection",
+        "tests.test_kb01_taxonomy_batch_postgres::test_newest_draft_and_enabled_filter_remain_definition_correlated"
+      ],
+      "actual_browser_test_ids": [
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-HK",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0527",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 527,
+      "end_line": 543,
+      "heading": "## 4.1 技術形態",
+      "section_content_sha256": "a484d0e7104044154a1c7dd1bf9e406abafde8ec026855e14ff9082d8412bdbf",
+      "source_excerpt": "## 4.1 技術形態\n\n推薦：\n\n- React\n- TypeScript\n- HTML5\n- CSS / Design Token\n- REST\n- SSE / WebSocket\n\n不得依賴：\n\n- Windows 專有 UI\n- Electron 專有能力\n- 單一內部平台 UI Framework\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "frontend/package.json",
+        "frontend/src/App.tsx"
+      ],
+      "tests": [
+        "frontend/src/features/knowledge-management/management.test.tsx"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "已符合",
+      "basis_and_gap": "Existing formal owner is preserved by unchanged source and retained regression; not a claim of real legal acceptance.",
+      "disposition": "ENGINEERING_EVIDENCE_ONLY_NOT_FORMAL_REVIEW",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": "Full180 actual test-report regression, current source; this is not human visual acceptance"
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0544",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 544,
+      "end_line": 547,
+      "heading": "## 4.2 前端交付模式",
+      "section_content_sha256": "71c83f58b8efd27e7bfdf8dcc1b3495aec66cf80f2803111c0b67f5e29c3b686",
+      "source_excerpt": "## 4.2 前端交付模式\n\n至少支持：\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_management.py",
+        "src/crossborder_compliance/application/knowledge_taxonomy.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+        "frontend/src/features/knowledge-management/KnowledgeManagement.tsx"
+      ],
+      "tests": [
+        "tests/test_kb01_architecture.py",
+        "tests/test_kb01_document_management_postgres.py",
+        "tests/test_kb01_taxonomy_batch_postgres.py",
+        "frontend/e2e/kb01-management.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "部分符合",
+      "basis_and_gap": "Standalone/deep links verified; a complete KB-admin embed/JavaScript delivery acceptance is absent.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_kb01_architecture::test_kb01_additive_architecture_contracts",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+        "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+        "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+        "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+        "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+        "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+        "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+        "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+        "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+        "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+        "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+        "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+        "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+        "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document",
+        "tests.test_kb01_taxonomy_batch_postgres::test_active_exact_pin_ignores_newer_draft_and_actor_is_preserved",
+        "tests.test_kb01_taxonomy_batch_postgres::test_batch_reader_empty_foreign_tenant_and_denial_make_no_cross_tenant_reads",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[ACTIVE]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[DRAFT]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[MIXED]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_missing_version_and_missing_actor_keep_exact_null_projection",
+        "tests.test_kb01_taxonomy_batch_postgres::test_newest_draft_and_enabled_filter_remain_definition_correlated"
+      ],
+      "actual_browser_test_ids": [
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-HK",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0548",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 548,
+      "end_line": 550,
+      "heading": "### Standalone",
+      "section_content_sha256": "41278efa25e87170d4dad3dbf70b2fdb6e9f537c49c15d4e3d1ef3223b074960",
+      "source_excerpt": "### Standalone\n完整工作台。\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "scripts/kb01/rc1.py",
+        "frontend/src/App.tsx"
+      ],
+      "tests": [
+        "frontend/e2e/kb01-rc1.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "已符合",
+      "basis_and_gap": "Existing formal owner is preserved by unchanged source and retained regression; not a claim of real legal acceptance.",
+      "disposition": "ENGINEERING_EVIDENCE_ONLY_NOT_FORMAL_REVIEW",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [],
+      "actual_browser_test_ids": [
+        {
+          "file": "kb01-rc1.spec.ts",
+          "suite": [],
+          "title": "KB01 RC1 synthetic author reviewer publisher and restricted roles remain distinct",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0551",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 551,
+      "end_line": 559,
+      "heading": "### iframe Embed",
+      "section_content_sha256": "42d012967ac75a554ee69a07b3867e0596e0e80048fa96c9874a147a5fc48ed8",
+      "source_excerpt": "### iframe Embed\n示例：\n\n- `/embed/project/{project_id}`\n- `/embed/result/{analysis_id}`\n- `/embed/visualization/{project_id}`\n- `/embed/path/{project_id}`\n- `/embed/contract-review/{review_id}`\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_management.py",
+        "src/crossborder_compliance/application/knowledge_taxonomy.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+        "frontend/src/features/knowledge-management/KnowledgeManagement.tsx"
+      ],
+      "tests": [
+        "tests/test_kb01_architecture.py",
+        "tests/test_kb01_document_management_postgres.py",
+        "tests/test_kb01_taxonomy_batch_postgres.py",
+        "frontend/e2e/kb01-management.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "證據不足",
+      "basis_and_gap": "No dedicated KB-admin iframe acceptance evidence found; cannot substitute project-result embed tests.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_kb01_architecture::test_kb01_additive_architecture_contracts",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+        "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+        "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+        "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+        "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+        "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+        "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+        "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+        "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+        "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+        "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+        "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+        "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+        "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document",
+        "tests.test_kb01_taxonomy_batch_postgres::test_active_exact_pin_ignores_newer_draft_and_actor_is_preserved",
+        "tests.test_kb01_taxonomy_batch_postgres::test_batch_reader_empty_foreign_tenant_and_denial_make_no_cross_tenant_reads",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[ACTIVE]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[DRAFT]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[MIXED]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_missing_version_and_missing_actor_keep_exact_null_projection",
+        "tests.test_kb01_taxonomy_batch_postgres::test_newest_draft_and_enabled_filter_remain_definition_correlated"
+      ],
+      "actual_browser_test_ids": [
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-HK",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0560",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 560,
+      "end_line": 568,
+      "heading": "### Deep Link",
+      "section_content_sha256": "fd3a5b21f4bd476728ef2e472e1ef48bca3844c2b39f6361947d0f45a781597b",
+      "source_excerpt": "### Deep Link\n示例：\n\n- `/projects/{project_id}`\n- `/projects/{project_id}/analysis`\n- `/projects/{project_id}/data-flow`\n- `/projects/{project_id}/compliance-path`\n- `/projects/{project_id}/visualization`\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "frontend/src/App.tsx",
+        "frontend/src/features/knowledge-management/KnowledgeManagement.tsx"
+      ],
+      "tests": [
+        "frontend/e2e/kb01-taxonomy.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "已符合",
+      "basis_and_gap": "Existing formal owner is preserved by unchanged source and retained regression; not a claim of real legal acceptance.",
+      "disposition": "ENGINEERING_EVIDENCE_ONLY_NOT_FORMAL_REVIEW",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [],
+      "actual_browser_test_ids": [
+        {
+          "file": "kb01-taxonomy.spec.ts",
+          "suite": [],
+          "title": "KB01 country and regulation-category UI preserves governed versions, tree and protected deletion",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0569",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 569,
+      "end_line": 578,
+      "heading": "### JavaScript SDK",
+      "section_content_sha256": "eb9353691d7a50ff3feae5fdf25db984d66bb42b09dc8bc62fb75ddec741d38f",
+      "source_excerpt": "### JavaScript SDK\n概念 API：\n\n- `openProject()`\n- `openAnalysis()`\n- `openCompliancePath()`\n- `openVisualization()`\n- `openContractReview()`\n- `openDocumentGenerator()`\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [],
+      "tests": [],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "不屬本階段",
+      "basis_and_gap": "Broader product / Stage2 / unrelated channel work is outside this bounded KB01/RC1 review. Requirement retained, no waiver or expansion implemented.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0579",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 579,
+      "end_line": 590,
+      "heading": "## 4.3 Embed UI Mode",
+      "section_content_sha256": "52d2a61b6b7906fcf38d84d9570df354702a8591a74d11091dc325a24a01a8c8",
+      "source_excerpt": "## 4.3 Embed UI Mode\n\n支持：\n\n- FULL\n- EMBED\n- READONLY\n- REVIEW\n- VISUALIZATION_ONLY\n\n不同模式重用同一 Feature Component，不複製業務邏輯。\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [],
+      "tests": [],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "不屬本階段",
+      "basis_and_gap": "Broader product / Stage2 / unrelated channel work is outside this bounded KB01/RC1 review. Requirement retained, no waiver or expansion implemented.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0591",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 591,
+      "end_line": 611,
+      "heading": "## 4.4 Host Integration",
+      "section_content_sha256": "1009391174f2d009a3cbf4c460331a4a7bc3d85cf9a1ec8a4760e23138b59c76",
+      "source_excerpt": "## 4.4 Host Integration\n\niframe 使用：\n\n- `window.postMessage`\n- Origin 驗證\n- Configurable Allowed Origins\n\n事件：\n\n- COMPLIANCE_READY\n- PROJECT_LOADED\n- ANALYSIS_STARTED\n- ANALYSIS_COMPLETED\n- REVIEW_REQUIRED\n- DOCUMENT_GENERATED\n- NAVIGATION_CHANGED\n- CLOSE_REQUESTED\n\n---\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [],
+      "tests": [],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "不屬本階段",
+      "basis_and_gap": "Broader product / Stage2 / unrelated channel work is outside this bounded KB01/RC1 review. Requirement retained, no waiver or expansion implemented.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0612",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 612,
+      "end_line": 627,
+      "heading": "# 5. Frontend Design System",
+      "section_content_sha256": "33e9d4a0a5ba9828d49880da42c66793ab7c9f4f2fbe727dadeb7c67df556be6",
+      "source_excerpt": "# 5. Frontend Design System\n\n整體風格：\n\n> **Midnight Enterprise / 深夜企業級模式**\n\n要求：\n\n- 深海軍藍 / Charcoal 背景\n- Dark Elevated Cards\n- Blue / Cyan 主色\n- Semantic Risk Color\n- 高可讀性法規 / 表格 / 合同長文本\n- 不採用過度 Cyberpunk / Neon\n- 高信息密度、專業、穩定\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_management.py",
+        "src/crossborder_compliance/application/knowledge_taxonomy.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+        "frontend/src/features/knowledge-management/KnowledgeManagement.tsx"
+      ],
+      "tests": [
+        "tests/test_kb01_architecture.py",
+        "tests/test_kb01_document_management_postgres.py",
+        "tests/test_kb01_taxonomy_batch_postgres.py",
+        "frontend/e2e/kb01-management.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "部分符合",
+      "basis_and_gap": "Token-based frontend exists; independent human visual/production business UAT is pending.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_kb01_architecture::test_kb01_additive_architecture_contracts",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+        "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+        "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+        "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+        "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+        "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+        "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+        "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+        "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+        "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+        "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+        "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+        "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+        "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document",
+        "tests.test_kb01_taxonomy_batch_postgres::test_active_exact_pin_ignores_newer_draft_and_actor_is_preserved",
+        "tests.test_kb01_taxonomy_batch_postgres::test_batch_reader_empty_foreign_tenant_and_denial_make_no_cross_tenant_reads",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[ACTIVE]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[DRAFT]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[MIXED]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_missing_version_and_missing_actor_keep_exact_null_projection",
+        "tests.test_kb01_taxonomy_batch_postgres::test_newest_draft_and_enabled_filter_remain_definition_correlated"
+      ],
+      "actual_browser_test_ids": [
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-HK",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0628",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 628,
+      "end_line": 653,
+      "heading": "## 5.1 Design Token",
+      "section_content_sha256": "5f0a6b0c3995ecdd68b9b09c279c3fadc06de7ef0e7e378861cd1199ac2fbcb1",
+      "source_excerpt": "## 5.1 Design Token\n\n禁止業務 Component 硬寫顏色。\n\n至少建立：\n\n- `color.background.canvas`\n- `color.background.surface`\n- `color.background.elevated`\n- `color.text.primary`\n- `color.text.secondary`\n- `color.border.default`\n- `color.primary`\n- `color.success`\n- `color.warning`\n- `color.danger`\n- `color.info`\n- `color.risk.low`\n- `color.risk.medium`\n- `color.risk.high`\n- `color.risk.critical`\n- `color.compliance.direct`\n- `color.compliance.conditional`\n- `color.compliance.blocked`\n- `color.compliance.review`\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "frontend/src/theme.ts",
+        "frontend/src/features/admin/admin.css"
+      ],
+      "tests": [
+        "frontend/src/features/knowledge-management/management.test.tsx"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "部分符合",
+      "basis_and_gap": "Base theme tokens exist, but complete semantic token mapping is not proved and actual Stage1Workspace SVG contains literal #2563eb/#eff6ff colors contrary to the no-component-hardcoded-colors requirement. Requires existing UI owner disposition, not an implicit waiver.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": "Full180 actual test-report regression, current source; this is not human visual acceptance"
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0654",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 654,
+      "end_line": 661,
+      "heading": "## 5.2 Layout",
+      "section_content_sha256": "30f407c55c27d10c0f4f66d2e71fb3373db289b77fce870433a394be2e44cfec",
+      "source_excerpt": "## 5.2 Layout\n\n- Left Sidebar\n- Top Header\n- Main Workspace\n- Right Insight Drawer\n- Optional Bottom Contextual Chat\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "frontend/src/App.tsx",
+        "frontend/src/features/admin/AdminFeature.tsx"
+      ],
+      "tests": [
+        "frontend/e2e/kb01-management.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "已符合",
+      "basis_and_gap": "Existing formal owner is preserved by unchanged source and retained regression; not a claim of real legal acceptance.",
+      "disposition": "ENGINEERING_EVIDENCE_ONLY_NOT_FORMAL_REVIEW",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [],
+      "actual_browser_test_ids": [
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-HK",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0662",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 662,
+      "end_line": 676,
+      "heading": "## 5.3 主導航",
+      "section_content_sha256": "f1cbde53d393e0e79e78118e265b2e45b7dc49f21cbbbcbe762f84c1924013f9",
+      "source_excerpt": "## 5.3 主導航\n\n- 工作台\n- 新建分析\n- 我的項目 / 任務\n- 法規知識庫\n- 國別知識\n- 合同與模板中心\n- 合同智能審核\n- 人工覆核\n- 知識運營\n- 運維管理\n- 系統設置\n\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/interfaces/api/routes/knowledge_management.py",
+        "src/crossborder_compliance/application/knowledge_taxonomy.py",
+        "src/crossborder_compliance/infrastructure/persistence/knowledge_taxonomy.py",
+        "frontend/src/features/knowledge-management/KnowledgeManagement.tsx"
+      ],
+      "tests": [
+        "tests/test_kb01_architecture.py",
+        "tests/test_kb01_document_management_postgres.py",
+        "tests/test_kb01_taxonomy_batch_postgres.py",
+        "frontend/e2e/kb01-management.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "部分符合",
+      "basis_and_gap": "KB/Admin navigation works; complete future contract/template capabilities are not part of RC1.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_kb01_architecture::test_kb01_additive_architecture_contracts",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[document-author]",
+        "tests.test_kb01_document_management_postgres::test_content_contributor_cannot_self_review_through_a_different_submitter[metadata-editor]",
+        "tests.test_kb01_document_management_postgres::test_document_creation_is_idempotent_and_cannot_spoof_actor",
+        "tests.test_kb01_document_management_postgres::test_document_cross_tenant_and_coarse_grant_fail_closed",
+        "tests.test_kb01_document_management_postgres::test_document_delete_needs_governed_policy_and_keeps_tombstone_audit",
+        "tests.test_kb01_document_management_postgres::test_document_has_canonical_identity_and_initial_draft_metadata",
+        "tests.test_kb01_document_management_postgres::test_document_http_uses_trusted_context_and_public_typed_projection",
+        "tests.test_kb01_document_management_postgres::test_document_management_reuses_full_review_publication_and_hold_guard",
+        "tests.test_kb01_document_management_postgres::test_document_official_source_metadata_rejects_credentials",
+        "tests.test_kb01_document_management_postgres::test_draft_document_edit_cas_and_classification_change",
+        "tests.test_kb01_document_management_postgres::test_ingested_content_and_hold_protect_physical_document_delete",
+        "tests.test_kb01_document_management_postgres::test_ingested_label_cannot_be_retargeted_to_a_new_draft",
+        "tests.test_kb01_document_management_postgres::test_ingested_or_published_labels_and_metadata_are_immutable",
+        "tests.test_kb01_document_management_postgres::test_new_document_version_preserves_original_metadata_and_pins",
+        "tests.test_kb01_document_management_postgres::test_wrong_kind_or_inactive_metadata_cannot_classify_document",
+        "tests.test_kb01_taxonomy_batch_postgres::test_active_exact_pin_ignores_newer_draft_and_actor_is_preserved",
+        "tests.test_kb01_taxonomy_batch_postgres::test_batch_reader_empty_foreign_tenant_and_denial_make_no_cross_tenant_reads",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[ACTIVE]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[DRAFT]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_bounded_page_reads_match_complete_reviewed_json[MIXED]",
+        "tests.test_kb01_taxonomy_batch_postgres::test_missing_version_and_missing_actor_keep_exact_null_projection",
+        "tests.test_kb01_taxonomy_batch_postgres::test_newest_draft_and_enabled_filter_remain_definition_correlated"
+      ],
+      "actual_browser_test_ids": [
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "kb01-management.spec.ts",
+          "suite": [],
+          "title": "KB01 genuine six-format local batch, scoped SQL counts, source and download in zh-HK",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0677",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 677,
+      "end_line": 709,
+      "heading": "## 5.4 Analysis Result Page Components",
+      "section_content_sha256": "f3ab92901404903f0601e1c8fe2d7c93e7063354f960d9944e55a8325eddd444",
+      "source_excerpt": "## 5.4 Analysis Result Page Components\n\n至少建立：\n\n- ComplianceWorkflowStepper\n- AnalysisSummaryCards\n- CrossBorderStatusDistribution\n- RiskDistributionView\n- JurisdictionDistributionView\n- ComplianceMapView\n- DataTransferRouteView\n- ComplianceTopologyView\n- RiskVisualizationPanel\n- CompliancePathTimeline\n- CompliancePathFlowView\n- DataItemComplianceTable\n- DataItemDetailDrawer\n- EvidenceDrawer\n- LegalBasisDrawer\n- SourceDocumentTracePanel\n- VisualizationLegend\n- VisualizationFilterBar\n- ComplianceResultExportView\n\n組件不得直接包含：\n\n- Regulation Decision Logic\n- Risk Calculation\n- Cross-border Decision Logic\n- Compliance Path Generation\n\n---\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [],
+      "tests": [],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "不屬本階段",
+      "basis_and_gap": "Broader product / Stage2 / unrelated channel work is outside this bounded KB01/RC1 review. Requirement retained, no waiver or expansion implemented.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0710",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 710,
+      "end_line": 769,
+      "heading": "# 6. 業務總體閉環",
+      "section_content_sha256": "e991f41c5e48ee8813fc78fcef670d04150f2bd4dd6b7c037a8dace65ac6f708",
+      "source_excerpt": "# 6. 業務總體閉環\n\n```text\n境外項目\n↓\n項目輸入 / 文檔上傳\n↓\n需求 / 業務場景識別\n↓\n業務事實提取\n↓\n產品 / 系統 / 設備識別\n↓\nData Item 提取\n↓\nData Flow 識別\n↓\nJurisdiction 識別\n↓\nAnalysis Context\n↓\nKnowledge Scope\n↓\nVertical Agent / Country Skill\n↓\nData Classification\n↓\nApplicable Regulation / Rule\n↓\nCompliance Obligation\n↓\nCandidate Compliance Path\n↓\nRisk Analysis\n↓\nCompliance Recommendation\n↓\nFinal Compliance Path\n↓\nRequired Document\n↓\nRegulatory Template\n↓\nEnterprise Template Suggestion\n↓\nVisualization\n↓\nStage 1 Output\n↓\nUser Confirmation\n↓\nStage 2 Document / Contract\n↓\nHuman Review\n↓\nAudit / Feedback\n```\n\n---\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/infrastructure/workflow_formal_composition.py",
+        "src/crossborder_compliance/application/stage1_result.py"
+      ],
+      "tests": [
+        "tests/test_stage1_business_http.py",
+        "frontend/e2e/stage1-business.spec.ts"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "部分符合",
+      "basis_and_gap": "Stage1 synthetic continuous journey tested; real regulatory legal acceptance absent and Stage2 intentionally not started.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_stage1_business_http::test_blank_project_document_flow_and_four_formal_outcomes[CONDITIONAL]",
+        "tests.test_stage1_business_http::test_blank_project_document_flow_and_four_formal_outcomes[DIRECT]",
+        "tests.test_stage1_business_http::test_blank_project_document_flow_and_four_formal_outcomes[LOCALIZATION]",
+        "tests.test_stage1_business_http::test_blank_project_document_flow_and_four_formal_outcomes[REVIEW]"
+      ],
+      "actual_browser_test_ids": [
+        {
+          "file": "stage1-business.spec.ts",
+          "suite": [],
+          "title": "blank project canonical CONDITIONAL business journey en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "stage1-business.spec.ts",
+          "suite": [],
+          "title": "blank project canonical CONDITIONAL business journey zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "stage1-business.spec.ts",
+          "suite": [],
+          "title": "blank project canonical CONDITIONAL business journey zh-HK",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "stage1-business.spec.ts",
+          "suite": [],
+          "title": "blank project canonical DIRECT business journey en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "stage1-business.spec.ts",
+          "suite": [],
+          "title": "blank project canonical DIRECT business journey zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "stage1-business.spec.ts",
+          "suite": [],
+          "title": "blank project canonical DIRECT business journey zh-HK",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "stage1-business.spec.ts",
+          "suite": [],
+          "title": "blank project canonical LOCALIZATION business journey en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "stage1-business.spec.ts",
+          "suite": [],
+          "title": "blank project canonical LOCALIZATION business journey zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "stage1-business.spec.ts",
+          "suite": [],
+          "title": "blank project canonical LOCALIZATION business journey zh-HK",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "stage1-business.spec.ts",
+          "suite": [],
+          "title": "blank project canonical REVIEW business journey en-US",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "stage1-business.spec.ts",
+          "suite": [],
+          "title": "blank project canonical REVIEW business journey zh-CN",
+          "repeat_ordinal": 0
+        },
+        {
+          "file": "stage1-business.spec.ts",
+          "suite": [],
+          "title": "blank project canonical REVIEW business journey zh-HK",
+          "repeat_ordinal": 0
+        }
+      ],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0770",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 770,
+      "end_line": 790,
+      "heading": "# 7. 對外五階段工作流",
+      "section_content_sha256": "74cd40a54aea05c8cf2fc8229519dea503dcf7539739c915b556b0f26ccde397",
+      "source_excerpt": "# 7. 對外五階段工作流\n\n前端統一顯示：\n\n1. 需求 / 場景識別\n2. 數據分類分級\n3. 風險分析\n4. 合規建議\n5. 合規路徑推薦\n\n工作流狀態：\n\n- WAITING\n- RUNNING\n- COMPLETED\n- WARNING\n- REVIEW_REQUIRED\n- FAILED\n\n前端五階段必須映射實際 LangGraph Node / Subgraph 執行狀態，不得只是動畫。\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/workflows/canonical.py",
+        "frontend/src/features/results/Stage1Workspace.tsx"
+      ],
+      "tests": [
+        "tests/test_m2c_workflow_contracts.py"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "部分符合",
+      "basis_and_gap": "Real canonical status is used, but current result endpoint/Stepper exposes17 semantic steps (16legacy), not an evidenced five-public-stage aggregate; see master-stepper-coverage.json. No runtime change is proposed in this bounded review.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_m2c_workflow_contracts::test_legacy_version_retains_original_sixteen_step_order",
+        "tests.test_m2c_workflow_contracts::test_unknown_or_mixed_version_pairs_fail_closed[phase1l-a-canonical-v1-phase1l-a-references-v2]",
+        "tests.test_m2c_workflow_contracts::test_unknown_or_mixed_version_pairs_fail_closed[phase1l-a-canonical-v2-phase1l-a-references-v1]",
+        "tests.test_m2c_workflow_contracts::test_unknown_or_mixed_version_pairs_fail_closed[unknown-unknown]"
+      ],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0791",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 791,
+      "end_line": 834,
+      "heading": "## 7.1 AnalysisStageResult",
+      "section_content_sha256": "b10c80979840feb5991fc1d8166abffc271cdeed004522ecedf53629ae9f6def",
+      "source_excerpt": "## 7.1 AnalysisStageResult\n\n每一個對外階段必須形成正式結構化結果：\n\n`AnalysisStageResult`\n\n至少：\n\n- stage_result_id\n- project_id\n- analysis_run_id\n- stage_code\n- stage_name\n- stage_sequence\n- status\n- started_at\n- completed_at\n- duration_ms\n- summary\n- key_findings\n- statistics\n- related_document_ids\n- related_data_item_ids\n- related_data_flow_ids\n- related_classification_result_ids\n- related_risk_item_ids\n- related_recommendation_ids\n- related_path_ids\n- related_evidence_ids\n- confidence\n- review_required\n- warning_codes\n- error_code\n\n`stage_code` 使用穩定技術代碼，例如：\n\n- REQUIREMENT_SCENARIO_IDENTIFICATION\n- DATA_CLASSIFICATION\n- RISK_ANALYSIS\n- COMPLIANCE_RECOMMENDATIO",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/domain/contracts.py",
+        "src/crossborder_compliance/domain/entities.py",
+        "src/crossborder_compliance/infrastructure/persistence/models.py"
+      ],
+      "tests": [
+        "tests/test_m2c_authority_contracts.py"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "部分符合",
+      "basis_and_gap": "AnalysisStageResultDTO has only8of25 exact requested fields. sequence/related_object_refs may be aliases but complete typed mapping, duration/statistics/confidence/warning/error coverage not proved; see master-dto-field-coverage.json. Do not alter frozen legal owners or rewrite spec.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_m2c_authority_contracts::test_authority_closes_exact_subject_universe[data_flow_ids]",
+        "tests.test_m2c_authority_contracts::test_authority_closes_exact_subject_universe[data_item_ids]",
+        "tests.test_m2c_authority_contracts::test_authority_closes_exact_subject_universe[jurisdiction_ids]",
+        "tests.test_m2c_authority_contracts::test_authority_fact_evidence_is_closed_to_owning_legal_support",
+        "tests.test_m2c_authority_contracts::test_client_cannot_inject_legal_result_policy_or_tenant",
+        "tests.test_m2c_authority_contracts::test_final_path_status_never_supplies_legal_transfer_authority[CONDITIONAL_PROPOSAL]",
+        "tests.test_m2c_authority_contracts::test_final_path_status_never_supplies_legal_transfer_authority[NO_VIABLE_PATH]",
+        "tests.test_m2c_authority_contracts::test_final_path_status_never_supplies_legal_transfer_authority[PROPOSED]",
+        "tests.test_m2c_authority_contracts::test_missing_non_transfer_predicate_input_cannot_assert_permission",
+        "tests.test_m2c_authority_contracts::test_no_viable_path_does_not_establish_prohibition_when_evidence_missing",
+        "tests.test_m2c_authority_contracts::test_template_is_not_a_legal_trigger_and_locales_are_governed"
+      ],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0835",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 835,
+      "end_line": 867,
+      "heading": "## 7.2 Workflow Stepper",
+      "section_content_sha256": "a0e71f38e9ded5db910cf0eb9d190c6cd8ac4b35d4162df6e89bc8438118dd61",
+      "source_excerpt": "## 7.2 Workflow Stepper\n\nH5 必須提供：\n\n`ComplianceWorkflowStepper`\n\n每個 Stage 至少顯示：\n\n- Stage Name\n- Status\n- Duration\n- Summary\n- Key Findings Count\n- Warning / Review Badge\n- Expand / Collapse\n- Evidence / Result Link\n\nStage 完成後，用戶可以展開查看該階段的結構化業務結果。\n\n禁止展示：\n\n- Chain-of-thought\n- 隱藏 Prompt\n- 模型內部推理 token\n\n只展示：\n\n- Structured Result\n- Evidence\n- Rule / Regulation Basis\n- Workflow Status\n- User-reviewable Business Finding\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "frontend/src/features/results/Stage1Workspace.tsx",
+        "src/crossborder_compliance/infrastructure/persistence/workflow_read_projection.py"
+      ],
+      "tests": [
+        "frontend/src/features/results/results.test.tsx"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "部分符合",
+      "basis_and_gap": "Actual Stage1Workspace renders localized stage title/status; per-stage duration, summary, findings, badges, expand/collapse and evidence/result links are not fully evidenced. Inspect master-stepper-coverage.json; existing tests do not waive Master7.2.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": "Full180 actual test-report regression, current source; this is not human visual acceptance"
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0868",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 868,
+      "end_line": 905,
+      "heading": "## 7.3 Stage-to-LangGraph Mapping",
+      "section_content_sha256": "100c7c7c1e212c4143c159df714f1b3c17ca7af311834b1046ecb50b317c4343",
+      "source_excerpt": "## 7.3 Stage-to-LangGraph Mapping\n\n對外五階段與內部 LangGraph 可一對多映射：\n\n```text\nRequirement / Scenario Identification\n→ IntakeDocumentSubgraph\n→ Business Fact\n→ Product Context\n→ Scenario\n→ Data Flow / Jurisdiction Context\n\nData Classification\n→ Classification Nodes\n→ ClassificationScheme / Level / Result\n\nRisk Analysis\n→ Regulation Applicability\n→ Obligation\n→ Candidate Path\n→ Risk Engine\n\nCompliance Recommendation\n→ Recommendation\n→ Required Measures\n→ Remediation / Filing / Contract Recommendation\n\nCompliance Path\n→ Final Path\n→ Required Document\n→ Evidence Validation\n→ Result Aggregation\n```\n\nFrontend 不需要暴露所有內部 Node，但 Stage Status 必須由真實 Node 狀態聚合得",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/workflows/canonical.py",
+        "src/crossborder_compliance/infrastructure/workflow_formal_composition.py"
+      ],
+      "tests": [
+        "tests/test_m2c_workflow_contracts.py"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "部分符合",
+      "basis_and_gap": "Canonical17-node pipeline has real persisted state; explicit one-to-many aggregation into five public stages is not demonstrated by current result route/Stepper. Existing runtime authority remains valid; owner mapping decision Pending.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_m2c_workflow_contracts::test_legacy_version_retains_original_sixteen_step_order",
+        "tests.test_m2c_workflow_contracts::test_unknown_or_mixed_version_pairs_fail_closed[phase1l-a-canonical-v1-phase1l-a-references-v2]",
+        "tests.test_m2c_workflow_contracts::test_unknown_or_mixed_version_pairs_fail_closed[phase1l-a-canonical-v2-phase1l-a-references-v1]",
+        "tests.test_m2c_workflow_contracts::test_unknown_or_mixed_version_pairs_fail_closed[unknown-unknown]"
+      ],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0906",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 906,
+      "end_line": 933,
+      "heading": "# 8. 路徑與風險順序統一",
+      "section_content_sha256": "eb56e6d42546a91e0c9b395cb6665216853570bc81abb60e118174f38e3d24ef",
+      "source_excerpt": "# 8. 路徑與風險順序統一\n\n為避免研究描述與界面邏輯衝突，正式採用：\n\n```text\nCompliance Obligation\n↓\nCandidate Compliance Path\n↓\nRisk Analysis\n↓\nCompliance Recommendation\n↓\nFinal Compliance Path\n```\n\nCandidate Path：\n\n- 基於法規義務推導\n\nFinal Path：\n\n- 結合實際 Risk / Gap / Recommendation 後形成\n\n禁止形成 Risk ↔ Path 無限循環。\n\n---\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/domain/decision_engine.py",
+        "src/crossborder_compliance/domain/decision_contracts.py"
+      ],
+      "tests": [
+        "tests/test_stage1_support_pipeline.py",
+        "tests/test_stage1_support_historical.py"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "已符合",
+      "basis_and_gap": "Existing formal owner is preserved by unchanged source and retained regression; not a claim of real legal acceptance.",
+      "disposition": "ENGINEERING_EVIDENCE_ONLY_NOT_FORMAL_REVIEW",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[column_provenance]",
+        "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[json_version]",
+        "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[mixed_chain]",
+        "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[row_version]",
+        "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[support]",
+        "tests.test_stage1_support_historical::test_adversarial_persisted_version_support_and_mixed_chain_are_rejected[unknown]",
+        "tests.test_stage1_support_historical::test_prior_source_result_reads_without_rewriting_history_and_cannot_execute_again",
+        "tests.test_stage1_support_pipeline::test_exact_pinned_upstream_support_and_immutable_saved_replay[foundation_i0]",
+        "tests.test_stage1_support_pipeline::test_exact_pinned_upstream_support_and_immutable_saved_replay[foundation_i1]"
+      ],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0934",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 934,
+      "end_line": 963,
+      "heading": "# 9. Project Intake",
+      "section_content_sha256": "341296b456bc2738cc7703eca25c7f177c23b715eb50d7d8b37c6942cf2b0d94",
+      "source_excerpt": "# 9. Project Intake\n\n`ProjectIntakeContext` 至少包括：\n\n- project_id\n- project_name\n- industry\n- business_scenario\n- scenario_description\n- selected_product_domains\n- selected_products\n- source_locations\n- destination_locations\n- processing_locations\n- storage_locations\n- data_flow_description\n- data_categories\n- data_volume\n- business_purpose\n- organizations\n- third_parties\n- uploaded_documents\n- requested_outputs\n- analysis_as_of_date\n\n`analysis_as_of_date` 必須控制使用哪個法規有效版本。\n\n---\n\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [
+        "src/crossborder_compliance/application/structured_intake.py",
+        "src/crossborder_compliance/application/intake_services.py",
+        "src/crossborder_compliance/infrastructure/persistence/project_intake.py"
+      ],
+      "tests": [
+        "tests/test_m2a_structured_intake.py",
+        "tests/test_stage1_candidate_governance_http.py"
+      ],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "已符合",
+      "basis_and_gap": "Existing formal owner is preserved by unchanged source and retained regression; not a claim of real legal acceptance.",
+      "disposition": "ENGINEERING_EVIDENCE_ONLY_NOT_FORMAL_REVIEW",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [
+        "tests.test_m2a_structured_intake::test_concurrent_confirmation_same_snapshot_or_explicit_retry",
+        "tests.test_m2a_structured_intake::test_manual_only_exact_provenance_and_existing_formal_chain[foundation_i0]",
+        "tests.test_m2a_structured_intake::test_missing_required_type_warns_even_when_other_fact_exists",
+        "tests.test_m2a_structured_intake::test_provenance_scope_or_history_tamper_rejected[actor]",
+        "tests.test_m2a_structured_intake::test_provenance_scope_or_history_tamper_rejected[tenant]",
+        "tests.test_m2a_structured_intake::test_provenance_scope_or_history_tamper_rejected[value]",
+        "tests.test_m2a_structured_intake::test_provenance_scope_or_history_tamper_rejected[version]",
+        "tests.test_m2a_structured_intake::test_real_document_and_manual_merge_or_existing_durable_conflict[Manual purpose-False]",
+        "tests.test_m2a_structured_intake::test_real_document_and_manual_merge_or_existing_durable_conflict[Other purpose-True]",
+        "tests.test_m2a_structured_intake::test_restart_reconstructs_exact_host_and_revalidates_current_tenant[foundation_i0]",
+        "tests.test_m2a_structured_intake::test_selected_domain_reuses_existing_product_scope_and_pins",
+        "tests.test_m2a_structured_intake::test_ungoverned_binding_rejected_atomically[business_purpose-unknown_type]",
+        "tests.test_m2a_structured_intake::test_ungoverned_binding_rejected_atomically[project_id-string]",
+        "tests.test_m2a_structured_intake::test_ungoverned_binding_rejected_atomically[unknown_field-string]",
+        "tests.test_m2a_structured_intake::test_unknown_or_other_project_refs_cannot_confirm[data_categories]",
+        "tests.test_m2a_structured_intake::test_unknown_or_other_project_refs_cannot_confirm[organizations]",
+        "tests.test_m2a_structured_intake::test_unknown_or_other_project_refs_cannot_confirm[selected_products]",
+        "tests.test_m2a_structured_intake::test_unknown_or_other_project_refs_cannot_confirm[third_parties]",
+        "tests.test_m2a_structured_intake::test_unknown_or_other_project_refs_cannot_confirm[uploaded_documents]",
+        "tests.test_m2a_structured_intake::test_unmapped_missing_facts_warns_without_formal_decisions",
+        "tests.test_stage1_candidate_governance_http::test_candidate_added_after_review_fails_closed_without_partial_formalization",
+        "tests.test_stage1_candidate_governance_http::test_confirm_transfers_prepared_fact_type_version_after_future_publication",
+        "tests.test_stage1_candidate_governance_http::test_database_refuses_decision_candidate_from_other_preparation",
+        "tests.test_stage1_candidate_governance_http::test_decision_is_stale_after_input_universe_changes[AI]",
+        "tests.test_stage1_candidate_governance_http::test_decision_is_stale_after_input_universe_changes[DOCUMENT]",
+        "tests.test_stage1_candidate_governance_http::test_decision_is_stale_after_input_universe_changes[DRAFT]",
+        "tests.test_stage1_candidate_governance_http::test_exact_universe_partial_unknown_and_idempotency",
+        "tests.test_stage1_candidate_governance_http::test_explicit_structured_input_is_not_reinferred_by_document_model",
+        "tests.test_stage1_candidate_governance_http::test_external_channel_uses_same_preparation_decision_and_confirm_owner",
+        "tests.test_stage1_candidate_governance_http::test_prepared_candidates_decisions_and_audit_are_append_only",
+        "tests.test_stage1_candidate_governance_http::test_real_docx_candidate_decision_before_formalization_and_no_hidden_http[ACCEPT]",
+        "tests.test_stage1_candidate_governance_http::test_real_docx_candidate_decision_before_formalization_and_no_hidden_http[EDIT]",
+        "tests.test_stage1_candidate_governance_http::test_real_docx_candidate_decision_before_formalization_and_no_hidden_http[REJECT]",
+        "tests.test_stage1_candidate_governance_http::test_reparse_without_version_change_invalidates_prepared_document_pins",
+        "tests.test_stage1_candidate_governance_http::test_revoked_model_configuration_cannot_be_substituted",
+        "tests.test_stage1_candidate_governance_http::test_successor_requires_new_preparation_and_leaves_previous_snapshot_and_fact_unchanged"
+      ],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0964",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 964,
+      "end_line": 969,
+      "heading": "# 9A. Project Party / Legal Responsibility Domain",
+      "section_content_sha256": "71093365b63ab71c330fbed94fd859e3093f331c2be2be6e1033828193976ff3",
+      "source_excerpt": "# 9A. Project Party / Legal Responsibility Domain\n\n跨境合規不能只保存 organization / third_party 字符串。\n\n必須建立正式責任主體 Domain。\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [],
+      "tests": [],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "不屬本階段",
+      "basis_and_gap": "Broader product / Stage2 / unrelated channel work is outside this bounded KB01/RC1 review. Requirement retained, no waiver or expansion implemented.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0970",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 970,
+      "end_line": 984,
+      "heading": "## 9A.1 LegalEntity",
+      "section_content_sha256": "f847c81abe55c25502ca217a5cfae786707847803c322a9da5877e08dabca0ca",
+      "source_excerpt": "## 9A.1 LegalEntity\n\n至少：\n\n- legal_entity_id\n- tenant_id\n- organization_id\n- legal_name\n- registration_country_or_region\n- jurisdiction_id\n- entity_type\n- registration_identifier\n- address\n- status\n",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [],
+      "tests": [],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "不屬本階段",
+      "basis_and_gap": "Broader product / Stage2 / unrelated channel work is outside this bounded KB01/RC1 review. Requirement retained, no waiver or expansion implemented.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    },
+    {
+      "requirement_id": "MASTER-V3.7-L0985",
+      "source_path": "跨境數據合規智能體_Codex_Master_Specification_V3.7.md",
+      "start_line": 985,
+      "end_line": 1000,
+      "heading": "## 9A.2 ProjectParty",
+      "section_content_sha256": "65ce42a491bb84f848f2f6bc47d0aba6e7a2c576996ea30dc6fb991730e01995",
+      "source_excerpt": "## 9A.2 ProjectParty\n\n表示某個 Project 中實際參與數據處理或合同關係的主體。\n\n至少：\n\n- project_party_id\n- project_id\n- legal_entity_id\n- display_name\n- party_category\n- internal_or_external\n- source_document_ids\n- confidence\n- confirmed_by_user\n- status",
+      "applicable_scope": "KB01/RC1 subset; global goals remain distinct",
+      "implementation_paths": [],
+      "tests": [],
+      "evidence": "security-review/regression-final.json, ci-complete.json, taxonomy-recheck.xml, affected.xml and role-browser.json. All current executed proofs bound to product SHA.",
+      "conclusion": "不屬本階段",
+      "basis_and_gap": "Broader product / Stage2 / unrelated channel work is outside this bounded KB01/RC1 review. Requirement retained, no waiver or expansion implemented.",
+      "disposition": "PENDING_REVIEWER_SCOPE_CONFIRMATION",
+      "test_result_identity": "733a7483439cd919c186ed0064b8f3752904ebb6",
+      "responsible_role": "Requirements custodian + corresponding canonical owner; formal scope decision remains Pending",
+      "actual_backend_test_ids": [],
+      "actual_browser_test_ids": [],
+      "frontend_unit_evidence": null
+    }
+  ],
+  "explicit_relevant_requirements": [
+    {
+      "requirement_id": "KB-UI",
+      "source_location": "Master§3.1,4.1,5 +Phase0Part29",
+      "requirement": "前端六格式／分類／管理／版本／治理",
+      "conclusion": "已符合",
+      "implementation": "frontend/src/features/knowledge-management/KnowledgeManagement.tsx",
+      "test": "frontend/e2e/kb01-management.spec.ts"
+    },
+    {
+      "requirement_id": "KB-API",
+      "source_location": "Master§3.3 +Phase0Part20C",
+      "requirement": "typed shared API／tenant CAS／idempotency／0021–24",
+      "conclusion": "已符合",
+      "implementation": "src/crossborder_compliance/interfaces/api/knowledge_management_schemas.py",
+      "test": "tests/test_kb01_binary_migrations.py"
+    },
+    {
+      "requirement_id": "KB-AUTH",
+      "source_location": "Master§0.2 Production-ready",
+      "requirement": "production IAM/bootstrap/CSRF/cloud deployment acceptance",
+      "conclusion": "未符合",
+      "implementation": "scripts/kb01/uat.py",
+      "test": "tests/test_kb01_rc1_lifecycle.py"
+    },
+    {
+      "requirement_id": "KB-RBAC",
+      "source_location": "Master§0.4 safe boundary +ArchitectureKB01",
+      "requirement": "operation RBAC, actors and cross-tenant refusal",
+      "conclusion": "已符合",
+      "implementation": "scripts/kb01/uat.py",
+      "test": "frontend/e2e/kb01-rc1.spec.ts"
+    },
+    {
+      "requirement_id": "KB-IMMUTABLE",
+      "source_location": "MasterV3.7 consolidated§2 +Phase0Part20C/29",
+      "requirement": "exact knowledge versions, source/citations, review/publish/outbox/audit",
+      "conclusion": "已符合",
+      "implementation": "src/crossborder_compliance/infrastructure/persistence/knowledge_models.py",
+      "test": "tests/test_kb01_document_management_postgres.py"
+    },
+    {
+      "requirement_id": "OPS-RESTORE",
+      "source_location": "Master§0.2.4 +Phase0Part20C line572",
+      "requirement": "backup/object versioning/restore; independent clean-host qualification",
+      "conclusion": "部分符合",
+      "implementation": "scripts/kb01/oci_tools.py",
+      "test": "tests/test_kb01_rc1_lifecycle.py"
+    },
+    {
+      "requirement_id": "OPS-TOOLS",
+      "source_location": "User G1-R1 toolchain requirement",
+      "requirement": "pinned OCI/APT, actual-image SPDX, hashes, archives",
+      "conclusion": "已符合",
+      "implementation": "scripts/kb01/Containerfile",
+      "test": "tests/test_kb01_native_isolation.py"
+    },
+    {
+      "requirement_id": "SEC-REVIEW",
+      "source_location": "Current user request§7",
+      "requirement": "formal applicable security decision",
+      "conclusion": "未符合",
+      "implementation": "scripts/kb01/toolchain_provenance.py",
+      "test": "tests/test_kb01_archive_isolation.py"
+    },
+    {
+      "requirement_id": "F1-LEGAL",
+      "source_location": "User-confirmed F0/F1 boundary +real_regulatory_acceptance_readiness.md lines1–13",
+      "requirement": "authorized originals +source/effectivity +independent expert expected answer +approval +defined criteria",
+      "conclusion": "未符合",
+      "implementation": "src/crossborder_compliance/application/regulatory_acceptance.py",
+      "test": "tests/test_kb01_acceptance_readiness_postgres.py"
+    }
+  ],
+  "kb01_master_v2_full_text": "INPUT_REQUIRED",
+  "kb01_master_v2_retrieval_note": "No authenticated full original in repo/G1. Prior conversation attachment could not be authorized or resolved in this session. D0 summary is not substituted.",
+  "formal_requirement_change_approval": "NOT_VERIFIED",
+  "master_overall_gate": "BLOCKED_ORIGINAL_KB01_MASTER_AND_REVIEWER_SCOPE_PENDING"
+}

@@ -1,0 +1,78 @@
+{
+  "product_sha": "733a7483439cd919c186ed0064b8f3752904ebb6",
+  "source_definition": {
+    "path": "docs/stage1-gap-kb01/real_regulatory_acceptance_readiness.md",
+    "sha256": "039d4074629ee38a55d379c09c4b75be23a7468fb0fe3ebf9d0566b9b5bb658d",
+    "lines": "1–13; F0 implementation lines16–85",
+    "authority": "Repository records the user-confirmed F0/F1 split; not a replacement for missing KB-MASTER full text or expert approval."
+  },
+  "conditions": [
+    {
+      "id": 1,
+      "condition": "Authorized genuine regulatory originals",
+      "status": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+      "actual_evidence": null,
+      "responsible_role": "Project owner / authorized data custodian",
+      "acquisition_method": "Provide originals via canonical local upload; retain authorization and original hashes"
+    },
+    {
+      "id": 2,
+      "condition": "Verified official source, legal jurisdiction, version and effectivity",
+      "status": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+      "actual_evidence": null,
+      "responsible_role": "Appointed jurisdiction expert + knowledge operator",
+      "acquisition_method": "Approve exact source-verification version with original/clause pins"
+    },
+    {
+      "id": 3,
+      "condition": "Independent expert expected legal answers / Gold Standard",
+      "status": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+      "actual_evidence": null,
+      "responsible_role": "Independent legally qualified appointed expert",
+      "acquisition_method": "Provide typed case semantics with legal authority and exact source/version references"
+    },
+    {
+      "id": 4,
+      "condition": "Actual appointment, reviewer identity/date/version/approval records",
+      "status": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+      "actual_evidence": null,
+      "responsible_role": "Project owner / formal expert administrator",
+      "acquisition_method": "Independently approve scoped appointment; appointed expert approves exact Gold/source records"
+    },
+    {
+      "id": 5,
+      "condition": "Defined case/jurisdiction/evaluation criteria",
+      "status": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+      "actual_evidence": null,
+      "responsible_role": "Acceptance owner + appointed expert",
+      "acquisition_method": "Approve exact case version and evaluation scope; reconcile actual canonical observed results"
+    }
+  ],
+  "known_scope_inventory": {
+    "observed_at": "2026-10-25T01:25:03.831824+08:00",
+    "scope": "Existing isolated RC1 tenantA only; read-only transaction; no original content or actor credentials exported",
+    "acceptance_metadata_counts": [],
+    "knowledge_document_version_count": 23,
+    "real_regulatory_readiness": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+    "independently_approved_real_gold_and_appointment_records_found": false,
+    "limitation": "Absence is within this inspected tenant/workspace. It does not assert external organizations possess no records."
+  },
+  "f0_tests": "Fresh affected.xml includes7 real-PostgreSQL/F0 mechanism and refusal tests; all synthetic, not F1 legal acceptance.",
+  "registry_and_independent_restore": {
+    "f1_five_conditions": "NOT_A_CONDITION_IN_CONFIRMED_F1_DEFINITION",
+    "other_scope": [
+      "Master0.2.4 Backup/Restore",
+      "Phase0Part20C PostgreSQL backup/PITR/object versioning/restore test",
+      "G1-R1 immutable image preservation and truthful restore evidence"
+    ],
+    "formal_rc1_retention_duration_and_clean_host_requirement": "PENDING_MAINTAINER_APPROVED_OPERATIONS_POLICY",
+    "github_short_term_oci": "Actual verified artifacts only; new-head upload proof is separately required",
+    "long_term_registry": "EXTERNAL_DEPENDENCY_NO_APPROVED_REGISTRY_OWNER_POLICY_CREDENTIAL_BINDING",
+    "independent_host_restore": "NOT_EXECUTED_NO_SEPARATE_HOST_PROVIDED",
+    "same_host_restart_or_docker_load": "NOT_INDEPENDENT_HOST_RESTORE"
+  },
+  "decision": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+  "real_regulatory_acceptance": "NOT_EXECUTED",
+  "legal_l2": "NOT_ACCEPTED",
+  "production_uat": "NOT_EXECUTED"
+}

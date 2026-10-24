@@ -1,0 +1,11 @@
+{
+  "id": "KB01-SEC-CACHED-TOOL-SOURCE",
+  "kind": "NON_CVE_SOURCE_IDENTITY_BOUNDARY",
+  "affected_previous_launcher": "b9f22415d3f40cf87a6957b93bb6301b602a3733",
+  "fixed_product_sha": "733a7483439cd919c186ed0064b8f3752904ebb6",
+  "technical_status": "FIXED_AND_TESTED",
+  "reviewer_decision": "PENDING",
+  "approval": null,
+  "evidence": "cached-source-counterexample.json",
+  "remediation": "Both supplied and cached proof validate current Containerfile and inventory-reader before migration/workers; no proof hashes forged."
+}

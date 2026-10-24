@@ -1,3 +1,5 @@
+> Current product `733a7483439cd919c186ed0064b8f3752904ebb6`; current gates and complete measured regression: ../g1-r1/final_technical_acceptance.md. Any explicitly retained earlier Reset/performance/host qualification measurement is historical459, not newly executed on this Head. Human UAT results remain Pending.
+
 # RC1 使用者技術驗收案例
 
 版本：`KB01-Technical-UAT-RC1`。只限 `LOCAL / ISOLATED TECHNICAL TESTING ONLY`。使用既有 React 前端、UAT Host、PostgreSQL、Redis、versioned S3 與 canonical Workers；不是 Production Auth，也不提供公開網址。

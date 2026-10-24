@@ -1,0 +1,78 @@
+{
+  "observed_at": "2026-10-25T01:25:03.947485+08:00",
+  "product_sha": "733a7483439cd919c186ed0064b8f3752904ebb6",
+  "application_host": {
+    "backend": "Existing FastAPI/UAT host Python process, not the tool OCI image",
+    "frontend": "Existing React/Vite host Node process",
+    "python": "3.12.14",
+    "node": "v24.19.0",
+    "bindings": {
+      "frontend": "127.0.0.1:15173",
+      "api": "127.0.0.1:18010"
+    },
+    "tool_scan_covers_host_environment": false,
+    "production_iam": "NOT_PROVIDED_SYNTHETIC_CONTEXT_ONLY"
+  },
+  "native_tool_image": {
+    "config_digest": "sha256:35765d74c83509652f2a7c5112fb983ec2398e1709a05f144177a12a16321e19",
+    "purpose": [
+      "DOC conversion",
+      "PDF parsing/render",
+      "OCR",
+      "RAR4/RAR5/ZIP extraction",
+      "malware scanning"
+    ],
+    "untrusted_input_exposure": true,
+    "network_runtime": "none",
+    "scope": "Exact subject of135 baseline findings and current130High/1Critical; does not certify whole platform"
+  },
+  "stateful_services": [
+    {
+      "component": "postgres",
+      "configured_image": "pgvector/pgvector@sha256:cd4ccfdaf62cbfeb5c6ee19ef0dd663406d4ed740c320b324d016a90e85385b3",
+      "actual_image_config_digest": "sha256:151aa1c2e849e7828ed8aef2183ae15f692cbe887d2f28921d8b44b26e154d7e",
+      "network_port_bindings": {
+        "5432/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "65432"
+          }
+        ]
+      },
+      "state": "running",
+      "scope": "Owned isolated RC1 synthetic service, not production deployment",
+      "covered_by_tool_image_scan": false
+    },
+    {
+      "component": "redis",
+      "configured_image": "library/redis@sha256:8be847644e195abc4c10c8d9936cfa45332eccc6b714fa7b186ff43f1f4d5579",
+      "actual_image_config_digest": "sha256:4df5c34dc41256fc4ed293482cb34281e17d133077e9aa3c6a87fda60a356c65",
+      "network_port_bindings": {
+        "6379/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "16379"
+          }
+        ]
+      },
+      "state": "running",
+      "scope": "Owned isolated RC1 synthetic service, not production deployment",
+      "covered_by_tool_image_scan": false
+    }
+  ],
+  "object_storage": {
+    "kind": "Existing retained SeaweedFS S3-compatible local service, host executable",
+    "ports": [
+      "127.0.0.1:19100",
+      "127.0.0.1:19433"
+    ],
+    "exact_original_downloads_verified": 18,
+    "covered_by_tool_image_scan": false
+  },
+  "vulnerability_scan_scope_limits": [
+    "Host Python/Node/npm dependencies are not certified by this Debian tool scan",
+    "PostgreSQL/pgvector and Redis OCI identities are inventoried but not newly vulnerability-scanned under the135 finding scope",
+    "S3 host executable security acceptance is separate",
+    "No production execution image or production deployment is accepted"
+  ]
+}

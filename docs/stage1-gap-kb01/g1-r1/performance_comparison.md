@@ -1,13 +1,24 @@
-# Real PostgreSQL performance comparison
+> Historical source459/d9 measured report retained. Current product733a748 security changes/status: final_technical_acceptance.md and security-review/. Old counts/timings below are not new-head PASS.
 
-Baseline39c3581，same-process old/new reader同一資料、tenant與engine，三語系／四page size。每個new read三次；完整JSONSHA與數量由tests/test_kb01_taxonomy_batch_postgres.py實測產出。不是Mock SQL count，也不是production SLA。
+# 同環境 PostgreSQL paired comparison
 
-| Lifecycle，100 rows，en-US | Before SQL | After SQL | 同次舊read秒 | 新read median秒 |
-|---|---:|---:|---:|---:|
-| DRAFT | 302 | 5 | 0.320781 | 0.015758 |
-| ACTIVE | 402 | 5 | 2.480517 | 0.035040 |
-| MIXED | 352 | 5 | 1.124199 | 0.023593 |
+每個case相同資料/engine，舊新reader各3次讀取，保留每次wall time及SQL count；未mock SQL計數。完整JSON逐次相等，digest保存。
 
-G1前一時段ACTIVE100 median2.536919秒獨立保留；不可把它與本次不同環境／時段值當同次速度比。完整定向pytest37 PASS，所有case identities及XML需一併封存。
+| Lifecycle | Rows | Before SQL | After SQL | Before median s | After median s |
+|---|---:|---:|---:|---:|---:|
+| DRAFT | 1 | 5 | 5 | 0.008806 | 0.008139 |
+| DRAFT | 4 | 14 | 5 | 0.017273 | 0.006456 |
+| DRAFT | 25 | 77 | 5 | 0.090935 | 0.009094 |
+| DRAFT | 100 | 302 | 5 | 0.352884 | 0.017628 |
+| ACTIVE | 1 | 6 | 5 | 0.029567 | 0.007432 |
+| ACTIVE | 4 | 18 | 5 | 0.110082 | 0.008806 |
+| ACTIVE | 25 | 102 | 5 | 0.646783 | 0.015916 |
+| ACTIVE | 100 | 402 | 5 | 2.627473 | 0.036336 |
+| MIXED | 1 | 6 | 5 | 0.015078 | 0.006297 |
+| MIXED | 4 | 17 | 5 | 0.051854 | 0.006922 |
+| MIXED | 25 | 92 | 5 | 0.300380 | 0.011509 |
+| MIXED | 100 | 352 | 5 | 1.158433 | 0.024106 |
 
-本輪修復授權：使用者提交 STAGE1-GAP-KB01-G1-R1；不是正式 Reviewer Approval。產品仍沿用 PR29 Draft／原分支，Main060cbb5、Release Tag不變。F1 BLOCKED、Legal L2／部署未接受、Production UAT／Paid LLM 未執行、MASTER原文INPUT_REQUIRED、Stage2 NOT STARTED。所有最終 PASS 必須以新 exact-head 完整 CI 與獨立 evidence 證明；此設計／定向紀錄不能替代。
+G1既有2.536919秒是不同session的歷史測量，未拿它計算同環境加速比。舊查詢依page行數線性增加，新查詢非空頁固定5SQL；沒有把計數查詢或授權／actor讀取排除。
+
+PR29 保持 Draft／未合併；Main060cbb5與 v3.7-stage1-e2e-pass 不變。Formal Reviewer Approval=PENDING；MASTER full-text reconciliation=INPUT_REQUIRED；Formal requirement change approval=NOT_VERIFIED。KB01-F1=BLOCKED_EXTERNAL_EVIDENCE_PENDING，LEGAL L2／Production Deployment=NOT ACCEPTED；Real Regulatory Acceptance／Production UAT／Paid Internet LLM=NOT EXECUTED；Stage2=NOT STARTED。

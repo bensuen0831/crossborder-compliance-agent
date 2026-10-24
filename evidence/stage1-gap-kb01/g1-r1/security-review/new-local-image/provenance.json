@@ -1,0 +1,66 @@
+{
+  "schema": "KB01_TOOLCHAIN_PROVENANCE_V1",
+  "base": {
+    "manifest_digest": "sha256:4876fdea29cac1a33a3195f1eb1952feb1fca7dd6dd00be3e2f1879cf20d34d2",
+    "config_digest": "sha256:133aec7ab1411181567fef7fc3f4512123e1f9660090b49851de4b698b4ff772",
+    "platform": "linux/amd64",
+    "verification": "VERIFIED_FROM_REGISTRY_CONTENT"
+  },
+  "oci": {
+    "format": "OCI_IMAGE_LAYOUT_1.0_ARCHIVE",
+    "manifest_digest": "sha256:07be6daf20dbe2feb33424afa26466421783d95504487e7ffd8548cb3064b61c",
+    "config_digest": "sha256:35765d74c83509652f2a7c5112fb983ec2398e1709a05f144177a12a16321e19",
+    "archive_sha256": "5d5c37376b9fd459a44d215ebd6e1a677c0f814b84cae410d4993d54f541e508",
+    "bytes": 871823360
+  },
+  "source_build": {
+    "runner_checkout_sha": "733a7483439cd919c186ed0064b8f3752904ebb6",
+    "source_dirty": false,
+    "image_id": "sha256:35765d74c83509652f2a7c5112fb983ec2398e1709a05f144177a12a16321e19",
+    "source_sha256": {
+      "domain/document_text.py": "8d9827d17b3401d16c5d2885c5c264673c5326d5deff9b8f14d39f53d8564aaa",
+      "domain/knowledge_paths.py": "5c7543b6c2167e2243744c3693ff8b2291c3b492ea773ab47f698225c756e476",
+      "infrastructure/native_document_extraction.py": "a893f8446563b7a79f2f707ae298f4e455c8a9de30159894f064c3e303188cc9",
+      "infrastructure/knowledge_native_process.py": "e246ed65daae6932afa01521858837b3fe7073cb6d7dc553dffb0f0ad758f1f0",
+      "infrastructure/knowledge_archive_process.py": "9ece6ca1be4f691ce4daee1a8e0d2c72bf9ef380ad529d28979e2a7e427b5398"
+    },
+    "containerfile_sha256": "669f07932fa933e7c5ddc463847607f697bc1efedd08fd8629318a77fbd5752d",
+    "inventory_script_sha256": "a8118ae9e1e211974e23d0a1cfa17f2d68b9423e8d360476f771c686bd00a2b1"
+  },
+  "sbom": {
+    "decision": "PASS",
+    "standard": "SPDX-2.3",
+    "packages": 284,
+    "schema_sha256": "239208b7ac287b3cf5d9a9af23f9d69863971102a5e1587a27a398b43490b89b",
+    "schema_url": "https://raw.githubusercontent.com/spdx/spdx-spec/aadf3b0b8dbbabdb4d880b0fc714255fea436ff7/schemas/spdx-schema.json",
+    "sbom_sha256": "6c6a7fbcd5ed1879d290ea81046f83c713f9075949a5c89e0660fa82d514e866"
+  },
+  "security": {
+    "scan_execution": "PASS",
+    "security_acceptance": "BLOCKED_REVIEW_REQUIRED",
+    "scanner_version": "0.76.1",
+    "scanner_archive_sha256": "c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0",
+    "report_sha256": "da9684bed7e71d96e7bf405b8d83fde16e283d5d0e0957fb9593519966f48680",
+    "severities": {
+      "LOW": 287,
+      "HIGH": 130,
+      "MEDIUM": 250,
+      "UNKNOWN": 10,
+      "CRITICAL": 1
+    },
+    "high_critical_findings": 131,
+    "database_files": {
+      "metadata.json": "7622511c7459f95a802efdfac0342d2637d4f08dd0dfd1a2590556e718dd2936",
+      "trivy.db": "5ef2920d5486fd1b20a4b9faef8d036db8072ebd6b183e6972952f7d949681c8"
+    },
+    "risk_acceptance": null
+  },
+  "restore": {
+    "decision": "PASS",
+    "scope": "All OCI blobs verified and content round-tripped into local Docker; not an independent clean-host or long-term retention claim"
+  },
+  "tool_hashes": "PASS",
+  "apt_provenance": "VERIFIED",
+  "image_retention": "EXTERNAL_DEPENDENCY_UNTIL_ARTIFACT_UPLOAD_VERIFIED",
+  "rebuild_contract": "Fixed base and authenticated snapshot dependencies; restore exact archived image for byte identity. Bit-identical fresh Docker build is not asserted."
+}

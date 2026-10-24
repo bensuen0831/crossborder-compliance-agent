@@ -1,11 +1,18 @@
-# Medium 002：Native tool source/identity controls
+> Historical source459/d9 measured report retained. Current product733a748 security changes/status: final_technical_acceptance.md and security-review/. Old counts/timings below are not new-head PASS.
 
-Containerfile固定經registry content hash與platform查核的Debian linux/amd64 manifest `sha256:4876fdea29cac1a33a3195f1eb1952feb1fca7dd6dd00be3e2f1879cf20d34d2`。APT固定20261021T000000Z Debian/security snapshot，保留GPG驗證及HTTPS/CA；historical Valid-Until只對該固定snapshot關閉。下載有60秒timeout／一次transport retry，與Browser Retries=0不同。
+# KB01-G0-002 修復及剩餘處置
 
-新image_inventory在實際build中保存三份signed InRelease及VALIDSIG、indices hashes、下載deb對signed index SHA256的逐件比對、package/source versions、critical binaries。build_tools對這個新image產生SPDX2.3（pinned official schema）、OCI layout archive/manifest digest、config ID、完整blob驗證／local Docker roundtrip，再對實際image跑pinned Trivy及保存DB/report hashes。Config ID不冒充registry manifest digest。
+已修復 floating base/APT universe 與 CI映像 provenance 缺口。linux/amd64 Debian base `sha256:4876fdea29cac1a33a3195f1eb1952feb1fca7dd6dd00be3e2f1879cf20d34d2` 已核對實際manifest/config；Debian+security snapshot20261021T000000Z，HTTPS／signed InRelease／index／.deb hashes／package/source version 保存。只關閉 historical snapshot Valid-Until，未關閉GPG/TLS。
 
-CI對每個實際工具映像保存SBOM/provenance及獨立OCI artifact（90天request，實際到期/metadata以GitHub artifact API為準）。長期registry、簽署與乾淨獨立host還原不自動視為已驗收；local roundtrip也不冒充獨立restore。
+新實際映像290個installed packages、10個critical executable hashes、五個parser source hashes、Containerfile/inventory helper hashes均綁實際OCI identity。SPDX2.3通過固定官方schema。七個新CI image獨立生成provenance/SBOM/scan/OCI archive，逐一驗ZIP digest及所有OCI blobs，package inventory及關鍵工具hash均與固定來源本機映像一致。Docker config ID、OCI manifest、archive hash、GitHub ZIP digest各自記錄，不互換。
 
-Scanner execution與security acceptance分開。不得ignore-unfixed、抹除findings或自動接受risk；High/Critical未處置則security_acceptance=BLOCKED_REVIEW_REQUIRED。早先舊G0 image掃描有687項（Critical1/High133），這不是新image結果；新image必須重新掃描並以其actual SHA封存。原offline/nonroot/read-only/capdrop/resource sandbox與ClamAV CVD獨立身份保持。
+GitHub七份實際Archive均已下載驗證，可在到期前重取；API顯示expires_at=2027-01-20T05:23:24Z。這是短期artifact retention，不是長期registry、簽署或獨立clean-host還原。Local OCI roundtrip PASS；long-term retention／clean-host restore=EXTERNAL_DEPENDENCY。
 
-本輪修復授權：使用者提交 STAGE1-GAP-KB01-G1-R1；不是正式 Reviewer Approval。產品仍沿用 PR29 Draft／原分支，Main060cbb5、Release Tag不變。F1 BLOCKED、Legal L2／部署未接受、Production UAT／Paid LLM 未執行、MASTER原文INPUT_REQUIRED、Stage2 NOT STARTED。所有最終 PASS 必須以新 exact-head 完整 CI 與獨立 evidence 證明；此設計／定向紀錄不能替代。
+掃描執行 PASS，但 security acceptance=BLOCKED_REVIEW_REQUIRED：實際每份映像 LOW302/MEDIUM250/HIGH134/CRITICAL1/UNKNOWN5，共692個package findings；HIGH/CRITICAL合計44個不同CVE。Critical CVE-2026-6653/libxml2 未回報FixedVersion。這不是已證實可利用性，亦不能推定可接受風險；沒有隱藏unfixed、抑制finding或冒簽risk acceptance。
+
+Network isolation/non-root/read-only/drop capabilities/resource limits/malware scan/archive sandbox維持；新映像重新通過parser、RAR4/RAR5/ZIP、容量及安全回歸。Official CVD main/daily/bytecode的hash與ClamAV engine/executable各自保存。
+
+Formal Security Reviewer仍須評估可達性與處置。若要求依賴更新，須最小新產品commit與完整新exact-head gate；不能以本次成功測試取代新source證據。Medium重現性修復已完成，最終安全批准未完成。
+
+
+PR29 保持 Draft／未合併；Main060cbb5與 v3.7-stage1-e2e-pass 不變。Formal Reviewer Approval=PENDING；MASTER full-text reconciliation=INPUT_REQUIRED；Formal requirement change approval=NOT_VERIFIED。KB01-F1=BLOCKED_EXTERNAL_EVIDENCE_PENDING，LEGAL L2／Production Deployment=NOT ACCEPTED；Real Regulatory Acceptance／Production UAT／Paid Internet LLM=NOT EXECUTED；Stage2=NOT STARTED。
