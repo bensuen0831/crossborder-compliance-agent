@@ -22,13 +22,13 @@ RUN --mount=type=secret,id=system_ca,required=false,mode=0444 \
     apt-get -y upgrade; \
     apt-get -y --download-only --no-install-recommends install \
       python3.13 libreoffice-writer poppler-utils libarchive-tools \
-      clamav clamav-freshclam ca-certificates gpgv \
+      clamav clamav-freshclam ca-certificates gpg gpgv \
       tesseract-ocr tesseract-ocr-eng tesseract-ocr-chi-sim tesseract-ocr-chi-tra \
       tesseract-ocr-ara tesseract-ocr-heb tesseract-ocr-osd \
       fonts-dejavu-core fonts-noto-core fonts-noto-cjk; \
     apt-get -y --no-install-recommends install \
       python3.13 libreoffice-writer poppler-utils libarchive-tools \
-      clamav clamav-freshclam ca-certificates gpgv \
+      clamav clamav-freshclam ca-certificates gpg gpgv \
       tesseract-ocr tesseract-ocr-eng tesseract-ocr-chi-sim tesseract-ocr-chi-tra \
       tesseract-ocr-ara tesseract-ocr-heb tesseract-ocr-osd \
       fonts-dejavu-core fonts-noto-core fonts-noto-cjk; \
