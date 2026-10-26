@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { Alert, Avatar, Button, Card, ConfigProvider, Layout, Menu, Select, Space, Tabs, Tag, Typography } from 'antd';
+import { Alert, Avatar, Button, Card, ConfigProvider, Form, Input, Layout, Menu, Select, Space, Tabs, Tag, Typography } from 'antd';
 import { ApiOutlined, BookOutlined, SafetyCertificateOutlined, SearchOutlined } from '@ant-design/icons';
 import { Link, Navigate, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { api, ApiError, demoEnabled } from './api/client';
+import { api, ApiError, demoEnabled, acceptanceLoginEnabled } from './api/client';
 import type { EvidenceItem, RetrievalRequest, Session } from './api/contracts';
 import enUS from 'antd/locale/en_US';
 import zhCN from 'antd/locale/zh_CN';
@@ -17,6 +17,7 @@ import { ReviewCenter } from './features/reviews/ReviewCenter';
 import { ProductionIntake } from './features/intake/ProductionIntake';
 import { AdminRoute } from './routes/AdminRoute';
 import { ContextSelector } from './components/ContextSelector';
+import { BusinessAcceptanceStatus } from './features/knowledge-management/BusinessAcceptanceStatus';
 import { EvidenceCard, EvidenceTable, SourceCitationDrawer } from './components/Evidence';
 import { FallbackPanel, SufficiencyPanel } from './components/Sufficiency';
 import { QueryPanel } from './components/QueryPanel';
@@ -93,6 +94,7 @@ function Workspace({ session }: { session: Session }) {
       <div className="workspace-topbar"><Space><Avatar size="small">{session.display_name.slice(0, 1)}</Avatar><Typography.Text>{session.display_name}</Typography.Text><Tag>{session.tenant_label}</Tag>
         {session.organization_label && <Tag>{session.organization_label}</Tag>}{session.department_label && <Tag>{session.department_label}</Tag>}</Space><StatusHealthIndicator /></div>
       <Layout.Content className="workspace-content"><PageHeader runtime={runtime} admin={admin} intake={intake} results={results} reviews={reviews}/>
+        {acceptanceLoginEnabled && <BusinessAcceptanceStatus identity={session.identity_key}/>}
         {session.demo && <Alert className="demo-banner" type="info" showIcon title={t('demo')} description={t('demoNote')} />}
         <div className={`workspace-grid ${admin || intake || formal ? 'admin-workspace-grid' : ''}`}><section className="main-column">
           {!formal && <ContextSelector session={session} context={context} choose={choose} scope={scope.data} scopeError={scope.error} scopeLoading={scope.isFetching} />}
@@ -145,6 +147,13 @@ export default function App() {
     } catch (error) { setLoginError(error instanceof Error ? error : new ApiError(0, 'SIGN_IN_FAILED')); }
     finally { setSwitching(false); }
   };
+  const acceptanceLogin = async ({ username, password }: { username: string; password: string }) => {
+    setSwitching(true); setLoginError(null);
+    await queryClient.cancelQueries(); queryClient.clear();
+    try { queryClient.setQueryData(['session'], await api.acceptanceLogin(username, password)); }
+    catch (error) { setLoginError(error instanceof Error ? error : new ApiError(0, 'SIGN_IN_FAILED')); }
+    finally { setSwitching(false); }
+  };
   return <ConfigProvider theme={enterpriseTheme} locale={{ 'en-US': enUS, 'zh-CN': zhCN, 'zh-HK': zhHK }[currentLocale()]}>
     <div className="global-bar"><Space><SafetyCertificateOutlined /><span>{t('workspace')}</span></Space>
       <Space wrap><Select aria-label={t('ui.language')} value={currentLocale()} options={supportedLocales.map(locale => ({ value: locale, label: t({ 'zh-CN': 'ui.localeCN', 'zh-HK': 'ui.localeHK', 'en-US': 'ui.localeEN' }[locale]) }))} onChange={(lang: Locale) => void i18n.changeLanguage(lang)} />
@@ -159,7 +168,16 @@ export default function App() {
     </div>
     {loginError && <ErrorState error={loginError} />}
     {switching || session.isPending ? <div className="sign-in-state"><LoadingState /></div> : session.isSuccess ?
-      <Workspace key={session.data.identity_key} session={session.data} /> : <div className="sign-in-state">
+      <Workspace key={session.data.identity_key} session={session.data} /> : acceptanceLoginEnabled && !demoEnabled ? <div className="sign-in-state">
+        <Card title={t('ui.acceptance.signIn')}>
+          <Alert type="info" title={t('ui.acceptance.localOnly')} description={t('ui.acceptance.noSubscriptionKey')} />
+          <Form layout="vertical" onFinish={(values: { username: string; password: string }) => void acceptanceLogin(values)}>
+            <Form.Item name="username" label={t('ui.acceptance.username')} rules={[{ required: true }]}><Input autoComplete="username" /></Form.Item>
+            <Form.Item name="password" label={t('ui.acceptance.password')} rules={[{ required: true }]}><Input.Password autoComplete="current-password" /></Form.Item>
+            <Button type="primary" htmlType="submit" disabled={switching}>{t('ui.acceptance.signIn')}</Button>
+          </Form>
+        </Card>
+      </div> : <div className="sign-in-state">
         {session.error instanceof ApiError && session.error.status === 404 ? <Alert type="info" title={t('sessionUnavailable')} description={t('sessionHint')} /> : session.error ?
           <ErrorState error={session.error} retry={() => void session.refetch()} /> : <PermissionDenied />}
       </div>}

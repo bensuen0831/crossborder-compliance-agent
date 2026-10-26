@@ -1,0 +1,188 @@
+{
+  "draft_delete_allowed": false,
+  "draft_retention_seconds": 86400,
+  "max_single_bytes": 1073741824,
+  "max_archive_bytes": 10737418240,
+  "max_expanded_bytes": 53687091200,
+  "max_archive_entries": 20000,
+  "multipart_chunk_bytes": 33554432,
+  "upload_expiry_seconds": 86400,
+  "scan_required": true,
+  "manifest": {
+    "max_bytes": 33554432,
+    "max_expanded_bytes": 134217728,
+    "max_entries": 10000,
+    "max_rows": 20000,
+    "max_columns": 256,
+    "case_sensitive_paths": true
+  },
+  "extraction_timeout_seconds": 3600,
+  "nested_archives_allowed": false,
+  "tenant_storage_quota_bytes": 107374182400,
+  "max_active_upload_sessions": 64,
+  "signed_part_expiry_seconds": 900,
+  "scanner_timeout_seconds": 3600,
+  "scanner_memory_bytes": 2147483648,
+  "native_parser": {
+    "profile": "KB01_NATIVE_V1",
+    "max_native_blocks": 20000,
+    "max_native_output_bytes": 33554432,
+    "max_block_chars": 1000000,
+    "max_xml_bytes": 134217728,
+    "max_archive_entries": 20000,
+    "conversion_timeout_seconds": 600,
+    "ocr_enabled": true,
+    "max_ocr_pages": 100,
+    "ocr_languages": [
+      "eng"
+    ],
+    "ocr_minimum_confidence": 0.75,
+    "structure_cues": [
+      {
+        "node_type": "ACT",
+        "prefixes": [
+          "Act:",
+          "\u6cd5\u5f8b\uff1a",
+          "\u0642\u0627\u0646\u0648\u0646:"
+        ],
+        "hierarchy_level": 0,
+        "numbered": false,
+        "number_suffixes": []
+      },
+      {
+        "node_type": "REGULATION",
+        "prefixes": [
+          "Regulation:",
+          "\u6cd5\u898f\uff1a",
+          "\u0644\u0627\u0626\u062d\u0629:"
+        ],
+        "hierarchy_level": 0,
+        "numbered": false,
+        "number_suffixes": []
+      },
+      {
+        "node_type": "PART",
+        "prefixes": [
+          "Part ",
+          "\u90e8\u5206 ",
+          "\u0627\u0644\u062c\u0632\u0621 "
+        ],
+        "hierarchy_level": 1,
+        "numbered": true,
+        "number_suffixes": []
+      },
+      {
+        "node_type": "CHAPTER",
+        "prefixes": [
+          "Chapter ",
+          "\u7ae0 ",
+          "\u0627\u0644\u0641\u0635\u0644 "
+        ],
+        "hierarchy_level": 2,
+        "numbered": true,
+        "number_suffixes": []
+      },
+      {
+        "node_type": "SECTION",
+        "prefixes": [
+          "Section ",
+          "\u7bc0 ",
+          "\u8282 ",
+          "\u0627\u0644\u0642\u0633\u0645 "
+        ],
+        "hierarchy_level": 3,
+        "numbered": true,
+        "number_suffixes": []
+      },
+      {
+        "node_type": "ARTICLE",
+        "prefixes": [
+          "Article ",
+          "\u0627\u0644\u0645\u0627\u062f\u0629 "
+        ],
+        "hierarchy_level": 4,
+        "numbered": true,
+        "number_suffixes": []
+      },
+      {
+        "node_type": "ANNEX",
+        "prefixes": [
+          "Annex ",
+          "\u9644\u4ef6 ",
+          "\u0627\u0644\u0645\u0644\u062d\u0642 "
+        ],
+        "hierarchy_level": 1,
+        "numbered": true,
+        "number_suffixes": []
+      },
+      {
+        "node_type": "SCHEDULE",
+        "prefixes": [
+          "Schedule ",
+          "\u9644\u8868 "
+        ],
+        "hierarchy_level": 1,
+        "numbered": true,
+        "number_suffixes": []
+      },
+      {
+        "node_type": "GUIDANCE_SECTION",
+        "prefixes": [
+          "Guidance:",
+          "\u6307\u5f15\uff1a",
+          "\u0625\u0631\u0634\u0627\u062f\u0627\u062a:"
+        ],
+        "hierarchy_level": 3,
+        "numbered": false,
+        "number_suffixes": []
+      },
+      {
+        "node_type": "PART",
+        "prefixes": [
+          "\u7b2c"
+        ],
+        "hierarchy_level": 1,
+        "numbered": true,
+        "number_suffixes": [
+          "\u90e8\u5206",
+          "\u90e8"
+        ]
+      },
+      {
+        "node_type": "CHAPTER",
+        "prefixes": [
+          "\u7b2c"
+        ],
+        "hierarchy_level": 2,
+        "numbered": true,
+        "number_suffixes": [
+          "\u7ae0"
+        ]
+      },
+      {
+        "node_type": "SECTION",
+        "prefixes": [
+          "\u7b2c"
+        ],
+        "hierarchy_level": 3,
+        "numbered": true,
+        "number_suffixes": [
+          "\u7bc0",
+          "\u8282"
+        ]
+      },
+      {
+        "node_type": "ARTICLE",
+        "prefixes": [
+          "\u7b2c"
+        ],
+        "hierarchy_level": 4,
+        "numbered": true,
+        "number_suffixes": [
+          "\u689d",
+          "\u6761"
+        ]
+      }
+    ]
+  }
+}
