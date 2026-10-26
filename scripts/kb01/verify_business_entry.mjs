@@ -24,6 +24,10 @@ try {
   for (const locale of ['zh-CN', 'zh-HK', 'en-US']) {
     const started = Date.now();
     const labels = JSON.parse(fs.readFileSync(path.join(root, 'frontend/src/locales', locale + '.json'), 'utf8'));
+    // Ant Design inserts display spacing into two-character CJK buttons.
+    // Match the same complete translated label, permitting only whitespace.
+    const signOutLabel = new RegExp('^' + [...labels.signOut].map(character =>
+      character.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('\\s*') + '$');
     if (businessLogins.length >= 4) {
       const wait = 60_100 - (Date.now() - businessLogins[0]);
       if (wait > 0) { authPacingMilliseconds += wait; await new Promise(resolve => setTimeout(resolve, wait)); }
@@ -87,7 +91,7 @@ try {
     expect(observed.native_processing.status).toBe('BLOCKED');
     // Exercise the real UI identity boundary: it cancels in-flight queries
     // before deleting the cookie. Direct test-side logout races active reads.
-    await page.getByRole('button', { name: labels.signOut, exact: true }).click();
+    await page.getByRole('button', { name: signOutLabel }).click();
     await expect(page.getByLabel(labels['ui.acceptance.username'], { exact: true })).toBeVisible();
     await page.goto(projectUrl);
     await page.getByLabel(labels['ui.acceptance.username'], { exact: true }).fill(credentials['business-user'].username);
@@ -96,7 +100,7 @@ try {
     await expect(page.getByTestId('intake-project-id')).toHaveText(projectId);
     businessLogins.push(Date.now());
     phase = 'operator-login-' + locale;
-    await page.getByRole('button', { name: labels.signOut, exact: true }).click();
+    await page.getByRole('button', { name: signOutLabel }).click();
     await expect(page.getByLabel(labels['ui.acceptance.username'], { exact: true })).toBeVisible();
     await page.goto('http://127.0.0.1:15174/admin?admin_resource=models');
     await page.getByLabel(labels['ui.acceptance.username'], { exact: true }).fill(credentials['knowledge-operator'].username);
@@ -132,7 +136,9 @@ try {
     decision: 'ENTRY_AUTH_DRAFT_SMOKE_PASS_NOT_BUSINESS_OR_LEGAL_E2E', cases: results,
     passed: results.length, retries: 0, auth_pacing_ms: authPacingMilliseconds, pacing_reason: 'Respect5loginsPerMinute; no assertion retry', no_trace_or_credentials_archived: true }, null, 2));
   console.log('Three-locale entry smoke PASS; no live-model or legal-accuracy PASS asserted.');
-} catch {
+} catch (failure) {
+  safeDiagnostics.failure_type = failure.name;
+  safeDiagnostics.failure_location = failure.stack?.match(/verify_business_entry.mjs:\d+:\d+/)?.[0];
   // Browser assertion messages may contain login inputs: never serialize them.
   fs.writeFileSync(output, JSON.stringify({ decision: 'FAILED', phase, completed_cases: results.length,
     diagnostics: safeDiagnostics,
