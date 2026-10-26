@@ -19,6 +19,7 @@ const results = [];
 const businessLogins = [];
 let authPacingMilliseconds = 0;
 let phase = 'start';
+let safeDiagnostics = {};
 try {
   for (const locale of ['zh-CN', 'zh-HK', 'en-US']) {
     const started = Date.now();
@@ -36,6 +37,7 @@ try {
     const responseChecks = [];
     const consoleErrors = [];
     const expectedHttpErrors = new Set();
+    safeDiagnostics = { js_errors: errors, server_errors: serverErrors, console_errors: consoleErrors };
     page.on('pageerror', () => errors.push('UNCAUGHT_JS_ERROR'));
     page.on('console', message => {
       if (message.type() !== 'error') return;
@@ -130,6 +132,7 @@ try {
 } catch {
   // Browser assertion messages may contain login inputs: never serialize them.
   fs.writeFileSync(output, JSON.stringify({ decision: 'FAILED', phase, completed_cases: results.length,
+    diagnostics: safeDiagnostics,
     credential_values_omitted: true, retries: 0 }, null, 2));
   console.error('ENTRY_SMOKE_FAILED at safe phase: ' + phase);
   process.exitCode = 1;
