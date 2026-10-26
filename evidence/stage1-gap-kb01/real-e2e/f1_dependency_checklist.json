@@ -1,0 +1,47 @@
+{
+  "definition": "docs/stage1-gap-kb01/real_regulatory_acceptance_readiness.md",
+  "owner": "Existing canonical F0 MetadataVersion lifecycle",
+  "conditions": [
+    {
+      "condition": "authorized_originals",
+      "state": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+      "evidence_ref": null,
+      "responsible_role": "Authorized uploader / project owner"
+    },
+    {
+      "condition": "verified_source_version_effectivity",
+      "state": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+      "evidence_ref": null,
+      "responsible_role": "Appointed jurisdiction expert"
+    },
+    {
+      "condition": "independent_expert_expected_answers",
+      "state": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+      "evidence_ref": null,
+      "responsible_role": "Independent jurisdiction expert"
+    },
+    {
+      "condition": "formal_expert_approval_record",
+      "state": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+      "evidence_ref": null,
+      "responsible_role": "Project owner appoints; authorized independent expert approves"
+    },
+    {
+      "condition": "defined_case_jurisdiction_criteria",
+      "state": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+      "evidence_ref": null,
+      "responsible_role": "Business owner + independent expert + QA"
+    }
+  ],
+  "prepared_not_approved": [
+    "non_sensitive_requirements.txt",
+    "input_manifest",
+    "evaluation_criteria_outline",
+    "canonical_F0_record_UI",
+    "existing_typed_F0_schemas"
+  ],
+  "long_term_registry_and_clean_host_restore": "Operational acceptance dependencies, not replacements or extra invented F1 legal conditions; neither executed this round",
+  "model_credentials": "ChatGPT subscription is not a backend API credential; no cookies extracted; no paid request made",
+  "legal_accuracy_execution": "NOT_EXECUTED",
+  "stage2_started": false
+}

@@ -1,0 +1,101 @@
+{
+  "observed_at": "2026-10-26T07:58:49.693374+00:00",
+  "product_head": "893c4a2ac3e126607aeaad91ad1dce69c77f958d",
+  "statuses": {
+    "BUSINESS_UI_E2E": "BLOCKED",
+    "BUSINESS_ENTRY": "CURRENTLY_STOPPED_PREVIOUSLY_VERIFIED_LOOPBACK_ONLY",
+    "REAL_REGULATORY_DATA": "BLOCKED",
+    "LIVE_MODEL_WORKFLOW": "BLOCKED",
+    "LEGAL_GOLD_AND_CRITERIA": "BLOCKED",
+    "LEGAL_ACCURACY_EXECUTION": "NOT_EXECUTED",
+    "USER_E2E_TEST_READINESS": "BLOCKED",
+    "FORMAL_SECURITY_ACCEPTANCE": "PENDING_BLOCKED_REVIEW_REQUIRED",
+    "KB01_F1": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+    "PRODUCTION_BUSINESS_UAT": "NOT_EXECUTED",
+    "STAGE2": "NOT_STARTED"
+  },
+  "entry": "http://127.0.0.1:15174/intake",
+  "access": "Only executing host loopback. No public cloud/mobile URL; user must run isolated host locally.",
+  "first_complete_real_business_case": "NOT_EXECUTED",
+  "live_model_invocations": 0,
+  "live_model_request_id": null,
+  "live_model_tokens": null,
+  "model_authorization": "User authorizes minimal existing paid/API usage; actual backend credential, model binding and budget not supplied. ChatGPT account is not a backend API credential.",
+  "legal_expected_answer": null,
+  "expert_approval": null,
+  "new_tests": {
+    "focused_backend": 78,
+    "architecture": 456,
+    "frontend": 181,
+    "browser_entry_locales": 3,
+    "browser_retries": 0
+  },
+  "not_reexecuted": [
+    "full_backend_1336",
+    "runtime_25",
+    "existing_browser_89",
+    "all_mandatory_remote_CI",
+    "native_image_scan",
+    "six_format_and_capacity_native_regression",
+    "independent_host_restore",
+    "full_KB01_MASTER_V2_original_reconciliation",
+    "real_business_workflow_with_live_provider",
+    "legal_accuracy_comparison"
+  ],
+  "remaining_engineering_estimate": {
+    "conditional_hours": [
+      8,
+      16
+    ],
+    "scope": "First-case integration after approved credentials/quota, lawful sources + governing metadata/rules and security-cleared tools are available",
+    "excluded_waits": [
+      "Supported vendor/base remediation and required native regression, estimate after maintainer chooses path",
+      "Independent expert appointment/source/effectivity/Gold approvals, completion time unknown",
+      "Additional legal mapping if source corpus lacks approved owner configuration"
+    ]
+  },
+  "responsibility_next_actions": [
+    {
+      "owner": "API account / budget owner",
+      "action": "Configure authorized Provider/model/deployment and API secret via server-side store/UI; specify quota and data boundary; never send key in chat",
+      "then": "QA executes live non-cache candidate preparation linked to real business confirmation/result"
+    },
+    {
+      "owner": "Authorized law uploader + jurisdiction expert",
+      "action": "Supply original real-law files through knowledge UI after safe processing is enabled; verify official source/version/effectivity and publish exact KnowledgeVersions/clauses; govern applicable existing rule/binding configuration",
+      "then": "Run scoped retrieval and open each supporting citation"
+    },
+    {
+      "owner": "Dependency maintainer + actual Security Reviewer",
+      "action": "Choose supported libxml2/backport/base remediation; rebuild fixed sources, SBOM/archive and fresh scan + native regression; record actual applicable-version review decisions",
+      "then": "Enable real scanner/native ports only when technical and required governance conditions hold"
+    },
+    {
+      "owner": "Project owner + independent jurisdiction expert",
+      "action": "Appoint expert, independently prepare expected semantics/criteria and formally approve exact source/case/Gold versions",
+      "then": "Run canonical readiness and compare actual authorized result against approved Gold; record differences, not self-approve"
+    }
+  ],
+  "main_merged": false,
+  "tag_changed": false,
+  "formal_approval_fabricated": false,
+  "remote_ci": {
+    "state": "BLOCKED_PHASE1KB_JOB_TIMEOUT",
+    "success": 11,
+    "total": 12,
+    "actual_job_checkout_verification": "22/22_MATCH",
+    "reference": "remote_ci_references.json",
+    "snapshot_reference": "remote_ci_snapshot.json"
+  },
+  "new_pr": {
+    "base_ref": "fix/stage1-regulatory-knowledge-management",
+    "base_sha": "733a7483439cd919c186ed0064b8f3752904ebb6",
+    "draft": true,
+    "head_sha": "893c4a2ac3e126607aeaad91ad1dce69c77f958d",
+    "html_url": "https://github.com/bensuen0831/crossborder-compliance-agent/pull/30",
+    "merged": false,
+    "number": 30,
+    "state": "open"
+  },
+  "runtime_observation": "All business UI/backend/PG/Redis unavailable at this check; prior successful restart is historical evidence."
+}

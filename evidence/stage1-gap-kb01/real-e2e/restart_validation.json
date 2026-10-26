@@ -1,0 +1,28 @@
+{
+  "source_sha": "893c4a2ac3e126607aeaad91ad1dce69c77f958d",
+  "scope": "SAME_EXECUTING_HOST_OWNED_PROCESSES_ONLY_NOT_INDEPENDENT_HOST_RESTORE",
+  "project_id": "101997b2-026f-4d4e-99bb-0842f748132a",
+  "intake_sha256_before": "afbce96b12ec589d7d318d76fcbed0dd24c5273ffa175317751eeecdabff7912",
+  "intake_sha256_after": "afbce96b12ec589d7d318d76fcbed0dd24c5273ffa175317751eeecdabff7912",
+  "preserved": true,
+  "commands": [
+    {
+      "action": "stop",
+      "exit_code": 0
+    },
+    {
+      "action": "start",
+      "exit_code": 0
+    }
+  ],
+  "http_and_dependencies": {
+    "entry": "http://127.0.0.1:15174/intake",
+    "scope": "EXECUTING_HOST_LOOPBACK_ONLY",
+    "backend": 200,
+    "frontend": 200,
+    "postgres_readonly": "PASS",
+    "redis": "PASS"
+  },
+  "elapsed_seconds": 18.000750064849854,
+  "secrets_or_account_hashes_exported": false
+}

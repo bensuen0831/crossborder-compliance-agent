@@ -1,0 +1,22 @@
+{
+  "pass_": true,
+  "passed": 15,
+  "total": 15,
+  "checks": {
+    "single_canonical_graph": true,
+    "formal_order": true,
+    "nodes_delegate_authority": true,
+    "legacy_version_closed": true,
+    "typed_aggregation_has_no_infrastructure": true,
+    "aggregation_reads_owning_results": true,
+    "exact_document_universe": true,
+    "exact_context_membership": true,
+    "result_scope_revalidated": true,
+    "historical_authority_gap_explicit": true,
+    "frontend_uses_authority_not_path_status": true,
+    "frontend_requires_no_decision_write": true,
+    "unassessed_subjects_fail_closed": true,
+    "template_does_not_change_requirement": true,
+    "stage2_unavailable_and_opt_in_only": true
+  }
+}
