@@ -1,0 +1,25 @@
+{
+  "observed_at": "2026-10-26T08:37:02.188704+00:00",
+  "product_head": "e7efe5368c1ee7be2c62284d199275517dea2323",
+  "previous_product_head": "893c4a2ac3e126607aeaad91ad1dce69c77f958d",
+  "statuses": {
+    "BUSINESS_UI_E2E": "BLOCKED",
+    "BUSINESS_ENTRY": "OPERABLE_LOOPBACK_ONLY",
+    "REAL_REGULATORY_DATA": "BLOCKED",
+    "LIVE_MODEL_WORKFLOW": "BLOCKED",
+    "LEGAL_GOLD_AND_CRITERIA": "BLOCKED",
+    "LEGAL_ACCURACY_EXECUTION": "NOT_EXECUTED",
+    "USER_E2E_TEST_READINESS": "BLOCKED",
+    "FORMAL_SECURITY_ACCEPTANCE": "PENDING_BLOCKED_REVIEW_REQUIRED",
+    "KB01_F1": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+    "STAGE2": "NOT_STARTED"
+  },
+  "current_measurements": "resumed-20261026/new-head-validation.json",
+  "current_security": "resumed-20261026/native-comparison.json",
+  "historical_measurements": "Original root backend/frontend/architecture/browser reports retain893c4a2 identities; no relabeling.",
+  "source_proof": "source_identity.json",
+  "remote_ci": "NEW_HEAD_CI_TRIGGERED_PENDING_COMPLETION_AND_ACTUAL_CHECKOUT_PROOF",
+  "main_merged": false,
+  "tag_changed": false,
+  "formal_approval_fabricated": false
+}

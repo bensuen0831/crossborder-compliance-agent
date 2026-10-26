@@ -1,0 +1,39 @@
+{
+  "no_failures_erased": true,
+  "browser_framework_retries": 0,
+  "attempts": [
+    {
+      "run": "focused-auth-working",
+      "classification": "ENVIRONMENT",
+      "result": "2passed11errors",
+      "cause": "Old ephemeral PG5432 stopped; corrected to existing owned real PostgreSQL RC1 environment; no skip/SQLite fallback"
+    },
+    {
+      "run": "backend-focused-final",
+      "classification": "SOURCE_IDENTITY",
+      "result": "74passed4failed",
+      "cause": "Diagnostic source changed during run. Ownership correctly refused; source sealed and entire78suite rerun clean. No check weakened"
+    },
+    {
+      "run": "browser-entry-final",
+      "classification": "DIAGNOSTIC",
+      "phase": "operator-login-zh-CN",
+      "cause": "First console assertion failed with insufficient diagnostics; retained original failed summary"
+    },
+    {
+      "run": "browser-entry-sealed",
+      "classification": "TEST_DRIVER_RACE",
+      "phase": "operator-login-zh-HK",
+      "cause": "Direct out-of-band logout invalidated cookie while React parties query active; actual parties401 captured; changed to real UI logout/cancellation. Unexpected401 assertions remain strict"
+    },
+    {
+      "run": "browser-final",
+      "classification": "LOCALIZED_SELECTOR",
+      "phase": "blank-project-zh-CN",
+      "cause": "Ant Design adds display whitespace to two-character CJK sign-out buttons. UI auth itself independently verified. Verifier now matches the full translated label allowing whitespace only; all HTTP/console assertions retained. Final clean three-locale run PASS, zero framework retries."
+    }
+  ],
+  "raw_diagnostics": "Retained in private execution workspace; only safe summaries/digests exported",
+  "master_original_recovery_attempt": "Historical uploaded KB01-MASTER V2.0 file could not be authorized/resolved; no permission bypass. Full text reconciliation remains INPUT_REQUIRED.",
+  "final_clean_source": "893c4a2ac3e126607aeaad91ad1dce69c77f958d"
+}

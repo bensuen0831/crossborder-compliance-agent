@@ -1,0 +1,32 @@
+{
+  "observed_at": "2026-10-26T01:41:33.451465+00:00",
+  "scope": "Existing isolated RC1 tenant only; not all external systems",
+  "tenant_id": "c80e577a-6dca-4442-9afa-d6e19134081c",
+  "secret_binding_presence": {
+    "LLM_SECRET_STORE_ROOT": false,
+    "LLM_SECRET_STORE_KEY": false,
+    "OPENAI_API_KEY": false,
+    "DEEPSEEK_API_KEY": false,
+    "DASHSCOPE_API_KEY": false,
+    "ZHIPUAI_API_KEY": false
+  },
+  "dotenv_file_present": false,
+  "providers": [],
+  "model_deployments": 0,
+  "knowledge_versions_by_lifecycle": [
+    {
+      "lifecycle": "ACTIVE",
+      "count": 20
+    },
+    {
+      "lifecycle": "INGESTED",
+      "count": 1
+    },
+    {
+      "lifecycle": "ARCHIVED",
+      "count": 2
+    }
+  ],
+  "acceptance_records_by_kind": [],
+  "classification": "PRE_EXISTING_RC1_SCOPE_INVENTORY_NOT_REAL_LAW_ACCEPTANCE"
+}

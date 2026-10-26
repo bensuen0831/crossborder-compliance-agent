@@ -1,0 +1,17 @@
+{
+  "source_sha": "e7efe5368c1ee7be2c62284d199275517dea2323",
+  "started_at": "2026-10-26T08:30:00.993954+00:00",
+  "completed_at": "2026-10-26T08:33:26.358238+00:00",
+  "command": [
+    "python",
+    "-m",
+    "pytest",
+    "-q",
+    "--tb=short",
+    "tests/test_kb01_business_host.py",
+    "tests/test_kb01_ownership.py",
+    "--junitxml=/workspace/stage1-real-e2e-20261026/resumed/backend-affected-new-head.xml"
+  ],
+  "exit_code": 0,
+  "scope": "Affected host and finite-source ownership; not full backend suite"
+}

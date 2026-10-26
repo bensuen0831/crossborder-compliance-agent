@@ -1,0 +1,20 @@
+{
+  "pass": true,
+  "passed": 13,
+  "total": 13,
+  "checks": {
+    "intake_draft_not_formal_input": true,
+    "confirmed_intake_required_for_snapshot": true,
+    "snapshot_pins_intake_version": true,
+    "no_parallel_project_source_of_truth": true,
+    "no_parallel_intake_source_of_truth": true,
+    "frontend_does_not_authorize": true,
+    "frontend_does_not_create_formal_decision": true,
+    "intake_metadata_is_registry_driven": true,
+    "cross_tenant_intake_forbidden": true,
+    "workflow_start_requires_authorized_snapshot": true,
+    "browser_cannot_inject_policy_or_decision": true,
+    "manual_fact_uses_canonical_provenance_without_fake_document": true,
+    "missing_formal_facts_controlled_stop": true
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "run_id": 40263233199,
+  "attempt": 1,
+  "source_sha": "893c4a2ac3e126607aeaad91ad1dce69c77f958d",
+  "artifact_id": 12627952400,
+  "artifact_sha256": "784edc4644690896715c81b097a727a1710c42d03e2c4d42029f2e46739e0a6b",
+  "pytest_xml_sha256": "62127b00f5c4d090a49637edfdab612e76d4a4c8b0b84657a37e4d7431f81b8e",
+  "testcases": 1352,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "testcase_total_seconds": 5070.211,
+  "slowest_test_ids": [
+    {
+      "test_id": "tests.test_stage1_channel_parity::test_independent_web_external_oauth_blank_project_businesses[DIRECT]",
+      "seconds": 176.429
+    },
+    {
+      "test_id": "tests.test_stage1_r3_temporal_business::test_new_successor_requires_new_authorization_and_preserves_completed_result[external]",
+      "seconds": 175.198
+    },
+    {
+      "test_id": "tests.test_stage1_r3_temporal_business::test_new_successor_requires_new_authorization_and_preserves_completed_result[web]",
+      "seconds": 171.552
+    },
+    {
+      "test_id": "tests.test_stage1_channel_parity::test_independent_web_external_oauth_blank_project_businesses[LOCALIZATION]",
+      "seconds": 161.227
+    },
+    {
+      "test_id": "tests.test_stage1_channel_parity::test_independent_web_external_oauth_blank_project_businesses[CONDITIONAL]",
+      "seconds": 157.991
+    },
+    {
+      "test_id": "tests.test_m2e_vertical_postgres::test_external_real_docx_rag_async_result_and_review[False-foundation_i0]",
+      "seconds": 125.843
+    },
+    {
+      "test_id": "tests.test_stage1_r3_temporal_business::test_new_successor_requires_new_authorization_and_preserves_completed_result[external_evidence_gap]",
+      "seconds": 107.46
+    },
+    {
+      "test_id": "tests.test_stage1_r3_temporal_business::test_future_published_knowledge_rule_model_and_prompt_cannot_change_saved_business",
+      "seconds": 94.244
+    },
+    {
+      "test_id": "tests.test_stage1_r3_semantic_parity::test_actual_result_normalizer_rejects_lost_support_jurisdiction_and_outcome",
+      "seconds": 90.938
+    },
+    {
+      "test_id": "tests.test_stage1_r3_llm_rag::test_blank_project_query_gap_real_http_second_retrieval_cannot_broaden_scope",
+      "seconds": 90.314
+    },
+    {
+      "test_id": "tests.test_stage1_r3_llm_rag::test_multi_model_disagreement_is_candidate_only_and_user_selects_input",
+      "seconds": 85.611
+    },
+    {
+      "test_id": "tests.test_stage1_r3_sdk_business::test_typescript_sdk_real_oauth_docx_candidates_async_conditional_business",
+      "seconds": 85.327
+    },
+    {
+      "test_id": "tests.test_stage1_business_http::test_blank_project_document_flow_and_four_formal_outcomes[LOCALIZATION]",
+      "seconds": 80.292
+    },
+    {
+      "test_id": "tests.test_stage1_r3_owned_result_reads::test_owned_project_preview_reads_revalidate_creator_tenant_and_stage_permissions",
+      "seconds": 79.667
+    },
+    {
+      "test_id": "tests.test_stage1_business_http::test_blank_project_document_flow_and_four_formal_outcomes[DIRECT]",
+      "seconds": 79.654
+    },
+    {
+      "test_id": "tests.test_stage1_business_http::test_blank_project_document_flow_and_four_formal_outcomes[CONDITIONAL]",
+      "seconds": 77.474
+    },
+    {
+      "test_id": "tests.test_stage1_r3_temporal_business::test_blank_document_project_same_snapshot_review_reexecutes_owner",
+      "seconds": 76.16
+    },
+    {
+      "test_id": "tests.test_m2c_workflow_postgres::test_authorized_stage1_projection_exact_snapshot_and_tenant[foundation_i0]",
+      "seconds": 66.886
+    },
+    {
+      "test_id": "tests.test_stage1_decision_compatibility_migrations::test_fresh_exact0019_equivalence_preservation_downgrade_and_reupgrade",
+      "seconds": 66.816
+    },
+    {
+      "test_id": "tests.test_m1_phase1lb_ownership::test_approved_m1_descendant_and_finite_integration_provenance",
+      "seconds": 56.177
+    },
+    {
+      "test_id": "tests.test_m2c_workflow_postgres::test_stage1_projection_ignores_future_inventory_and_documents",
+      "seconds": 48.156
+    },
+    {
+      "test_id": "tests.test_phase1j_migrations::test_phase1j_fresh_exact_0009_schema_equivalence_and_downgrade",
+      "seconds": 43.725
+    },
+    {
+      "test_id": "tests.test_phase1k_a_architecture::test_track_b_boundaries_and_all_frozen_implementation_hashes",
+      "seconds": 43.598
+    },
+    {
+      "test_id": "tests.test_m1_phase1lb_ownership::test_arbitrary_integration_path_rejected",
+      "seconds": 42.362
+    },
+    {
+      "test_id": "tests.test_phase1l_b_postgres::test_full_chain_process_restart_review_and_duplicate_resume[foundation_i0]",
+      "seconds": 41.748
+    },
+    {
+      "test_id": "tests.test_m2c_workflow_postgres::test_authorized_stage1_projection_exact_snapshot_and_tenant[foundation_i1]",
+      "seconds": 39.038
+    },
+    {
+      "test_id": "tests.test_m2d_review_postgres::test_approval_process_restart_keeps_canonical_history_and_checkpoint",
+      "seconds": 35.025
+    },
+    {
+      "test_id": "tests.test_phase1l_b_postgres::test_process_crash_after_formal_save_before_checkpoint_recovers_without_duplicate",
+      "seconds": 34.138
+    },
+    {
+      "test_id": "tests.test_m2c_authority_postgres::test_restart_aliases_and_snapshot_exact_reads",
+      "seconds": 33.637
+    },
+    {
+      "test_id": "tests.test_m2c_workflow_postgres::test_canonical_v2_executes_owners_and_preserves_refs_on_locale_replay[foundation_i0]",
+      "seconds": 32.728
+    }
+  ],
+  "seconds_by_test_class": {
+    "tests.test_stage1_r3_temporal_business": 628.865,
+    "tests.test_stage1_channel_parity": 525.077,
+    "tests.test_phase1j_postgres": 279.816,
+    "tests.test_stage1_business_http": 254.063,
+    "tests.test_m2c_workflow_postgres": 233.687,
+    "tests.test_m2c_authority_postgres": 217.379,
+    "tests.test_phase1l_b_postgres": 189.718,
+    "tests.test_stage1_r3_llm_rag": 175.925,
+    "tests.test_kb01_ownership": 142.02700000000002,
+    "tests.test_m2d_review_postgres": 131.00900000000001,
+    "tests.test_m2e_vertical_postgres": 130.822,
+    "tests.test_stage1_support_historical": 129.827,
+    "tests.test_phase1j_ownership": 105.884,
+    "tests.test_phase1l_a_skeleton": 105.161,
+    "tests.test_phase1l_b_ownership": 100.96300000000001,
+    "tests.test_m1_phase1lb_ownership": 98.55900000000001,
+    "tests.test_stage1_r3_semantic_parity": 90.94500000000001,
+    "tests.test_m2a_structured_intake": 90.661,
+    "tests.test_stage1_r3_sdk_business": 85.327,
+    "tests.test_stage1_r3_owned_result_reads": 79.667
+  }
+}

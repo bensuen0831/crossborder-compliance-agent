@@ -1,0 +1,22 @@
+{
+  "observed_at": "2026-10-26T08:14:33.307332+00:00",
+  "source_sha": "893c4a2ac3e126607aeaad91ad1dce69c77f958d",
+  "tenant_id": "f0c2ce98-e95c-4db9-b518-04ab2a718565",
+  "projects": 20,
+  "providers": 0,
+  "deployments": 0,
+  "snapshots": 0,
+  "knowledge_versions": 0,
+  "f0_records": 0,
+  "native_processing": {
+    "status": "BLOCKED",
+    "reason": "APPLICABLE_SECURITY_DECISION_OR_SUPPORTED_FIX_REQUIRED",
+    "image_id": "sha256:35765d74c83509652f2a7c5112fb983ec2398e1709a05f144177a12a16321e19",
+    "scan_sha256": "da9684bed7e71d96e7bf405b8d83fde16e283d5d0e0957fb9593519966f48680",
+    "counts": {
+      "HIGH": 130,
+      "CRITICAL": 1
+    },
+    "formal_security_acceptance": "PENDING"
+  }
+}

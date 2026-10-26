@@ -1,0 +1,30 @@
+{
+  "started_at": "2026-10-26T08:17:18.551694+00:00",
+  "image_id": "sha256:35765d74c83509652f2a7c5112fb983ec2398e1709a05f144177a12a16321e19",
+  "oci_manifest_digest": "sha256:07be6daf20dbe2feb33424afa26466421783d95504487e7ffd8548cb3064b61c",
+  "image_rebuilt": false,
+  "command": "existing toolchain_provenance.scan(root, retained image): pinned Trivy, fresh DB, no suppression, timeout 5m",
+  "formal_security_approval": null,
+  "measurement": {
+    "scan_execution": "PASS",
+    "security_acceptance": "BLOCKED_REVIEW_REQUIRED",
+    "scanner_version": "0.76.1",
+    "scanner_archive_sha256": "c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0",
+    "report_sha256": "9c17bb933fd52e4dd3e2d6144e783677af5040856e654067191659916f8418bf",
+    "severities": {
+      "LOW": 291,
+      "HIGH": 131,
+      "MEDIUM": 246,
+      "UNKNOWN": 10,
+      "CRITICAL": 1
+    },
+    "high_critical_findings": 132,
+    "database_files": {
+      "trivy.db": "d941f76c20fd916816fd04fa80d67bcd8dec6a5f68d353cb0c00be3fd3c9d2f8",
+      "metadata.json": "cc865442d19a3df54cd0e9002ba48e0d2e9b130b2381090c8c047b615cdd7c59"
+    },
+    "risk_acceptance": null
+  },
+  "exit_code": 0,
+  "completed_at": "2026-10-26T08:17:32.873742+00:00"
+}

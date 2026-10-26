@@ -1,0 +1,104 @@
+{
+  "observed_at": "2026-10-26T07:58:49.693374+00:00",
+  "product_head": "893c4a2ac3e126607aeaad91ad1dce69c77f958d",
+  "pr29": {
+    "state": "OPEN",
+    "draft": true,
+    "head": "733a7483439cd919c186ed0064b8f3752904ebb6"
+  },
+  "pr30": {
+    "state": "OPEN",
+    "draft": true,
+    "head": "893c4a2ac3e126607aeaad91ad1dce69c77f958d",
+    "code_push": "SUCCESS"
+  },
+  "main_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
+  "evidence_before_repair": {
+    "remote_branch": "evidence/stage1-real-e2e-893c4a2",
+    "remote_commit": "893c4a2ac3e126607aeaad91ad1dce69c77f958d",
+    "report_and_evidence": "UNTRACKED_IN_SEPARATE_EVIDENCE_WORKTREE",
+    "diagnosis": "No evidence commit had been created. Product Git push succeeded; no GitHub push rejection observed."
+  },
+  "ci": {
+    "success": 11,
+    "total": 12,
+    "checkout_matches": 22,
+    "checkout_jobs": 22,
+    "blocked_run_id": 40263233199,
+    "blocked_job_id": 121379898142,
+    "blocked_job": "mandatory-backend",
+    "started_at": "2026-10-26T03:16:14Z",
+    "completed_at": "2026-10-26T04:46:34Z",
+    "wall_seconds": 5420,
+    "cancelled_step": "Full mandatory PostgreSQL runtime, registry, real HTTP providers, security and migration",
+    "confirmed_cause": "JOB_MAXIMUM_EXECUTION_TIME_90_MINUTES",
+    "annotations": [
+      {
+        "annotation_level": "failure",
+        "title": "",
+        "message": "The job has exceeded the maximum execution time of 1h30m0s"
+      },
+      {
+        "annotation_level": "warning",
+        "title": "",
+        "message": "Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+      },
+      {
+        "annotation_level": "failure",
+        "title": "",
+        "message": "The operation was canceled."
+      },
+      {
+        "annotation_level": "notice",
+        "title": "",
+        "message": "\"The ubuntu-latest label will migrate to Ubuntu 26 beginning October 19, 2026. For more information, see https://github.com/actions/runner-images/issues/14748\""
+      }
+    ],
+    "private_log_sha256": "c1992cc53a54c73f8b42f314df615551493667cbb185e5917259a401a5909db7",
+    "completed_full_pytest": {
+      "passed": 1352,
+      "warnings": 430,
+      "seconds": 5079.29,
+      "summary": "1352 passed, 430 warnings in 5079.29s (1:24:39)"
+    },
+    "latest_completed_checks_in_log": [
+      "architecture main: 300 PASS",
+      "M2-A: 13 PASS",
+      "Phase1K-A boundary: 20 PASS",
+      "Stage1 alpha integrity: 27 PASS"
+    ],
+    "interpretation": "No failing pytest assertion observed in this job. Full suite completed; subsequent checks exhausted the remaining job budget. Overall workflow remains CANCELLED, not PASS.",
+    "recovery_recommendation": "One same-SHA clean rerun can distinguish transient runner slowness. If repeated, profile and split independent checks with complete verified aggregation; do not silently increase timeout, omit tests or reuse old-SHA evidence.",
+    "recovery_executed_this_check": false
+  },
+  "runtime": {
+    "observed": "BACKEND_FRONTEND_POSTGRES_REDIS_UNAVAILABLE",
+    "owned_containers": [
+      {
+        "name": "kb01-rc1-ef39d7309242-postgres",
+        "status": "Exited (255)"
+      },
+      {
+        "name": "kb01-rc1-ef39d7309242-redis",
+        "status": "Exited (255)"
+      }
+    ],
+    "shutdown_cause": "NOT_PROVEN_FROM_AVAILABLE_RECORDS",
+    "public_url": "NONE",
+    "binding": "LOOPBACK_ONLY",
+    "entry": "http://127.0.0.1:15174/intake",
+    "restore_action": "Use existing owned-service resume/start and retained state, then business launcher start; do not reset or expose test identity service."
+  },
+  "release": {
+    "public_deployment": "NOT_PERFORMED_OR_AUTHORIZED",
+    "main_merge": "NOT_PERFORMED_OR_AUTHORIZED",
+    "tag_changed": false
+  },
+  "remaining_acceptance_dependencies": [
+    "supported Critical libxml2 remediation and applicable formal security decision",
+    "authorized server-side API credential/model/deployment/quota; ChatGPT subscription is not API identity",
+    "verified real regulatory corpus and governed published configuration",
+    "independent expert Gold, appointment and approved evaluation criteria"
+  ],
+  "no_production_source_changed": true
+}

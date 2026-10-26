@@ -1,0 +1,59 @@
+{
+  "image_id": "sha256:35765d74c83509652f2a7c5112fb983ec2398e1709a05f144177a12a16321e19",
+  "old_report_sha256": "da9684bed7e71d96e7bf405b8d83fde16e283d5d0e0957fb9593519966f48680",
+  "new_report_sha256": "9c17bb933fd52e4dd3e2d6144e783677af5040856e654067191659916f8418bf",
+  "old_created_at": "2026-10-24T17:10:21.037017855Z",
+  "new_created_at": "2026-10-26T08:17:31.69230189Z",
+  "old_package_findings": {
+    "HIGH": 130,
+    "CRITICAL": 1
+  },
+  "new_package_findings": {
+    "HIGH": 131,
+    "CRITICAL": 1
+  },
+  "old_unique_cves": 45,
+  "new_unique_cves": 46,
+  "added": [
+    {
+      "target": "sha256:35765d74c83509652f2a7c5112fb983ec2398e1709a05f144177a12a16321e19 (debian 13.7)",
+      "id": "CVE-2025-71436",
+      "severity": "HIGH",
+      "package": "libraptor2-0",
+      "installed": "2.0.16-6",
+      "fixed": null,
+      "source": {
+        "ID": "debian",
+        "Name": "Debian Security Tracker",
+        "URL": "https://salsa.debian.org/security-tracker-team/security-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2025-71436"
+    }
+  ],
+  "removed": [],
+  "new_critical_rows": [
+    {
+      "target": "sha256:35765d74c83509652f2a7c5112fb983ec2398e1709a05f144177a12a16321e19 (debian 13.7)",
+      "id": "CVE-2026-6653",
+      "severity": "CRITICAL",
+      "package": "libxml2",
+      "installed": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+      "fixed": null,
+      "source": {
+        "ID": "debian",
+        "Name": "Debian Security Tracker",
+        "URL": "https://salsa.debian.org/security-tracker-team/security-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-6653"
+    }
+  ],
+  "database_metadata": {
+    "Version": 2,
+    "NextUpdate": "2026-10-27T07:15:18.945936953Z",
+    "UpdatedAt": "2026-10-26T07:15:18.945937093Z",
+    "DownloadedAt": "2026-10-26T08:17:26.773491523Z"
+  },
+  "fixed_by_product_change": 0,
+  "image_changed": false,
+  "reviewer_decision": null
+}

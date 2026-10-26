@@ -1,0 +1,12 @@
+{
+  "diagnostic_script_executions_before_final_policy_read_pass": 3,
+  "causes": [
+    "Initial exact DRAFT text matched both filter option and badge; selector made badge-specific.",
+    "A populated controlled textarea affected exact label selection; final diagnostic selects the one policy payload editor and validates full JSON scan_required value."
+  ],
+  "product_counterexample": "Policy resource advertised public registry list route not exposed by canonical API; GET404 caused UI error.",
+  "product_fix": "Remove unsupported registry listing from the policy resource; keep canonical admin draft/version/history and lifecycle. No new API, legal owner or permissions.",
+  "after_fix_no_unexpected_policy_http_errors": true,
+  "browser_internal_retry_count": 0,
+  "npm_driver_error": "Nonexistent alias i18n:check invoked after successful build. Corrected to existing npm run check:i18n, which passed. No package script or assertion was changed."
+}

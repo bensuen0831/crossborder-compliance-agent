@@ -1,0 +1,49 @@
+{
+  "observed_at": "2026-10-26T08:24:29.333831+00:00",
+  "source_sha": "893c4a2ac3e126607aeaad91ad1dce69c77f958d",
+  "production_source_changed": false,
+  "runtime": {
+    "frontend": 200,
+    "backend": 200,
+    "postgres_readonly": "PASS",
+    "redis": "PASS",
+    "object_storage": "Retained versioned S3 resumed without reset",
+    "entry": "http://127.0.0.1:15174/intake",
+    "access": "EXECUTING_HOST_LOOPBACK_ONLY_NOT_PUBLIC",
+    "data_preservation": "Morning 3 project identities all retained",
+    "independent_host_restore": false
+  },
+  "browser_entry": {
+    "locales": [
+      "zh-CN",
+      "zh-HK",
+      "en-US"
+    ],
+    "passed": 3,
+    "retries": 0,
+    "newly_executed": true,
+    "scope": "entry/login/blank draft/reload/relogin/admin file selection; not complete legal journey"
+  },
+  "upload_policy": "CANONICAL_HTTP_DRAFT_CREATED_NOT_APPROVED_OR_PUBLISHED",
+  "new_scan": {
+    "high": 131,
+    "critical": 1,
+    "unique_cves": 46,
+    "added_high": "CVE-2025-71436 / libraptor2-0",
+    "fixed_findings": 0,
+    "supported_fixed_version_candidate": "CVE-2026-111497 / libbrotli1 1.1.0-2+deb13u1; not installed or verified as rebuilt",
+    "formal_review": "PENDING",
+    "runtime_scan_binding": "Application remains bound to original verified provenance/report with130High1Critical; new independent rescan132 findings is additional evidence, not a rewrite of old attestation. Native remains BLOCKED."
+  },
+  "live_model_workflow": "BLOCKED_NO_BACKEND_PROVIDER_OR_API_BINDING",
+  "real_regulatory_data": "BLOCKED_NO_VERIFIED_ORIGINAL_OR_PUBLISHED_KNOWLEDGEVERSION",
+  "source_capture": "CN official old xinwen and zhengce URLs returned404; EUR-Lex ELI returned202 empty body. No full original captured or synthesized. No restriction bypass.",
+  "legal_gold": "BLOCKED_NO_APPOINTED_INDEPENDENT_EXPERT_OR_APPROVED_GOLD",
+  "legal_accuracy_execution": "NOT_EXECUTED",
+  "user_e2e_test_readiness": "BLOCKED",
+  "pr29": "OPEN_DRAFT_UNCHANGED_733a748",
+  "pr30": "OPEN_DRAFT_UNCHANGED_893c4a2",
+  "main": "UNCHANGED_060cbb5",
+  "tag_changed": false,
+  "stage2_started": false
+}

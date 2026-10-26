@@ -1,0 +1,68 @@
+{
+  "source_sha": "6c2433c9b024a21319b469a22a3fbf9e4eb2c4b7",
+  "image_rebuilt_this_round": false,
+  "scan_reexecuted_this_round": false,
+  "original_459_package_findings": {
+    "HIGH": 134,
+    "CRITICAL": 1
+  },
+  "retained_733_image_findings": {
+    "HIGH": 130,
+    "CRITICAL": 1
+  },
+  "unique_cves": 45,
+  "affected_image_configs_in_this_local_scan": 1,
+  "oci": {
+    "format": "OCI_IMAGE_LAYOUT_1.0_ARCHIVE",
+    "manifest_digest": "sha256:07be6daf20dbe2feb33424afa26466421783d95504487e7ffd8548cb3064b61c",
+    "config_digest": "sha256:35765d74c83509652f2a7c5112fb983ec2398e1709a05f144177a12a16321e19",
+    "archive_sha256": "5d5c37376b9fd459a44d215ebd6e1a677c0f814b84cae410d4993d54f541e508",
+    "bytes": 871823360
+  },
+  "sbom": {
+    "decision": "PASS",
+    "standard": "SPDX-2.3",
+    "packages": 284,
+    "schema_sha256": "239208b7ac287b3cf5d9a9af23f9d69863971102a5e1587a27a398b43490b89b",
+    "schema_url": "https://raw.githubusercontent.com/spdx/spdx-spec/aadf3b0b8dbbabdb4d880b0fc714255fea436ff7/schemas/spdx-schema.json",
+    "sbom_sha256": "6c6a7fbcd5ed1879d290ea81046f83c713f9075949a5c89e0660fa82d514e866"
+  },
+  "tool_source_sha256": {
+    "domain/document_text.py": "8d9827d17b3401d16c5d2885c5c264673c5326d5deff9b8f14d39f53d8564aaa",
+    "domain/knowledge_paths.py": "5c7543b6c2167e2243744c3693ff8b2291c3b492ea773ab47f698225c756e476",
+    "infrastructure/native_document_extraction.py": "a893f8446563b7a79f2f707ae298f4e455c8a9de30159894f064c3e303188cc9",
+    "infrastructure/knowledge_native_process.py": "e246ed65daae6932afa01521858837b3fe7073cb6d7dc553dffb0f0ad758f1f0",
+    "infrastructure/knowledge_archive_process.py": "9ece6ca1be4f691ce4daee1a8e0d2c72bf9ef380ad529d28979e2a7e427b5398"
+  },
+  "containerfile_sha256": "669f07932fa933e7c5ddc463847607f697bc1efedd08fd8629318a77fbd5752d",
+  "inventory_script_sha256": "a8118ae9e1e211974e23d0a1cfa17f2d68b9423e8d360476f771c686bd00a2b1",
+  "scan_created_at": "2026-10-24T17:10:21.037017855Z",
+  "scan_report_sha256": "da9684bed7e71d96e7bf405b8d83fde16e283d5d0e0957fb9593519966f48680",
+  "provenance_sha256": "407ade3780783c48dd53cd859cf0fe9457600b0de0e2287d6a5f50afa72210e8",
+  "formal_security_acceptance": "PENDING",
+  "technical_native_preflight": {
+    "status": "BLOCKED",
+    "reason": "APPLICABLE_SECURITY_DECISION_OR_SUPPORTED_FIX_REQUIRED",
+    "image_id": "sha256:35765d74c83509652f2a7c5112fb983ec2398e1709a05f144177a12a16321e19",
+    "scan_sha256": "da9684bed7e71d96e7bf405b8d83fde16e283d5d0e0957fb9593519966f48680",
+    "counts": {
+      "HIGH": 130,
+      "CRITICAL": 1
+    },
+    "formal_security_acceptance": "PENDING"
+  },
+  "critical": [
+    {
+      "id": "CVE-2026-6653",
+      "package": "libxml2",
+      "installed": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+      "fixed_version_reported": null,
+      "source": "https://avd.aquasec.com/nvd/cve-2026-6653"
+    }
+  ],
+  "required_next_step": "Dependency maintainer selects vendor-supported libxml2 fix/base path; verify parser/scanner ABI and six formats/citations/capacity; rebuild fixed sources and fresh scan; actual Security Reviewer decides applicable remaining findings. No risk acceptance inferred.",
+  "verification_product_head": "893c4a2ac3e126607aeaad91ad1dce69c77f958d",
+  "official_tracker_rechecked_at": "2026-10-26T03:08:29.282610+00:00",
+  "official_tracker_sha256": "e2c617f15c21210bf4b14e3dfba7349a56e335e2cc0cec5a9e5365de711389e7",
+  "official_tracker_trixie_state": "vulnerable"
+}

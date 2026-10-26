@@ -1,0 +1,102 @@
+{
+  "source_sha": "893c4a2ac3e126607aeaad91ad1dce69c77f958d",
+  "source_dirty": false,
+  "decision": "ENTRY_AUTH_DRAFT_SMOKE_PASS_NOT_BUSINESS_OR_LEGAL_E2E",
+  "cases": [
+    {
+      "locale": "zh-CN",
+      "project_id": "d0e01895-99bd-4cfe-86b3-304feb29f766",
+      "project_url": "http://127.0.0.1:15174/intake?project_id=d0e01895-99bd-4cfe-86b3-304feb29f766",
+      "login": "PASS",
+      "blank_project": "PASS",
+      "reload_relogin_same_project": "PASS",
+      "unauthorized_model_admin": "DENIED",
+      "provider_interface": "VISIBLE",
+      "regulation_interface": "FILE_INPUT_VISIBLE_UPLOAD_HELD_BY_MISSING_GOVERNED_POLICY",
+      "expert_records_interface": "VISIBLE",
+      "native_processing": {
+        "status": "BLOCKED",
+        "reason": "APPLICABLE_SECURITY_DECISION_OR_SUPPORTED_FIX_REQUIRED",
+        "image_id": "sha256:35765d74c83509652f2a7c5112fb983ec2398e1709a05f144177a12a16321e19",
+        "scan_sha256": "da9684bed7e71d96e7bf405b8d83fde16e283d5d0e0957fb9593519966f48680",
+        "counts": {
+          "HIGH": 130,
+          "CRITICAL": 1
+        },
+        "formal_security_acceptance": "PENDING"
+      },
+      "live_model_workflow": "BLOCKED_NO_API_PROVIDER",
+      "legal_accuracy_execution": "NOT_EXECUTED",
+      "retries": 0,
+      "js_errors": [],
+      "unexpected_console_errors": 0,
+      "elapsed_ms": 9032,
+      "expected_missing_policy_503": 1
+    },
+    {
+      "locale": "zh-HK",
+      "project_id": "3ea360b0-a248-4fcb-8b3e-dd521da93d37",
+      "project_url": "http://127.0.0.1:15174/intake?project_id=3ea360b0-a248-4fcb-8b3e-dd521da93d37",
+      "login": "PASS",
+      "blank_project": "PASS",
+      "reload_relogin_same_project": "PASS",
+      "unauthorized_model_admin": "DENIED",
+      "provider_interface": "VISIBLE",
+      "regulation_interface": "FILE_INPUT_VISIBLE_UPLOAD_HELD_BY_MISSING_GOVERNED_POLICY",
+      "expert_records_interface": "VISIBLE",
+      "native_processing": {
+        "status": "BLOCKED",
+        "reason": "APPLICABLE_SECURITY_DECISION_OR_SUPPORTED_FIX_REQUIRED",
+        "image_id": "sha256:35765d74c83509652f2a7c5112fb983ec2398e1709a05f144177a12a16321e19",
+        "scan_sha256": "da9684bed7e71d96e7bf405b8d83fde16e283d5d0e0957fb9593519966f48680",
+        "counts": {
+          "HIGH": 130,
+          "CRITICAL": 1
+        },
+        "formal_security_acceptance": "PENDING"
+      },
+      "live_model_workflow": "BLOCKED_NO_API_PROVIDER",
+      "legal_accuracy_execution": "NOT_EXECUTED",
+      "retries": 0,
+      "js_errors": [],
+      "unexpected_console_errors": 0,
+      "elapsed_ms": 6822,
+      "expected_missing_policy_503": 1
+    },
+    {
+      "locale": "en-US",
+      "project_id": "26a3e8cc-b740-4e4b-9b08-f6f6eddba432",
+      "project_url": "http://127.0.0.1:15174/intake?project_id=26a3e8cc-b740-4e4b-9b08-f6f6eddba432",
+      "login": "PASS",
+      "blank_project": "PASS",
+      "reload_relogin_same_project": "PASS",
+      "unauthorized_model_admin": "DENIED",
+      "provider_interface": "VISIBLE",
+      "regulation_interface": "FILE_INPUT_VISIBLE_UPLOAD_HELD_BY_MISSING_GOVERNED_POLICY",
+      "expert_records_interface": "VISIBLE",
+      "native_processing": {
+        "status": "BLOCKED",
+        "reason": "APPLICABLE_SECURITY_DECISION_OR_SUPPORTED_FIX_REQUIRED",
+        "image_id": "sha256:35765d74c83509652f2a7c5112fb983ec2398e1709a05f144177a12a16321e19",
+        "scan_sha256": "da9684bed7e71d96e7bf405b8d83fde16e283d5d0e0957fb9593519966f48680",
+        "counts": {
+          "HIGH": 130,
+          "CRITICAL": 1
+        },
+        "formal_security_acceptance": "PENDING"
+      },
+      "live_model_workflow": "BLOCKED_NO_API_PROVIDER",
+      "legal_accuracy_execution": "NOT_EXECUTED",
+      "retries": 0,
+      "js_errors": [],
+      "unexpected_console_errors": 0,
+      "elapsed_ms": 54267,
+      "expected_missing_policy_503": 1
+    }
+  ],
+  "passed": 3,
+  "retries": 0,
+  "auth_pacing_ms": 46841,
+  "pacing_reason": "Respect5loginsPerMinute; no assertion retry",
+  "no_trace_or_credentials_archived": true
+}
