@@ -85,8 +85,10 @@ try {
     expect(observed.model_configuration.providers).toBe(0);
     expect(observed.live_model_workflow).not.toBe('VERIFIED');
     expect(observed.native_processing.status).toBe('BLOCKED');
-    const logout = await context.request.post('http://127.0.0.1:15174/api/v1/logout');
-    expect(logout.status()).toBe(200);
+    // Exercise the real UI identity boundary: it cancels in-flight queries
+    // before deleting the cookie. Direct test-side logout races active reads.
+    await page.getByRole('button', { name: labels.signOut, exact: true }).click();
+    await expect(page.getByLabel(labels['ui.acceptance.username'], { exact: true })).toBeVisible();
     await page.goto(projectUrl);
     await page.getByLabel(labels['ui.acceptance.username'], { exact: true }).fill(credentials['business-user'].username);
     await page.getByLabel(labels['ui.acceptance.password'], { exact: true }).fill(credentials['business-user'].password);
@@ -94,7 +96,8 @@ try {
     await expect(page.getByTestId('intake-project-id')).toHaveText(projectId);
     businessLogins.push(Date.now());
     phase = 'operator-login-' + locale;
-    await context.request.post('http://127.0.0.1:15174/api/v1/logout');
+    await page.getByRole('button', { name: labels.signOut, exact: true }).click();
+    await expect(page.getByLabel(labels['ui.acceptance.username'], { exact: true })).toBeVisible();
     await page.goto('http://127.0.0.1:15174/admin?admin_resource=models');
     await page.getByLabel(labels['ui.acceptance.username'], { exact: true }).fill(credentials['knowledge-operator'].username);
     await page.getByLabel(labels['ui.acceptance.password'], { exact: true }).fill(credentials['knowledge-operator'].password);
