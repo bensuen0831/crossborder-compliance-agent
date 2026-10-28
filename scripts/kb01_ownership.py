@@ -100,7 +100,8 @@ NATIVE_SECURITY_PATHS = frozenset({
     "src/crossborder_compliance/infrastructure/knowledge_native_parser.py",
     "src/crossborder_compliance/infrastructure/knowledge_archive_extractor.py",
     "src/crossborder_compliance/infrastructure/knowledge_process_sandbox.py",
-    "tests/test_kb01_native_isolation.py", "scripts/kb01_ownership.py",
+    "tests/test_kb01_native_isolation.py", "tests/kb01_native_fixtures.py",
+    "scripts/kb01_ownership.py",
     "tests/test_kb01_ownership.py",
 })
 PATHS = INTEGRATION_PATHS | frozenset(

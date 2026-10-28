@@ -25,7 +25,7 @@ def native_original(format, text, directory: Path, sandbox):
                 "stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode)"
             )
             result = sandbox.run(
-                "/usr/bin/python3.13",
+                "/usr/bin/python3",
                 ["-c", code],
                 {"/input/original": docx},
                 120,
