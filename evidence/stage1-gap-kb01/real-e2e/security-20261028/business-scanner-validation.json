@@ -1,0 +1,21 @@
+{
+  "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+  "official_signature_installer_verification": "PASS",
+  "strict_mount_boundary_preserved": true,
+  "clean": {
+    "clean": true,
+    "engine": "CLAMAV",
+    "database_identity": "OFFICIAL_CLAMAV_VERIFIED_CVD_MAIN_DAILY_BYTECODE",
+    "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8"
+  },
+  "eicar": {
+    "clean": false,
+    "engine": "CLAMAV",
+    "database_identity": "OFFICIAL_CLAMAV_VERIFIED_CVD_MAIN_DAILY_BYTECODE",
+    "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8"
+  },
+  "changed_manifest_refused": true,
+  "database_root": "/workspace/stage1-security-oct28/business-scanner-probe/processing/scanner/official-signatures",
+  "initial_out_of_root_probe": "REFUSED_AS_DESIGNED; staging corrected, no allowlist relaxation",
+  "formal_security_approval": null
+}

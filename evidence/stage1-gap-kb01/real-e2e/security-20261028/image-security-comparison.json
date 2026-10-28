@@ -1,0 +1,38 @@
+{
+  "recorded_at": "2026-10-28T10:02:42.895976+00:00",
+  "same_vulnerability_db": true,
+  "db_sha256": "2c8f4b04f224aded9ecd149b9b5304146736668220dfa403403358fb423a52fd",
+  "old": {
+    "image_id": "sha256:35765d74c83509652f2a7c5112fb983ec2398e1709a05f144177a12a16321e19",
+    "created_at": "2026-10-28T09:56:42.897141208Z",
+    "severities": {
+      "LOW": 291,
+      "HIGH": 131,
+      "MEDIUM": 247,
+      "UNKNOWN": 10,
+      "CRITICAL": 1
+    },
+    "unique_high_critical_cves": 46,
+    "target_cve": [
+      {
+        "id": "CVE-2026-6653",
+        "package": "libxml2",
+        "installed": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+        "fixed": null
+      }
+    ]
+  },
+  "candidate": {
+    "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+    "created_at": "2026-10-28T07:19:20.246625732Z",
+    "severities": {
+      "MEDIUM": 60,
+      "LOW": 27
+    },
+    "unique_high_critical_cves": 0,
+    "target_cve": []
+  },
+  "scanner": "Trivy0.76.1",
+  "suppression_or_ignore_unfixed": false,
+  "formal_reviewer_decision": null
+}

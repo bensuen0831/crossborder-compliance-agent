@@ -1,0 +1,243 @@
+{
+  "observed_at": "2026-10-28T12:14:49.294280+00:00",
+  "expected_sha": "3d322e864a6c98c34d42657289e421c77f6c9ed1",
+  "artifacts": [
+    {
+      "id": 12814750545,
+      "name": "kb01-tools-capacity-browser-40684105550-1",
+      "size_in_bytes": 181680,
+      "digest": "sha256:a77d1470961835bb872cad3e77f332e5f7ad406ac06ff4e0bbdab310dbfd250b",
+      "created_at": "2026-10-28T12:01:53Z",
+      "expires_at": "2027-01-26T11:58:46Z",
+      "expired": false,
+      "run_id": 40684105550,
+      "download_sha256": "a77d1470961835bb872cad3e77f332e5f7ad406ac06ff4e0bbdab310dbfd250b",
+      "members": [
+        "base-manifest.json",
+        "inventory.json",
+        "kb01-tool-image.json",
+        "base-config.json",
+        "provenance.json",
+        "runner_checkout_sha.txt",
+        "sbom.spdx.json",
+        "service-evidence.json",
+        "vulnerabilities.json"
+      ],
+      "actual_source_sha": "3d322e864a6c98c34d42657289e421c77f6c9ed1",
+      "actual_image_id": "sha256:e0d2a3d8829a8debd7163b0e5bbc313ab1e2cc9a9475810cab8f7947c7063140",
+      "oci_manifest_digest": "sha256:8a00ac3ab513adc68d7e04a31be9380bf464f7f5bc758445c73d07be83874e2f",
+      "source_dirty": false,
+      "raw_scanner_severities": {
+        "MEDIUM": 60,
+        "LOW": 27
+      },
+      "raw_scanner_result_is_not_formal_approval": true,
+      "selected_verified_members": {
+        "inventory.json": {
+          "sha256": "a4d9ee7402a94c6645d3f0e79858d9915fae45a1ecd296502c0843c4666cfb9d",
+          "bytes": 185942
+        },
+        "provenance.json": {
+          "sha256": "d5b82d457e447ddb0074578f0cb45491abd0b1178632d117c6d04fe540a3d66b",
+          "bytes": 3246
+        },
+        "runner_checkout_sha.txt": {
+          "sha256": "f8d7cff76ce12f9c199c9d4039cbbcca6e4480a9ba9ecb1711c36ea74680ca4f",
+          "bytes": 41
+        },
+        "sbom.spdx.json": {
+          "sha256": "a0cd1e20a0eef6f41cec704c268df460819a362ed4070575cc42d2a4d7dbfe3d",
+          "bytes": 222818
+        },
+        "vulnerabilities.json": {
+          "sha256": "59aa50375180280fc03312a600cd8afff76b70802899479ad6b7c3294e68a184",
+          "bytes": 1294318
+        }
+      }
+    },
+    {
+      "id": 12814745605,
+      "name": "toolchain-oci-capacity-browser-40684105550-1",
+      "size_in_bytes": 400553278,
+      "digest": "sha256:c04f69054fb4b26a0f90b7d4263de3b49ce996838ec1b1cb4c5fd814db2bae38",
+      "created_at": "2026-10-28T12:02:05Z",
+      "expires_at": "2027-01-26T11:58:46Z",
+      "expired": false,
+      "run_id": 40684105550
+    },
+    {
+      "id": 12814597462,
+      "name": "kb01-focused-postgres-40684105550",
+      "size_in_bytes": 20866,
+      "digest": "sha256:115d81181bb298339f501ea44ba3130a42c7e8bb5f9dfff8f153fc924abebb62",
+      "created_at": "2026-10-28T12:06:31Z",
+      "expires_at": "2027-01-26T11:58:46Z",
+      "expired": false,
+      "run_id": 40684105550,
+      "download_sha256": "115d81181bb298339f501ea44ba3130a42c7e8bb5f9dfff8f153fc924abebb62",
+      "members": [
+        "collected.txt",
+        "kb01_manifest_migration_measured.json",
+        "kb01_binary_migration_measured.json",
+        "kb01_taxonomy_migration_measured.json",
+        "pytest.xml",
+        "runner_checkout_sha.txt",
+        "taxonomy-batch-active.json",
+        "taxonomy-batch-draft.json",
+        "taxonomy-batch-mixed.json"
+      ],
+      "selected_verified_members": {
+        "collected.txt": {
+          "sha256": "e79f3c5b2b0b11455f88cd5e750a22aa701520f89c936cee34e5e74fc8b42aeb",
+          "bytes": 36215
+        },
+        "pytest.xml": {
+          "sha256": "9725557186c67df57b370565cfc629e66234251b903862284de4df0e1403d158",
+          "bytes": 48238
+        },
+        "runner_checkout_sha.txt": {
+          "sha256": "f8d7cff76ce12f9c199c9d4039cbbcca6e4480a9ba9ecb1711c36ea74680ca4f",
+          "bytes": 41
+        }
+      }
+    },
+    {
+      "id": 12814426636,
+      "name": "kb01-tools-focused-postgres-40684105550-1",
+      "size_in_bytes": 181652,
+      "digest": "sha256:daafcbf9b0ffbfefaeaba4997a56d99773b9e145165bae82476db6c056bff7a2",
+      "created_at": "2026-10-28T12:01:43Z",
+      "expires_at": "2027-01-26T11:58:46Z",
+      "expired": false,
+      "run_id": 40684105550,
+      "download_sha256": "daafcbf9b0ffbfefaeaba4997a56d99773b9e145165bae82476db6c056bff7a2",
+      "members": [
+        "base-config.json",
+        "base-manifest.json",
+        "inventory.json",
+        "kb01-tool-image.json",
+        "provenance.json",
+        "runner_checkout_sha.txt",
+        "sbom.spdx.json",
+        "service-evidence.json",
+        "vulnerabilities.json"
+      ],
+      "actual_source_sha": "3d322e864a6c98c34d42657289e421c77f6c9ed1",
+      "actual_image_id": "sha256:211d18dc59b8ee3135f53c3445456a87f9e3e39416544403fc2b19dce012c0bc",
+      "oci_manifest_digest": "sha256:de78bf0f261499d2d860afbffb560a09828a386af74b48338b01a0483dff82bd",
+      "source_dirty": false,
+      "raw_scanner_severities": {
+        "MEDIUM": 60,
+        "LOW": 27
+      },
+      "raw_scanner_result_is_not_formal_approval": true,
+      "selected_verified_members": {
+        "inventory.json": {
+          "sha256": "bb739f0843084bc78cc604153582ee6063cbf19cbac48c1dffaf3d3cf49d7ccc",
+          "bytes": 185942
+        },
+        "provenance.json": {
+          "sha256": "070f94d1a44d06f747a724de3ab472ecfffa988a8ce5a0501e107c13d5491389",
+          "bytes": 3246
+        },
+        "runner_checkout_sha.txt": {
+          "sha256": "f8d7cff76ce12f9c199c9d4039cbbcca6e4480a9ba9ecb1711c36ea74680ca4f",
+          "bytes": 41
+        },
+        "sbom.spdx.json": {
+          "sha256": "402e2b911ad9e0ea24171225750f41ed86bb0dc6dec74e79b679d8f626d7f15f",
+          "bytes": 222818
+        },
+        "vulnerabilities.json": {
+          "sha256": "96a3ce92a6485a51661ca63716c1b7ef4a9a1c59e6134bed6c3335c50584bd18",
+          "bytes": 1294318
+        }
+      }
+    },
+    {
+      "id": 12814332634,
+      "name": "kb01-tools-management-browser-40684105550-1",
+      "size_in_bytes": 181682,
+      "digest": "sha256:768731aec96e9e560f4850dd48d29c09f27dae2448334bcb707d6b2ac6d9c181",
+      "created_at": "2026-10-28T12:01:39Z",
+      "expires_at": "2027-01-26T11:58:46Z",
+      "expired": false,
+      "run_id": 40684105550,
+      "download_sha256": "768731aec96e9e560f4850dd48d29c09f27dae2448334bcb707d6b2ac6d9c181",
+      "members": [
+        "base-config.json",
+        "base-manifest.json",
+        "inventory.json",
+        "kb01-tool-image.json",
+        "provenance.json",
+        "runner_checkout_sha.txt",
+        "sbom.spdx.json",
+        "service-evidence.json",
+        "vulnerabilities.json"
+      ],
+      "actual_source_sha": "3d322e864a6c98c34d42657289e421c77f6c9ed1",
+      "actual_image_id": "sha256:a189b3679f0fb4750f85832916393b2719d1d037ed2a9955a120fc27604198e6",
+      "oci_manifest_digest": "sha256:44276f749650996fee47e977dabe890416a451533d8259816dceddfb42fb3623",
+      "source_dirty": false,
+      "raw_scanner_severities": {
+        "MEDIUM": 60,
+        "LOW": 27
+      },
+      "raw_scanner_result_is_not_formal_approval": true,
+      "selected_verified_members": {
+        "inventory.json": {
+          "sha256": "a4d9ee7402a94c6645d3f0e79858d9915fae45a1ecd296502c0843c4666cfb9d",
+          "bytes": 185942
+        },
+        "provenance.json": {
+          "sha256": "9914af47d397ae2031b2a09e45d72046750500ee13d759d98f43dcc76ce0fd03",
+          "bytes": 3246
+        },
+        "runner_checkout_sha.txt": {
+          "sha256": "f8d7cff76ce12f9c199c9d4039cbbcca6e4480a9ba9ecb1711c36ea74680ca4f",
+          "bytes": 41
+        },
+        "sbom.spdx.json": {
+          "sha256": "7f2218dd67d9be13014e302d7c8935f7a7a7f61a28386f373b1bfac9dd481219",
+          "bytes": 222818
+        },
+        "vulnerabilities.json": {
+          "sha256": "18a147a61fa54102d438968ec3c9caf2e923a0caacc1d55e39663d8cc90707bb",
+          "bytes": 1294318
+        }
+      }
+    },
+    {
+      "id": 12813904581,
+      "name": "kb01-management-browser-40684105550",
+      "size_in_bytes": 94069,
+      "digest": "sha256:35f50f5e17f18c0a861489d01e32c3a454df612c99134dad948967965137766b",
+      "created_at": "2026-10-28T12:10:01Z",
+      "expires_at": "2027-01-26T11:58:46Z",
+      "expired": false,
+      "run_id": 40684105550
+    },
+    {
+      "id": 12813384507,
+      "name": "toolchain-oci-management-browser-40684105550-1",
+      "size_in_bytes": 400542212,
+      "digest": "sha256:60d0216845c24a0b5f16bef6107f5edef962ba59cf89fbd6b756256af668f8b5",
+      "created_at": "2026-10-28T12:01:56Z",
+      "expires_at": "2027-01-26T11:58:46Z",
+      "expired": false,
+      "run_id": 40684105550
+    },
+    {
+      "id": 12813269144,
+      "name": "toolchain-oci-focused-postgres-40684105550-1",
+      "size_in_bytes": 400526619,
+      "digest": "sha256:8902d6954e87d9690886bb5f81517c92153fc281f3a0bc049804895b653a94cb",
+      "created_at": "2026-10-28T12:01:55Z",
+      "expires_at": "2027-01-26T11:58:46Z",
+      "expired": false,
+      "run_id": 40684105550
+    }
+  ],
+  "long_term_retention": "NOT_ESTABLISHED",
+  "independent_host_restore": "NOT_EXECUTED"
+}

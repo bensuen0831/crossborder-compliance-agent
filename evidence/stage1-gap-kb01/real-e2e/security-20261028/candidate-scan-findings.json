@@ -1,0 +1,2369 @@
+{
+  "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+  "scanner": {
+    "Version": "0.76.1"
+  },
+  "created_at": "2026-10-28T10:03:30.164907242Z",
+  "raw_report_sha256": "c5bd858bec2e7bb6f0da0a569c5125ecb876778615dc426b6f8b925a64341357",
+  "severities": {
+    "MEDIUM": 60,
+    "LOW": 27
+  },
+  "findings": [
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|dash|CVE-2026-102473",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-102473",
+      "package": "dash",
+      "installed_version": "0.5.12-6ubuntu5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-102473",
+      "published_at": "2026-09-29T10:17:10.383Z",
+      "last_modified": "2026-09-30T21:17:04.273Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|dash|CVE-2026-102474",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-102474",
+      "package": "dash",
+      "installed_version": "0.5.12-6ubuntu5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+          "V3Score": 4
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-102474",
+      "published_at": "2026-09-29T10:17:10.707Z",
+      "last_modified": "2026-09-29T21:29:07.663Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libavahi-client3|CVE-2025-59529",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2025-59529",
+      "package": "libavahi-client3",
+      "installed_version": "0.8-13ubuntu6.2",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2025-59529",
+      "published_at": "2025-12-18T21:15:53.637Z",
+      "last_modified": "2026-10-23T20:17:19.563Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libavahi-client3|CVE-2024-52615",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2024-52615",
+      "package": "libavahi-client3",
+      "installed_version": "0.8-13ubuntu6.2",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+          "V3Score": 5.3
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2024-52615",
+      "published_at": "2024-11-21T21:15:23.807Z",
+      "last_modified": "2026-10-21T21:17:30.34Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libavahi-client3|CVE-2024-52616",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2024-52616",
+      "package": "libavahi-client3",
+      "installed_version": "0.8-13ubuntu6.2",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+          "V3Score": 5.3
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2024-52616",
+      "published_at": "2024-11-21T21:15:24.14Z",
+      "last_modified": "2026-10-21T21:17:30.477Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libavahi-common-data|CVE-2025-59529",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2025-59529",
+      "package": "libavahi-common-data",
+      "installed_version": "0.8-13ubuntu6.2",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2025-59529",
+      "published_at": "2025-12-18T21:15:53.637Z",
+      "last_modified": "2026-10-23T20:17:19.563Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libavahi-common-data|CVE-2024-52615",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2024-52615",
+      "package": "libavahi-common-data",
+      "installed_version": "0.8-13ubuntu6.2",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+          "V3Score": 5.3
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2024-52615",
+      "published_at": "2024-11-21T21:15:23.807Z",
+      "last_modified": "2026-10-21T21:17:30.34Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libavahi-common-data|CVE-2024-52616",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2024-52616",
+      "package": "libavahi-common-data",
+      "installed_version": "0.8-13ubuntu6.2",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+          "V3Score": 5.3
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2024-52616",
+      "published_at": "2024-11-21T21:15:24.14Z",
+      "last_modified": "2026-10-21T21:17:30.477Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libavahi-common3|CVE-2025-59529",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2025-59529",
+      "package": "libavahi-common3",
+      "installed_version": "0.8-13ubuntu6.2",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2025-59529",
+      "published_at": "2025-12-18T21:15:53.637Z",
+      "last_modified": "2026-10-23T20:17:19.563Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libavahi-common3|CVE-2024-52615",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2024-52615",
+      "package": "libavahi-common3",
+      "installed_version": "0.8-13ubuntu6.2",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+          "V3Score": 5.3
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2024-52615",
+      "published_at": "2024-11-21T21:15:23.807Z",
+      "last_modified": "2026-10-21T21:17:30.34Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libavahi-common3|CVE-2024-52616",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2024-52616",
+      "package": "libavahi-common3",
+      "installed_version": "0.8-13ubuntu6.2",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+          "V3Score": 5.3
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2024-52616",
+      "published_at": "2024-11-21T21:15:24.14Z",
+      "last_modified": "2026-10-21T21:17:30.477Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libc-bin|CVE-2026-18374",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-18374",
+      "package": "libc-bin",
+      "installed_version": "2.39-0ubuntu8.9",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
+          "V3Score": 4.9
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-18374",
+      "published_at": "2026-08-27T20:17:03.553Z",
+      "last_modified": "2026-09-03T16:43:15.293Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libc-bin|CVE-2026-89092",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-89092",
+      "package": "libc-bin",
+      "installed_version": "2.39-0ubuntu8.9",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:A/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:L",
+          "V3Score": 4.2
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-89092",
+      "published_at": "2026-09-11T02:18:35.46Z",
+      "last_modified": "2026-10-26T23:10:00.183Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libc6|CVE-2026-18374",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-18374",
+      "package": "libc6",
+      "installed_version": "2.39-0ubuntu8.9",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
+          "V3Score": 4.9
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-18374",
+      "published_at": "2026-08-27T20:17:03.553Z",
+      "last_modified": "2026-09-03T16:43:15.293Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libc6|CVE-2026-89092",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-89092",
+      "package": "libc6",
+      "installed_version": "2.39-0ubuntu8.9",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:A/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:L",
+          "V3Score": 4.2
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-89092",
+      "published_at": "2026-09-11T02:18:35.46Z",
+      "last_modified": "2026-10-26T23:10:00.183Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libcairo2|CVE-2017-7475",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2017-7475",
+      "package": "libcairo2",
+      "installed_version": "1.18.0-3build1",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "ghsa": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        },
+        "nvd": {
+          "V2Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P",
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V2Score": 4.3,
+          "V3Score": 5.5
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:L",
+          "V3Score": 3.3
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2017-7475",
+      "published_at": "2017-05-19T20:29:00.207Z",
+      "last_modified": "2026-06-17T01:24:25.357Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libcairo2|CVE-2018-18064",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2018-18064",
+      "package": "libcairo2",
+      "installed_version": "1.18.0-3build1",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "julia": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 6.5
+        },
+        "nvd": {
+          "V2Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P",
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V2Score": 4.3,
+          "V3Score": 6.5
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:L",
+          "V3Score": 6.3
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2018-18064",
+      "published_at": "2018-10-08T18:29:00.27Z",
+      "last_modified": "2026-06-17T01:46:43.463Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libdevmapper1.02.1|CVE-2026-19617",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-19617",
+      "package": "libdevmapper1.02.1",
+      "installed_version": "2:1.02.185-3ubuntu3.2",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-19617",
+      "published_at": "2026-08-14T06:17:14.41Z",
+      "last_modified": "2026-10-02T14:17:10.317Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libdw1t64|CVE-2025-1352",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2025-1352",
+      "package": "libdw1t64",
+      "installed_version": "0.190-1.1ubuntu0.1",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "V3Score": 7.5
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:L/A:L",
+          "V3Score": 5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2025-1352",
+      "published_at": "2025-02-16T15:15:09.133Z",
+      "last_modified": "2026-06-17T08:38:57.857Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libdw1t64|CVE-2025-1376",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2025-1376",
+      "package": "libdw1t64",
+      "installed_version": "0.190-1.1ubuntu0.1",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "V3Score": 4.7
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:L",
+          "V3Score": 2.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2025-1376",
+      "published_at": "2025-02-17T05:15:09.807Z",
+      "last_modified": "2026-06-17T08:39:00.957Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libelf1t64|CVE-2025-1352",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2025-1352",
+      "package": "libelf1t64",
+      "installed_version": "0.190-1.1ubuntu0.1",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "V3Score": 7.5
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:L/A:L",
+          "V3Score": 5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2025-1352",
+      "published_at": "2025-02-16T15:15:09.133Z",
+      "last_modified": "2026-06-17T08:38:57.857Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libelf1t64|CVE-2025-1376",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2025-1376",
+      "package": "libelf1t64",
+      "installed_version": "0.190-1.1ubuntu0.1",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "V3Score": 4.7
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:L",
+          "V3Score": 2.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2025-1376",
+      "published_at": "2025-02-17T05:15:09.807Z",
+      "last_modified": "2026-06-17T08:39:00.957Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libexpat1|CVE-2025-66382",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2025-66382",
+      "package": "libexpat1",
+      "installed_version": "2.6.1-2ubuntu0.6",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "julia": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        },
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "V3Score": 2.9
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2025-66382",
+      "published_at": "2025-11-28T07:15:57.9Z",
+      "last_modified": "2026-10-19T13:10:00.11Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libglib2.0-0t64|CVE-2026-86469",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-86469",
+      "package": "libglib2.0-0t64",
+      "installed_version": "2.80.0-6ubuntu3.10",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:H/A:L",
+          "V3Score": 5.3
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-86469",
+      "published_at": "2026-09-07T16:17:30.713Z",
+      "last_modified": "2026-09-08T19:08:15.59Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libgnutls30t64|CVE-2026-67693",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-67693",
+      "package": "libgnutls30t64",
+      "installed_version": "3.8.3-1.1ubuntu3.6",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "V3Score": 5.9
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-67693",
+      "published_at": "2026-10-08T19:18:41.28Z",
+      "last_modified": "2026-10-19T15:17:07.243Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libgnutls30t64|CVE-2026-88647",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88647",
+      "package": "libgnutls30t64",
+      "installed_version": "3.8.3-1.1ubuntu3.6",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+          "V3Score": 7.4
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88647",
+      "published_at": "2026-10-08T17:17:17.783Z",
+      "last_modified": "2026-10-19T16:17:08.333Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libgnutls30t64|CVE-2026-88648",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88648",
+      "package": "libgnutls30t64",
+      "installed_version": "3.8.3-1.1ubuntu3.6",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+          "V3Score": 7.4
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88648",
+      "published_at": "2026-10-08T19:20:52.703Z",
+      "last_modified": "2026-10-19T16:17:08.487Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libgnutls30t64|CVE-2026-95184",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-95184",
+      "package": "libgnutls30t64",
+      "installed_version": "3.8.3-1.1ubuntu3.6",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "V3Score": 5.3
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-95184",
+      "published_at": "2026-10-08T18:18:33.24Z",
+      "last_modified": "2026-10-19T16:17:09.267Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libgnutls30t64|CVE-2026-95209",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-95209",
+      "package": "libgnutls30t64",
+      "installed_version": "3.8.3-1.1ubuntu3.6",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {},
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-95209",
+      "published_at": "2026-10-08T19:20:52.83Z",
+      "last_modified": "2026-10-19T16:17:09.423Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libgnutls30t64|CVE-2026-95210",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-95210",
+      "package": "libgnutls30t64",
+      "installed_version": "3.8.3-1.1ubuntu3.6",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {},
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-95210",
+      "published_at": "2026-10-08T18:18:33.37Z",
+      "last_modified": "2026-10-19T16:17:09.577Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libgstreamer-plugins-base1.0-0|CVE-2026-85150",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-85150",
+      "package": "libgstreamer-plugins-base1.0-0",
+      "installed_version": "1.24.2-1ubuntu0.5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "V3Score": 7.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-85150",
+      "published_at": "2026-09-03T13:06:21.91Z",
+      "last_modified": "2026-09-21T18:17:11.55Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libharfbuzz-icu0|CVE-2026-22693",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-22693",
+      "package": "libharfbuzz-icu0",
+      "installed_version": "8.3.0-2build2",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "julia": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "V3Score": 5.3
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "V3Score": 5.3
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-22693",
+      "published_at": "2026-01-10T06:15:52.063Z",
+      "last_modified": "2026-06-17T10:20:14.783Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libharfbuzz0b|CVE-2026-22693",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-22693",
+      "package": "libharfbuzz0b",
+      "installed_version": "8.3.0-2build2",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "julia": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "V3Score": 5.3
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "V3Score": 5.3
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-22693",
+      "published_at": "2026-01-10T06:15:52.063Z",
+      "last_modified": "2026-06-17T10:20:14.783Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libicu74|CVE-2025-5222",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2025-5222",
+      "package": "libicu74",
+      "installed_version": "74.2-1ubuntu3.1",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "V3Score": 7
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2025-5222",
+      "published_at": "2025-05-27T21:15:23.03Z",
+      "last_modified": "2026-10-21T21:17:31.823Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libopenjp2-7|CVE-2023-39328",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2023-39328",
+      "package": "libopenjp2-7",
+      "installed_version": "2.5.0-2ubuntu0.5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "julia": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2023-39328",
+      "published_at": "2024-07-09T14:15:03.4Z",
+      "last_modified": "2026-06-26T10:16:20.56Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libopenjp2-7|CVE-2023-39329",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2023-39329",
+      "package": "libopenjp2-7",
+      "installed_version": "2.5.0-2ubuntu0.5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "julia": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 6.5
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 6.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2023-39329",
+      "published_at": "2024-07-13T03:15:09.597Z",
+      "last_modified": "2026-09-21T18:17:03.447Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libopenjp2-7|CVE-2019-6988",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2019-6988",
+      "package": "libopenjp2-7",
+      "installed_version": "2.5.0-2ubuntu0.5",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V2Vector": "AV:N/AC:M/Au:N/C:N/I:N/A:P",
+          "V3Vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V2Score": 4.3,
+          "V3Score": 6.5
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.0/AV:N/AC:L/PR:L/UI:R/S:U/C:N/I:N/A:L",
+          "V3Score": 3.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2019-6988",
+      "published_at": "2019-01-28T16:29:00.213Z",
+      "last_modified": "2026-06-17T02:39:52.953Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libpcre2-8-0|CVE-2026-103111",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-103111",
+      "package": "libpcre2-8-0",
+      "installed_version": "10.42-4ubuntu2.1",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:H/A:L",
+          "V3Score": 7.6
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-103111",
+      "published_at": "2026-09-30T05:16:45.863Z",
+      "last_modified": "2026-10-04T00:16:35.563Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libpcre2-8-0|CVE-2026-86145",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-86145",
+      "package": "libpcre2-8-0",
+      "installed_version": "10.42-4ubuntu2.1",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:L",
+          "V3Score": 8.2
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-86145",
+      "published_at": "2026-09-05T06:17:10.37Z",
+      "last_modified": "2026-09-09T16:04:24.933Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libpcre2-8-0|CVE-2026-89156",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-89156",
+      "package": "libpcre2-8-0",
+      "installed_version": "10.42-4ubuntu2.1",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "V3Score": 5.9
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "V3Score": 2.9
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-89156",
+      "published_at": "2026-09-11T04:18:03.23Z",
+      "last_modified": "2026-09-16T19:27:01.327Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libpcre2-8-0|CVE-2026-89157",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-89157",
+      "package": "libpcre2-8-0",
+      "installed_version": "10.42-4ubuntu2.1",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:H",
+          "V3Score": 7.4
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:L",
+          "V3Score": 5.7
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-89157",
+      "published_at": "2026-09-11T04:18:03.753Z",
+      "last_modified": "2026-09-16T19:25:08.88Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libpcre2-8-0|CVE-2026-89158",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-89158",
+      "package": "libpcre2-8-0",
+      "installed_version": "10.42-4ubuntu2.1",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:L",
+          "V3Score": 6.5
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:L",
+          "V3Score": 6.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-89158",
+      "published_at": "2026-09-11T04:18:03.97Z",
+      "last_modified": "2026-09-16T19:23:41.45Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libpcre2-8-0|CVE-2026-89160",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-89160",
+      "package": "libpcre2-8-0",
+      "installed_version": "10.42-4ubuntu2.1",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:L",
+          "V3Score": 6.5
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "V3Score": 3.7
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-89160",
+      "published_at": "2026-09-11T04:18:04.343Z",
+      "last_modified": "2026-09-16T19:15:29.443Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libpcre2-8-0|CVE-2026-89161",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-89161",
+      "package": "libpcre2-8-0",
+      "installed_version": "10.42-4ubuntu2.1",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+          "V3Score": 7.8
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+          "V3Score": 7.4
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-89161",
+      "published_at": "2026-09-11T04:18:04.47Z",
+      "last_modified": "2026-09-16T19:10:47.78Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libpixman-1-0|CVE-2023-37769",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2023-37769",
+      "package": "libpixman-1-0",
+      "installed_version": "0.42.2-1build1",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 6.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2023-37769",
+      "published_at": "2023-07-17T20:15:13.547Z",
+      "last_modified": "2026-06-17T06:08:42.34Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libpoppler134|CVE-2026-93311",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-93311",
+      "package": "libpoppler134",
+      "installed_version": "24.02.0-1ubuntu9.11",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 6.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-93311",
+      "published_at": "2026-09-18T01:16:56.533Z",
+      "last_modified": "2026-09-22T16:18:13.033Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libpoppler134|CVE-2026-93653",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-93653",
+      "package": "libpoppler134",
+      "installed_version": "24.02.0-1ubuntu9.11",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-93653",
+      "published_at": "2026-09-18T15:17:22.043Z",
+      "last_modified": "2026-09-18T19:06:08.407Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libpoppler134|CVE-2019-9543",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2019-9543",
+      "package": "libpoppler134",
+      "installed_version": "24.02.0-1ubuntu9.11",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V2Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P",
+          "V3Vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "V2Score": 6.8,
+          "V3Score": 8.8
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:L",
+          "V3Score": 3.3
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2019-9543",
+      "published_at": "2019-03-01T19:29:02.743Z",
+      "last_modified": "2026-06-17T02:43:55.45Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libpoppler134|CVE-2019-9545",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2019-9545",
+      "package": "libpoppler134",
+      "installed_version": "24.02.0-1ubuntu9.11",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V2Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P",
+          "V3Vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "V2Score": 6.8,
+          "V3Score": 8.8
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2019-9545",
+      "published_at": "2019-03-01T19:29:02.93Z",
+      "last_modified": "2026-06-17T02:43:55.67Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libsasl2-2|CVE-2026-107161",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-107161",
+      "package": "libsasl2-2",
+      "installed_version": "2.1.28+dfsg1-5ubuntu3.1",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "V3Score": 7.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-107161",
+      "published_at": "2026-10-07T20:17:10.977Z",
+      "last_modified": "2026-10-10T03:17:05.307Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libsasl2-modules-db|CVE-2026-107161",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-107161",
+      "package": "libsasl2-modules-db",
+      "installed_version": "2.1.28+dfsg1-5ubuntu3.1",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "V3Score": 7.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-107161",
+      "published_at": "2026-10-07T20:17:10.977Z",
+      "last_modified": "2026-10-10T03:17:05.307Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libsystemd-shared|CVE-2026-40228",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-40228",
+      "package": "libsystemd-shared",
+      "installed_version": "255.4-1ubuntu8.18",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N",
+          "V3Score": 3.3
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+          "V3Score": 2.9
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-40228",
+      "published_at": "2026-04-10T16:16:33.753Z",
+      "last_modified": "2026-06-17T10:44:53.31Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libsystemd0|CVE-2026-40228",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-40228",
+      "package": "libsystemd0",
+      "installed_version": "255.4-1ubuntu8.18",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N",
+          "V3Score": 3.3
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+          "V3Score": 2.9
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-40228",
+      "published_at": "2026-04-10T16:16:33.753Z",
+      "last_modified": "2026-06-17T10:44:53.31Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libtesseract5|CVE-2026-73066",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-73066",
+      "package": "libtesseract5",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:H",
+          "V3Score": 7.1
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-73066",
+      "published_at": "2026-08-11T15:17:38.777Z",
+      "last_modified": "2026-10-24T15:10:00.19Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libtesseract5|CVE-2026-73067",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-73067",
+      "package": "libtesseract5",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-73067",
+      "published_at": "2026-08-11T15:17:38.927Z",
+      "last_modified": "2026-10-24T15:10:00.19Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libtesseract5|CVE-2026-88047",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88047",
+      "package": "libtesseract5",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+          "V3Score": 7.8
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+          "V3Score": 8.4
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88047",
+      "published_at": "2026-09-10T17:17:08.817Z",
+      "last_modified": "2026-09-14T20:01:21.213Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libtesseract5|CVE-2026-88048",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88048",
+      "package": "libtesseract5",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:H",
+          "V3Score": 7.1
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "V3Score": 7.8
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88048",
+      "published_at": "2026-09-10T17:17:08.953Z",
+      "last_modified": "2026-09-14T20:01:33.16Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libtesseract5|CVE-2026-88049",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88049",
+      "package": "libtesseract5",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "V3Score": 7.8
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88049",
+      "published_at": "2026-09-10T17:17:09.087Z",
+      "last_modified": "2026-09-14T20:01:48.403Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libtesseract5|CVE-2026-88050",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88050",
+      "package": "libtesseract5",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88050",
+      "published_at": "2026-09-10T17:17:09.223Z",
+      "last_modified": "2026-09-14T20:02:01.503Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libtesseract5|CVE-2026-88051",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88051",
+      "package": "libtesseract5",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+          "V3Score": 7.8
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "V3Score": 7.8
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88051",
+      "published_at": "2026-09-10T18:18:14.177Z",
+      "last_modified": "2026-09-16T16:29:47.137Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libtesseract5|CVE-2026-88052",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88052",
+      "package": "libtesseract5",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "V3Score": 7.8
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88052",
+      "published_at": "2026-09-10T18:18:14.317Z",
+      "last_modified": "2026-09-16T16:21:10.677Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libtesseract5|CVE-2026-88053",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88053",
+      "package": "libtesseract5",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+          "V3Score": 7.8
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+          "V3Score": 8.4
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88053",
+      "published_at": "2026-09-10T18:18:14.46Z",
+      "last_modified": "2026-09-16T16:14:31.13Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libtesseract5|CVE-2026-88054",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88054",
+      "package": "libtesseract5",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88054",
+      "published_at": "2026-09-10T18:18:14.6Z",
+      "last_modified": "2026-09-16T16:14:01.05Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libudev1|CVE-2026-40228",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-40228",
+      "package": "libudev1",
+      "installed_version": "255.4-1ubuntu8.18",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N",
+          "V3Score": 3.3
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+          "V3Score": 2.9
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-40228",
+      "published_at": "2026-04-10T16:16:33.753Z",
+      "last_modified": "2026-06-17T10:44:53.31Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libxrender1|CVE-2026-88807",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88807",
+      "package": "libxrender1",
+      "installed_version": "1:0.9.10-1.1build1",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:H/A:H",
+          "V3Score": 8.3
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88807",
+      "published_at": "2026-09-21T14:17:22.41Z",
+      "last_modified": "2026-09-22T19:40:05.87Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libxslt1.1|CVE-2025-10911",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2025-10911",
+      "package": "libxslt1.1",
+      "installed_version": "1.1.39-0exp1ubuntu0.24.04.3",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "bitnami": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2025-10911",
+      "published_at": "2025-09-25T16:15:31.337Z",
+      "last_modified": "2026-10-18T21:10:00.12Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|libxslt1.1|CVE-2025-7425",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2025-7425",
+      "package": "libxslt1.1",
+      "installed_version": "1.1.39-0exp1ubuntu0.24.04.3",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "bitnami": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:C/C:N/I:H/A:H",
+          "V3Score": 7.8
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:C/C:N/I:H/A:H",
+          "V3Score": 7.8
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2025-7425",
+      "published_at": "2025-07-10T14:15:27.877Z",
+      "last_modified": "2026-10-15T02:18:26.153Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|login|CVE-2024-56433",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2024-56433",
+      "package": "login",
+      "installed_version": "1:4.13+dfsg1-4ubuntu3.2",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:N",
+          "V3Score": 3.6
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2024-56433",
+      "published_at": "2024-12-26T09:15:07.267Z",
+      "last_modified": "2026-10-15T01:19:16.297Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|passwd|CVE-2024-56433",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2024-56433",
+      "package": "passwd",
+      "installed_version": "1:4.13+dfsg1-4ubuntu3.2",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:N",
+          "V3Score": 3.6
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2024-56433",
+      "published_at": "2024-12-26T09:15:07.267Z",
+      "last_modified": "2026-10-15T01:19:16.297Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|poppler-utils|CVE-2026-93311",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-93311",
+      "package": "poppler-utils",
+      "installed_version": "24.02.0-1ubuntu9.11",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 6.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-93311",
+      "published_at": "2026-09-18T01:16:56.533Z",
+      "last_modified": "2026-09-22T16:18:13.033Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|poppler-utils|CVE-2026-93653",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-93653",
+      "package": "poppler-utils",
+      "installed_version": "24.02.0-1ubuntu9.11",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-93653",
+      "published_at": "2026-09-18T15:17:22.043Z",
+      "last_modified": "2026-09-18T19:06:08.407Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|poppler-utils|CVE-2019-9543",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2019-9543",
+      "package": "poppler-utils",
+      "installed_version": "24.02.0-1ubuntu9.11",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V2Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P",
+          "V3Vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "V2Score": 6.8,
+          "V3Score": 8.8
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:L",
+          "V3Score": 3.3
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2019-9543",
+      "published_at": "2019-03-01T19:29:02.743Z",
+      "last_modified": "2026-06-17T02:43:55.45Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|poppler-utils|CVE-2019-9545",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2019-9545",
+      "package": "poppler-utils",
+      "installed_version": "24.02.0-1ubuntu9.11",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V2Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:P",
+          "V3Vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "V2Score": 6.8,
+          "V3Score": 8.8
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2019-9545",
+      "published_at": "2019-03-01T19:29:02.93Z",
+      "last_modified": "2026-06-17T02:43:55.67Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|systemd|CVE-2026-40228",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-40228",
+      "package": "systemd",
+      "installed_version": "255.4-1ubuntu8.18",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N",
+          "V3Score": 3.3
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+          "V3Score": 2.9
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-40228",
+      "published_at": "2026-04-10T16:16:33.753Z",
+      "last_modified": "2026-06-17T10:44:53.31Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|systemd-dev|CVE-2026-40228",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-40228",
+      "package": "systemd-dev",
+      "installed_version": "255.4-1ubuntu8.18",
+      "fixed_version": null,
+      "severity": "LOW",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N",
+          "V3Score": 3.3
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+          "V3Score": 2.9
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-40228",
+      "published_at": "2026-04-10T16:16:33.753Z",
+      "last_modified": "2026-06-17T10:44:53.31Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|tar|CVE-2026-18477",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-18477",
+      "package": "tar",
+      "installed_version": "1.35+dfsg-3ubuntu0.4",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "julia": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:N/I:H/A:N",
+          "V3Score": 4.4
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:N/I:H/A:N",
+          "V3Score": 4.4
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-18477",
+      "published_at": "2026-08-03T17:16:33.897Z",
+      "last_modified": "2026-09-22T22:17:11.233Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|tar|CVE-2026-18508",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-18508",
+      "package": "tar",
+      "installed_version": "1.35+dfsg-3ubuntu0.4",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N",
+          "V3Score": 4.4
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-18508",
+      "published_at": "2026-08-03T16:16:28.387Z",
+      "last_modified": "2026-09-22T22:17:11.493Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|tesseract-ocr|CVE-2026-73066",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-73066",
+      "package": "tesseract-ocr",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:H",
+          "V3Score": 7.1
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-73066",
+      "published_at": "2026-08-11T15:17:38.777Z",
+      "last_modified": "2026-10-24T15:10:00.19Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|tesseract-ocr|CVE-2026-73067",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-73067",
+      "package": "tesseract-ocr",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-73067",
+      "published_at": "2026-08-11T15:17:38.927Z",
+      "last_modified": "2026-10-24T15:10:00.19Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|tesseract-ocr|CVE-2026-88047",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88047",
+      "package": "tesseract-ocr",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+          "V3Score": 7.8
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+          "V3Score": 8.4
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88047",
+      "published_at": "2026-09-10T17:17:08.817Z",
+      "last_modified": "2026-09-14T20:01:21.213Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|tesseract-ocr|CVE-2026-88048",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88048",
+      "package": "tesseract-ocr",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:H",
+          "V3Score": 7.1
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "V3Score": 7.8
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88048",
+      "published_at": "2026-09-10T17:17:08.953Z",
+      "last_modified": "2026-09-14T20:01:33.16Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|tesseract-ocr|CVE-2026-88049",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88049",
+      "package": "tesseract-ocr",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "V3Score": 7.8
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88049",
+      "published_at": "2026-09-10T17:17:09.087Z",
+      "last_modified": "2026-09-14T20:01:48.403Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|tesseract-ocr|CVE-2026-88050",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88050",
+      "package": "tesseract-ocr",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88050",
+      "published_at": "2026-09-10T17:17:09.223Z",
+      "last_modified": "2026-09-14T20:02:01.503Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|tesseract-ocr|CVE-2026-88051",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88051",
+      "package": "tesseract-ocr",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+          "V3Score": 7.8
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "V3Score": 7.8
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88051",
+      "published_at": "2026-09-10T18:18:14.177Z",
+      "last_modified": "2026-09-16T16:29:47.137Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|tesseract-ocr|CVE-2026-88052",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88052",
+      "package": "tesseract-ocr",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "V3Score": 7.8
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88052",
+      "published_at": "2026-09-10T18:18:14.317Z",
+      "last_modified": "2026-09-16T16:21:10.677Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|tesseract-ocr|CVE-2026-88053",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88053",
+      "package": "tesseract-ocr",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+          "V3Score": 7.8
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+          "V3Score": 8.4
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88053",
+      "published_at": "2026-09-10T18:18:14.46Z",
+      "last_modified": "2026-09-16T16:14:31.13Z"
+    },
+    {
+      "finding_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)|tesseract-ocr|CVE-2026-88054",
+      "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+      "target": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8 (ubuntu 24.04)",
+      "cve": "CVE-2026-88054",
+      "package": "tesseract-ocr",
+      "installed_version": "5.3.4-1build5",
+      "fixed_version": null,
+      "severity": "MEDIUM",
+      "severity_source": "ubuntu",
+      "cvss": {
+        "nvd": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        },
+        "redhat": {
+          "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+          "V3Score": 5.5
+        }
+      },
+      "data_source": {
+        "ID": "ubuntu",
+        "Name": "Ubuntu CVE Tracker",
+        "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+      },
+      "primary_url": "https://avd.aquasec.com/nvd/cve-2026-88054",
+      "published_at": "2026-09-10T18:18:14.6Z",
+      "last_modified": "2026-09-16T16:14:01.05Z"
+    }
+  ]
+}

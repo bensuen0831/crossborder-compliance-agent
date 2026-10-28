@@ -1,0 +1,22 @@
+{
+  "product_sha": "3d322e864a6c98c34d42657289e421c77f6c9ed1",
+  "cwd": "/workspace/stage1-native-security-20261028",
+  "commands": {
+    "prefix": "source /workspace/compliance-tools/runtime.sh; export PYTHONPATH=src:.",
+    "start": "python scripts/kb01/business.py start --state-dir /workspace/stage1-security-oct28/business-entry --services-state /workspace/stage1-security-oct28/business-services",
+    "status": "python scripts/kb01/business.py status --state-dir /workspace/stage1-security-oct28/business-entry --services-state /workspace/stage1-security-oct28/business-services",
+    "stop": "python scripts/kb01/business.py stop --state-dir /workspace/stage1-security-oct28/business-entry --services-state /workspace/stage1-security-oct28/business-services"
+  },
+  "entry": "http://127.0.0.1:15174/intake",
+  "api_health": "http://127.0.0.1:18011/health/live",
+  "network_scope": "EXECUTING_HOST_LOOPBACK_ONLY",
+  "authentication": "New task-only engineering business account; password stored only in600private file, not exported or public. Users provision own accounts using existing interactive CLI on own isolated host.",
+  "original_runtime_restored": false,
+  "revision14_applied": false,
+  "synthetic_fixture_host": false,
+  "dependency_overrides": false,
+  "real_regulation_or_legal_approval_seed": false,
+  "native_upload_processing": "BLOCKED_BY_CVSS_GATE",
+  "full_real_business_e2e": "NOT_EXECUTED",
+  "independent_restore": "NOT_EXECUTED"
+}

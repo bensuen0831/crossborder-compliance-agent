@@ -1,0 +1,17 @@
+{
+  "runner_checkout_sha": "241337f6dbfcd9abb37a077cce33db8765e2a372",
+  "source_dirty": false,
+  "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+  "source_sha256": {
+    "domain/document_text.py": "8d9827d17b3401d16c5d2885c5c264673c5326d5deff9b8f14d39f53d8564aaa",
+    "domain/knowledge_paths.py": "5c7543b6c2167e2243744c3693ff8b2291c3b492ea773ab47f698225c756e476",
+    "infrastructure/native_document_extraction.py": "a893f8446563b7a79f2f707ae298f4e455c8a9de30159894f064c3e303188cc9",
+    "infrastructure/knowledge_native_process.py": "e246ed65daae6932afa01521858837b3fe7073cb6d7dc553dffb0f0ad758f1f0",
+    "infrastructure/knowledge_archive_process.py": "9ece6ca1be4f691ce4daee1a8e0d2c72bf9ef380ad529d28979e2a7e427b5398"
+  },
+  "containerfile_sha256": "4d42ca6541f3f0f776d0f98add76a12337c7c0d9b5508dd6c8116eaecf66e110",
+  "inventory_script_sha256": "0767dda3e5804f09ebae8545c6aa3a62377eedf8064f0c0a41ed9d9f5193db01",
+  "oci_manifest_digest": "sha256:1039279faaf896abfc999db325422861d79ea1d3287f87f11d0b99af892170cd",
+  "provenance_path": "/workspace/stage1-security-oct28/sealed/toolchain/provenance.json",
+  "mapping_note": "Actual clean build at241337f. Final3d322e8 changes host gate/tests/owner manifest only; native context blob equality separately verified."
+}

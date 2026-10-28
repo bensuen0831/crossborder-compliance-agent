@@ -1,0 +1,52 @@
+{
+  "observed_date": "2026-10-28",
+  "shell": "VERIFIED_USABLE",
+  "git_https": "VERIFIED_USABLE",
+  "github_api": "VERIFIED_USABLE",
+  "managed_runtime_revision": 7,
+  "draft_revision": 14,
+  "draft_applied": false,
+  "draft_published": false,
+  "original_environment_restored_claim": false,
+  "original_checkout": "/workspace/crossborder-compliance-agent",
+  "original_data_deleted_or_recreated": false,
+  "isolated_worktree": "/workspace/stage1-native-security-20261028",
+  "isolated_service_resources_created": true,
+  "agents_md": "No applicable AGENTS.md found at /, /workspace or worktree ancestors/content",
+  "secrets_configured": false,
+  "external_dependencies": [
+    {
+      "id": "PROVIDER_API",
+      "owner": "AI Hub / Provider Administrator",
+      "required": "Existing authorized backend API/deployment secret binding, model IDs, budget and data-use limits. ChatGPT subscription is not this API credential."
+    },
+    {
+      "id": "REAL_REGULATIONS",
+      "owner": "Authorized Knowledge Operator + Jurisdiction Expert",
+      "required": "Upload authorized official originals via existing UI; verify jurisdiction, source, version, effectivity, amendments and publish exact KnowledgeVersions."
+    },
+    {
+      "id": "INDEPENDENT_GOLD",
+      "owner": "Project Owner + Appointed Independent Jurisdiction Expert",
+      "required": "Expert appointment, five-condition F1 source/expected semantics/criteria/review/date/version approval records; no fabricated approvals."
+    },
+    {
+      "id": "SUPPORTED_SECURITY_PATCHES",
+      "owner": "Native Tool Maintainer + Security Reviewer",
+      "required": "Existing authorized ESM access for listed Tesseract fixes, or supported patched package/source path with full native regressions; remaining findings require independent disposition."
+    },
+    {
+      "id": "LONG_TERM_RETENTION_AND_CLEAN_HOST",
+      "owner": "Release Infrastructure Owner",
+      "required": "Designate immutable registry/retention and independent host. Local OCI roundtrip is not independent-host restore."
+    }
+  ],
+  "master_v37_phase0": "Repository versions consulted; no architecture/legal owner changes",
+  "kb01_master_v2_full_text_reconciliation": "INPUT_REQUIRED; original full approved MASTER V2 and change approvals not supplied",
+  "formal_security_acceptance": "PENDING",
+  "legal_f1": "BLOCKED_EXTERNAL_EVIDENCE_PENDING",
+  "paid_internet_llm": "NOT_EXECUTED",
+  "legal_accuracy_execution": "NOT_EXECUTED",
+  "production_uat": "NOT_EXECUTED",
+  "stage2": "NOT_STARTED"
+}

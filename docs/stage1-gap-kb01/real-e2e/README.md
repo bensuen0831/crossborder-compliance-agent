@@ -4,6 +4,8 @@
 
 目前可測：登入、空白業務項目建立及保留資料重登、業務／審核路由、模型設定、法規檔案選擇、F0 紀錄匯入及版本讀取入口。**完整業務 E2E 尚不可開始**：新租戶沒有已發布上傳政策、真實法規及相應正式 metadata/rules、授權模型 API 憑證或獨立專家 Gold；工具映像安全問題亦未解除。介面會顯示阻塞，不能藉由健康檢查、模板存在或 ChatGPT 訂閱聲稱模型／法律驗收通過。
 
+本頁原始指引的歷史工具掃描狀態已由 [2026-10-28 native security recovery](native-security-20261028.md) 補充。當前產品3d322e8已修復Critical libxml2；新版raw scan為0High/0Critical，但32筆套件findings／21個CVE仍有來源CVSS>=7，native processing仍BLOCKED。正式Security Review未完成，完整真實E2E未就緒。新獨立loopback入口的實測紀錄見同一證據包，不代表原環境恢復。
+
 ## 安裝及啟停
 
 支援基礎環境沿用 RC1 的 Linux amd64、Python 3.12、Node >=22.12、Docker、PostgreSQL、Redis、versioned S3 及固定工具來源。先依 [RC1 installation guide](../uat/RC1_installation_guide.md) 準備**專用的既有服務 state**。不需要執行 `rc1.py demo`；不得把其合成租戶或測試角色作真實驗收。現有服務可共享同一隔離資料庫實例，但本入口新建不同 Tenant、S3 bucket、文件目錄及身份檔，不複製既有知識或政策。
@@ -36,8 +38,8 @@ Stop 只停止這套 launcher 記錄且 start-time 相符的程序，保留 DB�
 
 1. 授權 operator 登入管理頁，先經既有 Metadata lifecycle 建立 `knowledge-management-policies` 技術政策草稿；[case-01/upload_policy_draft.json](case-01/upload_policy_draft.json) 是未批准的 payload 參考，`scan_required=true`，不允許 draft delete。由實際具權限、符合獨立性要求的人員 review / approve / publish。AI 沒有替人批准。
 2. 建立真實國家／地區、法規類型與集合，經既有 canonical taxonomy owner 治理；不沿用合成國家。使用知識管理「上傳」選擇授權 DOC、DOCX、HTML、PDF、TXT、XHTML 或 ZIP/RAR 原檔。上傳 UI 已存在；目前缺 policy 返回明確 503，提交被停用，不是假成功。
-3. 原檔 multipart 存入 canonical 隔離儲存，須通過 genuine ClamAV 與隔離 parser/extractor 才能 attach / parse / ingest。現有工具掃描 130 High／1 Critical，未獲正式處置，**本入口不啟動 native worker，也不允許業務附件繞過掃描**。可驗證檔案選擇介面，尚不可完成真實原檔處理。
-4. 安全修復後，固定工具來源、映像、parser hashes、掃描 digest 必須一致；新掃描需在 24 小時內且零 High/Critical 才能 technical preflight clear。該結果不是正式 Security Approval。worker 每輪及業務 scanner 重新檢查。不得手改報告或偽造 zero findings。
+3. 原檔 multipart 存入 canonical 隔離儲存，須通過 genuine ClamAV 與隔離 parser/extractor 才能 attach / parse / ingest。舊版工具掃描問題及新版CVSS阻塞詳見上述2026-10-28紀錄，仍未獲正式處置，**本入口不啟動 native worker，也不允許業務附件繞過掃描**。可驗證檔案選擇介面，尚不可完成真實原檔處理。
+4. 安全修復後，固定工具來源、映像、parser hashes、掃描 digest 必須一致；新掃描需在24小時內、零High/Critical，並且所有報告來源均無CVSS>=7 finding，才能technical preflight clear。該結果不是正式 Security Approval。worker 每輪及業務 scanner 重新檢查。不得手改報告或偽造 zero findings。
 5. 處理成功後，在來源／知識版本紀錄 official URL、原檔 hash、法域、版本、有效日、修訂／廢止關係及條文 locator；實際授權專家核實來源與有效性，review / publish / index，取得 KnowledgeVersion、structure nodes、Evidence 與引用。僅上傳檔案或提供 URL 不等於法規有效性已確認。
 
 ## 真實模型與正式業務路徑

@@ -1,0 +1,208 @@
+{
+  "source_sha": "3d322e864a6c98c34d42657289e421c77f6c9ed1",
+  "gate": {
+    "status": "BLOCKED",
+    "reason": "APPLICABLE_SECURITY_DECISION_OR_SUPPORTED_FIX_REQUIRED",
+    "image_id": "sha256:426a0c6384cfcd4cdb0b4a6ffafa222d3bb1e17b5b30bf60bc082f3a7304feb8",
+    "scan_sha256": "c5bd858bec2e7bb6f0da0a569c5125ecb876778615dc426b6f8b925a64341357",
+    "counts": {
+      "HIGH": 0,
+      "CRITICAL": 0
+    },
+    "high_cvss_findings": [
+      {
+        "cve": "CVE-2025-1352",
+        "package": "libdw1t64",
+        "score": 7.5,
+        "reported_severity": "LOW"
+      },
+      {
+        "cve": "CVE-2025-1352",
+        "package": "libelf1t64",
+        "score": 7.5,
+        "reported_severity": "LOW"
+      },
+      {
+        "cve": "CVE-2026-88647",
+        "package": "libgnutls30t64",
+        "score": 7.4,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-88648",
+        "package": "libgnutls30t64",
+        "score": 7.4,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-85150",
+        "package": "libgstreamer-plugins-base1.0-0",
+        "score": 7.5,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2025-5222",
+        "package": "libicu74",
+        "score": 7,
+        "reported_severity": "LOW"
+      },
+      {
+        "cve": "CVE-2026-103111",
+        "package": "libpcre2-8-0",
+        "score": 7.6,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-86145",
+        "package": "libpcre2-8-0",
+        "score": 8.2,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-89157",
+        "package": "libpcre2-8-0",
+        "score": 7.4,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-89161",
+        "package": "libpcre2-8-0",
+        "score": 7.8,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2019-9543",
+        "package": "libpoppler134",
+        "score": 8.8,
+        "reported_severity": "LOW"
+      },
+      {
+        "cve": "CVE-2019-9545",
+        "package": "libpoppler134",
+        "score": 8.8,
+        "reported_severity": "LOW"
+      },
+      {
+        "cve": "CVE-2026-107161",
+        "package": "libsasl2-2",
+        "score": 7.5,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-107161",
+        "package": "libsasl2-modules-db",
+        "score": 7.5,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-73066",
+        "package": "libtesseract5",
+        "score": 7.1,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-88047",
+        "package": "libtesseract5",
+        "score": 8.4,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-88048",
+        "package": "libtesseract5",
+        "score": 7.8,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-88049",
+        "package": "libtesseract5",
+        "score": 7.8,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-88051",
+        "package": "libtesseract5",
+        "score": 7.8,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-88052",
+        "package": "libtesseract5",
+        "score": 7.8,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-88053",
+        "package": "libtesseract5",
+        "score": 8.4,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-88807",
+        "package": "libxrender1",
+        "score": 8.3,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2025-7425",
+        "package": "libxslt1.1",
+        "score": 7.8,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2019-9543",
+        "package": "poppler-utils",
+        "score": 8.8,
+        "reported_severity": "LOW"
+      },
+      {
+        "cve": "CVE-2019-9545",
+        "package": "poppler-utils",
+        "score": 8.8,
+        "reported_severity": "LOW"
+      },
+      {
+        "cve": "CVE-2026-73066",
+        "package": "tesseract-ocr",
+        "score": 7.1,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-88047",
+        "package": "tesseract-ocr",
+        "score": 8.4,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-88048",
+        "package": "tesseract-ocr",
+        "score": 7.8,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-88049",
+        "package": "tesseract-ocr",
+        "score": 7.8,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-88051",
+        "package": "tesseract-ocr",
+        "score": 7.8,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-88052",
+        "package": "tesseract-ocr",
+        "score": 7.8,
+        "reported_severity": "MEDIUM"
+      },
+      {
+        "cve": "CVE-2026-88053",
+        "package": "tesseract-ocr",
+        "score": 8.4,
+        "reported_severity": "MEDIUM"
+      }
+    ],
+    "formal_security_acceptance": "PENDING"
+  }
+}

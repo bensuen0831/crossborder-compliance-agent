@@ -1,0 +1,42 @@
+{
+  "revision": 14,
+  "snapshot_sha256": "4d501933781a963876e2de437a792ebc5f9b31e1cb08f92208e7f4af0c685554",
+  "complete_fields_reviewed": [
+    "install_script",
+    "start_skill",
+    "repositories",
+    "network_policy"
+  ],
+  "install_script_sha256": "5e915e3c2ebcaf3ef1060b7609fc6cdc4e424ef0d164fb2caa887caae380a0d4",
+  "start_skill_sha256": "3517100ca8d0af04b6efe4b184f682cf0ba2ace0dab92f6e426b4ad143bafcef",
+  "applied": false,
+  "published": false,
+  "checks": {
+    "latest_product_in_instructions": true,
+    "preserve_data": true,
+    "historical_notes_preserved": true
+  },
+  "findings": [
+    {
+      "id": "REV14-001",
+      "status": "DO_NOT_EXECUTE_GENERATED_HELPER",
+      "detail": "install_script still generates start-services.sh containing initdb -A trust, default5432 DB creation and unconditional alembic upgrade head; start_skill explicitly forbids it. Do not blindly apply scripts as a bundle."
+    },
+    {
+      "id": "REV14-002",
+      "status": "REVALIDATE_IN_NEW_ENVIRONMENT",
+      "detail": "Startup instructions refer to retained absolute paths/PIDs/owner containers; shell restoration or snapshot contents do not prove those services are currently healthy."
+    },
+    {
+      "id": "REV14-003",
+      "status": "PRESERVE_NO_AUTOMATIC_REF_CHANGE",
+      "detail": "Configured repository ref remainsmain while current feature isPR30. Existing root restored atmain/work; new authorized independent worktree used. Do not checkout/reset original root."
+    },
+    {
+      "id": "REV14-004",
+      "status": "REPRODUCIBILITY_LIMITATION",
+      "detail": "Environment installer uses live Debian trixie APT and pip editable dev install; this differs from immutable native-tool OCI/APT provenance. Not a replacement for native build/release evidence."
+    }
+  ],
+  "recommendation": "Keep revision14 saved and unapplied. Prepare a subsequent bounded startup-only proposal after current independent worktree/services are validated; do not publish snapshot or rewrite old state."
+}
