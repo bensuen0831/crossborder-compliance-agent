@@ -11,7 +11,7 @@ from uuid import uuid4
 
 
 class KnowledgeProcessSandbox:
-    EXECUTABLES = frozenset({"/usr/bin/bsdtar", "/usr/bin/clamscan", "/usr/bin/python3.13"})
+    EXECUTABLES = frozenset({"/usr/bin/bsdtar", "/usr/bin/clamscan", "/usr/bin/python3.13", "/usr/bin/python3"})
 
     def __init__(self, image_id: str, working_root: Path):
         if not re.fullmatch(r"sha256:[0-9a-f]{64}", image_id):
