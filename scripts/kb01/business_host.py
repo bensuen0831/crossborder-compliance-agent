@@ -65,6 +65,21 @@ def profile(path):
     return value
 
 
+def high_cvss_findings(report):
+    """Keep cross-vendor score evidence; a vendor downgrade is not remediation."""
+    result = []
+    for target in report.get("Results", []):
+        for finding in target.get("Vulnerabilities", []):
+            scores = [score for vector in finding.get("CVSS", {}).values()
+                      for key, score in vector.items() if key in {"V3Score", "V4Score"}
+                      and isinstance(score, (int, float)) and not isinstance(score, bool)]
+            if scores and max(scores) >= 7.0:
+                result.append({"cve": finding.get("VulnerabilityID"),
+                               "package": finding.get("PkgName"), "score": max(scores),
+                               "reported_severity": finding.get("Severity")})
+    return result
+
+
 def native_safety(tool_path):
     """A scan result is not approval. Unsafe tools never process real uploads."""
     if not tool_path:
@@ -90,11 +105,13 @@ def native_safety(tool_path):
             if hashlib.sha256(source.read_bytes()).hexdigest() != digest:
                 raise ValueError("parser source")
         age = (datetime.now(timezone.utc) - datetime.fromisoformat(report["CreatedAt"].replace("Z", "+00:00"))).total_seconds()
-        clear = not any(counts.values()) and 0 <= age <= 86400
+        high_scores = high_cvss_findings(report)
+        clear = not any(counts.values()) and not high_scores and 0 <= age <= 86400
         return {"status": "TECHNICALLY_CLEAR" if clear else "BLOCKED",
                 "reason": "ZERO_HIGH_CRITICAL_FRESH_SCAN" if clear else "APPLICABLE_SECURITY_DECISION_OR_SUPPORTED_FIX_REQUIRED",
                 "image_id": tool["image_id"], "scan_sha256": hashlib.sha256(raw).hexdigest(),
-                "counts": counts, "formal_security_acceptance": "PENDING"}
+                "counts": counts, "high_cvss_findings": high_scores,
+                "formal_security_acceptance": "PENDING"}
     except (OSError, KeyError, ValueError, TypeError, RuntimeError):
         return {"status": "BLOCKED", "reason": "NATIVE_TOOL_EVIDENCE_INVALID"}
 

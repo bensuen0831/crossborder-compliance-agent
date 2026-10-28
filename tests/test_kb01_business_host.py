@@ -10,7 +10,7 @@ from fastapi.testclient import TestClient
 
 from scripts.kb01.business import save
 from scripts.kb01.business_host import (
-    create_app, native_safety, password_record, profile, verified_native_database,
+    create_app, high_cvss_findings, native_safety, password_record, profile, verified_native_database,
 )
 from crossborder_compliance.config import get_settings
 from crossborder_compliance.infrastructure.persistence.db import build_session_factory
@@ -148,6 +148,15 @@ def test_missing_or_invalid_tool_evidence_never_enables_processing(tmp_path):
     path = tmp_path / "invalid-tool.json"
     path.write_text("{}")
     assert native_safety(path)["reason"] == "NATIVE_TOOL_EVIDENCE_INVALID"
+
+
+@pytest.mark.parametrize("severity,score", [("MEDIUM", 7.1), ("LOW", 7.8), ("HIGH", 9.8)])
+def test_vendor_severity_cannot_hide_remaining_high_cvss(severity, score):
+    findings = high_cvss_findings({"Results": [{"Vulnerabilities": [{
+        "VulnerabilityID": "SYNTHETIC_SECURITY_REGRESSION", "PkgName": "package",
+        "Severity": severity, "CVSS": {"vendor": {"V3Score": score}},
+    }]}]})
+    assert len(findings) == 1 and findings[0]["score"] == score
 
 
 @pytest.mark.parametrize("verification,image", [("UNVERIFIED", "a" * 64), ("PASS", "b" * 64)])
