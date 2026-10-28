@@ -99,6 +99,26 @@ def native_safety(tool_path):
         return {"status": "BLOCKED", "reason": "NATIVE_TOOL_EVIDENCE_INVALID"}
 
 
+def verified_native_database(root, image_id):
+    """Read exact installer-verified CVDs inside the existing scanner boundary."""
+    root = Path(root)
+    proof = private_json(root / "official-signatures.json")
+    names = {"main.cvd", "daily.cvd", "bytecode.cvd"}
+    if (proof.get("signature_verification") != "PASS" or proof.get("image_id") != image_id
+            or set(proof.get("files", {})) != names):
+        raise ValueError("ACCEPTANCE_OFFICIAL_DATABASE_PROVENANCE_REQUIRED")
+    database = root / "processing/scanner/official-signatures"
+    for name in names:
+        path = database / name
+        if path.is_symlink() or not path.is_file():
+            raise ValueError("ACCEPTANCE_OFFICIAL_DATABASE_PROVENANCE_REQUIRED")
+        with path.open("rb") as source:
+            digest = hashlib.file_digest(source, "sha256").hexdigest()
+        if path.stat().st_size != proof["files"][name]["bytes"] or digest != proof["files"][name]["sha256"]:
+            raise ValueError("ACCEPTANCE_OFFICIAL_DATABASE_CHANGED")
+    return database
+
+
 def install_sessions(app, path, *, api_port, frontend_port):
     """Thin local authentication adapter; current profile owns all grants."""
     sessions = {}

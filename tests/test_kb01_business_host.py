@@ -9,7 +9,9 @@ import pytest
 from fastapi.testclient import TestClient
 
 from scripts.kb01.business import save
-from scripts.kb01.business_host import create_app, native_safety, password_record, profile
+from scripts.kb01.business_host import (
+    create_app, native_safety, password_record, profile, verified_native_database,
+)
 from crossborder_compliance.config import get_settings
 from crossborder_compliance.infrastructure.persistence.db import build_session_factory
 from crossborder_compliance.infrastructure.persistence.models import TenantEntity
@@ -146,6 +148,17 @@ def test_missing_or_invalid_tool_evidence_never_enables_processing(tmp_path):
     path = tmp_path / "invalid-tool.json"
     path.write_text("{}")
     assert native_safety(path)["reason"] == "NATIVE_TOOL_EVIDENCE_INVALID"
+
+
+@pytest.mark.parametrize("verification,image", [("UNVERIFIED", "a" * 64), ("PASS", "b" * 64)])
+def test_unverified_or_wrong_image_signature_manifest_is_refused(tmp_path, verification, image):
+    # Negative manifest validation only; no fabricated genuine CVD acceptance.
+    save(tmp_path / "official-signatures.json", {
+        "signature_verification": verification, "image_id": "sha256:" + image,
+        "files": {name: {} for name in ("main.cvd", "daily.cvd", "bytecode.cvd")},
+    })
+    with pytest.raises(ValueError, match="OFFICIAL_DATABASE_PROVENANCE_REQUIRED"):
+        verified_native_database(tmp_path, "sha256:" + "a" * 64)
 
 
 def test_business_composition_has_no_fixture_seed_or_system_context():

@@ -12,7 +12,9 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
 from scripts.kb01 import rc1
-from scripts.kb01.business_host import create_app, password_record, private_json, profile
+from scripts.kb01.business_host import (
+    create_app, native_safety, password_record, private_json, profile, verified_native_database,
+)
 
 
 BUSINESS = {
@@ -102,10 +104,13 @@ def host(root, services):
     factory = lambda context: EncryptedFileSecretStore(root / "model-secrets", key, context.tenant_id)
     storage = S3KnowledgeBinaryStore(**private_json(root / "object-store.json"))
     tool = json.loads((services / "tool-image.json").read_text())
+    database = root / "processing/scanner/official-signatures"
+    if native_safety(services / "tool-image.json")["status"] == "TECHNICALLY_CLEAR":
+        database = verified_native_database(root, tool["image_id"])
     app = create_app(root / "accounts.json", sf, secret_factory=factory, binary_storage=storage,
                      document_root=root / "project-documents", tool_evidence=services / "tool-image.json",
                      native_configuration={"working_root": str(root / "processing"), "image_id": tool["image_id"],
-                                           "database": env["KB01_TEST_SCAN_DATABASE"],
+                                           "database": str(database),
                                            "database_identity": env["KB01_TEST_SCAN_IDENTITY"]})
     import uvicorn
     try:
@@ -191,6 +196,16 @@ def main():
                         raise ValueError("ACCEPTANCE_PORT_IN_USE_STOP_OWN_INSTANCE_FIRST")
             profile(root / "accounts.json")
             prepare_storage(root, env)
+            tool = json.loads((services / "tool-image.json").read_text())
+            if native_safety(services / "tool-image.json")["status"] == "TECHNICALLY_CLEAR":
+                # Download/verify trusted signatures before the HTTP startup timer.
+                # Originals remain offline; no broad sandbox mount is permitted.
+                rc1.run(root, env, "official-signatures", [sys.executable,
+                    "scripts/kb01/official_signatures.py", "--root",
+                    str(root / "processing/scanner/official-signatures"),
+                    "--image", tool["image_id"], "--evidence", str(root / "official-signatures.json")])
+                (root / "official-signatures.json").chmod(0o600)
+                verified_native_database(root, tool["image_id"])
             rc1.spawn(root, env, "business-backend", [sys.executable, "scripts/kb01/business.py", "serve",
                       "--state-dir", str(root), "--services-state", str(services)])
             rc1.spawn(root, env, "business-frontend", ["npm", "--prefix", "frontend", "run", "dev", "--", "--host", "127.0.0.1", "--port", "15174"])

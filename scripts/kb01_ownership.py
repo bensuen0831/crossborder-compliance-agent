@@ -95,6 +95,8 @@ INTEGRATION_PATHS = frozenset({
     "scripts/kb01_ownership.py", "tests/test_kb01_ownership.py",
 })
 NATIVE_SECURITY_PATHS = frozenset({
+    "scripts/kb01/business.py", "scripts/kb01/business_host.py",
+    "tests/test_kb01_business_host.py",
     "scripts/kb01/Containerfile", "scripts/kb01/image_inventory.py",
     "scripts/kb01/official_signatures.py", "scripts/kb01/toolchain_provenance.py",
     "src/crossborder_compliance/infrastructure/knowledge_native_parser.py",
