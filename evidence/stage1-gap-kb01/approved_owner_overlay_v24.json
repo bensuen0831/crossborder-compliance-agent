@@ -24,7 +24,7 @@
     "tests/test_kb01_business_host.py",
     "tests/test_kb01_ownership.py"
   ],
-  "source_sha": "41e0a54730ddb5d12e7c7e73140839efeeeabc52",
+  "source_sha": "e44e996b9c2ed5e1ec3fb867efb3d7d21c7012fc",
   "historical_manifests_preserved": [
     "evidence/stage1-full-e2e/r3/approved_owner_overlay.json",
     "evidence/stage1-gap-kb01/approved_owner_overlay.json",
@@ -168,7 +168,7 @@
     "scripts/kb01/verify_ci.py": "c91984b6f78deabfcf614600ac56dd0815333e51155dcc667e0d06aea33efc87",
     "scripts/kb01_architecture_check.py": "c53c329df96da7cd78d410cabd3a43a61b5bc20074e5e0c7017be50c01336da8",
     "scripts/kb01_export_contracts.py": "8746c44eabb4c6670b198426f34f764284b784aa76ac74136f97bc249d1b4f6c",
-    "scripts/kb01_ownership.py": "d423bba4cbe8820cc4ac705200d1858c72a02b45b03f6d143eac7148494296b7",
+    "scripts/kb01_ownership.py": "f134feab0086f3c76f425e046d3c6e52bc770572ce74da1706909d2b76c233f5",
     "scripts/m1_phase1lb_ownership.py": "652373106350ef02aa63422c77f9b3bc56e85cf38a8ca7b89c6fd603f6ebf725",
     "scripts/m2a_ownership.py": "019747adbb7e6fe6528fafbc73081acbe519bae346f2f2b81c67b4b0ab23a793",
     "scripts/m2d_ownership.py": "1e1d58fd252df46201b214fb4028a8c702a665452ca07c7dd2ea5d2cd63b5bdd",
@@ -345,7 +345,7 @@
     "tests/kb01_archive_fixtures.py": "07534f31c8f41af47d55ba147841523d90296e0cb92b11d92e1cc685c4c2e4cc",
     "tests/kb01_historical_schema.py": "23faa3f805c68f325dfb15f7cdb2c97c9bae501511b0073e946a51ec80a65084",
     "tests/kb01_large_fixtures.py": "11db51377c0c2fa32a8905a369e0754e2667483a66068390ed4cbda6e7af7c92",
-    "tests/kb01_native_fixtures.py": "37e3f2acb5548b42bab9d88982c51c7493d3d87dd6e1f8bcae1c218730492b25",
+    "tests/kb01_native_fixtures.py": "4b8d768be2ae99a6dcbbb607769851dda4a6409c197014a4397e1ce8578b55a5",
     "tests/m2e_fixtures.py": "5d5f6eab6a7878308b5b20d9f843e951d23df425369b26dbd4e2d6951100a9bc",
     "tests/stage1_business_fixtures.py": "f3863cee26bbabfa0d4f9c2109c2e13e744ec241cd0695adc3bb0725c5b87f7a",
     "tests/stage1_business_manifest.py": "dded28a4caac7044edd8fe7696a7f9f2d98300b91b678bc2ee354e84cb783af4",
@@ -430,6 +430,7 @@
     "src/crossborder_compliance/infrastructure/knowledge_archive_extractor.py",
     "src/crossborder_compliance/infrastructure/knowledge_native_parser.py",
     "src/crossborder_compliance/infrastructure/knowledge_process_sandbox.py",
+    "tests/kb01_native_fixtures.py",
     "tests/test_kb01_native_isolation.py",
     "tests/test_kb01_ownership.py"
   ]
