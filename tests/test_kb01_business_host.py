@@ -178,3 +178,44 @@ def test_business_composition_has_no_fixture_seed_or_system_context():
         assert not any(name.startswith(("tests", "test_", "stage1_business_fixtures", "scripts.m0_preview")) for name in imports)
         assert "RepositoryContext.system(" not in source
         assert "dependency_overrides[" not in source
+
+
+def test_held_tools_also_block_parse_of_preexisting_draft_documents(business):
+    from crossborder_compliance.application.document_upload import DocumentCapabilityError
+    _, app, _, _ = business
+    with pytest.raises(DocumentCapabilityError, match="native processing held"):
+        app.state.document_processing_guard()
+    assert app.state.document_file_policy is None
+
+
+def test_request_composition_carries_the_native_port_and_revocation_guard(business, tmp_path):
+    from types import SimpleNamespace
+    from crossborder_compliance.domain.security import RepositoryContext
+    from crossborder_compliance.infrastructure.document_input_composition import document_input_service
+    _, app, _, data = business
+    port = object()
+    app.state.document_streaming_native_parser = port
+    ctx = RepositoryContext.user(uuid4(), "engineering-author", {"document:parse"})
+    service = document_input_service(SimpleNamespace(app=app), app.state.knowledge_session_factory, ctx)
+    assert service.repository.streaming_native_parser is port
+    assert service.repository.parse_authorization_guard is app.state.document_processing_guard
+    assert service.repository._context is ctx
+
+
+def test_isolated_project_composition_bounds_docx_pdf_and_rechecks_tools(business, tmp_path):
+    import os
+    from scripts.kb01.business_host import install_native_pipeline
+    _, app, path, _ = business
+    image = os.environ["KB01_TEST_NATIVE_IMAGE"]
+    install_native_pipeline(app, app.state.knowledge_session_factory, path, None,
+        {"image_id": image, "working_root": str(tmp_path / "processing"),
+         "database": str(tmp_path / "not-a-verified-database"), "database_identity": "UNVERIFIED"}, None)
+    policy = app.state.document_file_policy
+    assert {row.extension for row in policy.allowed_types} == {".txt", ".docx", ".pdf"}
+    assert policy.scan_required and policy.max_size_bytes == 16 * 1024**2
+    parser = app.state.document_streaming_native_parser
+    assert parser.supports(filename="requirements.docx", mime_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+    # No synthetic clean scanner or false TECHNICALLY_CLEAR status is installed.
+    # The real guard refuses before any parser process or unverified CVD is used.
+    with pytest.raises(PermissionError, match="PROCESSING_HELD"):
+        parser.parse(document_version_id=uuid4(), content=b"not processed", filename="requirements.docx", mime_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document")

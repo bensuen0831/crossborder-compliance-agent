@@ -198,6 +198,26 @@ def test_existing_document_parser_port_can_use_same_core_without_fake_source_ide
     assert all(node.document_version_id == identity for node in result.nodes)
 
 
+def test_existing_project_port_preserves_genuine_docx_source_and_native_provenance(native):
+    import io
+    from uuid import uuid4
+    from docx import Document
+    from crossborder_compliance.infrastructure.document_parsers import StreamingNativeDocumentParserAdapter
+    directory, _, parser = native
+    doc = Document()
+    marker = "Purpose: DOCUMENT_OWNER_NATIVE_PORT_20261030"
+    doc.add_paragraph(marker)
+    content = io.BytesIO()
+    doc.save(content)
+    adapter = StreamingNativeDocumentParserAdapter(parser, KnowledgeNativeParsingPolicy(), directory)
+    identity = uuid4()
+    parsed = adapter.parse(document_version_id=identity, content=content.getvalue(),
+        filename="requirements.docx", mime_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+    node = next(n for n in parsed.nodes if n.original_text == marker)
+    assert node.document_version_id == identity
+    assert node.source_locator and node.provenance["native_parser"]["parser_image_id"] == parser.sandbox.image_id
+
+
 @pytest.mark.parametrize("memory_bytes", [0, True, 256 * 1024**2 - 1, 8 * 1024**3 + 1])
 def test_process_rejects_unbounded_memory_before_launch(tmp_path, memory_bytes):
     sandbox = KnowledgeProcessSandbox("sha256:" + "a" * 64, tmp_path)

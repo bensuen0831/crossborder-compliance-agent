@@ -260,6 +260,12 @@ def create_app(path, sessions_factory, *, secret_factory, binary_storage=None, d
     # a real security-cleared scanner is required before attach/parse/publication.
     app.state.knowledge_management_worker = None
     app.state.document_file_policy = None
+    def require_document_processing():
+        from crossborder_compliance.application.document_upload import DocumentCapabilityError
+        if native_safety(tool_evidence)["status"] != "TECHNICALLY_CLEAR":
+            raise DocumentCapabilityError("CAPABILITY_NOT_CONFIGURED: document native processing held")
+    # Already-uploaded draft binaries cannot evade revocation by calling parse.
+    app.state.document_processing_guard = require_document_processing
     tool_safety = native_safety(tool_evidence)
     if tool_safety["status"] == "TECHNICALLY_CLEAR" and native_configuration:
         if native_configuration["image_id"] != tool_safety["image_id"]:
@@ -313,6 +319,8 @@ def install_native_pipeline(app, sessions_factory, account_path, storage, config
     from crossborder_compliance.infrastructure.knowledge_archive_extractor import IsolatedKnowledgeArchiveExtractor
     from crossborder_compliance.infrastructure.knowledge_native_parser import IsolatedNativeDocumentParser
     from crossborder_compliance.infrastructure.knowledge_management_worker import KnowledgeManagementWorker
+    from crossborder_compliance.infrastructure.document_parsers import StreamingNativeDocumentParserAdapter
+    from crossborder_compliance.domain.knowledge_native_parsing import KnowledgeNativeParsingPolicy
 
     root = Path(config["working_root"])
     sandbox = KnowledgeProcessSandbox(config["image_id"], root / "scanner")
@@ -337,7 +345,7 @@ def install_native_pipeline(app, sessions_factory, account_path, storage, config
     class ProjectScanner:
         def scan(self, *, content, filename):
             require_current_tools()
-            # Only bounded non-sensitive TXT is enabled for the first business case.
+            # Scan the original bytes before any owning parser consumes them.
             with tempfile.TemporaryDirectory(dir=sandbox.working_root) as directory:
                 Path(directory).chmod(0o755)
                 target = Path(directory) / "original"
@@ -348,8 +356,27 @@ def install_native_pipeline(app, sessions_factory, account_path, storage, config
 
     app.state.knowledge_management_worker = KnowledgeManagementWorker(
         sessions_factory, storage, scanner, sandbox, extractor, parser, current_contexts, root / "jobs")
+    streamed = StreamingNativeDocumentParserAdapter(parser, KnowledgeNativeParsingPolicy(
+        max_native_blocks=20000, max_native_output_bytes=32*1024**2,
+        max_xml_bytes=64*1024**2, max_archive_entries=4096,
+        conversion_timeout_seconds=120, max_ocr_pages=30), parser.sandbox.working_root)
+
+    class CurrentProjectParser:
+        parser_name, parser_version = streamed.parser_name, streamed.parser_version
+
+        def supports(self, **kwargs):
+            return streamed.supports(**kwargs)
+
+        def parse(self, **kwargs):
+            require_current_tools()
+            return streamed.parse(**kwargs)
+
+    app.state.document_streaming_native_parser = CurrentProjectParser()
     app.state.document_file_policy = DocumentFilePolicy(
-        version="stage1-first-case-text-v1", max_size_bytes=1024**2,
-        allowed_types=(FileTypePolicy(extension=".txt", media_type="text/plain", signature="text"),),
+        version="stage1-business-isolated-native-v2", max_size_bytes=16*1024**2,
+        max_expanded_bytes=64*1024**2,
+        allowed_types=(FileTypePolicy(extension=".txt", media_type="text/plain", signature="text"),
+                       FileTypePolicy(extension=".docx", media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document", signature="docx"),
+                       FileTypePolicy(extension=".pdf", media_type="application/pdf", signature="pdf")),
         scan_required=True)
     app.state.document_malware_scanner = ProjectScanner()

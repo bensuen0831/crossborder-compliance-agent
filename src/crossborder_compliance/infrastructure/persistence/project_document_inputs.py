@@ -175,6 +175,8 @@ class ProjectDocumentOperations:
         with self._sessions() as s,s.begin():
             _,_,row=self._input_project(s,project_id,"parse",True)
             if str(version_id) not in links(s,self.tenant_id,row.project_version_id): raise LookupError("document input not attached")
+            guard=getattr(self,"parse_authorization_guard",None)
+            if guard is not None: guard()
             if self.storage is None:
                 raise DocumentCapabilityError("CAPABILITY_NOT_CONFIGURED: document parse storage")
             child=lambda: joined_sessions(s.connection())
@@ -200,7 +202,9 @@ class ProjectDocumentOperations:
                     def enqueue(receipt, *, task_id, task_type):
                         if task_type!="DOCUMENT_PARSE" or repo.get_parse_task(task_id) is None:
                             raise LookupError("durable parse receipt missing")
-                service=DocumentParseService(repo,self.storage,default_native_parsers(),DurableReceipt())
+                if guard is not None: guard()
+                service=DocumentParseService(repo,self.storage,default_native_parsers(
+                    streaming_native=getattr(self,"streaming_native_parser",None)),DurableReceipt())
                 service.process_task(task_id)
                 return self._input_view(s,project_id,row)
         except (IntakeConflict,LookupError,PermissionError):

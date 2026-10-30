@@ -16,4 +16,6 @@ def document_input_service(request, sessions, context):
     repo=PostgresDocumentIntelligenceRepository(sessions,context)
     repo.file_policy=policy; repo.storage=storage
     repo.scanner=getattr(request.app.state,"document_malware_scanner",None)
+    repo.streaming_native_parser=getattr(request.app.state,"document_streaming_native_parser",None)
+    repo.parse_authorization_guard=getattr(request.app.state,"document_processing_guard",None)
     return ProjectDocumentService(repo)

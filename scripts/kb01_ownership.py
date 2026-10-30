@@ -78,7 +78,10 @@ TWENTY_SECOND_SOURCE = "648f4879bbc00e7cc4bcaac76a860b85cb751f14"
 TWENTY_THIRD_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v23.json"
 TWENTY_THIRD_SEAL = "e7efe5368c1ee7be2c62284d199275517dea2323"
 TWENTY_THIRD_SOURCE = "59462e530d4b920870b25266a05e7700477f3520"
-SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v24.json"
+TWENTY_FOURTH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v24.json"
+TWENTY_FOURTH_SEAL = "3d322e864a6c98c34d42657289e421c77f6c9ed1"
+TWENTY_FOURTH_SOURCE = "dc6d6b1cd3bd60ff2cedb990ffe11a7401703b91"
+SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v25.json"
 FIRST_SEAL = "a95d5f05f46566d7e58417a8c9cb2214c6d028f0"
 FIRST_SOURCE = "6f0f448fbe5d72494d2756bca30a3f74437e1f63"
 PREVIOUS = "evidence/stage1-full-e2e/r3/approved_owner_overlay.json"
@@ -106,7 +109,14 @@ NATIVE_SECURITY_PATHS = frozenset({
     "scripts/kb01_ownership.py",
     "tests/test_kb01_ownership.py",
 })
-PATHS = INTEGRATION_PATHS | frozenset(
+DOCUMENT_INPUT_PATHS = frozenset({
+    "scripts/kb01/business_host.py",
+    "src/crossborder_compliance/infrastructure/document_input_composition.py",
+    "src/crossborder_compliance/infrastructure/persistence/project_document_inputs.py",
+    "tests/test_kb01_business_host.py", "tests/test_kb01_native_isolation.py",
+    "scripts/kb01_ownership.py", "tests/test_kb01_ownership.py",
+})
+PATHS = INTEGRATION_PATHS | DOCUMENT_INPUT_PATHS | frozenset(
     (
         "scripts/kb01/image_inventory.py",
         "scripts/kb01/oci_tools.py",
@@ -679,15 +689,26 @@ def overlay(root):
         if any(hashlib.sha256(twenty_third_blobs[path]).hexdigest() != digest
                for path, digest in twenty_third["paths"].items()):
             return False, {}, None
+        twenty_fourth_bytes = git("show", TWENTY_FOURTH_SEAL + ":" + TWENTY_FOURTH_RECORD)
+        if (root / TWENTY_FOURTH_RECORD).read_bytes() != twenty_fourth_bytes or not ancestor(TWENTY_FOURTH_SEAL, "HEAD"):
+            return False, {}, None
+        twenty_fourth = json.loads(twenty_fourth_bytes)
+        if twenty_fourth["source_sha"] != TWENTY_FOURTH_SOURCE or twenty_fourth["base_sha"] != BASE:
+            return False, {}, None
+        twenty_fourth_blobs = blobs(TWENTY_FOURTH_SOURCE, twenty_fourth["paths"])
+        if any(hashlib.sha256(twenty_fourth_blobs[path]).hexdigest() != digest
+               for path, digest in twenty_fourth["paths"].items()):
+            return False, {}, None
         record = json.loads((root / SUCCESSOR_RECORD).read_text())
         expected = set(previous["paths"]) | PATHS
         source = record["source_sha"]
         if (
             record["base_sha"] != BASE
-            or record["scope"] != "STAGE1_NATIVE_TOOLCHAIN_SECURITY_RECOVERY"
-            or record.get("integration_base_sha") != TWENTY_THIRD_SEAL
+            or record["scope"] != "STAGE1_EXISTING_DOCUMENT_INPUT_WIRING"
+            or record.get("integration_base_sha") != TWENTY_FOURTH_SEAL
             or set(record.get("integration_paths", [])) != INTEGRATION_PATHS
             or set(record.get("native_security_paths", [])) != NATIVE_SECURITY_PATHS
+            or set(record.get("document_input_paths", [])) != DOCUMENT_INPUT_PATHS
             or set(record["paths"]) != expected
             or not ancestor(BASE, source)
             or not ancestor(EIGHTEENTH_SEAL, source)
@@ -696,6 +717,7 @@ def overlay(root):
             or not ancestor(TWENTY_FIRST_SEAL, source)
             or not ancestor(TWENTY_SECOND_SEAL, source)
             or not ancestor(TWENTY_THIRD_SEAL, source)
+            or not ancestor(TWENTY_FOURTH_SEAL, source)
             or not ancestor(source, "HEAD")
         ):
             return False, {}, None
@@ -704,7 +726,7 @@ def overlay(root):
             | set(git("diff", "--name-only", TWENTY_SECOND_SEAL).decode().splitlines())
             | set(git("ls-files", "--others", "--exclude-standard").decode().splitlines())
         )
-        if any(path not in (INTEGRATION_PATHS | NATIVE_SECURITY_PATHS) and path != SUCCESSOR_RECORD
+        if any(path not in (INTEGRATION_PATHS | NATIVE_SECURITY_PATHS | DOCUMENT_INPUT_PATHS) and path != SUCCESSOR_RECORD
                and not path.startswith(("docs/stage1-gap-kb01/", "evidence/stage1-gap-kb01/"))
                for path in integration_changes):
             return False, {}, None
@@ -713,9 +735,18 @@ def overlay(root):
             | set(git("diff", "--name-only", TWENTY_THIRD_SEAL).decode().splitlines())
             | set(git("ls-files", "--others", "--exclude-standard").decode().splitlines())
         )
-        if any(path not in NATIVE_SECURITY_PATHS and path != SUCCESSOR_RECORD
+        if any(path not in (NATIVE_SECURITY_PATHS | DOCUMENT_INPUT_PATHS) and path != SUCCESSOR_RECORD
                and not path.startswith(("docs/stage1-gap-kb01/", "evidence/stage1-gap-kb01/"))
                for path in native_changes):
+            return False, {}, None
+        current_changes = (
+            set(git("diff", "--name-only", TWENTY_FOURTH_SEAL, source).decode().splitlines())
+            | set(git("diff", "--name-only", TWENTY_FOURTH_SEAL).decode().splitlines())
+            | set(git("ls-files", "--others", "--exclude-standard").decode().splitlines())
+        )
+        if any(path not in DOCUMENT_INPUT_PATHS and path != SUCCESSOR_RECORD
+               and not path.startswith(("docs/stage1-gap-kb01/", "evidence/stage1-gap-kb01/"))
+               for path in current_changes):
             return False, {}, None
         committed = blobs(source, expected)
         if any(
