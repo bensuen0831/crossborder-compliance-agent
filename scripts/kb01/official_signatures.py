@@ -63,7 +63,7 @@ def main():
                 "--mount",
                 f"type=bind,src={Path(ca).resolve()},dst=/etc/ssl/certs/ca-certificates.crt,readonly",
             ]
-        command += ["--entrypoint=/usr/bin/python3.13", args.image, "-c", DOWNLOAD]
+        command += ["--entrypoint=/usr/bin/python3", args.image, "-c", DOWNLOAD]
         subprocess.run(command, check=True, timeout=900)
     measured = {}
     for name in names:

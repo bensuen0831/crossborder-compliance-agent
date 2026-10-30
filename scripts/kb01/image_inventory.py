@@ -7,7 +7,7 @@ import subprocess
 from pathlib import Path
 
 BINARIES = (
-    "/usr/bin/python3.13",
+    "/usr/bin/python3",
     "/usr/bin/bsdtar",
     "/usr/bin/clamscan",
     "/usr/bin/freshclam",
@@ -83,7 +83,7 @@ def apt_build():
                 "gpgv",
                 "--status-fd=1",
                 "--keyring",
-                "/usr/share/keyrings/debian-archive-keyring.pgp",
+                "/usr/share/keyrings/ubuntu-archive-keyring.gpg",
                 str(path),
             ],
             text=True,
@@ -105,7 +105,7 @@ def apt_build():
     (root / "apt.json").write_text(
         json.dumps(
             {
-                "snapshot": "20261021T000000Z",
+                "snapshot": "20261028T000000Z",
                 "signature_verification": True,
                 "expired_historical_release_valid_until_only": (
                     "disabled for fixed historical snapshot; signatures remain mandatory"

@@ -58,6 +58,7 @@ export function validateContract<T>(name: string, body: unknown): T {
 
 const sessionPath = import.meta.env.VITE_SESSION_PATH ?? '/api/v1/session';
 export const demoEnabled = import.meta.env.VITE_M0_DEMO === 'true';
+export const acceptanceLoginEnabled = import.meta.env.VITE_STAGE1_ACCEPTANCE === 'true';
 
 export async function request<T>(path: string, options: RequestInit = {}, schema?: string, transport: typeof fetch = fetch): Promise<T> {
   let response: Response;
@@ -91,6 +92,10 @@ export async function request<T>(path: string, options: RequestInit = {}, schema
 }
 
 export const api = {
+  acceptanceLogin: (username: string, password: string) => {
+    if (!acceptanceLoginEnabled || demoEnabled) return Promise.reject(new ApiError(403, 'ACCEPTANCE_LOGIN_DISABLED'));
+    return request<Session>('/api/v1/login', { method: 'POST', body: JSON.stringify({ username, password }) }, 'Session');
+  },
   session: (signal?: AbortSignal) => request<Session>(sessionPath, { signal }, 'Session'),
   health: (signal?: AbortSignal) => request<Health>('/health/ready', { signal }, 'Health'),
   metadata: (resource: 'products' | 'scenarios' | 'jurisdictions', signal?: AbortSignal) =>

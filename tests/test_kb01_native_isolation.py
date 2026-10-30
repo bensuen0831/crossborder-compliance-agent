@@ -55,7 +55,7 @@ def test_real_six_format_native_originals(native, format):
                 "stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode)"
             )
             result = sandbox.run(
-                "/usr/bin/python3.13",
+                "/usr/bin/python3",
                 ["-c", script],
                 {"/input/original": docx},
                 120,
@@ -95,6 +95,25 @@ def test_html_scripts_are_not_evidence_or_executed(native):
     )
     blocks, _ = parser.parse(source, "HTML", KnowledgeNativeParsingPolicy())
     assert [block["original_text"] for block in blocks] == ["Article 1. Visible source."]
+
+
+def test_actual_vendor_security_fix_and_interpreter_are_present(native):
+    """Check the installed vendor backport, not a report or image tag alone."""
+    _, sandbox, _ = native
+    program = (
+        "import json,platform,subprocess; from pathlib import Path; "
+        "os_release=dict(line.split('=',1) for line in Path('/etc/os-release').read_text().splitlines() if '=' in line); "
+        "version=subprocess.check_output(['dpkg-query','-W','-f=${Version}','libxml2'],text=True); "
+        "fixed=subprocess.run(['dpkg','--compare-versions',version,'ge','2.9.14+dfsg-1.3ubuntu3.8']).returncode==0; "
+        "print(json.dumps({'vendor':os_release['ID'].strip(chr(34)),"
+        "'release':os_release['VERSION_ID'].strip(chr(34)),"
+        "'python':platform.python_version(),'fixed':fixed,'version':version}))"
+    )
+    result = sandbox.run("/usr/bin/python3", ["-c", program], {}, 30)
+    assert result["exit_code"] == 0
+    actual = json.loads(result["stdout"])
+    assert actual["vendor"] == "ubuntu" and actual["release"] == "24.04"
+    assert actual["python"].startswith("3.12.") and actual["fixed"] is True
 
 
 def test_xhtml_external_entity_is_refused(native):
@@ -177,6 +196,26 @@ def test_existing_document_parser_port_can_use_same_core_without_fake_source_ide
     )
     assert len(result.nodes) == 2
     assert all(node.document_version_id == identity for node in result.nodes)
+
+
+def test_existing_project_port_preserves_genuine_docx_source_and_native_provenance(native):
+    import io
+    from uuid import uuid4
+    from docx import Document
+    from crossborder_compliance.infrastructure.document_parsers import StreamingNativeDocumentParserAdapter
+    directory, _, parser = native
+    doc = Document()
+    marker = "Purpose: DOCUMENT_OWNER_NATIVE_PORT_20261030"
+    doc.add_paragraph(marker)
+    content = io.BytesIO()
+    doc.save(content)
+    adapter = StreamingNativeDocumentParserAdapter(parser, KnowledgeNativeParsingPolicy(), directory)
+    identity = uuid4()
+    parsed = adapter.parse(document_version_id=identity, content=content.getvalue(),
+        filename="requirements.docx", mime_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+    node = next(n for n in parsed.nodes if n.original_text == marker)
+    assert node.document_version_id == identity
+    assert node.source_locator and node.provenance["native_parser"]["parser_image_id"] == parser.sandbox.image_id
 
 
 @pytest.mark.parametrize("memory_bytes", [0, True, 256 * 1024**2 - 1, 8 * 1024**3 + 1])

@@ -16,7 +16,7 @@ class IsolatedKnowledgeArchiveExtractor:
         if physical_budget <= 0:
             raise ValueError("KNOWLEDGE_PROCESS_DISK_BUDGET_EXHAUSTED")
         result = self.sandbox.run(
-            "/usr/bin/python3.13",
+            "/usr/bin/python3",
             [
                 "/opt/knowledge-src/crossborder_compliance/infrastructure/knowledge_archive_process.py",
                 "--source",

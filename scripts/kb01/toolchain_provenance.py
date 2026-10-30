@@ -14,7 +14,7 @@ from urllib.parse import quote
 
 from scripts.kb01.oci_tools import digest, export, restore
 
-BASE = "sha256:4876fdea29cac1a33a3195f1eb1952feb1fca7dd6dd00be3e2f1879cf20d34d2"
+BASE = "sha256:78d4744ead1f5b19b04d0df558ab182a5300903900755e515b2ca4d10eb2044d"
 TRIVY = "0.76.1"
 TRIVY_SHA = "c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0"
 SCHEMA = "https://raw.githubusercontent.com/spdx/spdx-spec/aadf3b0b8dbbabdb4d880b0fc714255fea436ff7/schemas/spdx-schema.json"
@@ -30,7 +30,7 @@ def verified_base(root):
     # Public anonymous, read-only Docker Hub token; never logged or persisted.
     token = json.loads(
         fetch(
-            "https://auth.docker.io/token?service=registry.docker.io&scope=repository:library/debian:pull"
+            "https://auth.docker.io/token?service=registry.docker.io&scope=repository:library/ubuntu:pull"
         )
     )["token"]
     headers = {
@@ -38,7 +38,7 @@ def verified_base(root):
         "Accept": "application/vnd.oci.image.manifest.v1+json",
     }
     request = urllib.request.Request(
-        "https://registry-1.docker.io/v2/library/debian/manifests/" + BASE, headers=headers
+        "https://registry-1.docker.io/v2/library/ubuntu/manifests/" + BASE, headers=headers
     )
     with urllib.request.urlopen(request, timeout=30) as response:
         raw = response.read()
@@ -46,7 +46,7 @@ def verified_base(root):
         raise ValueError("BASE_MANIFEST_DIGEST_MISMATCH")
     manifest = json.loads(raw)
     request = urllib.request.Request(
-        "https://registry-1.docker.io/v2/library/debian/blobs/" + manifest["config"]["digest"],
+        "https://registry-1.docker.io/v2/library/ubuntu/blobs/" + manifest["config"]["digest"],
         headers=headers,
     )
     with urllib.request.urlopen(request, timeout=30) as response:
@@ -92,7 +92,7 @@ def sbom(root, inventory, oci):
             + hashlib.sha256((p["name"] + "@" + p["version"]).encode()).hexdigest()[:24]
         )
         purl = (
-            "pkg:deb/debian/"
+            "pkg:deb/ubuntu/"
             + quote(p["name"].split(":")[0], safe="")
             + "@"
             + quote(p["version"], safe="")
@@ -244,7 +244,7 @@ def collect(root, identity):
             "--memory=536870912",
             "--pids-limit=32",
             "--cpus=1",
-            "--entrypoint=/usr/bin/python3.13",
+            "--entrypoint=/usr/bin/python3",
             image,
             "/opt/kb01/image_inventory.py",
         ]
@@ -266,7 +266,7 @@ def collect(root, identity):
             "--memory=536870912",
             "--pids-limit=32",
             "--cpus=1",
-            "--entrypoint=/usr/bin/python3.13",
+            "--entrypoint=/usr/bin/python3",
             image,
             "/opt/kb01/image_inventory.py",
         ]

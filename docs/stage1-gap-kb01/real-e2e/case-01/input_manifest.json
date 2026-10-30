@@ -1,0 +1,43 @@
+{
+  "schema_version": "STAGE1_REAL_E2E_CASE_PREPARATION_V1",
+  "state": "INPUT_REQUIRED_NOT_EXECUTABLE_ACCEPTANCE",
+  "data_nature": "NON_SENSITIVE_FICTIONAL_BUSINESS_FACTS_REAL_LAW_REQUIRED",
+  "purpose": "客服工單支援跨境資料處理，具體實體與條件待用戶確認",
+  "analysis_as_of_date": null,
+  "scenario_id": null,
+  "product_id": null,
+  "source_jurisdiction_id": null,
+  "destination_jurisdiction_id": null,
+  "source_must_differ_from_destination": true,
+  "data_items": [],
+  "dataflow_nodes": [],
+  "dataflow_edges": [],
+  "data_item_flow_links": [],
+  "document": {
+    "path": "requirements.txt",
+    "media_type": "text/plain",
+    "sha256": "1ba831eaa4b96100861650e2f2e0c234e1b974b482f0e68fa56f981a3972e825",
+    "genuine_format": "UTF-8 TXT",
+    "authorization": "NON_SENSITIVE_TECHNICAL_TEST_INPUT",
+    "not_a_regulation": true
+  },
+  "regulatory_originals": [],
+  "source_verification_version_ids": [],
+  "knowledge_version_ids": [],
+  "model_selection_mode": null,
+  "provider_deployment_ids": [],
+  "candidate_decisions": "EXPLICIT_USER_REQUIRED",
+  "expert_authorization_version_id": null,
+  "gold_review_version_id": null,
+  "expected_semantics": null,
+  "evaluation_criteria": [
+    "jurisdiction_and_applicability",
+    "data_classification_and_transfer_conditions",
+    "path_measures_missing_information",
+    "citation_support_for_each_conclusion",
+    "fail_closed_and_review",
+    "decision_material_legal_errors"
+  ],
+  "legal_accuracy_execution": "NOT_EXECUTED",
+  "stage2_started": false
+}

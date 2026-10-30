@@ -19,6 +19,22 @@ function setup(result = validateContract<Stage1Result>('Stage1ComplianceResult',
 }
 
 describe('Stage 1 authority presentation', () => {
+  it('preserves both jurisdiction-scoped classifications of the same data item', () => {
+    const value = validateContract<Stage1Result>('Stage1ComplianceResult', structuredClone(fixture));
+    const original = value.classification[0];
+    const second = { ...original, classification_result_id: '11111111-1111-4111-8111-111111111111',
+      jurisdiction_id: '22222222-2222-4222-8222-222222222222',
+      category_ids: ['33333333-3333-4333-8333-333333333333'], level_id: '44444444-4444-4444-8444-444444444444' };
+    value.classification.push(second);
+    const before = JSON.stringify(value); const writes = setup(value);
+    const row = screen.getByText(value.data_items[0].name).closest('tr')!;
+    expect(row).toHaveTextContent(original.jurisdiction_id);
+    expect(row).toHaveTextContent(original.category_ids[0]);
+    expect(row).toHaveTextContent(second.jurisdiction_id);
+    expect(row).toHaveTextContent(second.category_ids[0]);
+    expect(row).toHaveTextContent(second.level_id);
+    expect(JSON.stringify(value)).toBe(before); expect(writes).toHaveLength(0);
+  });
   for (const locale of supportedLocales) it(`renders all formal visualizations without a legal write in ${locale}`, async () => {
     await i18n.changeLanguage(locale); const value = validateContract<Stage1Result>('Stage1ComplianceResult', structuredClone(fixture)); const original = JSON.stringify(value); const writes = setup(value);
     for (const key of ['workspace','workflow','risk','path','inventory','documents','requirements']) expect(screen.getAllByText(i18n.t(`ui.m2c.${key}`)).length).toBeGreaterThan(0);

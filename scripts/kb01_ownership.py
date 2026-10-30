@@ -72,11 +72,53 @@ TWENTIETH_SOURCE = "87abac8a09b8b5ff96d4f570bf5fc220389647df"
 TWENTY_FIRST_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v21.json"
 TWENTY_FIRST_SEAL = "b9f22415d3f40cf87a6957b93bb6301b602a3733"
 TWENTY_FIRST_SOURCE = "9803c5c9a49ec3b42122f2231601f3c80b657370"
-SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v22.json"
+TWENTY_SECOND_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v22.json"
+TWENTY_SECOND_SEAL = "733a7483439cd919c186ed0064b8f3752904ebb6"
+TWENTY_SECOND_SOURCE = "648f4879bbc00e7cc4bcaac76a860b85cb751f14"
+TWENTY_THIRD_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v23.json"
+TWENTY_THIRD_SEAL = "e7efe5368c1ee7be2c62284d199275517dea2323"
+TWENTY_THIRD_SOURCE = "59462e530d4b920870b25266a05e7700477f3520"
+TWENTY_FOURTH_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v24.json"
+TWENTY_FOURTH_SEAL = "3d322e864a6c98c34d42657289e421c77f6c9ed1"
+TWENTY_FOURTH_SOURCE = "dc6d6b1cd3bd60ff2cedb990ffe11a7401703b91"
+SUCCESSOR_RECORD = "evidence/stage1-gap-kb01/approved_owner_overlay_v25.json"
 FIRST_SEAL = "a95d5f05f46566d7e58417a8c9cb2214c6d028f0"
 FIRST_SOURCE = "6f0f448fbe5d72494d2756bca30a3f74437e1f63"
 PREVIOUS = "evidence/stage1-full-e2e/r3/approved_owner_overlay.json"
-PATHS = frozenset(
+INTEGRATION_PATHS = frozenset({
+    "scripts/kb01/business.py", "scripts/kb01/business_host.py",
+    "scripts/kb01/verify_business_entry.mjs", "tests/test_kb01_business_host.py",
+    "frontend/src/features/knowledge-management/BusinessAcceptanceStatus.tsx",
+    "frontend/src/features/knowledge-management/RegulatoryAcceptancePanel.tsx",
+    "frontend/src/features/results/Stage1Workspace.tsx",
+    "frontend/src/features/results/results.test.tsx", "frontend/src/App.tsx",
+    "frontend/src/api/client.ts", "frontend/src/features/admin/AdminFeature.tsx",
+    "frontend/src/features/admin/resources.ts", "frontend/src/locales/en-US.json",
+    "frontend/src/locales/zh-CN.json", "frontend/src/locales/zh-HK.json",
+    "scripts/kb01_ownership.py", "tests/test_kb01_ownership.py",
+})
+NATIVE_SECURITY_PATHS = frozenset({
+    "scripts/kb01/business.py", "scripts/kb01/business_host.py",
+    "tests/test_kb01_business_host.py",
+    "scripts/kb01/Containerfile", "scripts/kb01/image_inventory.py",
+    "scripts/kb01/official_signatures.py", "scripts/kb01/toolchain_provenance.py",
+    "src/crossborder_compliance/infrastructure/knowledge_native_parser.py",
+    "src/crossborder_compliance/infrastructure/knowledge_archive_extractor.py",
+    "src/crossborder_compliance/infrastructure/knowledge_process_sandbox.py",
+    "tests/test_kb01_native_isolation.py", "tests/kb01_native_fixtures.py",
+    "scripts/kb01_ownership.py",
+    "tests/test_kb01_ownership.py",
+})
+DOCUMENT_INPUT_PATHS = frozenset({
+    "scripts/kb01/business.py",
+    "scripts/m2b_architecture_check.py",
+    "scripts/kb01/business_host.py",
+    "src/crossborder_compliance/infrastructure/document_input_composition.py",
+    "src/crossborder_compliance/infrastructure/persistence/project_document_inputs.py",
+    "tests/test_kb01_business_host.py", "tests/test_kb01_native_isolation.py",
+    "scripts/kb01_ownership.py", "tests/test_kb01_ownership.py",
+})
+PATHS = INTEGRATION_PATHS | DOCUMENT_INPUT_PATHS | frozenset(
     (
         "scripts/kb01/image_inventory.py",
         "scripts/kb01/oci_tools.py",
@@ -629,20 +671,84 @@ def overlay(root):
             for path, digest in twenty_first["paths"].items()
         ):
             return False, {}, None
+        twenty_second_bytes = git("show", TWENTY_SECOND_SEAL + ":" + TWENTY_SECOND_RECORD)
+        if (root / TWENTY_SECOND_RECORD).read_bytes() != twenty_second_bytes or not ancestor(TWENTY_SECOND_SEAL, "HEAD"):
+            return False, {}, None
+        twenty_second = json.loads(twenty_second_bytes)
+        if twenty_second["source_sha"] != TWENTY_SECOND_SOURCE or twenty_second["base_sha"] != BASE:
+            return False, {}, None
+        twenty_second_blobs = blobs(TWENTY_SECOND_SOURCE, twenty_second["paths"])
+        if any(hashlib.sha256(twenty_second_blobs[path]).hexdigest() != digest
+               for path, digest in twenty_second["paths"].items()):
+            return False, {}, None
+        twenty_third_bytes = git("show", TWENTY_THIRD_SEAL + ":" + TWENTY_THIRD_RECORD)
+        if (root / TWENTY_THIRD_RECORD).read_bytes() != twenty_third_bytes or not ancestor(TWENTY_THIRD_SEAL, "HEAD"):
+            return False, {}, None
+        twenty_third = json.loads(twenty_third_bytes)
+        if twenty_third["source_sha"] != TWENTY_THIRD_SOURCE or twenty_third["base_sha"] != BASE:
+            return False, {}, None
+        twenty_third_blobs = blobs(TWENTY_THIRD_SOURCE, twenty_third["paths"])
+        if any(hashlib.sha256(twenty_third_blobs[path]).hexdigest() != digest
+               for path, digest in twenty_third["paths"].items()):
+            return False, {}, None
+        twenty_fourth_bytes = git("show", TWENTY_FOURTH_SEAL + ":" + TWENTY_FOURTH_RECORD)
+        if (root / TWENTY_FOURTH_RECORD).read_bytes() != twenty_fourth_bytes or not ancestor(TWENTY_FOURTH_SEAL, "HEAD"):
+            return False, {}, None
+        twenty_fourth = json.loads(twenty_fourth_bytes)
+        if twenty_fourth["source_sha"] != TWENTY_FOURTH_SOURCE or twenty_fourth["base_sha"] != BASE:
+            return False, {}, None
+        twenty_fourth_blobs = blobs(TWENTY_FOURTH_SOURCE, twenty_fourth["paths"])
+        if any(hashlib.sha256(twenty_fourth_blobs[path]).hexdigest() != digest
+               for path, digest in twenty_fourth["paths"].items()):
+            return False, {}, None
         record = json.loads((root / SUCCESSOR_RECORD).read_text())
         expected = set(previous["paths"]) | PATHS
         source = record["source_sha"]
         if (
             record["base_sha"] != BASE
-            or record["scope"] != "STAGE1-GAP-KB01-MASTER_V2.0"
+            or record["scope"] != "STAGE1_EXISTING_DOCUMENT_INPUT_WIRING"
+            or record.get("integration_base_sha") != TWENTY_FOURTH_SEAL
+            or set(record.get("integration_paths", [])) != INTEGRATION_PATHS
+            or set(record.get("native_security_paths", [])) != NATIVE_SECURITY_PATHS
+            or set(record.get("document_input_paths", [])) != DOCUMENT_INPUT_PATHS
             or set(record["paths"]) != expected
             or not ancestor(BASE, source)
             or not ancestor(EIGHTEENTH_SEAL, source)
             or not ancestor(NINETEENTH_SEAL, source)
             or not ancestor(TWENTIETH_SEAL, source)
             or not ancestor(TWENTY_FIRST_SEAL, source)
+            or not ancestor(TWENTY_SECOND_SEAL, source)
+            or not ancestor(TWENTY_THIRD_SEAL, source)
+            or not ancestor(TWENTY_FOURTH_SEAL, source)
             or not ancestor(source, "HEAD")
         ):
+            return False, {}, None
+        integration_changes = (
+            set(git("diff", "--name-only", TWENTY_SECOND_SEAL, source).decode().splitlines())
+            | set(git("diff", "--name-only", TWENTY_SECOND_SEAL).decode().splitlines())
+            | set(git("ls-files", "--others", "--exclude-standard").decode().splitlines())
+        )
+        if any(path not in (INTEGRATION_PATHS | NATIVE_SECURITY_PATHS | DOCUMENT_INPUT_PATHS) and path != SUCCESSOR_RECORD
+               and not path.startswith(("docs/stage1-gap-kb01/", "evidence/stage1-gap-kb01/"))
+               for path in integration_changes):
+            return False, {}, None
+        native_changes = (
+            set(git("diff", "--name-only", TWENTY_THIRD_SEAL, source).decode().splitlines())
+            | set(git("diff", "--name-only", TWENTY_THIRD_SEAL).decode().splitlines())
+            | set(git("ls-files", "--others", "--exclude-standard").decode().splitlines())
+        )
+        if any(path not in (NATIVE_SECURITY_PATHS | DOCUMENT_INPUT_PATHS) and path != SUCCESSOR_RECORD
+               and not path.startswith(("docs/stage1-gap-kb01/", "evidence/stage1-gap-kb01/"))
+               for path in native_changes):
+            return False, {}, None
+        current_changes = (
+            set(git("diff", "--name-only", TWENTY_FOURTH_SEAL, source).decode().splitlines())
+            | set(git("diff", "--name-only", TWENTY_FOURTH_SEAL).decode().splitlines())
+            | set(git("ls-files", "--others", "--exclude-standard").decode().splitlines())
+        )
+        if any(path not in DOCUMENT_INPUT_PATHS and path != SUCCESSOR_RECORD
+               and not path.startswith(("docs/stage1-gap-kb01/", "evidence/stage1-gap-kb01/"))
+               for path in current_changes):
             return False, {}, None
         committed = blobs(source, expected)
         if any(

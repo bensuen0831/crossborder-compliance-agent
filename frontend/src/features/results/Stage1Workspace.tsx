@@ -35,7 +35,7 @@ export function Stage1View({ result: r, identity }: { result: Stage1Result; iden
   const documents = r.document_requirements?.items ?? [];
   const evidence = r.retrieval?.evidence_pack.items ?? [];
   const links = r.flows.map(flow => ({ id: flow.flow_edge_id, source: r.flow_nodes.find(n => n.flow_node_id === flow.source_node_id)?.name ?? flow.source_node_id, target: r.flow_nodes.find(n => n.flow_node_id === flow.target_node_id)?.name ?? flow.target_node_id }));
-  const classFor = (id: string) => r.classification.find(c => c.data_item_id === id);
+  const classFor = (id: string) => r.classification.filter(c => c.data_item_id === id);
   const crossFor = (id: string) => r.cross_border?.data_item_ids.includes(id) ? cross : undefined;
   const scopedDocs = (id: string) => r.document_requirements?.data_item_ids.includes(id) ? documents : [];
   const scopedFinal = (id: string) => r.final_path?.data_item_ids.includes(id) ? final : undefined;
@@ -68,8 +68,8 @@ export function Stage1View({ result: r, identity }: { result: Stage1Result; iden
     </div>
     <Card title={t('ui.m2c.inventory')}><Table dataSource={r.data_items} rowKey="data_item_id" scroll={{ x: 1500 }} pagination={{ pageSize: 10 }} columns={[
       { title: t('ui.m2c.dataItem'), dataIndex: 'name' },
-      { title: t('ui.m2c.classification'), render: (_, row) => classFor(row.data_item_id)?.category_ids.join(' · ') ?? t('ui.m2c.unassessed') },
-      { title: t('ui.m2c.level'), render: (_, row) => classFor(row.data_item_id)?.level_id ?? t('ui.m2c.unassessed') },
+      { title: t('ui.m2c.classification'), render: (_, row) => classFor(row.data_item_id).length ? classFor(row.data_item_id).map(item => <div key={item.classification_result_id}>{label(item.jurisdiction_id)}: {item.category_ids.join(' · ')}</div>) : t('ui.m2c.unassessed') },
+      { title: t('ui.m2c.level'), render: (_, row) => classFor(row.data_item_id).length ? classFor(row.data_item_id).map(item => <div key={item.classification_result_id}>{label(item.jurisdiction_id)}: {item.level_id ?? t('ui.m2c.unassessed')}</div>) : t('ui.m2c.unassessed') },
       { title: t('ui.m2c.source'), render: (_, row) => crossFor(row.data_item_id)?.source_jurisdiction_ids.map(label).join(' · ') ?? t('notAvailable') },
       { title: t('ui.m2c.destination'), render: (_, row) => crossFor(row.data_item_id)?.destination_jurisdiction_ids.map(label).join(' · ') ?? t('notAvailable') },
       { title: t('ui.m2c.crossBorder'), render: (_, row) => code(crossFor(row.data_item_id)?.status) },
@@ -78,7 +78,7 @@ export function Stage1View({ result: r, identity }: { result: Stage1Result; iden
       { title: t('ui.m2c.risk'), render: (_, row) => scopedRisks(row.data_item_id).map(risk => <span key={risk.risk_assessment_id}>{code(risk.risk_level)}</span>) },
       { title: t('ui.m2c.measures'), render: (_, row) => scopedFinal(row.data_item_id)?.actions.map(a => a.action_code).join(' · ') ?? t('ui.m2c.unassessed') },
       { title: t('ui.m2c.requirements'), render: (_, row) => scopedDocs(row.data_item_id).filter(d => d.requirement_level !== 'NOT_APPLICABLE').map(d => <span key={d.document_requirement_id}>{d.name} {code(d.requirement_level)}</span>) },
-      { title: t('ui.m2c.review'), render: (_, row) => code(row.review_required || crossFor(row.data_item_id)?.review_required ? 'REVIEW_REQUIRED' : classFor(row.data_item_id)?.status) },
+      { title: t('ui.m2c.review'), render: (_, row) => row.review_required || crossFor(row.data_item_id)?.review_required ? code('REVIEW_REQUIRED') : classFor(row.data_item_id).map(item => <span key={item.classification_result_id}>{label(item.jurisdiction_id)}: {code(item.review_required ? 'REVIEW_REQUIRED' : item.status)}</span>) },
     ]}/></Card>
     <Card title={t('ui.m2c.documents')}><Table rowKey="document_version_id" dataSource={r.documents} pagination={false} columns={[{title:t('ui.m2c.name'),dataIndex:'name'},{title:t('ui.m2c.version'),dataIndex:'version'},{title:t('ui.m2c.parseStatus'),dataIndex:'parse_status'},{title:t('ui.m2c.parseRun'),dataIndex:'parse_run_id'}]}/></Card>
     <Card title={t('ui.m2c.obligations')}><Table rowKey="obligation_id" dataSource={r.obligation?.items ?? []} columns={[{title:t('ui.m2c.code'),dataIndex:'obligation_code'},{title:t('ui.m2c.effect'),dataIndex:'legal_effect'},{title:t('ui.m2c.fulfillment'),dataIndex:'fulfillment_state'}]}/></Card>
