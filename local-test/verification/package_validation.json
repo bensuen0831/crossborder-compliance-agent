@@ -1,0 +1,62 @@
+{
+  "package_id": "stage1-local-20261030-1",
+  "product_sha": "3d322e864a6c98c34d42657289e421c77f6c9ed1",
+  "observed_at": "2026-10-30T08:51:17.400332+00:00",
+  "verification_scope": "LOCAL_LINUX_AMD64_UI_DELIVERY_ONLY",
+  "platforms": {
+    "linux_amd64_python312": "TESTED",
+    "windows_wsl2": "INSTRUCTIONS_PROVIDED_NOT_PHYSICALLY_TESTED",
+    "macos_amd64_vm": "INSTRUCTIONS_PROVIDED_NOT_PHYSICALLY_TESTED",
+    "macos_arm_native": "UNSUPPORTED"
+  },
+  "new_python_venv_setup": "PASS",
+  "python_pip_check": "PASS",
+  "python_locked_distributions": 103,
+  "node_version": "24.19.0",
+  "owned_fresh_migration": {
+    "migration_head": "0024_kb01_import_manifest_records"
+  },
+  "login": "PASS",
+  "blank_project_create": "PASS",
+  "reload_same_project": "PASS",
+  "stop_restart_same_draft": "PASS",
+  "snapshot_created_by_ui_smoke": false,
+  "unauthorized_admin_denied": 403,
+  "browser_retries": 0,
+  "uncaught_js_errors": 0,
+  "network_5xx": 0,
+  "lifecycle": {
+    "stop_seconds": 36.31151975100511,
+    "stop_exit": 0,
+    "restart_exit": 0
+  },
+  "sparse_installer_real_download_test": {
+    "downloaded_fixed_hash_assets": 104,
+    "complete_payload_verification": "PASS",
+    "elapsed_seconds": 11.668019536999054,
+    "tls_disabled": false,
+    "provided_cloud_credentials": false
+  },
+  "historical_source_ci": "See source_validation.json; existing3d322e8 CI is not a new package test.",
+  "corrected_packaging_defects": [
+    "Offline editable build initially missing setuptools/wheel; added exact bundled backend versions, reinstalled and passed.",
+    "SeaweedFS graceful stop exceeded initial6s and zombie PID was treated as live; fixed bounded40s wait and zombie detection, stop/start passed."
+  ],
+  "native_tools_image_included": false,
+  "native_processing": "BLOCKED",
+  "live_model_workflow": "NOT_EXECUTED",
+  "real_regulatory_legal_acceptance": "NOT_EXECUTED",
+  "independent_gold": "NOT_PROVIDED",
+  "formal_security_acceptance": "PENDING",
+  "production_uat": "NOT_EXECUTED",
+  "stage2_started": false,
+  "no_cloud_state_or_credentials_exported": true,
+  "raw_private_logs_not_in_package": true,
+  "private_test_log_sha256": {
+    "setup.log": "126f4408970595d239d1bb6d9cbae69b0ff75f3022aa96b232042682f70eeaa2",
+    "setup-recovery.log": "2dd106f1061787c3b79f869447b16ce9c6ee5534c6511fff33f485ba7274b7e9",
+    "stop-fixed.log": "e593b7319ae7eb9bbf53ab1966fafacd95c96492b43ab99a1d285be9a4491668",
+    "start-fixed.log": "8f27985fe4659a15945010cf1fc8eecc7594206b1b2e66b69c0f5e8318d7e67f",
+    "ownership-bundle.xml": "7e08438951eecbfff75aebd098da14334df30b3e35e4ada76e4ce44f8e2dba99"
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "product_sha": "3d322e864a6c98c34d42657289e421c77f6c9ed1",
+  "historical_product_ci_observed_this_round": {
+    "workflows_success": 12,
+    "total_workflows": 12,
+    "actual_checkout_match": 22,
+    "jobs": 22,
+    "not_a_package_test": true,
+    "runs": [
+      {
+        "id": 40684105610,
+        "name": "phase1a-runtime-smoke",
+        "conclusion": "success"
+      },
+      {
+        "id": 40684105620,
+        "name": "Phase1KB Multi-provider LLM Governance",
+        "conclusion": "success"
+      },
+      {
+        "id": 40684105664,
+        "name": "Stage1 R1 Candidate Governance Recovery",
+        "conclusion": "success"
+      },
+      {
+        "id": 40684105655,
+        "name": "M2E External Agent API Gateway",
+        "conclusion": "success"
+      },
+      {
+        "id": 40684105651,
+        "name": "M2A Production Intake",
+        "conclusion": "success"
+      },
+      {
+        "id": 40684105577,
+        "name": "M2D Governed Human Review",
+        "conclusion": "success"
+      },
+      {
+        "id": 40684105546,
+        "name": "Stage1 Full Business E2E Acceptance",
+        "conclusion": "success"
+      },
+      {
+        "id": 40684105631,
+        "name": "M1 Intake Analysis Alpha",
+        "conclusion": "success"
+      },
+      {
+        "id": 40684105581,
+        "name": "M0 Knowledge & Evidence Preview",
+        "conclusion": "success"
+      },
+      {
+        "id": 40684105626,
+        "name": "M2C Formal Result Workspace",
+        "conclusion": "success"
+      },
+      {
+        "id": 40684105550,
+        "name": ".github/workflows/kb01-knowledge-management.yml",
+        "conclusion": "success"
+      },
+      {
+        "id": 40684105874,
+        "name": "M2B Production Document Integration",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "source_bundle_ownership_regression": {
+    "passed": 59,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junit_sha256": "7e08438951eecbfff75aebd098da14334df30b3e35e4ada76e4ce44f8e2dba99",
+    "test_ids": [
+      "tests.test_kb01_ownership::test_kb01_ownership_authenticates_committed_source",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[alembic/versions/0020_stage1_formal_decision_engine_compatibility.py]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[src/crossborder_compliance/domain/decision_engine.py]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-full-e2e/r3/approved_owner_overlay.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[src/crossborder_compliance/domain/knowledge_management.py]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[src/crossborder_compliance/application/unapproved_kb_shortcut.py]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v19.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v20.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v21.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v22.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v23.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[scripts/kb01/business_host.py]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[frontend/src/features/results/Stage1Workspace.tsx]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v2.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v3.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v13.json0]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v12.json0]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v13.json1]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[alembic/versions/0022_kb01_binary_transport.py]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v14.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v15.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v16.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v17.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v18.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v4.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v9.json0]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v5.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v6.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v7.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v8.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v11.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v9.json1]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v10.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v12.json1]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[evidence/stage1-gap-kb01/approved_owner_overlay_v13.json2]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[frontend/e2e/kb01-safe-evidence.ts]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[src/crossborder_compliance/infrastructure/persistence/knowledge_manifest_models.py]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[scripts/stage1_alpha_integrity.py]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[.github/workflows/kb01-knowledge-management.yml]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[frontend/package-lock.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[frontend/package.json]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[scripts/kb01/Containerfile]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[scripts/kb01/toolchain_provenance.py]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[scripts/kb01/rc1.py]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[frontend/scripts/m1/boundary_check.py]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[alembic/versions/0023_kb01_evidence_source_reference.py]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[alembic/versions/0021_kb01_taxonomy_operations.py]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[src/crossborder_compliance/infrastructure/knowledge_import_worker.py]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[src/crossborder_compliance/infrastructure/persistence/regulatory_acceptance_governance.py]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_uncommitted_tampering[src/crossborder_compliance/infrastructure/persistence/knowledge_translation_alignment.py]",
+      "tests.test_kb01_ownership::test_kb01_ownership_rejects_live_hash_self_certification",
+      "tests.test_kb01_ownership::test_kb01_successor_bounds_require_matching_source",
+      "tests.test_kb01_ownership::test_kb01_dependency_successor_preserves_exact_m1_package_contract",
+      "tests.test_kb01_ownership::test_m1_boundary_retains_every_original_check_with_authenticated_dependency",
+      "tests.test_kb01_ownership::test_kb01_schema_successor_authenticates_complete_committed_migration_tree",
+      "tests.test_kb01_ownership::test_kb01_schema_successor_rejects_unapproved_or_alias_heads[head]",
+      "tests.test_kb01_ownership::test_kb01_schema_successor_rejects_unapproved_or_alias_heads[0020_stage1_formal_decision_engine_compatibility]",
+      "tests.test_kb01_ownership::test_kb01_schema_successor_rejects_unapproved_or_alias_heads[0025_unapproved]"
+    ]
+  }
+}
