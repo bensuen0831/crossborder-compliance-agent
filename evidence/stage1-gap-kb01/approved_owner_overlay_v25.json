@@ -1,7 +1,7 @@
 {
   "artifact_kind": "COMMITTED_GIT_BLOB_SOURCE_PROOF",
   "scope": "STAGE1_EXISTING_DOCUMENT_INPUT_WIRING",
-  "authorization": "User2026-10-30 requires PR29/30 inclusion, real regulatory/business-document upload and secure AIHub API-key UI. Bounded existing-parser composition only; no new legal owner, migration, scanner bypass, reviewer approval, main/tag or Stage2.",
+  "authorization": "User2026-10-30 requires PR29/30-inclusive local UI, real regulatory/business-document upload, and secure existing AIHub model configuration. Bounded native parser port and explicit local knowledge-author non-worker/non-approval capabilities only; no new legal owner/migration, no scanner bypass or formal approval.",
   "formal_reviewer_approval": "PENDING",
   "base_sha": "060cbb5a20a9f8f70fa88dbefb8b5feb404c460d",
   "integration_base_sha": "3d322e864a6c98c34d42657289e421c77f6c9ed1",
@@ -24,7 +24,7 @@
     "tests/test_kb01_business_host.py",
     "tests/test_kb01_ownership.py"
   ],
-  "source_sha": "cc257d020597d391e080ca1640b3e7082569e54a",
+  "source_sha": "b1cd2ea15216a510362b72fde38a11bb41d6d22b",
   "historical_manifests_preserved": [
     "evidence/stage1-full-e2e/r3/approved_owner_overlay.json",
     "evidence/stage1-gap-kb01/approved_owner_overlay.json",
@@ -152,7 +152,7 @@
     "scripts/architecture_rule_check.py": "8f08ec93b82dedc382e5ac5ca6aab28df0777466fec612e62c2b96dee3470bfd",
     "scripts/kb01/Containerfile": "4d42ca6541f3f0f776d0f98add76a12337c7c0d9b5508dd6c8116eaecf66e110",
     "scripts/kb01/build_tools.py": "e3baad9d5fd457842f41d1511f1011b4887fa31d21c9f9d1cce8091614f2b064",
-    "scripts/kb01/business.py": "5840d913c8cf0d6041001ebf2ab671a69748a729ae5c0313d5e2fe62fdc7eea7",
+    "scripts/kb01/business.py": "c513587516fbe241753e46f772239ebe606615009e9be69117ef7ca771f51682",
     "scripts/kb01/business_host.py": "66b098836e92011e862b0aeaeac92ab85f5909228c9083abc36d220f454101c3",
     "scripts/kb01/ci_services.py": "58be1c0d03d3eaace74f844b9cf76f73042fbf270ad7db4a48a5a42a6fb02083",
     "scripts/kb01/diagnose_ci.py": "45690152935ef0cb502e3579013ebd072350a23d68ed4c52de9bee37fb689ace",
@@ -170,7 +170,7 @@
     "scripts/kb01/verify_ci.py": "c91984b6f78deabfcf614600ac56dd0815333e51155dcc667e0d06aea33efc87",
     "scripts/kb01_architecture_check.py": "c53c329df96da7cd78d410cabd3a43a61b5bc20074e5e0c7017be50c01336da8",
     "scripts/kb01_export_contracts.py": "8746c44eabb4c6670b198426f34f764284b784aa76ac74136f97bc249d1b4f6c",
-    "scripts/kb01_ownership.py": "d00136cc51caa26f9159104ce899ee8b5912f6e0bbb57b1e72f2f19174bd7e83",
+    "scripts/kb01_ownership.py": "70bd194ae88d845c616b6568b446e34638ae7d09aadb2bda34beccb6dc38b9ee",
     "scripts/m1_phase1lb_ownership.py": "652373106350ef02aa63422c77f9b3bc56e85cf38a8ca7b89c6fd603f6ebf725",
     "scripts/m2a_ownership.py": "019747adbb7e6fe6528fafbc73081acbe519bae346f2f2b81c67b4b0ab23a793",
     "scripts/m2d_ownership.py": "1e1d58fd252df46201b214fb4028a8c702a665452ca07c7dd2ea5d2cd63b5bdd",
@@ -365,7 +365,7 @@
     "tests/test_kb01_batches_postgres.py": "5adb9d2a643b6fdf0a23f415bd20f01d0f2e66d5a61aa2d1bfd53151bc4116b9",
     "tests/test_kb01_binary_ingestion_postgres.py": "0f229c33810c62b64a998eeec74a18b009c32b2241009da1bea8bcf59ad324ad",
     "tests/test_kb01_binary_migrations.py": "48b5344fc082ed6d869055ae1cbd3cafdc3d928ff30674add1f040b8f27ace8d",
-    "tests/test_kb01_business_host.py": "d1afedc50237d983e5680e8cdf20a20ab6ee3e3d4f714f058dbe1e7e5d964535",
+    "tests/test_kb01_business_host.py": "5155d28a6bbc41747d07c279247e7d68406275c2ce757ba791fe3d4847e7feb5",
     "tests/test_kb01_ci_diagnostics.py": "c9fb4f788c0c5570520efe5ac58491449d09ca5afbacbf1c1cbf850904245677",
     "tests/test_kb01_ci_evidence.py": "bf4ab7be1dc6eb2d19943836865cffd43977ad3ff4f97198bab971b72630b9be",
     "tests/test_kb01_document_management_postgres.py": "c3996cd89e6bdf2d105548dee7aa5b651b362a88c56fd310de176daf2e915556",
@@ -442,6 +442,7 @@
     "tests/test_kb01_ownership.py"
   ],
   "document_input_paths": [
+    "scripts/kb01/business.py",
     "scripts/kb01/business_host.py",
     "scripts/kb01_ownership.py",
     "src/crossborder_compliance/infrastructure/document_input_composition.py",
