@@ -111,6 +111,7 @@ NATIVE_SECURITY_PATHS = frozenset({
 })
 DOCUMENT_INPUT_PATHS = frozenset({
     "scripts/kb01/business.py",
+    "scripts/m2b_architecture_check.py",
     "scripts/kb01/business_host.py",
     "src/crossborder_compliance/infrastructure/document_input_composition.py",
     "src/crossborder_compliance/infrastructure/persistence/project_document_inputs.py",

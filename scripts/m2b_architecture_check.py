@@ -16,6 +16,8 @@ def check(root):
     phase_i = source(prefix + "country_compliance_repository.py")
     inputs = source(prefix + "document_snapshot_inputs.py")
     upload = source(prefix + "project_document_inputs.py")
+    composition = source("src/crossborder_compliance/infrastructure/document_input_composition.py")
+    isolated_business = source("scripts/kb01/business_host.py")
     frontend = source("frontend/src/features/intake/documentApi.ts")
     storage = source("src/crossborder_compliance/infrastructure/document_storage.py")
     document_service = source("src/crossborder_compliance/application/document_services.py")
@@ -56,7 +58,14 @@ def check(root):
         "binary_storage_is_infrastructure_boundary": "ObjectStoragePort" in document_service and "classFileObjectStorageAdapter" in storage,
         "frontend_does_not_authorize_upload": all(x not in frontend for x in ("tenant_id", "storage_ref", "policy_id", "PermissionContext")),
         "frontend_does_not_formalize_facts": all(x not in frontend for x in ("BusinessFact", "risk_score", "classification_result", "final_path")),
-        "document_parser_not_reimplemented": "default_native_parsers()" in upload,
+        "document_parser_not_reimplemented": "default_native_parsers()" in upload or (
+            'default_native_parsers(streaming_native=getattr(self,"streaming_native_parser",None))' in upload
+            and 'repo.streaming_native_parser=getattr(request.app.state,"document_streaming_native_parser",None)' in composition
+        ),
+        "business_document_processing_is_server_guarded":
+            'repo.parse_authorization_guard=getattr(request.app.state,"document_processing_guard",None)' in composition
+            and 'guard=getattr(self,"parse_authorization_guard",None)' in upload
+            and 'app.state.document_processing_guard=require_document_processing' in isolated_business,
         "cross_source_conflict_uses_existing_authority": "BUSINESS_FACT_CONFLICT" in source("src/crossborder_compliance/application/context_services.py") and "ContextConflictEntity" in writes,
     })
     return {"pass": all(checks.values()), "passed": sum(checks.values()), "total": len(checks), "checks": checks}

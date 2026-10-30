@@ -230,3 +230,20 @@ def test_local_knowledge_author_can_prepare_uploads_without_self_approval_or_wor
     assert not {"system", "metadata:review", "metadata:publish", "knowledge:batch:work",
                 "knowledge:upload:work", "knowledge:document:approve", "knowledge:document:publish"} & author
     assert "metadata:admin" not in ROLES["business"]
+
+
+def test_m2b_parser_reuse_rule_rejects_a_client_selected_native_port(monkeypatch):
+    from scripts.m2b_architecture_check import check
+    root = Path(__file__).resolve().parents[1]
+    assert check(root)["checks"]["document_parser_not_reimplemented"]
+    read = Path.read_text
+
+    def unsafe_client_selection(path, *args, **kwargs):
+        text = read(path, *args, **kwargs)
+        if str(path).endswith("infrastructure/document_input_composition.py"):
+            text = text.replace('getattr(request.app.state,"document_streaming_native_parser",None)',
+                                'getattr(request.state.client_payload,"document_streaming_native_parser",None)')
+        return text
+
+    monkeypatch.setattr(Path, "read_text", unsafe_client_selection)
+    assert not check(root)["checks"]["document_parser_not_reimplemented"]
