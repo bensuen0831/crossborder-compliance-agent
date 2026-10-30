@@ -110,6 +110,7 @@ NATIVE_SECURITY_PATHS = frozenset({
     "tests/test_kb01_ownership.py",
 })
 DOCUMENT_INPUT_PATHS = frozenset({
+    "scripts/kb01/business.py",
     "scripts/kb01/business_host.py",
     "src/crossborder_compliance/infrastructure/document_input_composition.py",
     "src/crossborder_compliance/infrastructure/persistence/project_document_inputs.py",

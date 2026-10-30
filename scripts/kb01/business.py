@@ -25,10 +25,14 @@ BUSINESS = {
     "decision:execute", "decision:read", "knowledge:read", "knowledge:retrieve", "llm:invoke",
 }
 AUTHOR = {"metadata:admin", "knowledge:admin"} | {
-    "knowledge:document:" + x for x in ("read", "create", "write", "download", "validate", "submit-review", "ingest")
+    "knowledge:document:" + x for x in ("read", "create", "write", "download", "delete", "validate", "submit-review", "archive", "bind", "ingest")
 } | {"knowledge:upload:" + x for x in ("create", "read", "write", "complete", "cancel", "attach", "retry")} | {
-    "knowledge:taxonomy:" + x for x in ("read", "write", "submit-review")
-} | {"knowledge:statistics:read", "knowledge:audit:read", "knowledge:acceptance:read", "knowledge:acceptance:write"}
+    "knowledge:taxonomy:" + x for x in ("read", "write", "delete", "submit-review", "archive")
+} | {"knowledge:batch:" + x for x in (
+    "create", "read", "confirm", "cancel", "retry", "export",
+    "manifest-import", "manifest-read", "manifest-export",
+)} | {"knowledge:translation:read", "knowledge:translation:write",
+     "knowledge:statistics:read", "knowledge:audit:read", "knowledge:acceptance:read", "knowledge:acceptance:write"}
 ROLES = {
     "business": BUSINESS,
     "workflow-reviewer": (BUSINESS - {"project:create", "project:confirm"}) | {"workflow:review"},

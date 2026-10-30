@@ -219,3 +219,14 @@ def test_isolated_project_composition_bounds_docx_pdf_and_rechecks_tools(busines
     # The real guard refuses before any parser process or unverified CVD is used.
     with pytest.raises(PermissionError, match="PROCESSING_HELD"):
         parser.parse(document_version_id=uuid4(), content=b"not processed", filename="requirements.docx", mime_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+
+
+def test_local_knowledge_author_can_prepare_uploads_without_self_approval_or_worker_authority():
+    from scripts.kb01.business import ROLES
+    author = ROLES["knowledge-author"]
+    assert {"metadata:admin", "knowledge:document:create", "knowledge:document:delete",
+            "knowledge:upload:create", "knowledge:upload:complete", "knowledge:batch:create",
+            "knowledge:batch:confirm", "knowledge:batch:manifest-import", "knowledge:batch:manifest-read"} <= author
+    assert not {"system", "metadata:review", "metadata:publish", "knowledge:batch:work",
+                "knowledge:upload:work", "knowledge:document:approve", "knowledge:document:publish"} & author
+    assert "metadata:admin" not in ROLES["business"]
